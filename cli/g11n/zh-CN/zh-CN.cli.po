@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2017-07-04 12:43-0400\n"
+"POT-Creation-Date: 2018-06-17 15:17-0500\n"
+"PO-Revision-Date: 2018-06-17 16:27-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Chinese Simplified\n"
 "MIME-Version: 1.0\n"
@@ -67,21 +67,49 @@ msgstr "\"%s\"参数无法识别。"
 msgid "GitHub rate limit:..."
 msgstr "GitHub 速率限制:......"
 
+#: /cli/Application/Command/Clear/Allcache.php:27
+msgid "Clear all cache stores."
+msgstr ""
+
+#: /cli/Application/Command/Clear/Allcache.php:39
+msgid "Clearing All Cache Stores"
+msgstr ""
+
+#: /cli/Application/Command/Clear/Allcache.php:54
+msgid "All cache stores have been cleared."
+msgstr ""
+
 #: /cli/Application/Command/Clear/Cache.php:29
-msgid "Clear the g11n language directory."
-msgstr "清除 g11n 语言目录。"
+msgid "Clear the application cache."
+msgstr ""
 
 #: /cli/Application/Command/Clear/Cache.php:41
-msgid "Clear g11n Cache Directory"
-msgstr "清除 g11n 缓存目录"
+msgid "Clear Application Cache"
+msgstr ""
 
 #: /cli/Application/Command/Clear/Cache.php:48
-msgid "The g11n cache directory has been cleared."
-msgstr "G11n 缓存目录已清除。"
+msgid "The application cache has been cleared."
+msgstr ""
+
+#: /cli/Application/Command/Clear/Cache.php:52
+msgid "There was an error clearing the application cache."
+msgstr ""
 
 #: /cli/Application/Command/Clear/Clear.php:27
 msgid "This will clear things."
 msgstr "这些将被清除。"
+
+#: /cli/Application/Command/Clear/Languagecache.php:29
+msgid "Clear the g11n language directory."
+msgstr "清除 g11n 语言目录。"
+
+#: /cli/Application/Command/Clear/Languagecache.php:41
+msgid "Clear g11n Cache Directory"
+msgstr "清除 g11n 缓存目录"
+
+#: /cli/Application/Command/Clear/Languagecache.php:48
+msgid "The g11n cache directory has been cleared."
+msgstr "G11n 缓存目录已清除。"
 
 #: /cli/Application/Command/Clear/Twig.php:30
 msgid "Clear the Twig cache."
@@ -185,11 +213,11 @@ msgstr "开始导出语言文件。"
 #: /cli/Application/Command/Get/Users.php:59
 #: /cli/Application/Command/Make/Autocomplete.php:106
 #: /cli/Application/Command/Make/Dbcomments.php:91
-#: /cli/Application/Command/Make/Depfile.php:136
+#: /cli/Application/Command/Make/Depfile.php:138
 #: /cli/Application/Command/Make/Docu.php:115
 #: /cli/Application/Command/Make/Langfiles.php:133
-#: /cli/Application/Command/Make/Languageflags.php:122
-#: /cli/Application/Command/Make/Repoinfo.php:65
+#: /cli/Application/Command/Make/Languageflags.php:124
+#: /cli/Application/Command/Make/Repoinfo.php:74
 #: /cli/Application/Command/Test/Phploc.php:60
 #: /cli/Application/Command/Update/Languagefiles.php:86
 #: /cli/Application/Command/Update/Pulls.php:69
@@ -276,19 +304,19 @@ msgstr "已安装"
 msgid "Installed: %s"
 msgstr "已安装: %s"
 
-#: /cli/Application/Command/Get/Get.php:84
+#: /cli/Application/Command/Get/Get.php:74
 msgid "Retrieve Information from various sources."
 msgstr "从多个源获取信息"
 
-#: /cli/Application/Command/Get/Get.php:90
+#: /cli/Application/Command/Get/Get.php:80
 #: /cli/Application/Command/Test/Hook.php:66
-#: /cli/Application/Command/Update/Update.php:72
+#: /cli/Application/Command/Update/Update.php:62
 msgid "Process the project with the given ID."
 msgstr "处理给定ID的项目"
 
-#: /cli/Application/Command/Get/Get.php:96
+#: /cli/Application/Command/Get/Get.php:86
 #: /cli/Application/Command/Make/Make.php:41
-#: /cli/Application/Command/Update/Update.php:78
+#: /cli/Application/Command/Update/Update.php:68
 msgid "Don't use a progress bar."
 msgstr "禁用进度条"
 
@@ -764,12 +792,12 @@ msgstr "创建表评论"
 msgid "Create and update a dependency file."
 msgstr "创建和更新依赖文件"
 
-#: /cli/Application/Command/Make/Depfile.php:126
+#: /cli/Application/Command/Make/Depfile.php:128
 #, php-format
 msgid "Writing contents to: %s"
 msgstr "将内容写到︰ %s"
 
-#: /cli/Application/Command/Make/Depfile.php:269
+#: /cli/Application/Command/Make/Depfile.php:271
 msgid "Language file not found: %tag%, %extension%, %domain%"
 msgstr "语言文件未找到: %tag%, %extension%, %domain%"
 
@@ -862,12 +890,12 @@ msgstr "将多个图片编译成一个大图片 (CSS spriting)。"
 msgid "Compile Language flag images"
 msgstr "编译的语言标志图像"
 
-#: /cli/Application/Command/Make/Languageflags.php:111
+#: /cli/Application/Command/Make/Languageflags.php:113
 #, php-format
 msgid "Generating the combined image for %1$d flag images in %2$s"
 msgstr "在  %2$s 中 %1$d 标志图片合并生成的图片文件"
 
-#: /cli/Application/Command/Make/Languageflags.php:117
+#: /cli/Application/Command/Make/Languageflags.php:119
 #, php-format
 msgid "Writing the CSS file to %s"
 msgstr "将 CSS 文件写入到 %s"
@@ -880,7 +908,7 @@ msgstr "构造引擎"
 msgid "Generate repository information."
 msgstr "生成仓库信息"
 
-#: /cli/Application/Command/Make/Repoinfo.php:50
+#: /cli/Application/Command/Make/Repoinfo.php:51
 msgid "Generate repository information"
 msgstr "生成仓库信息"
 
@@ -1076,16 +1104,20 @@ msgstr "更新本地安装到指定的版本或活跃的分支最新的 git HEAD
 msgid "An optional version number to update to."
 msgstr "将更新为一个可选版本号。"
 
-#: /cli/Application/Command/Update/Update.php:66
+#: /cli/Application/Command/Update/Server.php:76
+msgid "Installing current Composer dependencies and regenerating autoloader"
+msgstr ""
+
+#: /cli/Application/Command/Update/Update.php:56
 msgid "Used to update resources"
 msgstr "用于更新资源"
 
-#: /cli/tracker.php:99 /cli/tracker.php:131
+#: /cli/tracker.php:101 /cli/tracker.php:133
 #, php-format
 msgid "ERROR: %s"
 msgstr "错误：%s"
 
-#: /cli/tracker.php:101 /cli/tracker.php:133
+#: /cli/tracker.php:103 /cli/tracker.php:135
 msgid "Call stack:"
 msgstr "调用堆栈："
 

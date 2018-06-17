@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-20 08:40-0500\n"
-"PO-Revision-Date: 2017-07-04 12:43-0400\n"
+"PO-Revision-Date: 2018-06-17 16:27-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Portuguese\n"
 "MIME-Version: 1.0\n"
@@ -40,9 +40,9 @@ msgstr "A submeter o resultado do teste..."
 
 #: /www/media/js/jtracker.js:219
 msgid "Please select a user"
-msgstr "Por favor, seleccione um utilizador"
+msgstr "Por favor, selecione um utilizador"
 
 #: /www/media/js/uploader-img.js:38
 msgid "First please select an editor to attach the uploads to."
-msgstr "Primeiro, por favor, seleccione um editor para onde anexar os uploads."
+msgstr "Por favor, selecione primeiro um editor para anexar os envios."
 

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2017-07-04 12:44-0400\n"
+"POT-Creation-Date: 2018-06-13 19:12-0500\n"
+"PO-Revision-Date: 2018-06-17 16:28-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Chinese Traditional\n"
 "MIME-Version: 1.0\n"
@@ -22,97 +22,113 @@ msgid "Project"
 msgstr "專案"
 
 #: /templates/projects/project.index.twig:14
-#: /templates/projects/projects.index.twig:63
+#: /templates/projects/projects.index.twig:64
 msgid "Edit"
 msgstr "編輯"
 
 #: /templates/projects/project.index.twig:15
-#: /templates/projects/projects.index.twig:64
 #: /templates/projects/project.edit.twig:17
+#: /templates/projects/projects.index.twig:65
 msgid "Delete"
 msgstr "刪除"
 
-#: /templates/projects/project.index.twig:26
+#: /templates/projects/project.index.twig:27
 #, php-format
 msgid "Project %s Tracker"
 msgstr "專案 %s 追蹤器"
 
-#: /templates/projects/project.index.twig:35
+#: /templates/projects/project.index.twig:36
 #, php-format
 msgid "Project %s on GitHub"
 msgstr "GitHub 上的 %s 專案"
 
-#: /templates/projects/project.index.twig:39
+#: /templates/projects/project.index.twig:40
 msgid "Statistics"
 msgstr "數據"
 
-#: /templates/projects/project.index.twig:45
-#: /templates/projects/projects.index.twig:45
+#: /templates/projects/project.index.twig:46
+#: /templates/projects/projects.index.twig:46
 msgid "Hooks"
 msgstr "鉤子"
 
-#: /templates/projects/project.index.twig:51
-#: /templates/projects/projects.index.twig:62
+#: /templates/projects/project.index.twig:52
+#: /templates/projects/projects.index.twig:63
 msgid "Groups"
 msgstr "群組"
 
-#: /templates/projects/project.index.twig:54
-#: /templates/projects/projects.index.twig:46
+#: /templates/projects/project.index.twig:55
+#: /templates/projects/projects.index.twig:47
 msgid "Labels"
 msgstr "標籤"
 
-#: /templates/projects/project.index.twig:57
+#: /templates/projects/project.index.twig:58
 msgid "Categories"
 msgstr "分類"
+
+#: /templates/projects/project.edit.twig:6
+msgid "Edit Project"
+msgstr "編輯專案"
+
+#: /templates/projects/project.edit.twig:11
+#: /templates/projects/project.add.twig:11
+msgid "Save"
+msgstr "儲存"
+
+#: /templates/projects/project.edit.twig:29
+msgid "Edit project"
+msgstr "編輯專案"
+
+#: /templates/projects/project.edit.twig:31
+#: /templates/projects/project.add.twig:21
+msgid "New project"
+msgstr "新專案"
+
+#: /templates/projects/project.edit.twig:37
+#: /templates/projects/project.add.twig:26
+msgid "Details"
+msgstr "詳細資料"
+
+#: /templates/projects/project.edit.twig:39
+#: /templates/projects/project.add.twig:30
+msgid "Title"
+msgstr "標題"
+
+#: /templates/projects/project.edit.twig:46
+#: /templates/projects/project.add.twig:35
+msgid "Short Title"
+msgstr "短標題"
+
+#: /templates/projects/project.edit.twig:53
+#: /templates/projects/project.add.twig:40
+msgid "Alias"
+msgstr "別名"
+
+#: /templates/projects/project.edit.twig:60
+#: /templates/projects/project.add.twig:45
+msgid "GitHub Owner"
+msgstr "GitHub 擁有者"
+
+#: /templates/projects/project.edit.twig:67
+#: /templates/projects/project.add.twig:50
+msgid "GitHub Repo"
+msgstr "GitHub 資料庫"
+
+#: /templates/projects/project.edit.twig:74
+msgid "GitHub Editbot user"
+msgstr "GitHub Editbot 使用者"
+
+#: /templates/projects/project.edit.twig:81
+msgid "GitHub Editbot password"
+msgstr "GitHub Editbot 密碼"
+
+#: /templates/projects/project.edit.twig:88
+#: /templates/projects/project.add.twig:55
+msgid "External Tracker Link"
+msgstr "外部追蹤器連結"
 
 #: /templates/projects/project.add.twig:6
 msgid "Add Project"
 msgstr "新增專案"
-
-#: /templates/projects/project.add.twig:11
-#: /templates/projects/project.edit.twig:11
-msgid "Save"
-msgstr "儲存"
-
-#: /templates/projects/project.add.twig:20
-#: /templates/projects/project.edit.twig:30
-msgid "New project"
-msgstr "新專案"
-
-#: /templates/projects/project.add.twig:24
-#: /templates/projects/project.edit.twig:35
-msgid "Details"
-msgstr "詳細資料"
-
-#: /templates/projects/project.add.twig:28
-#: /templates/projects/project.edit.twig:37
-msgid "Title"
-msgstr "標題"
-
-#: /templates/projects/project.add.twig:33
-#: /templates/projects/project.edit.twig:44
-msgid "Short Title"
-msgstr "短標題"
-
-#: /templates/projects/project.add.twig:38
-#: /templates/projects/project.edit.twig:51
-msgid "Alias"
-msgstr "別名"
-
-#: /templates/projects/project.add.twig:43
-#: /templates/projects/project.edit.twig:58
-msgid "GitHub Owner"
-msgstr "GitHub 擁有者"
-
-#: /templates/projects/project.add.twig:48
-#: /templates/projects/project.edit.twig:65
-msgid "GitHub Repo"
-msgstr "GitHub 資料庫"
-
-#: /templates/projects/project.add.twig:53
-#: /templates/projects/project.edit.twig:86
-msgid "External Tracker Link"
-msgstr "外部追蹤器連結"
 
 #: /templates/projects/projects.index.twig:6
 msgid "Projects"
@@ -122,61 +138,45 @@ msgstr "專案"
 msgid "New Project"
 msgstr "新專案"
 
-#: /templates/projects/projects.index.twig:23
+#: /templates/projects/projects.index.twig:24
 msgid "Projects List"
 msgstr "專案列表"
 
-#: /templates/projects/projects.index.twig:28
+#: /templates/projects/projects.index.twig:29
 msgid "Tracker"
 msgstr "追蹤器"
 
-#: /templates/projects/projects.index.twig:29
+#: /templates/projects/projects.index.twig:30
 msgid "GitHub"
 msgstr "GitHub"
 
-#: /templates/projects/projects.index.twig:30
+#: /templates/projects/projects.index.twig:31
 msgid "Actions"
 msgstr "動作"
 
-#: /templates/projects/projects.index.twig:33
+#: /templates/projects/projects.index.twig:34
 msgid "ID"
 msgstr "ID"
 
-#: /templates/projects/projects.index.twig:48
+#: /templates/projects/projects.index.twig:49
 msgid "Stats"
 msgstr "統計資料"
 
-#: /templates/projects/projects.index.twig:57
+#: /templates/projects/projects.index.twig:58
 msgid "Show"
 msgstr "顯示"
 
-#: /templates/projects/projects.index.twig:58
+#: /templates/projects/projects.index.twig:59
 msgid "Project Activity"
 msgstr "專案活動"
 
-#: /templates/projects/projects.index.twig:59
+#: /templates/projects/projects.index.twig:60
 msgid "Snapshot"
 msgstr "快照"
 
-#: /templates/projects/projects.index.twig:60
+#: /templates/projects/projects.index.twig:61
 msgid "User Activity"
 msgstr "使用者活動"
-
-#: /templates/projects/project.edit.twig:6
-msgid "Edit Project"
-msgstr "編輯專案"
-
-#: /templates/projects/project.edit.twig:28
-msgid "Edit project"
-msgstr "編輯專案"
-
-#: /templates/projects/project.edit.twig:72
-msgid "GitHub Editbot user"
-msgstr "GitHub Editbot 使用者"
-
-#: /templates/projects/project.edit.twig:79
-msgid "GitHub Editbot password"
-msgstr "GitHub Editbot 密碼"
 
 #: /src/App/Projects/Table/ProjectsTable.php:59
 msgid "A title is required"

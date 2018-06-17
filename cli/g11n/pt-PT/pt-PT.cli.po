@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2017-07-04 12:43-0400\n"
+"POT-Creation-Date: 2018-06-17 15:17-0500\n"
+"PO-Revision-Date: 2018-06-17 16:27-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Portuguese\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "Remover as cores ANSI nos terminais não suportados."
 
 #: /cli/Application/Application.php:128
 msgid "Optionally log output to the specified log file."
-msgstr "Opcionalmente, registar a saída para o arquivo de log especificado."
+msgstr "Opcionalmente, registe a saída no ficheiro de registo especificado."
 
 #: /cli/Application/Application.php:133
 msgid "Set the language used by the application."
@@ -67,21 +67,49 @@ msgstr "O argumento \"%s\" não é reconhecido."
 msgid "GitHub rate limit:..."
 msgstr "Taxa limite do GitHub:..."
 
+#: /cli/Application/Command/Clear/Allcache.php:27
+msgid "Clear all cache stores."
+msgstr ""
+
+#: /cli/Application/Command/Clear/Allcache.php:39
+msgid "Clearing All Cache Stores"
+msgstr ""
+
+#: /cli/Application/Command/Clear/Allcache.php:54
+msgid "All cache stores have been cleared."
+msgstr ""
+
 #: /cli/Application/Command/Clear/Cache.php:29
-msgid "Clear the g11n language directory."
-msgstr "Limpar a pasta de idioma g11n."
+msgid "Clear the application cache."
+msgstr ""
 
 #: /cli/Application/Command/Clear/Cache.php:41
-msgid "Clear g11n Cache Directory"
-msgstr "Limpar Pasta da Cache g11n"
+msgid "Clear Application Cache"
+msgstr ""
 
 #: /cli/Application/Command/Clear/Cache.php:48
-msgid "The g11n cache directory has been cleared."
-msgstr "A pasta da cache g11n foi limpa."
+msgid "The application cache has been cleared."
+msgstr ""
+
+#: /cli/Application/Command/Clear/Cache.php:52
+msgid "There was an error clearing the application cache."
+msgstr ""
 
 #: /cli/Application/Command/Clear/Clear.php:27
 msgid "This will clear things."
 msgstr "Isto irá limpar coisas."
+
+#: /cli/Application/Command/Clear/Languagecache.php:29
+msgid "Clear the g11n language directory."
+msgstr "Limpar a pasta de idioma g11n."
+
+#: /cli/Application/Command/Clear/Languagecache.php:41
+msgid "Clear g11n Cache Directory"
+msgstr "Limpar Pasta da Cache g11n"
+
+#: /cli/Application/Command/Clear/Languagecache.php:48
+msgid "The g11n cache directory has been cleared."
+msgstr "A pasta da cache g11n foi limpa."
 
 #: /cli/Application/Command/Clear/Twig.php:30
 msgid "Clear the Twig cache."
@@ -122,11 +150,11 @@ msgstr "Erro ao migrar a base de dados: %s"
 
 #: /cli/Application/Command/Database/Migrate.php:78
 msgid "Database migrated to latest version."
-msgstr "Base de dados migradas para a versão mais recente."
+msgstr "Base de dados migrada para a versão mais recente."
 
 #: /cli/Application/Command/Database/Status.php:27
 msgid "Check the database migration status."
-msgstr "Verificar o estado de migração da base de dados."
+msgstr "Verifique o estado da migração da base de dados."
 
 #: /cli/Application/Command/Database/Status.php:39
 msgid "Database Migrations: Check Status"
@@ -186,11 +214,11 @@ msgstr "Inicie a exportação dos ficheiros de idioma."
 #: /cli/Application/Command/Get/Users.php:59
 #: /cli/Application/Command/Make/Autocomplete.php:106
 #: /cli/Application/Command/Make/Dbcomments.php:91
-#: /cli/Application/Command/Make/Depfile.php:136
+#: /cli/Application/Command/Make/Depfile.php:138
 #: /cli/Application/Command/Make/Docu.php:115
 #: /cli/Application/Command/Make/Langfiles.php:133
-#: /cli/Application/Command/Make/Languageflags.php:122
-#: /cli/Application/Command/Make/Repoinfo.php:65
+#: /cli/Application/Command/Make/Languageflags.php:124
+#: /cli/Application/Command/Make/Repoinfo.php:74
 #: /cli/Application/Command/Test/Phploc.php:60
 #: /cli/Application/Command/Update/Languagefiles.php:86
 #: /cli/Application/Command/Update/Pulls.php:69
@@ -279,19 +307,19 @@ msgstr "Instalado"
 msgid "Installed: %s"
 msgstr "Instalado: %s"
 
-#: /cli/Application/Command/Get/Get.php:84
+#: /cli/Application/Command/Get/Get.php:74
 msgid "Retrieve Information from various sources."
 msgstr "Obtenha informação de várias fontes."
 
-#: /cli/Application/Command/Get/Get.php:90
+#: /cli/Application/Command/Get/Get.php:80
 #: /cli/Application/Command/Test/Hook.php:66
-#: /cli/Application/Command/Update/Update.php:72
+#: /cli/Application/Command/Update/Update.php:62
 msgid "Process the project with the given ID."
 msgstr "Processe o projeto com a Id. indicada."
 
-#: /cli/Application/Command/Get/Get.php:96
+#: /cli/Application/Command/Get/Get.php:86
 #: /cli/Application/Command/Make/Make.php:41
-#: /cli/Application/Command/Update/Update.php:78
+#: /cli/Application/Command/Update/Update.php:68
 msgid "Don't use a progress bar."
 msgstr "Não utilizar barra de progresso."
 
@@ -773,12 +801,12 @@ msgstr "Efetuar comentários de tabela"
 msgid "Create and update a dependency file."
 msgstr "Criar e atualizar um ficheiro de dependência."
 
-#: /cli/Application/Command/Make/Depfile.php:126
+#: /cli/Application/Command/Make/Depfile.php:128
 #, php-format
 msgid "Writing contents to: %s"
 msgstr "A escrever o conteúdo para: %s"
 
-#: /cli/Application/Command/Make/Depfile.php:269
+#: /cli/Application/Command/Make/Depfile.php:271
 msgid "Language file not found: %tag%, %extension%, %domain%"
 msgstr "Ficheiro de idioma não encontrado: %tag%, %extension%, %domain%"
 
@@ -871,12 +899,12 @@ msgstr "Compilar múltiplas imagens numa imagem grande (CSS spriting)."
 msgid "Compile Language flag images"
 msgstr "Compilar imagens de bandeiras do idioma"
 
-#: /cli/Application/Command/Make/Languageflags.php:111
+#: /cli/Application/Command/Make/Languageflags.php:113
 #, php-format
 msgid "Generating the combined image for %1$d flag images in %2$s"
 msgstr "A gerar a imagem combinada para imagens de bandeira %1$d em %2$s"
 
-#: /cli/Application/Command/Make/Languageflags.php:117
+#: /cli/Application/Command/Make/Languageflags.php:119
 #, php-format
 msgid "Writing the CSS file to %s"
 msgstr "A gravar o ficheiro CSS para %s"
@@ -889,7 +917,7 @@ msgstr "O motor de criação"
 msgid "Generate repository information."
 msgstr "Gerar informação de repositório."
 
-#: /cli/Application/Command/Make/Repoinfo.php:50
+#: /cli/Application/Command/Make/Repoinfo.php:51
 msgid "Generate repository information"
 msgstr "Gerar informação de repositório"
 
@@ -1086,16 +1114,20 @@ msgstr "Atualiza a instalação local para uma versão especifica ou para o últ
 msgid "An optional version number to update to."
 msgstr "Um número opcional da versão a atualizar para."
 
-#: /cli/Application/Command/Update/Update.php:66
+#: /cli/Application/Command/Update/Server.php:76
+msgid "Installing current Composer dependencies and regenerating autoloader"
+msgstr ""
+
+#: /cli/Application/Command/Update/Update.php:56
 msgid "Used to update resources"
 msgstr "Utilizado para atualizar recursos"
 
-#: /cli/tracker.php:99 /cli/tracker.php:131
+#: /cli/tracker.php:101 /cli/tracker.php:133
 #, php-format
 msgid "ERROR: %s"
 msgstr "ERRO: %s"
 
-#: /cli/tracker.php:101 /cli/tracker.php:133
+#: /cli/tracker.php:103 /cli/tracker.php:135
 msgid "Call stack:"
 msgstr "Pilha de execução:"
 

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 16:01-0500\n"
-"PO-Revision-Date: 2017-07-04 12:44-0400\n"
+"POT-Creation-Date: 2018-06-13 19:12-0500\n"
+"PO-Revision-Date: 2018-06-17 16:28-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -26,24 +26,24 @@ msgid "Edit profile"
 msgstr "Edit profil"
 
 #: /templates/users/user.index.twig:22
-#: /templates/users/user.edit.twig:32
+#: /templates/users/user.edit.twig:34
 msgid "Refresh profile from GitHub"
 msgstr "Segarkan profil dari GitHub"
 
-#: /templates/users/user.index.twig:26
+#: /templates/users/user.index.twig:27
 msgid "My Profile"
 msgstr "Profil Saya"
 
-#: /templates/users/user.index.twig:28
+#: /templates/users/user.index.twig:31
 msgid "Profile"
 msgstr "Profil"
 
-#: /templates/users/user.index.twig:57
+#: /templates/users/user.index.twig:61
 #, php-format
 msgid "Language: %s"
 msgstr "Bahasa: %s"
 
-#: /templates/users/user.index.twig:62
+#: /templates/users/user.index.twig:66
 #, php-format
 msgid "Timezone: %1$s (GMT %2$s)"
 msgstr "Zona Waktu: %1$s (GMT %2$s)"
@@ -52,68 +52,68 @@ msgstr "Zona Waktu: %1$s (GMT %2$s)"
 msgid "Users"
 msgstr "Pengguna"
 
-#: /templates/users/users.index.twig:19
+#: /templates/users/users.index.twig:20
 msgid "Users List"
 msgstr "Daftar Pengguna"
 
-#: /templates/users/users.index.twig:25
-#: /templates/users/users.index.twig:28
-#: /templates/users/users.index.twig:29
+#: /templates/users/users.index.twig:27
+#: /templates/users/users.index.twig:30
+#: /templates/users/users.index.twig:31
 msgid "Filter the list by user."
 msgstr "Filter berdasarkan pengguna."
 
-#: /templates/users/users.index.twig:34
+#: /templates/users/users.index.twig:36
 msgid "Clear"
 msgstr "Bersihkan"
 
-#: /templates/users/users.index.twig:41
-#: /templates/users/users.index.twig:73
+#: /templates/users/users.index.twig:43
+#: /templates/users/users.index.twig:75
 #, php-format
 msgid "Page %1$s of %2$s"
 msgstr "Halaman %1$s dari %2$s"
 
-#: /templates/users/users.index.twig:46
+#: /templates/users/users.index.twig:48
 msgid "Username"
 msgstr "Nama Pengguna"
 
-#: /templates/users/users.index.twig:48
+#: /templates/users/users.index.twig:50
 msgid "Actions"
 msgstr "Tindakan"
 
-#: /templates/users/users.index.twig:50
+#: /templates/users/users.index.twig:52
 msgid "ID"
 msgstr "ID"
 
-#: /templates/users/users.index.twig:66
+#: /templates/users/users.index.twig:68
 msgid "No items found."
 msgstr "Tidak ada butir yang ditemukan."
 
 #: /templates/users/user.edit.twig:6
-#: /templates/users/user.edit.twig:17
+#: /templates/users/user.edit.twig:18
 msgid "Edit user"
 msgstr "Edit pengguna"
 
-#: /templates/users/user.edit.twig:22
+#: /templates/users/user.edit.twig:24
 msgid "Save"
 msgstr "Simpan"
 
-#: /templates/users/user.edit.twig:27
+#: /templates/users/user.edit.twig:29
 msgid "Cancel"
 msgstr "Batal"
 
-#: /templates/users/user.edit.twig:44
+#: /templates/users/user.edit.twig:46
 msgid "GitHub Profile"
 msgstr "Profil GitHub"
 
-#: /templates/users/user.edit.twig:67
+#: /templates/users/user.edit.twig:69
 msgid "Params"
 msgstr "Parameter"
 
-#: /templates/users/user.edit.twig:70
+#: /templates/users/user.edit.twig:72
 msgid "Language"
 msgstr "Bahasa"
 
-#: /templates/users/user.edit.twig:77
+#: /templates/users/user.edit.twig:79
 msgid "Timezone"
 msgstr "Zona Waktu"
 
@@ -134,7 +134,7 @@ msgstr "Anda tidak memiliki izin untuk mengedit pengguna ini."
 msgid "You are not authorised to refresh this user."
 msgstr "Anda tidak memiliki izin untuk menyegarkan pengguna ini."
 
-#: /src/App/Users/Controller/User/Refresh.php:73
+#: /src/App/Users/Controller/User/Refresh.php:71
 msgid "The profile has been refreshed."
 msgstr "Profil telah disegarkan."
 

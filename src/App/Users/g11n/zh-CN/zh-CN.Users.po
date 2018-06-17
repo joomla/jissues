@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 16:01-0500\n"
-"PO-Revision-Date: 2017-07-04 12:44-0400\n"
+"POT-Creation-Date: 2018-06-13 19:12-0500\n"
+"PO-Revision-Date: 2018-06-17 16:28-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Chinese Simplified\n"
 "MIME-Version: 1.0\n"
@@ -26,24 +26,24 @@ msgid "Edit profile"
 msgstr "编辑资料"
 
 #: /templates/users/user.index.twig:22
-#: /templates/users/user.edit.twig:32
+#: /templates/users/user.edit.twig:34
 msgid "Refresh profile from GitHub"
 msgstr "从GitHub刷新资料"
 
-#: /templates/users/user.index.twig:26
+#: /templates/users/user.index.twig:27
 msgid "My Profile"
 msgstr "我的资料"
 
-#: /templates/users/user.index.twig:28
+#: /templates/users/user.index.twig:31
 msgid "Profile"
 msgstr "个人资料"
 
-#: /templates/users/user.index.twig:57
+#: /templates/users/user.index.twig:61
 #, php-format
 msgid "Language: %s"
 msgstr "语言：%s"
 
-#: /templates/users/user.index.twig:62
+#: /templates/users/user.index.twig:66
 #, php-format
 msgid "Timezone: %1$s (GMT %2$s)"
 msgstr "时区: %1$s (格林尼治标准时间 %2$s)"
@@ -52,68 +52,68 @@ msgstr "时区: %1$s (格林尼治标准时间 %2$s)"
 msgid "Users"
 msgstr "用户"
 
-#: /templates/users/users.index.twig:19
+#: /templates/users/users.index.twig:20
 msgid "Users List"
 msgstr "用户列表"
 
-#: /templates/users/users.index.twig:25
-#: /templates/users/users.index.twig:28
-#: /templates/users/users.index.twig:29
+#: /templates/users/users.index.twig:27
+#: /templates/users/users.index.twig:30
+#: /templates/users/users.index.twig:31
 msgid "Filter the list by user."
 msgstr "按会员筛选列表"
 
-#: /templates/users/users.index.twig:34
+#: /templates/users/users.index.twig:36
 msgid "Clear"
 msgstr "清除"
 
-#: /templates/users/users.index.twig:41
-#: /templates/users/users.index.twig:73
+#: /templates/users/users.index.twig:43
+#: /templates/users/users.index.twig:75
 #, php-format
 msgid "Page %1$s of %2$s"
 msgstr "第 %1$s 页，共 %2$s 页"
 
-#: /templates/users/users.index.twig:46
+#: /templates/users/users.index.twig:48
 msgid "Username"
 msgstr "用户名"
 
-#: /templates/users/users.index.twig:48
+#: /templates/users/users.index.twig:50
 msgid "Actions"
 msgstr "操作"
 
-#: /templates/users/users.index.twig:50
+#: /templates/users/users.index.twig:52
 msgid "ID"
 msgstr "ID"
 
-#: /templates/users/users.index.twig:66
+#: /templates/users/users.index.twig:68
 msgid "No items found."
 msgstr "No items found."
 
 #: /templates/users/user.edit.twig:6
-#: /templates/users/user.edit.twig:17
+#: /templates/users/user.edit.twig:18
 msgid "Edit user"
 msgstr "编辑用户"
 
-#: /templates/users/user.edit.twig:22
+#: /templates/users/user.edit.twig:24
 msgid "Save"
 msgstr "保存"
 
-#: /templates/users/user.edit.twig:27
+#: /templates/users/user.edit.twig:29
 msgid "Cancel"
 msgstr "取消"
 
-#: /templates/users/user.edit.twig:44
+#: /templates/users/user.edit.twig:46
 msgid "GitHub Profile"
 msgstr "GitHub资料"
 
-#: /templates/users/user.edit.twig:67
+#: /templates/users/user.edit.twig:69
 msgid "Params"
 msgstr "参数"
 
-#: /templates/users/user.edit.twig:70
+#: /templates/users/user.edit.twig:72
 msgid "Language"
 msgstr "语言"
 
-#: /templates/users/user.edit.twig:77
+#: /templates/users/user.edit.twig:79
 msgid "Timezone"
 msgstr "时区"
 
@@ -134,7 +134,7 @@ msgstr "您没有编辑此用户的权限"
 msgid "You are not authorised to refresh this user."
 msgstr "您没有刷新此用户资料的权限"
 
-#: /src/App/Users/Controller/User/Refresh.php:73
+#: /src/App/Users/Controller/User/Refresh.php:71
 msgid "The profile has been refreshed."
 msgstr "资料已更新"
 

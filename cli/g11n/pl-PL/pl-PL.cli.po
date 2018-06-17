@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2017-07-04 12:43-0400\n"
+"POT-Creation-Date: 2018-06-17 15:17-0500\n"
+"PO-Revision-Date: 2018-06-17 16:27-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Polish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: pl\n"
@@ -67,21 +67,49 @@ msgstr "Argument \"%s\" nie jest rozpoznawany."
 msgid "GitHub rate limit:..."
 msgstr "Limit dla GitHub'a:..."
 
+#: /cli/Application/Command/Clear/Allcache.php:27
+msgid "Clear all cache stores."
+msgstr ""
+
+#: /cli/Application/Command/Clear/Allcache.php:39
+msgid "Clearing All Cache Stores"
+msgstr ""
+
+#: /cli/Application/Command/Clear/Allcache.php:54
+msgid "All cache stores have been cleared."
+msgstr ""
+
 #: /cli/Application/Command/Clear/Cache.php:29
-msgid "Clear the g11n language directory."
-msgstr "Wyczyść katalog języka g11n."
+msgid "Clear the application cache."
+msgstr ""
 
 #: /cli/Application/Command/Clear/Cache.php:41
-msgid "Clear g11n Cache Directory"
-msgstr "Wyczyść Katalog Pamięci Podręcznej g11n"
+msgid "Clear Application Cache"
+msgstr ""
 
 #: /cli/Application/Command/Clear/Cache.php:48
-msgid "The g11n cache directory has been cleared."
-msgstr "Katalog pamięci podręcznej g11n został wyczyszczony."
+msgid "The application cache has been cleared."
+msgstr ""
+
+#: /cli/Application/Command/Clear/Cache.php:52
+msgid "There was an error clearing the application cache."
+msgstr ""
 
 #: /cli/Application/Command/Clear/Clear.php:27
 msgid "This will clear things."
 msgstr "To spowoduje wyczyszczenie."
+
+#: /cli/Application/Command/Clear/Languagecache.php:29
+msgid "Clear the g11n language directory."
+msgstr "Wyczyść katalog języka g11n."
+
+#: /cli/Application/Command/Clear/Languagecache.php:41
+msgid "Clear g11n Cache Directory"
+msgstr "Wyczyść Katalog Pamięci Podręcznej g11n"
+
+#: /cli/Application/Command/Clear/Languagecache.php:48
+msgid "The g11n cache directory has been cleared."
+msgstr "Katalog pamięci podręcznej g11n został wyczyszczony."
 
 #: /cli/Application/Command/Clear/Twig.php:30
 msgid "Clear the Twig cache."
@@ -142,7 +170,8 @@ msgid "Your database is not up-to-date. You are missing one migration."
 msgid_plural "Your database is not up-to-date. You are missing %d migrations."
 msgstr[0] "Twoja baza danych nie jest aktualna. Brakuje jednej migracji."
 msgstr[1] "Twoja baza danych nie jest aktualna. Brakuje %d migracji."
-msgstr[2] "Twoja baza danych nie jest aktualna. Brakuje %d migracji."
+msgstr[2] ""
+msgstr[3] "Twoja baza danych nie jest aktualna. Brakuje %d migracji."
 
 #: /cli/Application/Command/Database/Status.php:65
 #, php-format
@@ -187,11 +216,11 @@ msgstr "Rozpocznij eksport plików językowych."
 #: /cli/Application/Command/Get/Users.php:59
 #: /cli/Application/Command/Make/Autocomplete.php:106
 #: /cli/Application/Command/Make/Dbcomments.php:91
-#: /cli/Application/Command/Make/Depfile.php:136
+#: /cli/Application/Command/Make/Depfile.php:138
 #: /cli/Application/Command/Make/Docu.php:115
 #: /cli/Application/Command/Make/Langfiles.php:133
-#: /cli/Application/Command/Make/Languageflags.php:122
-#: /cli/Application/Command/Make/Repoinfo.php:65
+#: /cli/Application/Command/Make/Languageflags.php:124
+#: /cli/Application/Command/Make/Repoinfo.php:74
 #: /cli/Application/Command/Test/Phploc.php:60
 #: /cli/Application/Command/Update/Languagefiles.php:86
 #: /cli/Application/Command/Update/Pulls.php:69
@@ -226,7 +255,8 @@ msgid "Processing avatars for one user."
 msgid_plural "Processing avatars for %d users."
 msgstr[0] "Przetwarzanie awatarów dla jednego użytkownika."
 msgstr[1] "Przetwarzanie awatarów dla %d użytkowników."
-msgstr[2] "Przetwarzanie awatarów dla %d użytkowników."
+msgstr[2] ""
+msgstr[3] "Przetwarzanie awatarów dla %d użytkowników."
 
 #: /cli/Application/Command/Get/Avatars.php:113
 #, php-format
@@ -249,7 +279,8 @@ msgid "Added one new user avatar"
 msgid_plural "Added %d new user avatars"
 msgstr[0] "Dodano jeden nowy awatar użytkownika"
 msgstr[1] "Dodano %d nowych awatarów użytkownika"
-msgstr[2] "Dodano %d nowych awatarów użytkownika"
+msgstr[2] ""
+msgstr[3] "Dodano %d nowych awatarów użytkownika"
 
 #: /cli/Application/Command/Get/Composertags.php:29
 msgid "Retrieve a list of project tags from GitHub and show their installed versions."
@@ -282,19 +313,19 @@ msgstr "Zainstalowane"
 msgid "Installed: %s"
 msgstr "Zainstalowano: %s"
 
-#: /cli/Application/Command/Get/Get.php:84
+#: /cli/Application/Command/Get/Get.php:74
 msgid "Retrieve Information from various sources."
 msgstr "Odzyskaj informację z różnych źródeł."
 
-#: /cli/Application/Command/Get/Get.php:90
+#: /cli/Application/Command/Get/Get.php:80
 #: /cli/Application/Command/Test/Hook.php:66
-#: /cli/Application/Command/Update/Update.php:72
+#: /cli/Application/Command/Update/Update.php:62
 msgid "Process the project with the given ID."
 msgstr "Przetwarzaj projekt o danym ID."
 
-#: /cli/Application/Command/Get/Get.php:96
+#: /cli/Application/Command/Get/Get.php:86
 #: /cli/Application/Command/Make/Make.php:41
-#: /cli/Application/Command/Update/Update.php:78
+#: /cli/Application/Command/Update/Update.php:68
 msgid "Don't use a progress bar."
 msgstr "Nie używaj paska postępu."
 
@@ -403,7 +434,8 @@ msgid "Fetching comments for <b>one</b> modified issue from GitHub..."
 msgid_plural "Fetching comments for <b>%d</b> modified issues from GitHub..."
 msgstr[0] "Pobieranie komentarzy dla <b>jednej</b> zmodyfikowanej sprawy z witryny GitHub..."
 msgstr[1] "Pobieranie komentarzy dla <b>%d</b> zmodyfikowanych spraw z witryny GitHub..."
-msgstr[2] "Pobieranie komentarzy dla <b>%d</b> zmodyfikowanych spraw z witryny GitHub..."
+msgstr[2] ""
+msgstr[3] "Pobieranie komentarzy dla <b>%d</b> zmodyfikowanych spraw z witryny GitHub..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:167
 #: /cli/Application/Command/Get/Project/Events.php:168
@@ -416,7 +448,8 @@ msgid "Processing comments for one modified issue..."
 msgid_plural "Processing comments for %d modified issues..."
 msgstr[0] "Przetwarzanie komentarzy dla jednej zmodyfikowanej sprawy..."
 msgstr[1] "Przetwarzanie komentarzy dla %d zmodyfikowanych spraw..."
-msgstr[2] "Przetwarzanie komentarzy dla %d zmodyfikowanych spraw..."
+msgstr[2] ""
+msgstr[3] "Przetwarzanie komentarzy dla %d zmodyfikowanych spraw..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:210
 #, php-format
@@ -429,7 +462,8 @@ msgid "Processing one comment for issue # %2$d (%3$d/%4$d)"
 msgid_plural "Processing %1$d comments for issue # %2$d (%3$d/%4$d)"
 msgstr[0] "Przetwarzanie jednego komentarza dla sprawy #%2$d (%3$d/%4$d)"
 msgstr[1] "Przetwarzanie %1$d komentarzy dla sprawy #%2$d (%3$d/%4$d)"
-msgstr[2] "Przetwarzanie %1$d komentarzy dla sprawy #%2$d (%3$d/%4$d)"
+msgstr[2] ""
+msgstr[3] "Przetwarzanie %1$d komentarzy dla sprawy #%2$d (%3$d/%4$d)"
 
 #: /cli/Application/Command/Get/Project/Comments.php:331
 #, php-format
@@ -462,7 +496,8 @@ msgid "Fetch events for one issue from GitHub..."
 msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
 msgstr[0] "Pobierz wydarzenia dla jednej sprawy z witryny GitHub..."
 msgstr[1] "Pobierz wydarzenia dla <b>%d</b> spraw z witryny GitHub..."
-msgstr[2] "Pobierz wydarzenia dla <b>%d</b> spraw z witryny GitHub..."
+msgstr[2] ""
+msgstr[3] "Pobierz wydarzenia dla <b>%d</b> spraw z witryny GitHub..."
 
 #: /cli/Application/Command/Get/Project/Events.php:178
 msgid "Adding events to the database..."
@@ -512,7 +547,8 @@ msgid "Retrieved <b>1</b> item from GitHub."
 msgid_plural "Retrieved <b>%d</b> items from GitHub."
 msgstr[0] "Odzyskano <b>1</b> element z witryny GitHub."
 msgstr[1] "Odzyskano <b>%d</b> elementów z witryny GitHub."
-msgstr[2] "Odzyskano <b>%d</b> elementów z witryny GitHub."
+msgstr[2] ""
+msgstr[3] "Odzyskano <b>%d</b> elementów z witryny GitHub."
 
 #: /cli/Application/Command/Get/Project/Issues.php:258
 msgid "Adding issues to the database..."
@@ -583,7 +619,8 @@ msgid "Getting user info for one user."
 msgid_plural "Getting user info for %d users."
 msgstr[0] "Otrzymywanie informacji o jednym użytkowniku."
 msgstr[1] "Otrzymywanie informacji o %d użytkownikach."
-msgstr[2] "Otrzymywanie informacji o %d użytkownikach."
+msgstr[2] ""
+msgstr[3] "Otrzymywanie informacji o %d użytkownikach."
 
 #: /cli/Application/Command/Get/Users.php:115
 #, php-format
@@ -782,12 +819,12 @@ msgstr "Utwórz Komentarze Tabel"
 msgid "Create and update a dependency file."
 msgstr "Utwórz i zaktualizuj plik zależności."
 
-#: /cli/Application/Command/Make/Depfile.php:126
+#: /cli/Application/Command/Make/Depfile.php:128
 #, php-format
 msgid "Writing contents to: %s"
 msgstr "Zapisywanie zawartości do: %s"
 
-#: /cli/Application/Command/Make/Depfile.php:269
+#: /cli/Application/Command/Make/Depfile.php:271
 msgid "Language file not found: %tag%, %extension%, %domain%"
 msgstr "Plik językowy nie został odnaleziony: %tag%, %extension%, %domain%"
 
@@ -880,12 +917,12 @@ msgstr "Kompiluj wiele obrazów do jednego, większego (sprite CSS)."
 msgid "Compile Language flag images"
 msgstr "Kompiluj obrazy flag Języków"
 
-#: /cli/Application/Command/Make/Languageflags.php:111
+#: /cli/Application/Command/Make/Languageflags.php:113
 #, php-format
 msgid "Generating the combined image for %1$d flag images in %2$s"
 msgstr "Generowanie połączonego obrazu dla plików flag %1$d w %2$s"
 
-#: /cli/Application/Command/Make/Languageflags.php:117
+#: /cli/Application/Command/Make/Languageflags.php:119
 #, php-format
 msgid "Writing the CSS file to %s"
 msgstr "Zapisywanie pliku CSS do %s"
@@ -898,7 +935,7 @@ msgstr "Silnik tworzenia"
 msgid "Generate repository information."
 msgstr "Generuj informację repozytorium."
 
-#: /cli/Application/Command/Make/Repoinfo.php:50
+#: /cli/Application/Command/Make/Repoinfo.php:51
 msgid "Generate repository information"
 msgstr "Generuj informację repozytorium"
 
@@ -916,7 +953,8 @@ msgid "Finished with one error"
 msgid_plural "Finished with %d errors"
 msgstr[0] "Zakończono z jednym błędem"
 msgstr[1] "Zakończono z %d błędami"
-msgstr[2] "Zakończono z %d błędami"
+msgstr[2] ""
+msgstr[3] "Zakończono z %d błędami"
 
 #: /cli/Application/Command/Test/Checkstyle.php:65
 #: /cli/Application/Command/Test/Phpunit.php:56
@@ -1096,16 +1134,20 @@ msgstr "Aktualizuje lokalną instalację do określonej wersji lub do najnowszej
 msgid "An optional version number to update to."
 msgstr "Opcjonalny numer wersji do której zostanie przeprowadzona aktualizacja."
 
-#: /cli/Application/Command/Update/Update.php:66
+#: /cli/Application/Command/Update/Server.php:76
+msgid "Installing current Composer dependencies and regenerating autoloader"
+msgstr ""
+
+#: /cli/Application/Command/Update/Update.php:56
 msgid "Used to update resources"
 msgstr "Użyte do aktualizacji zasobów"
 
-#: /cli/tracker.php:99 /cli/tracker.php:131
+#: /cli/tracker.php:101 /cli/tracker.php:133
 #, php-format
 msgid "ERROR: %s"
 msgstr "BŁĄD: %s"
 
-#: /cli/tracker.php:101 /cli/tracker.php:133
+#: /cli/tracker.php:103 /cli/tracker.php:135
 msgid "Call stack:"
 msgstr "Wywołanie:"
 

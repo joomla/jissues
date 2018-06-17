@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2017-07-04 12:43-0400\n"
+"POT-Creation-Date: 2018-06-13 19:12-0500\n"
+"PO-Revision-Date: 2018-06-17 16:28-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Slovak\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 3;\n"
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: sk\n"
@@ -24,57 +24,57 @@ msgstr "Skupiny"
 msgid "Add Group"
 msgstr "Pridať skupinu"
 
-#: /templates/groups/groups.index.twig:22
+#: /templates/groups/groups.index.twig:24
 msgid "Access Groups"
 msgstr "Prístupové skupiny"
 
-#: /templates/groups/groups.index.twig:27
-#: /templates/groups/group.edit.twig:164
+#: /templates/groups/groups.index.twig:29
+#: /templates/groups/group.edit.twig:166
 msgid "Title"
 msgstr "Názov"
 
-#: /templates/groups/groups.index.twig:28
-#: /templates/groups/group.edit.twig:181
+#: /templates/groups/groups.index.twig:30
+#: /templates/groups/group.edit.twig:183
 msgid "View"
 msgstr "Zobraziť"
 
-#: /templates/groups/groups.index.twig:29
-#: /templates/groups/group.edit.twig:188
+#: /templates/groups/groups.index.twig:31
+#: /templates/groups/group.edit.twig:190
 msgid "Create"
 msgstr "Vytvoriť"
 
-#: /templates/groups/groups.index.twig:30
-#: /templates/groups/group.edit.twig:195
+#: /templates/groups/groups.index.twig:32
+#: /templates/groups/group.edit.twig:197
 msgid "Edit"
 msgstr "Upraviť"
 
-#: /templates/groups/groups.index.twig:31
-#: /templates/groups/group.edit.twig:202
+#: /templates/groups/groups.index.twig:33
+#: /templates/groups/group.edit.twig:204
 msgid "Edit own"
 msgstr "Upraviť vlastné"
 
-#: /templates/groups/groups.index.twig:32
-#: /templates/groups/group.edit.twig:209
+#: /templates/groups/groups.index.twig:34
+#: /templates/groups/group.edit.twig:211
 msgid "Manage"
 msgstr "Spravovať"
 
-#: /templates/groups/groups.index.twig:33
+#: /templates/groups/groups.index.twig:35
 msgid "Actions"
 msgstr "Akcie"
 
-#: /templates/groups/groups.index.twig:35
+#: /templates/groups/groups.index.twig:37
 msgid "ID"
 msgstr "ID"
 
-#: /templates/groups/groups.index.twig:64
+#: /templates/groups/groups.index.twig:66
 msgid "System"
 msgstr "Systém"
 
-#: /templates/groups/groups.index.twig:67
+#: /templates/groups/groups.index.twig:69
 msgid "Delete"
 msgstr "Vymazať"
 
-#: /templates/groups/groups.index.twig:79
+#: /templates/groups/groups.index.twig:81
 msgid "No groups defined!"
 msgstr "Neboli definované žiadne skupiny!"
 
@@ -86,54 +86,54 @@ msgstr "Upraviť skupinu"
 msgid "Save"
 msgstr "Uložiť"
 
-#: /templates/groups/group.edit.twig:145
+#: /templates/groups/group.edit.twig:147
 msgid "Edit Access Group"
 msgstr "Upraviť prístupovú skupinu"
 
-#: /templates/groups/group.edit.twig:147
+#: /templates/groups/group.edit.twig:149
 msgid "Add Access Group"
 msgstr "Pridať skupinu s prístupom"
 
-#: /templates/groups/group.edit.twig:156
+#: /templates/groups/group.edit.twig:158
 msgid "Details"
 msgstr "Dataily"
 
-#: /templates/groups/group.edit.twig:174
+#: /templates/groups/group.edit.twig:176
 msgid "Permissions"
 msgstr "Oprávnenia"
 
-#: /templates/groups/group.edit.twig:222
+#: /templates/groups/group.edit.twig:224
 msgid "Users"
 msgstr "Používatelia"
 
-#: /templates/groups/group.edit.twig:226
-#: /templates/groups/group.edit.twig:234
+#: /templates/groups/group.edit.twig:228
+#: /templates/groups/group.edit.twig:236
 msgid "Add user"
 msgstr "Pridanie používateľa"
 
-#: /templates/groups/group.edit.twig:228
-#: /templates/groups/group.edit.twig:241
+#: /templates/groups/group.edit.twig:230
+#: /templates/groups/group.edit.twig:243
 msgid "username"
 msgstr "Používateľské meno"
 
-#: /templates/groups/group.edit.twig:238
-#: /templates/groups/group.edit.twig:246
+#: /templates/groups/group.edit.twig:240
+#: /templates/groups/group.edit.twig:248
 msgid "Remove user"
 msgstr "Odstrániť používateľa"
 
-#: /templates/groups/group.edit.twig:251
+#: /templates/groups/group.edit.twig:253
 msgid "List assigned users"
 msgstr "Zoznam priradených používateľov"
 
-#: /templates/groups/group.edit.twig:263
+#: /templates/groups/group.edit.twig:265
 msgid "Save the group to assign users."
 msgstr "Uložte skupinu pre priradenie používateľov."
 
-#: /src/App/Groups/Controller/Group/Delete.php:82
+#: /src/App/Groups/Controller/Group/Delete.php:81
 msgid "The group has been deleted."
 msgstr "Skupina bola odstránená."
 
-#: /src/App/Groups/Table/GroupsTable.php:99
+#: /src/App/Groups/Table/GroupsTable.php:97
 msgid "A title is required"
 msgstr "Vyžaduje sa názov"
 

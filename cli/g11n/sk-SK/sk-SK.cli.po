@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2017-07-04 12:43-0400\n"
+"POT-Creation-Date: 2018-06-17 15:17-0500\n"
+"PO-Revision-Date: 2018-06-17 16:27-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Slovak\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 3;\n"
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: sk\n"
@@ -67,21 +67,49 @@ msgstr "Argument \"%s\" nebol rozpoznaný."
 msgid "GitHub rate limit:..."
 msgstr "Limit rýchlosti GitHub:..."
 
+#: /cli/Application/Command/Clear/Allcache.php:27
+msgid "Clear all cache stores."
+msgstr ""
+
+#: /cli/Application/Command/Clear/Allcache.php:39
+msgid "Clearing All Cache Stores"
+msgstr ""
+
+#: /cli/Application/Command/Clear/Allcache.php:54
+msgid "All cache stores have been cleared."
+msgstr ""
+
 #: /cli/Application/Command/Clear/Cache.php:29
-msgid "Clear the g11n language directory."
-msgstr "Vymazať jazykový adresár g11n."
+msgid "Clear the application cache."
+msgstr ""
 
 #: /cli/Application/Command/Clear/Cache.php:41
-msgid "Clear g11n Cache Directory"
-msgstr "Vymazať adresáť medzipamäte g11n"
+msgid "Clear Application Cache"
+msgstr ""
 
 #: /cli/Application/Command/Clear/Cache.php:48
-msgid "The g11n cache directory has been cleared."
-msgstr "Adresár medzipamäte pre g11n bol vyčistený."
+msgid "The application cache has been cleared."
+msgstr ""
+
+#: /cli/Application/Command/Clear/Cache.php:52
+msgid "There was an error clearing the application cache."
+msgstr ""
 
 #: /cli/Application/Command/Clear/Clear.php:27
 msgid "This will clear things."
 msgstr "Toto vyjasní veci."
+
+#: /cli/Application/Command/Clear/Languagecache.php:29
+msgid "Clear the g11n language directory."
+msgstr "Vymazať jazykový adresár g11n."
+
+#: /cli/Application/Command/Clear/Languagecache.php:41
+msgid "Clear g11n Cache Directory"
+msgstr "Vymazať adresáť medzipamäte g11n"
+
+#: /cli/Application/Command/Clear/Languagecache.php:48
+msgid "The g11n cache directory has been cleared."
+msgstr "Adresár medzipamäte pre g11n bol vyčistený."
 
 #: /cli/Application/Command/Clear/Twig.php:30
 msgid "Clear the Twig cache."
@@ -142,7 +170,8 @@ msgid "Your database is not up-to-date. You are missing one migration."
 msgid_plural "Your database is not up-to-date. You are missing %d migrations."
 msgstr[0] "Vaša databáza nie je aktuálna. Chýba vám jedna migrácia."
 msgstr[1] "Vaša databáza nie je aktuálna. Chýbajú vám %d migrácie."
-msgstr[2] "Vaša databáza nie je aktuálna. Chýba vám %d migrácií."
+msgstr[2] ""
+msgstr[3] "Vaša databáza nie je aktuálna. Chýba vám %d migrácií."
 
 #: /cli/Application/Command/Database/Status.php:65
 #, php-format
@@ -187,11 +216,11 @@ msgstr "Spustiť exportovanie jazykových súborov."
 #: /cli/Application/Command/Get/Users.php:59
 #: /cli/Application/Command/Make/Autocomplete.php:106
 #: /cli/Application/Command/Make/Dbcomments.php:91
-#: /cli/Application/Command/Make/Depfile.php:136
+#: /cli/Application/Command/Make/Depfile.php:138
 #: /cli/Application/Command/Make/Docu.php:115
 #: /cli/Application/Command/Make/Langfiles.php:133
-#: /cli/Application/Command/Make/Languageflags.php:122
-#: /cli/Application/Command/Make/Repoinfo.php:65
+#: /cli/Application/Command/Make/Languageflags.php:124
+#: /cli/Application/Command/Make/Repoinfo.php:74
 #: /cli/Application/Command/Test/Phploc.php:60
 #: /cli/Application/Command/Update/Languagefiles.php:86
 #: /cli/Application/Command/Update/Pulls.php:69
@@ -226,7 +255,8 @@ msgid "Processing avatars for one user."
 msgid_plural "Processing avatars for %d users."
 msgstr[0] "Spracovávam avatar jedného používateľa."
 msgstr[1] "Spracovávam avatar %d používateľov."
-msgstr[2] "Spracovávam avatar %d používateľov."
+msgstr[2] ""
+msgstr[3] "Spracovávam avatar %d používateľov."
 
 #: /cli/Application/Command/Get/Avatars.php:113
 #, php-format
@@ -249,7 +279,8 @@ msgid "Added one new user avatar"
 msgid_plural "Added %d new user avatars"
 msgstr[0] "Bol pridaný avatar pre používateľa"
 msgstr[1] "Boli pridané avatary pre %d používateľov"
-msgstr[2] "Boli pridané avatary pre %d používateľov"
+msgstr[2] ""
+msgstr[3] "Boli pridané avatary pre %d používateľov"
 
 #: /cli/Application/Command/Get/Composertags.php:29
 msgid "Retrieve a list of project tags from GitHub and show their installed versions."
@@ -282,19 +313,19 @@ msgstr "Nainštalované"
 msgid "Installed: %s"
 msgstr "Nainštalované: %s"
 
-#: /cli/Application/Command/Get/Get.php:84
+#: /cli/Application/Command/Get/Get.php:74
 msgid "Retrieve Information from various sources."
 msgstr "Načítať informácie z rôznych zdrojov."
 
-#: /cli/Application/Command/Get/Get.php:90
+#: /cli/Application/Command/Get/Get.php:80
 #: /cli/Application/Command/Test/Hook.php:66
-#: /cli/Application/Command/Update/Update.php:72
+#: /cli/Application/Command/Update/Update.php:62
 msgid "Process the project with the given ID."
 msgstr "Spracovať projekt so zadaným ID."
 
-#: /cli/Application/Command/Get/Get.php:96
+#: /cli/Application/Command/Get/Get.php:86
 #: /cli/Application/Command/Make/Make.php:41
-#: /cli/Application/Command/Update/Update.php:78
+#: /cli/Application/Command/Update/Update.php:68
 msgid "Don't use a progress bar."
 msgstr "Nepoužívať prúžok s indikátorom priebehu."
 
@@ -403,7 +434,8 @@ msgid "Fetching comments for <b>one</b> modified issue from GitHub..."
 msgid_plural "Fetching comments for <b>%d</b> modified issues from GitHub..."
 msgstr[0] "Načítam komentáre pre <b>jeden</b> upravený problém z GitHub..."
 msgstr[1] "Načítam komentáre pre <b>%d</b> upravené problémy z GitHub..."
-msgstr[2] "Načítam komentáre pre <b>%d</b> upravených problémov z GitHub..."
+msgstr[2] ""
+msgstr[3] "Načítam komentáre pre <b>%d</b> upravených problémov z GitHub..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:167
 #: /cli/Application/Command/Get/Project/Events.php:168
@@ -416,7 +448,8 @@ msgid "Processing comments for one modified issue..."
 msgid_plural "Processing comments for %d modified issues..."
 msgstr[0] "Spracovávam komentáre pre jeden upravený problém..."
 msgstr[1] "Spracovávam komentáre pre %d upravené problémy..."
-msgstr[2] "Spracovávam komentáre pre %d upravených problémov..."
+msgstr[2] ""
+msgstr[3] "Spracovávam komentáre pre %d upravených problémov..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:210
 #, php-format
@@ -429,7 +462,8 @@ msgid "Processing one comment for issue # %2$d (%3$d/%4$d)"
 msgid_plural "Processing %1$d comments for issue # %2$d (%3$d/%4$d)"
 msgstr[0] "Spracovávam komentár pre problém # %2$d (%3$d/%4$d)"
 msgstr[1] "Spracovávam %1$d komentáre pre problém # %2$d (%3$d/%4$d)"
-msgstr[2] "Spracovávam %1$d komentárov pre problém # %2$d (%3$d/%4$d)"
+msgstr[2] ""
+msgstr[3] "Spracovávam %1$d komentárov pre problém # %2$d (%3$d/%4$d)"
 
 #: /cli/Application/Command/Get/Project/Comments.php:331
 #, php-format
@@ -462,7 +496,8 @@ msgid "Fetch events for one issue from GitHub..."
 msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
 msgstr[0] "Načítať udalosti pre problém z GitHub..."
 msgstr[1] "Načítať udalosti pre <b>%d</b> problémy z GitHub..."
-msgstr[2] "Načítať udalosti pre <b>%d</b> problémov z GitHub..."
+msgstr[2] ""
+msgstr[3] "Načítať udalosti pre <b>%d</b> problémov z GitHub..."
 
 #: /cli/Application/Command/Get/Project/Events.php:178
 msgid "Adding events to the database..."
@@ -512,7 +547,8 @@ msgid "Retrieved <b>1</b> item from GitHub."
 msgid_plural "Retrieved <b>%d</b> items from GitHub."
 msgstr[0] "Načítaná <b>1</b> položka z GitHub."
 msgstr[1] "Načítané <b>%d</b> položky z GitHub."
-msgstr[2] "Načítaných <b>%d</b> položiek z GitHub."
+msgstr[2] ""
+msgstr[3] "Načítaných <b>%d</b> položiek z GitHub."
 
 #: /cli/Application/Command/Get/Project/Issues.php:258
 msgid "Adding issues to the database..."
@@ -583,7 +619,8 @@ msgid "Getting user info for one user."
 msgid_plural "Getting user info for %d users."
 msgstr[0] "Získavam informácie o jednom používateľovi."
 msgstr[1] "Získavam informácie o %d používateľoch."
-msgstr[2] "Získavam informácie o %d používateľoch."
+msgstr[2] ""
+msgstr[3] "Získavam informácie o %d používateľoch."
 
 #: /cli/Application/Command/Get/Users.php:115
 #, php-format
@@ -782,12 +819,12 @@ msgstr "Vytvoriť tabuľku komentárov"
 msgid "Create and update a dependency file."
 msgstr "Vytvorí a aktualizuje súbor závislostí."
 
-#: /cli/Application/Command/Make/Depfile.php:126
+#: /cli/Application/Command/Make/Depfile.php:128
 #, php-format
 msgid "Writing contents to: %s"
 msgstr "Zapisujem obsah do: %s"
 
-#: /cli/Application/Command/Make/Depfile.php:269
+#: /cli/Application/Command/Make/Depfile.php:271
 msgid "Language file not found: %tag%, %extension%, %domain%"
 msgstr "Jazykový súbor nebol nájdený: %tag%, %extension%, %domain%"
 
@@ -880,12 +917,12 @@ msgstr "Zostaviť viacero obrázkov do jedného veľkého (CSS spriting)."
 msgid "Compile Language flag images"
 msgstr "Zostaviť obrázky vlajok k jazykom"
 
-#: /cli/Application/Command/Make/Languageflags.php:111
+#: /cli/Application/Command/Make/Languageflags.php:113
 #, php-format
 msgid "Generating the combined image for %1$d flag images in %2$s"
 msgstr "Generujem kombinovaný obrázok pre %1$d obrázkov zástav v %2$s"
 
-#: /cli/Application/Command/Make/Languageflags.php:117
+#: /cli/Application/Command/Make/Languageflags.php:119
 #, php-format
 msgid "Writing the CSS file to %s"
 msgstr "Zapisujem CSS súbor do %s"
@@ -898,7 +935,7 @@ msgstr "Make engine"
 msgid "Generate repository information."
 msgstr "Vygeneruje informáciu do repository."
 
-#: /cli/Application/Command/Make/Repoinfo.php:50
+#: /cli/Application/Command/Make/Repoinfo.php:51
 msgid "Generate repository information"
 msgstr "Generovať informáciu o repository"
 
@@ -916,7 +953,8 @@ msgid "Finished with one error"
 msgid_plural "Finished with %d errors"
 msgstr[0] "Dokončené s jednou chybou"
 msgstr[1] "Dokončené s %d chybami"
-msgstr[2] "Dokončené s %d chybami"
+msgstr[2] ""
+msgstr[3] "Dokončené s %d chybami"
 
 #: /cli/Application/Command/Test/Checkstyle.php:65
 #: /cli/Application/Command/Test/Phpunit.php:56
@@ -1096,16 +1134,20 @@ msgstr "Aktualizuje lokálnu inštaláciu buď na zadanú verziu alebo najnovš�
 msgid "An optional version number to update to."
 msgstr "Voliteľné číslo verzie, na ktorú chcete aktualizovať."
 
-#: /cli/Application/Command/Update/Update.php:66
+#: /cli/Application/Command/Update/Server.php:76
+msgid "Installing current Composer dependencies and regenerating autoloader"
+msgstr ""
+
+#: /cli/Application/Command/Update/Update.php:56
 msgid "Used to update resources"
 msgstr "Používa sa na aktualizáciu zdrojov"
 
-#: /cli/tracker.php:99 /cli/tracker.php:131
+#: /cli/tracker.php:101 /cli/tracker.php:133
 #, php-format
 msgid "ERROR: %s"
 msgstr "CHYBA: %s"
 
-#: /cli/tracker.php:101 /cli/tracker.php:133
+#: /cli/tracker.php:103 /cli/tracker.php:135
 msgid "Call stack:"
 msgstr "Zásobník volaní:"
 

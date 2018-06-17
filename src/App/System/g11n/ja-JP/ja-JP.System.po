@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-12 14:02-0500\n"
-"PO-Revision-Date: 2017-07-04 12:44-0400\n"
+"POT-Creation-Date: 2018-06-13 19:12-0500\n"
+"PO-Revision-Date: 2018-06-17 16:28-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
@@ -34,11 +34,11 @@ msgid "Loaded configuration file: %s"
 msgstr "ロードされた構成ファイル: %s"
 
 #: /templates/system/routes.index.twig:6
-#: /templates/system/routes.index.twig:9
+#: /templates/system/routes.index.twig:10
 msgid "Routes"
 msgstr "ルート"
 
-#: /src/App/System/Controller/Config/Save.php:52
+#: /src/App/System/Controller/Config/Save.php:60
 msgid "The configuration file has been saved."
 msgstr "設定ファイルを保存しました。"
 

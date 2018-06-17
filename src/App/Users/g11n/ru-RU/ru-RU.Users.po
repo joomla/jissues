@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 16:01-0500\n"
-"PO-Revision-Date: 2017-07-04 12:44-0400\n"
+"POT-Creation-Date: 2018-06-13 19:12-0500\n"
+"PO-Revision-Date: 2018-06-17 16:28-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: ru\n"
@@ -26,24 +26,24 @@ msgid "Edit profile"
 msgstr "Изменить профиль"
 
 #: /templates/users/user.index.twig:22
-#: /templates/users/user.edit.twig:32
+#: /templates/users/user.edit.twig:34
 msgid "Refresh profile from GitHub"
 msgstr "Обновить профиль из GitHub"
 
-#: /templates/users/user.index.twig:26
+#: /templates/users/user.index.twig:27
 msgid "My Profile"
 msgstr "Мой профиль"
 
-#: /templates/users/user.index.twig:28
+#: /templates/users/user.index.twig:31
 msgid "Profile"
 msgstr "Профиль"
 
-#: /templates/users/user.index.twig:57
+#: /templates/users/user.index.twig:61
 #, php-format
 msgid "Language: %s"
 msgstr "Язык: %s"
 
-#: /templates/users/user.index.twig:62
+#: /templates/users/user.index.twig:66
 #, php-format
 msgid "Timezone: %1$s (GMT %2$s)"
 msgstr "Часовой пояс: %1$s (GMT %2$s)"
@@ -52,68 +52,68 @@ msgstr "Часовой пояс: %1$s (GMT %2$s)"
 msgid "Users"
 msgstr "Пользователи"
 
-#: /templates/users/users.index.twig:19
+#: /templates/users/users.index.twig:20
 msgid "Users List"
 msgstr "Список пользователей"
 
-#: /templates/users/users.index.twig:25
-#: /templates/users/users.index.twig:28
-#: /templates/users/users.index.twig:29
+#: /templates/users/users.index.twig:27
+#: /templates/users/users.index.twig:30
+#: /templates/users/users.index.twig:31
 msgid "Filter the list by user."
 msgstr "Фильтровать по пользователю."
 
-#: /templates/users/users.index.twig:34
+#: /templates/users/users.index.twig:36
 msgid "Clear"
 msgstr "Очистить"
 
-#: /templates/users/users.index.twig:41
-#: /templates/users/users.index.twig:73
+#: /templates/users/users.index.twig:43
+#: /templates/users/users.index.twig:75
 #, php-format
 msgid "Page %1$s of %2$s"
 msgstr "Страница %1$s из %2$s"
 
-#: /templates/users/users.index.twig:46
+#: /templates/users/users.index.twig:48
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: /templates/users/users.index.twig:48
+#: /templates/users/users.index.twig:50
 msgid "Actions"
 msgstr "Действия"
 
-#: /templates/users/users.index.twig:50
+#: /templates/users/users.index.twig:52
 msgid "ID"
 msgstr "ID"
 
-#: /templates/users/users.index.twig:66
+#: /templates/users/users.index.twig:68
 msgid "No items found."
 msgstr "Ничего не найдено."
 
 #: /templates/users/user.edit.twig:6
-#: /templates/users/user.edit.twig:17
+#: /templates/users/user.edit.twig:18
 msgid "Edit user"
 msgstr "Редактировать пользователя"
 
-#: /templates/users/user.edit.twig:22
+#: /templates/users/user.edit.twig:24
 msgid "Save"
 msgstr "Сохранить"
 
-#: /templates/users/user.edit.twig:27
+#: /templates/users/user.edit.twig:29
 msgid "Cancel"
 msgstr "Отменить"
 
-#: /templates/users/user.edit.twig:44
+#: /templates/users/user.edit.twig:46
 msgid "GitHub Profile"
 msgstr "GitHub профиль"
 
-#: /templates/users/user.edit.twig:67
+#: /templates/users/user.edit.twig:69
 msgid "Params"
 msgstr "Параметры"
 
-#: /templates/users/user.edit.twig:70
+#: /templates/users/user.edit.twig:72
 msgid "Language"
 msgstr "Язык"
 
-#: /templates/users/user.edit.twig:77
+#: /templates/users/user.edit.twig:79
 msgid "Timezone"
 msgstr "Часовой пояс"
 
@@ -134,7 +134,7 @@ msgstr "Вы не авторизованы для редактирования �
 msgid "You are not authorised to refresh this user."
 msgstr "У вас нет прав для обновления этого пользователя."
 
-#: /src/App/Users/Controller/User/Refresh.php:73
+#: /src/App/Users/Controller/User/Refresh.php:71
 msgid "The profile has been refreshed."
 msgstr "Этот профиль был успешно обновлен."
 

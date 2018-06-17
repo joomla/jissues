@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2017-07-04 12:43-0400\n"
+"POT-Creation-Date: 2018-06-17 15:17-0500\n"
+"PO-Revision-Date: 2018-06-17 16:27-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
@@ -67,21 +67,49 @@ msgstr "引数 「%s」 が認識されません。"
 msgid "GitHub rate limit:..."
 msgstr "GitHub レートの制限:..."
 
+#: /cli/Application/Command/Clear/Allcache.php:27
+msgid "Clear all cache stores."
+msgstr ""
+
+#: /cli/Application/Command/Clear/Allcache.php:39
+msgid "Clearing All Cache Stores"
+msgstr ""
+
+#: /cli/Application/Command/Clear/Allcache.php:54
+msgid "All cache stores have been cleared."
+msgstr ""
+
 #: /cli/Application/Command/Clear/Cache.php:29
-msgid "Clear the g11n language directory."
-msgstr "G11n の言語ディレクトリを消去します。"
+msgid "Clear the application cache."
+msgstr ""
 
 #: /cli/Application/Command/Clear/Cache.php:41
-msgid "Clear g11n Cache Directory"
-msgstr "G11n キャッシュ ディレクトリの消去"
+msgid "Clear Application Cache"
+msgstr ""
 
 #: /cli/Application/Command/Clear/Cache.php:48
-msgid "The g11n cache directory has been cleared."
-msgstr "G11n キャッシュ ディレクトリを消去しました。"
+msgid "The application cache has been cleared."
+msgstr ""
+
+#: /cli/Application/Command/Clear/Cache.php:52
+msgid "There was an error clearing the application cache."
+msgstr ""
 
 #: /cli/Application/Command/Clear/Clear.php:27
 msgid "This will clear things."
 msgstr "これは物事をクリアします。"
+
+#: /cli/Application/Command/Clear/Languagecache.php:29
+msgid "Clear the g11n language directory."
+msgstr "G11n の言語ディレクトリを消去します。"
+
+#: /cli/Application/Command/Clear/Languagecache.php:41
+msgid "Clear g11n Cache Directory"
+msgstr "G11n キャッシュ ディレクトリの消去"
+
+#: /cli/Application/Command/Clear/Languagecache.php:48
+msgid "The g11n cache directory has been cleared."
+msgstr "G11n キャッシュ ディレクトリを消去しました。"
 
 #: /cli/Application/Command/Clear/Twig.php:30
 msgid "Clear the Twig cache."
@@ -93,11 +121,11 @@ msgstr "Twig キャッシュディレクトリをクリア"
 
 #: /cli/Application/Command/Clear/Twig.php:46
 msgid "Twig caching is not enabled."
-msgstr ""
+msgstr "Twig のキャッシュが有効になっていません。"
 
 #: /cli/Application/Command/Clear/Twig.php:64
 msgid "The Twig cache directory has been cleared."
-msgstr ""
+msgstr "Twig のキャッシュディレクトリを消去しました。"
 
 #: /cli/Application/Command/Database/Database.php:27
 msgid "This will track the database status."
@@ -140,7 +168,7 @@ msgstr "データベースは最新です。"
 #, php-format
 msgid "Your database is not up-to-date. You are missing one migration."
 msgid_plural "Your database is not up-to-date. You are missing %d migrations."
-msgstr[0] ""
+msgstr[0] "データベースが最新ではありません。%d の移行が欠落しています。"
 
 #: /cli/Application/Command/Database/Status.php:65
 #, php-format
@@ -185,11 +213,11 @@ msgstr "言語ファイルのエクスポートを開始します。"
 #: /cli/Application/Command/Get/Users.php:59
 #: /cli/Application/Command/Make/Autocomplete.php:106
 #: /cli/Application/Command/Make/Dbcomments.php:91
-#: /cli/Application/Command/Make/Depfile.php:136
+#: /cli/Application/Command/Make/Depfile.php:138
 #: /cli/Application/Command/Make/Docu.php:115
 #: /cli/Application/Command/Make/Langfiles.php:133
-#: /cli/Application/Command/Make/Languageflags.php:122
-#: /cli/Application/Command/Make/Repoinfo.php:65
+#: /cli/Application/Command/Make/Languageflags.php:124
+#: /cli/Application/Command/Make/Repoinfo.php:74
 #: /cli/Application/Command/Test/Phploc.php:60
 #: /cli/Application/Command/Update/Languagefiles.php:86
 #: /cli/Application/Command/Update/Pulls.php:69
@@ -222,7 +250,7 @@ msgstr "ユーザはデータベースに見つかりませんでした。"
 #, php-format
 msgid "Processing avatars for one user."
 msgid_plural "Processing avatars for %d users."
-msgstr[0] ""
+msgstr[0] "%d ユーザ のアバターを処理しています。"
 
 #: /cli/Application/Command/Get/Avatars.php:113
 #, php-format
@@ -243,11 +271,11 @@ msgstr "ユーザ %s のデフォルト画像をコピー"
 #, php-format
 msgid "Added one new user avatar"
 msgid_plural "Added %d new user avatars"
-msgstr[0] ""
+msgstr[0] "%d 個の新しいユーザのアバターを追加しました"
 
 #: /cli/Application/Command/Get/Composertags.php:29
 msgid "Retrieve a list of project tags from GitHub and show their installed versions."
-msgstr ""
+msgstr "GitHubからプロジェクトタグの一覧を取得し、インストールされているバージョンを表示します。"
 
 #: /cli/Application/Command/Get/Composertags.php:35
 msgid "Show all tags or only the most recent."
@@ -276,19 +304,19 @@ msgstr "インストール済"
 msgid "Installed: %s"
 msgstr "インストール済: %s"
 
-#: /cli/Application/Command/Get/Get.php:84
+#: /cli/Application/Command/Get/Get.php:74
 msgid "Retrieve Information from various sources."
 msgstr "さまざまなソースから情報を取得します。"
 
-#: /cli/Application/Command/Get/Get.php:90
+#: /cli/Application/Command/Get/Get.php:80
 #: /cli/Application/Command/Test/Hook.php:66
-#: /cli/Application/Command/Update/Update.php:72
+#: /cli/Application/Command/Update/Update.php:62
 msgid "Process the project with the given ID."
 msgstr "指定された ID を持つプロジェクトを処理します。"
 
-#: /cli/Application/Command/Get/Get.php:96
+#: /cli/Application/Command/Get/Get.php:86
 #: /cli/Application/Command/Make/Make.php:41
-#: /cli/Application/Command/Update/Update.php:78
+#: /cli/Application/Command/Update/Update.php:68
 msgid "Don't use a progress bar."
 msgstr "プログレスバーを使用しないでください。"
 
@@ -351,11 +379,11 @@ msgstr "プロジェクトの情報を更新しています：%user%/%project%"
 
 #: /cli/Application/Command/Get/Project.php:135
 msgid "Bulk Finished"
-msgstr ""
+msgstr "一斉完了"
 
 #: /cli/Application/Command/Get/Project.php:308
 msgid "GitHub issues to process?"
-msgstr ""
+msgstr "GitHubの処理に問題がありますか？"
 
 #: /cli/Application/Command/Get/Project.php:310
 #: /cli/Application/Command/Get/Project/Issues.php:128
@@ -373,11 +401,11 @@ msgstr "選択："
 
 #: /cli/Application/Command/Get/Project.php:319
 msgid "Enter the first GitHub issue ID to process (from):"
-msgstr ""
+msgstr "処理する最初のGitHub発行IDを入力します:"
 
 #: /cli/Application/Command/Get/Project.php:323
 msgid "Enter the latest GitHub issue ID to process (to):"
-msgstr ""
+msgstr "処理する最新の GitHub の問題 ID を入力します:"
 
 #: /cli/Application/Command/Get/Project/Comments.php:41
 msgid "Retrieve comments from GitHub."
@@ -395,7 +423,7 @@ msgstr "コメントの取得を開始"
 #, php-format
 msgid "Fetching comments for <b>one</b> modified issue from GitHub..."
 msgid_plural "Fetching comments for <b>%d</b> modified issues from GitHub..."
-msgstr[0] ""
+msgstr[0] "Github で変更された<b>%d</b> 件の問題のコメントを取得しています。"
 
 #: /cli/Application/Command/Get/Project/Comments.php:167
 #: /cli/Application/Command/Get/Project/Events.php:168
@@ -406,7 +434,7 @@ msgstr "すべてが最新です。"
 #, php-format
 msgid "Processing comments for one modified issue..."
 msgid_plural "Processing comments for %d modified issues..."
-msgstr[0] ""
+msgstr[0] "%d 件の変更された問題のコメントを処理中..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:210
 #, php-format
@@ -417,12 +445,12 @@ msgstr "問題 #%d へのコメントなし"
 #, php-format
 msgid "Processing one comment for issue # %2$d (%3$d/%4$d)"
 msgid_plural "Processing %1$d comments for issue # %2$d (%3$d/%4$d)"
-msgstr[0] ""
+msgstr[0] "問題 # %2$d (%3$d/%4$d) の %1$d コメントを処理しています"
 
 #: /cli/Application/Command/Get/Project/Comments.php:331
 #, php-format
 msgid "%1$d added, %2$d updated, %3$d deleted."
-msgstr ""
+msgstr "%1$d 件追加、 %2$d 件更新、 %3$d 件削除されました。"
 
 #: /cli/Application/Command/Get/Project/Comments.php:352
 msgid "Getting issue comments."
@@ -448,7 +476,7 @@ msgstr "イベントの取得を開始"
 #, php-format
 msgid "Fetch events for one issue from GitHub..."
 msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
-msgstr[0] ""
+msgstr[0] "Github で変更された<b>%d</b> 件の問題のコメントを取得しています。"
 
 #: /cli/Application/Command/Get/Project/Events.php:178
 msgid "Adding events to the database..."
@@ -496,7 +524,7 @@ msgstr "GitHub から <b>%s</b> アイテムを取得しています..."
 #, php-format
 msgid "Retrieved <b>1</b> item from GitHub."
 msgid_plural "Retrieved <b>%d</b> items from GitHub."
-msgstr[0] ""
+msgstr[0] "GitHubから <b>%d</b> 件のアイテムを取得しています。"
 
 #: /cli/Application/Command/Get/Project/Issues.php:258
 msgid "Adding issues to the database..."
@@ -505,7 +533,7 @@ msgstr "問題をデータベースに追加しています..."
 #: /cli/Application/Command/Get/Project/Issues.php:470
 #, php-format
 msgid "<ok>%1$d added, %2$d updated.</ok>"
-msgstr ""
+msgstr "<ok>%1$d 件追加、%2$d 件更新されました。</ok>"
 
 #: /cli/Application/Command/Get/Project/Labels.php:31
 msgid "Retrieve project labels from GitHub."
@@ -526,7 +554,7 @@ msgstr "ラベルをフェッチ中です..."
 #: /cli/Application/Command/Get/Project/Labels.php:141
 #, php-format
 msgid "Labels: %1$d new, %2$d updated, %3$d deleted."
-msgstr ""
+msgstr "ラベル: %1$d 件の追加、 %2$d 件更新、 %3$d 件削除しました。"
 
 #: /cli/Application/Command/Get/Project/Milestones.php:33
 msgid "Retrieve project milestones from GitHub."
@@ -565,7 +593,7 @@ msgstr "ユーザの取得を開始します。"
 #, php-format
 msgid "Getting user info for one user."
 msgid_plural "Getting user info for %d users."
-msgstr[0] ""
+msgstr[0] "%d ユーザのユーザー情報を取得しています。"
 
 #: /cli/Application/Command/Get/Users.php:115
 #, php-format
@@ -701,11 +729,11 @@ msgstr "オートコンプリート ファイルを生成します。"
 #: /cli/Application/Command/Make/Autocomplete.php:56
 #, php-format
 msgid "The type of auto complete file (currently supported: %s)."
-msgstr ""
+msgstr "現在サポートされているオートコンプリートファイルのタイプは %s です。"
 
 #: /cli/Application/Command/Make/Autocomplete.php:62
 msgid "Echo the output instead of writing it to a file."
-msgstr ""
+msgstr "出力をファイルに書き込むのではなくエコーします。"
 
 #: /cli/Application/Command/Make/Autocomplete.php:76
 msgid "Make Auto complete"
@@ -714,7 +742,7 @@ msgstr "オートコンプリートにする"
 #: /cli/Application/Command/Make/Autocomplete.php:90
 #, php-format
 msgid "Invalid type supplied. Valid types are: %s"
-msgstr ""
+msgstr "無効なタイプが指定されました。 有効なタイプは %s です。"
 
 #: /cli/Application/Command/Make/Autocomplete.php:178
 #: /cli/Application/Command/Make/Autocomplete.php:244
@@ -723,7 +751,7 @@ msgstr "ファイルを %path% に書き込みました"
 
 #: /cli/Application/Command/Make/Composergraph.php:40
 msgid "Graph visualisation for your project's composer.json and its dependencies."
-msgstr ""
+msgstr "プロジェクトのcomposer.jsonとその依存関係のグラフを可視化します。"
 
 #: /cli/Application/Command/Make/Composergraph.php:46
 #: /cli/Application/Command/Make/Depfile.php:57
@@ -754,7 +782,7 @@ msgstr "フォーマットを %s に設定しました"
 
 #: /cli/Application/Command/Make/Dbcomments.php:27
 msgid "Generate class doc blocks for Table classes"
-msgstr ""
+msgstr "テーブルクラスのクラスdocブロックを生成する"
 
 #: /cli/Application/Command/Make/Dbcomments.php:39
 msgid "Make Table Comments"
@@ -764,18 +792,18 @@ msgstr "テーブルのコメントを作成"
 msgid "Create and update a dependency file."
 msgstr "依存ファイルを作成して更新します。"
 
-#: /cli/Application/Command/Make/Depfile.php:126
+#: /cli/Application/Command/Make/Depfile.php:128
 #, php-format
 msgid "Writing contents to: %s"
 msgstr "%s に内容を書き込んでいます"
 
-#: /cli/Application/Command/Make/Depfile.php:269
+#: /cli/Application/Command/Make/Depfile.php:271
 msgid "Language file not found: %tag%, %extension%, %domain%"
 msgstr "言語ファイルが見つかりません: %tag%, %extension%, %domain%"
 
 #: /cli/Application/Command/Make/Docu.php:29
 msgid "Compile documentation using GitHub Flavored Markdown"
-msgstr ""
+msgstr "GitHub Flavored Markdownを使用してドキュメントをコンパイルする"
 
 #: /cli/Application/Command/Make/Docu.php:41
 msgid "Make Documentation"
@@ -856,47 +884,47 @@ msgstr "CSS ファイルまでのフルパスです。"
 
 #: /cli/Application/Command/Make/Languageflags.php:44
 msgid "Compile multiple images into a big one (CSS spriting)."
-msgstr ""
+msgstr "複数の画像を大きなものにコンパイルします (CSSスプライト)。"
 
 #: /cli/Application/Command/Make/Languageflags.php:56
 msgid "Compile Language flag images"
 msgstr "言語国旗画像をコンパイル"
 
-#: /cli/Application/Command/Make/Languageflags.php:111
+#: /cli/Application/Command/Make/Languageflags.php:113
 #, php-format
 msgid "Generating the combined image for %1$d flag images in %2$s"
-msgstr ""
+msgstr "%1$d のフラグ画像の合成画像を %2$s に生成します。"
 
-#: /cli/Application/Command/Make/Languageflags.php:117
+#: /cli/Application/Command/Make/Languageflags.php:119
 #, php-format
 msgid "Writing the CSS file to %s"
 msgstr "%s にCSS ファイルを書き込んでいます"
 
 #: /cli/Application/Command/Make/Make.php:36
 msgid "The make engine"
-msgstr ""
+msgstr "メイクエンジン"
 
 #: /cli/Application/Command/Make/Repoinfo.php:35
 msgid "Generate repository information."
 msgstr "リポジトリ情報を生成します。"
 
-#: /cli/Application/Command/Make/Repoinfo.php:50
+#: /cli/Application/Command/Make/Repoinfo.php:51
 msgid "Generate repository information"
 msgstr "リポジトリ情報を生成します。"
 
 #: /cli/Application/Command/Test/Checkstyle.php:29
 msgid "Run PHP CodeSniffer tests."
-msgstr ""
+msgstr "PHP CodeSnifferテストを実行します。"
 
 #: /cli/Application/Command/Test/Checkstyle.php:42
 msgid "Test Checkstyle"
-msgstr ""
+msgstr "Checkstyle でテスト"
 
 #: /cli/Application/Command/Test/Checkstyle.php:64
 #, php-format
 msgid "Finished with one error"
 msgid_plural "Finished with %d errors"
-msgstr[0] ""
+msgstr[0] "%d 件のエラーで終了しました"
 
 #: /cli/Application/Command/Test/Checkstyle.php:65
 #: /cli/Application/Command/Test/Phpunit.php:56
@@ -905,7 +933,7 @@ msgstr "成功"
 
 #: /cli/Application/Command/Test/Copypaste.php:30
 msgid "Run Copy/Paste Detector (CPD) for PHP code."
-msgstr ""
+msgstr "PHPコードのコピー/ペースト検出器 (CPD) を実行します。"
 
 #: /cli/Application/Command/Test/Copypaste.php:43
 msgid "Run Copy/Paste Detector"
@@ -934,11 +962,11 @@ msgstr "言語ファイルのシンタックス OK"
 
 #: /cli/Application/Command/Test/Phploc.php:30
 msgid "Run Lines Of Code (LOC) for PHP code."
-msgstr ""
+msgstr "PHPコードのLOC (Lines Of Codes) を実行します。"
 
 #: /cli/Application/Command/Test/Phploc.php:43
 msgid "Run PHP Lines Of Code"
-msgstr ""
+msgstr "コードのPHP行を実行する"
 
 #: /cli/Application/Command/Test/Phpunit.php:29
 msgid "Run PHPUnit tests."
@@ -958,15 +986,15 @@ msgstr "すべてのテストを実行"
 
 #: /cli/Application/Command/Test/Run.php:39
 msgid "Test Suite"
-msgstr ""
+msgstr "テスト スイート"
 
 #: /cli/Application/Command/Test/Run.php:66
 msgid "Test Suite Finished with errors."
-msgstr ""
+msgstr "テスト スイートはエラーで終了しました。"
 
 #: /cli/Application/Command/Test/Run.php:67
 msgid "Test Suite Finished."
-msgstr ""
+msgstr "テスト スイートが完了しました。"
 
 #: /cli/Application/Command/Test/Test.php:35
 msgid "The test engine"
@@ -975,7 +1003,7 @@ msgstr "テスト エンジン"
 #: /cli/Application/Command/TrackerCommand.php:235
 #, php-format
 msgid "Missing option for command: %s"
-msgstr ""
+msgstr "コマンド %s のオプションが不足しています"
 
 #: /cli/Application/Command/TrackerCommand.php:236
 msgid "Please use one of the following :"
@@ -1014,11 +1042,11 @@ msgstr "翻訳サービスで言語ファイルを更新します。"
 
 #: /cli/Application/Command/Update/Languagefiles.php:57
 msgid "Flag if resources should be created."
-msgstr ""
+msgstr "リソースを作成する必要がある場合はフラグを立てます。"
 
 #: /cli/Application/Command/Update/Languagefiles.php:63
 msgid "Flag if translations should be uploaded."
-msgstr ""
+msgstr "翻訳をアップロードする必要がある場合は、フラグを立てます。"
 
 #: /cli/Application/Command/Update/Languagefiles.php:77
 msgid "Update Translations"
@@ -1044,24 +1072,24 @@ msgstr "プロジェクトのプルリクエストを更新中：%s/%s"
 #: /cli/Application/Command/Update/Pulls.php:101
 #, php-format
 msgid "GitHub item %s/%s #%d has been closed because it is a pull targeting Joomla! 2.5."
-msgstr ""
+msgstr "GitHub アイテム %s/%s #%d はJoomla! 2.5をターゲットにしているため閉鎖されました。"
 
 #: /cli/Application/Command/Update/Pulls.php:114
 #: /cli/Application/Command/Update/Pulls.php:238
 #: /cli/Application/Command/Update/Pulls.php:285
 #, php-format
 msgid "The %s/%s project is not supported by this command at this time."
-msgstr ""
+msgstr "この時点でこのコマンドによる %s/%s プロジェクトはサポートされていません。"
 
 #: /cli/Application/Command/Update/Pulls.php:201
 #, php-format
 msgid "GitHub item %s/%s #%d already has the %s label."
-msgstr ""
+msgstr "GitHub アイテム %s/%s #%d すでに %s ラベルがあります。"
 
 #: /cli/Application/Command/Update/Pulls.php:220
 #, php-format
 msgid "Adding %s label to %s/%s #%d"
-msgstr ""
+msgstr "%s/%s #%d に %s ラベルを追加しています"
 
 #: /cli/Application/Command/Update/Pulls.php:272
 #, php-format
@@ -1070,22 +1098,26 @@ msgstr "GitHub アイテム %s/%s #%d は、そのマージ ステータスを�
 
 #: /cli/Application/Command/Update/Server.php:33
 msgid "Updates the local installation to either a specified version or latest git HEAD for the active branch"
-msgstr ""
+msgstr "ローカルインストールを、アクティブなブランチの指定されたバージョンまたは最新のgit HEADに更新します。"
 
 #: /cli/Application/Command/Update/Server.php:38
 msgid "An optional version number to update to."
 msgstr "更新するためのオプションのバージョン番号です。"
 
-#: /cli/Application/Command/Update/Update.php:66
+#: /cli/Application/Command/Update/Server.php:76
+msgid "Installing current Composer dependencies and regenerating autoloader"
+msgstr ""
+
+#: /cli/Application/Command/Update/Update.php:56
 msgid "Used to update resources"
 msgstr "リソースを更新するために使用"
 
-#: /cli/tracker.php:99 /cli/tracker.php:131
+#: /cli/tracker.php:101 /cli/tracker.php:133
 #, php-format
 msgid "ERROR: %s"
 msgstr "エラー：%s"
 
-#: /cli/tracker.php:101 /cli/tracker.php:133
+#: /cli/tracker.php:103 /cli/tracker.php:135
 msgid "Call stack:"
 msgstr "コールスタック："
 

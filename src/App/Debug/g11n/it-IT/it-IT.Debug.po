@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2017-07-04 12:43-0400\n"
+"POT-Creation-Date: 2018-06-13 19:12-0500\n"
+"PO-Revision-Date: 2018-06-17 16:28-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -16,104 +16,104 @@ msgstr ""
 "X-Crowdin-File: /Joomla! Issue Tracker Website/debug-app_en.po\n"
 "Language: it_IT\n"
 
-#: /src/App/Debug/Database/DatabaseDebugger.php:104
+#: /src/App/Debug/Database/DatabaseDebugger.php:102
 #, php-format
 msgid "Failed EXPLAIN on query: %s"
 msgstr "Fallito EXPLAIN sulla query: %s"
 
-#: /src/App/Debug/Database/DatabaseDebugger.php:133
+#: /src/App/Debug/Database/DatabaseDebugger.php:131
 #, php-format
 msgid "%s database is not supported yet."
 msgstr "database %s non è ancora supportato."
 
-#: /src/App/Debug/TrackerDebugger.php:264
+#: /src/App/Debug/Renderer/Html.php:59
 msgid "Database"
 msgstr "Database"
 
-#: /src/App/Debug/TrackerDebugger.php:273
-#: /src/App/Debug/TrackerDebugger.php:364
+#: /src/App/Debug/Renderer/Html.php:68
+#: /src/App/Debug/Renderer/Html.php:162
 msgid "Profile"
 msgstr "Profilo"
 
-#: /src/App/Debug/TrackerDebugger.php:278
-#: /src/App/Debug/TrackerDebugger.php:421
+#: /src/App/Debug/Renderer/Html.php:73
+#: /src/App/Debug/Renderer/Html.php:218
 msgid "User"
 msgstr "Utente"
 
-#: /src/App/Debug/TrackerDebugger.php:283
-#: /src/App/Debug/TrackerDebugger.php:427
+#: /src/App/Debug/Renderer/Html.php:78
+#: /src/App/Debug/Renderer/Html.php:224
 msgid "Project"
 msgstr "Progetto"
 
-#: /src/App/Debug/TrackerDebugger.php:288
-#: /src/App/Debug/TrackerDebugger.php:435
+#: /src/App/Debug/Renderer/Html.php:83
+#: /src/App/Debug/Renderer/Html.php:232
 msgid "Request"
 msgstr "Richiesta"
 
-#: /src/App/Debug/TrackerDebugger.php:296
+#: /src/App/Debug/Renderer/Html.php:91
 msgid "Language Strings"
 msgstr "Stringhe di lingua"
 
-#: /src/App/Debug/TrackerDebugger.php:301
+#: /src/App/Debug/Renderer/Html.php:96
 msgid "Language Files"
 msgstr "File di lingua"
 
-#: /src/App/Debug/TrackerDebugger.php:343
+#: /src/App/Debug/Renderer/Html.php:141
 msgid "Go up"
 msgstr "Vai su"
 
-#: /src/App/Debug/TrackerDebugger.php:353
-#: /src/App/Debug/TrackerDebugger.php:658
+#: /src/App/Debug/Renderer/Html.php:151
+#: /src/App/Debug/Renderer/Html.php:279
 #, php-format
 msgid "One database query"
 msgid_plural "%d database queries"
 msgstr[0] "Una query di database"
 msgstr[1] "%d query di database"
 
-#: /src/App/Debug/TrackerDebugger.php:381
+#: /src/App/Debug/Renderer/Html.php:178
 #, php-format
 msgid "One untranslated string of %2$d"
 msgid_plural "%1$d untranslated strings of %2$d"
 msgstr[0] "Una stringa non tradotta di %2$d"
 msgstr[1] "%1$d stringhe non tradotte di %2$d"
 
-#: /src/App/Debug/TrackerDebugger.php:389
+#: /src/App/Debug/Renderer/Html.php:186
 #, php-format
 msgid "One language file loaded"
 msgid_plural "%d language files loaded"
 msgstr[0] "Un file lingua caricato"
 msgstr[1] "%d file lingua caricati"
 
-#: /src/App/Debug/TrackerDebugger.php:400
+#: /src/App/Debug/Renderer/Html.php:197
 msgid "No Project"
 msgstr "Nessun progetto"
 
-#: /src/App/Debug/TrackerDebugger.php:423
+#: /src/App/Debug/Renderer/Html.php:220
 msgid "Guest"
 msgstr "Ospite"
 
-#: /src/App/Debug/TrackerDebugger.php:433
+#: /src/App/Debug/Renderer/Html.php:230
 msgid "Request variables"
 msgstr "Variabili di richiesta"
 
-#: /src/App/Debug/TrackerDebugger.php:442
+#: /src/App/Debug/Renderer/Html.php:239
 msgid "Build"
 msgstr "Costruisci"
 
-#: /src/App/Debug/TrackerDebugger.php:508
+#: /src/App/Debug/Renderer/Html.php:365
 #, php-format
 msgid "Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>"
 msgstr "Forme plurali: <code>%1$d</code><br />Funzione plurale: <code>%2$s</code>"
 
-#: /src/App/Debug/TrackerDebugger.php:741
+#: /src/App/Debug/Renderer/Html.php:387
 msgid "File (line)"
 msgstr "File (riga)"
 
-#: /src/App/Debug/TrackerDebugger.php:741
+#: /src/App/Debug/Renderer/Html.php:387
 msgid "String"
 msgstr "Stringa"
 
-#: /src/App/Debug/View/Logs/LogsHtmlView.php:73
+#: /src/App/Debug/View/Logs/LogsHtmlView.php:60
 #, php-format
 msgid "No %s log file found."
 msgstr "Nessun file di log %s trovato."

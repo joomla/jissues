@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2017-07-04 12:43-0400\n"
+"POT-Creation-Date: 2018-06-13 19:12-0500\n"
+"PO-Revision-Date: 2018-06-17 16:28-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Serbian (Cyrillic)\n"
 "MIME-Version: 1.0\n"
@@ -16,143 +16,135 @@ msgstr ""
 "X-Crowdin-File: /Joomla! Issue Tracker Website/activity-app_en.po\n"
 "Language: sr_SP\n"
 
-#: /templates/activity/useractivity.index.twig:6
+#: /templates/activity/totaluseractivity.index.twig:6
 #, php-format
-msgid "%s - User Activity Chart"
-msgstr "%s - Активности Корисника - графикон"
+msgid "%s - Total Activity Chart"
+msgstr "%s - Графикон Тоталне Активности"
 
-#: /templates/activity/useractivity.index.twig:20
+#: /templates/activity/totaluseractivity.index.twig:21
 #, php-format
-msgid "User Tracker Activity - %s"
-msgstr "Праћење активности корисника - %s"
+msgid "Total Activity - %s"
+msgstr "Укупна Активност - %s"
 
-#: /templates/activity/useractivity.index.twig:25
-#: /templates/activity/totaluseractivity.index.twig:25
-#: /templates/activity/projectactivity.index.twig:30
+#: /templates/activity/totaluseractivity.index.twig:27
+#: /templates/activity/useractivity.index.twig:28
+#: /templates/activity/projectactivity.index.twig:32
 msgid "Chart Options"
 msgstr "Опције За Графикон"
 
-#: /templates/activity/useractivity.index.twig:28
-#: /templates/activity/totaluseractivity.index.twig:28
-#: /templates/activity/projectactivity.index.twig:33
+#: /templates/activity/totaluseractivity.index.twig:30
+#: /templates/activity/useractivity.index.twig:31
+#: /templates/activity/projectactivity.index.twig:35
 msgid "Period"
 msgstr "Период"
 
-#: /templates/activity/useractivity.index.twig:30
-#: /templates/activity/totaluseractivity.index.twig:30
-#: /templates/activity/projectactivity.index.twig:35
+#: /templates/activity/totaluseractivity.index.twig:32
+#: /templates/activity/useractivity.index.twig:33
+#: /templates/activity/projectactivity.index.twig:37
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:83
 msgid "7 Days"
 msgstr "7 Дана"
 
-#: /templates/activity/useractivity.index.twig:31
-#: /templates/activity/totaluseractivity.index.twig:31
-#: /templates/activity/projectactivity.index.twig:36
+#: /templates/activity/totaluseractivity.index.twig:33
+#: /templates/activity/useractivity.index.twig:34
+#: /templates/activity/projectactivity.index.twig:38
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:83
 msgid "30 Days"
 msgstr "30 Дана"
 
-#: /templates/activity/useractivity.index.twig:32
-#: /templates/activity/totaluseractivity.index.twig:32
-#: /templates/activity/projectactivity.index.twig:37
+#: /templates/activity/totaluseractivity.index.twig:34
+#: /templates/activity/useractivity.index.twig:35
+#: /templates/activity/projectactivity.index.twig:39
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:83
 msgid "90 Days"
 msgstr "90 Дана"
 
-#: /templates/activity/useractivity.index.twig:33
-msgid "1 Year"
-msgstr "1 Година"
-
-#: /templates/activity/useractivity.index.twig:34
-msgid "Custom Period"
-msgstr "Прилагођен Период"
-
-#: /templates/activity/useractivity.index.twig:37
-#: /templates/activity/totaluseractivity.index.twig:35
+#: /templates/activity/totaluseractivity.index.twig:37
+#: /templates/activity/useractivity.index.twig:40
 msgid "Type"
 msgstr "Тип"
 
-#: /templates/activity/useractivity.index.twig:39
-#: /templates/activity/totaluseractivity.index.twig:37
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:86
-#: /src/App/Activity/Controller/Ajax/UserActivity.php:86
+#: /templates/activity/totaluseractivity.index.twig:39
+#: /templates/activity/useractivity.index.twig:42
 msgid "All"
 msgstr "Све"
 
-#: /templates/activity/useractivity.index.twig:40
-#: /templates/activity/totaluseractivity.index.twig:38
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:86
-#: /src/App/Activity/Controller/Ajax/UserActivity.php:86
+#: /templates/activity/totaluseractivity.index.twig:40
+#: /templates/activity/useractivity.index.twig:43
 msgid "Tracker"
 msgstr "Систем за праћење (Tracker)"
 
-#: /templates/activity/useractivity.index.twig:41
-#: /templates/activity/totaluseractivity.index.twig:39
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:86
-#: /src/App/Activity/Controller/Ajax/UserActivity.php:86
+#: /templates/activity/totaluseractivity.index.twig:41
+#: /templates/activity/useractivity.index.twig:44
 msgid "Test"
 msgstr "Тест"
 
-#: /templates/activity/useractivity.index.twig:42
-#: /templates/activity/totaluseractivity.index.twig:40
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:86
-#: /src/App/Activity/Controller/Ajax/UserActivity.php:86
+#: /templates/activity/totaluseractivity.index.twig:42
+#: /templates/activity/useractivity.index.twig:45
 msgid "Code"
 msgstr "Код"
 
-#: /templates/activity/useractivity.index.twig:45
-#: /templates/activity/totaluseractivity.index.twig:43
-#: /templates/activity/projectactivity.index.twig:40
+#: /templates/activity/totaluseractivity.index.twig:45
+#: /templates/activity/useractivity.index.twig:48
+#: /templates/activity/projectactivity.index.twig:42
 msgid "Update Chart"
 msgstr "Учитај Графикон"
-
-#: /templates/activity/useractivity.index.twig:49
-msgid "Start Date"
-msgstr "Датум почетка"
-
-#: /templates/activity/useractivity.index.twig:51
-msgid "End Date"
-msgstr "Крајњи датум"
 
 #: /templates/activity/snapshot.index.twig:6
 #, php-format
 msgid "%s - Open Issues By Status"
 msgstr "%s - Пријављени Проблеми Према Статусу"
 
-#: /templates/activity/snapshot.index.twig:20
+#: /templates/activity/snapshot.index.twig:21
 #, php-format
 msgid "Open Issues By Status - %s"
 msgstr "Пријављени Проблеми Према Статусу - %s"
 
-#: /templates/activity/totaluseractivity.index.twig:6
+#: /templates/activity/useractivity.index.twig:6
 #, php-format
-msgid "%s - Total Activity Chart"
-msgstr "%s - Графикон Тоталне Активности"
+msgid "%s - User Activity Chart"
+msgstr "%s - Активности Корисника - графикон"
 
-#: /templates/activity/totaluseractivity.index.twig:20
+#: /templates/activity/useractivity.index.twig:22
 #, php-format
-msgid "Total Activity - %s"
-msgstr "Укупна Активност - %s"
+msgid "User Tracker Activity - %s"
+msgstr "Праћење активности корисника - %s"
+
+#: /templates/activity/useractivity.index.twig:36
+msgid "1 Year"
+msgstr "1 Година"
+
+#: /templates/activity/useractivity.index.twig:37
+msgid "Custom Period"
+msgstr "Прилагођен Период"
+
+#: /templates/activity/useractivity.index.twig:52
+msgid "Start Date"
+msgstr "Датум почетка"
+
+#: /templates/activity/useractivity.index.twig:54
+msgid "End Date"
+msgstr "Крајњи датум"
 
 #: /templates/activity/projectactivity.index.twig:6
 #, php-format
 msgid "%s - Project Activity Chart"
 msgstr "%s - Графикон Активности На Пројекту"
 
-#: /templates/activity/projectactivity.index.twig:20
+#: /templates/activity/projectactivity.index.twig:21
 #, php-format
 msgid "Project Open & Close Activity - %s"
 msgstr "Активност на отварању и затварању пројеката - %s"
 
-#: /templates/activity/projectactivity.index.twig:25
+#: /templates/activity/projectactivity.index.twig:27
 msgid "Note: An issue in the tracker may be closed in one of two ways. It may be fixed with a code change, or it may be closed because it was a duplicate issue or not considered to be a bug."
 msgstr "Напомена: Проблем у праћењу може бити затворен на један од два начина. Можда је сређен током промене кода или је можда затворена јер је то дупло наведен проблем или се не сматра бугом."
 
-#: /templates/activity/projectactivity.index.twig:26
+#: /templates/activity/projectactivity.index.twig:28
 msgid "Fixed issues are issues for which a code change was made to fix the issue. Other Closed issues are issues that were closed because they were duplicate reports or not bugs."
 msgstr "Сређени проблеми су они проблеми за које је извршена измена кода како би се решио проблем. Остали затворени проблеми су проблеми који су били затворени јер су били двоструки извештаји или нису биле грешке."
 
-#: /templates/activity/projectactivity.index.twig:27
+#: /templates/activity/projectactivity.index.twig:29
 msgid "Please note that pull requests merged before 12 March 2016 may not have the correct status and are included in the Other Closed issues count if so."
 msgstr "Имајте на уму да се захтеви за повлачење који су спојени пре 12. марта 2016. можда неће имати тачан статус и уколико су укључени у секцију Остали Затворени Проблеми."
 
@@ -220,13 +212,28 @@ msgstr "Поправљено"
 msgid "Other Closed"
 msgstr "Остало Затворено"
 
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:88
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:89
 #, php-format
-msgid "%1$s Points for Past Four %2$s"
-msgstr "%1$s Поени за претходну четвртину %2$s"
+msgid "All Points for Past Four %s"
+msgstr ""
 
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:122
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:126
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:91
+#, php-format
+msgid "Tracker Points for Past Four %s"
+msgstr ""
+
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:93
+#, php-format
+msgid "Test Points for Past Four %s"
+msgstr ""
+
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:95
+#, php-format
+msgid "Code Points for Past Four %s"
+msgstr ""
+
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:132
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:136
 #, php-format
 msgid "%1$s Points"
 msgstr "%1$s Поени"
@@ -235,29 +242,55 @@ msgstr "%1$s Поени"
 msgid "12 Months"
 msgstr "12 Месеци"
 
-#: /src/App/Activity/Controller/Ajax/UserActivity.php:83
-msgid "Custom"
-msgstr "Прилагођено"
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:99
+#, php-format
+msgid "All Points From %1$s Through %2$s"
+msgstr ""
 
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:101
 #, php-format
-msgid "%1$s Points From %2$s Through %3$s"
-msgstr "%1$s Бодова од %2$s Кроз %3$s"
+msgid "Tracker Points From %1$s Through %2$s"
+msgstr ""
 
-#: /src/App/Activity/Controller/Ajax/UserActivity.php:106
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:103
 #, php-format
-msgid "%1$s Points for Past %2$s"
-msgstr "%1$s Бодова за Претходних %2$s"
+msgid "Test Points From %1$s Through %2$s"
+msgstr ""
 
-#: /src/App/Activity/Controller/Ajax/UserActivity.php:129
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:105
+#, php-format
+msgid "Code Points From %1$s Through %2$s"
+msgstr ""
+
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:115
+#, php-format
+msgid "All Points for Past %s"
+msgstr ""
+
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:117
+#, php-format
+msgid "Tracker Points for Past %s"
+msgstr ""
+
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:119
+#, php-format
+msgid "Test Points for Past %s"
+msgstr ""
+
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:121
+#, php-format
+msgid "Code Points for Past %s"
+msgstr ""
+
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:147
 msgid "Tracker Points"
 msgstr "Поени За Праћење"
 
-#: /src/App/Activity/Controller/Ajax/UserActivity.php:130
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:148
 msgid "Test Points"
 msgstr "Поени За Тестирање"
 
-#: /src/App/Activity/Controller/Ajax/UserActivity.php:131
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:149
 msgid "Code Points"
 msgstr "Поени За Програмирање"
 

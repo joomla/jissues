@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2017-07-04 12:43-0400\n"
+"POT-Creation-Date: 2018-06-17 15:17-0500\n"
+"PO-Revision-Date: 2018-06-17 16:27-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Norwegian Bokmal\n"
 "MIME-Version: 1.0\n"
@@ -18,11 +18,11 @@ msgstr ""
 
 #: /cli/Application/Application.php:113
 msgid "Be quiet - suppress output."
-msgstr ""
+msgstr "Vær stille - undertrykker output."
 
 #: /cli/Application/Application.php:118
 msgid "Verbose output for debugging purpose."
-msgstr ""
+msgstr "Omfattende output til bruk ved feilsøking."
 
 #: /cli/Application/Application.php:123
 msgid "Suppress ANSI colours on unsupported terminals."
@@ -34,145 +34,173 @@ msgstr ""
 
 #: /cli/Application/Application.php:133
 msgid "Set the language used by the application."
-msgstr ""
+msgstr "Angi språket som skal brukes i denne applikasjonen."
 
 #: /cli/Application/Application.php:160
 msgid "Joomla! Tracker CLI Application"
-msgstr ""
+msgstr "Joomla! Tracker CLI applikasjon"
 
 #: /cli/Application/Application.php:181
 #, php-format
 msgid "Invalid command: %s"
-msgstr ""
+msgstr "Ugyldig kommando: %s"
 
 #: /cli/Application/Application.php:188
 msgid "Did you mean one of this?"
-msgstr ""
+msgstr "Mente du en av disse?"
 
 #: /cli/Application/Application.php:219
 msgid "Process aborted."
-msgstr ""
+msgstr "Prosess avbrutt."
 
 #: /cli/Application/Application.php:226
 #, php-format
 msgid "Execution time: <b>%d sec.</b>"
-msgstr ""
+msgstr "Utførelsestid: <b>%d sek.</b>"
 
 #: /cli/Application/Application.php:388
 #, php-format
 msgid "The argument \"%s\" is not recognized."
-msgstr ""
+msgstr "Argumentet \"%s\" ble ikke gjenkjent."
 
 #: /cli/Application/Application.php:425
 msgid "GitHub rate limit:..."
 msgstr ""
 
+#: /cli/Application/Command/Clear/Allcache.php:27
+msgid "Clear all cache stores."
+msgstr ""
+
+#: /cli/Application/Command/Clear/Allcache.php:39
+msgid "Clearing All Cache Stores"
+msgstr ""
+
+#: /cli/Application/Command/Clear/Allcache.php:54
+msgid "All cache stores have been cleared."
+msgstr ""
+
 #: /cli/Application/Command/Clear/Cache.php:29
-msgid "Clear the g11n language directory."
+msgid "Clear the application cache."
 msgstr ""
 
 #: /cli/Application/Command/Clear/Cache.php:41
-msgid "Clear g11n Cache Directory"
+msgid "Clear Application Cache"
 msgstr ""
 
 #: /cli/Application/Command/Clear/Cache.php:48
-msgid "The g11n cache directory has been cleared."
+msgid "The application cache has been cleared."
+msgstr ""
+
+#: /cli/Application/Command/Clear/Cache.php:52
+msgid "There was an error clearing the application cache."
 msgstr ""
 
 #: /cli/Application/Command/Clear/Clear.php:27
 msgid "This will clear things."
+msgstr "Dette vil rydde tingene."
+
+#: /cli/Application/Command/Clear/Languagecache.php:29
+msgid "Clear the g11n language directory."
+msgstr ""
+
+#: /cli/Application/Command/Clear/Languagecache.php:41
+msgid "Clear g11n Cache Directory"
+msgstr ""
+
+#: /cli/Application/Command/Clear/Languagecache.php:48
+msgid "The g11n cache directory has been cleared."
 msgstr ""
 
 #: /cli/Application/Command/Clear/Twig.php:30
 msgid "Clear the Twig cache."
-msgstr ""
+msgstr "Tøm Twig hurtiglager."
 
 #: /cli/Application/Command/Clear/Twig.php:42
 msgid "Clear Twig Cache Directory"
-msgstr ""
+msgstr "Tøm Twig hurtiglagermappe"
 
 #: /cli/Application/Command/Clear/Twig.php:46
 msgid "Twig caching is not enabled."
-msgstr ""
+msgstr "Twig hurtiglager er ikke aktivert."
 
 #: /cli/Application/Command/Clear/Twig.php:64
 msgid "The Twig cache directory has been cleared."
-msgstr ""
+msgstr "Twigg hurtiglagermappen er tømt."
 
 #: /cli/Application/Command/Database/Database.php:27
 msgid "This will track the database status."
-msgstr ""
+msgstr "Dette vil spore database statusen."
 
 #: /cli/Application/Command/Database/Migrate.php:29
 msgid "Migrate the database schema to a newer version."
-msgstr ""
+msgstr "Migrer databaseskjemaet til en nyere versjon."
 
 #: /cli/Application/Command/Database/Migrate.php:34
 msgid "Apply a specific database version."
-msgstr ""
+msgstr "Bruk en bestemt databaseversjon."
 
 #: /cli/Application/Command/Database/Migrate.php:48
 msgid "Database Migrations: Migrate"
-msgstr ""
+msgstr "Database migrering: Migrer"
 
 #: /cli/Application/Command/Database/Migrate.php:68
 #, php-format
 msgid "Error migrating database: %s"
-msgstr ""
+msgstr "Feil undere migrering av database: %s"
 
 #: /cli/Application/Command/Database/Migrate.php:78
 msgid "Database migrated to latest version."
-msgstr ""
+msgstr "Database migrert til siste versjon."
 
 #: /cli/Application/Command/Database/Status.php:27
 msgid "Check the database migration status."
-msgstr ""
+msgstr "Kontroller databasens migreringsstatus."
 
 #: /cli/Application/Command/Database/Status.php:39
 msgid "Database Migrations: Check Status"
-msgstr ""
+msgstr "Database migrering: Kontroller status"
 
 #: /cli/Application/Command/Database/Status.php:48
 msgid "Your database is up-to-date."
-msgstr ""
+msgstr "Databasen er oppdatert."
 
 #: /cli/Application/Command/Database/Status.php:56
 #, php-format
 msgid "Your database is not up-to-date. You are missing one migration."
 msgid_plural "Your database is not up-to-date. You are missing %d migrations."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Databasen er ikke oppdatert. Du mangler en overføring."
+msgstr[1] "Databasen er ikke oppdatert. Du mangler %d overføringer."
 
 #: /cli/Application/Command/Database/Status.php:65
 #, php-format
 msgid "Current Version: %1$s"
-msgstr ""
+msgstr "Gjeldende versjon: %1$s"
 
 #: /cli/Application/Command/Database/Status.php:66
 #, php-format
 msgid "Latest Version: %1$s"
-msgstr ""
+msgstr "Siste versjon: %1$s"
 
 #: /cli/Application/Command/Database/Status.php:68
 #, php-format
 msgid "To update, run the %1$s command."
-msgstr ""
+msgstr "For å oppdatere, kjør kommandoen %1$s."
 
 #: /cli/Application/Command/Export/Langfiles.php:45
 msgid "Backup language files to a given folder."
-msgstr ""
+msgstr "Sikkerhetskopier språkfiler til en gitt mappe."
 
 #: /cli/Application/Command/Export/Langfiles.php:50
 msgid "Export also language template files."
-msgstr ""
+msgstr "Eksporter også språkmal filer."
 
 #: /cli/Application/Command/Export/Langfiles.php:81
 msgid "Export language files"
-msgstr ""
+msgstr "Eksporter språkfiler"
 
 #: /cli/Application/Command/Export/Langfiles.php:84
 msgid "Start exporting language files."
-msgstr ""
+msgstr "Start henting av språkfiler."
 
 #: /cli/Application/Command/Export/Langfiles.php:87
 #: /cli/Application/Command/Get/Avatars.php:56
@@ -186,45 +214,45 @@ msgstr ""
 #: /cli/Application/Command/Get/Users.php:59
 #: /cli/Application/Command/Make/Autocomplete.php:106
 #: /cli/Application/Command/Make/Dbcomments.php:91
-#: /cli/Application/Command/Make/Depfile.php:136
+#: /cli/Application/Command/Make/Depfile.php:138
 #: /cli/Application/Command/Make/Docu.php:115
 #: /cli/Application/Command/Make/Langfiles.php:133
-#: /cli/Application/Command/Make/Languageflags.php:122
-#: /cli/Application/Command/Make/Repoinfo.php:65
+#: /cli/Application/Command/Make/Languageflags.php:124
+#: /cli/Application/Command/Make/Repoinfo.php:74
 #: /cli/Application/Command/Test/Phploc.php:60
 #: /cli/Application/Command/Update/Languagefiles.php:86
 #: /cli/Application/Command/Update/Pulls.php:69
 msgid "Finished."
-msgstr ""
+msgstr "Fullført."
 
 #: /cli/Application/Command/Export/Langfiles.php:133
 #: /cli/Application/Command/Get/Languagefiles.php:139
 msgid "Processing %domain% %extension%... "
-msgstr ""
+msgstr "Behandler %domain% %extension%... "
 
 #: /cli/Application/Command/Get/Avatars.php:29
 msgid "Retrieve avatar images from GitHub."
-msgstr ""
+msgstr "Hente miniatyrbilder fra GitHub."
 
 #: /cli/Application/Command/Get/Avatars.php:50
 msgid "Retrieve Avatars"
-msgstr ""
+msgstr "Hente miniatyrbilde"
 
 #: /cli/Application/Command/Get/Avatars.php:52
 msgid "Start retrieving Avatars."
-msgstr ""
+msgstr "Start henting av miniatyrbilder."
 
 #: /cli/Application/Command/Get/Avatars.php:81
 #: /cli/Application/Command/Get/Users.php:87
 msgid "No users found in database."
-msgstr ""
+msgstr "Ingen brukere ble funnet i databasen."
 
 #: /cli/Application/Command/Get/Avatars.php:87
 #, php-format
 msgid "Processing avatars for one user."
 msgid_plural "Processing avatars for %d users."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Behandler miniatyrbilde for én bruker."
+msgstr[1] "Behandler miniatyrbilde for %d brukere."
 
 #: /cli/Application/Command/Get/Avatars.php:113
 #, php-format
@@ -277,27 +305,27 @@ msgstr "Installert"
 #: /cli/Application/Command/Get/Composertags.php:121
 #, php-format
 msgid "Installed: %s"
-msgstr ""
+msgstr "Installert: %s"
 
-#: /cli/Application/Command/Get/Get.php:84
+#: /cli/Application/Command/Get/Get.php:74
 msgid "Retrieve Information from various sources."
 msgstr ""
 
-#: /cli/Application/Command/Get/Get.php:90
+#: /cli/Application/Command/Get/Get.php:80
 #: /cli/Application/Command/Test/Hook.php:66
-#: /cli/Application/Command/Update/Update.php:72
+#: /cli/Application/Command/Update/Update.php:62
 msgid "Process the project with the given ID."
 msgstr ""
 
-#: /cli/Application/Command/Get/Get.php:96
+#: /cli/Application/Command/Get/Get.php:86
 #: /cli/Application/Command/Make/Make.php:41
-#: /cli/Application/Command/Update/Update.php:78
+#: /cli/Application/Command/Update/Update.php:68
 msgid "Don't use a progress bar."
 msgstr ""
 
 #: /cli/Application/Command/Get/Languagefiles.php:49
 msgid "Retrieve language files."
-msgstr ""
+msgstr "Hente språkfiler."
 
 #: /cli/Application/Command/Get/Languagefiles.php:54
 msgid "Optionally specify a single language to fetch."
@@ -330,11 +358,11 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Project.php:86
 msgid "<n> First issue to process."
-msgstr ""
+msgstr "<n>Første sak til utførelse."
 
 #: /cli/Application/Command/Get/Project.php:92
 msgid "<n> Last issue to process."
-msgstr ""
+msgstr "<n>Siste sak til utførelse."
 
 #: /cli/Application/Command/Get/Project.php:98
 msgid "Force an update even if the issue has not changed."
@@ -388,11 +416,11 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Project/Comments.php:53
 msgid "Retrieve Comments"
-msgstr ""
+msgstr "Hent kommentarer"
 
 #: /cli/Application/Command/Get/Project/Comments.php:55
 msgid "Start retrieve Comments"
-msgstr ""
+msgstr "Start henting av kommentarer"
 
 #: /cli/Application/Command/Get/Project/Comments.php:97
 #, php-format
@@ -404,7 +432,7 @@ msgstr[1] ""
 #: /cli/Application/Command/Get/Project/Comments.php:167
 #: /cli/Application/Command/Get/Project/Events.php:168
 msgid "Everything is up to date."
-msgstr ""
+msgstr "Alt er oppdatert."
 
 #: /cli/Application/Command/Get/Project/Comments.php:181
 #, php-format
@@ -476,23 +504,23 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Project/Issues.php:87
 msgid "Retrieve Issues"
-msgstr ""
+msgstr "Henter saker"
 
 #: /cli/Application/Command/Get/Project/Issues.php:89
 msgid "Start retrieve Issues"
-msgstr ""
+msgstr "Start henting av saker"
 
 #: /cli/Application/Command/Get/Project/Issues.php:126
 msgid "Select GitHub issues status?"
-msgstr ""
+msgstr "Velg GitHub saksstatus?"
 
 #: /cli/Application/Command/Get/Project/Issues.php:129
 msgid "Open"
-msgstr ""
+msgstr "Åpen"
 
 #: /cli/Application/Command/Get/Project/Issues.php:130
 msgid "Closed"
-msgstr ""
+msgstr "Lukket"
 
 #: /cli/Application/Command/Get/Project/Issues.php:160
 #, php-format
@@ -508,7 +536,7 @@ msgstr[1] ""
 
 #: /cli/Application/Command/Get/Project/Issues.php:258
 msgid "Adding issues to the database..."
-msgstr "Legger til feil til databasen..."
+msgstr "Legger til sak til databasen..."
 
 #: /cli/Application/Command/Get/Project/Issues.php:470
 #, php-format
@@ -567,50 +595,50 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Users.php:55
 msgid "Start retrieving Users."
-msgstr ""
+msgstr "Start henting av brukere."
 
 #: /cli/Application/Command/Get/Users.php:93
 #, php-format
 msgid "Getting user info for one user."
 msgid_plural "Getting user info for %d users."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Henter brukerinformasjon for en bruker."
+msgstr[1] "Henter brukerinformasjon for %d brukere."
 
 #: /cli/Application/Command/Get/Users.php:115
 #, php-format
 msgid "Fetching User Info for user: %s"
-msgstr ""
+msgstr "Henter brukerinformasjon for bruker: %s"
 
 #: /cli/Application/Command/Get/Users.php:139
 msgid "User information has been refreshed."
-msgstr ""
+msgstr "Brukerinformasjon har blitt oppdatert."
 
 #: /cli/Application/Command/Help/Help.php:39
 msgid "Displays helpful information"
-msgstr ""
+msgstr "Viser nyttig informasjon"
 
 #: /cli/Application/Command/Help/Help.php:71
 #, php-format
 msgid "<b>Usage</b>: %s"
-msgstr ""
+msgstr "<b>Bruk</b>: %s"
 
 #: /cli/Application/Command/Help/Help.php:71
 #: /cli/Application/Command/Help/Help.php:94
 msgid "command"
-msgstr ""
+msgstr "kommando"
 
 #: /cli/Application/Command/Help/Help.php:71
 msgid "options"
-msgstr ""
+msgstr "valg"
 
 #: /cli/Application/Command/Help/Help.php:78
 msgid "Available commands:"
-msgstr ""
+msgstr "Tilgjengelige kommandoer:"
 
 #: /cli/Application/Command/Help/Help.php:94
 #, php-format
 msgid "<b>For more information use</b>: %s"
-msgstr ""
+msgstr "<b>For mer informasjon bruk</b>: %s"
 
 #: /cli/Application/Command/Help/Help.php:101
 msgid "Application command <opt>options</opt>"
@@ -620,7 +648,7 @@ msgstr ""
 #: /cli/Application/Command/Help/Help.php:125
 #, php-format
 msgid "Unknown: %s"
-msgstr ""
+msgstr "Ukjent: %s"
 
 #: /cli/Application/Command/Help/Help.php:135
 #: /cli/Application/Command/TrackerCommand.php:233
@@ -630,16 +658,16 @@ msgstr "Kommando: %s"
 
 #: /cli/Application/Command/Help/Help.php:135
 msgid "action"
-msgstr ""
+msgstr "handling"
 
 #: /cli/Application/Command/Help/Help.php:142
 #: /cli/Application/Command/Help/Help.php:165
 msgid "Available options:"
-msgstr ""
+msgstr "Tilgjengelige valg:"
 
 #: /cli/Application/Command/Help/Help.php:153
 msgid "Available <cmd>actions</cmd>:"
-msgstr ""
+msgstr "Tilgjengelige <cmd>handlinger</cmd>:"
 
 #: /cli/Application/Command/Install/Install.php:37
 msgid "Install the application."
@@ -655,11 +683,11 @@ msgstr "Installer"
 
 #: /cli/Application/Command/Install/Install.php:71
 msgid "WARNING: A database has been found!"
-msgstr ""
+msgstr "ADVARSEL: En database har blitt funnet!"
 
 #: /cli/Application/Command/Install/Install.php:73
 msgid "Do you want to reinstall?"
-msgstr ""
+msgstr "Ønsker du å installere på nytt?"
 
 #: /cli/Application/Command/Install/Install.php:75
 msgid "Yes"
@@ -683,7 +711,7 @@ msgstr "Oppretter databasen..."
 
 #: /cli/Application/Command/Install/Install.php:118
 msgid "Installation has been completed successfully."
-msgstr ""
+msgstr "Installasjonen er fullført."
 
 #: /cli/Application/Command/Install/Install.php:132
 msgid "Removing existing tables..."
@@ -705,7 +733,7 @@ msgstr "Oppretter tabeller fra filen %s"
 
 #: /cli/Application/Command/Make/Autocomplete.php:51
 msgid "Generate autocomplete files."
-msgstr ""
+msgstr "Generer autofullfør-filer."
 
 #: /cli/Application/Command/Make/Autocomplete.php:56
 #, php-format
@@ -728,7 +756,7 @@ msgstr ""
 #: /cli/Application/Command/Make/Autocomplete.php:178
 #: /cli/Application/Command/Make/Autocomplete.php:244
 msgid "File has been written to: %path%"
-msgstr ""
+msgstr "Filen har blitt skrevet til: %path%"
 
 #: /cli/Application/Command/Make/Composergraph.php:40
 msgid "Graph visualisation for your project's composer.json and its dependencies."
@@ -741,7 +769,7 @@ msgstr ""
 
 #: /cli/Application/Command/Make/Composergraph.php:52
 msgid "The image type."
-msgstr ""
+msgstr "Bildetypen."
 
 #: /cli/Application/Command/Make/Composergraph.php:66
 msgid "Make Composer graph"
@@ -759,28 +787,28 @@ msgstr ""
 #: /cli/Application/Command/Make/Composergraph.php:157
 #, php-format
 msgid "Format has been set to %s"
-msgstr ""
+msgstr "Formatet har blitt satt til %s"
 
 #: /cli/Application/Command/Make/Dbcomments.php:27
 msgid "Generate class doc blocks for Table classes"
-msgstr ""
+msgstr "Generer klasse doc blokker til tabellklasser"
 
 #: /cli/Application/Command/Make/Dbcomments.php:39
 msgid "Make Table Comments"
-msgstr ""
+msgstr "Opprett tabellkommentarer"
 
 #: /cli/Application/Command/Make/Depfile.php:52
 msgid "Create and update a dependency file."
-msgstr ""
+msgstr "Opprett og oppdater en avhengighetsfil."
 
-#: /cli/Application/Command/Make/Depfile.php:126
+#: /cli/Application/Command/Make/Depfile.php:128
 #, php-format
 msgid "Writing contents to: %s"
-msgstr ""
+msgstr "Skriver innhold til: %s"
 
-#: /cli/Application/Command/Make/Depfile.php:269
+#: /cli/Application/Command/Make/Depfile.php:271
 msgid "Language file not found: %tag%, %extension%, %domain%"
-msgstr ""
+msgstr "Språkfil ikke funnet: %tag%, %extension%, %domain%"
 
 #: /cli/Application/Command/Make/Docu.php:29
 msgid "Compile documentation using GitHub Flavored Markdown"
@@ -788,7 +816,7 @@ msgstr ""
 
 #: /cli/Application/Command/Make/Docu.php:41
 msgid "Make Documentation"
-msgstr ""
+msgstr "Lag dokumentasjon"
 
 #: /cli/Application/Command/Make/Docu.php:63
 #, php-format
@@ -797,46 +825,46 @@ msgstr ""
 
 #: /cli/Application/Command/Make/Langfiles.php:36
 msgid "Create and update language files."
-msgstr ""
+msgstr "Lag og oppdater språkfiler."
 
 #: /cli/Application/Command/Make/Langfiles.php:41
 #: /cli/Application/Command/Make/Langtemplates.php:53
 msgid "Process only this extension"
-msgstr ""
+msgstr "Behandle kun denne utvidelsen"
 
 #: /cli/Application/Command/Make/Langfiles.php:56
 msgid "Make Language files"
-msgstr ""
+msgstr "Opprett språkfiler"
 
 #: /cli/Application/Command/Make/Langfiles.php:150
 #, php-format
 msgid "Processing: %1$s %2$s %3$s"
-msgstr ""
+msgstr "Behandler: %1$s %2$s %3$s"
 
 #: /cli/Application/Command/Make/Langfiles.php:159
 #: /cli/Application/Command/Test/Langfiles.php:84
 msgid "The file does not have UNIX style line endings!"
-msgstr ""
+msgstr "Filen har ikke UNIX stil linjeavslutninger!"
 
 #: /cli/Application/Command/Make/Langfiles.php:167
 msgid "Creating language file..."
-msgstr ""
+msgstr "Oppretter språkfil..."
 
 #: /cli/Application/Command/Make/Langfiles.php:206
 msgid "The language file has been created"
-msgstr ""
+msgstr "Språkfilen har blitt opprettet"
 
 #: /cli/Application/Command/Make/Langfiles.php:211
 msgid "Updating language file..."
-msgstr ""
+msgstr "Oppdaterer språkfil..."
 
 #: /cli/Application/Command/Make/Langtemplates.php:48
 msgid "Create language file templates."
-msgstr ""
+msgstr "Opprett språkfil maler."
 
 #: /cli/Application/Command/Make/Langtemplates.php:69
 msgid "Make Language templates"
-msgstr ""
+msgstr "Opprett språkfil mal"
 
 #: /cli/Application/Command/Make/Langtemplates.php:90
 #: /cli/Application/Command/Make/Langtemplates.php:103
@@ -844,24 +872,24 @@ msgstr ""
 #: /cli/Application/Command/Make/Langtemplates.php:135
 #, php-format
 msgid "Processing: %1$s %2$s"
-msgstr ""
+msgstr "Behandler: %1$s %2$s"
 
 #: /cli/Application/Command/Make/Langtemplates.php:161
 #, php-format
 msgid "Processing App: %s"
-msgstr ""
+msgstr "Behandler app: %s"
 
 #: /cli/Application/Command/Make/Langtemplates.php:338
 msgid "Your template has been created"
-msgstr ""
+msgstr "Din mal har blitt opprettet"
 
 #: /cli/Application/Command/Make/Languageflags.php:34
 msgid "Full path to the combined image file."
-msgstr ""
+msgstr "Fullstendig sti til kombinert bildefil."
 
 #: /cli/Application/Command/Make/Languageflags.php:40
 msgid "Full path to the CSS file."
-msgstr ""
+msgstr "Fullstendig sti til css-filen."
 
 #: /cli/Application/Command/Make/Languageflags.php:44
 msgid "Compile multiple images into a big one (CSS spriting)."
@@ -871,55 +899,55 @@ msgstr ""
 msgid "Compile Language flag images"
 msgstr ""
 
-#: /cli/Application/Command/Make/Languageflags.php:111
+#: /cli/Application/Command/Make/Languageflags.php:113
 #, php-format
 msgid "Generating the combined image for %1$d flag images in %2$s"
 msgstr ""
 
-#: /cli/Application/Command/Make/Languageflags.php:117
+#: /cli/Application/Command/Make/Languageflags.php:119
 #, php-format
 msgid "Writing the CSS file to %s"
-msgstr ""
+msgstr "Skriver css-filen til %s"
 
 #: /cli/Application/Command/Make/Make.php:36
 msgid "The make engine"
-msgstr ""
+msgstr "Opprettelsesmotoren"
 
 #: /cli/Application/Command/Make/Repoinfo.php:35
 msgid "Generate repository information."
-msgstr ""
+msgstr "Generer oppbevaringsinformasjon."
 
-#: /cli/Application/Command/Make/Repoinfo.php:50
+#: /cli/Application/Command/Make/Repoinfo.php:51
 msgid "Generate repository information"
-msgstr ""
+msgstr "Generer oppbevaringsinformasjon"
 
 #: /cli/Application/Command/Test/Checkstyle.php:29
 msgid "Run PHP CodeSniffer tests."
-msgstr ""
+msgstr "Kjør PHP CodeSniffer tester."
 
 #: /cli/Application/Command/Test/Checkstyle.php:42
 msgid "Test Checkstyle"
-msgstr ""
+msgstr "Test Checkstyle"
 
 #: /cli/Application/Command/Test/Checkstyle.php:64
 #, php-format
 msgid "Finished with one error"
 msgid_plural "Finished with %d errors"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Fullført med en feil"
+msgstr[1] "Fullført med %d feil"
 
 #: /cli/Application/Command/Test/Checkstyle.php:65
 #: /cli/Application/Command/Test/Phpunit.php:56
 msgid "Success"
-msgstr ""
+msgstr "Vellykket"
 
 #: /cli/Application/Command/Test/Copypaste.php:30
 msgid "Run Copy/Paste Detector (CPD) for PHP code."
-msgstr ""
+msgstr "Kjør Copy/Paste Detector (CPD) for PHP kode."
 
 #: /cli/Application/Command/Test/Copypaste.php:43
 msgid "Run Copy/Paste Detector"
-msgstr ""
+msgstr "Kjør Copy/Paste Detector"
 
 #: /cli/Application/Command/Test/Hook.php:61
 msgid "Tests web hooks"
@@ -927,65 +955,65 @@ msgstr ""
 
 #: /cli/Application/Command/Test/Hook.php:81
 msgid "Test Hooks"
-msgstr ""
+msgstr "Test kroker"
 
 #: /cli/Application/Command/Test/Langfiles.php:33
 #: /cli/Application/Command/Test/Langfiles.php:46
 msgid "Check language files"
-msgstr ""
+msgstr "Sjekk språkfiler"
 
 #: /cli/Application/Command/Test/Langfiles.php:109
 msgid "There have been errors."
-msgstr ""
+msgstr "Det har oppstått noen feil."
 
 #: /cli/Application/Command/Test/Langfiles.php:110
 msgid "Language file syntax OK"
-msgstr ""
+msgstr "Språkfeil syntaks er OK"
 
 #: /cli/Application/Command/Test/Phploc.php:30
 msgid "Run Lines Of Code (LOC) for PHP code."
-msgstr ""
+msgstr "Kjør Lines Of Code (LOC) for PHP kode."
 
 #: /cli/Application/Command/Test/Phploc.php:43
 msgid "Run PHP Lines Of Code"
-msgstr ""
+msgstr "Kjør PHP Lines Of Code"
 
 #: /cli/Application/Command/Test/Phpunit.php:29
 msgid "Run PHPUnit tests."
-msgstr ""
+msgstr "Kjør PHPUnit tester."
 
 #: /cli/Application/Command/Test/Phpunit.php:41
 msgid "Test PHPUnit"
-msgstr ""
+msgstr "Test PHPUnit"
 
 #: /cli/Application/Command/Test/Phpunit.php:55
 msgid "Finished with errors."
-msgstr ""
+msgstr "Fullført med feil."
 
 #: /cli/Application/Command/Test/Run.php:27
 msgid "Run all tests"
-msgstr ""
+msgstr "Kjør alle tester"
 
 #: /cli/Application/Command/Test/Run.php:39
 msgid "Test Suite"
-msgstr ""
+msgstr "Testpakke"
 
 #: /cli/Application/Command/Test/Run.php:66
 msgid "Test Suite Finished with errors."
-msgstr ""
+msgstr "Testpakke fullført med feil."
 
 #: /cli/Application/Command/Test/Run.php:67
 msgid "Test Suite Finished."
-msgstr ""
+msgstr "Testpakke fullført."
 
 #: /cli/Application/Command/Test/Test.php:35
 msgid "The test engine"
-msgstr ""
+msgstr "Testmotoren"
 
 #: /cli/Application/Command/TrackerCommand.php:235
 #, php-format
 msgid "Missing option for command: %s"
-msgstr ""
+msgstr "Mangler valg for kommando: %s"
 
 #: /cli/Application/Command/TrackerCommand.php:236
 msgid "Please use one of the following :"
@@ -1020,19 +1048,19 @@ msgstr "En ukjent feil har oppstått"
 
 #: /cli/Application/Command/Update/Languagefiles.php:46
 msgid "Updates language files on a translation service."
-msgstr ""
+msgstr "Oppdaterer språkfiler på en oversettelsestjeneste."
 
 #: /cli/Application/Command/Update/Languagefiles.php:57
 msgid "Flag if resources should be created."
-msgstr ""
+msgstr "Flagg om ressurser bør opprettes."
 
 #: /cli/Application/Command/Update/Languagefiles.php:63
 msgid "Flag if translations should be uploaded."
-msgstr ""
+msgstr "Flagg om oversettelser bør opprettes."
 
 #: /cli/Application/Command/Update/Languagefiles.php:77
 msgid "Update Translations"
-msgstr ""
+msgstr "Oppdater oversettelser"
 
 #: /cli/Application/Command/Update/Pulls.php:35
 msgid "Updates selected information for pull requests on GitHub for a specified project."
@@ -1040,16 +1068,16 @@ msgstr ""
 
 #: /cli/Application/Command/Update/Pulls.php:47
 msgid "Update Pull Requests"
-msgstr ""
+msgstr "Oppdater pull forespørsler"
 
 #: /cli/Application/Command/Update/Pulls.php:49
 msgid "Start Updating Project"
-msgstr ""
+msgstr "Start oppdatering av prosjektet"
 
 #: /cli/Application/Command/Update/Pulls.php:59
 #, php-format
 msgid "Updating pull requests for project: %s/%s"
-msgstr ""
+msgstr "Oppdaterer pull forespørsler for prosjektet: %s/%s"
 
 #: /cli/Application/Command/Update/Pulls.php:101
 #, php-format
@@ -1071,7 +1099,7 @@ msgstr ""
 #: /cli/Application/Command/Update/Pulls.php:220
 #, php-format
 msgid "Adding %s label to %s/%s #%d"
-msgstr ""
+msgstr "Legge til %s etikett til %s/%s #%d"
 
 #: /cli/Application/Command/Update/Pulls.php:272
 #, php-format
@@ -1086,16 +1114,20 @@ msgstr ""
 msgid "An optional version number to update to."
 msgstr ""
 
-#: /cli/Application/Command/Update/Update.php:66
+#: /cli/Application/Command/Update/Server.php:76
+msgid "Installing current Composer dependencies and regenerating autoloader"
+msgstr ""
+
+#: /cli/Application/Command/Update/Update.php:56
 msgid "Used to update resources"
 msgstr ""
 
-#: /cli/tracker.php:99 /cli/tracker.php:131
+#: /cli/tracker.php:101 /cli/tracker.php:133
 #, php-format
 msgid "ERROR: %s"
 msgstr "FEIL: %s"
 
-#: /cli/tracker.php:101 /cli/tracker.php:133
+#: /cli/tracker.php:103 /cli/tracker.php:135
 msgid "Call stack:"
 msgstr ""
 

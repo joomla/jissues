@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-20 08:40-0500\n"
-"PO-Revision-Date: 2017-07-04 12:43-0400\n"
+"POT-Creation-Date: 2018-06-13 19:12-0500\n"
+"PO-Revision-Date: 2018-06-17 16:28-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
@@ -16,118 +16,82 @@ msgstr ""
 "X-Crowdin-File: /Joomla! Issue Tracker Website/github-app_en.po\n"
 "Language: nl_NL\n"
 
-#: /templates/github/stats.index.twig:52
-#: /templates/github/stats.index.twig:56
-#, php-format
-msgid "%s - Statistics"
-msgstr "%s - Statistieken"
-
 #: /templates/github/hooks.index.twig:6
-#: /templates/github/hooks.index.twig:10
+#: /templates/github/hooks.index.twig:11
 #, php-format
 msgid "%s - Hooks"
 msgstr "%s - hooks"
 
-#: /templates/github/hooks.index.twig:12
+#: /templates/github/hooks.index.twig:14
 msgid "List Hooks"
 msgstr "Toon Hooks"
 
-#: /templates/github/hooks.index.twig:17
+#: /templates/github/hooks.index.twig:19
 msgid "New Hook"
 msgstr "Nieuwe Hook"
 
-#: /templates/github/hooks.index.twig:22
-#: /templates/github/hooks.index.twig:87
-#: /templates/github/labels.index.twig:44
+#: /templates/github/hooks.index.twig:24
+#: /templates/github/hooks.index.twig:89
+#: /templates/github/labels.index.twig:46
 msgid "URL"
 msgstr "URL"
 
-#: /templates/github/hooks.index.twig:26
-#: /templates/github/hooks.index.twig:88
+#: /templates/github/hooks.index.twig:28
+#: /templates/github/hooks.index.twig:90
 msgid "Events"
 msgstr "Gebeurtenissen"
 
-#: /templates/github/hooks.index.twig:28
+#: /templates/github/hooks.index.twig:30
 msgid "NOTE: comma separated, no spaces"
 msgstr "Opmerking: komma gescheiden, geen spaties"
 
-#: /templates/github/hooks.index.twig:31
+#: /templates/github/hooks.index.twig:33
 msgid "Add Hook"
 msgstr "Hook toevoegen"
 
-#: /templates/github/hooks.index.twig:85
+#: /templates/github/hooks.index.twig:87
 msgid "Type"
 msgstr "Type"
 
-#: /templates/github/hooks.index.twig:86
+#: /templates/github/hooks.index.twig:88
 msgid "Status"
 msgstr "Status"
 
-#: /templates/github/hooks.index.twig:89
-#: /templates/github/milestones.index.twig:79
+#: /templates/github/hooks.index.twig:91
+#: /templates/github/milestones.index.twig:81
 msgid "Actions"
 msgstr "Acties"
 
-#: /templates/github/hooks.index.twig:99
+#: /templates/github/hooks.index.twig:101
 msgid "Active"
 msgstr "Actief"
 
-#: /templates/github/hooks.index.twig:101
+#: /templates/github/hooks.index.twig:103
 msgid "Inactive"
 msgstr "Inactief"
 
-#: /templates/github/hooks.index.twig:110
+#: /templates/github/hooks.index.twig:112
 msgid "Deactivate"
 msgstr "Uitschakelen"
 
-#: /templates/github/hooks.index.twig:115
+#: /templates/github/hooks.index.twig:117
 msgid "Activate"
 msgstr "Activeren"
 
-#: /templates/github/hooks.index.twig:120
-#: /templates/github/labels.index.twig:59
-#: /templates/github/milestones.index.twig:98
+#: /templates/github/hooks.index.twig:122
+#: /templates/github/milestones.index.twig:100
+#: /templates/github/labels.index.twig:61
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: /templates/github/labels.index.twig:6
-#: /templates/github/labels.index.twig:10
+#: /templates/github/stats.index.twig:52
+#: /templates/github/stats.index.twig:57
 #, php-format
-msgid "%s - Labels"
-msgstr "%s - labels"
-
-#: /templates/github/labels.index.twig:12
-msgid "List Labels"
-msgstr "Labels tonen"
-
-#: /templates/github/labels.index.twig:17
-msgid "New Label"
-msgstr "Nieuw label"
-
-#: /templates/github/labels.index.twig:22
-#: /templates/github/labels.index.twig:45
-msgid "Name"
-msgstr "Naam"
-
-#: /templates/github/labels.index.twig:23
-msgid "Label name"
-msgstr "Labelnaam"
-
-#: /templates/github/labels.index.twig:26
-#: /templates/github/labels.index.twig:46
-msgid "Colour"
-msgstr "Kleur"
-
-#: /templates/github/labels.index.twig:28
-msgid "Label colour"
-msgstr "Labelkleur"
-
-#: /templates/github/labels.index.twig:31
-msgid "Add Label"
-msgstr "Label toevoegen"
+msgid "%s - Statistics"
+msgstr "%s - Statistieken"
 
 #: /templates/github/milestones.index.twig:6
-#: /templates/github/milestones.index.twig:21
+#: /templates/github/milestones.index.twig:22
 #, php-format
 msgid "%s - Milestones"
 msgstr "%s - Mijlpalen"
@@ -136,54 +100,90 @@ msgstr "%s - Mijlpalen"
 msgid "New Milestone"
 msgstr "Nieuwe mijlpaal"
 
-#: /templates/github/milestones.index.twig:31
-#: /templates/github/milestones.index.twig:74
+#: /templates/github/milestones.index.twig:33
+#: /templates/github/milestones.index.twig:76
 msgid "Number"
 msgstr "Nummer"
 
-#: /templates/github/milestones.index.twig:35
-#: /templates/github/milestones.index.twig:75
+#: /templates/github/milestones.index.twig:37
+#: /templates/github/milestones.index.twig:77
 msgid "Title"
 msgstr "Titel"
 
-#: /templates/github/milestones.index.twig:36
+#: /templates/github/milestones.index.twig:38
 msgid "Milestone title"
 msgstr "Titel mijlpaal"
 
-#: /templates/github/milestones.index.twig:39
-#: /templates/github/milestones.index.twig:78
+#: /templates/github/milestones.index.twig:41
+#: /templates/github/milestones.index.twig:80
 msgid "Due on"
 msgstr "Verschuldigd op"
 
-#: /templates/github/milestones.index.twig:40
+#: /templates/github/milestones.index.twig:42
 msgid "Date"
 msgstr "Datum"
 
-#: /templates/github/milestones.index.twig:43
-#: /templates/github/milestones.index.twig:77
+#: /templates/github/milestones.index.twig:45
+#: /templates/github/milestones.index.twig:79
 msgid "State"
 msgstr "Status"
 
-#: /templates/github/milestones.index.twig:45
+#: /templates/github/milestones.index.twig:47
 msgid "Open"
 msgstr "Open"
 
-#: /templates/github/milestones.index.twig:46
+#: /templates/github/milestones.index.twig:48
 msgid "Closed"
 msgstr "Gesloten"
 
-#: /templates/github/milestones.index.twig:51
-#: /templates/github/milestones.index.twig:76
+#: /templates/github/milestones.index.twig:53
+#: /templates/github/milestones.index.twig:78
 msgid "Description"
 msgstr "Omschrijving"
 
-#: /templates/github/milestones.index.twig:59
+#: /templates/github/milestones.index.twig:61
 msgid "Save"
 msgstr "Opslaan"
 
-#: /templates/github/milestones.index.twig:94
+#: /templates/github/milestones.index.twig:96
 msgid "Edit"
 msgstr "Bewerken"
+
+#: /templates/github/labels.index.twig:6
+#: /templates/github/labels.index.twig:11
+#, php-format
+msgid "%s - Labels"
+msgstr "%s - labels"
+
+#: /templates/github/labels.index.twig:14
+msgid "List Labels"
+msgstr "Labels tonen"
+
+#: /templates/github/labels.index.twig:19
+msgid "New Label"
+msgstr "Nieuw label"
+
+#: /templates/github/labels.index.twig:24
+#: /templates/github/labels.index.twig:47
+msgid "Name"
+msgstr "Naam"
+
+#: /templates/github/labels.index.twig:25
+msgid "Label name"
+msgstr "Labelnaam"
+
+#: /templates/github/labels.index.twig:28
+#: /templates/github/labels.index.twig:48
+msgid "Colour"
+msgstr "Kleur"
+
+#: /templates/github/labels.index.twig:30
+msgid "Label colour"
+msgstr "Labelkleur"
+
+#: /templates/github/labels.index.twig:33
+msgid "Add Label"
+msgstr "Label toevoegen"
 
 #: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
 msgid "Nothing to preview..."
