@@ -70,6 +70,7 @@ class DatabaseProvider implements ServiceProviderInterface
 							break;
 					}
 
+					/** @var DatabaseDriver $driver */
 					$driver = $container->get(DatabaseFactory::class)->getDriver($options['driver'], $options);
 					$driver->setDebug($config->get('debug.database', false));
 					$driver->setLogger($container->get('monolog.logger.database'));
