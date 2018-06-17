@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6c46ef0edbb1ab38860472a812db3006",
+    "content-hash": "2d8214aed922825f56a8dcfaa0fda825",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -43,58 +43,6 @@
                 "text compare"
             ],
             "time": "2014-02-18T12:44:44+00:00"
-        },
-        {
-            "name": "babdev/transifex",
-            "version": "1.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/BabDev/Transifex-API.git",
-                "reference": "01177cbc67d56d56f3eda5c93c8863f39c080a42"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/BabDev/Transifex-API/zipball/01177cbc67d56d56f3eda5c93c8863f39c080a42",
-                "reference": "01177cbc67d56d56f3eda5c93c8863f39c080a42",
-                "shasum": ""
-            },
-            "require": {
-                "joomla/http": "~1.1",
-                "php": "^5.3.10|~7.0"
-            },
-            "require-dev": {
-                "joomla/test": "~1.0",
-                "phpunit/phpunit": "~4.8|>=5.0 <5.4",
-                "squizlabs/php_codesniffer": "~1.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "BabDev\\Transifex\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Babker",
-                    "homepage": "https://www.babdev.com"
-                }
-            ],
-            "description": "The Transifex API Package is a wrapper of the Transifex API available for PHP developers",
-            "homepage": "https://github.com/BabDev/Transifex-API",
-            "keywords": [
-                "php",
-                "transifex"
-            ],
-            "time": "2016-06-10T02:57:54+00:00"
         },
         {
             "name": "codeguy/upload",

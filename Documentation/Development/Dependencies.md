@@ -204,13 +204,6 @@ A crowdin API implementation in PHP
 * Installed: 1.1.1 
 * Source URL: https://github.com/elkuku/crowdin-api.git
 
-#### babdev/transifex (~1.0)
-
-The Transifex API Package is a wrapper of the Transifex API available for PHP developers
-
-* Installed: 1.3.0 
-* Source URL: https://github.com/BabDev/Transifex-API.git
-
 #### codeguy/upload (1.3.2)
 
 Handle file uploads with extensible validation and storage strategies

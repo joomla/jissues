@@ -170,19 +170,6 @@ class Languagefiles extends Get
 
 			switch ($this->languageProvider)
 			{
-				case 'transifex':
-					$translation = $this->transifex->translations->getTranslation(
-						$this->getApplication()->get('transifex.project'),
-						strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain),
-						str_replace('-', '_', $language)
-					);
-
-					if (!file_put_contents($path, $translation->content))
-					{
-						throw new \Exception('Could not store language file at: ' . str_replace(JPATH_ROOT, '', $path));
-					}
-
-					break;
 
 				case 'crowdin':
 					$fileName = $this->getApplication()->get('crowdin.filepath', '')

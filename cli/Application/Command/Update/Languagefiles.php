@@ -127,13 +127,6 @@ class Languagefiles extends Update
 					{
 						switch ($this->languageProvider)
 						{
-							case 'transifex':
-								$this->transifex->resources->createResource(
-									$this->getApplication()->get('transifex.project'), $name, $alias, 'PO', ['file' => $templatePath]
-								);
-
-								break;
-
 							case 'crowdin':
 								$fileName = $this->getApplication()->get('crowdin.filepath', '') . $alias . '_en.po';
 								$this->crowdin->file->add(new Languagefile($templatePath, $fileName));
@@ -147,13 +140,6 @@ class Languagefiles extends Update
 					{
 						switch ($this->languageProvider)
 						{
-							case 'transifex':
-								$this->transifex->resources->updateResourceContent(
-									$this->getApplication()->get('transifex.project'), $alias, $templatePath, 'file'
-								);
-
-								break;
-
 							case 'crowdin':
 								$fileName = $this->getApplication()->get('crowdin.filepath', '') . $alias . '_en.po';
 								$this->crowdin->file->update(new Languagefile($templatePath, $fileName));

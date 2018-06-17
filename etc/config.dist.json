@@ -20,12 +20,6 @@
 		]
 	},
 
-	"transifex": {
-		"username": "",
-		"password": "",
-		"project" : ""
-	},
-
 	"crowdin": {
 		"project" : "",
 		"api-key" : "",

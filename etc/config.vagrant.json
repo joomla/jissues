@@ -20,12 +20,6 @@
 		]
 	},
 
-	"transifex": {
-		"username": "",
-		"password": "",
-		"project" : ""
-	},
-
 	"renderer": {
 		"type" : "twig",
 		"cache": false

@@ -10,8 +10,6 @@ namespace Application\Command\Get;
 
 use App\Projects\TrackerProject;
 
-use BabDev\Transifex\Transifex;
-
 use ElKuKu\Crowdin\Crowdin;
 
 use Application\Command\TrackerCommand;
@@ -49,14 +47,6 @@ class Get extends TrackerCommand
 	 * @since  1.0
 	 */
 	protected $project = null;
-
-	/**
-	 * Transifex object
-	 *
-	 * @var    Transifex
-	 * @since  1.0
-	 */
-	protected $transifex;
 
 	/**
 	 * Crowdin object
@@ -215,10 +205,6 @@ class Get extends TrackerCommand
 
 		switch ($this->languageProvider)
 		{
-			case 'transifex':
-				$this->transifex = $this->getContainer()->get('transifex');
-				break;
-
 			case 'crowdin':
 				$this->crowdin = $this->getContainer()->get('crowdin');
 				break;

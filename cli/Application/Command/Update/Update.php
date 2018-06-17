@@ -10,8 +10,6 @@ namespace Application\Command\Update;
 
 use Elkuku\Crowdin\Crowdin;
 
-use BabDev\Transifex\Transifex;
-
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 
@@ -31,14 +29,6 @@ class Update extends TrackerCommand
 	 * @since  1.0
 	 */
 	protected $github;
-
-	/**
-	 * Transifex object
-	 *
-	 * @var    Transifex
-	 * @since  1.0
-	 */
-	protected $transifex;
 
 	/**
 	 * Crowdin object
@@ -123,10 +113,6 @@ class Update extends TrackerCommand
 
 		switch ($this->languageProvider)
 		{
-			case 'transifex':
-				$this->transifex = $this->getContainer()->get('transifex');
-				break;
-
 			case 'crowdin':
 				$this->crowdin = $this->getContainer()->get('crowdin');
 				break;
