@@ -170,7 +170,6 @@ class Languagefiles extends Get
 
 			switch ($this->languageProvider)
 			{
-
 				case 'crowdin':
 					$fileName = $this->getApplication()->get('crowdin.filepath', '')
 						. strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain) . '_en.po';
