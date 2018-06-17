@@ -3,7 +3,7 @@
 
 {% set baseURI = uri.base.path ~ uri.route|split("?")|first %}
 
-<li class="pull-right lang-select dropdown-toggle">
+<li class="pull-right lang-select">
     <div id="lang-switcher" class="ui floating dropdown labeled search icon button">
         <img src="{{ uri.base.path }}media/img/1x1.png" class="flag flag-{{ lang }}" alt="{{ lang }}" title="{{ lang }}" />
         <span class="text">{{ "Select Language"|_ }}</span>
