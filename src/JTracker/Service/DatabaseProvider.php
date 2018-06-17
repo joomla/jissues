@@ -9,6 +9,7 @@
 namespace JTracker\Service;
 
 use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseFactory;
 use Joomla\Database\DatabaseInterface;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
@@ -43,15 +44,9 @@ class DatabaseProvider implements ServiceProviderInterface
 				DatabaseDriver::class,
 				function (Container $container)
 				{
-					/** @var Registry $config */
-					$config = $container->get('config');
+					/** @var \Joomla\Registry\Registry $config */
+					$config  = $container->get('config');
 
-					/*
-					 * The `mysql` driver corresponds to the Framework's PDO MySQL driver and requires 'charset' => 'utf8mb4'
-					 * The `mysqli` driver corresponds to the Framework's MySQLi driver and requires 'utf8mb4' => true
-					 *
-					 * The options are unique to each driver and do not cause misconfigurations across drivers
-					 */
 					$options = [
 						'driver'   => $config->get('database.driver'),
 						'host'     => $config->get('database.host'),
@@ -59,17 +54,32 @@ class DatabaseProvider implements ServiceProviderInterface
 						'password' => $config->get('database.password'),
 						'database' => $config->get('database.name'),
 						'prefix'   => $config->get('database.prefix'),
-						'utf8mb4'  => true,
-						'charset'  => 'utf8mb4',
 					];
 
-					$db = DatabaseDriver::getInstance($options);
-					$db->setDebug($config->get('debug.database', false));
-					$db->setLogger($container->get('monolog.logger.database'));
+					// Apply extra options based on the active driver
+					switch ($options['driver'])
+					{
+						case 'mysql':
+							$options['charset'] = 'utf8mb4';
 
-					return $db;
-				},
-				true
+							break;
+
+						case 'mysqli':
+							$options['utf8mb4'] = true;
+
+							break;
+					}
+
+					return $container->get(DatabaseFactory::class)->getDriver($options['driver'], $options);
+				}
+			);
+
+		$container->share(
+			DatabaseFactory::class,
+			function ()
+			{
+				return new DatabaseFactory;
+			}
 		);
 
 		$container->alias('db.migrations', Migrations::class)
@@ -78,7 +88,7 @@ class DatabaseProvider implements ServiceProviderInterface
 				function (Container $container)
 				{
 					return new Migrations(
-						$container->get('db'),
+						$container->get(DatabaseDriver::class),
 						new Filesystem(new Local(JPATH_CONFIGURATION))
 					);
 				},
