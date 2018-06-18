@@ -47,14 +47,7 @@ class IconsHtmlView extends AbstractTrackerHtmlView
 		$this->addData('icons', array_unique($icons));
 
 		// Read octicons - prefer separate source if available, otherwise use combined vendor source
-		if (file_exists(JPATH_THEMES . '/media/css/vendor/octicons/octicons/octicons.css'))
-		{
-			$lines = file(JPATH_THEMES . '/media/css/vendor/octicons/octicons/octicons.css');
-		}
-		else
-		{
-			$lines = file(JPATH_THEMES . '/media/css/vendor.css');
-		}
+		$lines = file(JPATH_THEMES . '/media/css/vendor/octicons.css');
 
 		$icons = [];
 

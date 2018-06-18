@@ -8,10 +8,6 @@
 {% block headerCSS %}
     {{ parent() }}
 
-    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
-    {% if jdebug %}
-    {% endif %}
-
 	<!-- CSS for coloured code -->
     <link rel="stylesheet" href="{{ asset('css/code.css', 'debug') }}" />
 {% endblock %}

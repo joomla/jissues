@@ -7,9 +7,6 @@
 
 {% block headerCSS %}
     {{ parent() }}
-    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
-    {% if templateDebug %}
-    {% endif %}
 
     <link rel="stylesheet" href="{{ asset('css/file-tree/jqueryFileTree.css', 'debug') }}" />
 
@@ -45,13 +42,7 @@
 {% block JavaScriptBottom %}
     {{ parent() }}
 
-    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
-    {% if templateDebug %}
-    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-popover.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-tmpl/js/tmpl.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/twbs-pagination/jquery.twbsPagination.js', 'noversion') }}"></script>
-    {% endif %}
-
+    <script src="{{ asset('js/vendor/twbs-pagination.js') }}"></script>
     <script src="{{ asset('js/jtracker-tmpl.js', 'debug') }}"></script>
     <script src="{{ asset('js/file-tree/jqueryFileTree.js', 'debug') }}"></script>
 
