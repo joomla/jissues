@@ -341,7 +341,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		}
 
 		// Detect first time contributiors...
-		if ($hookData->pull_request->author_association === 'FIRST_TIME_CONTRIBUTOR' || $hookData->pull_request->author_association === 'FIRST_TIMER')
+		if ($arguments['hookData']->pull_request->author_association === 'FIRST_TIME_CONTRIBUTOR' || $arguments['hookData']->pull_request->author_association === 'FIRST_TIMER')
 		{
 			// ... and send the message
 			$this->sendFirstTimeContributorMessage($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
