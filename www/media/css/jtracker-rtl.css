@@ -2,10 +2,6 @@
   text-align: right;
 }
 
-.ui.dropdown .menu > .item {
-  padding: 5px 5px 5px 40px !important;
-}
-
 .ui.dropdown .menu>.item>.flag, .ui.dropdown .menu>.item>.icon, .ui.dropdown .menu>.item>.image, .ui.dropdown .menu>.item>.label, .ui.dropdown .menu>.item>img, .ui.dropdown>.text>.flag, .ui.dropdown>.text>.icon, .ui.dropdown>.text>.image, .ui.dropdown>.text>.label, .ui.dropdown>.text>img {
   margin-left: .75em;
   margin-right: 0;

@@ -74,7 +74,7 @@ class Languageflags extends Make
 			'	background:url(flags.png) no-repeat',
 			'}',
 			'',
-			'.ui.dropdown .menu > .item { padding: 5px 40px 5px 5px !important; }',
+			'.ui.dropdown .menu > .item { font-size:14px; }',
 			'',
 			'.ui.dropdown .menu > .item > img.flag { width:16px; height:10px; }',
 			'',
