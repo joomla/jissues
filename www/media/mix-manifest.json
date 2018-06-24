@@ -1,6 +1,8 @@
 {
     "/js/vendor/blueimp-load-image.js": "/js/vendor/blueimp-load-image.js",
     "/css/vendor/octicons.css": "/css/vendor/octicons.css",
+    "/css/jtracker.css": "/css/jtracker.css",
+    "/css/jtracker-rtl.css": "/css/jtracker-rtl.css",
     "/css/markitup/skins/tracker/style.css": "/css/markitup/skins/tracker/style.css",
     "/js/uploader-img.js": "/js/uploader-img.js",
     "/js/jtracker.js": "/js/jtracker.js",
