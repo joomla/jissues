@@ -61,7 +61,16 @@ mix.combine(
 mix.copy('node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.min.js', 'www/media/js/vendor/blueimp-canvas-to-blob.js');
 
 // Blueimp Load Image
-mix.js('node_modules/blueimp-load-image/js/index.js', 'js/vendor/blueimp-load-image.js')
+mix.combine(
+    [
+        'node_modules/blueimp-load-image/js/load-image.js',
+        'node_modules/blueimp-load-image/js/load-image-orientation.js',
+        'node_modules/blueimp-load-image/js/load-image-meta.js',
+        'node_modules/blueimp-load-image/js/load-image-exif.js',
+        'node_modules/blueimp-load-image/js/load-image-exif-map.js',
+    ],
+    'www/media/js/vendor/blueimp-load-image.js'
+);
 
 // Blueimp JavaScript Templates
 mix.copy('node_modules/blueimp-tmpl/js/tmpl.min.js', 'www/media/js/vendor/blueimp-tmpl.js');
