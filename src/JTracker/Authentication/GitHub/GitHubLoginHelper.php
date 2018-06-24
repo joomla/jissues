@@ -97,7 +97,7 @@ class GitHubLoginHelper
 			return '';
 		}
 
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->container->get('app');
 
 		$uri = new Uri($application->get('uri.base.full') . 'login');
@@ -145,7 +145,7 @@ class GitHubLoginHelper
 			throw new \RuntimeException('cURL is not installed - no avatar support.');
 		}
 
-		/* @type \Joomla\Github\Github $github */
+		/** @var \Joomla\Github\Github $github */
 		$github = $this->container->get('gitHub');
 
 		// GitHub API works best with cURL
@@ -215,7 +215,7 @@ class GitHubLoginHelper
 
 		// Refresh user data in database.
 
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->container->get('db');
 
 		$db->setQuery(
@@ -224,7 +224,6 @@ class GitHubLoginHelper
 				->set($db->quoteName('email') . '=' . $db->quote($user->email))
 				->set($db->quoteName('name') . '=' . $db->quote($user->name))
 				->where($db->quoteName('id') . '=' . (int) $user->id)
-
 		)->execute();
 
 		return $this;
@@ -241,7 +240,7 @@ class GitHubLoginHelper
 	 */
 	public function setLastVisitTime($id)
 	{
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->container->get('db');
 
 		$db->setQuery(

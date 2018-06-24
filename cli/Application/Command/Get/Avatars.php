@@ -66,7 +66,7 @@ class Avatars extends Get
 	 */
 	private function fetchAvatars()
 	{
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
 		$usernames = $db->setQuery(

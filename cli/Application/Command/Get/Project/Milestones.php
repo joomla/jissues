@@ -44,7 +44,7 @@ class Milestones extends Project
 	{
 		$this->getApplication()->outputTitle(g11n3t('Retrieve Milestones'));
 
-		$this->logOut(g11n3t('Start retrieving Milestones'))
+		return $this->logOut(g11n3t('Start retrieving Milestones'))
 			->selectProject()
 			->setupGitHub()
 			->processMilestones()
@@ -63,7 +63,7 @@ class Milestones extends Project
 	{
 		$this->out(g11n3t('Fetching milestones...'), false);
 
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
 		$table = new MilestonesTable($db);

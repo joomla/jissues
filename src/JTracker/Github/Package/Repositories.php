@@ -194,7 +194,8 @@ class Repositories extends Package
 	 * @since   1.0
 	 */
 	public function create($name, $org = '', $description = '', $homepage = '', $private = false, $has_issues = false,
-		$has_wiki = false, $has_downloads = false, $team_id = 0, $auto_init = false, $gitignore_template = '')
+		$has_wiki = false, $has_downloads = false, $team_id = 0, $auto_init = false, $gitignore_template = ''
+	)
 	{
 		$path = ($org)
 			// Create a repository for an organization
@@ -263,7 +264,8 @@ class Repositories extends Package
 	 * @since   1.0
 	 */
 	public function edit($owner, $repo, $name, $description = '', $homepage = '', $private = false, $has_issues = false,
-		$has_wiki = false, $has_downloads = false, $default_branch = '')
+		$has_wiki = false, $has_downloads = false, $default_branch = ''
+	)
 	{
 		$path = '/repos/' . $owner . '/' . $repo;
 

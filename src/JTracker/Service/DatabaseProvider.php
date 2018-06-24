@@ -98,6 +98,6 @@ class DatabaseProvider implements ServiceProviderInterface
 					);
 				},
 				true
-		);
+			);
 	}
 }

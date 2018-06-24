@@ -36,7 +36,7 @@ class Login extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/* @type \JTracker\Application $app */
+		/** @var \JTracker\Application $app */
 		$app = $this->getContainer()->get('app');
 
 		$user = $app->getUser();
@@ -138,5 +138,8 @@ class Login extends AbstractTrackerController
 		$app->setRememberMe(true);
 
 		$app->redirect($redirect);
+
+		// To silence PHPCS expecting a return
+		return '';
 	}
 }

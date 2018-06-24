@@ -36,7 +36,7 @@ class Vote extends AbstractAjaxController
 			throw new \Exception('Anonymous votes are not allowed.');
 		}
 
-		/* @type Input $input */
+		/** @var Input $input */
 		$input = $this->getContainer()->get('app')->input;
 
 		$issue       = $input->getUint('issueId');

@@ -27,7 +27,7 @@ class Logout extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/* @type Application $application */
+		/** @var Application $application */
 		$application = $this->getContainer()->get('app');
 
 		// Invalidate the session

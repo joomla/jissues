@@ -49,7 +49,7 @@ abstract class AbstractTrackerListController extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		/* @type Application $application */
+		/** @var Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$limit = $application->getUserStateFromRequest('list.limit', 'list_limit', 20, 'int');

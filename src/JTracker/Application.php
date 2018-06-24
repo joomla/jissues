@@ -150,7 +150,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			$this->mark('Apps booted');
 
 			// Fetch the controller
-			/* @type AbstractTrackerController $controller */
+			/** @var AbstractTrackerController $controller */
 			$controller = $this->getRouter()->getController($this->get('uri.route'));
 
 			$this->mark('Initializing controller: ' . get_class($controller));
@@ -510,7 +510,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 */
 	public function getUserState($key, $default = null)
 	{
-		/* @type Registry $registry */
+		/** @var Registry $registry */
 		$registry = $this->getSession()->get('registry');
 
 		if (!is_null($registry))
@@ -563,7 +563,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 */
 	public function setUserState($key, $value)
 	{
-		/* @type Registry $registry */
+		/** @var Registry $registry */
 		$registry = $this->getSession()->get('registry');
 
 		if (!is_null($registry))

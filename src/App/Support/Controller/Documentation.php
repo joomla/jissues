@@ -31,7 +31,7 @@ class Documentation extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		/* @type $input \Joomla\Input\Input */
+		/** @var $input \Joomla\Input\Input */
 		$input = $this->getContainer()->get('app')->input;
 
 		$path = $input->getPath('path');
@@ -43,5 +43,7 @@ class Documentation extends AbstractTrackerController
 
 			$this->view->addData('fullPath', $fullPath);
 		}
+
+		return $this;
 	}
 }

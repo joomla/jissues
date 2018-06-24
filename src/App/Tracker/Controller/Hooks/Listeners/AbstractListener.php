@@ -39,7 +39,7 @@ abstract class AbstractListener implements ContainerAwareInterface
 	 * @param   object  $project     Object containing project data
 	 * @param   string  $checkLabel  The label to check
 	 *
-	 * @return  bool    True if the label already exists
+	 * @return  boolean    True if the label already exists
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -473,7 +473,7 @@ abstract class AbstractListener implements ContainerAwareInterface
 	 * @param   object  $project   Object containing project data
 	 * @param   string  $message   The message the bot should send
 	 *
-	 * @return  array
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */

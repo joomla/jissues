@@ -30,7 +30,7 @@ class GetList extends AbstractAjaxController
 
 		$project = $this->getContainer()->get('app')->getProject();
 
-		/* @type \Joomla\Github\Github $github */
+		/** @var \Joomla\Github\Github $github */
 		$github = $this->getContainer()->get('gitHub');
 
 		$this->response->data = $github->issues->labels->getList($project->gh_user, $project->gh_project);

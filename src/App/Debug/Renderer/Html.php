@@ -362,8 +362,10 @@ class Html implements ContainerAwareInterface
 
 		$pluralInfo = sprintf(
 			g11n3t(
-				'Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>'),
-			G11n::get('pluralForms'), G11n::get('pluralFunctionRaw')
+				'Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>'
+			),
+			G11n::get('pluralForms'),
+			G11n::get('pluralFunctionRaw')
 		);
 
 		return (new TableFormat)->fromArray($items) . $pluralInfo;
@@ -393,7 +395,7 @@ class Html implements ContainerAwareInterface
 
 		foreach ($items as $string => $item)
 		{
-			$color =('-' == $item->status)
+			$color = ('-' == $item->status)
 				? '#ffb2b2;'
 				: '#e5ff99;';
 

@@ -55,7 +55,7 @@ class Listing extends AbstractTrackerListController
 	{
 		parent::initialize();
 
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 		$application->getUser()->authorize('manage');
 

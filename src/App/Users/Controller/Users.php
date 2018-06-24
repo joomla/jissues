@@ -28,7 +28,7 @@ class Users extends AbstractTrackerListController
 	{
 		parent::initialize();
 
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$state = $this->model->getState();

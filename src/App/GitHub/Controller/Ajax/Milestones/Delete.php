@@ -26,7 +26,7 @@ class Delete extends Base
 	 */
 	protected function prepareResponse()
 	{
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$application->getUser()->authorize('manage');

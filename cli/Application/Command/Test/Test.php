@@ -20,7 +20,7 @@ class Test extends TrackerCommand
 	/**
 	 * Should the command exit or return the status.
 	 *
-	 * @var    bool
+	 * @var    boolean
 	 * @since  1.0
 	 */
 	protected $exit = true;

@@ -166,7 +166,7 @@ class Issues extends Project
 			{
 				$page++;
 				$issues_more = $this->github->issues->getListByRepository(
-				// Owner
+					// Owner
 					$this->project->gh_user,
 					// Repository
 					$this->project->gh_project,
@@ -487,16 +487,16 @@ class Issues extends Project
 
 		if (!$labels)
 		{
-			/* @type \Joomla\Database\DatabaseDriver $db */
+			/** @var \Joomla\Database\DatabaseDriver $db */
 			$db = $this->getContainer()->get('db');
 
 			$table = new LabelsTable($db);
 
 			$labelList = $db ->setQuery(
 				$db->getQuery(true)
-				->from($db->quoteName($table->getTableName()))
-				->select(['label_id', 'name'])
-				->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
+					->from($db->quoteName($table->getTableName()))
+					->select(['label_id', 'name'])
+					->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
 			)->loadObjectList();
 
 			foreach ($labelList as $labelObject)
@@ -531,7 +531,7 @@ class Issues extends Project
 	 */
 	private function getMilestones()
 	{
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 		$table = new MilestonesTable($db);
 
@@ -566,7 +566,7 @@ class Issues extends Project
 	 */
 	protected function getDbIssues()
 	{
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
 		$query = $db->getQuery(true);

@@ -34,14 +34,14 @@ class Submit extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$user = $application->getUser();
 
 		$user->authorize('create');
 
-		/* @type \Joomla\Github\Github $gitHub */
+		/** @var \Joomla\Github\Github $gitHub */
 		$gitHub = $this->getContainer()->get('gitHub');
 
 		$project = $application->getProject();
@@ -206,7 +206,7 @@ class Submit extends AbstractTrackerController
 	 */
 	private function updateGitHub($title, $body, $assignee, $milestone, $labels)
 	{
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$project = $application->getProject();

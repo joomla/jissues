@@ -143,7 +143,7 @@ class Langtemplates extends Make
 
 		// Process App templates
 
-		/* @type \DirectoryIterator $fileInfo */
+		/** @var \DirectoryIterator $fileInfo */
 		foreach (new \DirectoryIterator(JPATH_ROOT . '/src/App') as $fileInfo)
 		{
 			if ($fileInfo->isDot())
@@ -355,7 +355,7 @@ class Langtemplates extends Make
 	{
 		$cleanFiles = [];
 
-		/* @type \SplFileInfo $fileInfo */
+		/** @var \SplFileInfo $fileInfo */
 		foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) as $fileInfo)
 		{
 			if ($fileInfo->getExtension() != $search)
@@ -478,7 +478,7 @@ class Langtemplates extends Make
 		// Iterate over all the templates
 		if ($recursive)
 		{
-			/* @type \DirectoryIterator $file */
+			/** @var \DirectoryIterator $file */
 			foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($twigDir)) as $file)
 			{
 				// Force compilation
@@ -490,7 +490,7 @@ class Langtemplates extends Make
 		}
 		else
 		{
-			/* @type \DirectoryIterator $file */
+			/** @var \DirectoryIterator $file */
 			foreach (new \DirectoryIterator($twigDir) as $file)
 			{
 				// Force compilation
@@ -520,7 +520,7 @@ class Langtemplates extends Make
 	{
 		$pathMap = [];
 
-		/* @type \DirectoryIterator $fileInfo */
+		/** @var \DirectoryIterator $fileInfo */
 		foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($twigPath)) as $fileInfo)
 		{
 			if ('php' == $fileInfo->getExtension())
@@ -589,7 +589,7 @@ class Langtemplates extends Make
 	 *
 	 * @param   string  $dir  The directory to delete.
 	 *
-	 * @return  bool
+	 * @return  boolean
 	 *
 	 * @since   1.0
 	 */

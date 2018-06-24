@@ -38,7 +38,7 @@ abstract class AbstractBaseController extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$application->getUser()->authorize('view');

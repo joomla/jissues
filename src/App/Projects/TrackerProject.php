@@ -258,9 +258,9 @@ class TrackerProject implements \Serializable
 			// Only for existing projects
 			$groups = $db->setQuery(
 				$db->getQuery(true)
-				->from($db->quoteName('#__accessgroups'))
-				->select('*')
-				->where($db->quoteName('project_id') . ' = ' . (int) $this->project_id)
+					->from($db->quoteName('#__accessgroups'))
+					->select('*')
+					->where($db->quoteName('project_id') . ' = ' . (int) $this->project_id)
 			)->loadObjectList();
 
 			if (!$groups)
@@ -270,7 +270,7 @@ class TrackerProject implements \Serializable
 			}
 		}
 
-		/* @type \App\Groups\Table\GroupsTable $group */
+		/** @var \App\Groups\Table\GroupsTable $group */
 		foreach ($groups as $group)
 		{
 			// Process a system group.

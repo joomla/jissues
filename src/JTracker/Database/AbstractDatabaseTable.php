@@ -348,10 +348,10 @@ class AbstractDatabaseTable implements \IteratorAggregate
 		// Delete the row by primary key.
 		$this->db->setQuery(
 			$this->db->getQuery(true)
-			->delete($this->db->quoteName($this->tableName))
-			->where($this->db->quoteName($key) . ' = ' . $this->db->quote($pKey))
+				->delete($this->db->quoteName($this->tableName))
+				->where($this->db->quoteName($key) . ' = ' . $this->db->quote($pKey))
 		)
-		->execute();
+			->execute();
 
 		return $this;
 	}

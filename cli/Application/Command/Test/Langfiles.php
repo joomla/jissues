@@ -65,8 +65,8 @@ class Langfiles extends Test
 					$path = $scopePath . '/' . $extensionPath . '/' . $language;
 
 					$path .= ('templates' == $language)
-						?  '/' . $extension . '.pot'
-						:  '/' . $language . '.' . $extension . '.po';
+						? '/' . $extension . '.pot'
+						: '/' . $language . '.' . $extension . '.po';
 
 					$this->debugOut(sprintf('Check: %s-%s %s in %s', $domain, $extension, $language, $path));
 

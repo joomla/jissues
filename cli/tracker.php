@@ -37,7 +37,7 @@ define('JTRACKER_START_MEMORY', memory_get_usage());
 	$loader = include $path;
 
 	// Add the namespace for our application to the autoloader.
-	/* @type Composer\Autoload\ClassLoader $loader */
+	/** @var Composer\Autoload\ClassLoader $loader */
 	$loader->add('Application', __DIR__);
 
 	// Wrap in a try/catch so we can display an error if need be

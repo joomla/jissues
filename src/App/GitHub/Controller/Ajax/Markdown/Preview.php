@@ -42,7 +42,7 @@ class Preview extends AbstractAjaxController
 
 		$project = $this->getContainer()->get('app')->getProject();
 
-		/* @type \Joomla\Github\Github $github */
+		/** @var \Joomla\Github\Github $github */
 		$github = $this->getContainer()->get('gitHub');
 
 		$this->response->data = $github->markdown->render(

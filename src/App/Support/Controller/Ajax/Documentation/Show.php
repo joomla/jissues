@@ -30,7 +30,7 @@ class Show extends AbstractAjaxController
 	{
 		ob_start();
 
-		/* @type $input \Joomla\Input\Input */
+		/** @var $input \Joomla\Input\Input */
 		$input = $this->getContainer()->get('app')->input;
 
 		$page = $input->get('page');

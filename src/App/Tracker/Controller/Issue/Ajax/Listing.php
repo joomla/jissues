@@ -29,13 +29,13 @@ class Listing extends AbstractAjaxController
 	 *
 	 * @param   IssuesModel  $model  The issues model
 	 *
-	 * @return  \Joomla\Registry\Registry
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
 	private function setModelState(IssuesModel $model)
 	{
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$state = $model->getState();

@@ -28,7 +28,7 @@ class Save extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$application->getUser()->authorize('admin');
@@ -59,6 +59,9 @@ class Save extends AbstractTrackerController
 
 		$application->enqueueMessage(g11n3t('The configuration file has been saved.'), 'success')
 			->redirect('/');
+
+		// To silence PHPCS expecting a return
+		return '';
 	}
 
 	/**

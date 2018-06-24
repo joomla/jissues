@@ -39,7 +39,9 @@ class MonologsHtmlView extends AbstractTrackerHtmlView
 
 	/**
 	 * Log lines to show.
-	 * @var int
+	 *
+	 * @var    integer
+	 * @since  1.0
 	 */
 	protected $count = 20;
 
@@ -180,7 +182,9 @@ class MonologsHtmlView extends AbstractTrackerHtmlView
 	 *
 	 * @param   integer  $count  Number of items to show.
 	 *
-	 * @return $this
+	 * @return  $this
+	 *
+	 * @since   1.0
 	 */
 	public function setCount($count)
 	{

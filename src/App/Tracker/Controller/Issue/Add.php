@@ -70,6 +70,8 @@ class Add extends AbstractTrackerController
 
 		$this->view->setProject($this->getContainer()->get('app')->getProject());
 		$this->view->setItem($item);
+
+		return $this;
 	}
 
 	/**
@@ -82,7 +84,7 @@ class Add extends AbstractTrackerController
 	 */
 	private function fetchTemplate()
 	{
-		/* @type $project \App\Projects\TrackerProject */
+		/** @var $project \App\Projects\TrackerProject */
 		$project = $this->getContainer()->get('app')->getProject();
 		$github = GithubFactory::getInstance($this->getContainer()->get('app'));
 

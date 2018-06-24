@@ -95,8 +95,8 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 		// Delete access groups associated with the project
 		$this->db->setQuery(
 			$this->db->getQuery(true)
-			->delete($this->db->quoteName('#__accessgroups'))
-			->where($this->db->quoteName('project_id') . '=' . (int) $project->project_id)
+				->delete($this->db->quoteName('#__accessgroups'))
+				->where($this->db->quoteName('project_id') . '=' . (int) $project->project_id)
 		)->execute();
 
 		// @todo: cleanup more.

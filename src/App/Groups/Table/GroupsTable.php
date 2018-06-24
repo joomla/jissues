@@ -72,11 +72,11 @@ class GroupsTable extends AbstractDatabaseTable
 		$this->system     = (int) $src->get('system');
 
 		// The following values come in as checkboxes ¡: "ON" or not set.
-		$this->can_view    = $src->get('can_view')    ? 1 : 0;
-		$this->can_create  = $src->get('can_create')  ? 1 : 0;
-		$this->can_edit    = $src->get('can_edit')    ? 1 : 0;
+		$this->can_view    = $src->get('can_view') ? 1 : 0;
+		$this->can_create  = $src->get('can_create') ? 1 : 0;
+		$this->can_edit    = $src->get('can_edit') ? 1 : 0;
 		$this->can_editown = $src->get('can_editown') ? 1 : 0;
-		$this->can_manage  = $src->get('can_manage')  ? 1 : 0;
+		$this->can_manage  = $src->get('can_manage') ? 1 : 0;
 
 		return $this;
 	}
@@ -122,8 +122,8 @@ class GroupsTable extends AbstractDatabaseTable
 		// Delete the entries in the map table.
 		$this->db->setQuery(
 			$this->db->getQuery(true)
-			->delete($this->db->quoteName('#__user_accessgroup_map'))
-			->where($this->db->quoteName('group_id') . ' = ' . (int) $this->group_id)
+				->delete($this->db->quoteName('#__user_accessgroup_map'))
+				->where($this->db->quoteName('group_id') . ' = ' . (int) $this->group_id)
 		)->execute();
 
 		return $this;

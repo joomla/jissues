@@ -54,7 +54,10 @@ class Markdown extends Package
 		$path = '/markdown';
 
 		// Build the request data.
-		$data = str_replace('\\/', '/', json_encode(
+		$data = str_replace(
+			'\\/',
+			'/',
+			json_encode(
 				[
 					'text'    => $text,
 					'mode'    => $mode,

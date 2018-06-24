@@ -29,7 +29,7 @@ class Save extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$src = $application->input->get('item', [], 'array');
@@ -48,8 +48,8 @@ class Save extends AbstractTrackerController
 				);
 
 				$application->redirect(
-						$application->get('uri.base.path') . 'user/' . $src['id']
-					);
+					$application->get('uri.base.path') . 'user/' . $src['id']
+				);
 			}
 		}
 
@@ -71,6 +71,7 @@ class Save extends AbstractTrackerController
 			$application->get('uri.base.path') . 'user/' . $src['id'] . '/edit'
 		);
 
-		parent::execute();
+		// To silence PHPCS expecting a return
+		return '';
 	}
 }

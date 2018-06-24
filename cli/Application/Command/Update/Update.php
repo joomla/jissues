@@ -67,7 +67,7 @@ class Update extends TrackerCommand
 					'noprogress', '',
 					g11n3t("Don't use a progress bar.")
 				)
-		);
+			);
 	}
 
 	/**

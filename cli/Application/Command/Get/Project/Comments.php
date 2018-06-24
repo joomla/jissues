@@ -97,7 +97,7 @@ class Comments extends Project
 					'Fetching comments for <b>one</b> modified issue from GitHub...',
 					'Fetching comments for <b>%d</b> modified issues from GitHub...',
 					count($this->changedIssueNumbers)
-					),
+				),
 				count($this->changedIssueNumbers)
 			), false
 		);
@@ -111,12 +111,12 @@ class Comments extends Project
 			$this->usePBar
 				? $progressBar->update($count + 1)
 				: $this->out(
-				sprintf(
-					'#%d (%d/%d):',
-					$issueNumber, $count, count($this->changedIssueNumbers)
-				),
-				false
-			);
+					sprintf(
+						'#%d (%d/%d):',
+						$issueNumber, $count, count($this->changedIssueNumbers)
+					),
+					false
+				);
 
 			$page = 0;
 
@@ -169,7 +169,7 @@ class Comments extends Project
 			return $this;
 		}
 
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
 		// Initialize our query object
@@ -344,7 +344,7 @@ class Comments extends Project
 	 */
 	private function getIssueCommentsIds($issueNumber)
 	{
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
 		$query = $db->getQuery(true);
@@ -373,7 +373,7 @@ class Comments extends Project
 	 */
 	private function deleteIssuesComments(array $ids)
 	{
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
 		$query = $db->getQuery(true);
