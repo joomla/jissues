@@ -50,18 +50,19 @@ class Autocomplete extends Make
 
 		$this->description = g11n3t('Generate autocomplete files.');
 
-		$this->addOption(
-			new TrackerCommandOption(
-				'type', 't',
-				sprintf(g11n3t('The type of auto complete file (currently supported: %s).'), "'" . implode("' '", $this->knownTypes) . "'")
+		$this
+			->addOption(
+				new TrackerCommandOption(
+					'type', 't',
+					sprintf(g11n3t('The type of auto complete file (currently supported: %s).'), "'" . implode("' '", $this->knownTypes) . "'")
+				)
 			)
-		)
-		->addOption(
-			new TrackerCommandOption(
-				'echo', 'e',
-				g11n3t('Echo the output instead of writing it to a file.')
-			)
-		);
+			->addOption(
+				new TrackerCommandOption(
+					'echo', 'e',
+					g11n3t('Echo the output instead of writing it to a file.')
+				)
+			);
 	}
 
 	/**
@@ -141,7 +142,7 @@ class Autocomplete extends Make
 				$xmlCommand->addChild('params', 'option');
 			}
 
-			/* @type TrackerCommand $action */
+			/** @var TrackerCommand $action */
 			foreach ($command->actions as $name => $action)
 			{
 				$help = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $action->getDescription());
@@ -199,7 +200,7 @@ class Autocomplete extends Make
 			$lines[] = "# jtracker $command->name";
 			$lines[] = "complete -f -c jtracker -n '__fish_jtracker_needs_command' -a $command->name -d \"$command->description\"";
 
-			/* @type TrackerCommand $action */
+			/** @var TrackerCommand $action */
 			foreach ($command->actions as $name => $action)
 			{
 				$description = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $action->getDescription());
@@ -260,7 +261,7 @@ class Autocomplete extends Make
 		$helper = new Help;
 		$helper->setContainer($this->getContainer());
 
-		/* @type \DirectoryIterator $fileInfo */
+		/** @var \DirectoryIterator $fileInfo */
 		foreach (new \DirectoryIterator(JPATH_ROOT . '/cli/Application/Command') as $fileInfo)
 		{
 			if ($fileInfo->isDot())
@@ -276,7 +277,7 @@ class Autocomplete extends Make
 
 		// Sort the array and put the "Help" command in first place.
 		usort(
-			$names, function($a, $b)
+			$names, function ($a, $b)
 			{
 				if ('Help' == $a)
 				{
@@ -298,7 +299,7 @@ class Autocomplete extends Make
 
 			$className = $commandName . '\\' . $name;
 
-			/* @type TrackerCommand $class */
+			/** @var TrackerCommand $class */
 			$class = new $className($this->getApplication());
 			$class->setContainer($this->getContainer());
 

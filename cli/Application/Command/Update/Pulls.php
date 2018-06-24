@@ -56,11 +56,11 @@ class Pulls extends Update
 			->displayGitHubRateLimit()
 			->out(
 				sprintf(
-						g11n3t('Updating pull requests for project: %s/%s'),
-						$this->project->gh_user,
-						$this->project->gh_project
-					)
+					g11n3t('Updating pull requests for project: %s/%s'),
+					$this->project->gh_user,
+					$this->project->gh_project
 				)
+			)
 			->fetchPulls()
 			->labelPulls()
 			->updatePullStatus()

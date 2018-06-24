@@ -171,14 +171,13 @@ class Hook extends Test
 	 */
 	protected function selectProject()
 	{
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
 		$projects = $db->setQuery(
 			$db->getQuery(true)
 				->from($db->quoteName('#__tracker_projects'))
 				->select(['project_id', 'title', 'gh_user', 'gh_project'])
-
 		)->loadObjectList();
 
 		$id = (integer) $this->getOption('project');

@@ -30,7 +30,7 @@ class Clearcache extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$application->getUser()->authorize('admin');

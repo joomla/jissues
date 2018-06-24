@@ -123,7 +123,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 	public function initialize()
 	{
 		// Get the input
-		/* @type Input $input */
+		/** @var Input $input */
 		$input = $this->getContainer()->get('app')->input;
 
 		// Get some data from the request
@@ -173,7 +173,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 		$this->model = new $modelClass($this->getContainer()->get('db'), $this->getContainer()->get('app')->input);
 
 		// Create the view
-		/* @type AbstractTrackerHtmlView $view */
+		/** @var AbstractTrackerHtmlView $view */
 		$this->view = new $viewClass(
 			$this->model,
 			$this->fetchRenderer($viewName, $layoutName)
@@ -239,7 +239,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 	 */
 	protected function fetchRenderer($view, $layout)
 	{
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$rendererName = $application->get('renderer.type');
@@ -302,7 +302,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 	 */
 	protected function addEventListener($type)
 	{
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('JTracker\\Application');
 
 		/*
@@ -340,7 +340,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 			return;
 		}
 
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		// Create the event with default arguments.

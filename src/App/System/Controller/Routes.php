@@ -31,7 +31,7 @@ class Routes extends AbstractTrackerController
 		$routes = [];
 
 		// Search for App specific routes
-		/* @type \DirectoryIterator $fileInfo */
+		/** @var \DirectoryIterator $fileInfo */
 		foreach (new \DirectoryIterator(JPATH_ROOT . '/src/App') as $fileInfo)
 		{
 			if ($fileInfo->isDot())

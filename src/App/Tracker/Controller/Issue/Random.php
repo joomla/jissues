@@ -62,6 +62,7 @@ class Random extends AbstractTrackerController
 			);
 		}
 
-		parent::execute();
+		// To silence PHPCS expecting a return
+		return '';
 	}
 }

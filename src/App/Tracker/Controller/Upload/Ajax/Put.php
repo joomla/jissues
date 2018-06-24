@@ -27,7 +27,7 @@ class Put extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$files = $application->input->files->get('files');

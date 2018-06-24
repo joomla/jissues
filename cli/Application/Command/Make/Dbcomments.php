@@ -38,7 +38,7 @@ class Dbcomments extends Make
 	{
 		$this->getApplication()->outputTitle(g11n3t('Make Table Comments'));
 
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
 		$tables = $db->getTableList();

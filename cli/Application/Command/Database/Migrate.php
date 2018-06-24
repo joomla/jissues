@@ -70,7 +70,6 @@ class Migrate extends Database
 			);
 
 			$this->getApplication()->out("<error>$message</error>");
-
 		}
 
 		$this->getLogger()->info('Database migrated to latest version.');

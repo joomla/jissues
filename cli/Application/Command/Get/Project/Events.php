@@ -170,7 +170,7 @@ class Events extends Project
 			return $this;
 		}
 
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
 		$query = $db->getQuery(true);
@@ -341,7 +341,7 @@ class Events extends Project
 	 */
 	private function prepareChanges($event)
 	{
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
 		$changes = [];

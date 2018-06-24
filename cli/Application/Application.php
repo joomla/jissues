@@ -201,7 +201,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 
 		try
 		{
-			/* @type TrackerCommand $command */
+			/** @var TrackerCommand $command */
 			$command = new $className;
 
 			if ($command instanceof ContainerAwareInterface)

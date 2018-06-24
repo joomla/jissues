@@ -69,10 +69,10 @@ class Users extends Get
 	 */
 	private function getUserName()
 	{
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
-		/* @type \Joomla\Github\Github $github */
+		/** @var \Joomla\Github\Github $github */
 		$github = $this->getContainer()->get('gitHub');
 
 		$userNames = $db->setQuery(

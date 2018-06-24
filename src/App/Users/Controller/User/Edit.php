@@ -65,7 +65,7 @@ class Edit extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$id = $application->input->getUint('id');
@@ -92,5 +92,7 @@ class Edit extends AbstractTrackerController
 		$this->view->id = $id;
 
 		$this->model->setProject($this->getContainer()->get('app')->getProject());
+
+		return $this;
 	}
 }

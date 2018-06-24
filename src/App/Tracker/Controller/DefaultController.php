@@ -47,7 +47,7 @@ class DefaultController extends AbstractTrackerListController
 	{
 		parent::initialize();
 
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$application->getUser()->authorize('view');
@@ -69,7 +69,7 @@ class DefaultController extends AbstractTrackerListController
 	 */
 	private function setModelState()
 	{
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$state = $this->model->getState();

@@ -39,7 +39,7 @@ class Save extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$src = $application->input->get('item', [], 'array');
@@ -229,7 +229,7 @@ class Save extends AbstractTrackerController
 			// Save the comment.
 			if ($comment)
 			{
-				/* @type \JTracker\Github\Github $github */
+				/** @var \JTracker\Github\Github $github */
 				$github = $this->getContainer()->get('gitHub');
 
 				$project = $application->getProject();
@@ -287,9 +287,7 @@ class Save extends AbstractTrackerController
 			}
 
 			$application->enqueueMessage('The changes have been saved.', 'success')
-				->redirect(
-				'/tracker/' . $application->input->get('project_alias') . '/' . $issueNumber
-			);
+				->redirect('/tracker/' . $application->input->get('project_alias') . '/' . $issueNumber);
 		}
 		catch (\RuntimeException $exception)
 		{
@@ -327,7 +325,7 @@ class Save extends AbstractTrackerController
 	 */
 	private function updateGitHub($issueNumber, array $data, $state, $oldState, $assignee, $milestone, $labels)
 	{
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$project = $application->getProject();

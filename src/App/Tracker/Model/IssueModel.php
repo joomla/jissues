@@ -334,7 +334,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 * @param   string   $username  The user name
 	 * @param   string   $sha       The commit SHA.
 	 *
-	 * @return  null|integer  Null - the test was not submitted,
+	 * @return  void|integer  Null - the test was not submitted,
 	 *                        integer - the value of test: 0 - not tested; 1 - tested successfully; 2 - tested unsuccessfully
 	 *
 	 * @since   1.0
@@ -454,7 +454,8 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$src['event']   = 'open';
 		$src['user']    = $src['opened_by'];
 
-		$table->save($src);*/
+		$table->save($src);
+		*/
 
 		return $this;
 	}

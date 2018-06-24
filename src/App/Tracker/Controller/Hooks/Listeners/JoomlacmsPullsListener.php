@@ -78,7 +78,8 @@ class JoomlacmsPullsListener extends AbstractListener
 	 *
 	 * The category index is provided as the key while the values are containing regular expressions matching the file paths.
 	 *
-	 * @since   1.0
+	 * @var    array
+	 * @since  1.0
 	 */
 	protected $trackerHandledCategories = [
 		self::CATEGORY_JAVASCRIPT => [
@@ -553,7 +554,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	 * @param   array    $files  The files array
 	 * @param   integer  $id     The id of the category we should check
 	 *
-	 * @return  bool   True if we change a file matching the passed category id.
+	 * @return  boolean   True if we change a file matching the passed category id.
 	 *
 	 * @since   1.0
 	 */

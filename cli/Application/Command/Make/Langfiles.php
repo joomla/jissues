@@ -92,16 +92,16 @@ class Langfiles extends Make
 					continue;
 				}
 
-			$this
-				->processDomain('JTracker', 'Core', $lang)
-				->processDomain('JTracker.js', 'Core', $lang)
-				->processDomain('JTracker', 'Template', $lang);
+				$this
+					->processDomain('JTracker', 'Core', $lang)
+					->processDomain('JTracker.js', 'Core', $lang)
+					->processDomain('JTracker', 'Template', $lang);
 			}
 		}
 
 		// Process App templates
 
-		/* @type \DirectoryIterator $fileInfo */
+		/** @var \DirectoryIterator $fileInfo */
 		foreach (new \DirectoryIterator(JPATH_ROOT . '/src/App') as $fileInfo)
 		{
 			if ($fileInfo->isDot())

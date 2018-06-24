@@ -153,7 +153,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 			$this->getContainer()->get('app')->close();
 		}
 
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('JTracker\\Application');
 
 		$application->input->set('project_alias', $alias);
@@ -171,7 +171,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	 */
 	public function initialize()
 	{
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$this->debug = $application->get('debug.hooks');

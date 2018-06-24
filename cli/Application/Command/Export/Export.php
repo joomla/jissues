@@ -36,8 +36,11 @@ class Export extends TrackerCommand
 		$this->description = 'Export <cmd><langfiles></cmd>.';
 
 		$this->addOption(
-			new TrackerCommandOption('outputdir', 'o',
-				'The directory that should receive the export.')
+			new TrackerCommandOption(
+				'outputdir',
+				'o',
+				'The directory that should receive the export.'
+			)
 		);
 	}
 

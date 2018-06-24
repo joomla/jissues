@@ -29,7 +29,7 @@ class Refresh extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/* @type \JTracker\Application $application */
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$id = $application->input->getUint('id');
@@ -47,12 +47,12 @@ class Refresh extends AbstractTrackerController
 					g11n3t('You are not authorised to refresh this user.'), 'error'
 				)
 					->redirect(
-					$application->get('uri.base.path') . 'user/' . $id
-				);
+						$application->get('uri.base.path') . 'user/' . $id
+					);
 			}
 		}
 
-		/* @type \Joomla\Github\Github $github */
+		/** @var \Joomla\Github\Github $github */
 		$gitHub = $this->getContainer()->get('gitHub');
 
 		$gitHubUser = $gitHub->users->getAuthenticatedUser();

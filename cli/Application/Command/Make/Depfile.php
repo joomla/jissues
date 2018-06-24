@@ -268,8 +268,8 @@ class Depfile extends Make
 					{
 						$this->out(
 							g11n3t(
-							'Language file not found: %tag%, %extension%, %domain%',
-							['%tag%' => $langTag, '%domain%' => $domain, '%extension%' => $extension]
+								'Language file not found: %tag%, %extension%, %domain%',
+								['%tag%' => $langTag, '%domain%' => $domain, '%extension%' => $extension]
 							)
 						);
 

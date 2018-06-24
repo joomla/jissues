@@ -190,7 +190,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 
 		$db->setQuery(
 			$query->delete('#__issue_category_map')
-				->where('category_id' . '=' . $id)
+				->where('category_id = ' . $id)
 		)->execute();
 
 		// Delete the category from the table

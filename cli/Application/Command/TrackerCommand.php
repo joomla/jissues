@@ -259,7 +259,8 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 
 			$this->out('<error>  ' . $command . ' ' . $cmd
 				. str_repeat(' ', $maxLen - strlen($cmd) - strlen($command) + 1)
-				. '</error>');
+				. '</error>'
+			);
 		}
 
 		$this->out('<error>  ' . str_repeat(' ', $maxLen) . '  </error>');
@@ -330,14 +331,13 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	 */
 	protected function selectProject()
 	{
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
 		$projects = $db->setQuery(
 			$db->getQuery(true)
 				->from($db->quoteName('#__tracker_projects'))
 				->select(['project_id', 'title', 'gh_user', 'gh_project', 'gh_editbot_user', 'gh_editbot_pass'])
-
 		)->loadObjectList();
 
 		$id = (integer) $this->getOption('project');

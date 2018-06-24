@@ -33,7 +33,7 @@ class Add extends AbstractAjaxController
 
 		$project = $this->getContainer()->get('app')->getProject();
 
-		/* @type \Joomla\Github\Github $gitHub */
+		/** @var \Joomla\Github\Github $gitHub */
 		$gitHub = $this->getContainer()->get('gitHub');
 
 		$name   = 'web';

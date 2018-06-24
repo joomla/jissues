@@ -46,8 +46,9 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "~1.11",
+        "joomla/coding-standards": "dev-master",
         "phpunit/phpunit"  : "~6.0",
-        "squizlabs/php_codesniffer": "1.*",
+        "squizlabs/php_codesniffer": "2.*",
         "sebastian/phpcpd": "*",
         "phploc/phploc": "*",
         "clue/graph-composer": "*"

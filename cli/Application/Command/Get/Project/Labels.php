@@ -42,7 +42,7 @@ class Labels extends Project
 	{
 		$this->getApplication()->outputTitle(g11n3t('Retrieve Labels'));
 
-		$this->logOut(g11n3t('Start retrieve Labels'))
+		return $this->logOut(g11n3t('Start retrieve Labels'))
 			->selectProject()
 			->setupGitHub()
 			->processLabels()
@@ -61,7 +61,7 @@ class Labels extends Project
 	{
 		$this->out(g11n3t('Fetching labels...'), false);
 
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
 		$table = new LabelsTable($db);

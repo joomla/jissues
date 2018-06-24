@@ -48,7 +48,7 @@ class Help extends TrackerCommand
 	 */
 	public function execute()
 	{
-		/* @type ColorProcessor $processor */
+		/** @var ColorProcessor $processor */
 		$processor = $this->getApplication()->getOutput()->getProcessor();
 
 		$processor
@@ -68,8 +68,10 @@ class Help extends TrackerCommand
 
 		$this->out(
 			sprintf(
-				g11n3t('<b>Usage</b>: %s'), sprintf(' <info>%s</info> <cmd><' . g11n3t('command') . '></cmd> <opt>[' . g11n3t('options') . ']</opt>',
-				$executable
+				g11n3t('<b>Usage</b>: %s'),
+				sprintf(
+					' <info>%s</info> <cmd><' . g11n3t('command') . '></cmd> <opt>[' . g11n3t('options') . ']</opt>',
+					$executable
 				)
 			)
 		);
@@ -78,7 +80,7 @@ class Help extends TrackerCommand
 			->out(g11n3t('Available commands:'))
 			->out();
 
-		/* @type  TrackerCommand $command */
+		/** @var  TrackerCommand $command */
 		foreach ($this->commands as $cName => $command)
 		{
 			$this->out('<cmd>' . $cName . '</cmd>');
@@ -129,7 +131,7 @@ class Help extends TrackerCommand
 
 		$actions = $this->getActions($command);
 
-		/* @type TrackerCommand $c */
+		/** @var TrackerCommand $c */
 		$c = $this->commands[$command];
 
 		$this->out(sprintf(g11n3t('Command: %s'), ' <b>' . $command . '</b>' . ($actions ? ' <cmd><' . g11n3t('action') . '></cmd>' : '')))
@@ -151,9 +153,9 @@ class Help extends TrackerCommand
 		{
 			$this->out()
 				->out('  ' . g11n3t('Available <cmd>actions</cmd>:'))
-			->out();
+				->out();
 
-			/* @type TrackerCommand $action */
+			/** @var TrackerCommand $action */
 			foreach ($actions as $aName => $action)
 			{
 				$this->out('<cmd>' . $aName . '</cmd>')
@@ -204,7 +206,7 @@ class Help extends TrackerCommand
 	{
 		$commands = [];
 
-		/* @type \DirectoryIterator $fileInfo */
+		/** @var \DirectoryIterator $fileInfo */
 		foreach (new \DirectoryIterator(__DIR__ . '/..') as $fileInfo)
 		{
 			if ($fileInfo->isDot() || $fileInfo->isFile())
@@ -241,7 +243,7 @@ class Help extends TrackerCommand
 		$actions = [];
 		$cName = ucfirst($commandName);
 
-		/* @var \DirectoryIterator $fileInfo */
+		/** @var \DirectoryIterator $fileInfo */
 		foreach (new \DirectoryIterator(__DIR__ . '/../' . $cName) as $fileInfo)
 		{
 			if ($fileInfo->isDot() || $fileInfo->isDir())

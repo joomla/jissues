@@ -43,6 +43,6 @@ class GitHubProvider implements ServiceProviderInterface
 					return GithubFactory::getInstance($container->get('app'));
 				},
 				true
-		);
+			);
 	}
 }

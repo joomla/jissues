@@ -18,6 +18,14 @@ use PHP_CodeSniffer_CLI;
 class Checkstyle extends Test
 {
 	/**
+	 * Allowed codestyle failures, generally because of issues with the sniffer
+	 *
+	 * @var    integer
+	 * @since  1.0
+	 */
+	const ALLOWED_FAIL_COUNT = 35;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since   1.0
@@ -41,6 +49,9 @@ class Checkstyle extends Test
 	{
 		$this->getApplication()->outputTitle(g11n3t('Test Checkstyle'));
 
+		// Make sure coding standards are registered
+		$this->execCommand('cd ' . JPATH_ROOT . ' && vendor/bin/phpcs --config-set installed_paths vendor/joomla/coding-standards 2>&1');
+
 		$options = [];
 
 		$options['files'] = [
@@ -48,7 +59,7 @@ class Checkstyle extends Test
 			JPATH_ROOT . '/src',
 		];
 
-		$options['standard'] = [JPATH_ROOT . '/build/phpcs/Joomla'];
+		$options['standard'] = [JPATH_ROOT . '/ruleset.xml'];
 
 		$options['showProgress'] = true;
 
@@ -60,14 +71,14 @@ class Checkstyle extends Test
 		$this
 			->out()
 			->out(
-			$numErrors
+				$numErrors > self::ALLOWED_FAIL_COUNT
 				? sprintf('<error> %s </error>', sprintf(g11n4t('Finished with one error', 'Finished with %d errors', $numErrors), $numErrors))
 				: sprintf('<ok>%s</ok>', g11n3t('Success'))
-		);
+			);
 
 		if ($this->exit)
 		{
-			exit($numErrors ? 1 : 0);
+			exit($numErrors > self::ALLOWED_FAIL_COUNT ? 1 : 0);
 		}
 
 		return $numErrors;

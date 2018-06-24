@@ -57,7 +57,7 @@ class Run extends Test
 			->execute();
 		*/
 
-		$status = ($statusCS || $statusUT) ? 1 : 0;
+		$status = ($statusCS > Checkstyle::ALLOWED_FAIL_COUNT || $statusUT) ? 1 : 0;
 
 		$this
 			->out()

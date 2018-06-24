@@ -177,7 +177,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 	 *
 	 * @param   array  $record  The log record.
 	 *
-	 * @return  $this  Method allows chaining
+	 * @return  array
 	 *
 	 * @since   1.0
 	 */
@@ -194,13 +194,13 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 
 		$entry = new \stdClass;
 
-		$entry->sql   = isset($context['sql'])   ? $context['sql']   : 'n/a';
+		$entry->sql   = isset($context['sql']) ? $context['sql'] : 'n/a';
 		$entry->times = isset($context['times']) ? $context['times'] : 'n/a';
 		$entry->trace = isset($context['trace']) ? $context['trace'] : 'n/a';
 
 		if ($entry->sql == 'SHOW PROFILE')
 		{
-			return $this;
+			return $record;
 		}
 
 		// $db->setQuery('SHOW PROFILE');

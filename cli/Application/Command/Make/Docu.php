@@ -51,12 +51,12 @@ class Docu extends Make
 
 		$this->getApplication()->displayGitHubRateLimit();
 
-		/* @type \Joomla\Database\DatabaseDriver $db */
+		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
 		$docuBase   = JPATH_ROOT . '/Documentation';
 
-		/* @type  \RecursiveDirectoryIterator $it */
+		/** @var  \RecursiveDirectoryIterator $it */
 		$it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($docuBase, \FilesystemIterator::SKIP_DOTS));
 
 		$this

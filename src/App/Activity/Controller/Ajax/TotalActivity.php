@@ -63,6 +63,8 @@ class TotalActivity extends AbstractAjaxController
 		$state->set('list.period', $enteredPeriod);
 
 		$this->model->setState($state);
+
+		return $this;
 	}
 
 	/**

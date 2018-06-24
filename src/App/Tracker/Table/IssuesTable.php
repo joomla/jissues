@@ -148,13 +148,6 @@ class IssuesTable extends AbstractDatabaseTable
 			$errors[] = g11n3t('A build max length is 40 chars.');
 		}
 
-		// Commented for now because many GitHub requests are received without a description
-
-		/*if (trim($this->description) == '')
-		{
-			$errors[] = 'A description is required.';
-		}*/
-
 		// Normalize fields
 		if ($this->milestone_id === 0)
 		{

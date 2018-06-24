@@ -288,7 +288,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Load the model state.
 	 *
-	 * @return  Registry  The state object.
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
@@ -343,7 +343,8 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		}
 		else
 		{
-			/* Performance of this query is very bad as it forces database engine to go
+			/*
+			 * Performance of this query is very bad as it forces database engine to go
 			 * through all items in the database. If you don't use JDatabaseQuery object,
 			 * you should override this function in your model.
 			 */

@@ -50,11 +50,7 @@ class Phpunit extends Test
 
 		$this
 			->out()
-			->out(
-			$returnVal
-				? '<error>' . g11n3t('Finished with errors.') . '</error>'
-				: '<ok>' . g11n3t('Success') . '</ok>'
-		);
+			->out($returnVal ? '<error>' . g11n3t('Finished with errors.') . '</error>' : '<ok>' . g11n3t('Success') . '</ok>');
 
 		if ($this->exit)
 		{
