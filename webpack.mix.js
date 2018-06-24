@@ -131,6 +131,7 @@ mix.copy('node_modules/at.js/dist/js/jquery.atwho.min.js', 'www/media/js/vendor/
 mix.copy('node_modules/jquery-textrange/jquery-textrange.js', 'www/media/js/vendor/jquery-textrange.js');
 
 // Build site resources
+mix.sass('assets/scss/markitup.scss', 'css/markitup/skins/tracker/style.css');
 mix.js('assets/js/color-select.js', 'js/color-select.js');
 mix.js('assets/js/jtracker.js', 'js/jtracker.js');
 mix.js('assets/js/jtracker-tmpl.js', 'js/jtracker-tmpl.js');

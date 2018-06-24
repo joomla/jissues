@@ -18,7 +18,7 @@
     <!-- CSS for coloured code -->
     <link rel="stylesheet" href="{{ asset('css/code.css', 'debug') }}" />
     <link rel="stylesheet" href="{{ asset('css/diff.css', 'debug') }}" media="screen" />
-    <link rel="stylesheet" href="{{ asset('markitup/skins/markitup/style.css', 'debug') }}" />
+    <link rel="stylesheet" href="{{ asset('css/markitup/skins/tracker/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/markitup/sets/markdown/style.css', 'debug') }}" />
 
     <style type="text/css">
@@ -666,7 +666,6 @@
     <script src="{{ asset('js/vendor/jquery-textrange.js') }}"></script>
     <script src="{{ asset('js/vendor/jquery.caret.js') }}"></script>
     <script src="{{ asset('js/vendor/jquery.atwho.js') }}"></script>
-    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
 
     <script src="{{ asset('css/markitup/sets/markdown/set.js', 'debug') }}"></script>
     <script src="{{ asset('js/jtracker-tmpl.js', 'debug') }}"></script>
