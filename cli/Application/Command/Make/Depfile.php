@@ -73,14 +73,15 @@ class Depfile extends Make
 		$defined  = [];
 
 		$defined['composer'] = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
-		$defined['bower']    = json_decode(file_get_contents(JPATH_ROOT . '/bower.json'));
+		$defined['npm']      = json_decode(file_get_contents(JPATH_ROOT . '/package.json'));
 		$defined['credits']  = json_decode(file_get_contents(JPATH_ROOT . '/credits.json'));
 
-		$installed = json_decode(file_get_contents(JPATH_ROOT . '/vendor/composer/installed.json'));
+		$installedComposer = json_decode(file_get_contents(JPATH_ROOT . '/vendor/composer/installed.json'));
+		$installedNpm      = json_decode(file_get_contents(JPATH_ROOT . '/package-lock.json'));
 
 		$this->product = $defined['composer'];
 
-		foreach ($installed as $entry)
+		foreach ($installedComposer as $entry)
 		{
 			$package = new \stdClass;
 
@@ -93,21 +94,21 @@ class Depfile extends Make
 			$packages['composer'][$entry->name] = $package;
 		}
 
-		foreach ($defined['bower']->dependencies as $packageName => $version)
+		foreach ($installedNpm->dependencies as $packageName => $packageData)
 		{
-			$output = [];
-
-			exec('bower info --json ' . $packageName . '#' . $version, $output);
-
-			$info = json_decode(implode("\n", $output));
+			if (!isset($defined['npm']->dependencies->$packageName))
+			{
+				continue;
+			}
 
 			$package = new \stdClass;
 
-			$package->name        = $info->name;
-			$package->description = isset($info->description) ? $info->description : '';
-			$package->sourceURL   = isset($info->homepage) ? $info->homepage : 'N/A';
+			$package->name        = $packageName;
+			$package->description = '';
+			$package->version     = $packageData->version;
+			$package->sourceURL   = '';
 
-			$packages['bower'][$packageName] = $package;
+			$packages['npm'][$packageName] = $package;
 		}
 
 		$this->dependencies = $this->getSorted($defined, $packages);
@@ -195,21 +196,17 @@ class Depfile extends Make
 			$sorted[$section] = $items;
 		}
 
-		foreach ($defined['bower']->dependencies as $packageName => $version)
+		foreach ($defined['npm']->dependencies as $packageName => $version)
 		{
-			$installed = $packages['bower'][$packageName];
+			$installed = $packages['npm'][$packageName];
 
 			$item = new \stdClass;
 
 			$item->packageName = $packageName;
 			$item->version     = $version;
-			$item->description = '';
-			$item->sourceURL   = $installed->sourceURL;
-
-			if ($installed->description)
-			{
-				$item->description = $installed->description;
-			}
+			$item->installed   = $installed->version;
+			$item->description = $installed->description ?: '';
+			$item->sourceURL   = $installed->sourceURL ?: '';
 
 			$sorted['javascript'][] = $item;
 		}

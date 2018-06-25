@@ -262,6 +262,13 @@ A tool to automatically fix PHP code style
 * Installed: v1.13.3 
 * Source URL: https://github.com/FriendsOfPHP/PHP-CS-Fixer.git
 
+#### joomla/coding-standards (dev-master)
+
+Joomla Coding Standards
+
+* Installed: dev-master 1a93124564f2be7ca0a301b755249c65fe111324
+* Source URL: https://github.com/joomla/coding-standards.git
+
 #### phpunit/phpunit (~6.0)
 
 The PHP Unit Testing framework.
@@ -269,11 +276,11 @@ The PHP Unit Testing framework.
 * Installed: 6.2.4 
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
-#### squizlabs/php_codesniffer (1.*)
+#### squizlabs/php_codesniffer (2.*)
 
-PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.
+PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.
 
-* Installed: 1.5.6 
+* Installed: 2.9.1 
 * Source URL: https://github.com/squizlabs/PHP_CodeSniffer.git
 
 #### sebastian/phpcpd (*)
@@ -299,107 +306,89 @@ Dependency graph visualization for composer.json
 
 ### JavaScript
 
-#### jquery (1.9.1)
+#### at.js (1.5.4)
 
-jQuery component
-
-* Source URL: https://github.com/jquery/jquery-dist
-
-#### jquery-validation (1.17.0)
-
-Form validation made easy
-
-* Source URL: https://jqueryvalidation.org/
-
-#### bootstrap (2.3.2)
-
-* Source URL: https://github.com/twbs/bootstrap
-
-#### bootstrap-switch (3.3.4)
-
-Turn checkboxes and radio buttons into toggle switches.
-
-* Source URL: https://github.com/nostalgiaz/bootstrap-switch
-
-#### markitup (1.1.14)
-
-* Source URL: https://github.com/markitup/1.x
-
-#### blueimp-tmpl (2.5.3)
-
-&lt; 1KB lightweight, fast &amp; powerful JavaScript templating engine with zero dependencies. Compatible with server-side environments like node.js, module loaders like RequireJS and all web browsers.
-
-* Source URL: https://github.com/blueimp/JavaScript-Templates
+* Installed: 1.5.4
 
 #### blueimp-canvas-to-blob (3.3.0)
 
-* Source URL: https://github.com/blueimp/JavaScript-Canvas-to-Blob
+* Installed: 3.3.0
 
-#### blueimp-file-upload (9.3.0)
+#### blueimp-file-upload (9.9.0)
 
-File Upload widget with multiple file selection, drag&amp;amp;drop support, progress bar, validation and preview images, audio and video for jQuery. Supports cross-domain, chunked and resumable file uploads. Works with any server-side platform (Google App Engine, PHP, Python, Ruby on Rails, Java, etc.) that supports standard HTML form file uploads.
+* Installed: 9.9.0
 
-* Source URL: https://github.com/blueimp/jQuery-File-Upload
+#### blueimp-load-image (2.9.0)
 
-#### jquery-textrange (1.4.0)
+* Installed: 2.9.0
 
-* Source URL: https://github.com/dwieeb/jquery-textrange
+#### blueimp-tmpl (2.5.3)
 
-#### g11n-js (1.1)
+* Installed: 2.5.3
 
-g11n is a custom language handler - made primarily for Joomla!
+#### bootstrap-2.3.2 (^1.0.0)
 
-* Source URL: https://github.com/elkuku/g11n-js
-
-#### twbs-pagination (1.4.1)
-
-jQuery simple pagination plugin for bootstrap-style webpages
-
-* Source URL: https://github.com/esimakin/twbs-pagination
-
-#### bootstrap-select (1.12.4)
-
-* Source URL: http://silviomoreto.github.io/bootstrap-select
-
-#### d3 (3.5.17)
-
-A JavaScript visualization library for HTML and SVG.
-
-* Source URL: https://github.com/mbostock-bower/d3-bower
-
-#### jquery-simple-color (1.2.2)
-
-A dead-simple jQuery color picker.
-
-* Source URL: https://github.com/recurser/jquery-simple-color
-
-#### Caret.js (0.3.1)
-
-* Source URL: https://github.com/ichord/Caret.js
-
-#### jquery.atwho (1.5.4)
-
-* Source URL: https://github.com/ichord/At.js
-
-#### semantic-ui-dropdown (1.12.3)
-
-Dropdown - Semantic UI
-
-* Source URL: http://www.semantic-ui.com
-
-#### semantic-ui-transition (1.12.3)
-
-Transition - Semantic UI
-
-* Source URL: http://www.semantic-ui.com
-
-#### octicons (4.4.0)
-
-* Source URL: https://github.com/github/octicons
+* Installed: 1.0.0
 
 #### bootstrap-datepicker (1.8.0)
 
-* Source URL: https://github.com/eternicode/bootstrap-datepicker
+* Installed: 1.8.0
+
+#### bootstrap-select (1.12.4)
+
+* Installed: 1.12.4
+
+#### bootstrap-switch (3.3.4)
+
+* Installed: 3.3.4
+
+#### d3 (3.5.17)
+
+* Installed: 3.5.17
+
+#### g11n-js (^1.0.0)
+
+* Installed: 1.0.0
+
+#### jquery (1.12.4)
+
+* Installed: 1.12.4
+
+#### jquery-simple-color (github:recurser/jquery-simple-color)
+
+* Installed: github:recurser/jquery-simple-color#7ca6e0d669729fe8a927b4d1cdabaf9e85a98d48
+
+#### jquery-textrange (1.4.0)
+
+* Installed: 1.4.0
+
+#### jquery-validation (1.17.0)
+
+* Installed: 1.17.0
+
+#### jquery.caret (0.3.1)
+
+* Installed: 0.3.1
+
+#### markItUp! (github:markitup/1.x)
+
+* Installed: github:markitup/1.x#945bccab2b82292116d1a7c1f6838ab662868053
+
+#### octicons (4.4.0)
+
+* Installed: 4.4.0
+
+#### semantic-ui-dropdown (1.12.3)
+
+* Installed: 1.12.3
+
+#### semantic-ui-transition (1.12.3)
+
+* Installed: 1.12.3
+
+#### twbs-pagination (1.4.1)
+
+* Installed: 1.4.1
 
 ## Credits
 

@@ -46,7 +46,10 @@
 {{ d.description }}
 {% endif %}
 
+* Installed: {{ d.installed }}
+{% if d.sourceURL %}
 * Source URL: {{ d.sourceURL }}
+{% endif %}
 
 {% endfor %}
 ## Credits
