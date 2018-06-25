@@ -17,18 +17,14 @@
 {% block headerCSS %}
     {{ parent() }}
 
-    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
-    {% if templateDebug %}
-    <link rel="stylesheet" href="{{ asset('css/vendor/blueimp-file-upload/css/jquery.fileupload.css', 'noversion') }}" />
-    <link rel="stylesheet" href="{{ asset('css/vendor/blueimp-file-upload/css/jquery.fileupload-ui.css', 'noversion') }}" />
-    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-select/dist/css/bootstrap-select.css', 'noversion') }}" />
-    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-switch/build/css/bootstrap2/bootstrap-switch.css', 'noversion') }}" />
-    <link rel="stylesheet" href="{{ asset('css/vendor/jquery.atwho/dist/css/jquery.atwho.css', 'noversion') }}" />
-    {% endif %}
+    <link rel="stylesheet" href="{{ asset('css/vendor/blueimp-file-upload.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-select.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-switch.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor/jquery.atwho.css') }}" />
 
     <!-- CSS for coloured code -->
     <link rel="stylesheet" href="{{ asset('css/code.css', 'debug') }}" />
-    <link rel="stylesheet" href="{{ asset('css/markitup/skins/markitup/style.css', 'debug') }}" />
+    <link rel="stylesheet" href="{{ asset('css/markitup/skins/tracker/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/markitup/sets/markdown/style.css', 'debug') }}" />
 {% endblock %}
 
@@ -143,34 +139,17 @@
 {% block JavaScriptBottom %}
     {{ parent() }}
 
-    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
-    {% if templateDebug %}
-    <script src="{{ asset('js/vendor/markitup/markitup/jquery.markitup.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap-switch/build/js/bootstrap-switch.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/jquery-validation/dist/jquery.validate.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-tmpl/js/tmpl.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-canvas-to-blob/js/canvas-to-blob.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-load-image/js/load-image.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-load-image/js/load-image-orientation.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-load-image/js/load-image-meta.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-load-image/js/load-image-exif.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-load-image/js/load-image-exif-map.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-file-upload/js/vendor/jquery.ui.widget.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-file-upload/js/jquery.iframe-transport.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-file-upload/js/jquery.fileupload.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-file-upload/js/jquery.fileupload-process.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-file-upload/js/jquery.fileupload-image.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-file-upload/js/jquery.fileupload-ui.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-file-upload/js/jquery.fileupload-validate.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/jquery-textrange/jquery-textrange.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap-select/dist/js/bootstrap-select.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/Caret.js/src/jquery.caret.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/jquery.atwho/dist/js/jquery.atwho.js', 'noversion') }}"></script>
-    {% endif %}
-
-    {% if lang != 'en-GB' %}
-    <script src="{{ asset('js/validation/messages_' ~ lang|split('-')[0] ~ '.js', 'debug') }}"></script>
-    {% endif %}
+    <script src="{{ asset('markitup/jquery.markitup.js') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap-switch.js') }}"></script>
+    <script src="{{ asset('js/vendor/jquery-validation.js') }}"></script>
+    {% if lang != 'en-GB' %}<script src="{{ asset('js/vendor/jquery-validation/localization/messages_' ~ lang|split('-')[0] ~ '.js') }}"></script>{% endif %}
+    <script src="{{ asset('js/vendor/blueimp-canvas-to-blob.js') }}"></script>
+    <script src="{{ asset('js/vendor/blueimp-load-image.js') }}"></script>
+    <script src="{{ asset('js/vendor/blueimp-file-upload.js') }}"></script>
+    <script src="{{ asset('js/vendor/jquery-textrange.js') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap-select.js') }}"></script>
+    <script src="{{ asset('js/vendor/jquery.caret.js') }}"></script>
+    <script src="{{ asset('js/vendor/jquery.atwho.js') }}"></script>
 
     <script src="{{ asset('css/markitup/sets/markdown/set.js', 'debug') }}"></script>
     <script src="{{ asset('js/jtracker-tmpl.js', 'debug') }}"></script>

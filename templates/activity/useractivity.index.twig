@@ -8,11 +8,7 @@
 {% block headerCSS %}
     {{ parent() }}
 
-    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
-    {% if templateDebug %}
-        <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.css', 'noversion') }}" />
-    {% endif %}
-
+    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-datepicker.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/jqplot/jquery.jqplot.min.css', 'debug') }}" />
     <link rel="stylesheet" href="{{ asset('css/jquery-ui/jquery-ui.min.css', 'debug') }}" />
 {% endblock %}
@@ -62,11 +58,7 @@
 {% block JavaScriptBottom %}
     {{ parent() }}
 
-    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
-    {% if templateDebug %}
-        <script src="{{ asset('js/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.js', 'noversion') }}"></script>
-    {% endif %}
-
+    <script src="{{ asset('js/vendor/bootstrap-datepicker.js') }}"></script>
     <script src="{{ datepicker_locale_js(lang) }}"></script>
     <script src="{{ asset('js/jqplot/jquery.jqplot.min.js', 'debug') }}"></script>
     <script src="{{ asset('js/jqplot/jqplot.barRenderer.js', 'debug') }}"></script>

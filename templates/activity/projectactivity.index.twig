@@ -8,10 +8,6 @@
 {% block headerCSS %}
     {{ parent() }}
 
-    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
-    {% if templateDebug %}
-    {% endif %}
-
     <link rel="stylesheet" href="{{ asset('css/jqplot/jquery.jqplot.min.css', 'debug') }}" />
     <link rel="stylesheet" href="{{ asset('css/jquery-ui/jquery-ui.min.css', 'debug') }}" />
 {% endblock %}
@@ -46,10 +42,6 @@
 
 {% block JavaScriptBottom %}
     {{ parent() }}
-
-    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
-    {% if templateDebug %}
-    {% endif %}
 
     <script src="{{ asset('js/jqplot/jquery.jqplot.min.js', 'debug') }}"></script>
     <script src="{{ asset('js/jqplot/jqplot.barRenderer.js', 'debug') }}"></script>

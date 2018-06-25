@@ -6,10 +6,6 @@
 {% block title %}{{ parent() }} | {{ "Users"|_ }}{% endblock %}
 
 {% block headerCSS %}
-    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
-    {% if templateDebug %}
-    {% endif %}
-
     <link rel="stylesheet" href="{{ asset('css/pagination/pagination.css', 'debug') }}" />
     <link rel="stylesheet" href="{{ asset('css/pagination/B_black.css', 'debug') }}" />
 {% endblock %}

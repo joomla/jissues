@@ -1001,7 +1001,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	 */
 	public function getDatepickerLocaleJs($locale)
 	{
-		$localePathSegment = 'js/datepicker/bootstrap-datepicker.%locale%.min.js';
+		$localePathSegment = 'js/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.%locale%.min.js';
 		$basePath          = JPATH_ROOT . '/www' . $this->app->get('uri.media.path');
 
 		// First check if the locale as given has a file that exists
@@ -1042,7 +1042,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	 */
 	public function getDatepickerLocaleCode($locale)
 	{
-		$localePathSegment = 'js/datepicker/bootstrap-datepicker.%locale%.min.js';
+		$localePathSegment = 'js/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.%locale%.min.js';
 		$basePath          = JPATH_ROOT . '/www' . $this->app->get('uri.media.path');
 
 		// First check if the locale as given has a file that exists
