@@ -32,9 +32,9 @@
 
     {# If in debug mode, load each file individually, otherwise load the combined source #}
     {% if templateDebug %}
-    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui-transition/transition.css', 'noversion') }}" />
-    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui-dropdown/dropdown.css', 'noversion') }}" />
-    <link rel="stylesheet" href="{{ asset('css/vendor/octicons/octicons/octicons.css', 'noversion') }}" />
+    <link rel="stylesheet" href="{{ asset('vendor/semantic-ui-transition/transition.css', 'noversion') }}" />
+    <link rel="stylesheet" href="{{ asset('vendor/semantic-ui-dropdown/dropdown.css', 'noversion') }}" />
+    <link rel="stylesheet" href="{{ asset('vendor/octicons/octicons/octicons.css', 'noversion') }}" />
     {% else %}
     <link rel="stylesheet" href="{{ asset('css/vendor.min.css') }}" />
     {% endif %}
@@ -163,17 +163,17 @@
 {% block JavaScriptBottom %}
     {# If the template is in debug mode, load each file individually, otherwise load the combined source #}
     {% if templateDebug %}
-    <script src="{{ asset('js/vendor/jquery/jquery.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-affix.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-dropdown.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-tab.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-tooltip.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-collapse.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/semantic-ui-transition/transition.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/semantic-ui-dropdown/dropdown.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/g11n-js/js/g11n.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/g11n-js/js/methods.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/g11n-js/js/phpjs.js', 'noversion') }}"></script>
+    <script src="{{ asset('vendor/jquery/jquery.js', 'noversion') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap-affix.js', 'noversion') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap-dropdown.js', 'noversion') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap-tab.js', 'noversion') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap-tooltip.js', 'noversion') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap-collapse.js', 'noversion') }}"></script>
+    <script src="{{ asset('vendor/semantic-ui-transition/transition.js', 'noversion') }}"></script>
+    <script src="{{ asset('vendor/semantic-ui-dropdown/dropdown.js', 'noversion') }}"></script>
+    <script src="{{ asset('vendor/g11n-js/js/g11n.js', 'noversion') }}"></script>
+    <script src="{{ asset('vendor/g11n-js/js/methods.js', 'noversion') }}"></script>
+    <script src="{{ asset('vendor/g11n-js/js/phpjs.js', 'noversion') }}"></script>
     {% else %}
     <script src="{{ asset('js/vendor.min.js') }}"></script>
     {% endif %}

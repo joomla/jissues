@@ -12,7 +12,7 @@
 
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
-    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui-transition/transition.css', 'noversion') }}" />
+    <link rel="stylesheet" href="{{ asset('vendor/semantic-ui-transition/transition.css', 'noversion') }}" />
     {% endif %}
 
     <link rel="stylesheet" href="{{ asset('css/markitup/skins/markitup/style.css', 'debug') }}" />
@@ -80,7 +80,7 @@
 
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
-    <script src="{{ asset('js/vendor/markitup/markitup/jquery.markitup.js') }}"></script>
+    <script src="{{ asset('vendor/markitup/markitup/jquery.markitup.js') }}"></script>
     {% endif %}
 
     <script src="{{ asset('css/markitup/sets/markdown/set.js') }}"></script>
