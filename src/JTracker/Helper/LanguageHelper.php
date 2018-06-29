@@ -10,6 +10,7 @@ namespace JTracker\Helper;
 
 use ElKuKu\G11n\Support\ExtensionHelper;
 
+use ElKuKu\G11n\Support\LanguageHelper as G11nLanguageHelper;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Plugin\ListPaths;
@@ -19,7 +20,7 @@ use League\Flysystem\Plugin\ListPaths;
  *
  * @since  1.0
  */
-abstract class LanguageHelper
+class LanguageHelper extends G11nLanguageHelper
 {
 	/**
 	 * List of exceptions to the standard of Crowdin language tags.
@@ -44,7 +45,7 @@ abstract class LanguageHelper
 	 *
 	 * @var array
 	 */
-	private static $languages = [
+	protected static $languages = [
 		'ar-AA' => [
 			'iso' => 'ar',
 			'name' => 'Arabic',
@@ -194,18 +195,6 @@ abstract class LanguageHelper
 	];
 
 	/**
-	 * Get a language tag by code.
-	 *
-	 * @param   string  $languageCode  The language code.
-	 *
-	 * @return string
-	 */
-	public static function getLanguageTagByCode($languageCode)
-	{
-		return  array_key_exists($languageCode, static::$languages) ? static::$languages[$languageCode]['iso'] : '';
-	}
-
-	/**
 	 * Get a valid Crowdin language tag.
 	 *
 	 * @param   string  $language  The "normal" language tag.
@@ -245,62 +234,5 @@ abstract class LanguageHelper
 			'CLI' => ['cli'],
 			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->addPlugin(new ListPaths)->listPaths(),
 		];
-	}
-
-	/**
-	 * Get an array with language codes (e.g. en-GB)
-	 *
-	 * @return array
-	 */
-	public static function getLanguageCodes()
-	{
-		return array_keys(self::$languages);
-	}
-
-	/**
-	 * Get an array containing information about languages.
-	 *
-	 * @return array
-	 */
-	public static function getLanguages()
-	{
-		return self::$languages;
-	}
-
-	/**
-	 * Get an array containing information about languages.
-	 * Sorted by display name.
-	 *
-	 * @return array
-	 */
-	public static function getLanguagesSortedByDisplayName()
-	{
-		$languages = self::$languages;
-
-		uasort(
-			$languages, function ($a, $b)
-			{
-				return strcmp($a['display'], $b['display']);
-			}
-		);
-
-		return $languages;
-	}
-
-	/**
-	 * Get the defined direction for a language.
-	 *
-	 * @param   string  $languageCode  The language code e.g. en-GB
-	 *
-	 * @return string 'ltr' or 'rtl'. Defaults to 'ltr'
-	 */
-	public static function getDirection($languageCode)
-	{
-		if (array_key_exists($languageCode, static::$languages))
-		{
-			return isset(static::$languages[$languageCode]['direction']) ? static::$languages[$languageCode]['direction'] : 'ltr';
-		}
-
-		return 'ltr';
 	}
 }
