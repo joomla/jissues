@@ -3,6 +3,10 @@
     "version": "1.0.0-beta",
     "description": "Joomla! Issue Tracker",
     "main": "www/index.php",
+    "engines": {
+        "node": ">=8.9.4",
+        "npm": ">=5.6.0"
+    },
     "scripts": {
         "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "watch": "npm run dev -- --watch",
