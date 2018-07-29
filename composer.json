@@ -53,6 +53,11 @@
         "phploc/phploc": "*",
         "clue/graph-composer": "*"
     },
+    "replace": {
+        "paragonie/random_compat": "*",
+        "symfony/polyfill-php55": "*",
+        "symfony/polyfill-php70": "*"
+    },
     "autoload": {
         "psr-4": {
             "JTracker\\": "src/JTracker/",
