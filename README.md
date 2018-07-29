@@ -6,7 +6,7 @@ The issue tracker application requires a server running:
     * PHP's `ext/curl` and `ext/intl` should also be installed
 * MySQL 5.5.3 with InnoDB support (required to support the MySQL utf8mb4 charset) 
 
-The application also has external dependencies installable via [Composer](https://getcomposer.org/) and [Bower](https://bower.io/).
+The application also has external dependencies installable via [Composer](https://getcomposer.org/) and [NPM](https://www.npmjs.com/).
 
 See also: [Dependencies](Documentation/Development/Dependencies.md).
 
@@ -23,7 +23,7 @@ Note: All references to `bin/jtracker` refer to an executable symlink to `cli/tr
 1. From a command prompt, run the `install` command to set up your database.
     * `bin/jtracker install`
 
-If you are making a change to the issue tracker's web assets, you'll also need to set up Bower and Grunt. Please see the [Asset Management](Documentation/Development/Asset-Management.md) documentation for more information.
+If you are making a change to the issue tracker's web assets, you'll also need to set up NPM. Please see the [Asset Management](Documentation/Development/Asset-Management.md) documentation for more information.
 
 Verify the installation is successful by doing the following:
 

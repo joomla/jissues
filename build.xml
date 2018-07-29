@@ -28,11 +28,11 @@
         </exec>
     </target>
 
-	<target name="installdep" description="Install build dependencies using composer">
+	<target name="installdep" description="Install build dependencies using Composer and NPM">
 		<exec executable="composer">
 			<arg value="install" />
 		</exec>
-		<exec executable="bower">
+		<exec executable="npm">
 			<arg value="install" />
 		</exec>
 	</target>
