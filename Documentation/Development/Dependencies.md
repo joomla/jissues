@@ -40,7 +40,7 @@ Joomla Controller Package
 
 Joomla Database Package
 
-* Installed: 1.5.0 
+* Installed: 1.6.0 
 * Source URL: https://github.com/joomla-framework/database.git
 
 #### joomla/date (~1.1)
@@ -75,7 +75,7 @@ Joomla Filter Package
 
 Joomla Github Package
 
-* Installed: 1.6.0 
+* Installed: 1.7.0 
 * Source URL: https://github.com/joomla-framework/github-api.git
 
 #### joomla/http (~1.1)
@@ -89,7 +89,7 @@ Joomla HTTP Package
 
 Joomla Input Package
 
-* Installed: 1.2.3 
+* Installed: 1.3.0 
 * Source URL: https://github.com/joomla-framework/input.git
 
 #### joomla/model (~1.1)
@@ -124,7 +124,7 @@ Joomla Registry Package
 
 Joomla Renderer Package
 
-* Installed: dev-master 0d9fc9e59267908ebdee5f2ee13f46fe35d6623c
+* Installed: dev-master 7dc1e3bdf863d9865845adeec35b9933da9b8355
 * Source URL: https://github.com/joomla-framework/renderer.git
 
 #### joomla/router (~1.1)
@@ -145,7 +145,7 @@ Joomla String Package
 
 Joomla Uri Package
 
-* Installed: 1.1.1 
+* Installed: 1.2.0 
 * Source URL: https://github.com/joomla-framework/uri.git
 
 #### joomla/utilities (^1.3.3)
@@ -166,21 +166,21 @@ Joomla View Package
 
 Symfony Asset Component
 
-* Installed: v3.4.11 
+* Installed: v3.4.13 
 * Source URL: https://github.com/symfony/asset.git
 
 #### symfony/http-foundation (3.4.*)
 
 Symfony HttpFoundation Component
 
-* Installed: v3.4.11 
+* Installed: v3.4.13 
 * Source URL: https://github.com/symfony/http-foundation.git
 
 #### twig/twig (~2.0)
 
 Twig, the flexible, fast, and secure template language for PHP
 
-* Installed: v2.4.8 
+* Installed: v2.5.0 
 * Source URL: https://github.com/twigphp/Twig.git
 
 #### elkuku/g11n (~3.0)
