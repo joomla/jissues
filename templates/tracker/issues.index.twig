@@ -38,10 +38,10 @@
         <table class="table table-bordered table-striped table-condensed" id="issuesList">
             <thead>
             <tr>
-                <th width="2%" class="nowrap center">{{ 'ID'|_ }}</th>
-                <th>{{ 'Summary'|_ }}</th>
-                <th width="5%" class="center">{{ 'Priority'|_ }}</th>
-                <th width="10%" class="center">{{ 'Status'|_ }}</th>
+                <th scope="col" width="2%" class="nowrap center">{{ 'ID'|_ }}</th>
+                <th scope="col">{{ 'Summary'|_ }}</th>
+                <th scope="col" width="5%" class="center">{{ 'Priority'|_ }}</th>
+                <th scope="col" width="10%" class="center">{{ 'Status'|_ }}</th>
             </tr>
             </thead>
             <tbody>
@@ -97,9 +97,9 @@
             } %]
 
             <tr [%= rowClass %]>
-                <td class="center valign-center">
+                <th scope="row" class="center valign-center">
                     [%= item.issue_number %]
-                </td>
+                </th>
                 <td class="hasContext">
                     {% if user.check("edit") %}
                         <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/[%= item.issue_number %]/edit" title="{{ 'Edit'|_ }}">
