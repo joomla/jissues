@@ -72,6 +72,8 @@ class JoomlacmsPullsListener extends AbstractListener
 	const CATEGORY_COM_FIELDS         = 71;
 	const CATEGORY_COM_ASSOCIATIONS   = 72;
 	const CATEGORY_COMPOSER           = 73;
+	const CATEGORY_COM_CSP            = 74;
+	const CATEGORY_COM_WORKFLOW       = 75;
 
 	/**
 	 * The Tracker Categories that are handled based on the files that changed by a pull request.
@@ -305,6 +307,13 @@ class JoomlacmsPullsListener extends AbstractListener
 			'^libraries/vendor',
 			'composer.json',
 			'composer.lock',
+		],
+		self::CATEGORY_COM_CSP => [
+			'^administrator/components/com_csp',
+			'^components/com_csp',
+		],
+		self::CATEGORY_COM_WORKFLOW => [
+			'^administrator/components/com_workflow',
 		],
 	];
 
