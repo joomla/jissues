@@ -164,9 +164,10 @@ RewriteRule ^/?jtracker/(.*)$ /tracker/jtracker/$1 [R=301,L]
 ###########################################
 # ======== Redirect HTTP to HTTPS =========
 
-RewriteCond %{HTTPS} off
-RewriteCond %{HTTP_HOST} ^issues.joomla.org
-RewriteRule ^(.*)$ https://issues.joomla.org/$1 [R=301,L,QSA]
+<If "req('Host') == 'issues.joomla.org'">
+	RewriteCond %{HTTPS} off
+	RewriteRule ^(.*)$ https://issues.joomla.org/$1 [R=301,L,QSA]
+</If>
 
 ###########################################
 
