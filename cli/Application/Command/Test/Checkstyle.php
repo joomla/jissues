@@ -23,7 +23,7 @@ class Checkstyle extends Test
 	 * @var    integer
 	 * @since  1.0
 	 */
-	const ALLOWED_FAIL_COUNT = 35;
+	const ALLOWED_FAIL_COUNT = 0;
 
 	/**
 	 * Constructor.
