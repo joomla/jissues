@@ -2758,12 +2758,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/coding-standards.git",
-                "reference": "fc420f31e38d6af8ff1c895622893b129d6ebf86"
+                "reference": "42206ee46740d3e24a58f3c10af695b3a7a490d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/coding-standards/zipball/fc420f31e38d6af8ff1c895622893b129d6ebf86",
-                "reference": "fc420f31e38d6af8ff1c895622893b129d6ebf86",
+                "url": "https://api.github.com/repos/joomla/coding-standards/zipball/42206ee46740d3e24a58f3c10af695b3a7a490d7",
+                "reference": "42206ee46740d3e24a58f3c10af695b3a7a490d7",
                 "shasum": ""
             },
             "require": {
@@ -2797,7 +2797,7 @@
                 "php codesniffer",
                 "phpcs"
             ],
-            "time": "2018-08-20T00:05:28+00:00"
+            "time": "2018-10-02T21:02:44+00:00"
         },
         {
             "name": "myclabs/deep-copy",
