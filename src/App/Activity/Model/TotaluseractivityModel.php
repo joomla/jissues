@@ -29,8 +29,15 @@ class TotaluseractivityModel extends AbstractTrackerDatabaseModel
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 
-		$periodList  = [1 => '-7 DAY', 2 => '-30 Day', 3 => '-90 DAY', 4 => '-1 YEAR', 5 => 'Custom'];
-		$periodValue = $periodList[$this->state->get('list.period')];
+		$periodList = [1 => '-7 DAY', 2 => '-30 Day', 3 => '-90 DAY', 4 => '-1 YEAR', 5 => 'Custom'];
+		$period     = $this->state->get('list.period', 1);
+
+		if (!in_array($period, array_keys($periodList)))
+		{
+			$period = 1;
+		}
+
+		$periodValue = $periodList[$period];
 
 		$typeList = ['All', 'Tracker', 'Test', 'Code'];
 		$type     = $typeList[$this->state->get('list.activity_type')];

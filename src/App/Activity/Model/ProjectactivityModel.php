@@ -30,8 +30,15 @@ class ProjectactivityModel extends AbstractTrackerDatabaseModel
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 
-		$periodList  = [1 => 7, 2 => 30, 3 => 90];
-		$periodValue = $periodList[$this->state->get('list.period', 1)];
+		$periodList = [1 => 7, 2 => 30, 3 => 90];
+		$period     = $this->state->get('list.period', 1);
+
+		if (!in_array($period, array_keys($periodList)))
+		{
+			$period = 1;
+		}
+
+		$periodValue = $periodList[$period];
 
 		// Get 12 columns
 		for ($i = 4; $i > 0; $i--)
