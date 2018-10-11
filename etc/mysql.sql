@@ -23,7 +23,7 @@
 -- Table structure for table `#__tracker_projects`
 --
 
-CREATE TABLE `j_tracker_projects` (
+CREATE TABLE `#__tracker_projects` (
   `project_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `title` varchar(150) NOT NULL COMMENT 'Project title',
   `alias` varchar(150) NOT NULL COMMENT 'Project URL alias',
