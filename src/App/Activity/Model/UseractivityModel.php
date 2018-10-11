@@ -33,7 +33,8 @@ class UseractivityModel extends AbstractTrackerDatabaseModel
 
 		$period = $this->state->get('list.period', 1);
 		
-		if (!in_array($period, array_keys($periodList))){
+		if (!in_array($period, array_keys($periodList)))
+		{
 			$period = 1;
 		}
 
