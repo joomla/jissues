@@ -339,7 +339,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 	 */
 	public function getLanguageStringsInfo()
 	{
-		$items = G11n::get('processedItems');
+		$items = G11n::getProcessedItems();
 
 		$info = new \stdClass;
 

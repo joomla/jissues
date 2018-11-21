@@ -360,15 +360,7 @@ class Html implements ContainerAwareInterface
 			$items[] = ArrayHelper::fromObject($e);
 		}
 
-		$pluralInfo = sprintf(
-			g11n3t(
-				'Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>'
-			),
-			G11n::get('pluralForms'),
-			G11n::get('pluralFunctionRaw')
-		);
-
-		return (new TableFormat)->fromArray($items) . $pluralInfo;
+		return (new TableFormat)->fromArray($items);
 	}
 
 	/**
@@ -382,7 +374,7 @@ class Html implements ContainerAwareInterface
 	{
 		$html = [];
 
-		$items = G11n::get('processedItems');
+		$items = G11n::getProcessedItems();
 
 		$html[] = '<table class="table table-hover table-condensed">';
 		$html[] = '<tr>';
@@ -393,14 +385,14 @@ class Html implements ContainerAwareInterface
 
 		$i = 0;
 
-		foreach ($items as $string => $item)
+		foreach ($items as $item)
 		{
-			$color = ('-' == $item->status)
+			$color = ('-' === $item->status)
 				? '#ffb2b2;'
 				: '#e5ff99;';
 
 			$html[] = '<tr>';
-			$html[] = '<td style="border-left: 7px solid ' . $color . '">' . htmlentities($string) . '</td>';
+			$html[] = '<td style="border-left: 7px solid ' . $color . '">' . htmlentities($item->string) . '</td>';
 			$html[] = '<td>' . str_replace(JPATH_ROOT, 'ROOT', $item->file) . ' (' . $item->line . ')</td>';
 			$html[] = '<td><span class="btn btn-mini" onclick="$(\'#langStringTrace' . $i . '\').slideToggle();">Trace</span></td>';
 			$html[] = '</tr>';
