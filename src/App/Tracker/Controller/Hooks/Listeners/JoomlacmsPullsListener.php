@@ -74,6 +74,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	const CATEGORY_COMPOSER           = 73;
 	const CATEGORY_COM_CSP            = 74;
 	const CATEGORY_COM_WORKFLOW       = 75;
+	const CATEGORY_NPM                = 76;
 
 	/**
 	 * The Tracker Categories that are handled based on the files that changed by a pull request.
@@ -315,6 +316,17 @@ class JoomlacmsPullsListener extends AbstractListener
 		self::CATEGORY_COM_WORKFLOW => [
 			'^administrator/components/com_workflow',
 		],
+		self::CATEGORY_NPM => [
+			'^administrator/components/com_media/resources/scripts',
+			'^administrator/components/com_media/resources/styles',
+			'administrator/components/com_media/package-lock.json',
+			'administrator/components/com_media/package.json',
+			'administrator/components/com_media/webpack.config.js',
+			'^build/media_source',
+			'build.js',
+			'package-lock.json',
+			'package.json',
+		],
 	];
 
 	/**
@@ -466,6 +478,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		$languageLabel        = 'Language Change';
 		$unitSystemTestsLabel = 'Unit/System Tests';
 		$composerLabel        = 'Composer Dependency Changed';
+		$npmLabel             = 'NPM Dependency Changed';
 		$addLabels            = [];
 		$removeLabels         = [];
 
@@ -512,6 +525,20 @@ class JoomlacmsPullsListener extends AbstractListener
 		elseif (!$composerChange && $composerLabelSet)
 		{
 			$removeLabels[] = $composerLabel;
+		}
+
+		$npmChange   = $this->checkChange($files, self::CATEGORY_NPM);
+		$npmLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $npmLabel);
+
+		// Add the label if we change a NPM resource and it isn't already set
+		if ($npmChange && !$npmLabelSet)
+		{
+			$addLabels[] = $npmLabel;
+		}
+		// Remove the label if we don't change a NPM resource
+		elseif (!$npmChange && $npmLabelSet)
+		{
+			$removeLabels[] = $npmLabel;
 		}
 
 		$languageChange   = $this->checkChange($files, self::CATEGORY_LANGUAGES);
