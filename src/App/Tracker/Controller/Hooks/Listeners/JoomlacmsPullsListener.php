@@ -513,60 +513,29 @@ class JoomlacmsPullsListener extends AbstractListener
 			$addLabels[] = $prLabel;
 		}
 
-		$composerChange   = $this->checkChange($files, self::CATEGORY_COMPOSER);
-		$composerLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $composerLabel);
+		// Check other labels
+		$labelCategoryMap = [
+			$languageLabel        => self::CATEGORY_LANGUAGES,
+			$unitSystemTestsLabel => self::CATEGORY_UNIT_TESTS,
+			$composerLabel        => self::CATEGORY_COMPOSER,
+			$npmLabel             => self::CATEGORY_NPM,
+		];
 
-		// Add the label if we change a Composer dependency and it isn't already set
-		if ($composerChange && !$composerLabelSet)
+		foreach ($labelCategoryMap as $label => $category)
 		{
-			$addLabels[] = $composerLabel;
-		}
-		// Remove the label if we don't change a Composer dependency
-		elseif (!$composerChange && $composerLabelSet)
-		{
-			$removeLabels[] = $composerLabel;
-		}
+			$hasChangeForCategory = $this->checkChange($files, $category);
+			$hasLabel             = $this->checkLabel($hookData, $github, $logger, $project, $label);
 
-		$npmChange   = $this->checkChange($files, self::CATEGORY_NPM);
-		$npmLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $npmLabel);
-
-		// Add the label if we change a NPM resource and it isn't already set
-		if ($npmChange && !$npmLabelSet)
-		{
-			$addLabels[] = $npmLabel;
-		}
-		// Remove the label if we don't change a NPM resource
-		elseif (!$npmChange && $npmLabelSet)
-		{
-			$removeLabels[] = $npmLabel;
-		}
-
-		$languageChange   = $this->checkChange($files, self::CATEGORY_LANGUAGES);
-		$languageLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $languageLabel);
-
-		// Add the label if we change the language files and it isn't already set
-		if ($languageChange && !$languageLabelSet)
-		{
-			$addLabels[] = $languageLabel;
-		}
-		// Remove the label if we don't change the language files
-		elseif (!$languageChange && $languageLabelSet)
-		{
-			$removeLabels[] = $languageLabel;
-		}
-
-		$unitSystemTestsChange   = $this->checkChange($files, self::CATEGORY_UNIT_TESTS);
-		$unitSystemTestsLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $unitSystemTestsLabel);
-
-		// Add the label if we change the Unit/System Tests and it isn't already set
-		if ($unitSystemTestsChange && !$unitSystemTestsLabelSet)
-		{
-			$addLabels[] = $unitSystemTestsLabel;
-		}
-		// Remove the label if we don't change the Unit/System Tests
-		elseif (!$unitSystemTestsChange && $unitSystemTestsLabelSet)
-		{
-			$removeLabels[] = $unitSystemTestsLabel;
+			// Ensure the label is set if a file matches the requirements
+			if ($hasChangeForCategory && !$hasLabel)
+			{
+				$addLabels[] = $label;
+			}
+			// Remove the label if no file matches the requirements
+			elseif (!$hasChangeForCategory && $hasLabel)
+			{
+				$removeLabels[] = $label;
+			}
 		}
 
 		// Add the labels if we need
