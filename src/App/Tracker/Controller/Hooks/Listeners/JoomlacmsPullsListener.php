@@ -478,7 +478,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		$languageLabel        = 'Language Change';
 		$unitSystemTestsLabel = 'Unit/System Tests';
 		$composerLabel        = 'Composer Dependency Changed';
-		$npmLabel             = 'NPM Dependency Changed';
+		$npmLabel             = 'NPM Resource Changed';
 		$addLabels            = [];
 		$removeLabels         = [];
 
