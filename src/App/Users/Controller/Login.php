@@ -8,7 +8,7 @@
 
 namespace App\Users\Controller;
 
-use Joomla\OAuth2\Client as OAuthClient;
+use Joomla\Authentication\Authentication;
 use Joomla\Registry\Registry;
 use Joomla\Github\Github;
 use Joomla\Github\Http;
@@ -44,61 +44,23 @@ class Login extends AbstractTrackerController
 		if ($user->id)
 		{
 			// The user is already logged in.
-			$app->redirect(' ');
+			$app->redirect('');
 		}
 
-		$error = $app->input->get('error');
+		/** @var Authentication $authentication */
+		$authentication = $this->getContainer()->get('authentication');
 
-		if ($error)
+		$accessToken = $authentication->authenticate();
+
+		// If the access token is a boolean false, we've failed miserably
+		if ($accessToken === false)
 		{
 			// GitHub reported an error.
-			throw new AuthenticationException($error, 'login');
-		}
-
-		$code = $app->input->get('code');
-
-		if (!$code)
-		{
-			// No auth code supplied.
 			throw new AuthenticationException($user, 'login');
 		}
 
 		// Do login
 		$app->getSession()->migrate();
-
-		$options = new Registry(
-			[
-				'tokenurl'     => 'https://github.com/login/oauth/access_token',
-				'redirect_uri' => $app->get('uri.request'),
-				'clientid'     => $app->get('github.client_id'),
-				'clientsecret' => $app->get('github.client_secret'),
-			]
-		);
-
-		$token = (new OAuthClient($options, HttpFactory::getHttp([], ['curl']), $app->input, $app))->authenticate();
-
-		if (isset($token['error']))
-		{
-			switch ($token['error'])
-			{
-				case 'bad_verification_code' :
-					throw new \DomainException('bad verification code');
-					break;
-
-				default :
-					throw new \DomainException('Unknown (2) ' . $token['error']);
-					break;
-			}
-		}
-
-		if (!isset($token['access_token']))
-		{
-			throw new \DomainException('Can not retrieve the access token');
-		}
-
-		$accessToken = $token['access_token'];
-
-		$loginHelper = new GitHubLoginHelper($this->getContainer());
 
 		// Store the token into the session
 		$app->getSession()->set('gh_oauth_access_token', $accessToken);
@@ -120,6 +82,8 @@ class Login extends AbstractTrackerController
 		$user = new GitHubUser($app->getProject(), $this->getContainer()->get('db'));
 		$user->loadGitHubData($gitHubUser)
 			->loadByUserName($user->username);
+
+		$loginHelper = new GitHubLoginHelper($this->getContainer());
 
 		// Save the avatar
 		$loginHelper->saveAvatar($user->username);

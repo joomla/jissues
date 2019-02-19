@@ -110,6 +110,59 @@ class GitHubLoginHelper
 	}
 
 	/**
+	 * Request an oAuth token from GitHub.
+	 *
+	 * @param   string  $code  The code obtained form GitHub on the previous step.
+	 *
+	 * @return  string  The OAuth token
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 * @throws  \DomainException
+	 */
+	public function requestToken(string $code): string
+	{
+		$data = [
+			'client_id'     => $this->clientId,
+			'client_secret' => $this->clientSecret,
+			'code'          => $code
+		];
+
+		// GitHub API works best with cURL
+		$response = HttpFactory::getHttp([], ['curl'])->post(
+			'https://github.com/login/oauth/access_token',
+			$data,
+			['Accept' => 'application/json']
+		);
+
+		if ($response->code !== 200)
+		{
+			throw new \DomainException('Invalid response from GitHub (2) :(');
+		}
+
+		$body = json_decode($response->body);
+
+		if (isset($body->error))
+		{
+			switch ($body->error)
+			{
+				case 'bad_verification_code' :
+					throw new \DomainException('bad verification code');
+
+				default :
+					throw new \DomainException('Unknown (2) ' . $body->error);
+			}
+		}
+
+		if (!isset($body->access_token))
+		{
+			throw new \DomainException('Cannot retrieve the access token');
+		}
+
+		return $body->access_token;
+	}
+
+	/**
 	 * Save an avatar.
 	 *
 	 * NOTE: A redirect is expected while fetching the avatar.

@@ -34,6 +34,7 @@ define('JTRACKER_START_MEMORY', memory_get_usage());
 	try
 	{
 		$container = (new Joomla\DI\Container)
+			->registerServiceProvider(new JTracker\Service\AuthenticationProvider)
 			->registerServiceProvider(new JTracker\Service\CacheProvider)
 			->registerServiceProvider(new JTracker\Service\ConfigurationProvider)
 			->registerServiceProvider(new JTracker\Service\DatabaseProvider)
