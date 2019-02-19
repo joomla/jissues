@@ -99,7 +99,8 @@ class Avatars extends Get
 		$base = JPATH_THEMES . '/images/avatars/';
 		$adds = 0;
 
-		$loginHelper = new GitHubLoginHelper($this->getContainer());
+		/** @var GitHubLoginHelper $loginHelper */
+		$loginHelper = $this->getContainer()->get(GitHubLoginHelper::class);
 
 		foreach ($usernames as $i => $username)
 		{

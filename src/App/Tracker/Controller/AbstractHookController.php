@@ -511,7 +511,9 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	{
 		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $login . '.png'))
 		{
-			(new GitHubLoginHelper($this->getContainer()))->saveAvatar($login);
+			/** @var GitHubLoginHelper $loginHelper */
+			$loginHelper = $this->getContainer()->get(GitHubLoginHelper::class);
+			$loginHelper->saveAvatar($login);
 		}
 	}
 

@@ -84,7 +84,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 		$this->app         = $container->get('app');
 		$this->cache       = $container->get('cache');
 		$this->db          = $container->get('db');
-		$this->loginHelper = new GitHubLoginHelper($container);
+		$this->loginHelper = $container->get(GitHubLoginHelper::class);
 		$this->packages    = $container->get(Packages::class);
 	}
 

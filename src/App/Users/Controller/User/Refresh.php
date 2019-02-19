@@ -65,7 +65,10 @@ class Refresh extends AbstractTrackerController
 		try
 		{
 			// Refresh the user data
-			(new GitHubLoginHelper($this->getContainer()))->refreshUser($user);
+			/** @var GitHubLoginHelper $loginHelper */
+			$loginHelper = $this->getContainer()->get(GitHubLoginHelper::class);
+
+			$loginHelper->refreshUser($user);
 
 			$application->enqueueMessage(
 				g11n3t('The profile has been refreshed.'), 'success'

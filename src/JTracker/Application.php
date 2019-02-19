@@ -660,9 +660,12 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			return $this;
 		}
 
+		/** @var GitHubLoginHelper $loginHelper */
+		$loginHelper = $this->getContainer()->get(GitHubLoginHelper::class);
+
 		// Redirect and login with GitHub
 		$this->allowCache(false);
-		$this->redirect((new GitHubLoginHelper($this->getContainer()))->getLoginUri());
+		$this->redirect($loginHelper->getLoginUri());
 
 		return $this;
 	}

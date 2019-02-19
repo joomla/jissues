@@ -83,7 +83,8 @@ class Login extends AbstractTrackerController
 		$user->loadGitHubData($gitHubUser)
 			->loadByUserName($user->username);
 
-		$loginHelper = new GitHubLoginHelper($this->getContainer());
+		/** @var GitHubLoginHelper $loginHelper */
+		$loginHelper = $this->getContainer()->get(GitHubLoginHelper::class);
 
 		// Save the avatar
 		$loginHelper->saveAvatar($user->username);

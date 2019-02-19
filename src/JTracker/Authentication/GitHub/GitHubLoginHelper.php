@@ -8,11 +8,11 @@
 
 namespace JTracker\Authentication\GitHub;
 
-use Joomla\Date\Date;
-use Joomla\DI\Container;
-use Joomla\Http\HttpFactory;
+use Joomla\Database\DatabaseDriver;
+use Joomla\Github\Github;
+use Joomla\Http\Http;
 use Joomla\Uri\Uri;
-use JTracker\Github\Github;
+use JTracker\Application;
 
 /**
  * Helper class for logging into the application via GitHub.
@@ -21,6 +21,30 @@ use JTracker\Github\Github;
  */
 class GitHubLoginHelper
 {
+	/**
+	 * Path to locally stored user avatars
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	private const AVATAR_PATH = JPATH_THEMES . '/images/avatars';
+
+	/**
+	 * Application object
+	 *
+	 * @var    Application
+	 * @since  1.0
+	 */
+	private $application;
+
+	/**
+	 * The authentication scope
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	private $authScope;
+
 	/**
 	 * The client ID
 	 *
@@ -38,12 +62,28 @@ class GitHubLoginHelper
 	private $clientSecret;
 
 	/**
-	 * DI container
+	 * Database driver
 	 *
-	 * @var    Container
+	 * @var    DatabaseDriver
 	 * @since  1.0
 	 */
-	private $container;
+	private $db;
+
+	/**
+	 * GitHub API Client
+	 *
+	 * @var    Github
+	 * @since  1.0
+	 */
+	private $github;
+
+	/**
+	 * HTTP Client
+	 *
+	 * @var    Http
+	 * @since  1.0
+	 */
+	private $http;
 
 	/**
 	 * Path to user avatars
@@ -56,29 +96,31 @@ class GitHubLoginHelper
 	/**
 	 * Constructor.
 	 *
-	 * @param   Container  $container  The DI container.
-	 *
-	 * @since   1.0
+	 * @param   WebApplication  $application   Application object.
+	 * @param   DatabaseDriver  $db            Database driver.
+	 * @param   Github          $github        GitHub API Client.
+	 * @param   Http            $http          HTTP Client.
+	 * @param   string          $clientId      The client ID.
+	 * @param   string          $clientSecret  The client secret.
+	 * @param   string          $authScope     The authentication scope.
 	 */
-	public function __construct(Container $container)
+	public function __construct(
+		Application $application,
+		DatabaseDriver $db,
+		Github $github,
+		Http $http,
+		string $clientId,
+		string $clientSecret,
+		string $authScope
+	)
 	{
-		$this->container = $container;
-
-		// Single account
-		$this->clientId     = $this->container->get('app')->get('github.client_id');
-		$this->clientSecret = $this->container->get('app')->get('github.client_secret');
-
-		// Multiple accounts
-		if (!$this->clientId)
-		{
-			$gitHubAccounts = $this->container->get('app')->get('github.accounts');
-
-			// Use credentials from the first account
-			$this->clientId     = isset($gitHubAccounts[0]->client_id) ? $gitHubAccounts[0]->client_id : '';
-			$this->clientSecret = isset($gitHubAccounts[0]->client_secret) ? $gitHubAccounts[0]->client_secret : '';
-		}
-
-		$this->avatarPath = JPATH_THEMES . '/images/avatars';
+		$this->application  = $application;
+		$this->db           = $db;
+		$this->github       = $github;
+		$this->http         = $http;
+		$this->clientId     = $clientId;
+		$this->clientSecret = $clientSecret;
+		$this->authScope    = $authScope;
 	}
 
 	/**
@@ -93,19 +135,14 @@ class GitHubLoginHelper
 		if (!$this->clientId)
 		{
 			// No clientId set - Throw some fatal error...
-
 			return '';
 		}
 
-		/** @var \JTracker\Application $application */
-		$application = $this->container->get('app');
+		$uri = new Uri($this->application->get('uri.base.full') . 'login');
+		$uri->setVar('usr_redirect', base64_encode((string) new Uri($this->application->get('uri.request'))));
 
-		$uri = new Uri($application->get('uri.base.full') . 'login');
-
-		$uri->setVar('usr_redirect', base64_encode((string) new Uri($application->get('uri.request'))));
-
-		return (new Github)->authorization->getAuthorizationLink(
-			$this->clientId, (string) $uri, $application->get('github.auth_scope', 'public_repo')
+		return (new Github(null, $this->http))->authorization->getAuthorizationLink(
+			$this->clientId, (string) $uri, $this->authScope
 		);
 	}
 
@@ -128,8 +165,7 @@ class GitHubLoginHelper
 			'code'          => $code
 		];
 
-		// GitHub API works best with cURL
-		$response = HttpFactory::getHttp([], ['curl'])->post(
+		$response = $this->http->post(
 			'https://github.com/login/oauth/access_token',
 			$data,
 			['Accept' => 'application/json']
@@ -178,7 +214,7 @@ class GitHubLoginHelper
 	 */
 	public function saveAvatar($username, bool $forceRefresh = false)
 	{
-		$path = $this->avatarPath . '/' . $username . '.png';
+		$path = self::AVATAR_PATH . '/' . $username . '.png';
 
 		if (file_exists($path))
 		{
@@ -193,16 +229,7 @@ class GitHubLoginHelper
 			}
 		}
 
-		if (false === function_exists('curl_setopt'))
-		{
-			throw new \RuntimeException('cURL is not installed - no avatar support.');
-		}
-
-		/** @var \Joomla\Github\Github $github */
-		$github = $this->container->get('gitHub');
-
-		// GitHub API works best with cURL
-		$response = HttpFactory::getHttp([], ['curl'])->get($github->users->get($username)->avatar_url);
+		$response = $this->http->get($this->github->users->get($username)->avatar_url);
 
 		if ($response->code != 200)
 		{
@@ -237,9 +264,9 @@ class GitHubLoginHelper
 			return $avatars[$user->username];
 		}
 
-		$path = $this->avatarPath . '/' . $user->username . '.png';
+		$path = self::AVATAR_PATH . '/' . $user->username . '.png';
 
-		$avatars[$user->username] = file_exists($path) ? $path : $this->avatarPath . '/user-default.png';
+		$avatars[$user->username] = file_exists($path) ? $path : self::AVATAR_PATH . '/user-default.png';
 
 		return $avatars[$user->username];
 	}
@@ -254,7 +281,7 @@ class GitHubLoginHelper
 	public function refreshUser(GitHubUser $user)
 	{
 		// Refresh the avatar
-		$path = $this->avatarPath . '/' . $user->username . '.png';
+		$path = self::AVATAR_PATH . '/' . $user->username . '.png';
 
 		if (file_exists($path))
 		{
@@ -267,9 +294,7 @@ class GitHubLoginHelper
 		$this->saveAvatar($user->username, true);
 
 		// Refresh user data in database.
-
-		/** @var \Joomla\Database\DatabaseDriver $db */
-		$db = $this->container->get('db');
+		$db = $this->db;
 
 		$db->setQuery(
 			$db->getQuery(true)
@@ -293,13 +318,13 @@ class GitHubLoginHelper
 	 */
 	public function setLastVisitTime($id)
 	{
-		/** @var \Joomla\Database\DatabaseDriver $db */
-		$db = $this->container->get('db');
+		$db          = $this->db;
+		$currentTime = (new \DateTime('now', new \DateTimeZone('UTC')))->format($db->getDateFormat());
 
 		$db->setQuery(
 			$db->getQuery(true)
 				->update($db->quoteName('#__users'))
-				->set($db->quoteName('lastvisitDate') . '=' . $db->quote((new Date)->format($db->getDateFormat())))
+				->set($db->quoteName('lastvisitDate') . '=' . $db->quote($currentTime))
 				->where($db->quoteName('id') . '=' . (int) $id)
 		)->execute();
 	}

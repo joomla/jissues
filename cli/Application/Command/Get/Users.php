@@ -102,7 +102,8 @@ class Users extends Get
 
 		$this->usePBar ? $this->out() : null;
 
-		$loginHelper = new GitHubLoginHelper($this->getContainer());
+		/** @var GitHubLoginHelper $loginHelper */
+		$loginHelper = $this->getContainer()->get(GitHubLoginHelper::class);
 		$user = new GitHubUser(new TrackerProject($this->getContainer()->get('db')), $this->getContainer()->get('db'));
 
 		foreach ($userNames as $i => $userName)

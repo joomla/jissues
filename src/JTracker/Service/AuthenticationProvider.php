@@ -8,11 +8,15 @@
 
 namespace JTracker\Service;
 
+use Joomla\Application\AbstractWebApplication;
 use Joomla\Authentication\Authentication;
-use Joomla\Authentication\AuthenticationStrategyInterface;
+use Joomla\Database\DatabaseDriver;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
+use Joomla\Github\Github;
+use Joomla\Http\Http;
 use Joomla\Input\Input;
+use Joomla\Registry\Registry;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\Strategy\GitHubAuthenticationStrategy;
 
@@ -51,7 +55,32 @@ class AuthenticationProvider implements ServiceProviderInterface
 			GitHubLoginHelper::class,
 			function (Container $container)
 			{
-				return new GitHubLoginHelper($container);
+				/** @var Registry $config */
+				$config = $container->get('config');
+
+				// Single account
+				$clientId     = $config->get('github.client_id');
+				$clientSecret = $config->get('github.client_secret');
+
+				// Multiple accounts
+				if (!$clientId)
+				{
+					$githubAccounts = $config->get('github.accounts');
+
+					// Use credentials from the first account
+					$clientId     = $githubAccounts[0]->client_id ?? '';
+					$clientSecret = $githubAccounts[0]->client_secret ?? '';
+				}
+
+				return new GitHubLoginHelper(
+					$container->get(AbstractWebApplication::class),
+					$container->get(DatabaseDriver::class),
+					$container->get(Github::class),
+					$container->get(Http::class),
+					$clientId,
+					$clientSecret,
+					$config->get('github.auth_scope', 'public_repo,read:user')
+				);
 			},
 			true
 		);
