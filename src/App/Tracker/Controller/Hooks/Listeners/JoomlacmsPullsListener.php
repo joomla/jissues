@@ -322,7 +322,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			'administrator/components/com_media/package-lock.json',
 			'administrator/components/com_media/package.json',
 			'administrator/components/com_media/webpack.config.js',
-			'^build/media_source',
+			'^build/media_source/vendor',
 			'build.js',
 			'package-lock.json',
 			'package.json',
