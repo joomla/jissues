@@ -141,7 +141,7 @@ class GitHubLoginHelper
 		$uri = new Uri($this->application->get('uri.base.full') . 'login');
 		$uri->setVar('usr_redirect', base64_encode((string) new Uri($this->application->get('uri.request'))));
 
-		return (new Github(null, $this->http))->authorization->getAuthorizationLink(
+		return $this->github->authorization->getAuthorizationLink(
 			$this->clientId, (string) $uri, $this->authScope
 		);
 	}
