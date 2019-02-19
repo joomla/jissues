@@ -44,7 +44,7 @@ define('JTRACKER_START_MEMORY', memory_get_usage());
 	try
 	{
 		$container = (new Joomla\DI\Container)
-            ->registerServiceProvider(new JTracker\Service\AuthenticationProvider)
+			->registerServiceProvider(new JTracker\Service\AuthenticationProvider)
 			->registerServiceProvider(new JTracker\Service\CacheProvider)
 			->registerServiceProvider(new JTracker\Service\CliApplicationProvider)
 			->registerServiceProvider(new JTracker\Service\ConfigurationProvider)
@@ -53,7 +53,7 @@ define('JTRACKER_START_MEMORY', memory_get_usage());
 			->registerServiceProvider(new JTracker\Service\DebuggerProvider)
 			->registerServiceProvider(new JTracker\Service\DispatcherProvider)
 			->registerServiceProvider(new JTracker\Service\GitHubProvider)
-            ->registerServiceProvider(new JTracker\Service\HttpProvider)
+			->registerServiceProvider(new JTracker\Service\HttpProvider)
 			->registerServiceProvider(new JTracker\Service\MonologProvider)
 			->registerServiceProvider(new JTracker\Service\RendererProvider)
 			->registerServiceProvider(new JTracker\Service\WebApplicationProvider)
