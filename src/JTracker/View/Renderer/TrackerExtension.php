@@ -533,12 +533,12 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	{
 		$relations = [
 			'duplicate_of' => g11n3t('Duplicate of'),
-			'related_to' => g11n3t('Related to'),
-			'not_before' => g11n3t('Not before'),
-			'pr_for' => g11n3t('Pull Request for'),
+			'related_to'   => g11n3t('Related to'),
+			'not_before'   => g11n3t('Not before'),
+			'pr_for'       => g11n3t('Pull Request for'),
 		];
 
-		return $relations[$relation];
+		return $relations[$relation] ?? '';
 	}
 
 	/**
