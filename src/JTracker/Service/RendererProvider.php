@@ -10,6 +10,7 @@ namespace JTracker\Service;
 
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
+use Joomla\Renderer\RendererInterface;
 use Joomla\Renderer\TwigRenderer;
 use JTracker\View\Renderer\ApplicationContext;
 use JTracker\View\Renderer\DebugPathPackage;
@@ -18,6 +19,13 @@ use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
+use Twig\Cache\CacheInterface;
+use Twig\Cache\FilesystemCache;
+use Twig\Cache\NullCache;
+use Twig\Environment;
+use Twig\Extension\DebugExtension;
+use Twig\Loader\FilesystemLoader;
+use Twig\Loader\LoaderInterface;
 
 /**
  * Template renderer service provider
@@ -37,44 +45,90 @@ class RendererProvider implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		$container->alias('renderer.twig', TwigRenderer::class)
+		$container->alias('renderer.twig', RendererInterface::class)
+			->alias('renderer', RendererInterface::class)
+			->alias(TwigRenderer::class, RendererInterface::class)
 			->share(
-				TwigRenderer::class,
+				RendererInterface::class,
+				function (Container $container) {
+					return new TwigRenderer($container->get('twig.environment'));
+				},
+				true
+			);
+
+		$container->alias(CacheInterface::class, 'twig.cache')
+			->alias(\Twig_CacheInterface::class, 'twig.cache')
+			->share(
+				'twig.cache',
 				function (Container $container) {
 					/** @var \Joomla\Registry\Registry $config */
 					$config = $container->get('config');
 
-					$rendererConfig = [
-						'debug' => (bool) $config->get('debug.template', false),
-						'cache' => $config->get('renderer.cache', false) ? JPATH_ROOT . '/cache/' . $config->get('renderer.cache') : false,
-					];
+					// Pull down the renderer config
+					$cacheConfig = $config->get('renderer.cache', false);
 
-					// Instantiate the Twig environment
-					$environment = new \Twig_Environment(new \Twig_Loader_Filesystem([JPATH_TEMPLATES]), $rendererConfig);
-
-					// Add our Twig extension
-					$environment->addExtension(new TrackerExtension($container));
-
-					// Add the debug extension if enabled
-					if ($rendererConfig['debug'])
+					if ($cacheConfig === false)
 					{
-						$environment->addExtension(new \Twig_Extension_Debug);
+						return new NullCache;
 					}
 
-					// Set the Lexer object
-					$environment->setLexer(
-						new \Twig_Lexer(
-							$environment, [
-								'delimiters' => [
-									'tag_comment'  => ['{#', '#}'],
-									'tag_block'    => ['{%', '%}'],
-									'tag_variable' => ['{{', '}}'],
-								],
-							]
-						)
+					return new FilesystemCache(JPATH_ROOT . '/cache/' . $cacheConfig);
+				},
+				true
+			);
+
+		$container->alias(Environment::class, 'twig.environment')
+			->alias(\Twig_Environment::class, 'twig.environment')
+			->share(
+				'twig.environment',
+				function (Container $container) {
+					/** @var \Joomla\Registry\Registry $config */
+					$config = $container->get('config');
+
+					$debug = $config->get('debug.template', false);
+
+					$environment = new Environment(
+						$container->get('twig.loader'),
+						['debug' => $debug]
 					);
 
-					return new TwigRenderer($environment);
+					// Set up the environment's caching service
+					$environment->setCache($container->get('twig.cache'));
+
+					// Add the Twig extensions
+					$environment->setExtensions($container->getTagged('twig.extension'));
+
+					return $environment;
+				},
+				true
+			);
+
+
+		$container->alias(DebugExtension::class, 'twig.extension.debug')
+			->alias(\Twig_Extension_Debug::class, 'twig.extension.debug')
+			->share(
+				'twig.extension.debug',
+				function (Container $container) {
+					return new DebugExtension;
+				},
+				true
+			);
+
+		$container->alias(TrackerExtension::class, 'twig.extension.tracker')
+			->share(
+				'twig.extension.tracker',
+				function (Container $container) {
+					return new TrackerExtension($container);
+				},
+				true
+			);
+
+		$container->alias(LoaderInterface::class, 'twig.loader')
+			->alias(\Twig_LoaderInterface::class, 'twig.loader')
+			->share(
+				'twig.loader',
+				function (Container $container) {
+					return new FilesystemLoader([JPATH_TEMPLATES]);
 				},
 				true
 			);
@@ -100,5 +154,33 @@ class RendererProvider implements ServiceProviderInterface
 			},
 			true
 		);
+
+		$this->tagTwigExtensions($container);
+	}
+
+	/**
+	 * Tag services which are Twig extensions
+	 *
+	 * @param   Container  $container  The DI container.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	private function tagTwigExtensions(Container $container): void
+	{
+		/** @var \Joomla\Registry\Registry $config */
+		$config = $container->get('config');
+
+		$debug = $config->get('debug.template', false);
+
+		$twigExtensions = ['twig.extension.tracker'];
+
+		if ($debug)
+		{
+			$twigExtensions[] = 'twig.extension.debug';
+		}
+
+		$container->tag('twig.extension', $twigExtensions);
 	}
 }
