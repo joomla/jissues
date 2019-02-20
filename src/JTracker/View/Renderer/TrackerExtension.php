@@ -12,8 +12,6 @@ use Adaptive\Diff\Diff;
 
 use App\Tracker\DiffRenderer\Html\Inline;
 
-use ElKuKu\G11n\G11n;
-
 use Joomla\Cache\Item\Item;
 use Joomla\Database\DatabaseDriver;
 use Joomla\DI\Container;
@@ -21,7 +19,6 @@ use Joomla\Http\HttpFactory;
 
 use JTracker\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
-use JTracker\Helper\LanguageHelper;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Asset\Packages;
 
@@ -103,11 +100,6 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 			'useCDN'         => $this->app->get('system.use_cdn'),
 			'templateDebug'  => $this->app->get('debug.template', false),
 			'jdebug'         => JDEBUG,
-			'lang'           => $this->app->getLanguageTag(),
-			'languages'      => LanguageHelper::getLanguagesSortedByDisplayName(),
-			'languageCodes'  => LanguageHelper::getLanguageCodes(),
-			'langDirection'  => LanguageHelper::getDirection($this->app->getLanguageTag()),
-			'g11nJavaScript' => G11n::getJavaScript(),
 			'loginUrl'       => $this->loginHelper->getLoginUri()
 		];
 	}
@@ -122,9 +114,6 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	public function getFunctions()
 	{
 		$functions = [
-			new \Twig_Function('translate', 'g11n3t'),
-			new \Twig_Function('_', 'g11n3t'),
-			new \Twig_Function('g11n4t', 'g11n4t'),
 			new \Twig_Function('sprintf', 'sprintf'),
 			new \Twig_Function('stripJRoot', [$this, 'stripJRoot']),
 			new \Twig_Function('asset', [$this, 'getAssetUrl']),
@@ -176,7 +165,6 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 			new \Twig_Filter('contrastColor', [$this, 'getContrastColor']),
 			new \Twig_Filter('labels', [$this, 'renderLabels']),
 			new \Twig_Filter('yesno', [$this, 'yesNo']),
-			new \Twig_Filter('_', 'g11n3t'),
 			new \Twig_Filter('mergeStatus', [$this, 'getMergeStatus']),
 			new \Twig_Filter('mergeBadge', [$this, 'renderMergeBadge']),
 		];

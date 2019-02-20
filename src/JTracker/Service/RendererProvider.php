@@ -14,6 +14,7 @@ use Joomla\Renderer\RendererInterface;
 use Joomla\Renderer\TwigRenderer;
 use JTracker\View\Renderer\ApplicationContext;
 use JTracker\View\Renderer\DebugPathPackage;
+use JTracker\View\Renderer\LocalizationExtension;
 use JTracker\View\Renderer\TrackerExtension;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\PathPackage;
@@ -114,6 +115,15 @@ class RendererProvider implements ServiceProviderInterface
 				'twig.extension.debug',
 				function (Container $container) {
 					return new DebugExtension;
+				},
+				true
+			);
+
+		$container->alias(LocalizationExtension::class, 'twig.extension.localization')
+			->share(
+				'twig.extension.localization',
+				function (Container $container) {
+					return new LocalizationExtension($container->get('app'));
 				},
 				true
 			);
