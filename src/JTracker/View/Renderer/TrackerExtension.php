@@ -27,7 +27,7 @@ use Symfony\Component\Asset\Packages;
  *
  * @since  1.0
  */
-class TrackerExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
+class TrackerExtension extends \Twig_Extension
 {
 	/**
 	 * Application object
@@ -83,25 +83,6 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 		$this->db          = $container->get('db');
 		$this->loginHelper = $container->get(GitHubLoginHelper::class);
 		$this->packages    = $container->get(Packages::class);
-	}
-
-	/**
-	 * Returns a list of global variables to add to the existing list.
-	 *
-	 * @return  array  An array of global variables.
-	 *
-	 * @since   1.0
-	 */
-	public function getGlobals()
-	{
-		return [
-			'uri'            => $this->app->get('uri'),
-			'offset'         => $this->app->getUser()->params->get('timezone') ?: $this->app->get('system.offset'),
-			'useCDN'         => $this->app->get('system.use_cdn'),
-			'templateDebug'  => $this->app->get('debug.template', false),
-			'jdebug'         => JDEBUG,
-			'loginUrl'       => $this->loginHelper->getLoginUri()
-		];
 	}
 
 	/**

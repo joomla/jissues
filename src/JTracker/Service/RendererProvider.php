@@ -12,6 +12,8 @@ use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Renderer\RendererInterface;
 use Joomla\Renderer\TwigRenderer;
+use JTracker\Application;
+use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\View\Renderer\ApplicationContext;
 use JTracker\View\Renderer\DebugPathPackage;
 use JTracker\View\Renderer\LocalizationExtension;
@@ -102,6 +104,21 @@ class RendererProvider implements ServiceProviderInterface
 
 					// Add the Twig extensions
 					$environment->setExtensions($container->getTagged('twig.extension'));
+
+					// Set the Twig environment globals
+					$environment->addGlobal('useCDN', $config->get('system.use_cdn', true));
+					$environment->addGlobal('templateDebug', $debug);
+					$environment->addGlobal('jdebug', JDEBUG);
+
+					/** @var Application $app */
+					$app = $container->get('app');
+
+					/** @var GitHubLoginHelper $loginHelper */
+					$loginHelper = $container->get(GitHubLoginHelper::class);
+
+					$environment->addGlobal('uri', $app->get('uri'));
+					$environment->addGlobal('offset', $app->getUser()->params->get('timezone') ?: $config->get('system.offset', 'UTC'));
+					$environment->addGlobal('loginUrl', $loginHelper->getLoginUri());
 
 					return $environment;
 				},
