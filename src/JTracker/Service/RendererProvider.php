@@ -26,6 +26,7 @@ use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 use Twig\Loader\LoaderInterface;
+use Twig\RuntimeLoader\ContainerRuntimeLoader;
 
 /**
  * Template renderer service provider
@@ -92,6 +93,9 @@ class RendererProvider implements ServiceProviderInterface
 						['debug' => $debug]
 					);
 
+					// Add the runtime loader
+					$environment->addRuntimeLoader($container->get('twig.runtime.loader'));
+
 					// Set up the environment's caching service
 					$environment->setCache($container->get('twig.cache'));
 
@@ -129,6 +133,16 @@ class RendererProvider implements ServiceProviderInterface
 				'twig.loader',
 				function (Container $container) {
 					return new FilesystemLoader([JPATH_TEMPLATES]);
+				},
+				true
+			);
+
+		$container->alias(ContainerRuntimeLoader::class, 'twig.runtime.loader')
+			->alias(\Twig_ContainerRuntimeLoader::class, 'twig.runtime.loader')
+			->share(
+				'twig.runtime.loader',
+				function (Container $container) {
+					return new ContainerRuntimeLoader($container);
 				},
 				true
 			);
