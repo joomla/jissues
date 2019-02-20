@@ -132,11 +132,11 @@
         </td>
         <td colspan="3">
             {% if new %}
-                {{ 'Added'|_ }}: {{ getMilestoneTitle(new) }}<br />
+                {{ 'Added'|_ }}: {{ milestone_title(new) }}<br />
             {% endif %}
 
             {% if old %}
-                {{ 'Removed'|_ }}: {{ getMilestoneTitle(old) }}<br />
+                {{ 'Removed'|_ }}: {{ milestone_title(old) }}<br />
             {% endif %}
         </td>
     </tr>

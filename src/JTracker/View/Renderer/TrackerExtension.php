@@ -145,7 +145,6 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 			new \Twig_Function('renderLabels', [$this, 'renderLabels']),
 			new \Twig_Function('arrayDiff', [$this, 'arrayDiff']),
 			new \Twig_Function('userTestOptions', [$this, 'getUserTestOptions']),
-			new \Twig_Function('getMilestoneTitle', [$this, 'getMilestoneTitle']),
 			new \Twig_Function('cdn_footer', [$this, 'getCdnFooter']),
 			new \Twig_Function('cdn_menu', [$this, 'getCdnMenu']),
 			new \Twig_Function('datepicker_locale_js', [$this, 'getDatepickerLocaleJs']),
@@ -940,39 +939,6 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 		];
 
 		return ($id !== null && array_key_exists($id, $options)) ? $options[$id] : $options;
-	}
-
-	/**
-	 * Get the title of the milestone by id
-	 *
-	 * @param   integer  $id  The id of the milestone
-	 *
-	 * @return  string  The title of the milestone
-	 *
-	 * @since   1.0
-	 */
-	public function getMilestoneTitle($id)
-	{
-		static $milestones = [];
-
-		if (!$milestones)
-		{
-			$milestones = $this->db->setQuery(
-				$this->db->getQuery(true)
-					->select($this->db->quoteName(['milestone_id', 'title']))
-					->from($this->db->quoteName('#__tracker_milestones'))
-			)->loadObjectList();
-		}
-
-		foreach ($milestones as $milestone)
-		{
-			if ($milestone->milestone_id == $id)
-			{
-				return $milestone->title;
-			}
-		}
-
-		return '';
 	}
 
 	/**

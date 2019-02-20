@@ -8,8 +8,10 @@
 
 namespace App\Tracker;
 
+use App\Tracker\Renderer\MilestoneExtension;
 use Joomla\DI\Container;
 use JTracker\AppInterface;
+use JTracker\Router\TrackerRouter;
 
 /**
  * Tracker app
@@ -26,9 +28,24 @@ class TrackerApp implements AppInterface
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
 	public function loadServices(Container $container)
+	{
+		$this->registerRouteMap($container->get('router'));
+		$this->registerServices($container);
+	}
+
+	/**
+	 * Registers the route mapping for the app
+	 *
+	 * @param   TrackerRouter  $router  The application router
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	private function registerRouteMap(TrackerRouter $router)
 	{
 		// Register the component routes
 		$maps = json_decode(file_get_contents(__DIR__ . '/routes.json'), true);
@@ -38,8 +55,29 @@ class TrackerApp implements AppInterface
 			throw new \RuntimeException('Invalid router file for the Tracker app: ' . __DIR__ . '/routes.json', 500);
 		}
 
-		/** @var \JTracker\Router\TrackerRouter $router */
-		$router = $container->get('router');
 		$router->addMaps($maps);
+	}
+
+	/**
+	 * Registers the services for the app
+	 *
+	 * @param   Container  $container  DI Container to load services into
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	private function registerServices(Container $container)
+	{
+		$container->alias(MilestoneExtension::class, 'twig.extension.milestone')
+			->share(
+				'twig.extension.milestone',
+				function (Container $container) {
+					return new MilestoneExtension($container->get('db'));
+				},
+				true
+			)
+			->tag('twig.extension', ['twig.extension.milestone']);
 	}
 }
