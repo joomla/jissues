@@ -215,7 +215,10 @@ class RendererProvider implements ServiceProviderInterface
 
 		$debug = $config->get('debug.template', false);
 
-		$twigExtensions = ['twig.extension.tracker'];
+		$twigExtensions = [
+			'twig.extension.tracker',
+			'twig.extension.localization',
+		];
 
 		if ($debug)
 		{
