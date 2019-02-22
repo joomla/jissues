@@ -42,7 +42,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
  */
 final class Application extends AbstractWebApplication implements ContainerAwareInterface, DispatcherAwareInterface
 {
-	use ContainerAwareTrait, DispatcherAwareTrait, ApplicationTrait;
+	use ContainerAwareTrait, DispatcherAwareTrait;
 
 	/**
 	 * The name of the application.
@@ -145,10 +145,6 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	{
 		try
 		{
-			$this->bootApps();
-
-			$this->mark('Apps booted');
-
 			// Fetch the controller
 			/** @var AbstractTrackerController $controller */
 			$controller = $this->getRouter()->getController($this->get('uri.route'));
