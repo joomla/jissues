@@ -9,7 +9,6 @@
 namespace JTracker\View\Renderer;
 
 use ElKuKu\G11n\G11n;
-use Joomla\DI\Container;
 use JTracker\Application;
 use JTracker\Helper\LanguageHelper;
 use Twig\Extension\AbstractExtension;
