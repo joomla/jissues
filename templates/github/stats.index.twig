@@ -71,7 +71,7 @@
 
         {% for stats in data %}
             <h3>
-                {{ avatar(stats.author.login, 40, 'avatar')|raw }}
+                {{ avatar(stats.author.login, 40, 'avatar') }}
                 {{ stats.author.login }}
             </h3>
             Total commits: {{ stats.total }}

@@ -80,7 +80,7 @@
                                 <span class="icon-bar"></span>
                             </a>
 
-                            {{ cdn_menu()|raw }}
+                            {{ cdn_menu() }}
                         {% endblock %}
                     </div>
                 </div>
@@ -148,7 +148,7 @@
         <div class="container">
             {% block footer %}
                 <hr />
-                {{ cdn_footer()|raw }}
+                {{ cdn_footer() }}
             {% endblock %}
         </div>
     </div>
@@ -161,7 +161,7 @@
     <script src="{{ asset('js/vendor/blueimp-tmpl.js') }}"></script>
     <script src="{{ asset('js/jtracker.js') }}"></script>
 
-    <script type="text/javascript">{{ g11nJavaScript|raw }}</script>
+    <script type="text/javascript">{{ g11n_javascript() }}</script>
 
     <script type="text/javascript">
         jQuery(document).ready(function ($) {

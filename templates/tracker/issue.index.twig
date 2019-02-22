@@ -300,7 +300,7 @@
 
     <div class="row-fluid">
         <div class="span2 well-small user-wrapper">
-            {{ avatar(item.opened_by, '', 'avatar')|raw }}<br />
+            {{ avatar(item.opened_by, '', 'avatar') }}<br />
             {% if item.user_id %}
                 <span class="icon-user"></span>
                 <a href="{{ uri.base.path ~ 'user/' ~ item.user_id}}">{{ item.opened_by }}</a>
@@ -405,7 +405,7 @@
                 {% set change = activity.text|json_decode %}
                 <div class="offset1 span9 activity-action">
                     <i class="octicon octicon-person"></i>
-                    {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    {{ avatar(activity.user, 20, 'avatar') }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                     - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
@@ -415,7 +415,7 @@
                 {% set change = activity.text|json_decode %}
                 <div class="offset1 span9 activity-action">
                     <i class="octicon octicon-eye"></i>
-                    {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    {{ avatar(activity.user, 20, 'avatar') }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                     - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
@@ -431,7 +431,7 @@
                     </span>
                     <i class="octicon octicon-git-commit" title="{{ 'Git commit' }}"></i>
                     <span title="{{ activity.user }}">
-                        {{ avatar(activity.user, 20, 'avatar')|raw }}
+                        {{ avatar(activity.user, 20, 'avatar') }}
                     </span>
                     <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/commit/' ~ activity.activities_id }}">
                         {{ activity.text }}
@@ -440,7 +440,7 @@
             {% elseif 'assigned' == activity.event or 'unassigned' == activity.event %}
                 <div class="offset1 span9 activity-action">
                     <i class="octicon octicon-person"></i>
-                    {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    {{ avatar(activity.user, 20, 'avatar') }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                     - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
@@ -448,7 +448,7 @@
             {% elseif 'reference' == activity.event %}
                 <div class="offset1 span9 activity-action">
                     <i class="octicon octicon-git-commit"></i>
-                    {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    {{ avatar(activity.user, 20, 'avatar') }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                     | <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/commit/' ~ activity.text }}">
@@ -463,7 +463,7 @@
                     {% elseif 'unlocked' == activity.event %}
                         <i class="octicon octicon-key"></i>
                     {% endif %}
-                    {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    {{ avatar(activity.user, 20, 'avatar') }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                     - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
@@ -471,7 +471,7 @@
             {% elseif 'change' == activity.event %}
                 <div class="offset1 span9 activity-action">
                     <i class="octicon octicon-gear"></i>
-                    {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    {{ avatar(activity.user, 20, 'avatar') }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                     - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
@@ -518,7 +518,7 @@
             {% elseif activity.text != '' %}
                 {# Comment #}
                 <div class="span1 activity-avatar">
-                    {{ avatar(activity.user, 40, 'avatar')|raw }}
+                    {{ avatar(activity.user, 40, 'avatar') }}
                 </div>
                 <div class="span11 activity-comment">
                     <div class="well well-small">
@@ -533,7 +533,7 @@
             {% elseif activity.event != 'synchronize' %}
                 <div class="offset1 span9">
                     <i class="octicon octicon-pulse"></i>
-                    {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    {{ avatar(activity.user, 20, 'avatar') }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                     - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
@@ -555,7 +555,7 @@
         {% if user.check("create") or user.check("manage") %}
             <div class="row-fluid">
                 <div class="span1 well-small">
-                    {{ avatar(user.username, '', 'avatar')|raw }}
+                    {{ avatar(user.username, '', 'avatar') }}
                 </div>
                 <div class="span11">
                     {% set editorId="comment" %}
@@ -607,7 +607,7 @@
         <div id="event-[%= o.activities_id %]">
             <div class="row-fluid">
                 <div class="span1 activity-avatar">
-                    {{ avatar(user.username, 40, 'avatar')|raw }}
+                    {{ avatar(user.username, 40, 'avatar') }}
                 </div>
                 <div class="span11 activity-comment">
                     <div class="well well-small">
@@ -629,7 +629,7 @@
             <div class="row-fluid">
                 <div class="offset1 span11 activity-action">
                     <i class="octicon octicon-person"></i>
-                    {{ avatar(user.username, 20, 'avatar')|raw }}
+                    {{ avatar(user.username, 20, 'avatar') }}
                     <b>{{ user.username }}</b>
                     - <a name="event-[%= o.activities_id %]" href="/{{ uri.route }}#event-[%= o.activities_id %]">[%= o.event %]</a>
                     - [%= o.created_date %]
@@ -645,7 +645,7 @@
             <div class="row-fluid">
                 <div class="offset1 span11 activity-action">
                     <i class="octicon octicon-eye"></i>
-                    {{ avatar(user.username, 20, 'avatar')|raw }}
+                    {{ avatar(user.username, 20, 'avatar') }}
                     <b>{{ user.username }}</b>
                     - <a name="event-[%= o.activities_id %]" href="/{{ uri.route }}#event-[%= o.activities_id %]">[%= o.event %]</a>
                     - [%= o.created_date %]

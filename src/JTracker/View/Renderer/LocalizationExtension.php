@@ -58,7 +58,6 @@ class LocalizationExtension extends AbstractExtension implements GlobalsInterfac
 			'languages'      => LanguageHelper::getLanguagesSortedByDisplayName(),
 			'languageCodes'  => LanguageHelper::getLanguageCodes(),
 			'langDirection'  => LanguageHelper::getDirection($this->app->getLanguageTag()),
-			'g11nJavaScript' => G11n::getJavaScript(),
 		];
 	}
 
@@ -75,6 +74,7 @@ class LocalizationExtension extends AbstractExtension implements GlobalsInterfac
 			new TwigFunction('translate', 'g11n3t'),
 			new TwigFunction('_', 'g11n3t'),
 			new TwigFunction('g11n4t', 'g11n4t'),
+			new TwigFunction('g11n_javascript', [G11n::class, 'getJavaScript'], ['is_safe' => ['html']]),
 		];
 	}
 
