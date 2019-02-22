@@ -7,9 +7,6 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-'cli' == PHP_SAPI
-	|| die("\nThis script must be run from the command line interface.\n\n");
-
 // Configure error reporting to maximum for CLI output.
 error_reporting(-1);
 ini_set('display_errors', 1);
