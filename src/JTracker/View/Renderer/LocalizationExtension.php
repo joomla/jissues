@@ -35,7 +35,7 @@ class LocalizationExtension extends AbstractExtension implements GlobalsInterfac
 	/**
 	 * Constructor.
 	 *
-	 * @param   Container  $container  The DI container.
+	 * @param   Application  $app  Application object.
 	 *
 	 * @since   1.0
 	 */
@@ -54,10 +54,10 @@ class LocalizationExtension extends AbstractExtension implements GlobalsInterfac
 	public function getGlobals()
 	{
 		return [
-			'lang'           => $this->app->getLanguageTag(),
-			'languages'      => LanguageHelper::getLanguagesSortedByDisplayName(),
-			'languageCodes'  => LanguageHelper::getLanguageCodes(),
-			'langDirection'  => LanguageHelper::getDirection($this->app->getLanguageTag()),
+			'lang'          => $this->app->getLanguageTag(),
+			'languages'     => LanguageHelper::getLanguagesSortedByDisplayName(),
+			'languageCodes' => LanguageHelper::getLanguageCodes(),
+			'langDirection' => LanguageHelper::getDirection($this->app->getLanguageTag()),
 		];
 	}
 
