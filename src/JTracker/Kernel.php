@@ -103,7 +103,6 @@ abstract class Kernel implements ContainerAwareInterface
 			->registerServiceProvider(new CacheProvider)
 			->registerServiceProvider(new CrowdinProvider)
 			->registerServiceProvider(new DatabaseProvider)
-			->registerServiceProvider(new DebuggerProvider)
 			->registerServiceProvider(new DispatcherProvider)
 			->registerServiceProvider(new GitHubProvider)
 			->registerServiceProvider(new HttpProvider)
