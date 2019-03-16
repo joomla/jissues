@@ -20,12 +20,6 @@
 		]
 	},
 
-	"crowdin": {
-		"project" : "",
-		"api-key" : "",
-		"filepath": ""
-	},
-
 	"renderer": {
 		"type" : "twig",
         "cache": false
