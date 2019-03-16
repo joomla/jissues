@@ -59,7 +59,7 @@
     {{ parent() }}
 
     <script src="{{ asset('js/vendor/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ datepicker_locale_js(lang) }}"></script>
+    <script src="{{ datepicker_locale_js('en-GB') }}"></script>
     <script src="{{ asset('js/jqplot/jquery.jqplot.min.js', 'debug') }}"></script>
     <script src="{{ asset('js/jqplot/jqplot.barRenderer.js', 'debug') }}"></script>
     <script src="{{ asset('js/jqplot/jqplot.categoryAxisRenderer.js', 'debug') }}"></script>
@@ -106,7 +106,7 @@
 
         $('.datepicker').datepicker({
             format: 'yyyy-mm-dd',
-            language: '{{ datepicker_locale_code(lang) }}'
+            language: '{{ datepicker_locale_code('en-GB') }}'
         });
     </script>
 {% endblock %}

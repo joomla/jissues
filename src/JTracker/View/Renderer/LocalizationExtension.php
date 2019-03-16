@@ -10,9 +10,7 @@ namespace JTracker\View\Renderer;
 
 use ElKuKu\G11n\G11n;
 use JTracker\Application;
-use JTracker\Helper\LanguageHelper;
 use Twig\Extension\AbstractExtension;
-use Twig\Extension\GlobalsInterface;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
@@ -21,7 +19,7 @@ use Twig\TwigFunction;
  *
  * @since  1.0
  */
-class LocalizationExtension extends AbstractExtension implements GlobalsInterface
+class LocalizationExtension extends AbstractExtension
 {
 	/**
 	 * Application object
@@ -41,23 +39,6 @@ class LocalizationExtension extends AbstractExtension implements GlobalsInterfac
 	public function __construct(Application $app)
 	{
 		$this->app = $app;
-	}
-
-	/**
-	 * Returns a list of global variables to add to the existing list.
-	 *
-	 * @return  array  An array of global variables.
-	 *
-	 * @since   1.0
-	 */
-	public function getGlobals()
-	{
-		return [
-			'lang'          => $this->app->getLanguageTag(),
-			'languages'     => LanguageHelper::getLanguagesSortedByDisplayName(),
-			'languageCodes' => LanguageHelper::getLanguageCodes(),
-			'langDirection' => LanguageHelper::getDirection($this->app->getLanguageTag()),
-		];
 	}
 
 	/**

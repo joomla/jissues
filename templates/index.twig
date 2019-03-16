@@ -1,7 +1,7 @@
 {# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
 {# GNU General Public License version 2 or later; see LICENSE.txt #}
 <!DOCTYPE html>
-<html lang="{{ lang|split("-")|first }}" dir="{{ langDirection }}">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,18 +25,8 @@
     <link rel="stylesheet" href="{{ asset('css/template.min.css', 'debug') }}" />
     {% endif %}
 
-    {# If a RTL language is in use then load the extra RTL CSS for the template #}
-    {% if langDirection == 'rtl' %}
-    <link rel="stylesheet" href="{{ asset('css/template-rtl.min.css', 'debug') }}" />
-    {% endif %}
-
     <link rel="stylesheet" href="{{ asset('css/vendor/octicons.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/jtracker.css', 'debug') }}" />
-
-    {# If a RTL language is in use then load the extra RTL CSS for the tracker #}
-    {% if langDirection == 'rtl' %}
-    <link rel="stylesheet" href="{{ asset('css/jtracker-rtl.css', 'debug') }}" />
-    {% endif %}
 
     <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-144-precomposed.png', 'noversion') }}" sizes="144x144" />
     <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-114-precomposed.png', 'noversion') }}" sizes="114x114" />
@@ -61,7 +51,7 @@
         })();
    	</script>
 </head>
-<body class="site app-{{ app }} view-{{ view }} layout-{{ layout }}{% if langDirection == 'rtl' %} rtl{% endif %}">
+<body class="site app-{{ app }} view-{{ view }} layout-{{ layout }}">
     <!-- Google Tag Manager -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M7HXQ7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-M7HXQ7');</script>
