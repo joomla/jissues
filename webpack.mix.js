@@ -100,7 +100,7 @@ mix.copy('node_modules/twbs-pagination/jquery.twbsPagination.min.js', 'www/media
 // Bootstrap Datepicker
 mix.copy('node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css', 'www/media/css/vendor/bootstrap-datepicker.css');
 mix.copy('node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js', 'www/media/js/vendor/bootstrap-datepicker.js');
-mix.copy('node_modules/bootstrap-datepicker/dist/locales/*', 'www/media/js/vendor/bootstrap-datepicker/locales');
+mix.copy('node_modules/bootstrap-datepicker/dist/locales/bootstrap-datepicker.en-GB.min.js', 'www/media/js/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js');
 
 // d3
 mix.copy('node_modules/d3/d3.min.js', 'www/media/js/vendor/d3.js');

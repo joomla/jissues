@@ -117,8 +117,6 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_Function('userTestOptions', [$this, 'getUserTestOptions']),
 			new \Twig_Function('cdn_footer', [$this, 'getCdnFooter'], ['is_safe' => ['html']]),
 			new \Twig_Function('cdn_menu', [$this, 'getCdnMenu'], ['is_safe' => ['html']]),
-			new \Twig_Function('datepicker_locale_js', [$this, 'getDatepickerLocaleJs']),
-			new \Twig_Function('datepicker_locale_code', [$this, 'getDatepickerLocaleCode']),
 		];
 
 		if (!JDEBUG)
@@ -923,85 +921,5 @@ class TrackerExtension extends \Twig_Extension
 	public function getAssetUrl($path, $packageName = null)
 	{
 		return $this->packages->getUrl($path, $packageName);
-	}
-
-	/**
-	 * Returns the public URL for the Bootstrap Datepicker locale
-	 *
-	 * @param   string  $locale  The locale to load
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function getDatepickerLocaleJs($locale)
-	{
-		$localePathSegment = 'js/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.%locale%.min.js';
-		$basePath          = JPATH_ROOT . '/www' . $this->app->get('uri.media.path');
-
-		// First check if the locale as given has a file that exists
-		$localeSegment = strtr($localePathSegment, ['%locale%' => $locale]);
-
-		if (file_exists($basePath . $localeSegment))
-		{
-			return $this->getAssetUrl($localeSegment, 'debug');
-		}
-
-		// Doesn't exist, check the first segment of the locale now if it's got a - in it (i.e. fr-FR)
-		if (strpos($locale, '-') !== false)
-		{
-			$langSegments = explode('-', $locale);
-
-			$localeSegment = strtr($localePathSegment, ['%locale%' => $langSegments[0]]);
-
-			if (file_exists($basePath . $localeSegment))
-			{
-				return $this->getAssetUrl($localeSegment, 'debug');
-			}
-		}
-
-		// We don't have a locale, load English
-		$localeSegment = strtr($localePathSegment, ['%locale%' => 'en-GB']);
-
-		return $this->getAssetUrl($localeSegment, 'debug');
-	}
-
-	/**
-	 * Returns the locale code for the Bootstrap Datepicker
-	 *
-	 * @param   string  $locale  The locale to load
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function getDatepickerLocaleCode($locale)
-	{
-		$localePathSegment = 'js/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.%locale%.min.js';
-		$basePath          = JPATH_ROOT . '/www' . $this->app->get('uri.media.path');
-
-		// First check if the locale as given has a file that exists
-		$localeSegment = strtr($localePathSegment, ['%locale%' => $locale]);
-
-		if (file_exists($basePath . $localeSegment))
-		{
-			return $locale;
-		}
-
-		// Doesn't exist, check the first segment of the locale now if it's got a - in it (i.e. fr-FR)
-		if (strpos($locale, '-') !== false)
-		{
-			$langSegments = explode('-', $locale);
-
-			$localeSegment = strtr($localePathSegment, ['%locale%' => $langSegments[0]]);
-
-			if (file_exists($basePath . $localeSegment))
-			{
-				return $langSegments[0];
-			}
-		}
-
-		// We don't have a locale, load English
-		return 'en-GB';
 	}
 }
