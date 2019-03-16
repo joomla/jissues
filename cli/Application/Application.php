@@ -18,7 +18,6 @@ use Application\Exception\AbortException;
 use Elkuku\Console\Helper\ConsoleProgressBar;
 
 use ElKuKu\G11n\G11n;
-use ElKuKu\G11n\Support\ExtensionHelper;
 
 use Joomla\Application\AbstractCliApplication;
 use Joomla\Application\Cli\CliOutput;
@@ -30,7 +29,6 @@ use Joomla\Input;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\GitHub\GitHubUser;
-use JTracker\Helper\LanguageHelper;
 
 /**
  * CLI application for installing the tracker application
@@ -106,7 +104,8 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	{
 		parent::__construct($input, $config, $output);
 
-		$this->loadLanguage();
+		// Call language library to load functions and not critically break things
+		G11n::setCurrent('en-GB');
 
 		$this->commandOptions[] = new TrackerCommandOption(
 			'quiet', 'q',
@@ -461,70 +460,5 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	public function getUserStateFromRequest()
 	{
 		return '';
-	}
-
-	/**
-	 * Load a foreign language.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	protected function loadLanguage()
-	{
-		$languages = LanguageHelper::getLanguageCodes();
-
-		// Get the language tag from user input.
-		$lang = $this->input->get('lang');
-
-		if ($lang)
-		{
-			if (false === in_array($lang, $languages))
-			{
-				// Unknown language from user input - fall back to default
-				$lang = G11n::getDefault();
-			}
-
-			if (false === in_array($lang, $languages))
-			{
-				// Unknown default language - Fall back to British.
-				$lang = 'en-GB';
-			}
-		}
-		else
-		{
-			$lang = G11n::getCurrent();
-
-			if (false === in_array($lang, $languages))
-			{
-				// Unknown current language - Fall back to British.
-				$lang = 'en-GB';
-			}
-		}
-
-		if ($lang)
-		{
-			// Set the current language if anything has been found.
-			G11n::setCurrent($lang);
-		}
-
-		// Set language debugging.
-		G11n::setDebug($this->get('debug.language'));
-
-		// Set the language cache directory.
-		if ('vagrant' == getenv('JTRACKER_ENVIRONMENT'))
-		{
-			ExtensionHelper::setCacheDir('/tmp');
-		}
-		else
-		{
-			ExtensionHelper::setCacheDir(JPATH_ROOT . '/cache');
-		}
-
-		// Load the CLI language file.
-		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
-		G11n::loadLanguage('cli', 'CLI');
-
-		return $this;
 	}
 }
