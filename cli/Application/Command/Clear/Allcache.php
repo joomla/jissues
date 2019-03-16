@@ -42,10 +42,6 @@ class Allcache extends Clear
 			->setContainer($this->getContainer())
 			->execute();
 
-		(new Languagecache)
-			->setContainer($this->getContainer())
-			->execute();
-
 		(new Twig)
 			->setContainer($this->getContainer())
 			->execute();
