@@ -90,7 +90,6 @@ mix.copy('node_modules/jquery-simple-color/jquery.simple-color.min.js', 'www/med
 
 // jQuery Validation
 mix.copy('node_modules/jquery-validation/dist/jquery.validate.min.js', 'www/media/js/vendor/jquery-validation.js');
-mix.copy('node_modules/jquery-validation/dist/localization/*', 'www/media/js/vendor/jquery-validation/localization');
 
 // markItUp!
 mix.copy('node_modules/markItUp!/markitup', 'www/media/markitup');
