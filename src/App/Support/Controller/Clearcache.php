@@ -8,7 +8,6 @@
 
 namespace App\Support\Controller;
 
-use ElKuKu\G11n\Support\ExtensionHelper;
 use JTracker\Controller\AbstractTrackerController;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
@@ -34,17 +33,6 @@ class Clearcache extends AbstractTrackerController
 		$application = $this->getContainer()->get('app');
 
 		$application->getUser()->authorize('admin');
-
-		try
-		{
-			ExtensionHelper::cleanCache();
-
-			$application->enqueueMessage(g11n3t('The translation cache has been cleared.'), 'success');
-		}
-		catch (\Exception $e)
-		{
-			$application->enqueueMessage($e->getMessage(), 'error');
-		}
 
 		// Skip Twig cache if disabled
 		if ($application->get('renderer.cache', false))
