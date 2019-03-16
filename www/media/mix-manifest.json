@@ -9,8 +9,6 @@
     "/js/jtracker-tmpl.js": "/js/jtracker-tmpl.js",
     "/js/vendor/jquery.js": "/js/vendor/jquery.js",
     "/js/vendor/bootstrap.js": "/js/vendor/bootstrap.js",
-    "/css/vendor/semantic-ui.css": "/css/vendor/semantic-ui.css",
-    "/js/vendor/semantic-ui.js": "/js/vendor/semantic-ui.js",
     "/js/vendor/g11n-js.js": "/js/vendor/g11n-js.js",
     "/js/vendor/blueimp-canvas-to-blob.js": "/js/vendor/blueimp-canvas-to-blob.js",
     "/js/vendor/blueimp-load-image.js": "/js/vendor/blueimp-load-image.js",

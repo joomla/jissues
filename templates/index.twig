@@ -30,10 +30,8 @@
     <link rel="stylesheet" href="{{ asset('css/template-rtl.min.css', 'debug') }}" />
     {% endif %}
 
-    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/vendor/octicons.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/jtracker.css', 'debug') }}" />
-    <link rel="stylesheet" href="{{ asset('css/language.css', 'debug') }}" />
 
     {# If a RTL language is in use then load the extra RTL CSS for the tracker #}
     {% if langDirection == 'rtl' %}
@@ -117,7 +115,6 @@
                     <ul class="nav menu nav-pills">
                         {% block prependMenu %}{% endblock %}
                         {% include "trackerMenu.twig" %}
-                        {% include "lang-switcher.twig" %}
                     </ul>
                 {% endblock %}
             </div>
@@ -156,7 +153,6 @@
 {% block JavaScriptBottom %}
     <script src="{{ asset('js/vendor/jquery.js') }}"></script>
     <script src="{{ asset('js/vendor/bootstrap.js') }}"></script>
-    <script src="{{ asset('js/vendor/semantic-ui.js') }}"></script>
     <script src="{{ asset('js/vendor/g11n-js.js') }}"></script>
     <script src="{{ asset('js/vendor/blueimp-tmpl.js') }}"></script>
     <script src="{{ asset('js/jtracker.js') }}"></script>
@@ -204,10 +200,6 @@
                     }
                 }
             }
-
-            $('#lang-switcher').dropdown({
-                action: 'select'
-            });
         });
     </script>
 {% endblock %}

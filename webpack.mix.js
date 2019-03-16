@@ -31,22 +31,6 @@ mix.combine(
     'www/media/js/vendor/bootstrap.js'
 );
 
-// Semantic-UI
-mix.combine(
-    [
-        'node_modules/semantic-ui-transition/transition.css',
-        'node_modules/semantic-ui-dropdown/dropdown.css',
-    ],
-    'www/media/css/vendor/semantic-ui.css'
-);
-mix.combine(
-    [
-        'node_modules/semantic-ui-transition/transition.js',
-        'node_modules/semantic-ui-dropdown/dropdown.js',
-    ],
-    'www/media/js/vendor/semantic-ui.js'
-);
-
 // g11n-js
 mix.combine(
     [
