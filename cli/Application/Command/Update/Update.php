@@ -8,8 +8,6 @@
 
 namespace Application\Command\Update;
 
-use Elkuku\Crowdin\Crowdin;
-
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 
@@ -29,22 +27,6 @@ class Update extends TrackerCommand
 	 * @since  1.0
 	 */
 	protected $github;
-
-	/**
-	 * Crowdin object
-	 *
-	 * @var    Crowdin
-	 * @since  1.0
-	 */
-	protected $crowdin;
-
-	/**
-	 * The language provider.
-	 *
-	 * @var string
-	 * @since  1.0
-	 */
-	protected $languageProvider;
 
 	/**
 	 * Constructor.
@@ -95,32 +77,6 @@ class Update extends TrackerCommand
 	protected function setupGitHub()
 	{
 		$this->github = $this->getContainer()->get('gitHub');
-
-		return $this;
-	}
-
-	/**
-	 * Setup the Provider object.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function setupLanguageProvider()
-	{
-		$this->languageProvider = $this->getOption('provider');
-
-		switch ($this->languageProvider)
-		{
-			case 'crowdin':
-				$this->crowdin = $this->getContainer()->get('crowdin');
-				break;
-
-			default:
-				throw new \UnexpectedValueException('Unknown language provider');
-				break;
-		}
 
 		return $this;
 	}
