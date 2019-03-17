@@ -23,19 +23,19 @@
 -- Table structure for table `#__tracker_projects`
 --
 
-CREATE TABLE IF NOT EXISTS `#__tracker_projects` (
+CREATE TABLE `#__tracker_projects` (
   `project_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `title` varchar(150) NOT NULL COMMENT 'Project title',
   `alias` varchar(150) NOT NULL COMMENT 'Project URL alias',
   `gh_user` varchar(150) NOT NULL COMMENT 'GitHub user',
   `gh_project` varchar(150) NOT NULL COMMENT 'GitHub project',
-  `gh_editbot_user` varchar(150) NOT NULL COMMENT 'GitHub editbot username',
-  `gh_editbot_pass` varchar(150) NOT NULL COMMENT 'GitHub editbot password',
-  `ext_tracker_link` varchar(500) NOT NULL COMMENT 'A tracker link format (e.g. http://tracker.com/issue/%d)',
-  `short_title` varchar(50) NOT NULL COMMENT 'Project short title',
+  `gh_editbot_user` varchar(150) DEFAULT '' COMMENT 'GitHub editbot username',
+  `gh_editbot_pass` varchar(150) DEFAULT '' COMMENT 'GitHub editbot password',
+  `ext_tracker_link` varchar(500) DEFAULT '' COMMENT 'A tracker link format (e.g. http://tracker.com/issue/%d)',
+  `short_title` varchar(50) DEFAULT '' COMMENT 'Project short title',
   PRIMARY KEY (`project_id`),
   KEY `alias` (`alias`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data `#__tracker_projects`
@@ -74,7 +74,7 @@ CREATE TABLE `#__tracker_milestones` (
   `milestone_number` int(11) NOT NULL COMMENT 'Milestone number from Github',
   `project_id` int(11) NOT NULL COMMENT 'Project ID',
   `title` varchar(50) NOT NULL COMMENT 'Milestone title',
-  `description` mediumtext NOT NULL COMMENT 'Milestone description',
+  `description` mediumtext NULL COMMENT 'Milestone description',
   `state` varchar(6) NOT NULL COMMENT 'Label state: open | closed',
   `due_on` datetime DEFAULT NULL COMMENT 'Date the milestone is due on.',
   PRIMARY KEY (`milestone_id`),
@@ -165,23 +165,23 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `project_id` int(11) unsigned DEFAULT NULL COMMENT 'Project id',
   `milestone_id` int(11) unsigned DEFAULT NULL COMMENT 'Milestone id if applicable',
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT 'Issue title',
-  `description` mediumtext NOT NULL COMMENT 'Issue description',
-  `description_raw` mediumtext NOT NULL COMMENT 'The raw issue description (markdown)',
+  `description` mediumtext NULL COMMENT 'Issue description',
+  `description_raw` mediumtext NULL COMMENT 'The raw issue description (markdown)',
   `priority` tinyint(4) NOT NULL DEFAULT 3 COMMENT 'Issue priority',
   `status` int(11) unsigned NOT NULL DEFAULT 1 COMMENT 'Issue status',
-  `opened_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Issue open date',
+  `opened_date` datetime NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT 'Issue open date',
   `opened_by` varchar(50) NULL DEFAULT NULL COMMENT 'Opened by username',
-  `closed_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Issue closed date',
+  `closed_date` datetime NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT 'Issue closed date',
   `closed_by` varchar(50) NULL DEFAULT NULL COMMENT 'Issue closed by username',
   `closed_sha` varchar(40) DEFAULT NULL COMMENT 'The GitHub SHA where the issue has been closed',
-  `modified_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Issue modified date',
+  `modified_date` datetime NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT 'Issue modified date',
   `modified_by` varchar(50) NULL DEFAULT NULL COMMENT 'Issue modified by username',
   `rel_number` int(11) unsigned DEFAULT NULL COMMENT 'Relation issue number',
   `rel_type` int(11) unsigned DEFAULT NULL COMMENT 'Relation type',
   `has_code` tinyint(1)NOT NULL DEFAULT 0 COMMENT 'If the issue has code attached - aka a pull request',
-  `pr_head_user` varchar(150) NOT NULL COMMENT 'Pull request head user',
-  `pr_head_ref` varchar(150) NOT NULL COMMENT 'Pull request head ref',
-  `pr_head_sha` varchar(40) NOT NULL COMMENT 'Pull request head SHA',
+  `pr_head_user` varchar(150) NULL COMMENT 'Pull request head user',
+  `pr_head_ref` varchar(150) NULL COMMENT 'Pull request head ref',
+  `pr_head_sha` varchar(40) NULL COMMENT 'Pull request head SHA',
   `labels` varchar(250) NOT NULL COMMENT 'Comma separated list of label IDs',
   `build` varchar(40) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
   `easy` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether an item is an easy test',
@@ -214,8 +214,8 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
   `event` varchar(32) NOT NULL COMMENT 'The event type',
   `text` mediumtext NULL COMMENT 'The event text',
   `text_raw` mediumtext NULL COMMENT 'The raw event text',
-  `created_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_date` datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
+  `updated_date` datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
   PRIMARY KEY (`activities_id`),
   KEY `issue_number` (`issue_number`),
   KEY `project_id` (`project_id`),
@@ -265,8 +265,8 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   `email` varchar(100) NOT NULL DEFAULT '' COMMENT 'The users e-mail',
   `block` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'If the user is blocked',
   `sendEmail` tinyint(4) DEFAULT 0 COMMENT 'If the users recieves e-mail',
-  `registerDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'The register date',
-  `lastvisitDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'The last visit date',
+  `registerDate` datetime NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT 'The register date',
+  `lastvisitDate` datetime NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT 'The last visit date',
   `params` text NOT NULL COMMENT 'Parameters',
   PRIMARY KEY (`id`),
   KEY `idx_name` (`name`(100)),
@@ -350,13 +350,13 @@ CREATE TABLE IF NOT EXISTS `#__issues_voting` (
 
 CREATE TABLE IF NOT EXISTS `#__articles` (
   `article_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
-  `path` varchar(500) NOT NULL COMMENT 'The article path',
+  `path` varchar(500)  NULL COMMENT 'The article path',
   `title` varchar(250) NOT NULL COMMENT 'The article title',
   `alias` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'The article alias.',
   `text` text NOT NULL COMMENT 'The article text.',
   `text_md` text NOT NULL COMMENT 'The raw article text.',
-  `created_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'The created date.',
-  `is_file` int(1) unsigned NOT NULL COMMENT 'If the text is present as a file (for different handling)',
+  `created_date` datetime NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT 'The created date.',
+  `is_file` int(1) unsigned  NULL COMMENT 'If the text is present as a file (for different handling)',
   PRIMARY KEY (`article_id`),
   KEY `alias` (`alias`(100))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
