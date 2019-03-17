@@ -69,13 +69,6 @@
             <legend>{{ "Params"|_ }}</legend>
 
             <div class="control-group">
-                {{ fields.label('language', "Language"|_, 'control-label') }}
-                <div class="controls">
-                    {{ fields.selectequal('item[params][language]', languageCodes, item.params.language ? item.params.language : lang, 'language', 'input-small-100') }}
-                </div>
-            </div>
-
-            <div class="control-group">
                 <label class="control-label" for="short_title">{{ "Timezone"|_ }}</label>
                 <div class="controls">
                     {{ fields.selectequal('item[params][timezone]', getTimezones(), item.params.timezone ? item.params.timezone : offset, 'timezone') }}

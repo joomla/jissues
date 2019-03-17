@@ -12,11 +12,8 @@ use App\Debug\Database\DatabaseDebugger;
 use App\Debug\Format\Html\SqlFormat;
 use App\Debug\Format\Html\TableFormat;
 
-use ElKuKu\G11n\G11n;
-
 use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
-use Joomla\Utilities\ArrayHelper;
 
 use Kint;
 
@@ -82,19 +79,6 @@ class Html implements ContainerAwareInterface
 			$html[] = '<div id="dbgRequest">';
 			$html[] = '<h3>' . g11n3t('Request') . '</h3>';
 			$html[] = @Kint::dump($_REQUEST);
-			$html[] = '</div>';
-		}
-
-		if ($application->get('debug.language'))
-		{
-			$html[] = '<div id="dbgLanguageStrings">';
-			$html[] = '<h3>' . g11n3t('Language Strings') . '</h3>';
-			$html[] = $this->renderLanguageStrings();
-			$html[] = '</div>';
-
-			$html[] = '<div id="dbgLanguageFiles">';
-			$html[] = '<h3>' . g11n3t('Language Files') . '</h3>';
-			$html[] = $this->renderLanguageFiles();
 			$html[] = '</div>';
 		}
 
@@ -164,28 +148,6 @@ class Html implements ContainerAwareInterface
 				. sprintf('%s MB', $this->getBadge(number_format($profile->peak / 1000000, 2)))
 				. ' '
 				. sprintf('%s ms', $this->getBadge(number_format($profile->time * 1000)))
-				. '</a></li>';
-		}
-
-		if ($application->get('debug.language'))
-		{
-			$info = $application->getDebugger()->getLanguageStringsInfo();
-			$count = count(G11n::getEvents());
-
-			$html[] = '<li class="hasTooltip"'
-				. ' title="' . sprintf(
-					g11n4t(
-						'One untranslated string of %2$d', '%1$d untranslated strings of %2$d', $info->untranslateds
-					), $info->untranslateds, $info->total
-				) . '">'
-				. '<a href="#dbgLanguageStrings"><i class="icon icon-question-sign"></i>  '
-				. $this->getBadge($info->untranslateds, [1 => 'badge-warning']) . '/' . $this->getBadge($info->total)
-				. '</a></li>';
-
-			$html[] = '<li class="hasTooltip"'
-				. ' title="' . sprintf(g11n4t('One language file loaded', '%d language files loaded', $count), $count) . '">'
-				. '<a href="#dbgLanguageFiles"><i class="icon icon-file-word"></i> '
-				. $this->getBadge($count)
 				. '</a></li>';
 		}
 
@@ -342,71 +304,6 @@ class Html implements ContainerAwareInterface
 		}
 
 		return implode("\n", $debug);
-	}
-
-	/**
-	 * Render language debug information.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function renderLanguageFiles()
-	{
-		$items = [];
-
-		foreach (G11n::getEvents() as $e)
-		{
-			$items[] = ArrayHelper::fromObject($e);
-		}
-
-		return (new TableFormat)->fromArray($items);
-	}
-
-	/**
-	 * Prints out translated and untranslated strings.
-	 *
-	 * @return  string  HTML markup for language debug
-	 *
-	 * @since   1.0
-	 */
-	protected function renderLanguageStrings()
-	{
-		$html = [];
-
-		$items = G11n::getProcessedItems();
-
-		$html[] = '<table class="table table-hover table-condensed">';
-		$html[] = '<tr>';
-		$html[] = '<th>' . g11n3t('String') . '</th><th>' . g11n3t('File (line)') . '</th><th></th>';
-		$html[] = '</tr>';
-
-		$tableFormat = new TableFormat;
-
-		$i = 0;
-
-		foreach ($items as $item)
-		{
-			$color = ('-' === $item->status)
-				? '#ffb2b2;'
-				: '#e5ff99;';
-
-			$html[] = '<tr>';
-			$html[] = '<td style="border-left: 7px solid ' . $color . '">' . htmlentities($item->string) . '</td>';
-			$html[] = '<td>' . str_replace(JPATH_ROOT, 'ROOT', $item->file) . ' (' . $item->line . ')</td>';
-			$html[] = '<td><span class="btn btn-mini" onclick="$(\'#langStringTrace' . $i . '\').slideToggle();">Trace</span></td>';
-			$html[] = '</tr>';
-
-			$html[] = '<tr><td colspan="4" id="langStringTrace' . $i . '" style="display: none;">'
-				. $tableFormat->fromTrace($item->trace)
-				. '</td></tr>';
-
-			$i ++;
-		}
-
-		$html[] = '</table>';
-
-		return implode("\n", $html);
 	}
 
 	/**

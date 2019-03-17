@@ -31,22 +31,6 @@ mix.combine(
     'www/media/js/vendor/bootstrap.js'
 );
 
-// Semantic-UI
-mix.combine(
-    [
-        'node_modules/semantic-ui-transition/transition.css',
-        'node_modules/semantic-ui-dropdown/dropdown.css',
-    ],
-    'www/media/css/vendor/semantic-ui.css'
-);
-mix.combine(
-    [
-        'node_modules/semantic-ui-transition/transition.js',
-        'node_modules/semantic-ui-dropdown/dropdown.js',
-    ],
-    'www/media/js/vendor/semantic-ui.js'
-);
-
 // g11n-js
 mix.combine(
     [
@@ -106,7 +90,6 @@ mix.copy('node_modules/jquery-simple-color/jquery.simple-color.min.js', 'www/med
 
 // jQuery Validation
 mix.copy('node_modules/jquery-validation/dist/jquery.validate.min.js', 'www/media/js/vendor/jquery-validation.js');
-mix.copy('node_modules/jquery-validation/dist/localization/*', 'www/media/js/vendor/jquery-validation/localization');
 
 // markItUp!
 mix.copy('node_modules/markItUp!/markitup', 'www/media/markitup');
@@ -117,7 +100,7 @@ mix.copy('node_modules/twbs-pagination/jquery.twbsPagination.min.js', 'www/media
 // Bootstrap Datepicker
 mix.copy('node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css', 'www/media/css/vendor/bootstrap-datepicker.css');
 mix.copy('node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js', 'www/media/js/vendor/bootstrap-datepicker.js');
-mix.copy('node_modules/bootstrap-datepicker/dist/locales/*', 'www/media/js/vendor/bootstrap-datepicker/locales');
+mix.copy('node_modules/bootstrap-datepicker/dist/locales/bootstrap-datepicker.en-GB.min.js', 'www/media/js/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js');
 
 // d3
 mix.copy('node_modules/d3/d3.min.js', 'www/media/js/vendor/d3.js');

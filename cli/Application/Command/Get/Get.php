@@ -10,8 +10,6 @@ namespace Application\Command\Get;
 
 use App\Projects\TrackerProject;
 
-use ElKuKu\Crowdin\Crowdin;
-
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 
@@ -47,22 +45,6 @@ class Get extends TrackerCommand
 	 * @since  1.0
 	 */
 	protected $project = null;
-
-	/**
-	 * Crowdin object
-	 *
-	 * @var    Crowdin
-	 * @since  1.0
-	 */
-	protected $crowdin;
-
-	/**
-	 * The language provider.
-	 *
-	 * @var string
-	 * @since  1.0
-	 */
-	protected $languageProvider;
 
 	/**
 	 * Constructor.
@@ -187,32 +169,6 @@ class Get extends TrackerCommand
 		$this->github->setOption('api.password', $password);
 
 		$this->logOut(sprintf('Switched to bot account %s (%d)', $username, $this->botId));
-
-		return $this;
-	}
-
-	/**
-	 * Setup the Provider object.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function setupLanguageProvider()
-	{
-		$this->languageProvider = $this->getOption('provider');
-
-		switch ($this->languageProvider)
-		{
-			case 'crowdin':
-				$this->crowdin = $this->getContainer()->get('crowdin');
-				break;
-
-			default:
-				throw new \UnexpectedValueException('Unknown language provider');
-				break;
-		}
 
 		return $this;
 	}

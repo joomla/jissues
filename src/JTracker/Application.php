@@ -13,8 +13,6 @@ use App\Projects\Model\ProjectModel;
 use App\Projects\TrackerProject;
 
 use ElKuKu\G11n\G11n;
-use ElKuKu\G11n\Support\ExtensionHelper;
-
 use Joomla\Application\AbstractWebApplication;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
@@ -30,7 +28,6 @@ use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
 use JTracker\Controller\AbstractTrackerController;
-use JTracker\Helper\LanguageHelper;
 use JTracker\Router\Exception\RoutingException;
 
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -145,6 +142,9 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	{
 		try
 		{
+			// Call language library to load functions and not critically break things
+			G11n::setCurrent('en-GB');
+
 			// Fetch the controller
 			/** @var AbstractTrackerController $controller */
 			$controller = $this->getRouter()->getController($this->get('uri.route'));
@@ -153,19 +153,11 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			$controller->initialize();
 			$this->mark('Controller initialized.');
 
-			// Load the language for the application
-			// @todo language must be loaded after routing is processed cause the Project object is coupled with the User object...
-			$this->loadLanguage();
-
 			// Execute the App
 
 			// Define the app path
 			define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controller->getApp()));
 			$this->mark('JPATH_APP=' . JPATH_APP);
-
-			// Load the App language file
-			G11n::loadLanguage($controller->getApp(), 'App');
-			$this->mark('Language loaded');
 
 			$contents = $controller->execute();
 			$this->mark('Controller executed');
@@ -329,92 +321,6 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		}
 
 		return $this->user;
-	}
-
-	/**
-	 * Get a language object.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	protected function loadLanguage()
-	{
-		$languages = LanguageHelper::getLanguageCodes();
-
-		// Get the language tag from user input.
-		$lang = $this->input->get('lang');
-
-		if ($lang)
-		{
-			if (false === in_array($lang, $languages))
-			{
-				// Unknown language from user input - fall back to default
-				$lang = G11n::getDefault();
-			}
-
-			if (false === in_array($lang, $languages))
-			{
-				// Unknown default language - Fall back to British.
-				$lang = 'en-GB';
-			}
-
-			// Store the language tag.
-			$this->getSession()->set('lang', $lang);
-			$this->getUser()->params->set('language', $lang);
-		}
-		else
-		{
-			/*
-			 * Get the language tag:
-			 * 1. From the session
-			 * 2. From the user param
-			 * 3. Default to British
-			 */
-			$lang = $this->getSession()->get('lang', $this->getUser()->params->get('language', 'en-GB'));
-		}
-
-		if ($lang)
-		{
-			// Set the current language if anything has been found.
-			G11n::setCurrent($lang);
-
-			$this->languageTag = $lang;
-		}
-
-		// Set language debugging.
-		G11n::setDebug($this->get('debug.language'));
-
-		// Set the language cache directory.
-		if ('vagrant' == getenv('JTRACKER_ENVIRONMENT'))
-		{
-			ExtensionHelper::setCacheDir('/tmp');
-		}
-		else
-		{
-			ExtensionHelper::setCacheDir(JPATH_ROOT . '/cache');
-		}
-
-		// Load the core language file.
-		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		G11n::loadLanguage('JTracker', 'Core');
-
-		// Load template language files.
-		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
-		G11n::loadLanguage('JTracker', 'Template');
-
-		// Add the App domain path.
-		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
-
-		if ($this->get('debug.system')
-			|| $this->get('debug.database')
-			|| $this->get('debug.language'))
-		{
-			// Load the Debug App language file.
-			G11n::loadLanguage('Debug', 'App');
-		}
-
-		return $this;
 	}
 
 	/**

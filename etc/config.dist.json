@@ -20,12 +20,6 @@
 		]
 	},
 
-	"crowdin": {
-		"project" : "",
-		"api-key" : "",
-		"filepath": ""
-	},
-
 	"renderer": {
 		"type" : "twig",
         "cache": false
@@ -62,7 +56,6 @@
 	"debug": {
 		"system"  : "0",
 		"database": "0",
-		"language": "0",
 		"hooks"   : "0",
 		"logging" : "0",
 		"log-path": "",

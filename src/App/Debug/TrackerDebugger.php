@@ -11,8 +11,6 @@ namespace App\Debug;
 use App\Debug\Handler\ProductionHandler;
 use App\Debug\Renderer\Html;
 
-use ElKuKu\G11n\G11n;
-
 use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
@@ -328,32 +326,5 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 		}
 
 		return JPATH_ROOT;
-	}
-
-	/**
-	 * Get info about processed language strings.
-	 *
-	 * @return  \stdClass
-	 *
-	 * @since   1.0
-	 */
-	public function getLanguageStringsInfo()
-	{
-		$items = G11n::getProcessedItems();
-
-		$info = new \stdClass;
-
-		$info->total = count($items);
-		$info->untranslateds = 0;
-
-		foreach ($items as $item)
-		{
-			if ('-' == $item->status)
-			{
-				$info->untranslateds ++;
-			}
-		}
-
-		return $info;
 	}
 }

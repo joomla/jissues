@@ -56,7 +56,6 @@
 	"debug": {
 		"system"  : "1",
 		"database": "1",
-		"language": "0",
 		"hooks"   : "0",
 		"logging" : "1",
 		"log-path": "/vagrant/logs",

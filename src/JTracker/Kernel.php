@@ -15,7 +15,6 @@ use Joomla\DI\ContainerAwareTrait;
 use Joomla\Registry\Registry;
 use JTracker\Service\AuthenticationProvider;
 use JTracker\Service\CacheProvider;
-use JTracker\Service\CrowdinProvider;
 use JTracker\Service\DatabaseProvider;
 use JTracker\Service\DebuggerProvider;
 use JTracker\Service\DispatcherProvider;
@@ -101,7 +100,6 @@ abstract class Kernel implements ContainerAwareInterface
 
 		$container->registerServiceProvider(new AuthenticationProvider)
 			->registerServiceProvider(new CacheProvider)
-			->registerServiceProvider(new CrowdinProvider)
 			->registerServiceProvider(new DatabaseProvider)
 			->registerServiceProvider(new DispatcherProvider)
 			->registerServiceProvider(new GitHubProvider)

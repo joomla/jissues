@@ -10,10 +10,6 @@ namespace Application\Command\Make;
 
 use Application\Command\TrackerCommandOption;
 
-use ElKuKu\G11n\Support\ExtensionHelper as g11nExtensionHelper;
-
-use JTracker\Helper\LanguageHelper;
-
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 
@@ -213,127 +209,6 @@ class Depfile extends Make
 
 		$sorted['credits'] = $defined['credits'];
 
-		if (false)
-		{
-			/*
-			 * @todo Translator credits are disabled
-			 * Our current translation service provider "Crowdin" does not support translator credits (yet).
-			 */
-			$sorted['lang-credits'] = $this->checkLanguageFiles();
-		}
-
 		return $sorted;
-	}
-
-	/**
-	 * Extract information about the translators from the language files.
-	 *
-	 * @return array
-	 *
-	 * @since   1.0
-	 */
-	private function checkLanguageFiles()
-	{
-		$list = [];
-
-		LanguageHelper::addDomainPaths();
-
-		$langTags = LanguageHelper::getLanguageCodes();
-		$noEmail = $this->getOption('noemail');
-
-		foreach ($langTags as $langTag)
-		{
-			if ('en-GB' == $langTag)
-			{
-				continue;
-			}
-
-			$langInfo = new \stdClass;
-
-			$langInfo->tag = $langTag;
-			$langInfo->translators = [];
-
-			$translators = [];
-
-			foreach (LanguageHelper::getScopes() as $domain => $extensions)
-			{
-				foreach ($extensions as $extension)
-				{
-					$path = g11nExtensionHelper::findLanguageFile($langTag, $extension, $domain);
-
-					if (false === file_exists($path))
-					{
-						$this->out(
-							g11n3t(
-								'Language file not found: %tag%, %extension%, %domain%',
-								['%tag%' => $langTag, '%domain%' => $domain, '%extension%' => $extension]
-							)
-						);
-
-						continue;
-					}
-
-					$f = fopen($path, 'r');
-
-					$line = '#';
-					$started = false;
-
-					while ($line)
-					{
-						$line = fgets($f, 1000);
-
-						if (0 !== strpos($line, '#'))
-						{
-							// Encountered the first line - We're done parsing.
-							$line = '';
-
-							continue;
-						}
-
-						if (strpos($line, 'Translators:'))
-						{
-							// Start
-							$started = true;
-
-							continue;
-						}
-
-						if (!$started)
-						{
-							continue;
-						}
-
-						$line = trim($line, "# \n");
-
-						if ($noEmail)
-						{
-							// Strip off the e-mail address
-							// Format: '<name@domain.tld>, '
-							$line = preg_replace('/<[a-z0-9\.\-+]+@[a-z\.]+>,\s/i', '', $line);
-						}
-
-						if (false === in_array($line, $translators))
-						{
-							$translators[] = $line;
-						}
-					}
-
-					fclose($f);
-				}
-			}
-
-			foreach ($translators as $translator)
-			{
-				$t = new \stdClass;
-
-				$t->translator = $translator;
-
-				$langInfo->translators[] = $t;
-			}
-
-			$list[] = $langInfo;
-		}
-
-		return $list;
 	}
 }

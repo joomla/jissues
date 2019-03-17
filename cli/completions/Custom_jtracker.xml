@@ -18,10 +18,6 @@
     <help>Clear the application cache.</help>
   </command>
   <command>
-    <name>clear languagecache</name>
-    <help>Clear the g11n language directory.</help>
-  </command>
-  <command>
     <name>clear twig</name>
     <help>Clear the Twig cache.</help>
   </command>
@@ -39,15 +35,6 @@
     <help>Check the database migration status.</help>
   </command>
   <command>
-    <name>export</name>
-    <help>Export langfiles.</help>
-    <params>option</params>
-  </command>
-  <command>
-    <name>export langfiles</name>
-    <help>Backup language files to a given folder.</help>
-  </command>
-  <command>
     <name>get</name>
     <help>Retrieve Information from various sources.</help>
     <params>option</params>
@@ -59,10 +46,6 @@
   <command>
     <name>get composertags</name>
     <help>Retrieve a list of project tags from GitHub and show their installed versions.</help>
-  </command>
-  <command>
-    <name>get languagefiles</name>
-    <help>Retrieve language files.</help>
   </command>
   <command>
     <name>get project</name>
@@ -102,18 +85,6 @@
     <help>Compile documentation using GitHub Flavored Markdown</help>
   </command>
   <command>
-    <name>make langfiles</name>
-    <help>Create and update language files.</help>
-  </command>
-  <command>
-    <name>make langtemplates</name>
-    <help>Create language file templates.</help>
-  </command>
-  <command>
-    <name>make languageflags</name>
-    <help>Compile multiple images into a big one (CSS spriting).</help>
-  </command>
-  <command>
     <name>make repoinfo</name>
     <help>Generate repository information.</help>
   </command>
@@ -135,10 +106,6 @@
     <help>Tests web hooks</help>
   </command>
   <command>
-    <name>test langfiles</name>
-    <help>Check language files</help>
-  </command>
-  <command>
     <name>test phploc</name>
     <help>Run Lines Of Code (LOC) for PHP code.</help>
   </command>
@@ -154,10 +121,6 @@
     <name>update</name>
     <help>Used to update resources</help>
     <params>option</params>
-  </command>
-  <command>
-    <name>update languagefiles</name>
-    <help>Updates language files on a translation service.</help>
   </command>
   <command>
     <name>update pulls</name>

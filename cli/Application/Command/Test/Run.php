@@ -48,15 +48,6 @@ class Run extends Test
 			->setExit(false)
 			->execute();
 
-		/*
-		 * @todo language file checks are failing complaining about missing plural forms
-		 * See: e.g. https://travis-ci.org/joomla/jissues/jobs/140221763
-		$statusLang = (new Langfiles)
-			->setContainer($this->getContainer())
-			->setExit(false)
-			->execute();
-		*/
-
 		$status = ($statusCS > Checkstyle::ALLOWED_FAIL_COUNT || $statusUT) ? 1 : 0;
 
 		$this
