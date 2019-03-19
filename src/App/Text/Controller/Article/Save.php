@@ -46,7 +46,7 @@ class Save extends AbstractTrackerController
 			->save($application->input->get('article', [], 'array'));
 
 		$application
-			->enqueueMessage(g11n3t('The article has been saved.'), 'success')
+			->enqueueMessage('The article has been saved.', 'success')
 			->redirect($application->get('uri.base.path') . 'text');
 
 		return parent::execute();

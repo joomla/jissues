@@ -45,7 +45,7 @@ class Delete extends AbstractTrackerController
 			->delete($application->input->getInt('id'));
 
 		$application
-			->enqueueMessage(g11n3t('The article has been deleted.'), 'success')
+			->enqueueMessage('The article has been deleted.', 'success')
 			->redirect($application->get('uri.base.path') . 'text');
 
 		return parent::execute();

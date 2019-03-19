@@ -90,13 +90,13 @@ class ArticlesTable extends AbstractDatabaseTable
 			}
 			else
 			{
-				$errors[] = g11n3t('An alias or a title is required.');
+				$errors[] = 'An alias or a title is required.';
 			}
 		}
 
 		if (trim($this->text_md) == '')
 		{
-			$errors[] = g11n3t('Some text is required.');
+			$errors[] = 'Some text is required.';
 		}
 
 		$this->alias = OutputFilter::stringUrlUnicodeSlug($this->alias);
