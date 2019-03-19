@@ -3,9 +3,9 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ parent() }} | {{ "Articles"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | Articles{% endblock %}
 
-{% block headerText %} - {{ "Articles"|_ }}{% endblock %}
+{% block headerText %} - Articles{% endblock %}
 
 {% block headerCSS %}
     {{ parent() }}
@@ -17,9 +17,7 @@
 {% block prependMenu %}
     {% if user.check("create") %}
         <li>
-            <a class="btn-success" href="{{ uri.base.path }}text/add">
-                {{ "New Article"|_ }}
-            </a>
+            <a class="btn-success" href="{{ uri.base.path }}text/add">New Article</a>
         </li>
     {% endif %}
 
@@ -29,13 +27,13 @@
 
 {% block content %}
 
-    <h2>{{ "Articles List"|_ }}</h2>
+    <h2>Articles List</h2>
 
     <table class="table table-bordered table-hover table-condensed">
         <thead>
         <tr>
-            <th>{{ "Title/Alias"|_ }}</th>
-            <th style="width: 10%">{{ "Actions"|_ }}</th>
+            <th>Title/Alias</th>
+            <th style="width: 10%">Actions</th>
         </tr>
         </thead>
         <tfoot>
@@ -50,17 +48,13 @@
                     </a>
                 </td>
                 <td>
-                    <a href="{{ uri.base.path }}page/{{ a.alias }}">
-                        {{ "View"|_ }}
-                    </a>
-                    <a href="{{ uri.base.path }}text/delete/{{ a.article_id }}">
-                        {{ "Delete"|_ }}
-                    </a>
+                    <a href="{{ uri.base.path }}page/{{ a.alias }}">View</a>
+                    <a href="{{ uri.base.path }}text/delete/{{ a.article_id }}">Delete</a>
                 </td>
             </tr>
             {% else %}
             <tr>
-                <td colspan="3"><div class="alert alert-warning">{{ "No articles found"|_ }}</div></td>
+                <td colspan="3"><div class="alert alert-warning">No articles found</div></td>
             </tr>
         {% endfor %}
         </tbody>
