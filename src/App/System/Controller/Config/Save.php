@@ -57,7 +57,7 @@ class Save extends AbstractTrackerController
 			throw new \RuntimeException('Could not write the configuration data to file /etc/' . $fileName);
 		}
 
-		$application->enqueueMessage(g11n3t('The configuration file has been saved.'), 'success')
+		$application->enqueueMessage('The configuration file has been saved.', 'success')
 			->redirect('/');
 
 		// To silence PHPCS expecting a return

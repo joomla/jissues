@@ -46,11 +46,11 @@ class Clearcache extends AbstractTrackerController
 			{
 				if (!$filesystem->deleteDir($twigCacheDir))
 				{
-					$application->enqueueMessage(g11n3t('There was an error clearing the Twig cache.'), 'error');
+					$application->enqueueMessage('There was an error clearing the Twig cache.', 'error');
 				}
 				else
 				{
-					$application->enqueueMessage(g11n3t('The Twig cache has been cleared.'), 'success');
+					$application->enqueueMessage('The Twig cache has been cleared.', 'success');
 				}
 			}
 		}
@@ -63,11 +63,11 @@ class Clearcache extends AbstractTrackerController
 
 			if ($cache->clear())
 			{
-				$application->enqueueMessage(g11n3t('The application cache has been cleared.'), 'success');
+				$application->enqueueMessage('The application cache has been cleared.', 'success');
 			}
 			else
 			{
-				$application->enqueueMessage(g11n3t('There was an error clearing the application cache.'), 'error');
+				$application->enqueueMessage('There was an error clearing the application cache.', 'error');
 			}
 		}
 
