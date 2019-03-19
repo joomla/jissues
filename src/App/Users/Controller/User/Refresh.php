@@ -43,12 +43,8 @@ class Refresh extends AbstractTrackerController
 		{
 			if ($application->getUser()->id != $id)
 			{
-				$application->enqueueMessage(
-					g11n3t('You are not authorised to refresh this user.'), 'error'
-				)
-					->redirect(
-						$application->get('uri.base.path') . 'user/' . $id
-					);
+				$application->enqueueMessage('You are not authorised to refresh this user.', 'error')
+					->redirect($application->get('uri.base.path') . 'user/' . $id);
 			}
 		}
 
@@ -70,20 +66,16 @@ class Refresh extends AbstractTrackerController
 
 			$loginHelper->refreshUser($user);
 
-			$application->enqueueMessage(
-				g11n3t('The profile has been refreshed.'), 'success'
-			);
+			$application->enqueueMessage('The profile has been refreshed.', 'success');
 		}
 		catch (\Exception $exception)
 		{
 			$application->enqueueMessage(
-				g11n3t(sprintf('An error has occurred during user refresh: %s', $exception->getMessage())), 'error'
+				sprintf('An error has occurred during user refresh: %s', $exception->getMessage()), 'error'
 			);
 		}
 
-		$application->redirect(
-			$application->get('uri.base.path') . 'user/' . $id
-		);
+		$application->redirect($application->get('uri.base.path') . 'user/' . $id);
 
 		return parent::execute();
 	}

@@ -43,13 +43,9 @@ class Save extends AbstractTrackerController
 		{
 			if ($application->getUser()->id != $src['id'])
 			{
-				$application->enqueueMessage(
-					g11n3t('You are not authorised to edit this user.'), 'error'
-				);
+				$application->enqueueMessage('You are not authorised to edit this user.', 'error');
 
-				$application->redirect(
-					$application->get('uri.base.path') . 'user/' . $src['id']
-				);
+				$application->redirect($application->get('uri.base.path') . 'user/' . $src['id']);
 			}
 		}
 
@@ -58,18 +54,14 @@ class Save extends AbstractTrackerController
 			// Save the record.
 			(new UserModel($this->getContainer()->get('db')))->save($src);
 
-			$application->enqueueMessage(
-				g11n3t('The changes have been saved.'), 'success'
-			);
+			$application->enqueueMessage('The changes have been saved.', 'success');
 		}
 		catch (\Exception $e)
 		{
 			$application->enqueueMessage($e->getMessage(), 'error');
 		}
 
-		$application->redirect(
-			$application->get('uri.base.path') . 'user/' . $src['id'] . '/edit'
-		);
+		$application->redirect($application->get('uri.base.path') . 'user/' . $src['id'] . '/edit');
 
 		// To silence PHPCS expecting a return
 		return '';
