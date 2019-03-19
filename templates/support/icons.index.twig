@@ -3,15 +3,15 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ parent() }} | {{ "Icons"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | Icons{% endblock %}
 
 {% block content %}
 
     <div class="page-header">
-        <h1>{{ "All Font Icons"|_ }}</h1>
+        <h1>All Font Icons</h1>
     </div>
 
-    <h2>{{ "Icons"|_ }}</h2>
+    <h2>Icons</h2>
 
     <div class="row">
     {% for icon in icons %}
@@ -23,7 +23,7 @@
     {% endfor %}
     </div>
 
-    <h2>{{ "OctIcons"|_ }}</h2>
+    <h2>OctIcons</h2>
 
     <div class="row">
     {% for icon in octicons %}

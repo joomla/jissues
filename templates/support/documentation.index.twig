@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ parent() }} | {{ "Documentation"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | Documentation{% endblock %}
 
 {% block headerCSS %}
     {{ parent() }}
@@ -111,8 +111,8 @@
 
     <script type="text/x-tmpl" id="tplDocuPage">
         <div class="breadcrumb">
-            <a class="btn btn-success" href="[%= o.editLink %]">{{ 'Improve'|_ }}</a>
-            <a class="btn btn-info pull-right" href="[%= o.permaLink %]">{{ 'Permalink'|_ }}</a>
+            <a class="btn btn-success" href="[%= o.editLink %]">Improve</a>
+            <a class="btn btn-info pull-right" href="[%= o.permaLink %]">Permalink</a>
         </div>
 
         [%# o.data %]
