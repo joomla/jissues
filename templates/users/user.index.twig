@@ -9,26 +9,22 @@
 
     {% if 0 == item.id %}
         <div class="alert alert-error">
-            <h4>{{ 'Invalid user!'|_ }}</h4>
+            <h4>Invalid user!</h4>
         </div>
     {% else %}
         {% if user.id == item.id %}
 
             <div class="btn-group pull-right">
-                <a class="btn btn-small" href="{{ uri.base.path ~ 'user/' ~ user.id ~ '/edit' }}">
-                    {{ "Edit profile"|_ }}
-                </a>
-                <a class="btn btn-small" href="{{ uri.base.path ~ 'user/' ~ user.id ~ '/refresh'}}">
-                    {{ "Refresh profile from GitHub"|_ }}
-                </a>
+                <a class="btn btn-small" href="{{ uri.base.path ~ 'user/' ~ user.id ~ '/edit' }}">Edit profile</a>
+                <a class="btn btn-small" href="{{ uri.base.path ~ 'user/' ~ user.id ~ '/refresh'}}">Refresh profile from GitHub</a>
             </div>
 
             <div class="page-header">
-                <h1>{{ "My Profile"|_ }}</h1>
+                <h1>My Profile</h1>
             </div>
         {% else %}
             <div class="page-header">
-                <h1>{{ "Profile"|_ }}</h1>
+                <h1>Profile</h1>
             </div>
         {% endif %}
 
@@ -58,7 +54,7 @@
                     </li>
                     {% if tz_offset %}
                         <li>
-                            {{ 'Timezone: %1$s (GMT %2$s)'|_|format(item.params.timezone, tz_offset) }}
+                            {{ 'Timezone: %1$s (GMT %2$s)'|format(item.params.timezone, tz_offset) }}
                         </li>
                     {% endif %}
                 </ul>

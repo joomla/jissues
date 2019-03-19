@@ -3,36 +3,30 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ parent() }} | {{ "Edit user"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | Edit User{% endblock %}
 
 {% block content %}
     {% if 0 == item.id %}
         <div class="alert alert-error">
-            <h4>{{ 'Invalid user!'|_ }}</h4>
+            <h4>Invalid user!</h4>
         </div>
     {% else %}
 
     {% import "fields.twig" as fields %}
 
     <div class="page-header">
-        <h1>{{ "Edit user"|_ }}</h1>
+        <h1>Edit user</h1>
     </div>
 
     <ul class="breadcrumb">
         <li>
-            <a class="btn btn-primary" href="javascript:;" onclick="document.editForm.submit();">
-                {{ "Save"|_ }}
-            </a>
+            <a class="btn btn-primary" href="javascript:;" onclick="document.editForm.submit();">Save</a>
         </li>
         <li>
-            <a class="btn btn-inverse" href="{{ uri.base.path ~ 'user/' ~ item.id }}">
-                {{ "Cancel"|_ }}
-            </a>
+            <a class="btn btn-inverse" href="{{ uri.base.path ~ 'user/' ~ item.id }}">Cancel</a>
         </li>
         <li class="pull-right">
-            <a class="btn" href="{{ uri.base.path ~ 'user/' ~ item.id ~ '/refresh'}}">
-                {{ "Refresh profile from GitHub"|_ }}
-            </a>
+            <a class="btn" href="{{ uri.base.path ~ 'user/' ~ item.id ~ '/refresh'}}">Refresh profile from GitHub</a>
         </li>
     </ul>
 
@@ -42,8 +36,7 @@
         </div>
         <div class="span8">
             <h4>
-                <i class="icon-github"></i>
-                {{ "GitHub Profile"|_ }}
+                <i class="icon-github"></i> GitHub Profile
             </h4>
             <ul class="unstyled">
                 <li><h2>{{ item.username }}</h2></li>
@@ -58,7 +51,7 @@
         <div class="span2">
             {% if jdebug %}
             <ul class="unstyled">
-               <li><b>Id</b>: {{ item.id }}</li>
+               <li><b>ID</b>: {{ item.id }}</li>
             </ul>
             {% endif %}
         </div>
@@ -66,10 +59,10 @@
 
     <form method="post" action="/{{ uri.route ~ '-save' }}" class="form-horizontal" name="editForm">
         <fieldset>
-            <legend>{{ "Params"|_ }}</legend>
+            <legend>Params</legend>
 
             <div class="control-group">
-                <label class="control-label" for="short_title">{{ "Timezone"|_ }}</label>
+                <label class="control-label" for="short_title">Timezone</label>
                 <div class="controls">
                     {{ fields.selectequal('item[params][timezone]', getTimezones(), item.params.timezone ? item.params.timezone : offset, 'timezone') }}
                 </div>
