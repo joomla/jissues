@@ -78,7 +78,7 @@ class Delete extends AbstractTrackerController
 			->load($this->getContainer()->get('app')->input->getInt('group_id'))
 			->delete();
 
-		$this->getContainer()->get('app')->enqueueMessage(g11n3t('The group has been deleted.'), 'success');
+		$this->getContainer()->get('app')->enqueueMessage('The group has been deleted.', 'success');
 
 		return parent::execute();
 	}

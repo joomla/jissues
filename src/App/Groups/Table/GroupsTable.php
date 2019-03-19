@@ -94,7 +94,7 @@ class GroupsTable extends AbstractDatabaseTable
 	{
 		if (!$this->title)
 		{
-			throw new \UnexpectedValueException(g11n3t('A title is required'));
+			throw new \UnexpectedValueException('A title is required');
 		}
 
 		if (!$this->project_id)
