@@ -56,12 +56,12 @@ class ProjectsTable extends AbstractDatabaseTable
 	{
 		if (!$this->title)
 		{
-			throw new \UnexpectedValueException(g11n3t('A title is required'));
+			throw new \UnexpectedValueException('A title is required');
 		}
 
 		if (!$this->short_title)
 		{
-			throw new \UnexpectedValueException(g11n3t('A short title is required'));
+			throw new \UnexpectedValueException('A short title is required');
 		}
 
 		if (!$this->alias)
