@@ -12,7 +12,6 @@ use App\Debug\TrackerDebugger;
 use App\Projects\Model\ProjectModel;
 use App\Projects\TrackerProject;
 
-use ElKuKu\G11n\G11n;
 use Joomla\Application\AbstractWebApplication;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
@@ -142,9 +141,6 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	{
 		try
 		{
-			// Call language library to load functions and not critically break things
-			G11n::setCurrent('en-GB');
-
 			// Fetch the controller
 			/** @var AbstractTrackerController $controller */
 			$controller = $this->getRouter()->getController($this->get('uri.route'));
