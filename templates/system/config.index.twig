@@ -3,14 +3,12 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ parent() }} | {{ "Configuration"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | Configuration{% endblock %}
 
 {% block prependMenu %}
     {% if user.check("create") %}
         <li>
-            <a class="btn-success" href="javascript:;" onclick="document.configForm.submit();">
-                {{ 'Save'|_ }}
-            </a>
+            <a class="btn-success" href="javascript:;" onclick="document.configForm.submit();">Save</a>
         </li>
     {% endif %}
 
@@ -34,9 +32,9 @@
 
         <div class="span8">
 
-            <h2>{{ 'Edit Configuration'|_ }}</h2>
+            <h2>Edit Configuration</h2>
 
-            {{ 'Loaded configuration file: %s'|_|format(configFile) }}
+            {{ 'Loaded configuration file: %s'|format(configFile) }}
 
             <form method="post" action="{{ uri.base.path }}saveconfig" class="form-horizontal" name="configForm">
                 {% for group, fields in config %}
