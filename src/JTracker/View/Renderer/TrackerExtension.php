@@ -217,7 +217,7 @@ class TrackerExtension extends AbstractExtension
 
 			if ($response->code !== 200)
 			{
-				return g11n3t('Could not load template section.');
+				return 'Could not load template section.';
 			}
 
 			$body = $response->body;
@@ -238,7 +238,7 @@ class TrackerExtension extends AbstractExtension
 					$body,
 					[
 						'%loginroute%' => $this->app->get('uri.base.path') . 'logout',
-						'%logintext%'  => g11n3t('Log out'),
+						'%logintext%'  => 'Log out',
 					]
 				);
 			}
@@ -248,7 +248,7 @@ class TrackerExtension extends AbstractExtension
 					$body,
 					[
 						'%loginroute%' => $this->loginHelper->getLoginUri(),
-						'%logintext%'  => g11n3t('Log in'),
+						'%logintext%'  => 'Log in',
 					]
 				);
 			}
@@ -338,7 +338,7 @@ class TrackerExtension extends AbstractExtension
 
 			if ($response->code !== 200)
 			{
-				return g11n3t('Could not load template section.');
+				return 'Could not load template section.';
 			}
 
 			$body = $response->body;
@@ -453,11 +453,11 @@ class TrackerExtension extends AbstractExtension
 	public function getPriorities()
 	{
 		return [
-			1 => g11n3t('Critical'),
-			2 => g11n3t('Urgent'),
-			3 => g11n3t('Medium'),
-			4 => g11n3t('Low'),
-			5 => g11n3t('Very low'),
+			1 => 'Critical',
+			2 => 'Urgent',
+			3 => 'Medium',
+			4 => 'Low',
+			5 => 'Very low',
 		];
 	}
 
@@ -501,10 +501,10 @@ class TrackerExtension extends AbstractExtension
 	public function getRelation($relation)
 	{
 		$relations = [
-			'duplicate_of' => g11n3t('Duplicate of'),
-			'related_to'   => g11n3t('Related to'),
-			'not_before'   => g11n3t('Not before'),
-			'pr_for'       => g11n3t('Pull Request for'),
+			'duplicate_of' => 'Duplicate of',
+			'related_to'   => 'Related to',
+			'not_before'   => 'Not before',
+			'pr_for'       => 'Pull Request for',
 		];
 
 		return $relations[$relation] ?? '';
@@ -562,44 +562,44 @@ class TrackerExtension extends AbstractExtension
 		{
 			case '0':
 				$statuses = [
-					1 => g11n3t('New'),
-					2 => g11n3t('Confirmed'),
-					3 => g11n3t('Pending'),
-					4 => g11n3t('Ready To Commit'),
-					6 => g11n3t('Needs Review'),
-					7 => g11n3t('Information Required'),
-					14 => g11n3t('Discussion'),
+					1 => 'New',
+					2 => 'Confirmed',
+					3 => 'Pending',
+					4 => 'Ready To Commit',
+					6 => 'Needs Review',
+					7 => 'Information Required',
+					14 => 'Discussion',
 				];
 				break;
 
 			case '1':
 				$statuses = [
-					5 => g11n3t('Fixed in Code Base'),
-					8 => g11n3t('Unconfirmed Report'),
-					9 => g11n3t('No Reply'),
-					10 => g11n3t('Closed'),
-					11 => g11n3t('Expected Behaviour'),
-					12 => g11n3t('Known Issue'),
-					13 => g11n3t('Duplicate Report'),
+					5 => 'Fixed in Code Base',
+					8 => 'Unconfirmed Report',
+					9 => 'No Reply',
+					10 => 'Closed',
+					11 => 'Expected Behaviour',
+					12 => 'Known Issue',
+					13 => 'Duplicate Report',
 				];
 				break;
 
 			default:
 				$statuses = [
-					1 => g11n3t('New'),
-					2 => g11n3t('Confirmed'),
-					3 => g11n3t('Pending'),
-					4 => g11n3t('Ready To Commit'),
-					6 => g11n3t('Needs Review'),
-					7 => g11n3t('Information Required'),
-					14 => g11n3t('Discussion'),
-					5 => g11n3t('Fixed in Code Base'),
-					8 => g11n3t('Unconfirmed Report'),
-					9 => g11n3t('No Reply'),
-					10 => g11n3t('Closed'),
-					11 => g11n3t('Expected Behaviour'),
-					12 => g11n3t('Known Issue'),
-					13 => g11n3t('Duplicate Report'),
+					1 => 'New',
+					2 => 'Confirmed',
+					3 => 'Pending',
+					4 => 'Ready To Commit',
+					6 => 'Needs Review',
+					7 => 'Information Required',
+					14 => 'Discussion',
+					5 => 'Fixed in Code Base',
+					8 => 'Unconfirmed Report',
+					9 => 'No Reply',
+					10 => 'Closed',
+					11 => 'Expected Behaviour',
+					12 => 'Known Issue',
+					13 => 'Duplicate Report',
 				];
 		}
 
@@ -771,7 +771,7 @@ class TrackerExtension extends AbstractExtension
 	 */
 	public function yesNo($value)
 	{
-		return $value ? g11n3t('Yes') : g11n3t('No');
+		return $value ? 'Yes' : 'No';
 	}
 
 	/**
@@ -833,16 +833,16 @@ class TrackerExtension extends AbstractExtension
 		switch ($status)
 		{
 			case 'success':
-				return g11n3t('Success');
+				return 'Success';
 
 			case 'pending':
-				return g11n3t('Pending');
+				return 'Pending';
 
 			case 'error':
-				return g11n3t('Error');
+				return 'Error';
 
 			case 'failure':
-				return g11n3t('Failure');
+				return 'Failure';
 		}
 
 		throw new \RuntimeException('Unknown status: ' . $status);
@@ -900,12 +900,10 @@ class TrackerExtension extends AbstractExtension
 	 */
 	public function getUserTestOptions($id = null)
 	{
-		static $options = [];
-
-		$options = $options ? : [
-			0 => g11n3t('Not tested'),
-			1 => g11n3t('Tested successfully'),
-			2 => g11n3t('Tested unsuccessfully'),
+		static $options = [
+			0 => 'Not tested',
+			1 => 'Tested successfully',
+			2 => 'Tested unsuccessfully',
 		];
 
 		return ($id !== null && array_key_exists($id, $options)) ? $options[$id] : $options;
