@@ -64,17 +64,21 @@ class ProjectActivity extends AbstractAjaxController
 		$state = $this->model->getState();
 
 		$periodType  = $state->get('list.period', 1);
-		$periodTitle = [1 => g11n3t('Weeks'), 2 => g11n3t('Months'), 3 => g11n3t('Quarters')];
+		$periodTitle = [
+			1 => 'Weeks',
+			2 => 'Months',
+			3 => 'Quarters',
+		];
 		$periodText  = $periodTitle[$periodType];
 
-		$title = sprintf(g11n3t('Issues Opened and Closed for Past Four %1$s'), $periodText);
+		$title = sprintf('Issues Opened and Closed for Past Four %1$s', $periodText);
 
 		$ticks  = [];
 		$counts = [];
 
-		$opened = g11n3t('Opened');
-		$fixed  = g11n3t('Fixed');
-		$other  = g11n3t('Other Closed');
+		$opened = 'Opened';
+		$fixed  = 'Fixed';
+		$other  = 'Other Closed';
 
 		$counts[$opened][] = (int) $items[0]->opened4;
 		$counts[$opened][] = (int) $items[0]->opened3;

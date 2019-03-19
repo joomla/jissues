@@ -51,18 +51,18 @@ class ActivitySnapshot extends AbstractAjaxController
 	protected function prepareResponse()
 	{
 		$statusLabels = [
-			1 => g11n3t('New'),
-			2 => g11n3t('Confirmed'),
-			3 => g11n3t('Pending'),
-			4 => g11n3t('Ready To Commit'),
-			6 => g11n3t('Needs Review'),
-			7 => g11n3t('Information Required'),
-			14 => g11n3t('Discussion'),
+			1 => 'New',
+			2 => 'Confirmed',
+			3 => 'Pending',
+			4 => 'Ready To Commit',
+			6 => 'Needs Review',
+			7 => 'Information Required',
+			14 => 'Discussion',
 		];
 
 		$iterator = $this->model->getOpenIssues();
 
-		$title = g11n3t('Total Open Issues By Status');
+		$title = 'Total Open Issues By Status';
 
 		$ticks  = [];
 		$counts = [];

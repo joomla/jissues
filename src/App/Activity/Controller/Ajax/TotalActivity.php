@@ -82,19 +82,19 @@ class TotalActivity extends AbstractAjaxController
 		$periodType   = $state->get('list.period');
 		$activityType = $state->get('list.activity_type');
 
-		$periodTitle = [1 => g11n3t('Weeks'), 2 => g11n3t('Months'), 3 => g11n3t('Quarters')];
+		$periodTitle = [
+			1 => 'Weeks',
+			2 => 'Months',
+			3 => 'Quarters',
+		];
 		$periodText  = $periodTitle[$periodType];
 
 		// For the best translations, some languages need the ability to move the activity type segment, so translate each string individually
 		$titles = [
-			// TRANSLATORS - The merged segment is the "period text" translated separately (i.e. "Weeks" or "Quarters")
-			sprintf(g11n3t('All Points for Past Four %s'), $periodText),
-			// TRANSLATORS - The merged segment is the "period text" translated separately (i.e. "Weeks" or "Quarters")
-			sprintf(g11n3t('Tracker Points for Past Four %s'), $periodText),
-			// TRANSLATORS - The merged segment is the "period text" translated separately (i.e. "Weeks" or "Quarters")
-			sprintf(g11n3t('Test Points for Past Four %s'), $periodText),
-			// TRANSLATORS - The merged segment is the "period text" translated separately (i.e. "Weeks" or "Quarters")
-			sprintf(g11n3t('Code Points for Past Four %s'), $periodText),
+			sprintf('All Points for Past Four %s', $periodText),
+			sprintf('Tracker Points for Past Four %s', $periodText),
+			sprintf('Test Points for Past Four %s', $periodText),
+			sprintf('Code Points for Past Four %s', $periodText),
 		];
 
 		$title = $titles[$activityType];
@@ -131,12 +131,12 @@ class TotalActivity extends AbstractAjaxController
 		/* $label3 = new \stdClass; */
 
 		$types         = array_keys($points);
-		$label1->label = sprintf(g11n3t('%1$s Points'), $types[0]);
+		$label1->label = sprintf('%1$s Points', $types[0]);
 
 		if ($activityType === 0)
 		{
-			$label2->label = sprintf(g11n3t('%1$s Points'), $types[1]);
-			/* $label3->label = sprintf(g11n3t('%1$s Points'), $types[2]); */
+			$label2->label = sprintf('%1$s Points', $types[1]);
+			/* $label3->label = sprintf('%1$s Points', $types[2]); */
 			$data          = [$points[$types[0]], $points[$types[1]]/*, $points[$types[2]]*/];
 			$labels        = [$label1, $label2/*, $label3*/];
 		}
