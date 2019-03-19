@@ -3,13 +3,11 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ parent() }} | {{ "Add Project"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | Add Project{% endblock %}
 
 {% block prependMenu %}
     <li>
-        <a class="btn-success" href="javascript:;" onclick="document.editForm.submit();">
-            {{ "Save"|_ }}
-        </a>
+        <a class="btn-success" href="javascript:;" onclick="document.editForm.submit();">Save</a>
     </li>
 
     {{ parent() }}
@@ -18,41 +16,41 @@
 
 {% block content %}
     <div class="page-header">
-        <h1>{{ "New project"|_ }}</h1>
+        <h1>New project</h1>
     </div>
 
     <form method="post" action="{{ uri.base.path }}saveproject" class="form-inline" name="editForm">
         <fieldset>
-            <legend>{{ "Details"|_ }}</legend>
+            <legend>Details</legend>
             <ul class="unstyled">
 
                 <li>
-                    <label for="title">{{ "Title"|_ }}</label>
+                    <label for="title">Title</label>
                     <input type="text" name="project[title]" id="title" />
                 </li>
 
                 <li>
-                    <label for="short_title">{{ "Short Title"|_ }}</label>
+                    <label for="short_title">Short Title</label>
                     <input type="text" name="project[short_title]" id="short_title" />
                 </li>
 
                 <li>
-                    <label for="alias">{{ "Alias"|_ }}</label>
+                    <label for="alias">Alias</label>
                     <input type="text" name="project[alias]" id="alias" />
                 </li>
 
                 <li>
-                    <label for="gh_user">{{ "GitHub Owner"|_ }}</label>
+                    <label for="gh_user">GitHub Owner</label>
                     <input type="text" name="project[gh_user]" id="gh_user" />
                 </li>
 
                 <li>
-                    <label for="gh_project">{{ "GitHub Repo"|_ }}</label>
+                    <label for="gh_project">GitHub Repo</label>
                     <input type="text" name="project[gh_project]" id="gh_project" />
                 </li>
 
                 <li>
-                    <label for="ext_tracker_link">{{ "External Tracker Link"|_ }}</label>
+                    <label for="ext_tracker_link">External Tracker Link</label>
                     <input type="text" name="project[ext_tracker_link]" id="ext_tracker_link" />
                 </li>
 

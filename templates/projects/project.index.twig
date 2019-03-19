@@ -3,16 +3,16 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ parent() }} | {{ "Project"|_ }} - {{ project.short_title }}{% endblock %}
+{% block title %}{{ parent() }} | Project - {{ project.short_title }}{% endblock %}
 
-{% block headerText %} - {{ "Project"|_ }}{% endblock %}
+{% block headerText %} - Project{% endblock %}
 
 {% block content %}
 
     {% if user.check('admin') %}
         <div class="btn-group pull-right">
-            <a class="btn btn-info" href="{{ uri.base.path }}project/{{ project.alias }}/edit">{{ "Edit"|_ }}</a>
-            <a class="btn btn-danger" href="{{ uri.base.path }}project/{{ project.alias }}/delete">{{ "Delete"|_ }}</a>
+            <a class="btn btn-info" href="{{ uri.base.path }}project/{{ project.alias }}/edit">Edit</a>
+            <a class="btn btn-danger" href="{{ uri.base.path }}project/{{ project.alias }}/delete">Delete</a>
         </div>
     {% endif %}
 
@@ -24,7 +24,7 @@
 
     <p>
         <a class="btn btn-success" href="{{ uri.base.path }}tracker/{{ project.alias }}">
-            {{ "Project %s Tracker"|_|format(project.title) }}
+            {{ "Project %s Tracker"|format(project.title) }}
         </a>
     </p>
 
@@ -33,29 +33,29 @@
         <li>
             <i class="icon-github"></i>
             <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}">
-                {{ "Project %s on GitHub"|_|format(project.gh_user ~ "/" ~ project.gh_project) }}
+                {{ "Project %s on GitHub"|format(project.gh_user ~ "/" ~ project.gh_project) }}
             </a>
         </li>
         <li>
-            <a href="{{ uri.base.path }}project/{{ project.alias }}/stats">{{ "Statistics"|_ }}</a>
+            <a href="{{ uri.base.path }}project/{{ project.alias }}/stats">Statistics</a>
         </li>
     {% endif %}
 
     {% if user.check('admin') %}
         <li>
-            <a href="{{ uri.base.path }}project/{{ project.alias }}/hooks">{{ "Hooks"|_ }}</a>
+            <a href="{{ uri.base.path }}project/{{ project.alias }}/hooks">Hooks</a>
         </li>
     {% endif %}
 
     {% if user.check('manage') %}
         <li>
-            <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">{{ "Groups"|_ }}</a>
+            <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">Groups</a>
         </li>
         <li>
-            <a href="{{ uri.base.path }}project/{{ project.alias }}/labels">{{ "Labels"|_ }}</a>
+            <a href="{{ uri.base.path }}project/{{ project.alias }}/labels">Labels</a>
         </li>
         <li>
-            <a href="{{ uri.base.path }}category/{{ project.alias }}">{{ "Categories"|_ }}</a>
+            <a href="{{ uri.base.path }}category/{{ project.alias }}">Categories</a>
         </li>
     {% endif %}
     </ul>
