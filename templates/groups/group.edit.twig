@@ -3,13 +3,11 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ parent() }} | {{ "Edit Group"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | Edit Group{% endblock %}
 
 {% block prependMenu %}
     <li>
-        <a class="btn-success" href="javascript:" onclick="document.editForm.submit();">
-            {{ "Save"|_ }}
-        </a>
+        <a class="btn-success" href="javascript:" onclick="document.editForm.submit();">Save</a>
     </li>
 
     {{ parent() }}
@@ -137,9 +135,9 @@
     </div>
 
     {% if group.group_id %}
-        <h2>{{ "Edit Access Group"|_ }}</h2>
+        <h2>Edit Access Group</h2>
     {% else %}
-        <h2>{{ "Add Access Group"|_ }}</h2>
+        <h2>Add Access Group</h2>
     {% endif %}
 
     <form method="post" action="{{ uri.base.path }}project/{{ project.alias }}/savegroup" class="form-inline" name="editForm">
@@ -148,7 +146,7 @@
             <div class="span6">
                 <fieldset>
 
-                    <legend>{{ "Details"|_ }}</legend>
+                    <legend>Details</legend>
 
                     {% if group.system %}
                         <h4>{{ group.title }} (system)</h4>
@@ -156,7 +154,7 @@
                     {% else %}
                         <ul class="unstyled">
                             <li>
-                                <label for="title">{{ "Title"|_ }}</label>
+                                <label for="title">Title</label>
                                 <input type="text" name="group[title]" id="title" value="{{ group.title }}">
                             </li>
                         </ul>
@@ -166,42 +164,42 @@
             <div class="span6">
                 <fieldset>
 
-                    <legend>{{ "Permissions"|_ }}</legend>
+                    <legend>Permissions</legend>
 
                     <ul class="unstyled">
                         <li>
                             <input type="checkbox" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_view" name="group[can_view]"{{ group.can_view ? " checked='checked'" : "" }} />
                             <label for="can_view">
                                 <i class="icon-eye-2"></i>
-                                {{ "View"|_ }}
+                                View
                             </label>
                         </li>
                         <li>
                             <input type="checkbox" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_create" name="group[can_create]"{{ group.can_create ? " checked='checked'" : "" }} />
                             <label for="can_create">
                                 <i class="icon-plus-2"></i>
-                                {{ "Create"|_ }}
+                                Create
                             </label>
                         </li>
                         <li>
                             <input type="checkbox" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_edit" name="group[can_edit]"{{ group.can_edit ? " checked='checked'" : "" }} />
                             <label for="can_edit">
                                 <i class="icon-pencil"></i>
-                                {{ "Edit"|_ }}
+                                Edit
                             </label>
                         </li>
                         <li>
                             <input type="checkbox" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_editown" name="group[can_editown]"{{ group.can_editown ? " checked='checked'" : "" }} />
                             <label for="can_editown">
                                 <i class="icon-pencil"></i>
-                                {{ "Edit own"|_ }}
+                                Edit own
                             </label>
                         </li>
                         <li>
                             <input type="checkbox" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_manage" name="group[can_manage]"{{ group.can_manage ? " checked='checked'" : "" }} />
                             <label for="can_manage">
                                 <i class="icon-user-3"></i>
-                                {{ "Manage"|_ }}
+                                Manage
                             </label>
                         </li>
                     </ul>
@@ -214,36 +212,30 @@
             {% if not group.system %}
                 <fieldset>
 
-                <legend>{{ "Users"|_ }}</legend>
+                <legend>Users</legend>
 
                 <div class="row-fluid" style="min-height: 200px;">
                     <div class="span4">
-                        <label for="searchUser">{{ 'Add user'|_ }}</label>&nbsp;<span id="searchUser-msg"></span><br/>
+                        <label for="searchUser">Add user</label>&nbsp;<span id="searchUser-msg"></span><br/>
                         <input type="text" class="span6" id="searchUser" data-provide="typeahead"
-                               data-items="6" autocomplete="off" value="" placeholder="{{ 'username'|_ }}"/>
+                               data-items="6" autocomplete="off" value="" placeholder="username"/>
 
-                        <a class="btn" href="javascript:"
-                           onclick="assignUser(
-                                   $('#searchUser').val(), {{ group.group_id }}, {{ project.project_id }}, 1, 'searchUser'
-                                   );">
-                            {{ "Add user"|_ }}
+                        <a class="btn" href="javascript:" onclick="assignUser($('#searchUser').val(), {{ group.group_id }}, {{ project.project_id }}, 1, 'searchUser');">
+                            Add user
                         </a>
                     </div>
                     <div class="span4">
-                        <label for="searchUserGroup">{{ 'Remove user'|_ }}</label>&nbsp;<span
+                        <label for="searchUserGroup">Remove user</label>&nbsp;<span
                                 id="searchUserGroup-msg"></span><br/>
                         <input type="text" class="span6" id="searchUserGroup" data-provide="typeahead"
-                               data-items="6" autocomplete="off" value="" placeholder="{{ 'username'|_ }}"/>
-                        <a class="btn" href="javascript:"
-                           onclick="assignUser(
-                                   $('#searchUserGroup').val(), {{ group.group_id }}, {{ project.project_id }}, 0, 'searchUserGroup'
-                                   );">
-                            {{ "Remove user"|_ }}
+                               data-items="6" autocomplete="off" value="" placeholder="username"/>
+                        <a class="btn" href="javascript:" onclick="assignUser($('#searchUserGroup').val(), {{ group.group_id }}, {{ project.project_id }}, 0, 'searchUserGroup');">
+                            Remove user
                         </a>
                     </div>
                     <div class="span4">
                         <a class="btn" href="javascript:" onclick="listUsers({{ group.group_id }});">
-                            {{ "List assigned users"|_ }}
+                            List assigned users
                         </a>
 
                         <div class="well-small" id="ajaxListUsers"></div>
@@ -255,7 +247,7 @@
             {% endif %}
         {% else %}
             <div class="alert alert-info">
-                {{ "Save the group to assign users."|_ }}
+                Save the group to assign users.
             </div>
         {% endif %}
 

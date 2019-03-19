@@ -3,13 +3,11 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ parent() }} | {{ "Groups"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | Groups{% endblock %}
 
 {% block prependMenu %}
     <li>
-        <a class="btn-success" href="{{ uri.base.path }}project/{{ project.alias }}/addgroup">
-            {{ "Add Group"|_ }}
-        </a>
+        <a class="btn-success" href="{{ uri.base.path }}project/{{ project.alias }}/addgroup">Add Group</a>
     </li>
 
     {{ parent() }}
@@ -21,20 +19,20 @@
         <h1>{{ project.title }}</h1>
     </div>
 
-    <h2>{{ "Access Groups"|_ }}</h2>
+    <h2>Access Groups</h2>
 
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
-            <th>{{ "Title"|_ }}</th>
-            <th style="width: 10%;">{{ "View"|_ }}</th>
-            <th style="width: 10%;">{{ "Create"|_ }}</th>
-            <th style="width: 10%;">{{ "Edit"|_ }}</th>
-            <th style="width: 10%;">{{ "Edit own"|_ }}</th>
-            <th style="width: 10%;">{{ "Manage"|_ }}</th>
-            <th style="width: 10%;">{{ "Actions"|_ }}</th>
+            <th>Title</th>
+            <th style="width: 10%;">View</th>
+            <th style="width: 10%;">Create</th>
+            <th style="width: 10%;">Edit</th>
+            <th style="width: 10%;">Edit own</th>
+            <th style="width: 10%;">Manage</th>
+            <th style="width: 10%;">Actions</th>
             {% if jdebug %}
-                <th style="width: 10%;">{{ "ID"|_ }}</th>
+                <th style="width: 10%;">ID</th>
             {% endif %}
         </tr>
         </thead>
@@ -63,11 +61,9 @@
 
                 <td>
                     {% if group.system %}
-                        {{ "System"|_ }}
+                        System
                     {% else %}
-                        <a href="{{ uri.base.path }}project/{{ project.alias }}/group/{{ group.group_id }}/delete">
-                            {{ "Delete"|_ }}
-                        </a>
+                        <a href="{{ uri.base.path }}project/{{ project.alias }}/group/{{ group.group_id }}/delete">Delete</a>
                     {% endif %}
                 </td>
 
@@ -78,7 +74,7 @@
         {% else %}
             <tr>
                 <td colspan="5">
-                    <div class="alert alert-error">{{ "No groups defined!"|_ }}</div>
+                    <div class="alert alert-error">No groups defined!</div>
                 </td>
             </tr>
         {% endfor %}
