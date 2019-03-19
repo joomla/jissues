@@ -57,7 +57,7 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 				throw new \UnexpectedValueException('Invalid log type');
 		}
 
-		$log = (realpath($path)) ? $this->processLog($type, $path) : [sprintf(g11n3t('No %s log file found.'), $type)];
+		$log = (realpath($path)) ? $this->processLog($type, $path) : [sprintf('No %s log file found.', $type)];
 
 		$this->addData('log', $log)
 			->addData('log_type', $type);

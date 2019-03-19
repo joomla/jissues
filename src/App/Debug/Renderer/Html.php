@@ -53,7 +53,7 @@ class Html implements ContainerAwareInterface
 		if ($application->get('debug.database'))
 		{
 			$html[] = '<div id="dbgDatabase">';
-			$html[] = '<h3>' . g11n3t('Database') . '</h3>';
+			$html[] = '<h3>Database</h3>';
 
 			$html[] = $this->renderDatabase();
 			$html[] = '</div>';
@@ -62,22 +62,22 @@ class Html implements ContainerAwareInterface
 		if ($application->get('debug.system'))
 		{
 			$html[] = '<div id="dbgProfile">';
-			$html[] = '<h3>' . g11n3t('Profile') . '</h3>';
+			$html[] = '<h3>Profile</h3>';
 			$html[] = $application->getDebugger()->renderProfile();
 			$html[] = '</div>';
 
 			$html[] = '<div id="dbgUser">';
-			$html[] = '<h3>' . g11n3t('User') . '</h3>';
+			$html[] = '<h3>User</h3>';
 			$html[] = @Kint::dump($application->getUser());
 			$html[] = '</div>';
 
 			$html[] = '<div id="dbgProject">';
-			$html[] = '<h3>' . g11n3t('Project') . '</h3>';
+			$html[] = '<h3>Project</h3>';
 			$html[] = @Kint::dump($application->getProject());
 			$html[] = '</div>';
 
 			$html[] = '<div id="dbgRequest">';
-			$html[] = '<h3>' . g11n3t('Request') . '</h3>';
+			$html[] = '<h3>Request</h3>';
 			$html[] = @Kint::dump($_REQUEST);
 			$html[] = '</div>';
 		}
@@ -122,7 +122,7 @@ class Html implements ContainerAwareInterface
 
 		$html[] = '<div class="navbar navbar-fixed-bottom" id="debugBar">';
 
-		$html[] = '<a href="#top" class="brand hasTooltip" title="' . g11n3t('Go up') . '">'
+		$html[] = '<a href="#top" class="brand hasTooltip" title="Go up">'
 			. '&nbsp;<i class="icon icon-joomla"></i></a>';
 
 		$html[] = '<ul class="nav">';
@@ -131,8 +131,16 @@ class Html implements ContainerAwareInterface
 		{
 			$count = count($application->getDebugger()->getLog('db'));
 
-			$html[] = '<li class="hasTooltip"'
-				. ' title="' . sprintf(g11n4t('One database query', '%d database queries', $count), $count) . '">'
+			if ($count === 1)
+			{
+				$title = 'One database query';
+			}
+			else
+			{
+				$title = sprintf('%d database queries', $count);
+			}
+
+			$html[] = '<li class="hasTooltip" title="' . $title . '">'
 				. '<a href="#dbgDatabase"><i class="icon icon-database"></i> '
 				. $this->getBadge($count)
 				. '</a></li>';
@@ -142,8 +150,7 @@ class Html implements ContainerAwareInterface
 		{
 			$profile = $application->getDebugger()->getProfile();
 
-			$html[] = '<li class="hasTooltip"'
-				. ' title="' . g11n3t('Profile') . '">'
+			$html[] = '<li class="hasTooltip" title="Profile">'
 				. '<a href="#dbgProfile"><i class="icon icon-lightning"></i> '
 				. sprintf('%s MB', $this->getBadge(number_format($profile->peak / 1000000, 2)))
 				. ' '
@@ -156,7 +163,7 @@ class Html implements ContainerAwareInterface
 			$user    = $application->getUser();
 			$project = $application->getProject();
 
-			$title = $project ? $project->title : g11n3t('No Project');
+			$title = $project ? $project->title : 'No Project';
 
 			// Add build commit if available
 			$buildHref = '#';
@@ -176,29 +183,23 @@ class Html implements ContainerAwareInterface
 				$build    = $composer->version;
 			}
 
-			$html[] = '<li class="hasTooltip"'
-				. ' title="' . g11n3t('User') . '">'
+			$html[] = '<li class="hasTooltip" title="User">'
 				. '<a href="#dbgUser"><i class="icon icon-user"></i> <span class="badge">'
-				. ($user && $user->username ? $user->username : g11n3t('Guest'))
+				. ($user && $user->username ? $user->username : 'Guest')
 				. '</span></a></li>';
 
-			$html[] = '<li class="hasTooltip"'
-				. ' title="' . g11n3t('Project') . '">'
+			$html[] = '<li class="hasTooltip" title="Project">'
 				. '<a href="#dbgProject"><i class="icon icon-cube"></i> <span class="badge">'
 				. $title
 				. '</span></a></li>';
 
-			$html[] = '<li class="hasTooltip"'
-				. ' title="' . g11n3t('Request variables') . '">'
-				. '<a href="#dbgRequest"><i class="icon icon-earth"></i> <span class="badge">'
-				. g11n3t('Request')
-				. '</span></a></li>';
+			$html[] = '<li class="hasTooltip" title="Request variables">'
+				. '<a href="#dbgRequest"><i class="icon icon-earth"></i> <span class="badge">Request</span></a></li>';
 
 			// Display the build to admins
 			if ($application->getUser()->isAdmin)
 			{
-				$html[] = '<li class="hasTooltip"'
-					. ' title="' . g11n3t('Build') . '">'
+				$html[] = '<li class="hasTooltip" title="Build">'
 					. '<a href="' . $buildHref . '"><i class="icon icon-broadcast"></i> <span class="badge">'
 					. $build
 					. '</span></a></li>';
@@ -238,7 +239,14 @@ class Html implements ContainerAwareInterface
 		$sqlFormat   = new SqlFormat;
 		$dbDebugger  = new DatabaseDebugger($this->getContainer()->get('db'));
 
-		$debug[] = sprintf(g11n4t('One database query', '%d database queries', count($dbLog)), count($dbLog));
+		if (count($dbLog) === 1)
+		{
+			$debug[] = 'One database query';
+		}
+		else
+		{
+			$debug[] = sprintf('%d database queries', count($dbLog));
+		}
 
 		$prefix = $dbDebugger->getPrefix();
 
