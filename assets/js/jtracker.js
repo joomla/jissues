@@ -16,7 +16,7 @@
         preview: function (text, preview) {
             var out = $(preview);
 
-            out.html(g11n3t('Loading preview...'));
+            out.html('Loading preview...');
 
             $.post(
                 '/preview',
@@ -27,7 +27,7 @@
                     if (r.error) {
                         out.html(r.error);
                     } else if (!r.data.length) {
-                        out.html(g11n3t('Invalid response.'));
+                        out.html('Invalid response.');
                     } else {
                         out.html(r.data);
                     }
@@ -49,7 +49,7 @@
                 status = $(statusContainer),
                 sha = $(shaContainer).val();
 
-            status.html(g11n3t('Submitting comment...'));
+            status.html('Submitting comment...');
 
             $.post(
                 '/submit/comment',
@@ -57,7 +57,7 @@
                 function (r) {
                     if (!r.data) {
                         // Misc failure
-                        status.html(g11n3t('Invalid response.'));
+                        status.html('Invalid response.');
                     } else if (r.error) {
                         // Failure
                         status.html(r.error);
@@ -93,7 +93,7 @@
                 importance = $('input[name=importanceRadios]').filter(':checked').val(),
                 experienced = $('input[name=experiencedRadios]').filter(':checked').val();
 
-            status.addClass('disabled').removeAttr('href').removeAttr('onclick').html(g11n3t('Adding vote...'));
+            status.addClass('disabled').removeAttr('href').removeAttr('onclick').html('Adding vote...');
 
             $.post(
                 '/submit/vote',
@@ -134,7 +134,7 @@
                 comment = $(commentContainer).val(),
                 sha = $(shaContainer).val();
 
-            status.html(g11n3t('Submitting test result...'));
+            status.html('Submitting test result...');
 
             $.post(
                 '/submit/testresult',
@@ -222,12 +222,12 @@
                 user = $('input[name=altered-user]').val();
 
             if ('' == user) {
-                status.html(g11n3t('Please select a user'));
+                status.html('Please select a user');
 
                 return;
             }
 
-            status.html(g11n3t('Submitting test result...'));
+            status.html('Submitting test result...');
 
             $.post(
                 '/alter/testresult',

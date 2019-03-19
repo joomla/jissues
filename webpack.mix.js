@@ -31,16 +31,6 @@ mix.combine(
     'www/media/js/vendor/bootstrap.js'
 );
 
-// g11n-js
-mix.combine(
-    [
-        'node_modules/g11n-js/js/g11n.js',
-        'node_modules/g11n-js/js/methods.js',
-        'node_modules/g11n-js/js/phpjs.js',
-    ],
-    'www/media/js/vendor/g11n-js.js'
-);
-
 // Blueimp Canvas to Blob
 mix.copy('node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.min.js', 'www/media/js/vendor/blueimp-canvas-to-blob.js');
 

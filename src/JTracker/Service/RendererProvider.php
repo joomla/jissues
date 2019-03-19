@@ -16,7 +16,6 @@ use JTracker\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\View\Renderer\ApplicationContext;
 use JTracker\View\Renderer\DebugPathPackage;
-use JTracker\View\Renderer\LocalizationExtension;
 use JTracker\View\Renderer\TrackerExtension;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\PathPackage;
@@ -136,15 +135,6 @@ class RendererProvider implements ServiceProviderInterface
 				true
 			);
 
-		$container->alias(LocalizationExtension::class, 'twig.extension.localization')
-			->share(
-				'twig.extension.localization',
-				function (Container $container) {
-					return new LocalizationExtension($container->get('app'));
-				},
-				true
-			);
-
 		$container->alias(TrackerExtension::class, 'twig.extension.tracker')
 			->share(
 				'twig.extension.tracker',
@@ -217,7 +207,6 @@ class RendererProvider implements ServiceProviderInterface
 
 		$twigExtensions = [
 			'twig.extension.tracker',
-			'twig.extension.localization',
 		];
 
 		if ($debug)

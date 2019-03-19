@@ -23,7 +23,6 @@
         "bootstrap-select": "1.12.4",
         "bootstrap-switch": "3.3.4",
         "d3": "3.5.17",
-        "g11n-js": "^1.0.0",
         "jquery": "1.12.4",
         "jquery-simple-color": "github:recurser/jquery-simple-color",
         "jquery-textrange": "1.4.0",
