@@ -11,17 +11,17 @@
         <div class="col-lg-7">
             <!-- The fileinput-button span is used to style the file input field as button -->
             <span class="btn btn-success fileinput-button">
-                <span>{{ "Add files..."|_ }}</span>
+                <span>Add files...</span>
                 <input type="file" name="files[]" multiple>
             </span>
             <button type="submit" class="btn btn-primary start">
-                <span>{{ "Start upload"|_ }}</span>
+                <span>Start upload</span>
             </button>
             <button type="reset" class="btn btn-warning cancel">
-                <span>{{ "Cancel upload"|_ }}</span>
+                <span>Cancel upload</span>
             </button>
             <button type="button" class="btn btn-danger delete">
-                <span>{{ "Delete"|_ }}</span>
+                <span>Delete</span>
             </button>
         </div>
     </div>
@@ -30,11 +30,11 @@
     <div id="select-message" class="alert alert-error" style="display: none"></div>
 </form>
 <div id="upload-info">
-    <h3 class="panel-title">{{ "Upload Notes"|_ }}</h3>
+    <h3 class="panel-title">Upload Notes</h3>
     <ul>
-        <li>{{ sprintf("The maximum file size for uploads is %s."|_, "<strong>1 MB</strong>")|raw }}</li>
-        <li>{{ sprintf("The following file types are allowed: %s"|_, "<strong>JPG, GIF, PNG, TXT, PDF, DOCX, XLSX, PPTX</strong>")|raw }}</li>
-        <li>{{ "You can <strong>drag & drop</strong> files from your desktop on this webpage."|_|raw }}</li>
+        <li>The maximum file size for uploads is <strong>1 MB</strong></li>
+        <li>The following file types are allowed: <strong>JPG, GIF, PNG, TXT, PDF, DOCX, XLSX, PPTX</strong></li>
+        <li>You can <strong>drag & drop</strong> files from your desktop on this webpage</li>
     </ul>
 </div>
 <!-- The template to display files available for upload -->
@@ -49,18 +49,18 @@
             <strong class="error text-danger"></strong>
         </td>
         <td>
-            <p class="size">{{ "Processing..."|_ }}</p>
+            <p class="size">Processing...</p>
             <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
         </td>
         <td>
             [% if (!i && !o.options.autoUpload) { %]
                 <button class="btn btn-primary start" disabled>
-                    <span>{{ "Start"|_ }}</span>
+                    <span>Start</span>
                 </button>
             [% } %]
             [% if (!i) { %]
                 <button class="btn btn-warning cancel">
-                    <span>{{ "Cancel"|_ }}</span>
+                    <span>Cancel</span>
                 </button>
             [% } %]
         </td>
@@ -73,7 +73,7 @@
     <tr class="template-download fade">
         [% if (file.error) { %]
             <td class="upload-error">
-                <div><span class="label label-danger">{{ "Error"|_ }}</span> [%=file.error%]</div>
+                <div><span class="label label-danger">Error</span> [%=file.error%]</div>
             </td>
         [% } else { %]
             <td>
@@ -98,12 +98,12 @@
             <td>
                 [% if (file.deleteUrl) { %]
                     <button id="[%=file.editorId%]" class="btn btn-danger delete" data-type="[%=file.deleteType%]" data-url="[%=file.deleteUrl%]">
-                        <span>{{ "Delete"|_ }}</span>
+                        <span>Delete</span>
                     </button>
                     <input type="checkbox" name="delete" value="1" class="toggle">
                 [% } else { %]
                     <button class="btn btn-warning cancel">
-                        <span>{{ "Cancel"|_ }}</span>
+                        <span>Cancel</span>
                     </button>
                 [% } %]
             </td>

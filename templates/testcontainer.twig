@@ -3,9 +3,9 @@
 
 {% if user.id %}
     <form class="testForm form-inline" name="testsForm" id="testContainer">
-        <h6>{{ 'Submit test result'|_ }}</h6>
+        <h6>Submit test result</h6>
         <fieldset>
-            <p>{{ 'I have tested this item'|_ }} - SHA: {{ item.commits|json_decode|last.sha[:7] }}
+            <p>I have tested this item - SHA: {{ item.commits|json_decode|last.sha[:7] }}
                 <a class="help-icon" href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects">
                     <i class="help-icon icon-help"></i>
                     The git SHA
@@ -16,19 +16,19 @@
                 <li>
                     <label class="radio">
                         <input id="test-result-0" class="test-result" type="radio" name="tested" value="0"{{ item.userTest == 0 ? ' checked="checked"' : '' }}>
-                        {{ "Not tested"|_ }}
+                        Not tested
                     </label>
                 </li>
                 <li>
                     <label class="radio tests-success">
                         <input id="test-result-1" class="test-result" type="radio" name="tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
-                        {{ "Tested successfully"|_ }}
+                        Tested successfully
                     </label>
                 </li>
                 <li>
                     <label class="radio tests-fail">
                         <input id="test-result-2" class="test-result" type="radio" name="tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
-                        {{ "Tested unsuccessfully"|_ }}
+                        Tested unsuccessfully
                     </label>
                 </li>
             </ul>
@@ -42,32 +42,18 @@
 
         <div id="testResult"></div>
 
-        <a href="javascript:" class="btn btn-primary"
-                onclick="JTracker.submitTest('{{ item.id }}', '#testResult', '#newComment', '#commentTest', '#shaTest', 'tplNewTestResult');">
-            {{ "Submit test result"|_ }}
-        </a>
+        <a href="javascript:" class="btn btn-primary" onclick="JTracker.submitTest('{{ item.id }}', '#testResult', '#newComment', '#commentTest', '#shaTest', 'tplNewTestResult');">Submit test result</a>
     </form>
 {% endif %}
 {% if user.check('edit') %}
     <div class="testForm" id="testAlterContainer">
-        <h6>{{ 'Alter test result'|_ }}</h6>
+        <h6>Alter test result</h6>
         <form class="form-inline">
-            {{ 'Set the test result for user %s to %s'|_|format(
-            '<input name="altered-user" placeholder="' ~ 'username'|_ ~ '"/>',
-            '<select name="altered"">'
-            ~ '<option value="0">' ~ userTestOptions(0) ~ '</option>'
-            ~ '<option value="1">' ~ userTestOptions(1) ~ '</option>'
-            ~ '<option value="2">' ~ userTestOptions(2) ~ '</option>'
-            ~ '</select>'
-            )|raw }}
+            Set the test result for user <input name="altered-user" placeholder="{{ username }}"> to <select name="altered"><option value="0">{{ userTestOptions(0) }}</option><option value="1">{{ userTestOptions(1) }}</option><option value="2">{{ userTestOptions(2) }}</option></select>
             <label for="shaTestAlter">SHA</label>
             <input type="text" id="shaTestAlter" value="{{ item.commits|json_decode|last.sha }}" />
             <div id="alterResult"></div>
-            <a href="javascript:" class="btn btn-primary"
-                    onclick="JTracker.alterTest('{{ item.id }}', '#alterResult', '#newComment', '#shaTestAlter', 'tplNewAlterTestResult');">
-                {{ "Alter test result"|_ }}
-            </a>
-
+            <a href="javascript:" class="btn btn-primary" onclick="JTracker.alterTest('{{ item.id }}', '#alterResult', '#newComment', '#shaTestAlter', 'tplNewAlterTestResult');">Alter test result</a>
         </form>
     </div>
 {% endif %}
