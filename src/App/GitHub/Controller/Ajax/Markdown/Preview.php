@@ -37,7 +37,7 @@ class Preview extends AbstractAjaxController
 
 		if (!$text)
 		{
-			throw new \Exception(g11n3t('Nothing to preview...'));
+			throw new \Exception('Nothing to preview...');
 		}
 
 		$project = $this->getContainer()->get('app')->getProject();
