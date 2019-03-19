@@ -66,7 +66,7 @@
     </table>
 
     {% if pagination.pagesTotal > 1 %}
-        {{ "Page %1$s of %2$s"|format(pagination.pageNo, pagination.pagesTotal)) }}
+        {{ "Page %1$s of %2$s"|format(pagination.pageNo, pagination.pagesTotal) }}
         {{ pagination.bar|raw }}
     {% endif %}
 
