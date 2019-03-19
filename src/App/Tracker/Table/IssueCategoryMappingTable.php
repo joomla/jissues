@@ -49,12 +49,12 @@ class IssueCategoryMappingTable extends AbstractDatabaseTable
 
 		if (trim($this->issue_id) == '')
 		{
-			$errors[] = g11n3t('Issue ID is needed');
+			$errors[] = 'Issue ID is needed';
 		}
 
 		if (trim($this->category_id) == '')
 		{
-			$errors[] = g11n3t('Category ID is needed.');
+			$errors[] = 'Category ID is needed.';
 		}
 
 		if ($errors)

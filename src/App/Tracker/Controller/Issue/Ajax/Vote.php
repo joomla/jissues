@@ -60,6 +60,6 @@ class Vote extends AbstractAjaxController
 		$data->importanceScore = $data->score / $data->votes;
 
 		$this->response->data    = $data;
-		$this->response->message = g11n3t('Vote successfully added');
+		$this->response->message = 'Vote successfully added';
 	}
 }

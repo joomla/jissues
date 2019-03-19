@@ -176,11 +176,10 @@ class Submit extends AbstractTrackerController
 			);
 		}
 
-		$application->enqueueMessage(g11n3t('Your report has been submitted.'), 'success');
+		$application->enqueueMessage('Your report has been submitted.', 'success');
 
 		$application->redirect(
-			$application->get('uri.base.path')
-			. 'tracker/' . $project->alias . '/' . $data['number']
+			$application->get('uri.base.path') . 'tracker/' . $project->alias . '/' . $data['number']
 		);
 
 		return;

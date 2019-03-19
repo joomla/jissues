@@ -62,7 +62,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	{
 		if ($id == null)
 		{
-			throw new \RuntimeException(g11n3t('Missing ID'));
+			throw new \RuntimeException('Missing ID');
 		}
 
 		$db    = $this->getDb();
@@ -76,7 +76,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 
 		if (!$item)
 		{
-			throw new \RuntimeException(g11n3t('Invalid Category'));
+			throw new \RuntimeException('Invalid Category');
 		}
 
 		return $item;

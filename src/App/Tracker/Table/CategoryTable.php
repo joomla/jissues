@@ -51,27 +51,27 @@ class CategoryTable extends AbstractDatabaseTable
 
 		if (trim($this->title) == '')
 		{
-			$errors[] = g11n3t('A name is required for the category.');
+			$errors[] = 'A name is required for the category.';
 		}
 
 		if (strlen($this->title) > 150)
 		{
-			$errors[] = g11n3t('The length of the name can not exceed 150 characters.');
+			$errors[] = 'The length of the name can not exceed 150 characters.';
 		}
 
 		if (trim($this->alias) == '')
 		{
-			$errors[] = g11n3t('An alias is required for the category.');
+			$errors[] = 'An alias is required for the category.';
 		}
 
 		if (strlen($this->alias) > 150)
 		{
-			$errors[] = g11n3t('The length of the alias can not exceed 150 characters.');
+			$errors[] = 'The length of the alias can not exceed 150 characters.';
 		}
 
 		if (strlen($this->color) != 6)
 		{
-			$errors[] = g11n3t('Colour should be the hex value.');
+			$errors[] = 'Colour should be the hex value.';
 		}
 
 		if ($errors)

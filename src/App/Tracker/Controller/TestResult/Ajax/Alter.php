@@ -91,7 +91,7 @@ class Alter extends AbstractAjaxController
 
 		$this->response->data = json_encode($data);
 
-		$this->response->message = g11n3t('Test successfully added');
+		$this->response->message = 'Test successfully added';
 	}
 
 	/**

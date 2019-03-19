@@ -132,20 +132,20 @@ class IssuesTable extends AbstractDatabaseTable
 
 		if ($this->title == '')
 		{
-			$errors[] = g11n3t('A title is required.');
+			$errors[] = 'A title is required.';
 		}
 		elseif (strlen($this->title) > 255)
 		{
-			$errors[] = g11n3t('The title max length is 255 chars.');
+			$errors[] = 'The title max length is 255 chars.';
 		}
 
 		if (trim($this->build) == '')
 		{
-			$errors[] = g11n3t('A build is required.');
+			$errors[] = 'A build is required.';
 		}
 		elseif (strlen($this->build) > 40)
 		{
-			$errors[] = g11n3t('A build max length is 40 chars.');
+			$errors[] = 'A build max length is 40 chars.';
 		}
 
 		// Normalize fields

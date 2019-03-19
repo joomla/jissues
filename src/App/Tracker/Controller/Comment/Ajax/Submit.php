@@ -55,6 +55,6 @@ class Submit extends AbstractAjaxController
 			$project, $issueNumber, $comment, $application->getUser()->username, $this->getContainer()->get('db')
 		);
 
-		$this->response->message = g11n3t('Your comment has been submitted');
+		$this->response->message = 'Your comment has been submitted';
 	}
 }

@@ -78,11 +78,11 @@ class Inline extends ArrayRenderer
 
 			if ($this->showLineNumbers)
 			{
-				$html .= '<th>' . g11n3t('Old') . '</th>';
-				$html .= '<th>' . g11n3t('New') . '</th>';
+				$html .= '<th>Old</th>';
+				$html .= '<th>New</th>';
 			}
 
-			$html .= '<th>' . g11n3t('Differences') . '</th>';
+			$html .= '<th>Differences</th>';
 			$html .= '</tr>';
 			$html .= '</thead>';
 		}

@@ -82,7 +82,7 @@ class Put extends AbstractAjaxController
 
 				foreach ($file->getErrors() as $error)
 				{
-					$errors[] = g11n3t($error);
+					$errors[] = $error;
 				}
 
 				$data = [
