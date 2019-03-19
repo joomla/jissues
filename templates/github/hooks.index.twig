@@ -3,34 +3,34 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ '%s - Hooks'|_|format(project.title) }}{% endblock %}
+{% block title %}{{ '%s - Hooks'|format(project.title) }}{% endblock %}
 
 {% block content %}
 
     <div class="page-header">
-        <h1>{{ '%s - Hooks'|_|format(project.title) }}</h1>
+        <h1>{{ '%s - Hooks'|format(project.title) }}</h1>
     </div>
 
-    <div class="btn" onclick="listHooks('{{ project.alias }}');">{{ 'List Hooks'|_ }}</div>
+    <div class="btn" onclick="listHooks('{{ project.alias }}');">List Hooks</div>
 
     <div id="listHooks"></div>
     <div id="ajaxDebug" class="alert-error"></div>
 
-    <h2>{{ 'New Hook'|_ }}</h2>
+    <h2>New Hook</h2>
 
     <form name="newHook" class="form-inline">
         <div class="row-fluid well well-small">
             <div class="span5">
-                <label for="url">{{ 'URL'|_ }}</label><br/>
+                <label for="url">URL</label><br/>
                 <input type="text" id="url" name="url" placeholder="http://domain.tld / web / hook"/>
             </div>
             <div class="span5">
-                <label for="events">{{ 'Events'|_ }}</label><br />
+                <label for="events">Events</label><br />
                 <input type="text" id="events" name="events" placeholder="event,event,n..."/><br />
-                {{ 'NOTE: comma separated, no spaces'|_ }}
+                NOTE: comma separated, no spaces
             </div>
             <div class="span2">
-                <div class="btn btn-large btn-success btn-block" onclick="addHook('{{ project.alias }}');">{{ 'Add Hook'|_ }}</div>
+                <div class="btn btn-large btn-success btn-block" onclick="addHook('{{ project.alias }}');">Add Hook</div>
                 <a href="#eventsModal" role="button" class="btn btn-info btn-small btn-block" data-toggle="modal">
                     Help: Events
                 </a>
@@ -84,11 +84,11 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>{{ 'Type'|_ }}</th>
-                <th>{{ 'Status'|_ }}</th>
-                <th>{{ 'URL'|_ }}</th>
-                <th>{{ 'Events'|_ }}</th>
-                <th>{{ 'Actions'|_ }}</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>URL</th>
+                <th>Events</th>
+                <th>Actions</th>
             </tr>
             </thead>
 
@@ -98,9 +98,9 @@
                 <td>[%= o.data[i].name %]</td>
                 <td>
                     [% if (o.data[i].active) { %]
-                    <span class="label label-success">{{ 'Active'|_ }}</span>
+                    <span class="label label-success">Active</span>
                     [% } else { %]
-                    <span class="label label-inverse">{{ 'Inactive'|_ }}</span>
+                    <span class="label label-inverse">Inactive</span>
                     [% } %]
                 </td>
                 <td>[%= o.data[i].config.url %]</td>
@@ -109,17 +109,17 @@
                     [% if (o.data[i].active) { %]
                     <a href="javascript:"
                        onclick="modifyHook('{{ project.alias }}', [%= o.data[i].id %], 'deactivate');">
-                        {{ 'Deactivate'|_ }}
+                        Deactivate
                     </a>
                     [% } else { %]
                     <a href="javascript:"
                        onclick="modifyHook('{{ project.alias }}', [%= o.data[i].id %], 'activate');">
-                        {{ 'Activate'|_ }}
+                        Activate
                     </a>
                     [% } %]
                     <a href="javascript:"
                        onclick="modifyHook('{{ project.alias }}', [%= o.data[i].id %], 'delete');">
-                        {{ 'Delete'|_ }}
+                        Delete
                     </a>
                 </td>
             </tr>

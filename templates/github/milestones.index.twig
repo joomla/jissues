@@ -3,13 +3,11 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ '%s - Milestones'|_|format(project.title) }}{% endblock %}
+{% block title %}{{ '%s - Milestones'|format(project.title) }}{% endblock %}
 
 {% block prependMenu %}
     <li>
-        <a class="btn-success" href="javascript:" onclick="showNewMilestone();">
-            {{ 'New Milestone'|_ }}
-        </a>
+        <a class="btn-success" href="javascript:" onclick="showNewMilestone();">New Milestone</a>
     </li>
 
     {{ parent() }}
@@ -19,7 +17,7 @@
 {% block content %}
 
     <div class="page-header">
-        <h1>{{ '%s - Milestones'|_|format(project.title) }}</h1>
+        <h1>{{ '%s - Milestones'|format(project.title) }}</h1>
     </div>
 
     <div id="milestoneModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -30,36 +28,34 @@
         <div class="modal-body">
             <form name="newMilestone" class="form-horizontal">
                 <div>
-                    <label for="number">{{ 'Number'|_ }}</label>
+                    <label for="number">Number</label>
                     <input type="text" id="number" name="number" placeholder="#" disabled="disabled" class="span1"/>
                 </div>
                 <div class="form-group">
-                    <label for="title" class="control-label">{{ 'Title'|_ }}</label>
-                    <input type="text" id="title" name="title" placeholder="{{ 'Milestone title'|_ }}"/>
+                    <label for="title" class="control-label">Title</label>
+                    <input type="text" id="title" name="title" placeholder="Milestone title"/>
                 </div>
                 <div class="form-group">
-                    <label for="due_on" class="control-label">{{ 'Due on'|_ }}</label>
-                    <input type="text" name="due_on" id="due_on" placeholder="{{ 'Date'|_ }}"/>
+                    <label for="due_on" class="control-label">Due on</label>
+                    <input type="text" name="due_on" id="due_on" placeholder="Date"/>
                 </div>
                 <div class="form-group">
-                    <label for="state" class="control-label">{{ 'State'|_ }}</label>
+                    <label for="state" class="control-label">State</label>
                     <select name="state" id="state">
-                        <option value="open">{{ 'Open'|_ }}</option>
-                        <option value="closed">{{ 'Closed'|_ }}</option>
+                        <option value="open">Open</option>
+                        <option value="closed">Closed</option>
                     </select>
                 </div>
                 <div class="form-group">
 
-                    <label for="description">{{ 'Description'|_ }}</label>
+                    <label for="description">Description</label>
                     <textarea name="description" id="description" class="span6"></textarea>
                 </div>
             </form>
         </div>
         <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-            <button class="btn btn-primary" onclick="$('#milestoneModal').modal('hide'); saveMilestone('{{ project.alias }}', '#listMilestones', 'tplMilestones');">
-                {{ 'Save'|_ }}
-            </button>
+            <button class="btn btn-primary" onclick="$('#milestoneModal').modal('hide'); saveMilestone('{{ project.alias }}', '#listMilestones', 'tplMilestones');">Save</button>
         </div>
     </div>
 
@@ -73,12 +69,12 @@
         <table class="table table-hover table-condensed table-bordered table-striped">
             <thead>
             <tr>
-                <th>{{ 'Number'|_ }}</th>
-                <th>{{ 'Title'|_ }}</th>
-                <th>{{ 'Description'|_ }}</th>
-                <th>{{ 'State'|_ }}</th>
-                <th>{{ 'Due on'|_ }}</th>
-                <th>{{ 'Actions'|_ }}</th>
+                <th>Number</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>State</th>
+                <th>Due on</th>
+                <th>Actions</th>
             </tr>
             </thead>
 
@@ -91,14 +87,8 @@
                 <td>[%= o.data[i].state %]</td>
                 <td>[%= o.data[i].due_on %]</td>
                 <td>
-                    <a href="javascript:"
-                       onclick="showEditMilestone(this, '[%= o.data[i].number %]', '#listMilestones', 'tplMilestones');">
-                        {{ 'Edit'|_ }}
-                    </a>
-                    <a href="javascript:"
-                       onclick="deleteMilestone('{{ project.alias }}', '[%= o.data[i].number %]', '#listMilestones', 'tplMilestones');">
-                        {{ 'Delete'|_ }}
-                    </a>
+                    <a href="javascript:" onclick="showEditMilestone(this, '[%= o.data[i].number %]', '#listMilestones', 'tplMilestones');">Edit</a>
+                    <a href="javascript:" onclick="deleteMilestone('{{ project.alias }}', '[%= o.data[i].number %]', '#listMilestones', 'tplMilestones');">Delete</a>
                 </td>
             </tr>
             [% } %]
@@ -140,7 +130,7 @@
                             out.html('<div class="alert alert-error">' + response.error + '</div>');
                         }
                         else if (!response.data.length) {
-                            out.html('<div class="alert alert-warning">' + 'No milestones found.' + '</div>');
+                            out.html('<div class="alert alert-warning">No milestones found.</div>');
                         }
                         else {
                             out.html(tmpl(template, response));
@@ -179,7 +169,7 @@
                             out.html('<div class="alert alert-error">' + response.error + '</div>');
                         }
                         else if (!response.data.length) {
-                            out.html('<div class="alert alert-warning">' + 'No milestones found.' + '</div>');
+                            out.html('<div class="alert alert-warning">No milestones found.</div>');
                         }
                         else {
                             out.html(tmpl(template, response));
@@ -212,7 +202,7 @@
                             out.html('<div class="alert alert-error">' + response.error + '</div>');
                         }
                         else if (!response.data.length) {
-                            out.html('<div class="alert alert-warning">' + 'No milestones found.' + '</div>');
+                            out.html('<div class="alert alert-warning">No milestones found.</div>');
                         }
                         else {
                             out.html(tmpl(template, response));
