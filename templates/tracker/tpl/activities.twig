@@ -3,30 +3,18 @@
 
 {% macro change(name, old, new) %}
     <tr class="table-condensed">
-        <td class="span2">
-            {{ name|title }}
-        </td>
-        <td class="span4 center">
-            {{ old }}
-        </td>
-        <td class="span1 center">
-            &rArr;
-        </td>
-        <td class="span4 center">
-            {{ new }}
-        </td>
+        <td class="span2">{{ name|title }}</td>
+        <td class="span4 center">{{ old }}</td>
+        <td class="span1 center">&rArr;</td>
+        <td class="span4 center">{{ new }}</td>
     </tr>
 {% endmacro %}
 
 {% macro description(old, new, cnt) %}
     <tr class="table-condensed">
-        <td class="span2">
-            {{ 'Description'|_ }}
-        </td>
+        <td class="span2">Description</td>
         <td colspan="3">
-            <button type="button" class="btn" data-toggle="collapse" data-target="#diff-{{ cnt }}">
-                {{ 'Differences'|_ }}
-            </button>
+            <button type="button" class="btn" data-toggle="collapse" data-target="#diff-{{ cnt }}">Differences</button>
 
             <div id="diff-{{ cnt }}" class="collapse">
                 {{ renderDiff(old, new) }}
@@ -37,13 +25,9 @@
 
 {% macro title(old, new, cnt) %}
     <tr class="table-condensed">
-        <td class="span2">
-            {{ 'Title'|_ }}
-        </td>
+        <td class="span2">Title</td>
         <td colspan="4">
-            <button type="button" class="btn" data-toggle="collapse" data-target="#diff-{{ cnt }}">
-                {{ 'Differences'|_ }}
-            </button>
+            <button type="button" class="btn" data-toggle="collapse" data-target="#diff-{{ cnt }}">Differences</button>
 
             <div id="diff-{{ cnt }}" class="collapse">
                 {{ renderDiff(old, new, false, false) }}
@@ -54,72 +38,46 @@
 
 {% macro status(old, new) %}
     <tr class="table-condensed">
-        <td class="span2">
-            {{ 'Status'|_ }}
-        </td>
-        <td class="span4 alert-{{ status(old).closed ? "error" : "success" }} center">
-            {{ status(old).status|_ }}
-        </td>
-        <td class="span1 center">
-            &rArr;
-        </td>
-        <td class="span4 alert-{{ status(new).closed ? "error" : "success" }} center">
-            {{ status(new).status|_ }}
-        </td>
+        <td class="span2">Status</td>
+        <td class="span4 alert-{{ status(old).closed ? "error" : "success" }} center">{{ status(old).status }}</td>
+        <td class="span1 center">&rArr;</td>
+        <td class="span4 alert-{{ status(new).closed ? "error" : "success" }} center">{{ status(new).status }}</td>
     </tr>
 {% endmacro %}
 
 {% macro easy(old, new) %}
     <tr class="table-condensed">
-        <td class="span2">
-            {{ 'Easy'|_ }}
-        </td>
-        <td class="span4 center">
-            {{ old ? 'Yes' : 'No' }}
-        </td>
-        <td class="span1 center">
-            &rArr;
-        </td>
-        <td class="span4 center">
-            {{ new ? 'Yes' : 'No' }}
-        </td>
+        <td class="span2">Easy</td>
+        <td class="span4 center">{{ old ? 'Yes' : 'No' }}</td>
+        <td class="span1 center">&rArr;</td>
+        <td class="span4 center">{{ new ? 'Yes' : 'No' }}</td>
     </tr>
 {% endmacro %}
 
 {% macro priority(old, new) %}
     <tr class="table-condensed">
-        <td class="span2">
-            {{ 'Priority'|_ }}
-        </td>
+        <td class="span2">Priority</td>
         <td class="span4 center">
-            <span class="badge {{ prioClass(old) }}">
-                {{ getPriority(old) }}
-            </span>
+            <span class="badge {{ prioClass(old) }}">{{ getPriority(old) }}</span>
         </td>
-        <td class="span1 center">
-            &rArr;
-        </td>
+        <td class="span1 center">&rArr;</td>
         <td class="span4 center">
-            <span class="badge {{ prioClass(new) }}">
-                {{ getPriority(new) }}
-            </span>
+            <span class="badge {{ prioClass(new) }}">{{ getPriority(new) }}</span>
         </td>
     </tr>
 {% endmacro %}
 
 {% macro labels(old, new) %}
     <tr class="table-condensed">
-        <td class="span2">
-            {{ 'Labels'|_ }}
-        </td>
+        <td class="span2">Labels</td>
         <td colspan="3">
             {% set added = arrayDiff(new, old) %}
             {% if added %}
-                {{ 'Added'|_ }}: {{ renderLabels(added)|raw }}<br />
+                Added: {{ renderLabels(added)|raw }}<br />
             {% endif %}
             {% set removed = arrayDiff(old, new) %}
             {% if removed %}
-                {{ 'Removed'|_ }}: {{ renderLabels(removed)|raw }}<br />
+                Removed: {{ renderLabels(removed)|raw }}<br />
             {% endif %}
         </td>
     </tr>
@@ -127,16 +85,14 @@
 
 {% macro milestone(old, new) %}
     <tr class="table-condensed">
-        <td class="span2">
-            {{ 'Milestone'|_ }}
-        </td>
+        <td class="span2">Milestone</td>
         <td colspan="3">
             {% if new %}
-                {{ 'Added'|_ }}: {{ milestone_title(new) }}<br />
+                Added: {{ milestone_title(new) }}<br />
             {% endif %}
 
             {% if old %}
-                {{ 'Removed'|_ }}: {{ milestone_title(old) }}<br />
+                Removed: {{ milestone_title(old) }}<br />
             {% endif %}
         </td>
     </tr>
@@ -144,26 +100,16 @@
 
 {% macro relationType(old, new) %}
     <tr class="table-condensed">
-        <td class="span2">
-            {{ 'Relation Type'|_ }}
-        </td>
-        <td class="span4 center">
-            {{ getRelType(old) }}
-        </td>
-        <td class="span1 center">
-            &rArr;
-        </td>
-        <td class="span4 center">
-            {{ getRelType(new) }}
-        </td>
+        <td class="span2">Relation Type</td>
+        <td class="span4 center">{{ getRelType(old) }}</td>
+        <td class="span1 center">&rArr;</td>
+        <td class="span4 center">{{ getRelType(new) }}</td>
     </tr>
 {% endmacro %}
 
 {% macro category(old, new) %}
     <tr class="table-condensed">
-        <td class="span2">
-            {{ 'Category'|_ }}
-        </td>
+        <td class="span2">Category</td>
         <td class="span4 center">
             {% for oldCategory in old %}
                 <span class="label" style="background-color: {{ '#' ~ oldCategory.color }}; color: {{ getContrastColor(oldCategory.color) }};">

@@ -6,37 +6,20 @@
 <div class="filters btn-toolbar clearfix">
     <div class="clearfix">
         <div class="btn-group pull-left" data-toggle="buttons-checkbox" id="filter-state-div">
-            <button type="button"
-                    class="btn{% if state.get('filter.state') == 0 %} active btn-success {% endif %}"
-                    value="0">
-                {{ 'Open'|_ }}
-            </button>
-            <button type="button"
-                    class="btn{% if state.get('filter.state') == 1 %} active btn-danger {% endif %}"
-                    value="1">
-                {{ 'Closed'|_ }}
-            </button>
-            <button type="button"
-                    class="btn{% if state.get('filter.state') == 2 %} active btn-inverse {% endif %}"
-                    value="2">
-                {{ 'All'|_ }}
-            </button>
+            <button type="button" class="btn{% if state.get('filter.state') == 0 %} active btn-success{% endif %}" value="0">Open</button>
+            <button type="button" class="btn{% if state.get('filter.state') == 1 %} active btn-danger{% endif %}" value="1">Closed</button>
+            <button type="button" class="btn{% if state.get('filter.state') == 2 %} active btn-inverse{% endif %}" value="2">All</button>
         </div>
         <div id="stools-button" class="btn-group">
             <button type="button" class="btn pull-left" data-toggle="collapse" data-target="#stools-container">
-                {{ 'Search Tools'|_ }}
-                <b class="caret"></b>
+                Search Tools <b class="caret"></b>
             </button>
         </div>
         <div class="btn-group">
-            <button class="btn" id="button-remove" type="button">{{ 'Clear'|_ }}</button>
+            <button class="btn" id="button-remove" type="button">Clear</button>
         </div>
-        <a class="btn pull-right" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">
-            {{ 'Feeling Lucky'|_ }}
-        </a>
-        <a class="btn pull-right" id="permalink" href="javascript:">
-            {{ 'Permalink'|_ }}
-        </a>
+        <a class="btn pull-right" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">Feeling Lucky</a>
+        <a class="btn pull-right" id="permalink" href="javascript:">Permalink</a>
     </div>
 
     <div id="stools-container" class="collapse
@@ -56,14 +39,11 @@
             {% endif %}
             clearfix pull-left">
         <div class="filter-search btn-group input-append">
-            <label class="filter-search-lbl element-invisible"
-                   for="filter-search">{{ 'Filter the list by summary or description.'|_ }}</label>
-            <input type="text" class="toclear search-query input-xlarge" name="filter-search" id="filter-search"
-                   value="{{ state.get('filter.search') }}"
-                   title="{{ translate('Filter the list by ID, summary, or description.') }}"
-                   placeholder="{{ translate('Filter the list by ID, summary, or description.') }}"/>
-            <button class="btn button-submit" type="button">
-                <span class="icon-search"></span></button>
+            <label class="filter-search-lbl element-invisible" for="filter-search">Filter the list by summary or description.</label>
+            <input type="text" class="toclear search-query input-xlarge" name="filter-search" id="filter-search" value="{{ state.get('filter.search') }}"
+                   title="Filter the list by ID, summary, or description."
+                   placeholder="Filter the list by ID, summary, or description."/>
+            <button class="btn button-submit" type="button"><span class="icon-search"></span></button>
         </div>
         <div class="btn-group">
             {{ filters.type(state.get('filter.type'), 'filter-type', 'toclear input-medium-140') }}
@@ -97,14 +77,11 @@
             {{ filters.label(state.get('filter.label'), 'filter-label', 'toclear selectpicker', project.labels) }}
         </div>
         <div class="filter-search btn-group input-append">
-            <label class="filter-search-lbl element-invisible"
-                   for="filter-created_by">{{ 'Filter the list by creator.'|_ }}</label>
-            <input type="text" class="toclear search-query input-medium" name="filter-created_by" id="filter-created_by"
-                   value="{{ state.get('filter.created_by') }}"
-                   title="{{ translate('Filter the list by creator.') }}"
-                   placeholder="{{ translate('Filter the list by creator.') }}"/>
-            <button class="btn button-submit" type="button">
-                <span class="icon-search"></span></button>
+            <label class="filter-search-lbl element-invisible" for="filter-created_by">Filter the list by creator.</label>
+            <input type="text" class="toclear search-query input-medium" name="filter-created_by" id="filter-created_by" value="{{ state.get('filter.created_by') }}"
+                   title="Filter the list by creator."
+                   placeholder="Filter the list by creator."/>
+            <button class="btn button-submit" type="button"><span class="icon-search"></span></button>
         </div>
         <div class="btn-group">
             {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'toclear input-small-120') }}

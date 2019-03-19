@@ -47,47 +47,34 @@
 
     <ul class="breadcrumb">
         <li>
-            <a class="btn btn-success" href="javascript:" id="submit">
-                {{ 'Save'|_ }}
-            </a>
+            <a class="btn btn-success" href="javascript:" id="submit">Save</a>
         </li>
         {% if item.has_code %}
         <li>
-             <a class="btn btn-danger" href="javascript:" onclick="$('#testAlterContainer').slideUp();$('#testContainer').slideToggle();">
-                {{ 'Test this'|_ }}
-            </a>
+             <a class="btn btn-danger" href="javascript:" onclick="$('#testAlterContainer').slideUp();$('#testContainer').slideToggle();">Test this</a>
         </li>
-        <a class="btn btn-warning" href="javascript:" onclick="$('#testContainer').slideUp();$('#testAlterContainer').slideToggle();">
-                {{ 'Alter test'|_ }}
-        </a>
+        <a class="btn btn-warning" href="javascript:" onclick="$('#testContainer').slideUp();$('#testAlterContainer').slideToggle();">Alter test</a>
         {% endif %}
         <li>
-            <a class="btn btn-inverse" href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/' ~ item.issue_number }}">
-                {{ 'Cancel'|_ }}
-            </a>
+            <a class="btn btn-inverse" href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/' ~ item.issue_number }}">Cancel</a>
         </li>
 
         {% if project.gh_user and project.gh_project %}
             <li>
                 <i class="icon-github"></i>
-                <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/issues/' ~ item.issue_number }}"
-                   target="_blank" class="external">
-                    GitHub # {{ item.issue_number }}
-                </a>
+                <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/issues/' ~ item.issue_number }}" target="_blank" class="external">GitHub #{{ item.issue_number }}</a>
             </li>
         {% endif %}
         {% if item.foreign_number %}
             <li>
-                <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
-                   target="_blank">
-                    {{ translate('Foreign ID') }}
-                    {{ item.foreign_number }}
+                <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}" target="_blank">
+                    Foreign ID {{ item.foreign_number }}
                 </a>
             </li>
         {% endif %}
 
         <li>
-            {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date|date("j M Y")) }}
+            {{ "%1$s opened this ticket on %2$s"|format(item.opened_by, item.opened_date|date("j M Y")) }}
         </li>
     </ul>
 
@@ -103,7 +90,7 @@
         {# Show only if the user has *full*^edit rights - e.g. not "edit own" #}
         <ul class="breadcrumb">
             <li>
-                <label for="status">{{ translate('Status') }}</label>
+                <label for="status">Status</label>
                 <select name="item[status]" id="status" class="span2">
                     {% for key, value in getStatuses() %}
                         <option {{ key == item.status ? "selected='selected'" : ""  }} value="{{ key }}">{{ value }}</option>
@@ -111,7 +98,7 @@
                 </select>
             </li>
             <li>
-                <label for="priority">{{ translate('Priority') }}</label>
+                <label for="priority">Priority</label>
                 <select name="item[priority]" id="priority" class="span2">
                     {% for key, value in priorities() %}
                         <option {{ key == item.priority ? "selected='selected'" : ""  }} value="{{ key }}">{{ value }}</option>
@@ -120,7 +107,7 @@
             </li>
             <li><div class="span1"></div></li>
             <li>
-                <label for="rel_type">{{ translate('Item') }}</label>
+                <label for="rel_type">Item</label>
                 <select name="item[rel_type]" id="rel_type" class="span2">
                     <option value="0"></option>
                     {% for relType in getRelTypes() %}
@@ -137,12 +124,12 @@
 
         <ul class="breadcrumb">
             <li>
-                <label for="build">{{ translate('Build') }}</label>
+                <label for="build">Build</label>
                 <input name="item[build]" id="build" type="text" class="span1 validateBuild" value="{{ item.build }}" />
             </li>
             {% if item.has_code %}
                 <li>
-                    <label for="easy">{{ translate('Easy test') }}</label>
+                    <label for="easy">Easy test</label>
                     <select name="item[easy]" id="easy" class="span1">
                         <option {{ 0 == item.easy ? "selected='selected'" : ""  }} value="0">{{ '0'|yesno }}</option>
                         <option {{ 1 == item.easy ? "selected='selected'" : ""  }} value="1">{{ '1'|yesno }}</option>
@@ -151,7 +138,7 @@
             {% endif %}
             {% if project.categories %}
                 <li>
-                    {{ fields.label('categories[]', 'Categories'|_) }}
+                    {{ fields.label('categories[]', 'Categories') }}
                     {{ fields.selectCategories('categories[]', project.categories, item.categoryids) }}
                 </li>
             {% endif %}
@@ -160,14 +147,14 @@
 
                 {% if project.labels %}
                     <li>
-                        {{ fields.label('labels', 'Labels'|_) }}
+                        {{ fields.label('labels', 'Labels') }}
                         {{ fields.selectLabels('item[labels][]', project.labels, item.labels|split(',') , 'labels') }}
                     </li>
                 {% endif %}
 
                 {% if project.milestones %}
                     <li>
-                        {{ fields.label('item[milestone_id]', 'Milestone'|_) }}
+                        {{ fields.label('item[milestone_id]', 'Milestone') }}
                         {{ fields.selectMilestone('item[milestone_id]', project.milestones, item.milestone_id) }}
                     </li>
                 {% endif %}
@@ -180,7 +167,7 @@
         <div class="span11 well-small">
             <ul class="unstyled">
                 <li style="padding-bottom: 10px">
-                    <label for="title">{{ translate('Title') }}</label>
+                    <label for="title">Title</label>
                     <input name="item[title]" id="title" type="text"
                     style="width: 80%; font-size: 1.2em;"
                     value="{{ item.title }}"
@@ -202,7 +189,7 @@
 
         <div class="row-fluid">
             <div class="span11 well-small">
-                <h4>{{ "Add a Comment"|_ }}</h4>
+                <h4>Add a Comment</h4>
 
                 {% set editorId="comment" %}
                 {% set previewId="previewComment" %}
@@ -210,10 +197,10 @@
                 {% set editorClass="" %}
                 {% set editorName="comment" %}
                 {% set editorText='' %}
-                {% set editorPlaceholder="Leave a comment"|_ %}
+                {% set editorPlaceholder="Leave a comment" %}
 
                 {% include "editor.twig" %}
-                <a class="pull-right btn btn-success" href="javascript:" id="submit-bottom">{{ translate('Save') }}</a>
+                <a class="pull-right btn btn-success" href="javascript:" id="submit-bottom">Save</a>
             </div>
         </div>
 
@@ -294,7 +281,7 @@
                 var e = $('div.alert-danger');
 
                 if (validator.numberOfInvalids()) {
-                    e.html('{{ 'Some fields are invalid. They have been highlighted.'|_ }}');
+                    e.html('Some fields are invalid. They have been highlighted.');
                     e.show();
                 } else {
                     e.hide();
@@ -304,14 +291,14 @@
 
         $('#submit').click(function() {
             if (form.valid()) {
-                $('#submit').html('{{ 'Saving...'|_ }}');
+                $('#submit').html('Saving...');
             }
             form.submit();
         });
 
         $('#submit-bottom').click(function() {
             if (form.valid()) {
-                $('#submit-bottom').html('{{ 'Saving...'|_ }}');
+                $('#submit-bottom').html('Saving...');
             }
             form.submit();
         });

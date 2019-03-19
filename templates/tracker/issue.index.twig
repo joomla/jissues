@@ -24,7 +24,7 @@
     <style type="text/css">
         a:target {
             /* Anchor links in events and fixed top bar */
-            padding-top: 120px;;
+            padding-top: 120px;
         }
         .tests-success, .tests-1 {
             color: green;
@@ -52,13 +52,11 @@
 
     {% if not item or item.issue_number == 0 %}
         <div class="alert alert-danger">
-            {{ 'That issue does not exist, or the ID you typed is incorrect.'|_ }}
+            That issue does not exist, or the ID you typed is incorrect.
         </div>
     {% else %}
         <div class="page-header">
-            <a class="btn pull-right"
-               href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ 'Feeling Lucky'|_ }}
-            </a>
+            <a class="btn pull-right" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">Feeling Lucky</a>
 
             <h1>[#{{ item.issue_number }}] - {{ item.title }}</h1>
         </div>
@@ -71,54 +69,40 @@
 
         {% if user.check("edit") or canEditOwn %}
             <li>
-                <a class="btn btn-warning"
-                   href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/' ~ item.issue_number ~ '/edit' }}">
-                    {{ "Edit"|_ }}
-                </a>
+                <a class="btn btn-warning" href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/' ~ item.issue_number ~ '/edit' }}">Edit</a>
             </li>
         {% endif %}
 
         <li>
-            <span class="badge badge-{{ item.closed ? "important" : "success" }}">
-                {{ item.status_title|_ }}
-            </span>
+            <span class="badge badge-{{ item.closed ? "important" : "success" }}">{{ item.status_title }}</span>
         </li>
 
         {% if item.closed %}
             <li>{{ item.closed_date|date("j M Y", offset) }}</li>
-            <!-- @todo SHA link -->
             {% if item.closed_sha %}
                 <li>SHA: <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/commit/' ~ item.closed_sha }}">{{ item.closed_sha }}</a></li>
             {% endif %}
         {% endif %}
 
         <li>
-            <span class="badge {{ prioClass(item.priority) }}">
-                {{ getPriority(item.priority) }}
-            </span>
+            <span class="badge {{ prioClass(item.priority) }}">{{ getPriority(item.priority) }}</span>
         </li>
 
         {% if item.build %}
             <li>
-                <span class="badge">
-                    {{ "Build"|_ }}: {{ item.build }}
-                </span>
+                <span class="badge">Build: {{ item.build }}</span>
             </li>
         {% endif %}
 
         {% if item.easy %}
             <li>
-                <span class="badge badge-success">
-                    {{ "Easy Test"|_ }}
-                </span>
+                <span class="badge badge-success">Easy Test</span>
             </li>
         {% endif %}
 
         {% if item.tests %}
             <li>
-                <span class="badge">
-                    {{ "# of Successful Tests"|_ }}: {{ item.tests }}
-                </span>
+                <span class="badge"># of Successful Tests: {{ item.tests }}</span>
             </li>
         {% endif %}
 
@@ -127,7 +111,7 @@
                 &nbsp;
                 <a href="#write">
                     <span class="octicon octicon-comment"></span>
-                    {{ "To comment"|_ }}
+                    To comment
                 </a>
             </li>
         {% endif %}
@@ -135,20 +119,16 @@
         {% if project.gh_user and project.gh_project %}
             <li>
                 &nbsp;
-                <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/issues/' ~ item.issue_number }}"
-                   target="_blank" title="{{ 'View this issue on GitHub'|_ }}">
-                    <span class="octicon octicon-mark-github"></span>
-                    # {{ item.issue_number }}
+                <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/issues/' ~ item.issue_number }}" target="_blank" title="View this issue on GitHub">
+                    <span class="octicon octicon-mark-github"></span> # {{ item.issue_number }}
                 </a>
             </li>
 
             {% if item.has_code %}
                 <li>
                     &nbsp;
-                    <a href="https://patch-diff.githubusercontent.com/raw/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/pull/' ~ item.issue_number }}.diff"
-                       target="_blank" title="{{ 'View a plain diff for this pull request'|_ }}">
-                        <span class="octicon octicon-diff"></span>
-                        {{ 'Diff'|_ }}
+                    <a href="https://patch-diff.githubusercontent.com/raw/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/pull/' ~ item.issue_number }}.diff" target="_blank" title="View a plain diff for this pull request">
+                        <span class="octicon octicon-diff"></span> Diff
                     </a>
                 </li>
             {% endif %}
@@ -163,10 +143,8 @@
                 {% else %}
                     <li>
                         &nbsp;
-                        <a href="https://github.com/{{ item.pr_head_user ~ '/'  ~ project.gh_project ~ '/archive/' ~ item.pr_head_ref ~ '.zip' }}"
-                           title="{{ 'Download this fork as a ZIP file'|_ }}">
-                            <span class="octicon octicon-repo-forked"></span>
-                            {{ item.pr_head_user ~ ':' ~ item.pr_head_ref }}
+                        <a href="https://github.com/{{ item.pr_head_user ~ '/'  ~ project.gh_project ~ '/archive/' ~ item.pr_head_ref ~ '.zip' }}" title="Download this fork as a ZIP file">
+                            <span class="octicon octicon-repo-forked"></span> {{ item.pr_head_user ~ ':' ~ item.pr_head_ref }}
                         </a>
                     </li>
                 {% endif %}
@@ -176,16 +154,12 @@
 
         {% if item.foreign_number %}
             <li>
-                <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
-                   target="_blank">
-                    {{ "Foreign ID"|_ }}
-                    {{ item.foreign_number }}
-                </a>
+                <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}" target="_blank">Foreign ID {{ item.foreign_number }}</a>
             </li>
         {% endif %}
     </ul>
 
-<!-- Merge Status -->
+    <!-- Merge Status -->
     {% if item.merge_state %}
         <h4>{{ item.merge_state|mergeBadge|raw }}</h4>
         <ul class="unstyled">
@@ -195,9 +169,7 @@
                         {{ status.state|mergeBadge|raw }}
                         <strong>{{ status.context }}</strong>
                         {{ status.description }}
-                        <a href="{{ status.targetUrl }}" title="{{ status.context }}">
-                            {{ 'Details'|_ }}
-                        </a>
+                        <a href="{{ status.targetUrl }}" title="{{ status.context }}">Details</a>
                     </li>
                 {% endfor %}
             {% else %}
@@ -207,35 +179,31 @@
                         {{ item.gh_merge_status.description }}
                     {% endif %}
                     {% if item.gh_merge_status.targetUrl %}
-                        <a href="{{ item.gh_merge_status.targetUrl }}">
-                            {{ 'Details'|_ }}
-                        </a>
+                        <a href="{{ item.gh_merge_status.targetUrl }}">Details</a>
                     {% endif %}
                 </li>
             {% endif %}
         </ul>
     {% endif %}
 
-<!-- Categories -->
+    <!-- Categories -->
     {% if item.categories %}
         <ul class="breadcrumb">
             <li>
-                <strong>{{ 'Categories:'|_ }}</strong>
+                <strong>Categories:</strong>
             </li>
 
-                {% for category in item.categories %}
-                    <li>
+            {% for category in item.categories %}
+                <li>
                     <a href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/?category=' ~ category.alias }}">
-                        <span class="label" style="background-color:#{{ category.color }};color:{{ getContrastColor(category.color) }}">
-                            {{ category.title }}
-                        </span>
+                        <span class="label" style="background-color:#{{ category.color }};color:{{ getContrastColor(category.color) }}">{{ category.title }}</span>
                     </a>
-                    </li>
-                {% endfor %}
+                </li>
+            {% endfor %}
         </ul>
     {% endif %}
 
-<!-- Relations -->
+    <!-- Relations -->
     {% if item.rel_number %}
         <div class="alert">
             {{ relation(item.rel_name) }}
@@ -245,12 +213,12 @@
 
     {% if item.relations_f %}
         <div class="alert">
-            {{ "Referenced as"|_ }}
+            Referenced as
             {% for rel_name, relations in item.relations_f %}
                 <strong>{{ relation(rel_name) }}: </strong>
                 {% for relation in relations %}
                     {{ issueLink(relation.issue_number, relation.closed, relation.title)|raw }}
-              {% endfor %}
+                {% endfor %}
             {% endfor %}
         </div>
     {% endif %}
@@ -265,28 +233,22 @@
     {% endif %}
 
     <!-- Tests -->
-
     {% if item.has_code %}
-
         <p class="highlightRow">
             {% if user.id or user.check('edit') %}
                 <span class="btn-group">
                     {% if user.id %}
-                        <span class="btn btn-primary" onclick="$('#testAlterContainer').slideUp();$('#testContainer').slideToggle();">
-                            {{ 'Test this'|_ }}
-                        </span>
+                        <span class="btn btn-primary" onclick="$('#testAlterContainer').slideUp();$('#testContainer').slideToggle();">Test this</span>
                     {% endif %}
                     {% if user.check('edit') %}
-                        <span class="btn btn-warning" onclick="$('#testContainer').slideUp();$('#testAlterContainer').slideToggle();">
-                            {{ 'Alter test'|_ }}
-                        </span>
+                        <span class="btn btn-warning" onclick="$('#testContainer').slideUp();$('#testAlterContainer').slideToggle();">Alter test</span>
                     {% endif %}
                 </span>
             {% endif %}
-            <strong>{{ 'User tests:'|_ }}</strong>
-            {{ 'Successful: %s'|_|format('<span id="usertests-success-num" class="tests-success"></span>')|raw }}
+            <strong>User tests:</strong>
+            Successful: <span id="usertests-success-num" class="tests-success"></span>
             <span id="usertests-success" class="tests-success"></span>
-            {{ 'Unsuccessful: %s'|_|format('<span id="usertests-fail-num" class="tests-fail"></span>')|raw }}
+            Unsuccessful: <span id="usertests-fail-num" class="tests-fail"></span>
             <span id="usertests-fail" class="tests-fail"></span>
         </p>
 
@@ -325,7 +287,7 @@
         <div class="span3 well">
 
             {% if item.votes or user.id %}
-            <h4>{{ 'Votes'|_ }}</h4>
+            <h4>Votes</h4>
             {% endif %}
 
             {% set displayVotes = ' style="display: none"' %}
@@ -335,11 +297,11 @@
 
             <div id="issue-votes"{{ displayVotes|raw }}>
                 <div class="row-fluid">
-                    <div class="span10"><b>{{ "# of Users Experiencing Issue"|_ }}</b></div>
+                    <div class="span10"><strong># of Users Experiencing Issue</strong></div>
                     <div id="experienced" class="span2">{{ item.experienced }}/{{ item.votes }}</div>
                 </div>
                 <div class="row-fluid">
-                    <div class="span10"><b>{{ "Average Importance Score"|_ }}</b></div>
+                    <div class="span10"><strong>Average Importance Score</strong></div>
                     <div id="importance" class="span2">{{ item.importanceScore|number_format(2) }}</div>
                 </div>
                 <hr class="issue-votes" />
@@ -348,19 +310,19 @@
             {% if user.id %}
             <form class="form-inline scores-report" name="voteForm">
                 <fieldset>
-                    <p>{{ "I've experienced this issue"|_ }}</p>
+                    <p>I've experienced this issue</p>
                     <label class="radio">
                         <input type="radio" name="experiencedRadios" id="experiencedRadiosYes" value="1">
-                        {{ "Yes"|_ }}
+                        Yes
                     </label>
                     <label class="radio">
                         <input type="radio" name="experiencedRadios" id="experiencedRadiosNo" value="0" checked>
-                         {{ "No"|_ }}
+                         No
                     </label>
                 </fieldset>
                 <hr class="issue-votes" />
                 <fieldset>
-                    <p>{{ "Importance of issue to me"|_ }}</p>
+                    <p>Importance of issue to me</p>
                     <label class="radio">
                         <input type="radio" name="importanceRadios" id="importanceRadios1" value="1">
                         1
@@ -384,9 +346,7 @@
                 </fieldset>
                 <hr class="issue-votes" />
                 <div id="voteResult"></div>
-                <a href="javascript:" class="btn btn-primary" id="voteButton" onclick="JTracker.submitVote('{{ item.id }}', '#voteResult');">
-                    {{ "Vote"|_ }}
-                </a>
+                <a href="javascript:" class="btn btn-primary" id="voteButton" onclick="JTracker.submitVote('{{ item.id }}', '#voteResult');">Vote</a>
             </form>
             {% endif %}
         </div>
@@ -491,7 +451,7 @@
                                         {% set activitiesCnt = activitiesCnt + 1 %}
                                         {{ activities.description(change.old, change.new, activitiesCnt) }}
                                     {% else %}
-                                        {{ 'The description was changed'|_ }}
+                                        The description was changed
                                     {% endif %}
                                 {% elseif 'priority' == change.name %}
                                     {{ activities.priority(change.old, change.new) }}
@@ -547,9 +507,7 @@
 
     <!-- Add form -->
 
-    <h4>
-        {{ "Add a Comment"|_ }}
-    </h4>
+    <h4>Add a Comment</h4>
 
     {% if user.id %}
         {% if user.check("create") or user.check("manage") %}
@@ -561,17 +519,14 @@
                     {% set editorId="comment" %}
                     {% set writeId="write" %}
                     {% set previewId="preview" %}
-                    {% set editorPlaceholder="Leave a comment"|_ %}
+                    {% set editorPlaceholder="Leave a comment" %}
                     {% include "editor.twig" %}
                 </div>
             </div>
             <div class="row-fluid">
                 <div class="pull-right comment-wrapper">
                     <div id="commentStatus"></div>
-                    <a href="javascript:" class="btn btn-success"
-                       onclick="JTracker.submitComment('{{ item.issue_number }}', '#commentStatus', '#newComment', 'tplNewComment', '#shaTest');">
-                        {{ "Post Comment"|_ }}
-                    </a>
+                    <a href="javascript:" class="btn btn-success" onclick="JTracker.submitComment('{{ item.issue_number }}', '#commentStatus', '#newComment', 'tplNewComment', '#shaTest');">Post Comment</a>
                 </div>
             </div>
 
@@ -585,15 +540,15 @@
         {% endif %}
 
     {% else %}
-        <a class="btn btn-success" href="{{ loginUrl }}">{{ "Login with GitHub to post a comment"|_ }}</a>
+        <a class="btn btn-success" href="{{ loginUrl }}">Login with GitHub to post a comment</a>
     {% endif %}
 
     <ul class="pager">
         <li class="previous{% if not item.previousIssue %} disabled{% endif %}">
-            <a href="{% if item.previousIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.previousIssue }}{% else %}#{% endif %}"><i class="icon-arrow-left"></i> {{ "Older"|_ }}</a>
+            <a href="{% if item.previousIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.previousIssue }}{% else %}#{% endif %}"><i class="icon-arrow-left"></i> Older</a>
         </li>
         <li class="next{% if not item.nextIssue %} disabled{% endif %}">
-            <a href="{% if item.nextIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.nextIssue }}{% else %}#{% endif %}">{{ "Newer"|_ }} <i class="icon-arrow-right"></i></a>
+            <a href="{% if item.nextIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.nextIssue }}{% else %}#{% endif %}">Newer <i class="icon-arrow-right"></i></a>
         </li>
     </ul>
 

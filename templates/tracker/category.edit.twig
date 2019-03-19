@@ -3,13 +3,11 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ parent() }} | {{ "Edit Category"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | Edit Category{% endblock %}
 
 {% block prependMenu %}
     <li>
-        <a class="btn-success" href="javascript:;" onclick="document.editForm.submit();">
-            {{ "Save"|_ }}
-        </a>
+        <a class="btn-success" href="javascript:;" onclick="document.editForm.submit();">Save</a>
     </li>
 
     {{ parent() }}
@@ -18,15 +16,15 @@
 
 {% block content %}
     <div class="page-header">
-        <h1>{{ "Edit Category"|_ }}</h1>
+        <h1>Edit Category</h1>
     </div>
 
     <form method="post" action="{{ uri.base.path }}category/save" class="form-inline" name="editForm">
         <fieldset>
-            <legend>{{ "Details"|_ }}</legend>
+            <legend>Details</legend>
 
             <div class="control-group">
-                <label class="control-label" for="title">{{ "Title"|_ }}</label>
+                <label class="control-label" for="title">Title</label>
 
                 <div class="controls">
                     <input type="text" name="category[title]" id="title" value="{{ item.title }}"/>
@@ -34,7 +32,7 @@
             </div>
 
             <div class="control-group">
-                <label class="control-label" for="alias">{{ "Alias"|_ }}</label>
+                <label class="control-label" for="alias">Alias</label>
 
                 <div class="controls">
                     <input type="text" name="category[alias]" id="alias" value="{{ item.alias }}"/>
@@ -42,7 +40,7 @@
             </div>
 
             <div class="control-group">
-                <label class="control-label" for="color_display">{{ "Colour"|_ }}</label>
+                <label class="control-label" for="color_display">Colour</label>
 
                 <div class="controls">
                     <input class="color_select" id="color" value="#{{ item.color }}"/>

@@ -3,14 +3,12 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ parent() }} | {{ "Categories List"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | Categories List{% endblock %}
 
 {% block prependMenu %}
     {% if user.check("manage") %}
         <li>
-            <a class="btn-success" href="{{ uri.base.path }}category/{{ project.alias }}/add">
-                {{ "New Category"|_ }}
-            </a>
+            <a class="btn-success" href="{{ uri.base.path }}category/{{ project.alias }}/add">New Category</a>
         </li>
     {% endif %}
 
@@ -28,51 +26,47 @@
 {% block content %}
 
     <div class="page-header">
-        <h1>{{ "Categories List"|_ }}</h1>
+        <h1>Categories</h1>
     </div>
 
     <table class="table table-bordered table-hover">
 
         <tr>
-            <th style="width: 10%">{{ "Alias"|_ }}</th>
-            <th style="width: 10%">{{ "Title"|_ }}</th>
-            <th style="width: 10%">{{ "Colour"|_ }}</th>
+            <th style="width: 10%">Alias</th>
+            <th style="width: 10%">Title</th>
+            <th style="width: 10%">Colour</th>
 
             {% if user.check("manage") %}
-                <th style="width: 10%;">{{ "Actions"|_ }}</th>
+                <th style="width: 10%;">Actions</th>
             {% endif %}
 
             {% if jdebug %}
-                <th style="width: 5%;">{{ "ID"|_ }}</th>
+                <th style="width: 5%;">ID</th>
             {% endif %}
         </tr>
 
         {% for item in items %}
             <tr>
-                <td>
-                    {{ item.alias }}
-                </td>
-                <td >
-                    {{ item.title }}
-                </td>
+                <td>{{ item.alias }}</td>
+                <td>{{ item.title }}</td>
                 <td class="color-td" style="background-color: #{{ item.color }};color: {{ getContrastColor(item.color) }}">
                     #{{ item.color }}
                 </td>
                 <td>
-                        {% if user.check("manage") %}
-                            <a href="{{ uri.base.path }}category/{{ project.alias }}/delete/{{ item.id }}">{{ "Delete"|_ }}</a>
-                            <a href="{{ uri.base.path }}category/{{ project.alias }}/edit/{{ item.id }}">{{ "Edit"|_ }}</a>
-                        {% endif %}
+                    {% if user.check("manage") %}
+                        <a href="{{ uri.base.path }}category/{{ project.alias }}/delete/{{ item.id }}">Delete</a>
+                        <a href="{{ uri.base.path }}category/{{ project.alias }}/edit/{{ item.id }}">Edit</a>
+                    {% endif %}
                 </td>
                 {% if jdebug %}
-                  <td>{{ item.id }}</td>
+                    <td>{{ item.id }}</td>
                 {% endif %}
             </tr>
         {% endfor %}
     </table>
 
     {% if pagination.pagesTotal > 1 %}
-        {{ sprintf(translate("Page %1$s of %2$s"), pagination.pageNo, pagination.pagesTotal) }}
+        {{ "Page %1$s of %2$s"|format(pagination.pageNo, pagination.pagesTotal)) }}
         {{ pagination.bar|raw }}
     {% endif %}
 

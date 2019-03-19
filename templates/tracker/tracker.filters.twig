@@ -4,7 +4,7 @@
 {% macro status(value, id, class, state) %}
   {% import "fields.twig" as fields %}
 
-  {% set values = {0: '- Status -'|_} %}
+  {% set values = {0: '- Status -'} %}
   {% set values = values + getStatuses(state) %}
 
   {{ fields.select('filter-status', values, value, id, class) }}
@@ -13,7 +13,7 @@
 {% macro priority(value, id, class) %}
     {% import "fields.twig" as fields %}
 
-    {% set values = {0: '- Priority -'|_} %}
+    {% set values = {0: '- Priority -'} %}
     {% set values = values + priorities() %}
 
     {{ fields.select('filter-priority', values, value, id, class) }}
@@ -23,10 +23,10 @@
     {% import "fields.twig" as fields %}
 
     {% set values = {
-        0: 'Newest'|_,
-        1: 'Oldest'|_,
-        2: 'Recently updated'|_,
-        3: 'Least recently updated'|_
+        0: 'Newest',
+        1: 'Oldest',
+        2: 'Recently updated',
+        3: 'Least recently updated'
     } %}
 
     {{ fields.select('filter-sort', values, value, id, class) }}
@@ -36,9 +36,9 @@
     {% import "fields.twig" as fields %}
 
     {% set values = {
-        0: "Everyone's issues"|_,
-        1: 'Created by you'|_,
-        2: 'You participated in'|_,
+        0: "Everyone's issues",
+        1: 'Created by you',
+        2: 'You participated in',
     } %}
 
     {{ fields.select('filter-user', values, value, id, class) }}
@@ -47,8 +47,8 @@
 {% macro category(value, id, class, categories) %}
     {% import "fields.twig" as fields %}
 
-    {% set values = {0: '- Categories -'|_,
-    (-1): 'No Categories'|_
+    {% set values = {0: '- Categories -',
+    (-1): 'No Categories'
     } %}
     {% for category in categories %}
         {% set values = values + { (category.id) : (category.title) } %}
@@ -60,7 +60,7 @@
 {% macro label(value, id, class, labels) %}
     {% import "fields.twig" as fields %}
 
-    {% set values = {0: '- Labels -'|_} %}
+    {% set values = {0: '- Labels -'} %}
     {% for id,label in labels %}
         {% set values = values + { (id) : (label.name) } %}
     {% endfor %}
@@ -72,10 +72,10 @@
     {% import "fields.twig" as fields %}
 
     {% set values = {
-        0: '- Tests -'|_,
-        1: 'Needs one test'|_,
-        2: 'Has two tests'|_,
-        3: 'Needs tests'|_,
+        0: '- Tests -',
+        1: 'Needs one test',
+        2: 'Has two tests',
+        3: 'Needs tests',
     } %}
 
     {{ fields.select('filter-tests', values, value, id, class) }}
@@ -85,9 +85,9 @@
     {% import "fields.twig" as fields %}
 
     {% set values = {
-        2: '- Easy -'|_,
-        1: 'Yes'|_,
-        0: 'No'|_
+        2: '- Easy -',
+        1: 'Yes',
+        0: 'No'
     } %}
 
     {{ fields.select('filter-easytest', values, value, id, class) }}
@@ -97,9 +97,9 @@
     {% import "fields.twig" as fields %}
 
     {% set values = {
-        0: '- Type -'|_,
-        1: 'Pull Request'|_,
-        2: 'Issue'|_,
+        0: '- Type -',
+        1: 'Pull Request',
+        2: 'Issue',
     } %}
 
     {{ fields.select('filter-type', values, value, id, class) }}
@@ -108,7 +108,7 @@
 {% macro milestone(value, id, class, milestones) %}
     {% import "fields.twig" as fields %}
 
-    {% set values = {0: '- Milestones -'|_} %}
+    {% set values = {0: '- Milestones -'} %}
     {% for milestone in milestones %}
         {% set values = values + { (milestone.milestone_id) : (milestone.title) } %}
     {% endfor %}
