@@ -21,13 +21,16 @@ use JTracker\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Asset\Packages;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 /**
  * Twig extension class
  *
  * @since  1.0
  */
-class TrackerExtension extends \Twig_Extension
+class TrackerExtension extends AbstractExtension
 {
 	/**
 	 * Application object
@@ -88,40 +91,40 @@ class TrackerExtension extends \Twig_Extension
 	/**
 	 * Returns a list of functions to add to the existing list.
 	 *
-	 * @return  \Twig_Function[]  An array of functions.
+	 * @return  TwigFunction[]  An array of functions.
 	 *
 	 * @since   1.0
 	 */
 	public function getFunctions()
 	{
 		$functions = [
-			new \Twig_Function('sprintf', 'sprintf'),
-			new \Twig_Function('stripJRoot', [$this, 'stripJRoot']),
-			new \Twig_Function('asset', [$this, 'getAssetUrl']),
-			new \Twig_Function('avatar', [$this, 'fetchAvatar'], ['is_safe' => ['html']]),
-			new \Twig_Function('prioClass', [$this, 'getPrioClass']),
-			new \Twig_Function('priorities', [$this, 'getPriorities']),
-			new \Twig_Function('getPriority', [$this, 'getPriority']),
-			new \Twig_Function('status', [$this, 'getStatus']),
-			new \Twig_Function('getStatuses', [$this, 'getStatuses']),
-			new \Twig_Function('translateStatus', [$this, 'translateStatus']),
-			new \Twig_Function('relation', [$this, 'getRelation']),
-			new \Twig_Function('issueLink', [$this, 'issueLink']),
-			new \Twig_Function('getRelTypes', [$this, 'getRelTypes']),
-			new \Twig_Function('getRelType', [$this, 'getRelType']),
-			new \Twig_Function('getTimezones', [$this, 'getTimezones']),
-			new \Twig_Function('getContrastColor', [$this, 'getContrastColor']),
-			new \Twig_Function('renderDiff', [$this, 'renderDiff'], ['is_safe' => ['html']]),
-			new \Twig_Function('renderLabels', [$this, 'renderLabels']),
-			new \Twig_Function('arrayDiff', [$this, 'arrayDiff']),
-			new \Twig_Function('userTestOptions', [$this, 'getUserTestOptions']),
-			new \Twig_Function('cdn_footer', [$this, 'getCdnFooter'], ['is_safe' => ['html']]),
-			new \Twig_Function('cdn_menu', [$this, 'getCdnMenu'], ['is_safe' => ['html']]),
+			new TwigFunction('sprintf', 'sprintf'),
+			new TwigFunction('stripJRoot', [$this, 'stripJRoot']),
+			new TwigFunction('asset', [$this, 'getAssetUrl']),
+			new TwigFunction('avatar', [$this, 'fetchAvatar'], ['is_safe' => ['html']]),
+			new TwigFunction('prioClass', [$this, 'getPrioClass']),
+			new TwigFunction('priorities', [$this, 'getPriorities']),
+			new TwigFunction('getPriority', [$this, 'getPriority']),
+			new TwigFunction('status', [$this, 'getStatus']),
+			new TwigFunction('getStatuses', [$this, 'getStatuses']),
+			new TwigFunction('translateStatus', [$this, 'translateStatus']),
+			new TwigFunction('relation', [$this, 'getRelation']),
+			new TwigFunction('issueLink', [$this, 'issueLink']),
+			new TwigFunction('getRelTypes', [$this, 'getRelTypes']),
+			new TwigFunction('getRelType', [$this, 'getRelType']),
+			new TwigFunction('getTimezones', [$this, 'getTimezones']),
+			new TwigFunction('getContrastColor', [$this, 'getContrastColor']),
+			new TwigFunction('renderDiff', [$this, 'renderDiff'], ['is_safe' => ['html']]),
+			new TwigFunction('renderLabels', [$this, 'renderLabels']),
+			new TwigFunction('arrayDiff', [$this, 'arrayDiff']),
+			new TwigFunction('userTestOptions', [$this, 'getUserTestOptions']),
+			new TwigFunction('cdn_footer', [$this, 'getCdnFooter'], ['is_safe' => ['html']]),
+			new TwigFunction('cdn_menu', [$this, 'getCdnMenu'], ['is_safe' => ['html']]),
 		];
 
 		if (!JDEBUG)
 		{
-			array_push($functions, new \Twig_Function('dump', [$this, 'dump']));
+			array_push($functions, new TwigFunction('dump', [$this, 'dump']));
 		}
 
 		return $functions;
@@ -130,22 +133,22 @@ class TrackerExtension extends \Twig_Extension
 	/**
 	 * Returns a list of filters to add to the existing list.
 	 *
-	 * @return  \Twig_Filter[]  An array of filters
+	 * @return  TwigFilter[]  An array of filters
 	 *
 	 * @since   1.0
 	 */
 	public function getFilters()
 	{
 		return [
-			new \Twig_Filter('basename', 'basename'),
-			new \Twig_Filter('get_class', 'get_class'),
-			new \Twig_Filter('json_decode', 'json_decode'),
-			new \Twig_Filter('stripJRoot', [$this, 'stripJRoot']),
-			new \Twig_Filter('contrastColor', [$this, 'getContrastColor']),
-			new \Twig_Filter('labels', [$this, 'renderLabels']),
-			new \Twig_Filter('yesno', [$this, 'yesNo']),
-			new \Twig_Filter('mergeStatus', [$this, 'getMergeStatus']),
-			new \Twig_Filter('mergeBadge', [$this, 'renderMergeBadge']),
+			new TwigFilter('basename', 'basename'),
+			new TwigFilter('get_class', 'get_class'),
+			new TwigFilter('json_decode', 'json_decode'),
+			new TwigFilter('stripJRoot', [$this, 'stripJRoot']),
+			new TwigFilter('contrastColor', [$this, 'getContrastColor']),
+			new TwigFilter('labels', [$this, 'renderLabels']),
+			new TwigFilter('yesno', [$this, 'yesNo']),
+			new TwigFilter('mergeStatus', [$this, 'getMergeStatus']),
+			new TwigFilter('mergeBadge', [$this, 'renderMergeBadge']),
 		];
 	}
 

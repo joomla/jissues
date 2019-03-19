@@ -10,8 +10,8 @@ namespace Application\Command\Make;
 
 use Application\Command\TrackerCommandOption;
 
-use Twig_Environment;
-use Twig_Loader_Filesystem;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * Class for generating a dependency file.
@@ -109,7 +109,7 @@ class Depfile extends Make
 
 		$this->dependencies = $this->getSorted($defined, $packages);
 
-		$twig = new Twig_Environment(new Twig_Loader_Filesystem(__DIR__ . '/tpl'));
+		$twig = new Environment(new FilesystemLoader(__DIR__ . '/tpl'));
 
 		$twig->setCache(false);
 
