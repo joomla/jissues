@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ parent() }} | {{ "%s - Project Activity Chart"|_|format(project.short_title) }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "%s - Project Activity Chart"|format(project.short_title) }}{% endblock %}
 
 {% block headerCSS %}
     {{ parent() }}
@@ -14,28 +14,28 @@
 
 {% block content %}
     <div class="page-header">
-        <h1>{{ "Project Open & Close Activity - %s"|_|format(project.title) }}</h1>
+        <h1>{{ "Project Open & Close Activity - %s"|format(project.title) }}</h1>
     </div>
 
     <div id="barchart" style="width:700px; height:600px;" data-href="{{ uri.base.path }}activity/project/{{ project.alias }}/query"></div>
 
     <div>
-    	<p>{{ "Note: An issue in the tracker may be closed in one of two ways. It may be fixed with a code change, or it may be closed because it was a duplicate issue or not considered to be a bug."|_ }}</p>
-    	<p>{{ "Fixed issues are issues for which a code change was made to fix the issue. Other Closed issues are issues that were closed because they were duplicate reports or not bugs."|_ }}</p>
-        <p>{{ "Please note that pull requests merged before 12 March 2016 may not have the correct status and are included in the Other Closed issues count if so."|_ }}</p>
+    	<p>Note: An issue in the tracker may be closed in one of two ways. It may be fixed with a code change, or it may be closed because it was a duplicate issue or not considered to be a bug.</p>
+    	<p>Fixed issues are issues for which a code change was made to fix the issue. Other Closed issues are issues that were closed because they were duplicate reports or not bugs.</p>
+        <p>Please note that pull requests merged before 12 March 2016 may not have the correct status and are included in the Other Closed issues count if so.</p>
     </div>
 
-    <h2>{{ "Chart Options"|_ }}</h2>
+    <h2>Chart Options</h2>
     <div class="form-inline">
     	<fieldset>
-            <label>{{ "Period"|_ }}</label>
+            <label>Period</label>
             <select id="period" name="period" class="input" size="1">
-                <option value="1" selected="selected">{{ "7 Days"|_ }}</option>
-                <option value="2">{{ "30 Days"|_ }}</option>
-                <option value="3">{{ "90 Days"|_ }}</option>
+                <option value="1" selected="selected">7 Days</option>
+                <option value="2">30 Days</option>
+                <option value="3">90 Days</option>
             </select>
 
-            <button class="btn btn-primary" id="dataUpdate">{{ "Update Chart"|_ }}</button>
+            <button class="btn btn-primary" id="dataUpdate">Update Chart</button>
     	</fieldset>
     </div>
 {% endblock %}

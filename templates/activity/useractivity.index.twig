@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ parent() }} | {{ "%s - User Activity Chart"|_|format(project.short_title) }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "%s - User Activity Chart"|format(project.short_title) }}{% endblock %}
 
 {% block headerCSS %}
     {{ parent() }}
@@ -15,39 +15,39 @@
 
 {% block content %}
     <div class="page-header">
-        <h1>{{ "User Tracker Activity - %s"|_|format(project.title) }}</h1>
+        <h1>{{ "User Tracker Activity - %s"|format(project.title) }}</h1>
     </div>
 
     <div id="barchart" style="width:700px; height:600px;" data-href="{{ uri.base.path }}activity/user/{{ project.alias }}/query"></div>
 
     <br />
-    <h2>{{ "Chart Options"|_ }}</h2>
+    <h2>Chart Options</h2>
     <div class="form-inline">
     	<fieldset>
-    		<label>{{ "Period"|_ }}</label>
+    		<label>Period</label>
     		<select id="period" name="period" class="input" size="1">
-    			<option value="1" selected="selected">{{ "7 Days"|_ }}</option>
-    			<option value="2">{{ "30 Days"|_ }}</option>
-    			<option value="3">{{ "90 Days"|_ }}</option>
-    			<option value="4">{{ "1 Year"|_ }}</option>
-    			<option value="5">{{ "Custom Period"|_ }}</option>
+    			<option value="1" selected="selected">7 Days</option>
+    			<option value="2">30 Days</option>
+    			<option value="3">90 Days</option>
+    			<option value="4">1 Year</option>
+    			<option value="5">Custom Period</option>
     		</select>
 
-    		<label>{{ "Type"|_ }}</label>
+    		<label>Type</label>
     		<select id="type" name="type" class="input-small" size="1">
-    			<option value="0" selected="selected">{{ "All"|_ }}</option>
-    			<option value="1">{{ "Tracker"|_ }}</option>
-    			<option value="2">{{ "Test"|_ }}</option>
-    			<option value="3">{{ "Code"|_ }}</option>
+    			<option value="0" selected="selected">All</option>
+    			<option value="1">Tracker</option>
+    			<option value="2">Test</option>
+    			<option value="3">Code</option>
     		</select>
 
-    		<button class="btn btn-primary" id="dataUpdate">{{ "Update Chart"|_ }}</button>
+    		<button class="btn btn-primary" id="dataUpdate">Update Chart</button>
     		<br />
     		<br />
     		<div id="hidedates" class="form-inline">
-    			<label>{{ "Start Date"|_ }}</label>
+    			<label>Start Date</label>
     			<input id="start_date" class="datepicker input-small" type="text" />
-    			<label>{{ "End Date"|_ }}</label>
+    			<label>End Date</label>
     			<input id="end_date" class="datepicker input-small" type="text" />
     		</div>
 
