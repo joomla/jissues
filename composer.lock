@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4a2e18a05dfd56864ec272e198211ad",
+    "content-hash": "0c88d07e0e343437f3ac2793871a2957",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -190,50 +190,6 @@
                 "console"
             ],
             "time": "2013-04-22T19:52:37+00:00"
-        },
-        {
-            "name": "elkuku/g11n",
-            "version": "5.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/elkuku/g11n.git",
-                "reference": "808f4431fe0d760c1b37290407724ebd1853826c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/g11n/zipball/808f4431fe0d760c1b37290407724ebd1853826c",
-                "reference": "808f4431fe0d760c1b37290407724ebd1853826c",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-pcre": "*",
-                "league/flysystem": "1.*",
-                "php": ">=7.1",
-                "symfony/var-dumper": "^4.1"
-            },
-            "require-dev": {
-                "joomla/coding-standards": "dev-master",
-                "phpunit/phpunit": "7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ElKuKu\\G11n\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "WTFPL"
-            ],
-            "authors": [
-                {
-                    "name": "Nikolai Plath",
-                    "email": "der.el.kuku@gmail.com"
-                }
-            ],
-            "description": "The g11n language library",
-            "time": "2018-07-19T16:11:44+00:00"
         },
         {
             "name": "filp/whoops",
@@ -2088,82 +2044,6 @@
                 "shim"
             ],
             "time": "2018-09-21T13:07:52+00:00"
-        },
-        {
-            "name": "symfony/var-dumper",
-            "version": "v4.2.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "223bda89f9be41cf7033eeaf11bc61a280489c17"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/223bda89f9be41cf7033eeaf11bc61a280489c17",
-                "reference": "223bda89f9be41cf7033eeaf11bc61a280489c17",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1.3",
-                "symfony/polyfill-mbstring": "~1.0",
-                "symfony/polyfill-php72": "~1.5"
-            },
-            "conflict": {
-                "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0",
-                "symfony/console": "<3.4"
-            },
-            "require-dev": {
-                "ext-iconv": "*",
-                "symfony/console": "~3.4|~4.0",
-                "symfony/process": "~3.4|~4.0",
-                "twig/twig": "~1.34|~2.4"
-            },
-            "suggest": {
-                "ext-iconv": "To convert non-UTF-8 strings to UTF-8 (or symfony/polyfill-iconv in case ext-iconv cannot be used).",
-                "ext-intl": "To show region name in time zone dump",
-                "symfony/console": "To use the ServerDumpCommand and/or the bin/var-dump-server script"
-            },
-            "bin": [
-                "Resources/bin/var-dump-server"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.2-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "Resources/functions/dump.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Component\\VarDumper\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony mechanism for exploring and dumping PHP variables",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "debug",
-                "dump"
-            ],
-            "time": "2019-01-30T11:44:30+00:00"
         },
         {
             "name": "twig/twig",
