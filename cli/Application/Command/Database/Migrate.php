@@ -26,12 +26,12 @@ class Migrate extends Database
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Migrate the database schema to a newer version.');
+		$this->description = 'Migrate the database schema to a newer version.';
 
 		$this->addOption(
 			new TrackerCommandOption(
 				'version', '',
-				g11n3t('Apply a specific database version.')
+				'Apply a specific database version.'
 			)
 		);
 	}
@@ -45,7 +45,7 @@ class Migrate extends Database
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Database Migrations: Migrate'));
+		$this->getApplication()->outputTitle('Database Migrations: Migrate');
 
 		/** @var \JTracker\Database\Migrations $migrations */
 		$migrations = $this->getContainer()->get('db.migrations');
@@ -65,7 +65,7 @@ class Migrate extends Database
 			);
 
 			$message = sprintf(
-				g11n3t('Error migrating database: %s'),
+				'Error migrating database: %s',
 				$exception->getMessage()
 			);
 
@@ -74,6 +74,6 @@ class Migrate extends Database
 
 		$this->getLogger()->info('Database migrated to latest version.');
 
-		$this->getApplication()->out('<ok>' . g11n3t('Database migrated to latest version.') . '</ok>');
+		$this->getApplication()->out('<ok>Database migrated to latest version.</ok>');
 	}
 }

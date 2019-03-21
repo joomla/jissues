@@ -34,12 +34,13 @@ class Install extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		$this->description = g11n3t('Install the application.');
+		$this->description = 'Install the application.';
 
 		$this->addOption(
 			new TrackerCommandOption(
-				'reinstall', '',
-				g11n3t('Reinstall the application (without confirmation)')
+				'reinstall',
+				'',
+				'Reinstall the application (without confirmation)'
 			)
 		);
 	}
@@ -56,7 +57,7 @@ class Install extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Installer'));
+		$this->getApplication()->outputTitle('Installer');
 
 		$this->db = $this->getContainer()->get('db');
 
@@ -68,14 +69,14 @@ class Install extends TrackerCommand
 			if (!$this->getOption('reinstall'))
 			{
 				$this->out()
-					->out('<fg=black;bg=yellow>' . g11n3t('WARNING: A database has been found!') . '</fg=black;bg=yellow>')
+					->out('<fg=black;bg=yellow>WARNING: A database has been found!</fg=black;bg=yellow>')
 					->out()
-					->out(g11n3t('Do you want to reinstall?'))
+					->out('Do you want to reinstall?')
 					->out()
-					->out('1) ' . g11n3t('Yes'))
-					->out('2) ' . g11n3t('No'))
+					->out('1) Yes')
+					->out('2) No')
 					->out()
-					->out('<question>' . g11n3t('Select:') . '</question>', false);
+					->out('<question>Select:</question>', false);
 
 				$in = trim($this->getApplication()->in());
 
@@ -95,8 +96,8 @@ class Install extends TrackerCommand
 			{
 				// ? really..
 				$this
-					->out(g11n3t('No database found.'))
-					->out(g11n3t('Creating the database...'), false);
+					->out('No database found.')
+					->out('Creating the database...', false);
 
 				$this->db->setQuery('CREATE DATABASE ' . $this->db->quoteName($this->getApplication()->get('database.name')))
 					->execute();
@@ -115,7 +116,7 @@ class Install extends TrackerCommand
 		$this
 			->processSql()
 			->out()
-			->out('<ok>' . g11n3t('Installation has been completed successfully.') . '</ok>');
+			->out('<ok>Installation has been completed successfully.</ok>');
 	}
 
 	/**
@@ -129,7 +130,7 @@ class Install extends TrackerCommand
 	 */
 	private function cleanDatabase(array $tables)
 	{
-		$this->out(g11n3t('Removing existing tables...'), false);
+		$this->out('Removing existing tables...', false);
 
 		// Foreign key constraint fails fix
 		$this->db->setQuery('SET FOREIGN_KEY_CHECKS=0')
@@ -175,17 +176,17 @@ class Install extends TrackerCommand
 
 		if (false === file_exists($fName))
 		{
-			throw new \UnexpectedValueException(sprintf(g11n3t('Install SQL file for %s not found.'), $dbType));
+			throw new \UnexpectedValueException(sprintf('Install SQL file for %s not found.', $dbType));
 		}
 
 		$sql = file_get_contents($fName);
 
 		if (false === $sql)
 		{
-			throw new \UnexpectedValueException(g11n3t('SQL file corrupted.'));
+			throw new \UnexpectedValueException('SQL file corrupted.');
 		}
 
-		$this->out(sprintf(g11n3t('Creating tables from file %s'), realpath($fName)), false);
+		$this->out(sprintf('Creating tables from file %s', realpath($fName)), false);
 
 		foreach ($this->db->splitSql($sql) as $query)
 		{

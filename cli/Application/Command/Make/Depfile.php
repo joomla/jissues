@@ -45,12 +45,13 @@ class Depfile extends Make
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Create and update a dependency file.');
+		$this->description = 'Create and update a dependency file.';
 
 		$this->addOption(
 			new TrackerCommandOption(
-				'file', 'f',
-				g11n3t('Write output to a file.')
+				'file',
+				'f',
+				'Write output to a file.'
 			)
 		);
 	}
@@ -122,7 +123,7 @@ class Depfile extends Make
 
 		if ($fileName)
 		{
-			$this->out(sprintf(g11n3t('Writing contents to: %s'), $fileName));
+			$this->out(sprintf('Writing contents to: %s', $fileName));
 
 			file_put_contents($fileName, $contents);
 		}
@@ -132,7 +133,7 @@ class Depfile extends Make
 		}
 
 		$this->out()
-			->out(g11n3t('Finished.'));
+			->out('Finished.');
 	}
 
 	/**

@@ -67,12 +67,13 @@ class Issues extends Project
 		$this
 			->addOption(
 				new TrackerCommandOption(
-					'status', '',
-					g11n3t('<n> Process only an issue of given status.')
+					'status',
+					'',
+					'<n> Process only an issue of given status.'
 				)
 			);
 
-		$this->description = g11n3t('Retrieve issues from GitHub.');
+		$this->description = 'Retrieve issues from GitHub.';
 	}
 
 	/**
@@ -84,16 +85,16 @@ class Issues extends Project
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Retrieve Issues'));
+		$this->getApplication()->outputTitle('Retrieve Issues');
 
-		$this->logOut(g11n3t('Start retrieve Issues'))
+		$this->logOut('Start retrieve Issues')
 			->selectProject()
 			->setupGitHub()
 			->selectType()
 			->fetchData()
 			->processData()
 			->out()
-			->logOut(g11n3t('Finished.'));
+			->logOut('Finished.');
 	}
 
 	/**
@@ -123,12 +124,12 @@ class Issues extends Project
 		}
 
 		// Get input from user to process based on different status of the issue.
-		$this->out('<question>' . g11n3t('Select GitHub issues status?') . '</question>')
+		$this->out('<question>Select GitHub issues status?</question>')
 			->out()
-			->out('1) ' . g11n3t('All'))
-			->out('2) ' . g11n3t('Open'))
-			->out('3) ' . g11n3t('Closed'))
-			->out(g11n3t('Select: '), false);
+			->out('1) All')
+			->out('2) Open')
+			->out('3) Closed')
+			->out('Select: ', false);
 
 		$resp = trim($this->getApplication()->in());
 
@@ -157,7 +158,7 @@ class Issues extends Project
 
 		foreach ($this->issueStates as $state)
 		{
-			$this->out(sprintf(g11n3t('Retrieving <b>%s</b> items from GitHub...'), $state), false);
+			$this->out(sprintf('Retrieving <b>%s</b> items from GitHub...', $state), false);
 			$this->debugOut('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
 
 			$page = 0;
@@ -218,11 +219,7 @@ class Issues extends Project
 
 		$this->logOut(
 			sprintf(
-				g11n4t(
-					'Retrieved <b>1</b> item from GitHub.',
-					'Retrieved <b>%d</b> items from GitHub.',
-					count($issues)
-				),
+				'Retrieved <b>%d</b> items from GitHub.',
 				count($issues)
 			)
 		);
@@ -255,7 +252,7 @@ class Issues extends Project
 
 		$milestones = $this->getMilestones();
 
-		$this->out(g11n3t('Adding issues to the database...'), false);
+		$this->out('Adding issues to the database...', false);
 
 		$progressBar = $this->getProgressBar(count($ghIssues));
 
@@ -467,7 +464,7 @@ class Issues extends Project
 
 		// Output the final result
 		$this->out()
-			->logOut(sprintf(g11n3t('<ok>%1$d added, %2$d updated.</ok>'), $added, $updated));
+			->logOut(sprintf('<ok>%1$d added, %2$d updated.</ok>', $added, $updated));
 
 		return $this;
 	}

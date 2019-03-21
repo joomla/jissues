@@ -230,10 +230,10 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	{
 		$command = strtolower(implode('', array_slice(explode('\\', get_class($this)), -1)));
 
-		$this->getApplication()->outputTitle(sprintf(g11n3t('Command: %s'), ucfirst($command)));
+		$this->getApplication()->outputTitle(sprintf('Command: %s', ucfirst($command)));
 
-		$errorTitle1 = sprintf(g11n3t('Missing option for command: %s'), $command);
-		$errorTitle2 = g11n3t('Please use one of the following :');
+		$errorTitle1 = sprintf('Missing option for command: %s', $command);
+		$errorTitle2 = 'Please use one of the following :';
 
 		$maxLen = (strlen($errorTitle1) > strlen($errorTitle2)) ? strlen($errorTitle1) : strlen($errorTitle2);
 
@@ -345,7 +345,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 		if (!$id)
 		{
 			$this->out()
-				->out('<b>' . g11n3t('Available projects:') . '</b>')
+				->out('<b>Available projects:</b>')
 				->out();
 
 			$cnt = 1;
@@ -363,18 +363,18 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 			}
 
 			$this->out()
-				->out('<question>' . g11n3t('Select a project:') . '</question> ', false);
+				->out('<question>Select a project:</question> ', false);
 
 			$resp = (int) trim($this->getApplication()->in());
 
 			if (!$resp)
 			{
-				throw new AbortException(g11n3t('Aborted'));
+				throw new AbortException('Aborted');
 			}
 
 			if (false === array_key_exists($resp, $checks))
 			{
-				throw new AbortException(g11n3t('Invalid project'));
+				throw new AbortException('Invalid project');
 			}
 
 			$this->project = new TrackerProject($db, $checks[$resp]);
@@ -393,11 +393,11 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 
 			if (is_null($this->project))
 			{
-				throw new AbortException(g11n3t('Invalid project'));
+				throw new AbortException('Invalid project');
 			}
 		}
 
-		$this->logOut(sprintf(g11n3t('Processing project: %s'), '<info>' . $this->project->title . '</info>'));
+		$this->logOut(sprintf('Processing project: <info>%s</info>', $this->project->title));
 
 		$this->getApplication()->input->set('project', $this->project->project_id);
 
@@ -428,9 +428,9 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 				throw new \RuntimeException($lastLine);
 			}
 
-			$this->logOut(g11n3t('An unknown error occurred'));
+			$this->logOut('An unknown error occurred');
 
-			throw new \RuntimeException(g11n3t('An unknown error occurred'));
+			throw new \RuntimeException('An unknown error occurred');
 		}
 
 		return $lastLine;

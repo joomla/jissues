@@ -26,7 +26,7 @@ class Cache extends Clear
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Clear the application cache.');
+		$this->description = 'Clear the application cache.';
 	}
 
 	/**
@@ -38,18 +38,18 @@ class Cache extends Clear
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Clear Application Cache'));
+		$this->getApplication()->outputTitle('Clear Application Cache');
 
 		/** @var CacheItemPoolInterface $cache */
 		$cache = $this->getContainer()->get('cache');
 
 		if ($cache->clear())
 		{
-			$this->out('<ok>' . g11n3t('The application cache has been cleared.') . '</ok>');
+			$this->out('<ok>The application cache has been cleared.</ok>');
 		}
 		else
 		{
-			$this->out('<error>' . g11n3t('There was an error clearing the application cache.') . '</error>');
+			$this->out('<error>There was an error clearing the application cache.</error>');
 		}
 	}
 }

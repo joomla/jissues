@@ -35,19 +35,21 @@ class Update extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		$this->description = g11n3t('Used to update resources');
+		$this->description = 'Used to update resources';
 
 		$this
 			->addOption(
 				new TrackerCommandOption(
-					'project', 'p',
-					g11n3t('Process the project with the given ID.')
+					'project',
+					'p',
+					'Process the project with the given ID.'
 				)
 			)
 			->addOption(
 				new TrackerCommandOption(
-					'noprogress', '',
-					g11n3t("Don't use a progress bar.")
+					'noprogress',
+					'',
+					"Don't use a progress bar."
 				)
 			);
 	}

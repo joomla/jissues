@@ -108,23 +108,27 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 		G11n::setCurrent('en-GB');
 
 		$this->commandOptions[] = new TrackerCommandOption(
-			'quiet', 'q',
-			g11n3t('Be quiet - suppress output.')
+			'quiet',
+			'q',
+			'Be quiet - suppress output.'
 		);
 
 		$this->commandOptions[] = new TrackerCommandOption(
-			'verbose', 'v',
-			g11n3t('Verbose output for debugging purpose.')
+			'verbose',
+			'v',
+			'Verbose output for debugging purpose.'
 		);
 
 		$this->commandOptions[] = new TrackerCommandOption(
-			'nocolors', '',
-			g11n3t('Suppress ANSI colours on unsupported terminals.')
+			'nocolors',
+			'',
+			'Suppress ANSI colours on unsupported terminals.'
 		);
 
 		$this->commandOptions[] = new TrackerCommandOption(
-			'log', '',
-			g11n3t('Optionally log output to the specified log file.')
+			'log',
+			'',
+			'Optionally log output to the specified log file.'
 		);
 
 		$this->usePBar = $this->get('cli-application.progress-bar');
@@ -151,7 +155,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 
 		$composerCfg = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
 
-		$this->outputTitle(g11n3t('Joomla! Tracker CLI Application'), $composerCfg->version);
+		$this->outputTitle('Joomla! Tracker CLI Application', $composerCfg->version);
 
 		$args = $this->input->args;
 
@@ -172,14 +176,14 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 		if (false === class_exists($className))
 		{
 			$this->out()
-				->out(sprintf(g11n3t('Invalid command: %s'), '<error> ' . (($command == $action) ? $command : $command . ' ' . $action) . ' </error>'))
+				->out(sprintf('Invalid command: <error>%s</error>', (($command == $action) ? $command : $command . ' ' . $action)))
 				->out();
 
 			$alternatives = $this->getAlternatives($command, $action);
 
 			if (count($alternatives))
 			{
-				$this->out('<b>' . g11n3t('Did you mean one of this?') . '</b>')
+				$this->out('<b>Did you mean one of this?</b>')
 					->out('    <question> ' . implode(' </question>    <question> ', $alternatives) . ' </question>');
 
 				return;
@@ -210,14 +214,14 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 		catch (AbortException $e)
 		{
 			$this->out('')
-				->out('<comment>' . g11n3t('Process aborted.') . '</comment>');
+				->out('<comment>Process aborted.</comment>');
 		}
 
 		$this->out()
 			->out(str_repeat('_', 40))
 			->out(
 				sprintf(
-					g11n3t('Execution time: <b>%d sec.</b>'),
+					'Execution time: <b>%d sec.</b>',
 					time() - $this->get('execution.timestamp')
 				)
 			)
@@ -379,7 +383,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 				}
 			}
 
-			throw new \UnexpectedValueException(sprintf(g11n3t('The argument "%s" is not recognized.'), $argument));
+			throw new \UnexpectedValueException(sprintf('The argument "%s" is not recognized.', $argument));
 		}
 
 		return $this;
@@ -416,7 +420,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	public function displayGitHubRateLimit()
 	{
 		$this->out()
-			->out('<info>' . g11n3t('GitHub rate limit:...') . '</info> ', false);
+			->out('<info>GitHub rate limit:...</info> ', false);
 
 		$rate = $this->container->get('gitHub')->authorization->getRateLimit()->resources->core;
 

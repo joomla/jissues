@@ -33,12 +33,13 @@ class Make extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		$this->description = g11n3t('The make engine');
+		$this->description = 'The make engine';
 
 		$this->addOption(
 			new TrackerCommandOption(
-				'noprogress', '',
-				g11n3t("Don't use a progress bar.")
+				'noprogress',
+				'',
+				"Don't use a progress bar."
 			)
 		);
 	}

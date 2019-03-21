@@ -34,7 +34,7 @@ class Checkstyle extends Test
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Run PHP CodeSniffer tests.');
+		$this->description = 'Run PHP CodeSniffer tests.';
 	}
 
 	/**
@@ -47,7 +47,7 @@ class Checkstyle extends Test
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Test Checkstyle'));
+		$this->getApplication()->outputTitle('Test Checkstyle');
 
 		// Make sure coding standards are registered
 		$this->execCommand('cd ' . JPATH_ROOT . ' && vendor/bin/phpcs --config-set installed_paths vendor/joomla/coding-standards 2>&1');
@@ -72,8 +72,8 @@ class Checkstyle extends Test
 			->out()
 			->out(
 				$numErrors > self::ALLOWED_FAIL_COUNT
-				? sprintf('<error> %s </error>', sprintf(g11n4t('Finished with one error', 'Finished with %d errors', $numErrors), $numErrors))
-				: sprintf('<ok>%s</ok>', g11n3t('Success'))
+				? sprintf('<error>Finished with %d errors</error>', $numErrors)
+				: '<ok>Success</ok>'
 			);
 
 		if ($this->exit)

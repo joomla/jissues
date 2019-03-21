@@ -29,7 +29,7 @@ class Users extends Get
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Retrieve user info from GitHub.');
+		$this->description = 'Retrieve user info from GitHub.';
 	}
 
 	/**
@@ -50,13 +50,13 @@ class Users extends Get
 
 		defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_ROOT . '/www');
 
-		$this->getApplication()->outputTitle(g11n3t('Retrieve Users'));
+		$this->getApplication()->outputTitle('Retrieve Users');
 
-		$this->logOut(g11n3t('Start retrieving Users.'))
+		$this->logOut('Start retrieving Users.')
 			->setupGitHub()
 			->getUserName()
 			->out()
-			->logOut(g11n3t('Finished.'));
+			->logOut('Finished.');
 	}
 
 	/**
@@ -84,16 +84,12 @@ class Users extends Get
 
 		if (!count($userNames))
 		{
-			throw new \UnexpectedValueException(g11n3t('No users found in database.'));
+			throw new \UnexpectedValueException('No users found in database.');
 		}
 
 		$this->out(
 			sprintf(
-				g11n4t(
-					'Getting user info for one user.',
-					'Getting user info for %d users.',
-					count($userNames)
-				),
+				'Getting user info for %d users.',
 				count($userNames)
 			)
 		);
@@ -113,7 +109,7 @@ class Users extends Get
 				continue;
 			}
 
-			$this->debugOut(sprintf(g11n3t('Fetching User Info for user: %s'), $userName));
+			$this->debugOut(sprintf('Fetching User Info for user: %s', $userName));
 
 			try
 			{
@@ -129,7 +125,7 @@ class Users extends Get
 			}
 			catch (\Exception $exception)
 			{
-				$this->out(g11n3t(sprintf('An error has occurred during user refresh: %s', $exception->getMessage())));
+				$this->out(sprintf('An error has occurred during user refresh: %s', $exception->getMessage()));
 			}
 
 			$this->usePBar
@@ -137,6 +133,6 @@ class Users extends Get
 				: $this->out('.', false);
 		}
 
-		return $this->out(g11n3t('User information has been refreshed.'));
+		return $this->out('User information has been refreshed.');
 	}
 }

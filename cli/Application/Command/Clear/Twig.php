@@ -27,7 +27,7 @@ class Twig extends Clear
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Clear the Twig cache.');
+		$this->description = 'Clear the Twig cache.';
 	}
 
 	/**
@@ -39,11 +39,11 @@ class Twig extends Clear
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Clear Twig Cache Directory'));
+		$this->getApplication()->outputTitle('Clear Twig Cache Directory');
 
 		if (!$this->getApplication()->get('renderer.cache', false))
 		{
-			$this->out('<info>' . g11n3t('Twig caching is not enabled.') . '</info>');
+			$this->out('<info>Twig caching is not enabled.</info>');
 
 			return;
 		}
@@ -61,6 +61,6 @@ class Twig extends Clear
 		}
 
 		$this->out()
-			->out('<ok>' . g11n3t('The Twig cache directory has been cleared.') . '</ok>');
+			->out('<ok>The Twig cache directory has been cleared.</ok>');
 	}
 }

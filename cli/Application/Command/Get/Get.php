@@ -53,19 +53,21 @@ class Get extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		$this->description = g11n3t('Retrieve Information from various sources.');
+		$this->description = 'Retrieve Information from various sources.';
 
 		$this
 			->addOption(
 				new TrackerCommandOption(
-					'project', 'p',
-					g11n3t('Process the project with the given ID.')
+					'project',
+					'p',
+					'Process the project with the given ID.'
 				)
 			)
 			->addOption(
 				new TrackerCommandOption(
-					'noprogress', '',
-					g11n3t("Don't use a progress bar.")
+					'noprogress',
+					'',
+					"Don't use a progress bar."
 				)
 			);
 	}

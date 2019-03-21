@@ -27,7 +27,7 @@ class Phploc extends Test
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Run Lines Of Code (LOC) for PHP code.');
+		$this->description = 'Run Lines Of Code (LOC) for PHP code.';
 	}
 
 	/**
@@ -40,7 +40,7 @@ class Phploc extends Test
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Run PHP Lines Of Code'));
+		$this->getApplication()->outputTitle('Run PHP Lines Of Code');
 
 		$application = new Application;
 
@@ -57,7 +57,7 @@ class Phploc extends Test
 			)
 		);
 
-		$this->out(g11n3t('Finished.'));
+		$this->out('Finished.');
 
 		return $this;
 	}

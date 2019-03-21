@@ -28,7 +28,7 @@ class Labels extends Project
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Retrieve project labels from GitHub.');
+		$this->description = 'Retrieve project labels from GitHub.';
 	}
 
 	/**
@@ -40,14 +40,14 @@ class Labels extends Project
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Retrieve Labels'));
+		$this->getApplication()->outputTitle('Retrieve Labels');
 
-		return $this->logOut(g11n3t('Start retrieve Labels'))
+		return $this->logOut('Start retrieve Labels')
 			->selectProject()
 			->setupGitHub()
 			->processLabels()
 			->out()
-			->logOut(g11n3t('Finished.'));
+			->logOut('Finished.');
 	}
 
 	/**
@@ -59,7 +59,7 @@ class Labels extends Project
 	 */
 	protected function processLabels()
 	{
-		$this->out(g11n3t('Fetching labels...'), false);
+		$this->out('Fetching labels...', false);
 
 		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
@@ -138,7 +138,7 @@ class Labels extends Project
 		return $this->out('ok')
 			->logOut(
 				sprintf(
-					g11n3t('Labels: %1$d new, %2$d updated, %3$d deleted.'),
+					'Labels: %1$d new, %2$d updated, %3$d deleted.',
 					$cntNew, $cntUpdated, $cntDeleted
 				)
 			);

@@ -30,12 +30,13 @@ class Server extends Update
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Updates the local installation to either a specified version or latest git HEAD for the active branch');
+		$this->description = 'Updates the local installation to either a specified version or latest git HEAD for the active branch';
 
 		$this->addOption(
 			new TrackerCommandOption(
-				'version', '',
-				g11n3t('An optional version number to update to.')
+				'version',
+				'',
+				'An optional version number to update to.'
 			)
 		);
 	}
@@ -73,7 +74,7 @@ class Server extends Update
 		}
 
 		// Update the Composer installation
-		$this->out('<info>' . g11n3t('Installing current Composer dependencies and regenerating autoloader') . '</info>');
+		$this->out('<info>Installing current Composer dependencies and regenerating autoloader</info>');
 		$this->execCommand('cd ' . JPATH_ROOT . ' && composer install --no-dev --optimize-autoloader 2>&1');
 
 		// Execute the database migrations (if any) for this version

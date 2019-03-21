@@ -26,7 +26,7 @@ class Phpunit extends Test
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Run PHPUnit tests.');
+		$this->description = 'Run PHPUnit tests.';
 	}
 
 	/**
@@ -38,7 +38,7 @@ class Phpunit extends Test
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Test PHPUnit'));
+		$this->getApplication()->outputTitle('Test PHPUnit');
 
 		$command = new Command;
 
@@ -50,7 +50,7 @@ class Phpunit extends Test
 
 		$this
 			->out()
-			->out($returnVal ? '<error>' . g11n3t('Finished with errors.') . '</error>' : '<ok>' . g11n3t('Success') . '</ok>');
+			->out($returnVal ? '<error>Finished with errors.</error>' : '<ok>Success</ok>');
 
 		if ($this->exit)
 		{

@@ -24,7 +24,7 @@ class Status extends Database
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Check the database migration status.');
+		$this->description = 'Check the database migration status.';
 	}
 
 	/**
@@ -36,7 +36,7 @@ class Status extends Database
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Database Migrations: Check Status'));
+		$this->getApplication()->outputTitle('Database Migrations: Check Status');
 
 		/** @var \JTracker\Database\Migrations $migrations */
 		$migrations = $this->getContainer()->get('db.migrations');
@@ -45,27 +45,20 @@ class Status extends Database
 
 		if ($status['latest'])
 		{
-			$this->getApplication()->out('<ok>' . g11n3t('Your database is up-to-date.') . '</ok>');
+			$this->getApplication()->out('<ok>Your database is up-to-date.</ok>');
 		}
 		else
 		{
 			$this->getApplication()->out(
-				'<comment>'
-				. sprintf(
-					g11n4t(
-						'Your database is not up-to-date. You are missing one migration.',
-						'Your database is not up-to-date. You are missing %d migrations.',
-						$status['missingMigrations']
-					),
-					$status['missingMigrations']
+				sprintf(
+					'<comment>Your database is not up-to-date. You are missing %d migrations.</comment>', $status['missingMigrations']
 				)
-				. '</comment>'
 			)
 				->out()
-				->out('<comment>' . sprintf(g11n3t('Current Version: %1$s'), $status['currentVersion']) . '</comment>')
-				->out('<comment>' . sprintf(g11n3t('Latest Version: %1$s'), $status['latestVersion']) . '</comment>')
+				->out(sprintf('<comment>Current Version: %1$s</comment>', $status['currentVersion']))
+				->out(sprintf('<comment>Latest Version: %1$s</comment>', $status['latestVersion']))
 				->out()
-				->out(sprintf(g11n3t('To update, run the %1$s command.'), '<question>database:migrate</question>'));
+				->out('To update, run the <question>database:migrate</question> command.');
 		}
 	}
 }

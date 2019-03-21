@@ -48,19 +48,21 @@ class Autocomplete extends Make
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Generate autocomplete files.');
+		$this->description = 'Generate autocomplete files.';
 
 		$this
 			->addOption(
 				new TrackerCommandOption(
-					'type', 't',
-					sprintf(g11n3t('The type of auto complete file (currently supported: %s).'), "'" . implode("' '", $this->knownTypes) . "'")
+					'type',
+					't',
+					sprintf('The type of auto complete file (currently supported: %s).', "'" . implode("' '", $this->knownTypes) . "'")
 				)
 			)
 			->addOption(
 				new TrackerCommandOption(
-					'echo', 'e',
-					g11n3t('Echo the output instead of writing it to a file.')
+					'echo',
+					'e',
+					'Echo the output instead of writing it to a file.'
 				)
 			);
 	}
@@ -74,7 +76,7 @@ class Autocomplete extends Make
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Make Auto complete'));
+		$this->getApplication()->outputTitle('Make Auto complete');
 
 		$commands = $this->getCommands();
 		$applicationOptions = $this->getApplication()->getCommandOptions();
@@ -88,7 +90,7 @@ class Autocomplete extends Make
 		{
 			if (false === in_array($type, $this->knownTypes))
 			{
-				throw new \InvalidArgumentException(sprintf(g11n3t('Invalid type supplied. Valid types are: %s'), "'" . implode("' '", $this->knownTypes) . "'"));
+				throw new \InvalidArgumentException(sprintf('Invalid type supplied. Valid types are: %s', "'" . implode("' '", $this->knownTypes) . "'"));
 			}
 
 			$command = 'make' . $type;
@@ -104,7 +106,7 @@ class Autocomplete extends Make
 		}
 
 		$this->out()
-			->out(g11n3t('Finished.'));
+			->out('Finished.');
 
 		if (false)
 		{
@@ -176,7 +178,7 @@ class Autocomplete extends Make
 				throw new \RuntimeException('Can not write to path.');
 			}
 
-			$this->out(g11n3t('File has been written to: %path%', ['%path%' => $path]));
+			$this->out(strtr('File has been written to: %path%', ['%path%' => $path]));
 		}
 
 		return $this;
@@ -242,7 +244,7 @@ class Autocomplete extends Make
 				throw new \RuntimeException('Can not write to path.');
 			}
 
-			$this->out(g11n3t('File has been written to: %path%', ['%path%' => $path]));
+			$this->out(strtr('File has been written to: %path%', ['%path%' => $path]));
 		}
 
 		return $this;

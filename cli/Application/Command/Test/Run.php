@@ -24,7 +24,7 @@ class Run extends Test
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Run all tests');
+		$this->description = 'Run all tests';
 	}
 
 	/**
@@ -36,7 +36,7 @@ class Run extends Test
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Test Suite'));
+		$this->getApplication()->outputTitle('Test Suite');
 
 		$statusCS = (new Checkstyle)
 			->setContainer($this->getContainer())
@@ -54,8 +54,8 @@ class Run extends Test
 			->out()
 			->out(
 				$status
-					? '<error>' . g11n3t('Test Suite Finished with errors.') . '</error>'
-					: '<ok>' . g11n3t('Test Suite Finished.') . '</ok>'
+					? '<error>Test Suite Finished with errors.</error>'
+					: '<ok>Test Suite Finished.</ok>'
 			);
 
 		exit($status);

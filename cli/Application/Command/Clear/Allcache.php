@@ -24,7 +24,7 @@ class Allcache extends Clear
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Clear all cache stores.');
+		$this->description = 'Clear all cache stores.';
 	}
 
 	/**
@@ -36,7 +36,7 @@ class Allcache extends Clear
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Clearing All Cache Stores'));
+		$this->getApplication()->outputTitle('Clearing All Cache Stores');
 
 		(new Cache)
 			->setContainer($this->getContainer())
@@ -47,6 +47,6 @@ class Allcache extends Clear
 			->execute();
 
 		$this->out()
-			->out('<ok>' . g11n3t('All cache stores have been cleared.') . '</ok>');
+			->out('<ok>All cache stores have been cleared.</ok>');
 	}
 }

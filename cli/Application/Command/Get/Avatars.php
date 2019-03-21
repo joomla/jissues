@@ -26,7 +26,7 @@ class Avatars extends Get
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Retrieve avatar images from GitHub.');
+		$this->description = 'Retrieve avatar images from GitHub.';
 	}
 
 	/**
@@ -47,13 +47,13 @@ class Avatars extends Get
 
 		defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_ROOT . '/www');
 
-		$this->getApplication()->outputTitle(g11n3t('Retrieve Avatars'));
+		$this->getApplication()->outputTitle('Retrieve Avatars');
 
-		$this->logOut(g11n3t('Start retrieving Avatars.'))
+		$this->logOut('Start retrieving Avatars.')
 			->setupGitHub()
 			->fetchAvatars()
 			->out()
-			->logOut(g11n3t('Finished.'));
+			->logOut('Finished.');
 	}
 
 	/**
@@ -78,16 +78,12 @@ class Avatars extends Get
 
 		if (!count($usernames))
 		{
-			throw new \UnexpectedValueException(g11n3t('No users found in database.'));
+			throw new \UnexpectedValueException('No users found in database.');
 		}
 
 		$this->logOut(
 			sprintf(
-				g11n4t(
-					'Processing avatars for one user.',
-					'Processing avatars for %d users.',
-					count($usernames)
-				),
+				'Processing avatars for %d users.',
 				count($usernames)
 			)
 		);
@@ -111,7 +107,7 @@ class Avatars extends Get
 
 			if (file_exists($base . '/' . $username . '.png'))
 			{
-				$this->debugOut(sprintf(g11n3t('User avatar already fetched for user %s'), $username));
+				$this->debugOut(sprintf('User avatar already fetched for user %s', $username));
 
 				$this->usePBar
 					? $progressBar->update($i + 1)
@@ -120,7 +116,7 @@ class Avatars extends Get
 				continue;
 			}
 
-			$this->debugOut(sprintf(g11n3t('Fetching avatar for user: %s'), $username));
+			$this->debugOut(sprintf('Fetching avatar for user: %s', $username));
 
 			try
 			{
@@ -132,7 +128,7 @@ class Avatars extends Get
 			{
 				$this->debugOut($e->getMessage());
 
-				$this->debugOut(sprintf(g11n3t('Copy default image for user: %s'), $username));
+				$this->debugOut(sprintf('Copy default image for user: %s', $username));
 
 				copy(
 					JPATH_THEMES . '/images/avatars/user-default.png',
@@ -148,11 +144,7 @@ class Avatars extends Get
 		return $this->out()
 			->logOut(
 				sprintf(
-					g11n4t(
-						'Added one new user avatar',
-						'Added %d new user avatars',
-						$adds
-					),
+					'Added %d new user avatars',
 					$adds
 				)
 			);

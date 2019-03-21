@@ -39,7 +39,7 @@ class Events extends Project
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Retrieve issue events from GitHub.');
+		$this->description = 'Retrieve issue events from GitHub.';
 	}
 
 	/**
@@ -51,15 +51,15 @@ class Events extends Project
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Retrieve Events'));
+		$this->getApplication()->outputTitle('Retrieve Events');
 
-		$this->logOut(g11n3t('Start retrieve Events'))
+		$this->logOut('Start retrieve Events')
 			->selectProject()
 			->setupGitHub()
 			->fetchData()
 			->processData()
 			->out()
-			->logOut(g11n3t('Finished.'));
+			->logOut('Finished.');
 	}
 
 	/**
@@ -94,13 +94,10 @@ class Events extends Project
 
 		$this->out(
 			sprintf(
-				g11n4t(
-					'Fetch events for one issue from GitHub...',
-					'Fetch events for <b>%d</b> issues from GitHub...',
-					count($this->changedIssueNumbers)
-				),
+				'Fetch events for <b>%d</b> issues from GitHub...',
 				count($this->changedIssueNumbers)
-			), false
+			),
+			false
 		);
 
 		$progressBar = $this->getProgressBar(count($this->changedIssueNumbers));
@@ -165,7 +162,7 @@ class Events extends Project
 	{
 		if (!$this->items)
 		{
-			$this->logOut(g11n3t('Everything is up to date.'));
+			$this->logOut('Everything is up to date.');
 
 			return $this;
 		}
@@ -175,7 +172,7 @@ class Events extends Project
 
 		$query = $db->getQuery(true);
 
-		$this->out(g11n3t('Adding events to the database...'), false);
+		$this->out('Adding events to the database...', false);
 
 		$progressBar = $this->getProgressBar(count($this->items));
 
@@ -325,7 +322,7 @@ class Events extends Project
 
 		$this->out()
 			->outOK()
-			->logOut(sprintf(g11n3t('Added %d new issue events to the database'), $adds));
+			->logOut(sprintf('Added %d new issue events to the database', $adds));
 
 		return $this;
 	}

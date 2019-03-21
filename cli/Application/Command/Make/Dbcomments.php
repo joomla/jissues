@@ -24,7 +24,7 @@ class Dbcomments extends Make
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Generate class doc blocks for Table classes');
+		$this->description = 'Generate class doc blocks for Table classes';
 	}
 
 	/**
@@ -36,7 +36,7 @@ class Dbcomments extends Make
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Make Table Comments'));
+		$this->getApplication()->outputTitle('Make Table Comments');
 
 		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
@@ -88,7 +88,7 @@ class Dbcomments extends Make
 		}
 
 		$this->out()
-			->out(g11n3t('Finished.'));
+			->out('Finished.');
 	}
 
 	/**

@@ -26,7 +26,7 @@ class Docu extends Make
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Compile documentation using GitHub Flavored Markdown');
+		$this->description = 'Compile documentation using GitHub Flavored Markdown';
 	}
 
 	/**
@@ -38,7 +38,7 @@ class Docu extends Make
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Make Documentation'));
+		$this->getApplication()->outputTitle('Make Documentation');
 
 		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
 
@@ -60,7 +60,7 @@ class Docu extends Make
 		$it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($docuBase, \FilesystemIterator::SKIP_DOTS));
 
 		$this
-			->out(sprintf(g11n3t('Compiling documentation in: %s'), $docuBase))
+			->out(sprintf('Compiling documentation in: %s', $docuBase))
 			->out();
 
 		$table = new ArticlesTable($db);
@@ -112,6 +112,6 @@ class Docu extends Make
 		}
 
 		$this->out()
-			->out(g11n3t('Finished.'));
+			->out('Finished.');
 	}
 }

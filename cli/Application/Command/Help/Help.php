@@ -36,7 +36,7 @@ class Help extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		$this->description = g11n3t('Displays helpful information');
+		$this->description = 'Displays helpful information';
 	}
 
 	/**
@@ -68,16 +68,16 @@ class Help extends TrackerCommand
 
 		$this->out(
 			sprintf(
-				g11n3t('<b>Usage</b>: %s'),
+				'<b>Usage</b>: %s',
 				sprintf(
-					' <info>%s</info> <cmd><' . g11n3t('command') . '></cmd> <opt>[' . g11n3t('options') . ']</opt>',
+					' <info>%s</info> <cmd><command></cmd> <opt>[options]</opt>',
 					$executable
 				)
 			)
 		);
 
 		$this->out()
-			->out(g11n3t('Available commands:'))
+			->out('Available commands:')
 			->out();
 
 		/** @var  TrackerCommand $command */
@@ -93,14 +93,14 @@ class Help extends TrackerCommand
 			$this->out();
 		}
 
-		$this->out(sprintf(g11n3t('<b>For more information use</b>: %s'), ' <info>' . $executable . ' help</info> <cmd><' . g11n3t('command') . '></cmd>.'))
+		$this->out(sprintf('<b>For more information use</b>: %s', ' <info>' . $executable . ' help</info> <cmd><command></cmd>.'))
 			->out();
 
 		$options = $this->getApplication()->getCommandOptions();
 
 		if ($options)
 		{
-			$this->out(g11n3t('Application command <opt>options</opt>'));
+			$this->out('Application command <opt>options</opt>');
 
 			foreach ($options as $option)
 			{
@@ -123,8 +123,7 @@ class Help extends TrackerCommand
 		if (false === array_key_exists($command, $this->commands))
 		{
 			$this->out()
-				// TRANSLATORS: %s refers to a command name
-				->out(sprintf(g11n3t('Unknown: %s'), $command));
+				->out(sprintf('Unknown: %s', $command));
 
 			return;
 		}
@@ -134,14 +133,14 @@ class Help extends TrackerCommand
 		/** @var TrackerCommand $c */
 		$c = $this->commands[$command];
 
-		$this->out(sprintf(g11n3t('Command: %s'), ' <b>' . $command . '</b>' . ($actions ? ' <cmd><' . g11n3t('action') . '></cmd>' : '')))
+		$this->out(sprintf('Command: %s', ' <b>' . $command . '</b>' . ($actions ? ' <cmd><action></cmd>' : '')))
 			->out()
 			->out('    ' . $c->getDescription());
 
 		if ($c->options)
 		{
 			$this->out()
-				->out('  ' . g11n3t('Available options:'));
+				->out('  Available options:');
 
 			foreach ($c->options as $option)
 			{
@@ -152,7 +151,7 @@ class Help extends TrackerCommand
 		if ($actions)
 		{
 			$this->out()
-				->out('  ' . g11n3t('Available <cmd>actions</cmd>:'))
+				->out('  Available <cmd>actions</cmd>:')
 				->out();
 
 			/** @var TrackerCommand $action */
@@ -164,7 +163,7 @@ class Help extends TrackerCommand
 				if ($action->options)
 				{
 					$this->out()
-						->out('  ' . g11n3t('Available options:'));
+						->out('  Available options:');
 
 					foreach ($action->options as $option)
 					{

@@ -30,7 +30,7 @@ class Milestones extends Project
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Retrieve project milestones from GitHub.');
+		$this->description = 'Retrieve project milestones from GitHub.';
 	}
 
 	/**
@@ -42,14 +42,14 @@ class Milestones extends Project
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Retrieve Milestones'));
+		$this->getApplication()->outputTitle('Retrieve Milestones');
 
-		return $this->logOut(g11n3t('Start retrieving Milestones'))
+		return $this->logOut('Start retrieving Milestones')
 			->selectProject()
 			->setupGitHub()
 			->processMilestones()
 			->out()
-			->logOut(g11n3t('Finished.'));
+			->logOut('Finished.');
 	}
 
 	/**
@@ -61,7 +61,7 @@ class Milestones extends Project
 	 */
 	protected function processMilestones()
 	{
-		$this->out(g11n3t('Fetching milestones...'), false);
+		$this->out('Fetching milestones...', false);
 
 		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
@@ -148,7 +148,7 @@ class Milestones extends Project
 		return $this->out('ok')
 			->logOut(
 				sprintf(
-					g11n3t('Milestones: %1$d new, %2$d updated, %3$d deleted.'),
+					'Milestones: %1$d new, %2$d updated, %3$d deleted.',
 					$cntNew, $cntUpdated, $cntDeleted
 				)
 			);

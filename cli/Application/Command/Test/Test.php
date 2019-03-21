@@ -32,7 +32,7 @@ class Test extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		$this->description = g11n3t('The test engine');
+		$this->description = 'The test engine';
 	}
 
 	/**

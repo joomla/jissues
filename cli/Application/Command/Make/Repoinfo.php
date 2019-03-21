@@ -32,7 +32,7 @@ class Repoinfo extends Make
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Generate repository information.');
+		$this->description = 'Generate repository information.';
 	}
 
 	/**
@@ -48,7 +48,7 @@ class Repoinfo extends Make
 		$path    = JPATH_ROOT . '/current_SHA';
 		$shaPath = JPATH_ROOT . '/sha.txt';
 
-		$this->getApplication()->outputTitle(g11n3t('Generate repository information'));
+		$this->getApplication()->outputTitle('Generate repository information');
 		$this->logOut('Generating Repoinfo.');
 
 		$info   = $this->execCommand('cd ' . JPATH_ROOT . ' && git describe --long --abbrev=10 --tags 2>&1');
@@ -71,6 +71,6 @@ class Repoinfo extends Make
 
 		$this->logOut(sprintf('Wrote repoinfo file to: %s', str_replace(JPATH_ROOT, 'J_ROOT', $path)))
 			->out()
-			->out(g11n3t('Finished.'));
+			->out('Finished.');
 	}
 }

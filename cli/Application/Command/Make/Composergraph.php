@@ -37,19 +37,21 @@ class Composergraph extends Make
 	{
 		parent::__construct();
 
-		$this->description = g11n3t("Graph visualisation for your project's composer.json and its dependencies.");
+		$this->description = "Graph visualisation for your project's composer.json and its dependencies.";
 
 		$this
 			->addOption(
 				new TrackerCommandOption(
-					'file', 'f',
-					g11n3t('Write output to a file.')
+					'file',
+					'f',
+					'Write output to a file.'
 				)
 			)
 			->addOption(
 				new TrackerCommandOption(
-					'format', '',
-					g11n3t('The image type.')
+					'format',
+					'',
+					'The image type.'
 				)
 			);
 	}
@@ -63,7 +65,7 @@ class Composergraph extends Make
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Make Composer graph'));
+		$this->getApplication()->outputTitle('Make Composer graph');
 
 		$this->graph = new GraphComposer(JPATH_ROOT);
 
@@ -99,7 +101,7 @@ class Composergraph extends Make
 
 		$this->graph->displayGraph();
 
-		return $this->out(g11n3t('The graph has been created.'));
+		return $this->out('The graph has been created.');
 	}
 
 	/**
@@ -137,7 +139,7 @@ class Composergraph extends Make
 
 		rename($path, $filePath);
 
-		return $this->out(sprintf(g11n3t('The file has been written to %s'), '<fg=green>' . realpath($filePath) . '</fg=green>'));
+		return $this->out(sprintf('The file has been written to <fg=green>%s</fg=green>', realpath($filePath)));
 	}
 
 	/**
@@ -154,7 +156,7 @@ class Composergraph extends Make
 		if ($format)
 		{
 			$this->graph->setFormat($format);
-			$this->debugOut(sprintf(g11n3t('Format has been set to %s'), '<b>' . $format . '</b>'));
+			$this->debugOut(sprintf('Format has been set to <b>%s</b>', $format));
 		}
 
 		return $this;

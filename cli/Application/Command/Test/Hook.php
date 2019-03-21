@@ -58,12 +58,13 @@ class Hook extends Test
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Tests web hooks');
+		$this->description = 'Tests web hooks';
 
 		$this->addOption(
 			new TrackerCommandOption(
-				'project', 'p',
-				g11n3t('Process the project with the given ID.')
+				'project',
+				'p',
+				'Process the project with the given ID.'
 			)
 		);
 	}
@@ -78,7 +79,7 @@ class Hook extends Test
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Test Hooks'));
+		$this->getApplication()->outputTitle('Test Hooks');
 
 		$this->logOut('Start testing hook');
 

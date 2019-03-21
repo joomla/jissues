@@ -27,7 +27,7 @@ class Copypaste extends Test
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Run Copy/Paste Detector (CPD) for PHP code.');
+		$this->description = 'Run Copy/Paste Detector (CPD) for PHP code.';
 	}
 
 	/**
@@ -40,7 +40,7 @@ class Copypaste extends Test
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Run Copy/Paste Detector'));
+		$this->getApplication()->outputTitle('Run Copy/Paste Detector');
 
 		$application = new Application;
 
@@ -57,7 +57,7 @@ class Copypaste extends Test
 
 		$this->out(
 			$cloneCount
-				? sprintf('<error> %d clones found. </error>', $cloneCount)
+				? sprintf('<error>%d clones found.</error>', $cloneCount)
 				: '<ok>No CP errors</ok>'
 		);
 

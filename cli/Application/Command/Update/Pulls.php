@@ -32,7 +32,7 @@ class Pulls extends Update
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Updates selected information for pull requests on GitHub for a specified project.');
+		$this->description = 'Updates selected information for pull requests on GitHub for a specified project.';
 	}
 
 	/**
@@ -44,9 +44,9 @@ class Pulls extends Update
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Update Pull Requests'));
+		$this->getApplication()->outputTitle('Update Pull Requests');
 
-		$this->logOut(g11n3t('Start Updating Project'));
+		$this->logOut('Start Updating Project');
 
 		$this->selectProject();
 
@@ -56,7 +56,7 @@ class Pulls extends Update
 			->displayGitHubRateLimit()
 			->out(
 				sprintf(
-					g11n3t('Updating pull requests for project: %s/%s'),
+					'Updating pull requests for project: %s/%s',
 					$this->project->gh_user,
 					$this->project->gh_project
 				)
@@ -66,7 +66,7 @@ class Pulls extends Update
 			->updatePullStatus()
 			->closePulls()
 			->out()
-			->logOut(g11n3t('Finished.'));
+			->logOut('Finished.');
 	}
 
 	/**
@@ -98,7 +98,7 @@ class Pulls extends Update
 
 					$this->out(
 						sprintf(
-							g11n3t('GitHub item %s/%s #%d has been closed because it is a pull targeting Joomla! 2.5.'),
+							'GitHub item %s/%s #%d has been closed because it is a pull targeting Joomla! 2.5.',
 							$this->project->gh_user,
 							$this->project->gh_project,
 							$pull->number
@@ -111,7 +111,7 @@ class Pulls extends Update
 		{
 			$this->out(
 				sprintf(
-					g11n3t('The %s/%s project is not supported by this command at this time.'),
+					'The %s/%s project is not supported by this command at this time.',
 					$this->project->gh_user,
 					$this->project->gh_project
 				)
@@ -130,7 +130,7 @@ class Pulls extends Update
 	 */
 	protected function fetchPulls()
 	{
-		$this->out(sprintf('Retrieving <b>open</b> pull requests from GitHub...'), false);
+		$this->out('Retrieving <b>open</b> pull requests from GitHub...', false);
 		$this->debugOut('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
 
 		$pulls = [];
@@ -198,7 +198,7 @@ class Pulls extends Update
 					{
 						$this->out(
 							sprintf(
-								g11n3t('GitHub item %s/%s #%d already has the %s label.'),
+								'GitHub item %s/%s #%d already has the %s label.',
 								$this->project->gh_user,
 								$this->project->gh_project,
 								$pullID,
@@ -217,7 +217,7 @@ class Pulls extends Update
 					// Post the new label on the object
 					$this->out(
 						sprintf(
-							g11n3t('Adding %s label to %s/%s #%d'),
+							'Adding %s label to %s/%s #%d',
 							$issueLabel,
 							$this->project->gh_user,
 							$this->project->gh_project,
@@ -235,7 +235,7 @@ class Pulls extends Update
 		{
 			$this->out(
 				sprintf(
-					g11n3t('The %s/%s project is not supported by this command at this time.'),
+					'The %s/%s project is not supported by this command at this time.',
 					$this->project->gh_user,
 					$this->project->gh_project
 				)
@@ -269,7 +269,7 @@ class Pulls extends Update
 
 					$this->out(
 						sprintf(
-							g11n3t('GitHub item %s/%s #%d has had its merge status set to "error".'),
+							'GitHub item %s/%s #%d has had its merge status set to "error".',
 							$this->project->gh_user,
 							$this->project->gh_project,
 							$pull->number
@@ -282,7 +282,7 @@ class Pulls extends Update
 		{
 			$this->out(
 				sprintf(
-					g11n3t('The %s/%s project is not supported by this command at this time.'),
+					'The %s/%s project is not supported by this command at this time.',
 					$this->project->gh_user,
 					$this->project->gh_project
 				)
