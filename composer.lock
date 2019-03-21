@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c88d07e0e343437f3ac2793871a2957",
+    "content-hash": "db75e7d298686526fc9398dbfdd3cd74",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -310,16 +310,16 @@
         },
         {
             "name": "joomla/authentication",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/authentication.git",
-                "reference": "7f17ee2cae3f3c4ca2fda8f04122500340b1978d"
+                "reference": "5bf7ec56bddce28c3eb5b11b4b326709249324fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/authentication/zipball/7f17ee2cae3f3c4ca2fda8f04122500340b1978d",
-                "reference": "7f17ee2cae3f3c4ca2fda8f04122500340b1978d",
+                "url": "https://api.github.com/repos/joomla-framework/authentication/zipball/5bf7ec56bddce28c3eb5b11b4b326709249324fb",
+                "reference": "5bf7ec56bddce28c3eb5b11b4b326709249324fb",
                 "shasum": ""
             },
             "require": {
@@ -327,12 +327,12 @@
             },
             "require-dev": {
                 "ircmaxell/password-compat": "~1.0",
+                "joomla/coding-standards": "~2.0@alpha",
                 "joomla/database": "~1.0|~2.0",
                 "joomla/input": "~1.0|~2.0",
                 "joomla/test": "~1.0",
                 "phpunit/dbunit": "~1.3|~2.0",
-                "phpunit/phpunit": "^4.8.35|^5.4.3",
-                "squizlabs/php_codesniffer": "1.*"
+                "phpunit/phpunit": "^4.8.35|^5.4.3"
             },
             "suggest": {
                 "ircmaxell/password-compat": "Required for PHP < 5.5 if you want to use the BCrypt password encoder",
@@ -352,7 +352,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "description": "Joomla Authentication Package",
             "homepage": "https://github.com/joomla-framework/authentication",
@@ -361,7 +361,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2017-11-12T16:24:39+00:00"
+            "time": "2019-03-10T15:32:27+00:00"
         },
         {
             "name": "joomla/cache",
@@ -512,16 +512,16 @@
         },
         {
             "name": "joomla/database",
-            "version": "1.6.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/database.git",
-                "reference": "2f96e35be028cf7cb7c36158e0b4de08de7a885f"
+                "reference": "4d61aef4b76880c381e44e7df16d206130c8d6d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/database/zipball/2f96e35be028cf7cb7c36158e0b4de08de7a885f",
-                "reference": "2f96e35be028cf7cb7c36158e0b4de08de7a885f",
+                "url": "https://api.github.com/repos/joomla-framework/database/zipball/4d61aef4b76880c381e44e7df16d206130c8d6d6",
+                "reference": "4d61aef4b76880c381e44e7df16d206130c8d6d6",
                 "shasum": ""
             },
             "require": {
@@ -562,7 +562,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2018-06-30T23:43:04+00:00"
+            "time": "2019-03-10T15:26:18+00:00"
         },
         {
             "name": "joomla/date",
@@ -807,16 +807,16 @@
         },
         {
             "name": "joomla/http",
-            "version": "1.3.2",
+            "version": "1.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/http.git",
-                "reference": "84d1e6976d3a093c94394d2dde156987996ee3ce"
+                "reference": "128c3d410fd7327fb87839cd3e00ed0be2f71f9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/http/zipball/84d1e6976d3a093c94394d2dde156987996ee3ce",
-                "reference": "84d1e6976d3a093c94394d2dde156987996ee3ce",
+                "url": "https://api.github.com/repos/joomla-framework/http/zipball/128c3d410fd7327fb87839cd3e00ed0be2f71f9d",
+                "reference": "128c3d410fd7327fb87839cd3e00ed0be2f71f9d",
                 "shasum": ""
             },
             "require": {
@@ -855,7 +855,7 @@
                 "http",
                 "joomla"
             ],
-            "time": "2018-04-23T11:54:19+00:00"
+            "time": "2019-03-10T15:31:03+00:00"
         },
         {
             "name": "joomla/input",
@@ -1060,34 +1060,34 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/renderer.git",
-                "reference": "1abc14933c734c3a4b4aec589fc6adc350fea69d"
+                "reference": "8380fa45d4968e068e67b9a210996b030fec6e0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/renderer/zipball/1abc14933c734c3a4b4aec589fc6adc350fea69d",
-                "reference": "1abc14933c734c3a4b4aec589fc6adc350fea69d",
+                "url": "https://api.github.com/repos/joomla-framework/renderer/zipball/8380fa45d4968e068e67b9a210996b030fec6e0f",
+                "reference": "8380fa45d4968e068e67b9a210996b030fec6e0f",
                 "shasum": ""
             },
             "require": {
                 "php": "~7.0"
             },
             "require-dev": {
-                "illuminate/events": "5.5.*|5.7.*",
-                "illuminate/filesystem": "5.5.*|5.7.*",
-                "illuminate/view": "5.5.*|5.7.*",
+                "illuminate/events": "5.5.*|5.8.*",
+                "illuminate/filesystem": "5.5.*|5.8.*",
+                "illuminate/view": "5.5.*|5.8.*",
                 "joomla/coding-standards": "~2.0@alpha",
                 "league/plates": "~3.0",
                 "mustache/mustache": "~2.3",
                 "phpunit/phpunit": "~6.3",
                 "symfony/templating": "~3.4|~4.0",
-                "twig/twig": "~1.14|~2.0"
+                "twig/twig": "~1.34|~2.4"
             },
             "suggest": {
-                "illuminate/view": "Install ~5.1 if you are using Laravel's Blade template engine.",
+                "illuminate/view": "Install 5.5.*|5.8.* if you are using Laravel's Blade template engine.",
                 "league/plates": "Install ~3.0 if you are using the Plates template engine.",
                 "mustache/mustache": "Install ~2.3 if you are using the Mustache template engine.",
-                "symfony/templating": "Install ~2.7|~3.0|~4.0 if you are using Symfony's PHP template component.",
-                "twig/twig": "Install ~1.14|~2.0 if you are using the Twig template engine."
+                "symfony/templating": "Install ~3.4|~4.0 if you are using Symfony's PHP template component.",
+                "twig/twig": "Install ~1.34|~2.4 if you are using the Twig template engine."
             },
             "type": "joomla-package",
             "extra": {
@@ -1111,7 +1111,7 @@
                 "joomla",
                 "renderer"
             ],
-            "time": "2019-01-01T21:31:42+00:00"
+            "time": "2019-03-07T01:38:01+00:00"
         },
         {
             "name": "joomla/router",
@@ -1820,7 +1820,7 @@
         },
         {
             "name": "symfony/asset",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/asset.git",
@@ -1876,16 +1876,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "8d2318b73e0a1bc75baa699d00ebe2ae8b595a39"
+                "reference": "850a667d6254ccf6c61d853407b16f21c4579c77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/8d2318b73e0a1bc75baa699d00ebe2ae8b595a39",
-                "reference": "8d2318b73e0a1bc75baa699d00ebe2ae8b595a39",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/850a667d6254ccf6c61d853407b16f21c4579c77",
+                "reference": "850a667d6254ccf6c61d853407b16f21c4579c77",
                 "shasum": ""
             },
             "require": {
@@ -1926,7 +1926,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-29T09:49:29+00:00"
+            "time": "2019-02-26T08:03:39+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -2116,16 +2116,16 @@
     "packages-dev": [
         {
             "name": "composer/semver",
-            "version": "1.4.2",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/semver.git",
-                "reference": "c7cb9a2095a074d131b65a8a0cd294479d785573"
+                "reference": "46d9139568ccb8d9e7cdd4539cab7347568a5e2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/semver/zipball/c7cb9a2095a074d131b65a8a0cd294479d785573",
-                "reference": "c7cb9a2095a074d131b65a8a0cd294479d785573",
+                "url": "https://api.github.com/repos/composer/semver/zipball/46d9139568ccb8d9e7cdd4539cab7347568a5e2e",
+                "reference": "46d9139568ccb8d9e7cdd4539cab7347568a5e2e",
                 "shasum": ""
             },
             "require": {
@@ -2174,7 +2174,7 @@
                 "validation",
                 "versioning"
             ],
-            "time": "2016-08-30T16:08:34+00:00"
+            "time": "2019-03-19T17:25:45+00:00"
         },
         {
             "name": "composer/xdebug-handler",
@@ -4117,16 +4117,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4"
+                "reference": "9dc2299a016497f9ee620be94524e6c0af0280a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4",
-                "reference": "1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4",
+                "url": "https://api.github.com/repos/symfony/console/zipball/9dc2299a016497f9ee620be94524e6c0af0280a9",
+                "reference": "9dc2299a016497f9ee620be94524e6c0af0280a9",
                 "shasum": ""
             },
             "require": {
@@ -4185,7 +4185,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-25T14:35:16+00:00"
+            "time": "2019-02-23T15:17:42+00:00"
         },
         {
             "name": "symfony/contracts",
@@ -4257,16 +4257,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "bd09ad265cd50b2b9d09d65ce6aba2d29bc81fe1"
+                "reference": "3354d2e6af986dd71f68b4e5cf4a933ab58697fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/bd09ad265cd50b2b9d09d65ce6aba2d29bc81fe1",
-                "reference": "bd09ad265cd50b2b9d09d65ce6aba2d29bc81fe1",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/3354d2e6af986dd71f68b4e5cf4a933ab58697fb",
+                "reference": "3354d2e6af986dd71f68b4e5cf4a933ab58697fb",
                 "shasum": ""
             },
             "require": {
@@ -4317,20 +4317,20 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-16T20:35:37+00:00"
+            "time": "2019-02-23T15:17:42+00:00"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "7c16ebc2629827d4ec915a52ac809768d060a4ee"
+                "reference": "e16b9e471703b2c60b95f14d31c1239f68f11601"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/7c16ebc2629827d4ec915a52ac809768d060a4ee",
-                "reference": "7c16ebc2629827d4ec915a52ac809768d060a4ee",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/e16b9e471703b2c60b95f14d31c1239f68f11601",
+                "reference": "e16b9e471703b2c60b95f14d31c1239f68f11601",
                 "shasum": ""
             },
             "require": {
@@ -4367,20 +4367,20 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-16T20:35:37+00:00"
+            "time": "2019-02-07T11:40:08+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "ef71816cbb264988bb57fe6a73f610888b9aa70c"
+                "reference": "267b7002c1b70ea80db0833c3afe05f0fbde580a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/ef71816cbb264988bb57fe6a73f610888b9aa70c",
-                "reference": "ef71816cbb264988bb57fe6a73f610888b9aa70c",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/267b7002c1b70ea80db0833c3afe05f0fbde580a",
+                "reference": "267b7002c1b70ea80db0833c3afe05f0fbde580a",
                 "shasum": ""
             },
             "require": {
@@ -4416,20 +4416,20 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-16T20:35:37+00:00"
+            "time": "2019-02-23T15:42:05+00:00"
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "831b272963a8aa5a0613a1a7f013322d8161bbbb"
+                "reference": "3896e5a7d06fd15fa4947694c8dcdd371ff147d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/831b272963a8aa5a0613a1a7f013322d8161bbbb",
-                "reference": "831b272963a8aa5a0613a1a7f013322d8161bbbb",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/3896e5a7d06fd15fa4947694c8dcdd371ff147d1",
+                "reference": "3896e5a7d06fd15fa4947694c8dcdd371ff147d1",
                 "shasum": ""
             },
             "require": {
@@ -4470,11 +4470,11 @@
                 "configuration",
                 "options"
             ],
-            "time": "2019-01-16T21:31:25+00:00"
+            "time": "2019-02-23T15:17:42+00:00"
         },
         {
             "name": "symfony/process",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
@@ -4523,7 +4523,7 @@
         },
         {
             "name": "symfony/stopwatch",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stopwatch.git",
@@ -4714,13 +4714,13 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.2",
+        "php": "^7.2",
         "ext-curl": "*",
         "ext-intl": "*",
         "ext-json": "*"
     },
     "platform-dev": [],
     "platform-overrides": {
-        "php": "7.2.11"
+        "php": "7.2.16"
     }
 }
