@@ -17,8 +17,6 @@ use Application\Exception\AbortException;
 
 use Elkuku\Console\Helper\ConsoleProgressBar;
 
-use ElKuKu\G11n\G11n;
-
 use Joomla\Application\AbstractCliApplication;
 use Joomla\Application\Cli\CliOutput;
 use Joomla\DI\ContainerAwareInterface;
@@ -103,9 +101,6 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	public function __construct(Input\Cli $input = null, Registry $config = null, CliOutput $output = null)
 	{
 		parent::__construct($input, $config, $output);
-
-		// Call language library to load functions and not critically break things
-		G11n::setCurrent('en-GB');
 
 		$this->commandOptions[] = new TrackerCommandOption(
 			'quiet',
