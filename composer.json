@@ -46,9 +46,9 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.14.2",
         "joomla/coding-standards": "dev-master",
-        "phpunit/phpunit"  : "^6.5.14",
+        "phpunit/phpunit"  : "^8.0.5",
         "squizlabs/php_codesniffer": "^2.9.2",
-        "sebastian/phpcpd": "^3.0.1",
+        "sebastian/phpcpd": "^4.1",
         "phploc/phploc": "^5.0"
     },
     "replace": {

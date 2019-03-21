@@ -25,7 +25,7 @@ class IpHelperTest extends TestCase
 	 *
 	 * @since   1.0
 	 */
-	public function dataTestIpInRange()
+	public function dataTestIpInRange(): array
 	{
 		return [
 			// Element order: result, test address, range element, type
@@ -137,7 +137,7 @@ class IpHelperTest extends TestCase
 	 * @dataProvider  dataTestIpInRange
 	 * @since         1.0
 	 */
-	public function testIpInRange($result, $testIp, $validIps, $type = 'range')
+	public function testIpInRange($result, $testIp, $validIps, $type = 'range'): void
 	{
 		$this->assertEquals(
 			IpHelper::ipInRange($testIp, $validIps, $type),
@@ -150,13 +150,14 @@ class IpHelperTest extends TestCase
 	 *
 	 * @return  void
 	 *
-	 * @covers             \JTracker\Helper\IpHelper::ipInRange
-	 * @covers             \JTracker\Helper\IpHelper::convertValues
-	 * @expectedException  \InvalidArgumentException
-	 * @since              1.0
+	 * @covers  \JTracker\Helper\IpHelper::ipInRange
+	 * @covers  \JTracker\Helper\IpHelper::convertValues
+	 * @since   1.0
 	 */
-	public function testIpInRangeException()
+	public function testIpInRangeException(): void
 	{
+		$this->expectException(\InvalidArgumentException::class);
+
 		IpHelper::ipInRange('192.168.0.32', ['192.168.0.0/24'], 'decimal');
 	}
 }

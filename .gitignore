@@ -29,6 +29,7 @@ build/logs/*
 current_SHA
 /sha.txt
 /.php_cs.cache
+/.phpunit.result.cache
 
 # Ignore uploads #
 www/uploads/*

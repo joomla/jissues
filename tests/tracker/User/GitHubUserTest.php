@@ -33,10 +33,10 @@ class GitHubUserTest extends TestCase
 	 * @since  1.0
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		// Mock the base database driver without calling the original constructor
-		$driver = $this->getMockForAbstractClass(DatabaseDriver::class, [], '', false);
+		$driver = $this->createMock(DatabaseDriver::class);
 
 		// Mock the project object
 		$project = $this->getMockBuilder(TrackerProject::class)
@@ -52,7 +52,7 @@ class GitHubUserTest extends TestCase
 	 * @since  1.0
 	 * @return void
 	 */
-	public function testLoadGitHubData()
+	public function testLoadGitHubData(): void
 	{
 		$ghData = new \stdClass;
 
@@ -82,13 +82,13 @@ class GitHubUserTest extends TestCase
 	/**
 	 * Test loadGitHubData.
 	 *
-	 * @expectedException \RuntimeException
-	 *
 	 * @since  1.0
 	 * @return void
 	 */
-	public function testLoadGitHubDataFailure()
+	public function testLoadGitHubDataFailure(): void
 	{
+		$this->expectException(\RuntimeException::class);
+
 		$ghData = new \stdClass;
 
 		// Missing login !

@@ -31,7 +31,7 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends TestCase
 	 * @since  1.0
 	 * @return void
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->object = new JoomlaCmsPullsListenerMock;
 	}
@@ -41,7 +41,7 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testDirectories()
+	public function testDirectories(): void
 	{
 		$files = [
 			'administrator/' => ['23'],
@@ -135,7 +135,7 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testCheckInstallFolderAndJs()
+	public function testCheckInstallFolderAndJs(): void
 	{
 		$files = json_decode('[
 			{ "filename" : "installation/" },
@@ -153,7 +153,7 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testEmpty()
+	public function testEmpty(): void
 	{
 		$this->assertThat(
 			$this->object->testCheckFilesAndAssignCategory([]),
