@@ -39,7 +39,7 @@
         "filp/whoops": "2.*",
         "league/flysystem": "^1.0.50",
         "monolog/monolog": "^1.24",
-        "kint-php/kint": "^2.2",
+        "kint-php/kint": "^3.1",
         "adaptive/php-text-difference": "^1.0.3",
         "pulse00/monolog-parser": "^0.0.3"
     },

@@ -15,7 +15,8 @@ use App\Debug\Format\Html\TableFormat;
 use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
 
-use Kint;
+use Kint\Kint;
+use Kint\Renderer\RichRenderer;
 
 /**
  * Class Html
@@ -66,20 +67,31 @@ class Html implements ContainerAwareInterface
 			$html[] = $application->getDebugger()->renderProfile();
 			$html[] = '</div>';
 
-			$html[] = '<div id="dbgUser">';
-			$html[] = '<h3>User</h3>';
-			$html[] = @Kint::dump($application->getUser());
-			$html[] = '</div>';
+			$oldReturn = Kint::$return;
+			Kint::$return = true;
+			RichRenderer::$folder = false;
 
-			$html[] = '<div id="dbgProject">';
-			$html[] = '<h3>Project</h3>';
-			$html[] = @Kint::dump($application->getProject());
-			$html[] = '</div>';
+			try
+			{
+				$html[] = '<div id="dbgUser">';
+				$html[] = '<h3>User</h3>';
+				$html[] = Kint::dump($application->getUser());
+				$html[] = '</div>';
 
-			$html[] = '<div id="dbgRequest">';
-			$html[] = '<h3>Request</h3>';
-			$html[] = @Kint::dump($_REQUEST);
-			$html[] = '</div>';
+				$html[] = '<div id="dbgProject">';
+				$html[] = '<h3>Project</h3>';
+				$html[] = Kint::dump($application->getProject());
+				$html[] = '</div>';
+
+				$html[] = '<div id="dbgRequest">';
+				$html[] = '<h3>Request</h3>';
+				$html[] = Kint::dump($application->input->getArray());
+				$html[] = '</div>';
+			}
+			finally
+			{
+				Kint::$return = $oldReturn;
+			}
 		}
 
 		if (!$html)
