@@ -668,7 +668,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		{
 			$title = '[' . $hookData->pull_request->base->ref . '] ' . $title;
 		}
-		
+
 		try
 		{
 			$github->pulls->edit(
