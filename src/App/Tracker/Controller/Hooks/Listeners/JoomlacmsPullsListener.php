@@ -663,6 +663,12 @@ class JoomlacmsPullsListener extends AbstractListener
 		// Define the new title
 		$title = '[#' . $table->foreign_number . '] ' . $table->title;
 
+		// Add the target branch to the title for pull requests
+		if (isset($hookData->pull_request->base->ref))
+		{
+			$title = '[' . $hookData->pull_request->base->ref . '] ' . $title;
+		}
+		
 		try
 		{
 			$github->pulls->edit(
