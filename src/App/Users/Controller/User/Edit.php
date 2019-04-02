@@ -65,29 +65,19 @@ class Edit extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		/** @var \JTracker\Application $application */
-		$application = $this->getContainer()->get('app');
+		/** @var \JTracker\Application $app */
+		$app = $this->getContainer()->get('app');
 
-		$id = $application->input->getUint('id');
+		$id = $app->getUser()->id;
 
 		if (!$id)
 		{
-			throw new \UnexpectedValueException('No id given', 404);
-		}
-
-		if (!$application->getUser()->check('admin'))
-		{
-			if ($application->getUser()->id != $id)
-			{
-				$application->enqueueMessage('You are not authorised to edit this user.', 'error');
-
-				$application->redirect($application->get('uri.base.path') . 'users');
-			}
+			throw new \UnexpectedValueException('Not authenticated.');
 		}
 
 		$this->view->id = $id;
 
-		$this->model->setProject($this->getContainer()->get('app')->getProject());
+		$this->model->setProject($app->getProject());
 
 		return $this;
 	}

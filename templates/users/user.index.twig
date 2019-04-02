@@ -6,60 +6,45 @@
 {% block title %}{{ parent() }} | {{ item.username }}{% endblock %}
 
 {% block content %}
+    <div class="btn-group pull-right">
+        <a class="btn btn-small" href="{{ uri.base.path ~ 'account/edit' }}">Edit profile</a>
+        <a class="btn btn-small" href="{{ uri.base.path ~ 'user/' ~ user.id ~ '/refresh'}}">Refresh profile from GitHub</a>
+    </div>
 
-    {% if 0 == item.id %}
-        <div class="alert alert-error">
-            <h4>Invalid user!</h4>
+    <div class="page-header">
+        <h1>My Profile</h1>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span2">
+            {{ avatar(item.username, 100) }}
         </div>
-    {% else %}
-        {% if user.id == item.id %}
-
-            <div class="btn-group pull-right">
-                <a class="btn btn-small" href="{{ uri.base.path ~ 'user/' ~ user.id ~ '/edit' }}">Edit profile</a>
-                <a class="btn btn-small" href="{{ uri.base.path ~ 'user/' ~ user.id ~ '/refresh'}}">Refresh profile from GitHub</a>
-            </div>
-
-            <div class="page-header">
-                <h1>My Profile</h1>
-            </div>
-        {% else %}
-            <div class="page-header">
-                <h1>Profile</h1>
-            </div>
-        {% endif %}
-
-        <div class="row-fluid">
-            <div class="span2">
-                {{ avatar(item.username, 100) }}
-            </div>
-            <div class="span5">
-                <ul class="unstyled">
-                    <li><h2>{{ item.username }}</h2></li>
-                    {% if item.name %}
-                        <li>{{ item.name }}</li>
-                    {% endif %}
-                    {% if item.email %}
-                        <li>{{ item.email }}</li>
-                    {% endif %}
-                    {% if jdebug %}
-                        <li><b>Id</b>: {{ item.id }}</li>
-                    {% endif %}
-                </ul>
-            </div>
-            <div class="span5">
-                <ul class="unstyled">
+        <div class="span5">
+            <ul class="unstyled">
+                <li><h2>{{ item.username }}</h2></li>
+                {% if item.name %}
+                    <li>{{ item.name }}</li>
+                {% endif %}
+                {% if item.email %}
+                    <li>{{ item.email }}</li>
+                {% endif %}
+                {% if jdebug %}
+                    <li><b>Id</b>: {{ item.id }}</li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="span5">
+            <ul class="unstyled">
+                <li>
+                    <i class="icon-github"></i>
+                    <a href="https://github.com/{{ item.username }}">{{ item.username }}</a>
+                </li>
+                {% if tz_offset %}
                     <li>
-                        <i class="icon-github"></i>
-                        <a href="https://github.com/{{ item.username }}">{{ item.username }}</a>
+                        {{ 'Timezone: %1$s (GMT %2$s)'|format(item.params.timezone, tz_offset) }}
                     </li>
-                    {% if tz_offset %}
-                        <li>
-                            {{ 'Timezone: %1$s (GMT %2$s)'|format(item.params.timezone, tz_offset) }}
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
+                {% endif %}
+            </ul>
         </div>
-
-    {% endif %}
+    </div>
 {% endblock %}

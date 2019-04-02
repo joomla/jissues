@@ -29,23 +29,14 @@ class Refresh extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/** @var \JTracker\Application $application */
-		$application = $this->getContainer()->get('app');
+		/** @var \JTracker\Application $app */
+		$app = $this->getContainer()->get('app');
 
-		$id = $application->input->getUint('id');
+		$id = $app->getUser()->id;
 
 		if (!$id)
 		{
-			throw new \UnexpectedValueException('No id given', 404);
-		}
-
-		if (!$application->getUser()->check('admin'))
-		{
-			if ($application->getUser()->id != $id)
-			{
-				$application->enqueueMessage('You are not authorised to refresh this user.', 'error')
-					->redirect($application->get('uri.base.path') . 'user/' . $id);
-			}
+			throw new \UnexpectedValueException('Not authenticated.');
 		}
 
 		/** @var \Joomla\Github\Github $github */
@@ -53,7 +44,7 @@ class Refresh extends AbstractTrackerController
 
 		$gitHubUser = $gitHub->users->getAuthenticatedUser();
 
-		$user = (new GitHubUser($application->getProject(), $this->getContainer()->get('db')))
+		$user = (new GitHubUser($app->getProject(), $this->getContainer()->get('db')))
 			->loadGitHubData($gitHubUser);
 
 		$user->loadByUserName($user->username);
@@ -66,16 +57,16 @@ class Refresh extends AbstractTrackerController
 
 			$loginHelper->refreshUser($user);
 
-			$application->enqueueMessage('The profile has been refreshed.', 'success');
+			$app->enqueueMessage('The profile has been refreshed.', 'success');
 		}
 		catch (\Exception $exception)
 		{
-			$application->enqueueMessage(
+			$app->enqueueMessage(
 				sprintf('An error has occurred during user refresh: %s', $exception->getMessage()), 'error'
 			);
 		}
 
-		$application->redirect($application->get('uri.base.path') . 'user/' . $id);
+		$app->redirect($app->get('uri.base.path') . 'account');
 
 		return parent::execute();
 	}
