@@ -49,9 +49,6 @@
 <li class="{{ "projects" == firstPart ? "active" : "" }}">
     <a href="{{ uri.base.path }}projects">Projects</a>
 </li>
-<li class="{{ firstPart in ['users', 'user'] ? "active" : "" }}">
-    <a href="{{ uri.base.path }}users">Users</a>
-</li>
 
 {% if user.isAdmin %}
     <li class="dropdown{{ firstPart in ['config', 'phpinfo', 'monologs', 'logs', 'icons', 'routes', 'text'] ? " active" : "" }}">

@@ -1,7 +1,6 @@
 {
 	"login" : "\\Users\\Controller\\Login",
 	"logout": "\\Users\\Controller\\Logout",
-	"users" : "\\Users\\Controller\\Users",
 
 	"user/search": "\\Users\\Controller\\Ajax\\Search",
 	"user/assign": "\\Users\\Controller\\Ajax\\Assign",
