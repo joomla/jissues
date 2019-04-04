@@ -6,12 +6,6 @@
 {% block title %}{{ parent() }} | Edit User{% endblock %}
 
 {% block content %}
-    {% if 0 == item.id %}
-        <div class="alert alert-error">
-            <h4>Invalid user!</h4>
-        </div>
-    {% else %}
-
     {% import "fields.twig" as fields %}
 
     <div class="page-header">
@@ -23,10 +17,10 @@
             <a class="btn btn-primary" href="javascript:;" onclick="document.editForm.submit();">Save</a>
         </li>
         <li>
-            <a class="btn btn-inverse" href="{{ uri.base.path ~ 'user/' ~ item.id }}">Cancel</a>
+            <a class="btn btn-inverse" href="{{ uri.base.path }}account">Cancel</a>
         </li>
         <li class="pull-right">
-            <a class="btn" href="{{ uri.base.path ~ 'user/' ~ item.id ~ '/refresh'}}">Refresh profile from GitHub</a>
+            <a class="btn" href="{{ uri.base.path }}account/github-refresh">Refresh profile from GitHub</a>
         </li>
     </ul>
 
@@ -57,7 +51,7 @@
         </div>
     </div>
 
-    <form method="post" action="/{{ uri.route ~ '-save' }}" class="form-horizontal" name="editForm">
+    <form method="post" action="{{ uri.base.path }}account/save" class="form-horizontal" name="editForm">
         <fieldset>
             <legend>Params</legend>
 
@@ -68,9 +62,6 @@
                 </div>
             </div>
 
-            <input type="hidden" name="item[id]" value="{{ item.id }}">
-
         </fieldset>
     </form>
-    {% endif %}
 {% endblock %}

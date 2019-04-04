@@ -29,39 +29,32 @@ class Save extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/** @var \JTracker\Application $application */
-		$application = $this->getContainer()->get('app');
+		/** @var \JTracker\Application $app */
+		$app = $this->getContainer()->get('app');
 
-		$src = $application->input->get('item', [], 'array');
+		$id = $app->getUser()->id;
 
-		if (!$src['id'])
+		if (!$id)
 		{
-			throw new \UnexpectedValueException('No id given', 404);
+			throw new \UnexpectedValueException('Not authenticated.');
 		}
 
-		if (!$application->getUser()->check('admin'))
-		{
-			if ($application->getUser()->id != $src['id'])
-			{
-				$application->enqueueMessage('You are not authorised to edit this user.', 'error');
-
-				$application->redirect($application->get('uri.base.path') . 'user/' . $src['id']);
-			}
-		}
+		$src = $app->input->get('item', [], 'array');
+		$src['id'] = $id;
 
 		try
 		{
 			// Save the record.
 			(new UserModel($this->getContainer()->get('db')))->save($src);
 
-			$application->enqueueMessage('The changes have been saved.', 'success');
+			$app->enqueueMessage('The changes have been saved.', 'success');
 		}
 		catch (\Exception $e)
 		{
-			$application->enqueueMessage($e->getMessage(), 'error');
+			$app->enqueueMessage($e->getMessage(), 'error');
 		}
 
-		$application->redirect($application->get('uri.base.path') . 'user/' . $src['id'] . '/edit');
+		$app->redirect($app->get('uri.base.path') . 'account/edit');
 
 		// To silence PHPCS expecting a return
 		return '';

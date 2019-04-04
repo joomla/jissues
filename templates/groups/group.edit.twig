@@ -107,8 +107,7 @@
                         html = '<ul>';
 
                         $.each(response.data.options, function (k, user) {
-                            html += '<li><a href="{{ uri.base.path }}user/' + user.id + '">'
-                                    + user.username + '</a></li>';
+                            html += '<li> + user.username + '</li>';
                         });
 
                         html += '</ul>';

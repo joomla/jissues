@@ -121,12 +121,7 @@
                     <br/>
                     <span class="list-issue-details">
                         [% if (item.opened_by) { %]
-                            Created by
-                            [% if (item.user_id) { %]
-                                <a href="{{ uri.base.path ~ 'user/' }}[%= item.user_id %]">[%= item.opened_by %]</a>
-                            [% } else { %]
-                                <a href="https://github.com/[%= item.opened_by %]">[%= item.opened_by %]</a>
-                            [% } %]
+                            Created by <a href="https://github.com/[%= item.opened_by %]">[%= item.opened_by %]</a>
                             {% if project.gh_user and project.gh_project %}
                                 &nbsp;&bull;&nbsp;
                             {% endif %}

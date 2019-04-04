@@ -49,9 +49,6 @@
 <li class="{{ "projects" == firstPart ? "active" : "" }}">
     <a href="{{ uri.base.path }}projects">Projects</a>
 </li>
-<li class="{{ firstPart in ['users', 'user'] ? "active" : "" }}">
-    <a href="{{ uri.base.path }}users">Users</a>
-</li>
 
 {% if user.isAdmin %}
     <li class="dropdown{{ firstPart in ['config', 'phpinfo', 'monologs', 'logs', 'icons', 'routes', 'text'] ? " active" : "" }}">
@@ -135,10 +132,10 @@
                 <li class="nav-header"><i class="icon-user-3"></i> Admin</li>
             {% endif %}
             <li>
-                <a href="{{ uri.base.path }}user/{{ user.id }}"><i class="icon-user"></i> View profile</a>
+                <a href="{{ uri.base.path }}account"><i class="icon-user"></i> View profile</a>
             </li>
             <li>
-                <a href="{{ uri.base.path }}user/{{ user.id }}/edit"><i class="icon-user"></i> Edit profile</a>
+                <a href="{{ uri.base.path }}account/edit"><i class="icon-user"></i> Edit profile</a>
             </li>
             <li class="divider"><span></span></li>
             <li>

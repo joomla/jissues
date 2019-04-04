@@ -263,13 +263,7 @@
     <div class="row-fluid">
         <div class="span2 well-small user-wrapper">
             {{ avatar(item.opened_by, '', 'avatar') }}<br />
-            {% if item.user_id %}
-                <span class="icon-user"></span>
-                <a href="{{ uri.base.path ~ 'user/' ~ item.user_id}}">{{ item.opened_by }}</a>
-            {% else %}
-                <span class="icon-github"></span>
-                <a href="https://github.com/{{ item.opened_by }}" target="_blank">{{ item.opened_by }}</a>
-            {% endif %}<br />
+            <span class="icon-github"></span> <a href="https://github.com/{{ item.opened_by }}" target="_blank">{{ item.opened_by }}</a><br />
             <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y", offset) }}
         </div>
 
