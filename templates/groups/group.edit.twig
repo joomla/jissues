@@ -29,7 +29,7 @@
         jQuery('#searchUser').typeahead({
             source: function (query, process) {
                 return $.get(
-                    '{{ uri.base.path }}user/search', {query: query, not_in_group_id: {{ group.group_id }}  },
+                    '{{ uri.base.path }}user/search', {query: query, not_in_group_id: {{ group.group_id }}},
                     function (response) {
                         if (response.error) {
                             $('#ajax-errors').html(response.error);
@@ -46,7 +46,7 @@
         jQuery('#searchUserGroup').typeahead({
             source: function (query, process) {
                 return $.get(
-                    '{{ uri.base.path }}user/search', {query: query, in_group_id: {{ group.group_id }} },
+                    '{{ uri.base.path }}user/search', {query: query, in_group_id: {{ group.group_id }}},
                     function (response) {
                         if (response.error) {
                             $('#ajax-errors').html(response.error);
@@ -107,7 +107,7 @@
                         html = '<ul>';
 
                         $.each(response.data.options, function (k, user) {
-                            html += '<li> + user.username + '</li>';
+                            html += '<li>' + user.username + '</li>';
                         });
 
                         html += '</ul>';
