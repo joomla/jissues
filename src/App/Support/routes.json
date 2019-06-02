@@ -1,8 +1,8 @@
 {
-	"icons"                : "\\Support\\Controller\\Icons",
-	"documentation"        : "\\Support\\Controller\\Documentation",
-	"documentation/view"   : "\\Support\\Controller\\Documentation",
-	"documentation/show"   : "\\Support\\Controller\\Ajax\\Documentation\\Show",
-	"clearcache"           : "\\Support\\Controller\\Clearcache",
-    "filetree"             : "\\Support\\Controller\\Filetree"
+	"icons"                : "\\App\\Support\\Controller\\Icons",
+	"documentation"        : "\\App\\Support\\Controller\\Documentation",
+	"documentation/view"   : "\\App\\Support\\Controller\\Documentation",
+	"documentation/show"   : "\\App\\Support\\Controller\\Ajax\\Documentation\\Show",
+	"clearcache"           : "\\App\\Support\\Controller\\Clearcache",
+    "filetree"             : "\\App\\Support\\Controller\\Filetree"
 }
