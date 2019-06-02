@@ -49,7 +49,7 @@
     <div class="testForm" id="testAlterContainer">
         <h6>Alter test result</h6>
         <form class="form-inline">
-            Set the test result for user <input name="altered-user" placeholder="{{ username }}"> to <select name="altered"><option value="0">{{ userTestOptions(0) }}</option><option value="1">{{ userTestOptions(1) }}</option><option value="2">{{ userTestOptions(2) }}</option></select>
+            Set the test result for user <input name="altered-user" placeholder="{{ username }}"> to <select name="altered"><option value="0">{{ user_test_options(0) }}</option><option value="1">{{ user_test_options(1) }}</option><option value="2">{{ user_test_options(2) }}</option></select>
             <label for="shaTestAlter">SHA</label>
             <input type="text" id="shaTestAlter" value="{{ item.commits|json_decode|last.sha }}" />
             <div id="alterResult"></div>
