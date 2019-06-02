@@ -15,6 +15,7 @@ use Joomla\Renderer\TwigRenderer;
 use JTracker\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\View\Renderer\ApplicationContext;
+use JTracker\View\Renderer\AssetsExtension;
 use JTracker\View\Renderer\DebugPathPackage;
 use JTracker\View\Renderer\TrackerExtension;
 use Symfony\Component\Asset\Packages;
@@ -124,6 +125,14 @@ class RendererProvider implements ServiceProviderInterface
 				true
 			);
 
+		$container->alias(AssetsExtension::class, 'twig.extension.assets')
+			->share(
+				'twig.extension.assets',
+				function (Container $container) {
+					return new AssetsExtension;
+				},
+				true
+			);
 
 		$container->alias(DebugExtension::class, 'twig.extension.debug')
 			->alias(\Twig_Extension_Debug::class, 'twig.extension.debug')
@@ -206,6 +215,7 @@ class RendererProvider implements ServiceProviderInterface
 		$debug = $config->get('debug.template', false);
 
 		$twigExtensions = [
+			'twig.extension.assets',
 			'twig.extension.tracker',
 		];
 

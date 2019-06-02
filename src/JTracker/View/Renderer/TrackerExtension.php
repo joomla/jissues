@@ -20,7 +20,6 @@ use Joomla\Http\HttpFactory;
 use JTracker\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use Psr\Cache\CacheItemPoolInterface;
-use Symfony\Component\Asset\Packages;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -65,14 +64,6 @@ class TrackerExtension extends AbstractExtension
 	private $loginHelper;
 
 	/**
-	 * Packages object to look up asset paths
-	 *
-	 * @var    Packages
-	 * @since  1.0
-	 */
-	private $packages;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param   Container  $container  The DI container.
@@ -85,7 +76,6 @@ class TrackerExtension extends AbstractExtension
 		$this->cache       = $container->get('cache');
 		$this->db          = $container->get('db');
 		$this->loginHelper = $container->get(GitHubLoginHelper::class);
-		$this->packages    = $container->get(Packages::class);
 	}
 
 	/**
@@ -100,7 +90,6 @@ class TrackerExtension extends AbstractExtension
 		$functions = [
 			new TwigFunction('sprintf', 'sprintf'),
 			new TwigFunction('stripJRoot', [$this, 'stripJRoot']),
-			new TwigFunction('asset', [$this, 'getAssetUrl']),
 			new TwigFunction('prioClass', [$this, 'getPrioClass']),
 			new TwigFunction('priorities', [$this, 'getPriorities']),
 			new TwigFunction('getPriority', [$this, 'getPriority']),
@@ -877,20 +866,5 @@ class TrackerExtension extends AbstractExtension
 		];
 
 		return ($id !== null && array_key_exists($id, $options)) ? $options[$id] : $options;
-	}
-
-	/**
-	 * Get the URI for an asset
-	 *
-	 * @param   string  $path         A public path
-	 * @param   string  $packageName  The name of the asset package to use
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function getAssetUrl($path, $packageName = null)
-	{
-		return $this->packages->getUrl($path, $packageName);
 	}
 }
