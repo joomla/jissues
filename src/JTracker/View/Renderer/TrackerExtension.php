@@ -101,7 +101,6 @@ class TrackerExtension extends AbstractExtension
 			new TwigFunction('sprintf', 'sprintf'),
 			new TwigFunction('stripJRoot', [$this, 'stripJRoot']),
 			new TwigFunction('asset', [$this, 'getAssetUrl']),
-			new TwigFunction('avatar', [$this, 'fetchAvatar'], ['is_safe' => ['html']]),
 			new TwigFunction('prioClass', [$this, 'getPrioClass']),
 			new TwigFunction('priorities', [$this, 'getPriorities']),
 			new TwigFunction('getPriority', [$this, 'getPriority']),
@@ -164,35 +163,6 @@ class TrackerExtension extends AbstractExtension
 	public function stripJRoot($string)
 	{
 		return str_replace(JPATH_ROOT, 'JROOT', $string);
-	}
-
-	/**
-	 * Fetch an avatar.
-	 *
-	 * @param   string   $userName  The user name.
-	 * @param   integer  $width     The with in pixel.
-	 * @param   string   $class     The class.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 * @todo    Refactor avatar paths to use the media directory
-	 */
-	public function fetchAvatar($userName = '', $width = 0, $class = '')
-	{
-		$base = $this->app->get('uri.base.path');
-
-		$avatar = $userName ? $userName . '.png' : 'user-default.png';
-
-		$width = $width ? ' style="width: ' . $width . 'px"' : '';
-		$class = $class ? ' class="' . $class . '"' : '';
-
-		return '<img'
-		. $class
-		. ' alt="avatar ' . $userName . '"'
-		. ' src="' . $base . 'images/avatars/' . $avatar . '"'
-		. $width
-		. ' />';
 	}
 
 	/**
