@@ -8,14 +8,13 @@
 
 namespace App\Tracker\Controller\Issue\Ajax;
 
-use JTracker\Controller\AbstractAjaxController;
-use JTracker\View\Renderer;
-use JTracker\Pagination\TrackerPagination;
-
+use App\Tracker\Twig\IssueExtension;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Model\IssuesModel;
-
 use Joomla\Uri\Uri;
+use JTracker\Application;
+use JTracker\Controller\AbstractAjaxController;
+use JTracker\Pagination\TrackerPagination;
 
 /**
  * Listing controller to respond ajax request.
@@ -187,13 +186,13 @@ class Listing extends AbstractAjaxController
 		$currentPage = $model->getPagination()->getPageNo();
 
 		// Render the label html for each item
-		$renderer = new Renderer\TrackerExtension($this->getContainer());
+		$renderer = new IssueExtension($this->getContainer()->get(Application::class));
 
 		$issueModel = new IssueModel($this->getContainer()->get('db'));
 
 		foreach ($listItems as $item)
 		{
-			$item->labelHtml     = $renderer->renderLabels($item->labels);
+			$item->labelHtml     = $renderer->renderIssueLabels($item->labels);
 			$item->opened_date   = date('Y-m-d', strtotime($item->opened_date));
 			$item->modified_date = date('Y-m-d', strtotime($item->modified_date));
 			$item->closed_date   = date('Y-m-d', strtotime($item->closed_date));
