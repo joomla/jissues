@@ -198,7 +198,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			$this->mark('Application terminated with a ROUTING EXCEPTION');
 
-			$context = JDEBUG ? ['message' => $exception->getRawRoute()] : [];
+			$context = JDEBUG ? ['message' => $exception->getMessage()] : [];
 
 			$this->setBody($this->renderException($exception, $context));
 		}
