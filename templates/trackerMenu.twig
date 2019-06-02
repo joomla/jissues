@@ -57,9 +57,6 @@
             <li{{ "config" == firstPart ? ' class="active"' : "" }}>
                 <a href="{{ uri.base.path }}config"><i class="icon-dashboard"></i> Configuration</a>
             </li>
-            <li{{ "phpinfo" == firstPart ? ' class="active"' : "" }}>
-                <a href="{{ uri.base.path }}phpinfo"><i class="icon-star"></i> phpinfo()</a>
-            </li>
             <li class="dropdown-submenu{{ firstPart in ['monologs', 'logs'] ? " active" : "" }}">
                 <a tabindex="-1" href="#"><i class="icon-copy"></i> Logs</a>
                 <ul class="dropdown-menu">

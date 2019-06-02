@@ -1,7 +1,6 @@
 {
 	"config"       : "\\System\\Controller\\Config",
 	"saveconfig"   : "\\System\\Controller\\Config\\Save",
-	"phpinfo"      : "\\System\\Controller\\PhpInfo",
 	"wp-login.php" : "\\System\\Controller\\WrongCms",
 	"administrator": "\\System\\Controller\\WrongCms"
 }
