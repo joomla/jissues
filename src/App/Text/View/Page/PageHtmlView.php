@@ -10,7 +10,7 @@ namespace App\Text\View\Page;
 
 use App\Text\Model\PageModel;
 
-use JTracker\Router\Exception\RoutingException;
+use Joomla\Router\Exception\RouteNotFoundException;
 use JTracker\View\AbstractTrackerHtmlView;
 
 /**
@@ -42,7 +42,7 @@ class PageHtmlView extends AbstractTrackerHtmlView
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
-	 * @throws  RoutingException
+	 * @throws  RouteNotFoundException
 	 */
 	public function render()
 	{
@@ -52,7 +52,7 @@ class PageHtmlView extends AbstractTrackerHtmlView
 		}
 		catch (\RuntimeException $e)
 		{
-			throw new RoutingException($this->getAlias(), $e);
+			throw new RouteNotFoundException(sprintf('Unable to handle request for route `page/%s`.', $this->getAlias()), 404, $e);
 		}
 
 		$this->addData('page', $item->getIterator());

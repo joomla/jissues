@@ -1,10 +1,10 @@
 {
-	"activity/project/:project_alias" : "\\Activity\\Controller\\ProjectActivityController",
-	"activity/project/:project_alias/query" : "\\Activity\\Controller\\Ajax\\ProjectActivity",
-	"activity/snapshot/:project_alias" : "\\Activity\\Controller\\ActivitySnapshotController",
-	"activity/snapshot/:project_alias/query" : "\\Activity\\Controller\\Ajax\\ActivitySnapshot",
-	"activity/total/:project_alias" : "\\Activity\\Controller\\TotalActivityController",
-	"activity/total/:project_alias/query" : "\\Activity\\Controller\\Ajax\\TotalActivity",
-	"activity/user/:project_alias" : "\\Activity\\Controller\\UserActivityController",
-	"activity/user/:project_alias/query" : "\\Activity\\Controller\\Ajax\\UserActivity"
+	"activity/project/:project_alias" : "\\App\\Activity\\Controller\\ProjectActivityController",
+	"activity/project/:project_alias/query" : "\\App\\Activity\\Controller\\Ajax\\ProjectActivity",
+	"activity/snapshot/:project_alias" : "\\App\\Activity\\Controller\\ActivitySnapshotController",
+	"activity/snapshot/:project_alias/query" : "\\App\\Activity\\Controller\\Ajax\\ActivitySnapshot",
+	"activity/total/:project_alias" : "\\App\\Activity\\Controller\\TotalActivityController",
+	"activity/total/:project_alias/query" : "\\App\\Activity\\Controller\\Ajax\\TotalActivity",
+	"activity/user/:project_alias" : "\\App\\Activity\\Controller\\UserActivityController",
+	"activity/user/:project_alias/query" : "\\App\\Activity\\Controller\\Ajax\\UserActivity"
 }

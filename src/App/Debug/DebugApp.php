@@ -10,7 +10,6 @@ namespace App\Debug;
 
 use Joomla\DI\Container;
 use JTracker\AppInterface;
-use JTracker\Router\TrackerRouter;
 
 /**
  * Debug app

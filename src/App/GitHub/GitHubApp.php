@@ -9,6 +9,7 @@
 namespace App\GitHub;
 
 use Joomla\DI\Container;
+use Joomla\Router\Router;
 use JTracker\AppInterface;
 
 /**
@@ -30,6 +31,21 @@ class GitHubApp implements AppInterface
 	 */
 	public function loadServices(Container $container)
 	{
+		$this->registerRoutes($container->get('router'));
+	}
+
+	/**
+	 * Registers the routes for the app
+	 *
+	 * @param   Router  $router  The application router
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	private function registerRoutes(Router $router)
+	{
 		// Register the component routes
 		$maps = json_decode(file_get_contents(__DIR__ . '/routes.json'), true);
 
@@ -38,8 +54,10 @@ class GitHubApp implements AppInterface
 			throw new \RuntimeException('Invalid router file for the GitHub app: ' . __DIR__ . '/routes.json', 500);
 		}
 
-		/** @var \JTracker\Router\TrackerRouter $router */
-		$router = $container->get('router');
-		$router->addMaps($maps);
+		foreach ($maps as $patttern => $controller)
+		{
+			// TODO - Routes should be identified for proper methods
+			$router->all($patttern, $controller);
+		}
 	}
 }

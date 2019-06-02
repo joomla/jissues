@@ -20,6 +20,7 @@ use Joomla\Event\DispatcherAwareTrait;
 use Joomla\Input\Input;
 use Joomla\Registry\Registry;
 use Joomla\Renderer\RendererInterface;
+use Joomla\Router\Exception\RouteNotFoundException;
 use Joomla\Router\Router;
 
 use JTracker\Authentication\Exception\AuthenticationException;
@@ -27,7 +28,6 @@ use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
 use JTracker\Controller\AbstractTrackerController;
-use JTracker\Router\Exception\RoutingException;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -121,12 +121,30 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	{
 		try
 		{
-			// Fetch the controller
-			/** @var AbstractTrackerController $controller */
-			$controller = $this->getRouter()->getController($this->get('uri.route'));
+			$this->mark('Routing request');
 
-			$this->mark('Initializing controller: ' . get_class($controller));
+			$route = $this->getRouter()->parseRoute($this->get('uri.route'), $this->input->getMethod());
+
+			// Add variables to the input if not already set
+			foreach ($route->getRouteVariables() as $key => $value)
+			{
+				$this->input->def($key, $value);
+			}
+
+			$controllerClass = $route->getController();
+
+			$this->mark('Initializing controller: ' . $controllerClass);
+
+			/** @var AbstractTrackerController $controller */
+			$controller = new $controllerClass($this->input, $this);
+
+			if ($controller instanceof ContainerAwareInterface)
+			{
+				$controller->setContainer($this->getContainer());
+			}
+
 			$controller->initialize();
+
 			$this->mark('Controller initialized.');
 
 			// Execute the App
@@ -174,7 +192,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			$this->setBody($this->renderException($exception, $context));
 		}
-		catch (RoutingException $exception)
+		catch (RouteNotFoundException $exception)
 		{
 			$this->setHeader('Status', 404, true);
 
@@ -601,7 +619,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	}
 
 	/**
-	 * Get the event dispatcher.
+	 * Get the router.
 	 *
 	 * @return  Router
 	 *

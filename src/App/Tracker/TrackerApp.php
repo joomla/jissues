@@ -13,9 +13,9 @@ use App\Tracker\Twig\MilestoneExtension;
 use App\Tracker\Twig\RelationExtension;
 use App\Tracker\Twig\StatusExtension;
 use Joomla\DI\Container;
+use Joomla\Router\Router;
 use JTracker\AppInterface;
 use JTracker\Application;
-use JTracker\Router\TrackerRouter;
 
 /**
  * Tracker app
@@ -35,21 +35,21 @@ class TrackerApp implements AppInterface
 	 */
 	public function loadServices(Container $container)
 	{
-		$this->registerRouteMap($container->get('router'));
+		$this->registerRoutes($container->get('router'));
 		$this->registerServices($container);
 	}
 
 	/**
-	 * Registers the route mapping for the app
+	 * Registers the routes for the app
 	 *
-	 * @param   TrackerRouter  $router  The application router
+	 * @param   Router  $router  The application router
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	private function registerRouteMap(TrackerRouter $router)
+	private function registerRoutes(Router $router)
 	{
 		// Register the component routes
 		$maps = json_decode(file_get_contents(__DIR__ . '/routes.json'), true);
@@ -59,7 +59,11 @@ class TrackerApp implements AppInterface
 			throw new \RuntimeException('Invalid router file for the Tracker app: ' . __DIR__ . '/routes.json', 500);
 		}
 
-		$router->addMaps($maps);
+		foreach ($maps as $patttern => $controller)
+		{
+			// TODO - Routes should be identified for proper methods
+			$router->all($patttern, $controller);
+		}
 	}
 
 	/**

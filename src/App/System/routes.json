@@ -1,4 +1,4 @@
 {
-	"wp-login.php" : "\\System\\Controller\\WrongCms",
-	"administrator": "\\System\\Controller\\WrongCms"
+	"wp-login.php" : "\\App\\System\\Controller\\WrongCms",
+	"administrator": "\\App\\System\\Controller\\WrongCms"
 }

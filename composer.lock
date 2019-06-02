@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "777a46df4c99e1387d9db108a4f70afe",
+    "content-hash": "944d773460efa8e6c349d069c5f12a21",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -1115,32 +1115,35 @@
         },
         {
             "name": "joomla/router",
-            "version": "1.2.0",
+            "version": "dev-2.0-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/router.git",
-                "reference": "7ec0d2e82c3ae3fb40d262f08d62b4f99a288d21"
+                "reference": "8fe6a3263324e3d4605e8cfaf0e738df41021bba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/router/zipball/7ec0d2e82c3ae3fb40d262f08d62b4f99a288d21",
-                "reference": "7ec0d2e82c3ae3fb40d262f08d62b4f99a288d21",
+                "url": "https://api.github.com/repos/joomla-framework/router/zipball/8fe6a3263324e3d4605e8cfaf0e738df41021bba",
+                "reference": "8fe6a3263324e3d4605e8cfaf0e738df41021bba",
                 "shasum": ""
             },
             "require": {
-                "joomla/controller": "~1.0|~2.0",
-                "joomla/input": "~1.0|~2.0",
-                "php": "^5.3.10|~7.0"
+                "php": "~7.0"
             },
             "require-dev": {
+                "jeremeamia/superclosure": "~1.0",
                 "joomla/coding-standards": "~2.0@alpha",
-                "joomla/test": "~1.0",
-                "phpunit/phpunit": "^4.8.35|^5.4.3|~6.0"
+                "joomla/console": "~2.0",
+                "phpunit/phpunit": "~6.3"
+            },
+            "suggest": {
+                "jeremeamia/superclosure": "If you use Closure controllers, and want to be able to cache / serialize the router, please install jeremeamia/superclosure:~1.0",
+                "joomla/console": "If you want to use the DebugRouterCommand class, please install joomla/console:~2.0"
             },
             "type": "joomla-package",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-2.0-dev": "2.0-dev"
                 }
             },
             "autoload": {
@@ -1159,7 +1162,7 @@
                 "joomla",
                 "router"
             ],
-            "time": "2018-03-15T00:37:35+00:00"
+            "time": "2019-03-24T00:20:52+00:00"
         },
         {
             "name": "joomla/string",
@@ -4877,6 +4880,7 @@
     "stability-flags": {
         "joomla/cache": 20,
         "joomla/renderer": 20,
+        "joomla/router": 20,
         "joomla/view": 20,
         "joomla/coding-standards": 20
     },

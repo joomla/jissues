@@ -15,7 +15,6 @@ use Joomla\Event\Dispatcher;
 use Joomla\Input\Input;
 use Joomla\Router\Router;
 use JTracker\Application;
-use JTracker\Router\TrackerRouter;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -51,7 +50,7 @@ class WebApplicationProvider implements ServiceProviderInterface
 					// Inject extra services
 					$application->setContainer($container);
 					$application->setDispatcher($container->get(Dispatcher::class));
-					$application->setRouter($container->get(TrackerRouter::class));
+					$application->setRouter($container->get(Router::class));
 
 					return $application;
 				},
@@ -67,15 +66,12 @@ class WebApplicationProvider implements ServiceProviderInterface
 			true
 		);
 
-		$container->alias('router', TrackerRouter::class)
-			->alias(Router::class, TrackerRouter::class)
+		$container->alias('router', Router::class)
 			->share(
-				TrackerRouter::class,
+				Router::class,
 				function (Container $container)
 				{
-					return (new TrackerRouter($container, $container->get(Input::class)))
-						->setControllerPrefix('\\App')
-						->setDefaultController('\\Tracker\\Controller\\DefaultController');
+					return new Router;
 				},
 				true
 			);

@@ -1,8 +1,8 @@
 {
-	"projects"                     : "\\Projects\\Controller\\Projects",
-	"project/add"                  : "\\Projects\\Controller\\Project\\Add",
-	"project/:project_alias"       : "\\Projects\\Controller\\Project",
-	"project/:project_alias/edit"  : "\\Projects\\Controller\\Project\\Edit",
-	"project/:project_alias/delete": "\\Projects\\Controller\\Project\\Delete",
-	"saveproject"                  : "\\Projects\\Controller\\Project\\Save"
+	"projects"                     : "\\App\\Projects\\Controller\\Projects",
+	"project/add"                  : "\\App\\Projects\\Controller\\Project\\Add",
+	"project/:project_alias"       : "\\App\\Projects\\Controller\\Project",
+	"project/:project_alias/edit"  : "\\App\\Projects\\Controller\\Project\\Edit",
+	"project/:project_alias/delete": "\\App\\Projects\\Controller\\Project\\Delete",
+	"saveproject"                  : "\\App\\Projects\\Controller\\Project\\Save"
 }
