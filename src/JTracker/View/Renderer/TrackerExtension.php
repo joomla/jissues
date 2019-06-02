@@ -12,14 +12,10 @@ use Adaptive\Diff\Diff;
 
 use App\Tracker\DiffRenderer\Html\Inline;
 
-use Joomla\Cache\Item\Item;
 use Joomla\Database\DatabaseDriver;
 use Joomla\DI\Container;
-use Joomla\Http\HttpFactory;
 
 use JTracker\Application;
-use JTracker\Authentication\GitHub\GitHubLoginHelper;
-use Psr\Cache\CacheItemPoolInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -40,28 +36,12 @@ class TrackerExtension extends AbstractExtension
 	private $app;
 
 	/**
-	 * Cache pool
-	 *
-	 * @var    CacheItemPoolInterface
-	 * @since  1.0
-	 */
-	private $cache;
-
-	/**
 	 * Database connector
 	 *
 	 * @var    DatabaseDriver
 	 * @since  1.0
 	 */
 	private $db;
-
-	/**
-	 * Login helper
-	 *
-	 * @var    GitHubLoginHelper
-	 * @since  1.0
-	 */
-	private $loginHelper;
 
 	/**
 	 * Constructor.
@@ -72,10 +52,8 @@ class TrackerExtension extends AbstractExtension
 	 */
 	public function __construct(Container $container)
 	{
-		$this->app         = $container->get('app');
-		$this->cache       = $container->get('cache');
-		$this->db          = $container->get('db');
-		$this->loginHelper = $container->get(GitHubLoginHelper::class);
+		$this->app = $container->get('app');
+		$this->db  = $container->get('db');
 	}
 
 	/**
@@ -106,8 +84,6 @@ class TrackerExtension extends AbstractExtension
 			new TwigFunction('renderLabels', [$this, 'renderLabels']),
 			new TwigFunction('arrayDiff', [$this, 'arrayDiff']),
 			new TwigFunction('userTestOptions', [$this, 'getUserTestOptions']),
-			new TwigFunction('cdn_footer', [$this, 'getCdnFooter'], ['is_safe' => ['html']]),
-			new TwigFunction('cdn_menu', [$this, 'getCdnMenu'], ['is_safe' => ['html']]),
 		];
 
 		if (!JDEBUG)
@@ -152,224 +128,6 @@ class TrackerExtension extends AbstractExtension
 	public function stripJRoot($string)
 	{
 		return str_replace(JPATH_ROOT, 'JROOT', $string);
-	}
-
-	/**
-	 * Fetches and renders the CDN footer element, optionally caching the data.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function getCdnFooter()
-	{
-		$key = md5(get_class($this) . '::' . __METHOD__ . ' - language - ' . $this->app->getLanguageTag());
-
-		$fetchPage = function ()
-		{
-			// Set a very short timeout to try and not bring the site down
-			$response = HttpFactory::getHttp()->get(
-				'https://cdn.joomla.org/template/renderer.php?section=footer&language=' . $this->app->getLanguageTag(),
-				[],
-				2
-			);
-
-			if ($response->code !== 200)
-			{
-				return 'Could not load template section.';
-			}
-
-			$body = $response->body;
-
-			// Replace the common placeholders
-			$body = strtr(
-				$body,
-				[
-					'%reportroute%'  => $this->app->get('uri.base.path') . 'tracker/jtracker/add',
-					'%currentyear%' => date('Y'),
-				]
-			);
-
-			// Replace the context aware placeholders
-			if ($this->app->getUser()->id)
-			{
-				$body = strtr(
-					$body,
-					[
-						'%loginroute%' => $this->app->get('uri.base.path') . 'logout',
-						'%logintext%'  => 'Log out',
-					]
-				);
-			}
-			else
-			{
-				$body = strtr(
-					$body,
-					[
-						'%loginroute%' => $this->loginHelper->getLoginUri(),
-						'%logintext%'  => 'Log in',
-					]
-				);
-			}
-
-			return $body;
-		};
-
-		if ($this->app->get('cache.enabled', false))
-		{
-			if ($this->cache->hasItem($key))
-			{
-				$item = $this->cache->getItem($key);
-
-				// Make sure we got a hit on the item, otherwise we'll have to re-cache
-				if ($item->isHit())
-				{
-					$body = $item->get();
-				}
-				else
-				{
-					try
-					{
-						$body = $fetchPage();
-
-						$item = (new Item($key, $this->app->get('cache.lifetime', 900)))
-							->set($body);
-
-						$this->cache->save($item);
-					}
-					catch (\RuntimeException $e)
-					{
-						$body = 'Could not load template section.';
-					}
-				}
-			}
-			else
-			{
-				try
-				{
-					$body = $fetchPage();
-
-					$item = (new Item($key, $this->app->get('cache.lifetime', 900)))
-						->set($body);
-
-					$this->cache->save($item);
-				}
-				catch (\RuntimeException $e)
-				{
-					$body = 'Could not load template section.';
-				}
-			}
-		}
-		else
-		{
-			try
-			{
-				$body = $fetchPage();
-			}
-			catch (\RuntimeException $e)
-			{
-				$body = 'Could not load template section.';
-			}
-		}
-
-		return $body;
-	}
-
-	/**
-	 * Fetches and renders the CDN menu element, optionally caching the data.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function getCdnMenu()
-	{
-		$key = md5(get_class($this) . '::' . __METHOD__ . ' - language - ' . $this->app->getLanguageTag());
-
-		$fetchPage = function ()
-		{
-			// Set a very short timeout to try and not bring the site down
-			$response = HttpFactory::getHttp()->get(
-				'https://cdn.joomla.org/template/renderer.php?section=menu&language=' . $this->app->getLanguageTag(),
-				[],
-				2
-			);
-
-			if ($response->code !== 200)
-			{
-				return 'Could not load template section.';
-			}
-
-			$body = $response->body;
-
-			// Needless concatenation for PHPCS 150 character line limits...
-			$replace = "\t<div id=\"nav-search\" class=\"navbar-search pull-right\">\n\t\t"
-				. "<jdoc:include type=\"modules\" name=\"position-0\" style=\"none\" />\n\t</div>\n";
-
-			// Remove the search module
-			$body = str_replace($replace, '', $body);
-
-			return $body;
-		};
-
-		if ($this->app->get('cache.enabled', false))
-		{
-			if ($this->cache->hasItem($key))
-			{
-				$item = $this->cache->getItem($key);
-
-				// Make sure we got a hit on the item, otherwise we'll have to re-cache
-				if ($item->isHit())
-				{
-					$body = $item->get();
-				}
-				else
-				{
-					try
-					{
-						$body = $fetchPage();
-
-						$item = (new Item($key, $this->app->get('cache.lifetime', 900)))
-							->set($body);
-
-						$this->cache->save($item);
-					}
-					catch (\RuntimeException $e)
-					{
-						$body = 'Could not load template section.';
-					}
-				}
-			}
-			else
-			{
-				try
-				{
-					$body = $fetchPage();
-
-					$item = (new Item($key, $this->app->get('cache.lifetime', 900)))
-						->set($body);
-
-					$this->cache->save($item);
-				}
-				catch (\RuntimeException $e)
-				{
-					$body = 'Could not load template section.';
-				}
-			}
-		}
-		else
-		{
-			try
-			{
-				$body = $fetchPage();
-			}
-			catch (\RuntimeException $e)
-			{
-				$body = 'Could not load template section.';
-			}
-		}
-
-		return $body;
 	}
 
 	/**

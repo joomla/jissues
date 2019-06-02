@@ -14,6 +14,8 @@ use Joomla\Renderer\RendererInterface;
 use Joomla\Renderer\TwigRenderer;
 use JTracker\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
+use JTracker\Twig\CdnExtension;
+use JTracker\Twig\Service\CdnRenderer;
 use JTracker\View\Renderer\ApplicationContext;
 use JTracker\View\Renderer\AssetsExtension;
 use JTracker\View\Renderer\DebugPathPackage;
@@ -134,6 +136,15 @@ class RendererProvider implements ServiceProviderInterface
 				true
 			);
 
+		$container->alias(CdnExtension::class, 'twig.extension.cdn')
+			->share(
+				'twig.extension.cdn',
+				function (Container $container) {
+					return new CdnExtension;
+				},
+				true
+			);
+
 		$container->alias(DebugExtension::class, 'twig.extension.debug')
 			->alias(\Twig_Extension_Debug::class, 'twig.extension.debug')
 			->share(
@@ -169,6 +180,20 @@ class RendererProvider implements ServiceProviderInterface
 				'twig.runtime.loader',
 				function (Container $container) {
 					return new ContainerRuntimeLoader($container);
+				},
+				true
+			);
+
+		$container->alias(CdnRenderer::class, 'twig.service.cdn_renderer')
+			->share(
+				'twig.service.cdn_renderer',
+				function (Container $container) {
+					return new CdnRenderer(
+						$container->get(Application::class),
+						$container->get('cache'),
+						$container->get('http'),
+						$container->get(GitHubLoginHelper::class)
+					);
 				},
 				true
 			);
@@ -216,6 +241,7 @@ class RendererProvider implements ServiceProviderInterface
 
 		$twigExtensions = [
 			'twig.extension.assets',
+			'twig.extension.cdn',
 			'twig.extension.tracker',
 		];
 
