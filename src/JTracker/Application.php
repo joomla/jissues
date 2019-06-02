@@ -121,12 +121,30 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	{
 		try
 		{
-			// Fetch the controller
-			/** @var AbstractTrackerController $controller */
-			$controller = $this->getRouter()->getController($this->get('uri.route'));
+			$this->mark('Routing request');
 
-			$this->mark('Initializing controller: ' . get_class($controller));
+			$route = $this->getRouter()->parseRoute($this->get('uri.route'), $this->input->getMethod());
+
+			// Add variables to the input if not already set
+			foreach ($route->getRouteVariables() as $key => $value)
+			{
+				$this->input->def($key, $value);
+			}
+
+			$controller = $route->getController;
+
+			$this->mark('Initializing controller: ' . $controller);
+
+			/** @var AbstractTrackerController $controller */
+			$controller = new $controller($this->input, $this);
+
+			if ($controller instanceof ContainerAwareInterface)
+			{
+				$controller->setContainer($this->getContainer());
+			}
+
 			$controller->initialize();
+
 			$this->mark('Controller initialized.');
 
 			// Execute the App
