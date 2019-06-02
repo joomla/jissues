@@ -8,7 +8,10 @@
 
 namespace App\Tracker;
 
+use App\Tracker\Twig\IssueExtension;
 use App\Tracker\Twig\MilestoneExtension;
+use App\Tracker\Twig\RelationExtension;
+use App\Tracker\Twig\StatusExtension;
 use Joomla\DI\Container;
 use JTracker\AppInterface;
 use JTracker\Router\TrackerRouter;
@@ -70,6 +73,16 @@ class TrackerApp implements AppInterface
 	 */
 	private function registerServices(Container $container)
 	{
+		$container->alias(MilestoneExtension::class, 'twig.extension.issue')
+			->share(
+				'twig.extension.issue',
+				function (Container $container) {
+					return new IssueExtension;
+				},
+				true
+			)
+			->tag('twig.extension', ['twig.extension.issue']);
+
 		$container->alias(MilestoneExtension::class, 'twig.extension.milestone')
 			->share(
 				'twig.extension.milestone',
@@ -79,5 +92,25 @@ class TrackerApp implements AppInterface
 				true
 			)
 			->tag('twig.extension', ['twig.extension.milestone']);
+
+		$container->alias(RelationExtension::class, 'twig.extension.relation')
+			->share(
+				'twig.extension.relation',
+				function (Container $container) {
+					return new RelationExtension($container->get('db'));
+				},
+				true
+			)
+			->tag('twig.extension', ['twig.extension.relation']);
+
+		$container->alias(StatusExtension::class, 'twig.extension.status')
+			->share(
+				'twig.extension.status',
+				function (Container $container) {
+					return new StatusExtension($container->get('db'));
+				},
+				true
+			)
+			->tag('twig.extension', ['twig.extension.status']);
 	}
 }

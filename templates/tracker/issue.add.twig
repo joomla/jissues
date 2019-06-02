@@ -43,8 +43,7 @@
                 <hr />
 
                 {{ fields.label('priority', 'Priority', '') }}
-                {% set priorities = priorities() %}
-                {{ fields.select('priority', priorities, item.priority, 'priority', 'input-small-100') }}
+                {{ fields.select('priority', issue_priorities(), item.priority, 'priority', 'input-small-100') }}
 
                 <div class="helpText alert alert-info">
                     The priority of which this issue should be resolved. Please see the <a class="alert-link" href="https://docs.joomla.org/Bug_Tracking_Process" target="_blank">Bug Tracking Process</a> page for detailed information about the project's priorities.

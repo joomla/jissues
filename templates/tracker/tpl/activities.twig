@@ -58,11 +58,11 @@
     <tr class="table-condensed">
         <td class="span2">Priority</td>
         <td class="span4 center">
-            <span class="badge {{ prioClass(old) }}">{{ getPriority(old) }}</span>
+            <span class="badge {{ issue_priority_class(old) }}">{{ issue_priority(old) }}</span>
         </td>
         <td class="span1 center">&rArr;</td>
         <td class="span4 center">
-            <span class="badge {{ prioClass(new) }}">{{ getPriority(new) }}</span>
+            <span class="badge {{ issue_priority_class(new) }}">{{ issue_priority(new) }}</span>
         </td>
     </tr>
 {% endmacro %}
@@ -101,9 +101,9 @@
 {% macro relationType(old, new) %}
     <tr class="table-condensed">
         <td class="span2">Relation Type</td>
-        <td class="span4 center">{{ getRelType(old) }}</td>
+        <td class="span4 center">{{ issue_relation_type(old) }}</td>
         <td class="span1 center">&rArr;</td>
-        <td class="span4 center">{{ getRelType(new) }}</td>
+        <td class="span4 center">{{ issue_relation_type(new) }}</td>
     </tr>
 {% endmacro %}
 

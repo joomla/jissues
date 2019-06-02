@@ -92,7 +92,7 @@
             <li>
                 <label for="status">Status</label>
                 <select name="item[status]" id="status" class="span2">
-                    {% for key, value in getStatuses() %}
+                    {% for key, value in statuses_by_state() %}
                         <option {{ key == item.status ? "selected='selected'" : ""  }} value="{{ key }}">{{ value }}</option>
                     {% endfor %}
                 </select>
@@ -100,7 +100,7 @@
             <li>
                 <label for="priority">Priority</label>
                 <select name="item[priority]" id="priority" class="span2">
-                    {% for key, value in priorities() %}
+                    {% for key, value in issue_priorities() %}
                         <option {{ key == item.priority ? "selected='selected'" : ""  }} value="{{ key }}">{{ value }}</option>
                     {% endfor %}
                 </select>
@@ -110,9 +110,9 @@
                 <label for="rel_type">Item</label>
                 <select name="item[rel_type]" id="rel_type" class="span2">
                     <option value="0"></option>
-                    {% for relType in getRelTypes() %}
+                    {% for relType in issue_relation_types() %}
                         {% set selected = item.rel_type == relType.value ? 'selected="selected"' : '' %}
-                        <option {{ selected }} value="{{ relType.value }}">{{ relation(relType.text) }}</option>
+                        <option {{ selected }} value="{{ relType.value }}">{{ issue_relation(relType.text) }}</option>
                     {% endfor %}
                 </select>
             </li>

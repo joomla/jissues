@@ -169,10 +169,10 @@
                 </td>
                 <td class="center valign-center">
                     [% var priorities = {1: 'Critical', 2: 'Urgent', 3: 'Medium', 4: 'Low', 5: 'Very Low'  }; %]
-                    <span class="badge [%=prioClass(item.priority)%] ">[%=priorities[item.priority]%]</span>
+                    <span class="badge [%=getIssuePriorityClass(item.priority)%] ">[%=priorities[item.priority]%]</span>
                  </td>
                 <td class="center valign-center">
-                    [%= translateStatus(item.status) %]
+                    [%= getStatusName(item.status) %]
                     [% if(item.merge_state) { %]
                         <br />
                         <span class="badge badge-[%= getMergeStateClass(item.merge_state) %] " title="GitHub merge status">
@@ -264,7 +264,7 @@
             getListItems();
         });
 
-        function prioClass(priority) {
+        function getIssuePriorityClass(priority) {
             priority = parseInt(priority);
 
             switch (priority) {
@@ -310,7 +310,7 @@
             return '?';
         }
 
-        function translateStatus(id) {
+        function getStatusName(id) {
             statuses = [];
             statuses['1'] = 'New';
             statuses['2'] = 'Confirmed';

@@ -85,7 +85,7 @@
         {% endif %}
 
         <li>
-            <span class="badge {{ prioClass(item.priority) }}">{{ getPriority(item.priority) }}</span>
+            <span class="badge {{ issue_priority_class(item.priority) }}">{{ issue_priority(item.priority) }}</span>
         </li>
 
         {% if item.build %}
@@ -161,12 +161,12 @@
 
     <!-- Merge Status -->
     {% if item.merge_state %}
-        <h4>{{ item.merge_state|mergeBadge|raw }}</h4>
+        <h4>{{ item.merge_state|issue_merge_badge }}</h4>
         <ul class="unstyled">
             {% if item.gh_merge_status is iterable %}
                 {% for status in item.gh_merge_status %}
                     <li>
-                        {{ status.state|mergeBadge|raw }}
+                        {{ status.state|issue_merge_badge }}
                         <strong>{{ status.context }}</strong>
                         {{ status.description }}
                         <a href="{{ status.targetUrl }}" title="{{ status.context }}">Details</a>
@@ -174,7 +174,7 @@
                 {% endfor %}
             {% else %}
                 <li>
-                    {{ item.merge_state|mergeBadge|raw }}
+                    {{ item.merge_state|issue_merge_badge }}
                     {% if item.gh_merge_status.description %}
                         {{ item.gh_merge_status.description }}
                     {% endif %}
@@ -206,7 +206,7 @@
     <!-- Relations -->
     {% if item.rel_number %}
         <div class="alert">
-            {{ relation(item.rel_name) }}
+            {{ issue_relation(item.rel_name) }}
             {{ issueLink(item.rel_number, false, item.rel_title)|raw }}
         </div>
     {% endif %}
@@ -215,7 +215,7 @@
         <div class="alert">
             Referenced as
             {% for rel_name, relations in item.relations_f %}
-                <strong>{{ relation(rel_name) }}: </strong>
+                <strong>{{ issue_relation(rel_name) }}: </strong>
                 {% for relation in relations %}
                     {{ issueLink(relation.issue_number, relation.closed, relation.title)|raw }}
                 {% endfor %}

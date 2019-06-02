@@ -5,7 +5,7 @@
   {% import "fields.twig" as fields %}
 
   {% set values = {0: '- Status -'} %}
-  {% set values = values + getStatuses(state) %}
+  {% set values = values + statuses_by_state(state) %}
 
   {{ fields.select('filter-status', values, value, id, class) }}
 {% endmacro %}
@@ -14,7 +14,7 @@
     {% import "fields.twig" as fields %}
 
     {% set values = {0: '- Priority -'} %}
-    {% set values = values + priorities() %}
+    {% set values = values + issue_priorities() %}
 
     {{ fields.select('filter-priority', values, value, id, class) }}
 {% endmacro %}
