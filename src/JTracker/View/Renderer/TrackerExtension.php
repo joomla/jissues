@@ -9,7 +9,7 @@
 namespace JTracker\View\Renderer;
 
 use Adaptive\Diff\Diff;
-use App\Tracker\DiffRenderer\Html\Inline;
+use JTracker\DiffRenderer\Html\Inline;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
