@@ -601,7 +601,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	}
 
 	/**
-	 * Get the event dispatcher.
+	 * Get the router.
 	 *
 	 * @return  Router
 	 *

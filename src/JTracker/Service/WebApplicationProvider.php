@@ -67,15 +67,12 @@ class WebApplicationProvider implements ServiceProviderInterface
 			true
 		);
 
-		$container->alias('router', TrackerRouter::class)
-			->alias(Router::class, TrackerRouter::class)
+		$container->alias('router', Router::class)
 			->share(
-				TrackerRouter::class,
+				Router::class,
 				function (Container $container)
 				{
-					return (new TrackerRouter($container, $container->get(Input::class)))
-						->setControllerPrefix('\\App')
-						->setDefaultController('\\Tracker\\Controller\\DefaultController');
+					return new Router;
 				},
 				true
 			);
