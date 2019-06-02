@@ -8,7 +8,7 @@
 
 namespace App\Tracker;
 
-use App\Tracker\Renderer\MilestoneExtension;
+use App\Tracker\Twig\MilestoneExtension;
 use Joomla\DI\Container;
 use JTracker\AppInterface;
 use JTracker\Router\TrackerRouter;
