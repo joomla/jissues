@@ -9,6 +9,7 @@
 namespace JTracker\DiffRenderer\Html;
 
 use Adaptive\Diff\Renderer\Html\ArrayRenderer;
+use Twig\Environment;
 
 /**
  * Class Inline
@@ -17,189 +18,55 @@ use Adaptive\Diff\Renderer\Html\ArrayRenderer;
  */
 class Inline extends ArrayRenderer
 {
-	private $showLineNumbers = true;
-
-	private $showHeader = true;
+	/**
+	 * Array of the default options that apply to this renderer.
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	protected $defaultOptions = [
+		'show_header'       => true,
+		'show_line_numbers' => true,
+	];
 
 	/**
-	 * Render a and return diff with changes between the two sequences displayed inline (under each other).
+	 * Constructor.
 	 *
-	 * @return string The generated inline diff.
+	 * @param   Environment  $twig     The Twig environment to render the template.
+	 * @param   array        $options  Optionally, an array of the options for the renderer.
 	 *
-	 * @since  1.0
+	 * @since   1.0
+	 */
+	public function __construct(Environment $twig, array $options = [])
+	{
+		parent::__construct($options);
+
+		$this->twig = $twig;
+	}
+
+	/**
+	 * Render and return diff with changes between the two sequences displayed inline (under each other).
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function render()
 	{
 		$changes = parent::render();
-		$html = '';
 
 		if (empty($changes))
 		{
-			return $html;
+			return '';
 		}
 
-		$html .= '<table class="Differences DifferencesInline">';
-
-		if ($this->showHeader)
-		{
-			$html .= '<thead>';
-			$html .= '<tr>';
-
-			if ($this->showLineNumbers)
-			{
-				$html .= '<th>Old</th>';
-				$html .= '<th>New</th>';
-			}
-
-			$html .= '<th>Differences</th>';
-			$html .= '</tr>';
-			$html .= '</thead>';
-		}
-
-		foreach ($changes as $i => $blocks)
-		{
-			// If this is a separate block, we're condensing code so output ...,
-			// indicating a significant portion of the code has been collapsed as it is the same
-			if ($i > 0)
-			{
-				$html .= '<tbody class="Skipped">';
-				$html .= '<th>&hellip;</th>';
-
-				if ($this->showLineNumbers)
-				{
-					$html .= '<th>&hellip;</th>';
-					$html .= '<td>&nbsp;</td>';
-				}
-
-				$html .= '</tbody>';
-			}
-
-			foreach ($blocks as $change)
-			{
-				$html .= '<tbody class="Change' . ucfirst($change['tag']) . '">';
-
-				// Equal changes should be shown on both sides of the diff
-
-				if ($change['tag'] == 'equal')
-				{
-					foreach ($change['base']['lines'] as $no => $line)
-					{
-						$html .= '<tr>';
-
-						if ($this->showLineNumbers)
-						{
-							$html .= '<th>' . ($change['base']['offset'] + $no + 1) . '</th>';
-							$html .= '<th>' . ($change['changed']['offset'] + $no + 1) . '</th>';
-						}
-
-						$html .= '<td class="Left">' . $line . '</td>';
-						$html .= '</tr>';
-					}
-				}
-				// Added lines only on the right side
-				elseif ($change['tag'] == 'insert')
-				{
-					foreach ($change['changed']['lines'] as $no => $line)
-					{
-						$html .= '<tr>';
-
-						if ($this->showLineNumbers)
-						{
-							$html .= '<th>&nbsp;</th>';
-							$html .= '<th>' . ($change['changed']['offset'] + $no + 1) . '</th>';
-						}
-
-						$html .= '<td class="Right"><ins>' . $line . '</ins>&nbsp;</td>';
-						$html .= '</tr>';
-					}
-				}
-				// Show deleted lines only on the left side
-				elseif ($change['tag'] == 'delete')
-				{
-					foreach ($change['base']['lines'] as $no => $line)
-					{
-						$html .= '<tr>';
-
-						if ($this->showLineNumbers)
-						{
-							$html .= '<th>' . ($change['base']['offset'] + $no + 1) . '</th>';
-							$html .= '<th>&nbsp;</th>';
-						}
-
-						$html .= '<td class="Left"><del>' . $line . '</del>&nbsp;</td>';
-						$html .= '</tr>';
-					}
-				}
-				// Show modified lines on both sides
-				elseif ($change['tag'] == 'replace')
-				{
-					foreach ($change['base']['lines'] as $no => $line)
-					{
-						$html .= '<tr>';
-
-						if ($this->showLineNumbers)
-						{
-							$html .= '<th>' . ($change['base']['offset'] + $no + 1) . '</th>';
-							$html .= '<th>&nbsp;</th>';
-						}
-
-						$html .= '<td class="Left"><span>' . $line . '</span></td>';
-						$html .= '</tr>';
-					}
-
-					foreach ($change['changed']['lines'] as $no => $line)
-					{
-						$html .= '<tr>';
-
-						if ($this->showLineNumbers)
-						{
-							$html .= '<th>&nbsp;</th>';
-							$html .= '<th>' . ($change['changed']['offset'] + $no + 1) . '</th>';
-						}
-
-						$html .= '<td class="Right"><span>' . $line . '</span></td>';
-						$html .= '</tr>';
-					}
-				}
-
-				$html .= '</tbody>';
-			}
-		}
-
-		$html .= '</table>';
-
-		return $html;
-	}
-
-	/**
-	 * Set showLineNumbers.
-	 *
-	 * @param   boolean  $showLineNumbers  Show the line numbers.
-	 *
-	 * @return  $this
-	 *
-	 * @since  1.0
-	 */
-	public function setShowLineNumbers($showLineNumbers)
-	{
-		$this->showLineNumbers = (bool) $showLineNumbers;
-
-		return $this;
-	}
-
-	/**
-	 * Set showHeader.
-	 *
-	 * @param   boolean  $showHeader  Show the table header.
-	 *
-	 * @return  $this
-	 *
-	 * @since  1.0
-	 */
-	public function setShowHeader($showHeader)
-	{
-		$this->showHeader = (bool) $showHeader;
-
-		return $this;
+		return $this->twig->render(
+			'diff.twig',
+			[
+				'changes'           => $changes,
+				'show_header'       => $this->options['show_header'],
+				'show_line_numbers' => $this->options['show_line_numbers'],
+			]
+		);
 	}
 }

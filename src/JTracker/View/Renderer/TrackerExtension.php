@@ -10,6 +10,7 @@ namespace JTracker\View\Renderer;
 
 use Adaptive\Diff\Diff;
 use JTracker\DiffRenderer\Html\Inline;
+use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -32,7 +33,7 @@ class TrackerExtension extends AbstractExtension
 	{
 		return [
 			new TwigFunction('contrast_color', [ContrastHelper::class, 'getContrastColor']),
-			new TwigFunction('render_diff', [$this, 'renderDiff'], ['is_safe' => ['html']]),
+			new TwigFunction('render_diff', [$this, 'renderDiff'], ['is_safe' => ['html'], 'needs_environment' => true]),
 			new TwigFunction('string_array_diff', [$this, 'getArrayDiffAsString']),
 			new TwigFunction('timezones', [$this, 'getTimezones']),
 		];
@@ -86,24 +87,25 @@ class TrackerExtension extends AbstractExtension
 	/**
 	 * Render the differences between two text strings.
 	 *
-	 * @param   string   $old              The "old" text.
-	 * @param   string   $new              The "new" text.
-	 * @param   boolean  $showLineNumbers  To show line numbers.
-	 * @param   boolean  $showHeader       To show the table header.
+	 * @param   Environment  $twig             The Twig environment.
+	 * @param   string       $old              The "old" text.
+	 * @param   string       $new              The "new" text.
+	 * @param   boolean      $showLineNumbers  To show line numbers.
+	 * @param   boolean      $showHeader       To show the table header.
 	 *
 	 * @return  string
 	 *
 	 * @since   1.0
 	 */
-	public function renderDiff($old, $new, $showLineNumbers = true, $showHeader = true)
+	public function renderDiff(Environment $twig, $old, $new, $showLineNumbers = true, $showHeader = true)
 	{
-		$options = [];
+		$rendererOptions = [
+			'show_header'       => (bool) $showHeader,
+			'show_line_numbers' => (bool) $showLineNumbers,
+		];
 
-		$renderer = (new Inline)
-			->setShowLineNumbers($showLineNumbers)
-			->setShowHeader($showHeader);
-
-		return (new Diff(explode("\n", $old), explode("\n", $new), $options))->render($renderer);
+		return (new Diff(explode("\n", $old), explode("\n", $new)))
+			->render(new Inline($twig, $rendererOptions));
 	}
 
 	/**
