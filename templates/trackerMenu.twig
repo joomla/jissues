@@ -54,9 +54,6 @@
     <li class="dropdown{{ firstPart in ['config', 'phpinfo', 'monologs', 'logs', 'icons', 'routes', 'text'] ? " active" : "" }}">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">System <span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li{{ "config" == firstPart ? ' class="active"' : "" }}>
-                <a href="{{ uri.base.path }}config"><i class="icon-dashboard"></i> Configuration</a>
-            </li>
             <li class="dropdown-submenu{{ firstPart in ['monologs', 'logs'] ? " active" : "" }}">
                 <a tabindex="-1" href="#"><i class="icon-copy"></i> Logs</a>
                 <ul class="dropdown-menu">
