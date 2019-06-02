@@ -20,6 +20,7 @@ use Joomla\Event\DispatcherAwareTrait;
 use Joomla\Input\Input;
 use Joomla\Registry\Registry;
 use Joomla\Renderer\RendererInterface;
+use Joomla\Router\Exception\RouteNotFoundException;
 use Joomla\Router\Router;
 
 use JTracker\Authentication\Exception\AuthenticationException;
@@ -27,7 +28,6 @@ use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
 use JTracker\Controller\AbstractTrackerController;
-use JTracker\Router\Exception\RoutingException;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -131,12 +131,12 @@ final class Application extends AbstractWebApplication implements ContainerAware
 				$this->input->def($key, $value);
 			}
 
-			$controller = $route->getController;
+			$controllerClass = $route->getController();
 
-			$this->mark('Initializing controller: ' . $controller);
+			$this->mark('Initializing controller: ' . $controllerClass);
 
 			/** @var AbstractTrackerController $controller */
-			$controller = new $controller($this->input, $this);
+			$controller = new $controllerClass($this->input, $this);
 
 			if ($controller instanceof ContainerAwareInterface)
 			{
@@ -192,7 +192,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			$this->setBody($this->renderException($exception, $context));
 		}
-		catch (RoutingException $exception)
+		catch (RouteNotFoundException $exception)
 		{
 			$this->setHeader('Status', 404, true);
 
