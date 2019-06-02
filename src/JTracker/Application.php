@@ -136,7 +136,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			$this->mark('Initializing controller: ' . $controllerClass);
 
 			/** @var AbstractTrackerController $controller */
-			$controller = new $controllerClass($this->input, $this);
+			$controller = new $controllerClass();
 
 			if ($controller instanceof ContainerAwareInterface)
 			{
