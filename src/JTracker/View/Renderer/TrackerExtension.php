@@ -66,7 +66,6 @@ class TrackerExtension extends AbstractExtension
 	public function getFunctions()
 	{
 		$functions = [
-			new TwigFunction('sprintf', 'sprintf'),
 			new TwigFunction('stripJRoot', [$this, 'stripJRoot']),
 			new TwigFunction('prioClass', [$this, 'getPrioClass']),
 			new TwigFunction('priorities', [$this, 'getPriorities']),
@@ -104,9 +103,6 @@ class TrackerExtension extends AbstractExtension
 	public function getFilters()
 	{
 		return [
-			new TwigFilter('basename', 'basename'),
-			new TwigFilter('get_class', 'get_class'),
-			new TwigFilter('json_decode', 'json_decode'),
 			new TwigFilter('stripJRoot', [$this, 'stripJRoot']),
 			new TwigFilter('contrastColor', [$this, 'getContrastColor']),
 			new TwigFilter('labels', [$this, 'renderLabels']),

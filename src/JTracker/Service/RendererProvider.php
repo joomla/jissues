@@ -16,6 +16,7 @@ use JTracker\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Twig\AssetsExtension;
 use JTracker\Twig\CdnExtension;
+use JTracker\Twig\PhpExtension;
 use JTracker\Twig\Service\CdnRenderer;
 use JTracker\View\Renderer\ApplicationContext;
 use JTracker\View\Renderer\DebugPathPackage;
@@ -155,6 +156,15 @@ class RendererProvider implements ServiceProviderInterface
 				true
 			);
 
+		$container->alias(PhpExtension::class, 'twig.extension.php')
+			->share(
+				'twig.extension.php',
+				function (Container $container) {
+					return new PhpExtension;
+				},
+				true
+			);
+
 		$container->alias(TrackerExtension::class, 'twig.extension.tracker')
 			->share(
 				'twig.extension.tracker',
@@ -242,6 +252,7 @@ class RendererProvider implements ServiceProviderInterface
 		$twigExtensions = [
 			'twig.extension.assets',
 			'twig.extension.cdn',
+			'twig.extension.php',
 			'twig.extension.tracker',
 		];
 

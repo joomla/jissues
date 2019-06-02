@@ -8,17 +8,33 @@
 
 namespace JTracker\Twig;
 
-use Symfony\Component\Asset\Packages;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 /**
- * Twig extension integrating UI asset support
+ * Twig extension integrating miscellaneous PHP functions into Twig
  *
  * @since  1.0
  */
-class AssetsExtension extends AbstractExtension
+class PhpExtension extends AbstractExtension
 {
+	/**
+	 * Returns a list of filters to add to the existing list.
+	 *
+	 * @return  TwigFilter[]  An array of filters
+	 *
+	 * @since   1.0
+	 */
+	public function getFilters()
+	{
+		return [
+			new TwigFilter('basename', 'basename'),
+			new TwigFilter('get_class', 'get_class'),
+			new TwigFilter('json_decode', 'json_decode'),
+		];
+	}
+
 	/**
 	 * Returns a list of functions to add to the existing list.
 	 *
@@ -29,7 +45,7 @@ class AssetsExtension extends AbstractExtension
 	public function getFunctions()
 	{
 		return [
-			new TwigFunction('asset', [Packages::class, 'getUrl']),
+			new TwigFunction('sprintf', 'sprintf'),
 		];
 	}
 }
