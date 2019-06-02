@@ -51,39 +51,9 @@
 </li>
 
 {% if user.isAdmin %}
-    <li class="dropdown{{ firstPart in ['config', 'phpinfo', 'monologs', 'logs', 'icons', 'routes', 'text'] ? " active" : "" }}">
+    <li class="dropdown{{ firstPart in ['icons', 'text'] ? ' active' : '' }}">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">System <span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li class="dropdown-submenu{{ firstPart in ['monologs', 'logs'] ? " active" : "" }}">
-                <a tabindex="-1" href="#"><i class="icon-copy"></i> Logs</a>
-                <ul class="dropdown-menu">
-                    <li{{ "monologs/app" == uri.route ? ' class="active"' : "" }}>
-                        <a href="{{ uri.base.path }}monologs/app"><i class="icon-flash"></i> Application</a>
-                    </li>
-                    <li{{ "monologs/error" == uri.route ? ' class="active"' : "" }}>
-                        <a href="{{ uri.base.path }}monologs/error"><i class="icon-flag"></i> Error</a>
-                    </li>
-                    <li{{ "monologs/cron" == uri.route ? ' class="active"' : "" }}>
-                        <a href="{{ uri.base.path }}monologs/cron"><i class="icon-basket"></i> Cron Jobs</a>
-                    </li>
-                    <li{{ "monologs/database" == uri.route ? ' class="active"' : "" }}>
-                        <a href="{{ uri.base.path }}monologs/database"><i class="icon-database"></i> Database</a>
-                    </li>
-                    <li{{ "monologs/github_issues" == uri.route ? ' class="active"' : "" }}>
-                        <a href="{{ uri.base.path }}monologs/github_issues"><i class="icon-github"></i> GitHub Issues</a>
-                    </li>
-                    <li{{ "monologs/github_comments" == uri.route ? ' class="active"' : "" }}>
-                        <a href="{{ uri.base.path }}monologs/github_comments"><i class="icon-github"></i> GitHub Comments</a>
-                    </li>
-                    <li{{ "monologs/github_pulls" == uri.route ? ' class="active"' : "" }}>
-                        <a href="{{ uri.base.path }}monologs/github_pulls"><i class="icon-github"></i> GitHub Pulls</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li{{ "logs/php" == uri.route ? ' class="active"' : "" }}>
-                        <a href="{{ uri.base.path }}logs/php"><i class="icon-heart-2"></i> PHP</a>
-                    </li>
-                </ul>
-            </li>
             <li class="{{ "icons" == firstPart ? "active" : "" }}">
                 <a href="{{ uri.base.path }}icons"><i class="icon-smiley-2"></i> Icons</a>
             </li>

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7bdb53d48eafe98ca2ede48428e6344e",
+    "content-hash": "777a46df4c99e1387d9db108a4f70afe",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -1790,45 +1790,6 @@
                 "simple-cache"
             ],
             "time": "2017-10-23T01:57:42+00:00"
-        },
-        {
-            "name": "pulse00/monolog-parser",
-            "version": "0.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pulse00/monolog-parser.git",
-                "reference": "2ef54746f428f0efe959a9bdeb11294aa8872d2f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pulse00/monolog-parser/zipball/2ef54746f428f0efe959a9bdeb11294aa8872d2f",
-                "reference": "2ef54746f428f0efe959a9bdeb11294aa8872d2f",
-                "shasum": ""
-            },
-            "require": {
-                "monolog/monolog": "1.*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Dubture": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Robert Gruendler",
-                    "email": "r.gruendler@gmail.com"
-                }
-            ],
-            "description": "A parser for monolog log entries",
-            "time": "2015-05-21T16:25:17+00:00"
         },
         {
             "name": "symfony/asset",
