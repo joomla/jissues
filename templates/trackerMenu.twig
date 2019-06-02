@@ -67,15 +67,12 @@
     </li>
 {% endif %}
 
-<li class="dropdown{{firstPart in ['markdown', 'documentation'] or uri.route == 'page/about' ? ' active' : '' }}">
+<li class="dropdown{{firstPart in ['documentation'] or uri.route == 'page/about' ? ' active' : '' }}">
     <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">/etc <span class="caret"></span></a>
 
     <ul class="dropdown-menu">
         <li class="{{ "page/about" == uri.route ? "active" : "" }}">
             <a href="{{ uri.base.path }}page/about">About</a>
-        </li>
-        <li class="{{ "markdown" == firstPart ? "active" : "" }}">
-            <a href="{{ uri.base.path }}markdown">Markdown</a>
         </li>
         <li class="{{ "documentation" == firstPart ? "active" : "" }}">
             <a href="{{ uri.base.path }}documentation">Documentation</a>

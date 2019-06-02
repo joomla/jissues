@@ -1,5 +1,4 @@
 {
-	"markdown"             : "\\Support\\Controller\\Markdown",
 	"icons"                : "\\Support\\Controller\\Icons",
 	"documentation"        : "\\Support\\Controller\\Documentation",
 	"documentation/view"   : "\\Support\\Controller\\Documentation",
