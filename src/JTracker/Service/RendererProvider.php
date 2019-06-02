@@ -169,7 +169,7 @@ class RendererProvider implements ServiceProviderInterface
 			->share(
 				'twig.extension.tracker',
 				function (Container $container) {
-					return new TrackerExtension($container);
+					return new TrackerExtension;
 				},
 				true
 			);

@@ -58,7 +58,7 @@
             <div class="control-group">
                 <label class="control-label" for="short_title">Timezone</label>
                 <div class="controls">
-                    {{ fields.selectequal('item[params][timezone]', getTimezones(), item.params.timezone ? item.params.timezone : offset, 'timezone') }}
+                    {{ fields.selectequal('item[params][timezone]', timezones(), item.params.timezone ? item.params.timezone : offset, 'timezone') }}
                 </div>
             </div>
 

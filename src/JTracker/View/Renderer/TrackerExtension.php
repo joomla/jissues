@@ -9,12 +9,7 @@
 namespace JTracker\View\Renderer;
 
 use Adaptive\Diff\Diff;
-
 use App\Tracker\DiffRenderer\Html\Inline;
-
-use Joomla\DI\Container;
-
-use JTracker\Application;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -27,26 +22,6 @@ use Twig\TwigFunction;
 class TrackerExtension extends AbstractExtension
 {
 	/**
-	 * Application object
-	 *
-	 * @var    Application
-	 * @since  1.0
-	 */
-	private $app;
-
-	/**
-	 * Constructor.
-	 *
-	 * @param   Container  $container  The DI container.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(Container $container)
-	{
-		$this->app = $container->get('app');
-	}
-
-	/**
 	 * Returns a list of functions to add to the existing list.
 	 *
 	 * @return  TwigFunction[]  An array of functions.
@@ -55,23 +30,12 @@ class TrackerExtension extends AbstractExtension
 	 */
 	public function getFunctions()
 	{
-		$functions = [
-			new TwigFunction('stripJRoot', [$this, 'stripJRoot']),
-			new TwigFunction('issueLink', [$this, 'issueLink']),
-			new TwigFunction('getTimezones', [$this, 'getTimezones']),
-			new TwigFunction('getContrastColor', [$this, 'getContrastColor']),
-			new TwigFunction('renderDiff', [$this, 'renderDiff'], ['is_safe' => ['html']]),
-			new TwigFunction('renderLabels', [$this, 'renderLabels']),
-			new TwigFunction('arrayDiff', [$this, 'arrayDiff']),
-			new TwigFunction('userTestOptions', [$this, 'getUserTestOptions']),
+		return [
+			new TwigFunction('contrast_color', [ContrastHelper::class, 'getContrastColor']),
+			new TwigFunction('render_diff', [$this, 'renderDiff'], ['is_safe' => ['html']]),
+			new TwigFunction('string_array_diff', [$this, 'getArrayDiffAsString']),
+			new TwigFunction('timezones', [$this, 'getTimezones']),
 		];
-
-		if (!JDEBUG)
-		{
-			array_push($functions, new TwigFunction('dump', [$this, 'dump']));
-		}
-
-		return $functions;
 	}
 
 	/**
@@ -84,143 +48,27 @@ class TrackerExtension extends AbstractExtension
 	public function getFilters()
 	{
 		return [
-			new TwigFilter('stripJRoot', [$this, 'stripJRoot']),
-			new TwigFilter('contrastColor', [$this, 'getContrastColor']),
-			new TwigFilter('labels', [$this, 'renderLabels']),
+			new TwigFilter('strip_root_path', [$this, 'stripRootPath']),
 			new TwigFilter('yesno', [$this, 'yesNo']),
 		];
 	}
 
 	/**
-	 * Replaces the Joomla! root path defined by the constant "JPATH_ROOT" with the string "JROOT".
+	 * Get the difference of two comma separated value strings.
 	 *
-	 * @param   string  $string  The string to process.
-	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 */
-	public function stripJRoot($string)
-	{
-		return str_replace(JPATH_ROOT, 'JROOT', $string);
-	}
-
-	/**
-	 * Dummy function to prevent throwing exception on dump function in the non-debug mode.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function dump()
-	{
-		return;
-	}
-
-	/**
-	 * Get a contrasting color (black or white).
-	 *
-	 * http://24ways.org/2010/calculating-color-contrast/
-	 *
-	 * @param   string  $hexColor  The hex color.
+	 * @param   string  $a  The "a" string.
+	 * @param   string  $b  The "b" string.
 	 *
 	 * @return  string
 	 *
 	 * @since   1.0
 	 */
-	public function getContrastColor($hexColor)
+	public function getArrayDiffAsString($a, $b): string
 	{
-		$r = hexdec(substr($hexColor, 0, 2));
-		$g = hexdec(substr($hexColor, 2, 2));
-		$b = hexdec(substr($hexColor, 4, 2));
-		$yiq = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+		$as = explode(',', $a);
+		$bs = explode(',', $b);
 
-		return ($yiq >= 128) ? 'black' : 'white';
-	}
-
-	/**
-	 * Render a list of labels.
-	 *
-	 * @param   string  $idsString  Comma separated list of IDs.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function renderLabels($idsString)
-	{
-		static $labels;
-
-		if (!$labels)
-		{
-			$labels = $this->app->getProject()->getLabels();
-		}
-
-		$html = [];
-
-		$ids = ($idsString) ? explode(',', $idsString) : [];
-
-		foreach ($ids as $id)
-		{
-			if (array_key_exists($id, $labels))
-			{
-				$bgColor = $labels[$id]->color;
-				$color   = $this->getContrastColor($bgColor);
-				$name    = $labels[$id]->name;
-			}
-			else
-			{
-				$bgColor = '000000';
-				$color   = 'ffffff';
-				$name    = '?';
-			}
-
-			$html[] = '<span class="label" style="background-color: #' . $bgColor . '; color: ' . $color . ';">';
-			$html[] = $name;
-			$html[] = '</span>';
-		}
-
-		return implode("\n", $html);
-	}
-
-	/**
-	 * Get HTML for an issue link.
-	 *
-	 * @param   integer  $number  Issue number.
-	 * @param   boolean  $closed  Issue closed status.
-	 * @param   string   $title   Issue title.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function issueLink($number, $closed, $title = '')
-	{
-		$html = [];
-
-		$title = ($title) ? : ' #' . $number;
-		$href = $this->app->get('uri')->base->path
-			. 'tracker/' . $this->app->getProject()->alias . '/' . $number;
-
-		$html[] = '<a href="' . $href . '" title="' . $title . '">';
-		$html[] = $closed ? '<del># ' . $number . '</del>' : '# ' . $number;
-		$html[] = '</a>';
-
-		return implode("\n", $html);
-	}
-
-	/**
-	 * Generate a localized yes/no message.
-	 *
-	 * @param   integer  $value  A value that evaluates to TRUE or FALSE.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function yesNo($value)
-	{
-		return $value ? 'Yes' : 'No';
+		return implode(',', array_diff($as, $bs));
 	}
 
 	/**
@@ -259,40 +107,30 @@ class TrackerExtension extends AbstractExtension
 	}
 
 	/**
-	 * Get the difference of two comma separated value strings.
+	 * Replaces the Joomla! root path defined by the constant "JPATH_ROOT" with the string "JROOT".
 	 *
-	 * @param   string  $a  The "a" string.
-	 * @param   string  $b  The "b" string.
+	 * @param   string  $string  The string to process.
 	 *
-	 * @return string  difference values comma separated
+	 * @return  mixed
 	 *
 	 * @since   1.0
 	 */
-	public function arrayDiff($a, $b)
+	public function stripRootPath($string)
 	{
-		$as = explode(',', $a);
-		$bs = explode(',', $b);
-
-		return implode(',', array_diff($as, $bs));
+		return str_replace(JPATH_ROOT, 'JROOT', $string);
 	}
 
 	/**
-	 * Get a user test option string.
+	 * Generate a localized yes/no message.
 	 *
-	 * @param   integer  $id  The option ID.
+	 * @param   integer  $value  A value that evaluates to TRUE or FALSE.
 	 *
-	 * @return  mixed array or string if an ID is given.
+	 * @return  string
 	 *
 	 * @since   1.0
 	 */
-	public function getUserTestOptions($id = null)
+	public function yesNo($value)
 	{
-		static $options = [
-			0 => 'Not tested',
-			1 => 'Tested successfully',
-			2 => 'Tested unsuccessfully',
-		];
-
-		return ($id !== null && array_key_exists($id, $options)) ? $options[$id] : $options;
+		return $value ? 'Yes' : 'No';
 	}
 }

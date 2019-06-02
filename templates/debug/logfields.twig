@@ -23,13 +23,13 @@
                     {% for line in value %}
                     <tr>
                         <td>{{ line['class'] }}{{ line['type'] }}{{ line['function'] }}()</td>
-                        <td>{{ line['file']|stripJRoot }}:{{ line['line'] }}</td>
+                        <td>{{ line['file']|strip_root_path }}:{{ line['line'] }}</td>
                     </tr>
                     {% endfor %}
                 </table>
             </li>
         {% else %}
-            <li><code>{{ key }}</code> {{ value|stripJRoot }}</li>
+            <li><code>{{ key }}</code> {{ value|strip_root_path }}</li>
         {% endif %}
     {% endfor %}
     </ul>

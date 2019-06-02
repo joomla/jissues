@@ -8,6 +8,8 @@
 
 namespace App\Tracker\Twig;
 
+use JTracker\Application;
+use JTracker\View\Renderer\ContrastHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -34,6 +36,46 @@ class IssueExtension extends AbstractExtension
 	];
 
 	/**
+	 * A list of the user test options
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	private const USER_TEST_OPTIONS = [
+		0 => 'Not tested',
+		1 => 'Tested successfully',
+		2 => 'Tested unsuccessfully',
+	];
+
+	/**
+	 * Web application
+	 *
+	 * @var    Application
+	 * @since  1.0
+	 */
+	private $app;
+
+	/**
+	 * Cached label data, lazy loaded when needed
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	private $labels;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param   Application  $app  Web application
+	 *
+	 * @since   1.0
+	 */
+	public function __construct(Application $app)
+	{
+		$this->app = $app;
+	}
+
+	/**
 	 * Returns a list of filters to add to the existing list.
 	 *
 	 * @return  TwigFilter[]  An array of filters
@@ -57,9 +99,12 @@ class IssueExtension extends AbstractExtension
 	public function getFunctions()
 	{
 		return [
+			new TwigFunction('issue_labels', [$this, 'renderIssueLabels'], ['is_safe' => ['html']]),
+			new TwigFunction('issue_link', [$this, 'renderIssueLink'], ['is_safe' => ['html']]),
 			new TwigFunction('issue_priorities', [$this, 'getIssuePriorities']),
 			new TwigFunction('issue_priority', [$this, 'getIssuePriority']),
 			new TwigFunction('issue_priority_class', [$this, 'getIssuePriorityClass']),
+			new TwigFunction('user_test_options', [$this, 'getUserTestOptions']),
 		];
 	}
 
@@ -151,6 +196,63 @@ class IssueExtension extends AbstractExtension
 	}
 
 	/**
+	 * Get a user test option string.
+	 *
+	 * @param   integer  $id  The option ID.
+	 *
+	 * @return  array|string  Option name if a known ID is given otherwise the full options list
+	 *
+	 * @since   1.0
+	 */
+	public function getUserTestOptions($id = null)
+	{
+		return ($id !== null && array_key_exists($id, self::USER_TEST_OPTIONS)) ? self::USER_TEST_OPTIONS[$id] : $options;
+	}
+
+	/**
+	 * Render a list of labels.
+	 *
+	 * @param   string  $idsString  Comma separated list of IDs.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function renderIssueLabels($idsString)
+	{
+		if ($this->labels === null)
+		{
+			$this->labels = $this->app->getProject()->getLabels();
+		}
+
+		$html = [];
+
+		$ids = ($idsString) ? explode(',', $idsString) : [];
+
+		foreach ($ids as $id)
+		{
+			if (array_key_exists($id, $this->labels))
+			{
+				$bgColor = $this->labels[$id]->color;
+				$color   = ContrastHelper::getContrastColor($bgColor);
+				$name    = $this->labels[$id]->name;
+			}
+			else
+			{
+				$bgColor = '000000';
+				$color   = 'ffffff';
+				$name    = '?';
+			}
+
+			$html[] = '<span class="label" style="background-color: #' . $bgColor . '; color: ' . $color . ';">';
+			$html[] = $name;
+			$html[] = '</span>';
+		}
+
+		return implode("\n", $html);
+	}
+
+	/**
 	 * Generate HTML output for a merge status badge.
 	 *
 	 * @param   string  $status  The merge status.
@@ -185,5 +287,28 @@ class IssueExtension extends AbstractExtension
 		}
 
 		return '<span class="badge badge-' . $class . '">' . $this->getIssueMergeStatus($status) . '</span>';
+	}
+
+	/**
+	 * Get HTML for an issue link.
+	 *
+	 * @param   integer  $number  Issue number.
+	 * @param   boolean  $closed  Issue closed status.
+	 * @param   string   $title   Issue title.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function renderIssueLink($number, $closed, $title = ''): string
+	{
+		$title = $title ?: ' #' . $number;
+		$href  = $this->app->get('uri.base.path') . 'tracker/' . $this->app->getProject()->alias . '/' . $number;
+
+		$html = '<a href="' . $href . '" title="' . $title . '">';
+		$html .= $closed ? '<del># ' . $number . '</del>' : '# ' . $number;
+		$html .= '</a>';
+
+		return $html;
 	}
 }

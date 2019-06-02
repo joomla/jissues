@@ -63,7 +63,7 @@
 
     <!-- Status bar -->
 
-    <span class="pull-right">{{ item.labels|labels|raw }}</span>
+    <span class="pull-right">{{ issue_labels(item.labels) }}</span>
 
     <ul class="breadcrumb">
 
@@ -196,7 +196,7 @@
             {% for category in item.categories %}
                 <li>
                     <a href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/?category=' ~ category.alias }}">
-                        <span class="label" style="background-color:#{{ category.color }};color:{{ getContrastColor(category.color) }}">{{ category.title }}</span>
+                        <span class="label" style="background-color:#{{ category.color }};color:{{ contrast_color(category.color) }}">{{ category.title }}</span>
                     </a>
                 </li>
             {% endfor %}
@@ -207,7 +207,7 @@
     {% if item.rel_number %}
         <div class="alert">
             {{ issue_relation(item.rel_name) }}
-            {{ issueLink(item.rel_number, false, item.rel_title)|raw }}
+            {{ issue_link(item.rel_number, false, item.rel_title) }}
         </div>
     {% endif %}
 
@@ -217,7 +217,7 @@
             {% for rel_name, relations in item.relations_f %}
                 <strong>{{ issue_relation(rel_name) }}: </strong>
                 {% for relation in relations %}
-                    {{ issueLink(relation.issue_number, relation.closed, relation.title)|raw }}
+                    {{ issue_link(relation.issue_number, relation.closed, relation.title) }}
                 {% endfor %}
             {% endfor %}
         </div>
@@ -363,7 +363,7 @@
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                     - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
-                    - <span class="tests-{{ change }}">{{ userTestOptions(change) }}</span>
+                    - <span class="tests-{{ change }}">{{ user_test_options(change) }}</span>
                 </div>
             {% elseif 'alter_testresult' == activity.event %}
                 {% set change = activity.text|json_decode %}
@@ -373,7 +373,7 @@
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                     - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
-                    - <b>{{ change.user }}</b>: <span class="tests-{{ change.value }}">{{ userTestOptions(change.value) }}</span>
+                    - <b>{{ change.user }}</b>: <span class="tests-{{ change.value }}">{{ user_test_options(change.value) }}</span>
                 </div>
             {% elseif 'commit' == activity.event %}
                 <div class="offset1 span11">
@@ -573,7 +573,7 @@
     </script>
 
     <script type="text/x-tmpl" id="tplNewTestResult">
-        [% var resultValues = ['{{ userTestOptions(0) }}', '{{ userTestOptions(1) }}', '{{ userTestOptions(2) }}']; %]
+        [% var resultValues = ['{{ user_test_options(0) }}', '{{ user_test_options(1) }}', '{{ user_test_options(2) }}']; %]
         <div id="event-[%= o.activities_id %]">
             <div class="row-fluid">
                 <div class="offset1 span11 activity-action">
@@ -589,7 +589,7 @@
     </script>
 
     <script type="text/x-tmpl" id="tplNewAlterTestResult">
-        [% var resultValues = ['{{ userTestOptions(0) }}', '{{ userTestOptions(1) }}', '{{ userTestOptions(2) }}']; %]
+        [% var resultValues = ['{{ user_test_options(0) }}', '{{ user_test_options(1) }}', '{{ user_test_options(2) }}']; %]
         <div id="event-[%= o.activities_id %]">
             <div class="row-fluid">
                 <div class="offset1 span11 activity-action">

@@ -22,7 +22,7 @@ class CdnRenderer
 	/**
 	 * Web application
 	 *
-	 * @var    AbstractApplication
+	 * @var    Application
 	 * @since  1.0
 	 */
 	private $app;

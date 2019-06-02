@@ -17,7 +17,7 @@
             <button type="button" class="btn" data-toggle="collapse" data-target="#diff-{{ cnt }}">Differences</button>
 
             <div id="diff-{{ cnt }}" class="collapse">
-                {{ renderDiff(old, new) }}
+                {{ render_diff(old, new) }}
             </div>
         </td>
     </tr>
@@ -30,7 +30,7 @@
             <button type="button" class="btn" data-toggle="collapse" data-target="#diff-{{ cnt }}">Differences</button>
 
             <div id="diff-{{ cnt }}" class="collapse">
-                {{ renderDiff(old, new, false, false) }}
+                {{ render_diff(old, new, false, false) }}
             </div>
         </td>
     </tr>
@@ -71,13 +71,13 @@
     <tr class="table-condensed">
         <td class="span2">Labels</td>
         <td colspan="3">
-            {% set added = arrayDiff(new, old) %}
+            {% set added = string_array_diff(new, old) %}
             {% if added %}
-                Added: {{ renderLabels(added)|raw }}<br />
+                Added: {{ issue_labels(added) }}<br />
             {% endif %}
-            {% set removed = arrayDiff(old, new) %}
+            {% set removed = string_array_diff(old, new) %}
             {% if removed %}
-                Removed: {{ renderLabels(removed)|raw }}<br />
+                Removed: {{ issue_labels(removed) }}<br />
             {% endif %}
         </td>
     </tr>
@@ -112,7 +112,7 @@
         <td class="span2">Category</td>
         <td class="span4 center">
             {% for oldCategory in old %}
-                <span class="label" style="background-color: {{ '#' ~ oldCategory.color }}; color: {{ getContrastColor(oldCategory.color) }};">
+                <span class="label" style="background-color: {{ '#' ~ oldCategory.color }}; color: {{ contrast_color(oldCategory.color) }};">
                     {{ oldCategory.title }}
                 </span>
             {% endfor %}
@@ -120,7 +120,7 @@
         <td class="span1 center">&rArr;</td>
         <td class="span4 center">
             {% for newCategory in new %}
-                <span class="label" style="background-color: {{ '#' ~ newCategory.color }}; color: {{ getContrastColor(newCategory.color) }};">
+                <span class="label" style="background-color: {{ '#' ~ newCategory.color }}; color: {{ contrast_color(newCategory.color) }};">
                     {{ newCategory.title }}
                 </span>
             {% endfor %}

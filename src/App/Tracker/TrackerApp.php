@@ -14,6 +14,7 @@ use App\Tracker\Twig\RelationExtension;
 use App\Tracker\Twig\StatusExtension;
 use Joomla\DI\Container;
 use JTracker\AppInterface;
+use JTracker\Application;
 use JTracker\Router\TrackerRouter;
 
 /**
@@ -77,7 +78,7 @@ class TrackerApp implements AppInterface
 			->share(
 				'twig.extension.issue',
 				function (Container $container) {
-					return new IssueExtension;
+					return new IssueExtension($container->get(Application::class));
 				},
 				true
 			)

@@ -41,7 +41,7 @@ class RelationExtension extends AbstractExtension
 	private $db;
 
 	/**
-	 * Cached milestone data, lazy loaded when needed
+	 * Cached relation data, lazy loaded when needed
 	 *
 	 * @var    array|null
 	 * @since  1.0
