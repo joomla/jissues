@@ -114,7 +114,7 @@ class JoomlacmsIssuesListener extends AbstractListener
 	protected function checkIssueLabels($hookData, Github $github, Logger $logger, $project)
 	{
 		// Set some data
-		$rfcLabel     = 'Request for Comment';
+		$rfcLabel     = 'RFC';
 		$addLabels    = [];
 		$removeLabels = [];
 
