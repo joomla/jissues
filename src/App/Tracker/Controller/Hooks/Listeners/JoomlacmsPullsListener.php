@@ -474,7 +474,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	{
 		// Set some data
 		$prLabel              = 'PR-' . $hookData->pull_request->base->ref;
-		$rfcLabel             = 'Request for Comment';
+		$rfcLabel             = 'RFC';
 		$languageLabel        = 'Language Change';
 		$unitSystemTestsLabel = 'Unit/System Tests';
 		$composerLabel        = 'Composer Dependency Changed';
