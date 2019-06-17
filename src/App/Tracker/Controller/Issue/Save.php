@@ -70,16 +70,12 @@ class Save extends AbstractTrackerController
 			// The user has full "edit" permission.
 			$data = $src;
 
-			// Allow admins to update labels and milestones
-			if (!$user->check('manage'))
+			if (!empty($item->labels))
 			{
-				if (!empty($item->labels))
-				{
-					$data['labels'] = explode(',', $item->labels);
-				}
-
-				$data['milestone_id'] = $item->milestone_id;
+				$data['labels'] = explode(',', $item->labels);
 			}
+
+			$data['milestone_id'] = $item->milestone_id;
 		}
 		elseif ($user->canEditOwn($item->opened_by))
 		{
