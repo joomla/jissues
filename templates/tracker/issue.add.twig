@@ -64,7 +64,7 @@
                     </div>
                 {% endif %}
 
-                {% if user.check('manage') %}
+                {% if user.check('edit') %}
 
                     {% if project.labels %}
                         {{ fields.label('labels', 'Labels') }}
