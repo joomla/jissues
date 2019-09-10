@@ -37,7 +37,7 @@
         "laravel-mix": "^2.1.11"
     },
     "author": "Joomla!",
-    "license": "GPL-2.0+",
+    "license": "GPL-2.0-or-later",
     "bugs": "https://github.com/joomla/jissues",
     "repository": {
         "type": "git",
