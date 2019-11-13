@@ -15,7 +15,7 @@
     "dependencies": {
         "at.js": "1.5.4",
         "blueimp-canvas-to-blob": "3.3.0",
-        "blueimp-file-upload": "9.9.0",
+        "blueimp-file-upload": "9.22.1",
         "blueimp-load-image": "2.9.0",
         "blueimp-tmpl": "2.5.3",
         "bootstrap-2.3.2": "^1.0.0",
