@@ -84,7 +84,7 @@ class CurlTransport extends Curl implements LoggerAwareInterface
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function request($method, UriInterface $uri, $data = null, array $headers = null, $timeout = null, $userAgent = null)
+	public function request($method, UriInterface $uri, $data = null, array $headers = [], $timeout = null, $userAgent = null)
 	{
 		$this->getLogger()->debug(
 			'Request started for curl transport',

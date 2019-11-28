@@ -12,6 +12,7 @@ use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Http\Http;
 use Joomla\Http\HttpFactory;
+use Psr\Http\Client\ClientInterface;
 
 /**
  * HTTP service provider
@@ -33,6 +34,7 @@ class HttpProvider implements ServiceProviderInterface
 	public function register(Container $container)
 	{
 		$container->alias('http', Http::class)
+			->alias(ClientInterface::class, Http::class)
 			->share(
 				Http::class,
 				function (Container $container)

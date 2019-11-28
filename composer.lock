@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "25a7e3a1c6ccbd67489ad40b23c9d9c6",
+    "content-hash": "203ac0632df9cea1f513d7780d4680c9",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -660,32 +660,32 @@
         },
         {
             "name": "joomla/github",
-            "version": "1.7.0",
+            "version": "dev-2.0-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/github-api.git",
-                "reference": "61580350250930083c42a24dc6a7873b28e606c1"
+                "reference": "2e2139d3ec4594676470077a162fbf37e205ee72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/github-api/zipball/61580350250930083c42a24dc6a7873b28e606c1",
-                "reference": "61580350250930083c42a24dc6a7873b28e606c1",
+                "url": "https://api.github.com/repos/joomla-framework/github-api/zipball/2e2139d3ec4594676470077a162fbf37e205ee72",
+                "reference": "2e2139d3ec4594676470077a162fbf37e205ee72",
                 "shasum": ""
             },
             "require": {
                 "joomla/http": "~1.3|~2.0",
                 "joomla/registry": "^1.4.5|~2.0",
                 "joomla/uri": "~1.0|~2.0",
-                "php": "^5.3.10|~7.0"
+                "php": "~7.2"
             },
             "require-dev": {
                 "joomla/coding-standards": "~2.0@alpha",
-                "phpunit/phpunit": "^4.8.35|^5.4.3|~6.0"
+                "phpunit/phpunit": "~8.2"
             },
             "type": "joomla-package",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-2.0-dev": "2.0-dev"
                 }
             },
             "autoload": {
@@ -704,40 +704,42 @@
                 "github",
                 "joomla"
             ],
-            "time": "2018-06-30T20:05:34+00:00"
+            "time": "2019-07-14T18:49:38+00:00"
         },
         {
             "name": "joomla/http",
-            "version": "1.3.3",
+            "version": "dev-2.0-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/http.git",
-                "reference": "128c3d410fd7327fb87839cd3e00ed0be2f71f9d"
+                "reference": "91aecbdeee2f38cfe518e568e9d1f09b344c6b25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/http/zipball/128c3d410fd7327fb87839cd3e00ed0be2f71f9d",
-                "reference": "128c3d410fd7327fb87839cd3e00ed0be2f71f9d",
+                "url": "https://api.github.com/repos/joomla-framework/http/zipball/91aecbdeee2f38cfe518e568e9d1f09b344c6b25",
+                "reference": "91aecbdeee2f38cfe518e568e9d1f09b344c6b25",
                 "shasum": ""
             },
             "require": {
                 "composer/ca-bundle": "~1.0",
                 "joomla/uri": "~1.0|~2.0",
-                "php": "^5.3.10|~7.0"
+                "php": "~7.2",
+                "psr/http-client": "~1.0",
+                "psr/http-message": "~1.0",
+                "zendframework/zend-diactoros": "~1.1|~2.0"
             },
             "require-dev": {
                 "joomla/coding-standards": "~2.0@alpha",
-                "joomla/test": "~1.0",
-                "phpunit/phpunit": "^4.8.35|^5.4.3|~6.0"
+                "joomla/test": "~2.0",
+                "phpunit/phpunit": "~8.2"
             },
             "suggest": {
-                "ext-curl": "To use cURL for HTTP connections",
-                "joomla/registry": "Registry can be used as an alternative to using an array for the package options."
+                "ext-curl": "To use cURL for HTTP connections"
             },
             "type": "joomla-package",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-2.0-dev": "2.0-dev"
                 }
             },
             "autoload": {
@@ -756,7 +758,7 @@
                 "http",
                 "joomla"
             ],
-            "time": "2019-03-10T15:31:03+00:00"
+            "time": "2019-07-18T00:24:34+00:00"
         },
         {
             "name": "joomla/input",
@@ -1135,30 +1137,29 @@
         },
         {
             "name": "joomla/uri",
-            "version": "1.2.0",
+            "version": "dev-2.0-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/uri.git",
-                "reference": "848a31dc895a9c8c9d7ea67571d6a4dd634a9dc1"
+                "reference": "eed89d4997fcc52c08bba56116fa3ac4aef6a9db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/uri/zipball/848a31dc895a9c8c9d7ea67571d6a4dd634a9dc1",
-                "reference": "848a31dc895a9c8c9d7ea67571d6a4dd634a9dc1",
+                "url": "https://api.github.com/repos/joomla-framework/uri/zipball/eed89d4997fcc52c08bba56116fa3ac4aef6a9db",
+                "reference": "eed89d4997fcc52c08bba56116fa3ac4aef6a9db",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3.10|~7.0"
+                "php": "~7.2"
             },
             "require-dev": {
                 "joomla/coding-standards": "~2.0@alpha",
-                "joomla/test": "~1.0",
-                "phpunit/phpunit": "^4.8.35|^5.4.3|~6.0"
+                "phpunit/phpunit": "~8.2"
             },
             "type": "joomla-package",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-2.0-dev": "2.0-dev"
                 }
             },
             "autoload": {
@@ -1177,7 +1178,7 @@
                 "joomla",
                 "uri"
             ],
-            "time": "2018-07-01T00:12:15+00:00"
+            "time": "2019-06-18T02:07:33+00:00"
         },
         {
             "name": "joomla/utilities",
@@ -1604,6 +1605,55 @@
                 "psr"
             ],
             "time": "2017-02-14T16:28:37+00:00"
+        },
+        {
+            "name": "psr/http-client",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-client.git",
+                "reference": "496a823ef742b632934724bf769560c2a5c7c44e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-client/zipball/496a823ef742b632934724bf769560c2a5c7c44e",
+                "reference": "496a823ef742b632934724bf769560c2a5c7c44e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0",
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Client\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP clients",
+            "homepage": "https://github.com/php-fig/http-client",
+            "keywords": [
+                "http",
+                "http-client",
+                "psr",
+                "psr-18"
+            ],
+            "time": "2018-10-30T23:29:13+00:00"
         },
         {
             "name": "psr/http-factory",
@@ -5208,9 +5258,12 @@
         "joomla/authentication": 20,
         "joomla/di": 20,
         "joomla/event": 20,
+        "joomla/github": 20,
+        "joomla/http": 20,
         "joomla/renderer": 20,
         "joomla/router": 20,
         "joomla/string": 20,
+        "joomla/uri": 20,
         "joomla/view": 20,
         "joomla/coding-standards": 20
     },

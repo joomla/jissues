@@ -8,7 +8,6 @@
 
 namespace JTracker\Github\Package;
 
-use Joomla\Uri\Uri;
 use JTracker\Github\Package;
 
 /**
@@ -169,14 +168,14 @@ class Issues extends Package
 	/**
 	 * List issues.
 	 *
-	 * @param   string     $filter     The filter type: assigned, created, mentioned, subscribed.
-	 * @param   string     $state      The optional state to filter requests by. [open, closed]
-	 * @param   string     $labels     The list of comma separated Label names. Example: bug,ui,@high.
-	 * @param   string     $sort       The sort order: created, updated, comments, default: created.
-	 * @param   string     $direction  The list direction: asc or desc, default: desc.
-	 * @param   \DateTime  $since      Only issues updated at or after this time are returned.
-	 * @param   integer    $page       The page number from which to get items.
-	 * @param   integer    $limit      The number of items on a page.
+	 * @param   string              $filter     The filter type: assigned, created, mentioned, subscribed.
+	 * @param   string              $state      The optional state to filter requests by. [open, closed]
+	 * @param   string              $labels     The list of comma separated Label names. Example: bug,ui,@high.
+	 * @param   string              $sort       The sort order: created, updated, comments, default: created.
+	 * @param   string              $direction  The list direction: asc or desc, default: desc.
+	 * @param   \DateTimeInterface  $since      Only issues updated at or after this time are returned.
+	 * @param   integer             $page       The page number from which to get items.
+	 * @param   integer             $limit      The number of items on a page.
 	 *
 	 * @return  object
 	 *
@@ -184,13 +183,13 @@ class Issues extends Package
 	 * @throws  \DomainException
 	 */
 	public function getList($filter = null, $state = null, $labels = null, $sort = null,
-		$direction = null, \DateTime $since = null, $page = 0, $limit = 0
+		$direction = null, \DateTimeInterface $since = null, $page = 0, $limit = 0
 	)
 	{
 		// Build the request path.
 		$path = '/issues';
 
-		$uri = new Uri($this->fetchUrl($path, $page, $limit));
+		$uri = $this->fetchUrl($path, $page, $limit);
 
 		if ($filter)
 		{
@@ -254,7 +253,7 @@ class Issues extends Package
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/issues';
 
-		$uri = new Uri($this->fetchUrl($path, $page, $limit));
+		$uri = $this->fetchUrl($path, $page, $limit);
 
 		if ($milestone)
 		{
