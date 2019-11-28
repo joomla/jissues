@@ -11,7 +11,7 @@
         "ext-intl": "*",
         "ext-json": "*",
         "joomla/application": "^2.0@dev",
-        "joomla/authentication": "^1.3",
+        "joomla/authentication": "^2.0@dev",
         "joomla/database": "^1.7.1",
         "joomla/date": "^1.2",
         "joomla/di": "^2.0@dev",
