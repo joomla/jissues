@@ -15,11 +15,11 @@ use App\Tracker\Table\StatusTable;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Http\Exception\InvalidResponseCodeException;
+use Joomla\Utilities\IpHelper;
 
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Controller\AbstractAjaxController;
 use JTracker\Github\GithubFactory;
-use JTracker\Helper\IpHelper;
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -254,7 +254,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 			$myIP = $application->input->server->getString('REMOTE_ADDR');
 		}
 
-		if (!IpHelper::ipInRange($myIP, $validIps->hooks, 'cidr') && '127.0.0.1' != $myIP)
+		if (!IpHelper::IPinList($myIP, $validIps->hooks) && '127.0.0.1' != $myIP)
 		{
 			// Log the unauthorized request
 			$this->logger->critical('Unauthorised request from ' . $myIP);
