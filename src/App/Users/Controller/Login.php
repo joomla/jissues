@@ -11,7 +11,7 @@ namespace App\Users\Controller;
 use Joomla\Authentication\Authentication;
 use Joomla\Registry\Registry;
 use Joomla\Github\Github;
-use Joomla\Github\Http;
+use Joomla\Http\Http;
 use Joomla\Http\HttpFactory;
 
 use JTracker\Authentication\Exception\AuthenticationException;

@@ -8,7 +8,7 @@
 
 namespace JTracker\Github;
 
-use Joomla\Github\Http;
+use Joomla\Http\Http;
 use Joomla\Registry\Registry;
 
 use JTracker\Application;
