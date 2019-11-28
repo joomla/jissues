@@ -12,6 +12,7 @@ use App\Projects\TrackerProject;
 
 use Joomla\Event\Event;
 
+use Joomla\Event\SubscriberInterface;
 use JTracker\Github\DataType\Commit\Status;
 
 /**
@@ -19,8 +20,22 @@ use JTracker\Github\DataType\Commit\Status;
  *
  * @since  1.0
  */
-class TestsTestsListener extends AbstractListener
+class TestsTestsListener extends AbstractListener implements SubscriberInterface
 {
+	/**
+	 * Returns an array of events this subscriber will listen to.
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	public static function getSubscribedEvents(): array
+	{
+		return [
+			'onTestAfterSubmit' => 'onTestAfterSubmit',
+		];
+	}
+
 	/**
 	 * Event for after issues are created in the application
 	 *

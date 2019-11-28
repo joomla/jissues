@@ -10,6 +10,7 @@ namespace App\Tracker\Controller\Hooks\Listeners;
 
 use App\Tracker\Table\IssuesTable;
 use Joomla\Event\Event;
+use Joomla\Event\SubscriberInterface;
 use Joomla\Github\Github;
 use Joomla\Http\Exception\InvalidResponseCodeException;
 use Monolog\Logger;
@@ -19,7 +20,7 @@ use Monolog\Logger;
  *
  * @since  1.0
  */
-class JoomlacmsPullsListener extends AbstractListener
+class JoomlacmsPullsListener extends AbstractListener implements SubscriberInterface
 {
 	const CATEGORY_JAVASCRIPT         = 1;
 	const CATEGORY_POSTGRESQL         = 2;
@@ -330,6 +331,21 @@ class JoomlacmsPullsListener extends AbstractListener
 	];
 
 	/**
+	 * Returns an array of events this subscriber will listen to.
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	public static function getSubscribedEvents(): array
+	{
+		return [
+			'onPullAfterCreate' => 'onPullAfterCreate',
+			'onPullAfterUpdate' => 'onPullAfterUpdate',
+		];
+	}
+
+	/**
 	 * Event for after pull requests are created in the application
 	 *
 	 * @param   Event  $event  Event object
@@ -340,6 +356,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	 */
 	public function onPullAfterCreate(Event $event)
 	{
+		var_dump('pull after create');die;
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
@@ -381,6 +398,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	 */
 	public function onPullAfterUpdate(Event $event)
 	{
+		var_dump('pull after update');die;
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 

@@ -10,6 +10,7 @@ namespace App\Tracker\Controller\Hooks\Listeners;
 
 use App\Tracker\Table\IssuesTable;
 use Joomla\Event\Event;
+use Joomla\Event\SubscriberInterface;
 use Joomla\Github\Github;
 
 use Monolog\Logger;
@@ -19,8 +20,23 @@ use Monolog\Logger;
  *
  * @since  1.0
  */
-class JoomlacmsCommentsListener extends AbstractListener
+class JoomlacmsCommentsListener extends AbstractListener implements SubscriberInterface
 {
+	/**
+	 * Returns an array of events this subscriber will listen to.
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	public static function getSubscribedEvents(): array
+	{
+		return [
+			'onCommentAfterCreate' => 'onCommentAfterCreate',
+			'onCommentAfterUpdate' => 'onCommentAfterUpdate',
+		];
+	}
+
 	/**
 	 * Event for after Comments gets added to the Tracker
 	 *

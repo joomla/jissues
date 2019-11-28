@@ -130,13 +130,14 @@ class Application extends AbstractApplication implements ContainerAwareInterface
 			$this->close();
 		}
 
+		$this->input = $input ?: new Cli;
 		$this->output = $output ?: new Stdout;
 
 		// Set the CLI input object.
 		$this->cliInput = $cliInput ?: new CliInput;
 
 		// Call the constructor as late as possible (it runs `initialise`).
-		parent::__construct($input ?: new Cli, $config);
+		parent::__construct($config);
 
 		// Set the current directory.
 		$this->set('cwd', getcwd());

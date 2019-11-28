@@ -9,6 +9,7 @@
 namespace App\Tracker\Controller\Hooks\Listeners;
 
 use Joomla\Event\Event;
+use Joomla\Event\SubscriberInterface;
 use Joomla\Github\Github;
 
 use Monolog\Logger;
@@ -18,8 +19,23 @@ use Monolog\Logger;
  *
  * @since  1.0
  */
-class JoomlacmsIssuesListener extends AbstractListener
+class JoomlacmsIssuesListener extends AbstractListener implements SubscriberInterface
 {
+	/**
+	 * Returns an array of events this subscriber will listen to.
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	public static function getSubscribedEvents(): array
+	{
+		return [
+			'onIssueAfterCreate' => 'onIssueAfterCreate',
+			'onIssueAfterUpdate' => 'onIssueAfterUpdate',
+		];
+	}
+
 	/**
 	 * Event for after issues are created in the application
 	 *

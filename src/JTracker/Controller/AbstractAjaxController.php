@@ -8,6 +8,8 @@
 
 namespace JTracker\Controller;
 
+use Joomla\Application\WebApplicationInterface;
+
 /**
  * Abstract controller for AJAX requests
  *
@@ -88,7 +90,12 @@ abstract class AbstractAjaxController extends AbstractTrackerController
 	 */
 	protected function setStatusCode($code = 200)
 	{
-		$this->getContainer()->get('app')->setHeader('Status', (int) $code);
+		$app = $this->getContainer()->get('app');
+
+		if ($app instanceof WebApplicationInterface)
+		{
+			$app->setHeader('Status', (int) $code);
+		}
 	}
 
 	/**
