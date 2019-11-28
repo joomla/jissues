@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "203ac0632df9cea1f513d7780d4680c9",
+    "content-hash": "3ba8d5d5ed19f8f099a9392cb1555ee2",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -1182,30 +1182,30 @@
         },
         {
             "name": "joomla/utilities",
-            "version": "1.6.1",
+            "version": "dev-2.0-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/utilities.git",
-                "reference": "b54beb07ddf2d8074f6f8f43c365f84ddf714c8f"
+                "reference": "491b6f4db261a5f88887c6d90cebcfeecf38d276"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/utilities/zipball/b54beb07ddf2d8074f6f8f43c365f84ddf714c8f",
-                "reference": "b54beb07ddf2d8074f6f8f43c365f84ddf714c8f",
+                "url": "https://api.github.com/repos/joomla-framework/utilities/zipball/491b6f4db261a5f88887c6d90cebcfeecf38d276",
+                "reference": "491b6f4db261a5f88887c6d90cebcfeecf38d276",
                 "shasum": ""
             },
             "require": {
                 "joomla/string": "~1.3|~2.0",
-                "php": "^5.3.10|~7.0"
+                "php": "~7.2"
             },
             "require-dev": {
                 "joomla/coding-standards": "~2.0@alpha",
-                "phpunit/phpunit": "^4.8.35|^5.4.3|~6.0"
+                "phpunit/phpunit": "~8.2"
             },
             "type": "joomla-package",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-2.0-dev": "2.0-dev"
                 }
             },
             "autoload": {
@@ -1224,7 +1224,7 @@
                 "joomla",
                 "utilities"
             ],
-            "time": "2019-07-17T01:48:57+00:00"
+            "time": "2019-06-18T01:28:24+00:00"
         },
         {
             "name": "joomla/view",
@@ -5264,6 +5264,7 @@
         "joomla/router": 20,
         "joomla/string": 20,
         "joomla/uri": 20,
+        "joomla/utilities": 20,
         "joomla/view": 20,
         "joomla/coding-standards": 20
     },
