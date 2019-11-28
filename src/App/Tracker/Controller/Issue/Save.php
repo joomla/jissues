@@ -413,7 +413,7 @@ class Save extends AbstractTrackerController
 		catch (UnexpectedResponseException $exception)
 		{
 			// GitHub will return either a 403 or 404 in case there is a permission problem.
-			if (!in_array($exception->getCode(), [403, 404]))
+			if (!in_array($exception->getResponse()->getStatusCode(), [403, 404]))
 			{
 				throw $exception;
 			}
