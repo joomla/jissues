@@ -64,7 +64,6 @@ class RendererProvider implements ServiceProviderInterface
 			);
 
 		$container->alias(CacheInterface::class, 'twig.cache')
-			->alias(\Twig_CacheInterface::class, 'twig.cache')
 			->share(
 				'twig.cache',
 				function (Container $container) {
@@ -85,7 +84,6 @@ class RendererProvider implements ServiceProviderInterface
 			);
 
 		$container->alias(Environment::class, 'twig.environment')
-			->alias(\Twig_Environment::class, 'twig.environment')
 			->share(
 				'twig.environment',
 				function (Container $container) {
@@ -147,7 +145,6 @@ class RendererProvider implements ServiceProviderInterface
 			);
 
 		$container->alias(DebugExtension::class, 'twig.extension.debug')
-			->alias(\Twig_Extension_Debug::class, 'twig.extension.debug')
 			->share(
 				'twig.extension.debug',
 				function (Container $container) {
@@ -175,7 +172,6 @@ class RendererProvider implements ServiceProviderInterface
 			);
 
 		$container->alias(LoaderInterface::class, 'twig.loader')
-			->alias(\Twig_LoaderInterface::class, 'twig.loader')
 			->share(
 				'twig.loader',
 				function (Container $container) {
@@ -185,7 +181,6 @@ class RendererProvider implements ServiceProviderInterface
 			);
 
 		$container->alias(ContainerRuntimeLoader::class, 'twig.runtime.loader')
-			->alias(\Twig_ContainerRuntimeLoader::class, 'twig.runtime.loader')
 			->share(
 				'twig.runtime.loader',
 				function (Container $container) {
