@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ba8d5d5ed19f8f099a9392cb1555ee2",
+    "content-hash": "61bca91f18c6bdb3872604fc5ca110e5",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -860,40 +860,39 @@
         },
         {
             "name": "joomla/profiler",
-            "version": "1.2.0",
+            "version": "dev-2.0-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/profiler.git",
-                "reference": "895b3daf6f5423d54efe58c2e16b5714b4c05502"
+                "reference": "fae5bb12587f972eb7e3c041024c129e8da7aa3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/profiler/zipball/895b3daf6f5423d54efe58c2e16b5714b4c05502",
-                "reference": "895b3daf6f5423d54efe58c2e16b5714b4c05502",
+                "url": "https://api.github.com/repos/joomla-framework/profiler/zipball/fae5bb12587f972eb7e3c041024c129e8da7aa3d",
+                "reference": "fae5bb12587f972eb7e3c041024c129e8da7aa3d",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.10|>=7.0"
+                "php": "~7.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.8|~5.0",
-                "squizlabs/php_codesniffer": "1.*"
+                "joomla/coding-standards": "~2.0@alpha",
+                "phpunit/phpunit": "~8.2"
             },
             "type": "joomla-package",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-2.0-dev": "2.0-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Joomla\\Profiler\\": "src/",
-                    "Joomla\\Profiler\\Tests\\": "Tests/"
+                    "Joomla\\Profiler\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "description": "Joomla Profiler Package",
             "homepage": "https://github.com/joomla-framework/profiler",
@@ -902,7 +901,7 @@
                 "joomla",
                 "profiler"
             ],
-            "time": "2016-01-31T19:55:50+00:00"
+            "time": "2019-07-14T17:17:12+00:00"
         },
         {
             "name": "joomla/registry",
@@ -5260,6 +5259,7 @@
         "joomla/event": 20,
         "joomla/github": 20,
         "joomla/http": 20,
+        "joomla/profiler": 20,
         "joomla/renderer": 20,
         "joomla/router": 20,
         "joomla/string": 20,

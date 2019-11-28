@@ -21,7 +21,7 @@
         "joomla/http": "^2.0@dev",
         "joomla/input": "^1.4",
         "joomla/model": "^1.3",
-        "joomla/profiler": "^1.2",
+        "joomla/profiler": "^2.0@dev",
         "joomla/registry": "^1.6.3",
         "joomla/renderer": "^2.0@dev",
         "joomla/router": "^2.0@dev",
