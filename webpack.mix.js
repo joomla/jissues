@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+const mix = require('laravel-mix');
 
 // Configure base path for mix stuff going to web
 mix.setPublicPath('www/media/');
