@@ -8,11 +8,10 @@
 
 namespace Application\Command\Help;
 
+use Application\Cli\ColorStyle;
+use Application\Cli\Output\Processor\ColorProcessor;
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
-
-use Joomla\Application\Cli\ColorStyle;
-use Joomla\Application\Cli\Output\Processor\ColorProcessor;
 
 /**
  * Class for displaying help data for the installer application.

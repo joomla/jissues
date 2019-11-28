@@ -9,12 +9,12 @@
 namespace JTracker\Service;
 
 use Application\Application;
+use Application\Cli\CliInput;
+use Application\Cli\CliOutput;
+use Application\Cli\ColorStyle;
+use Application\Cli\Output\Processor\ColorProcessor;
+use Application\Cli\Output\Stdout;
 
-use Joomla\Application\AbstractCliApplication;
-use Joomla\Application\Cli\CliOutput;
-use Joomla\Application\Cli\ColorStyle;
-use Joomla\Application\Cli\Output\Processor\ColorProcessor;
-use Joomla\Application\Cli\Output\Stdout;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Event\DispatcherInterface;
@@ -42,25 +42,25 @@ class CliApplicationProvider implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		$container->alias(AbstractCliApplication::class, Application::class)
-			->share(
-				Application::class,
-				function (Container $container)
-				{
-					$application = new Application(
-						$container->get(Cli::class),
-						$container->get('config'),
-						$container->get(CliOutput::class)
-					);
+		$container->share(
+			Application::class,
+			function (Container $container)
+			{
+				$application = new Application(
+					$container->get(Cli::class),
+					$container->get('config'),
+					$container->get(CliOutput::class),
+					$container->get(CliInput::class)
+				);
 
-					// Inject extra services
-					$application->setContainer($container);
-					$application->setDispatcher($container->get(DispatcherInterface::class));
+				// Inject extra services
+				$application->setContainer($container);
+				$application->setDispatcher($container->get(DispatcherInterface::class));
 
-					return $application;
-				},
-				true
-			);
+				return $application;
+			},
+			true
+		);
 
 		$container->alias(BaseCli::class, Cli::class)
 			->share(
@@ -95,6 +95,15 @@ class CliApplicationProvider implements ServiceProviderInterface
 					->addStyle('ok', new ColorStyle('green', '', ['bold']));
 
 				return $processor;
+			},
+			true
+		);
+
+		$container->share(
+			CliInput::class,
+			function (Container $container)
+			{
+				return new CliInput;
 			},
 			true
 		);

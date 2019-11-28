@@ -11,14 +11,16 @@ namespace Application;
 use Application\Command\Help\Help;
 use App\Projects\TrackerProject;
 
+use Application\Cli\CliInput;
+use Application\Cli\CliOutput;
+use Application\Cli\Output\Stdout;
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 use Application\Exception\AbortException;
 
 use Elkuku\Console\Helper\ConsoleProgressBar;
 
-use Joomla\Application\AbstractCliApplication;
-use Joomla\Application\Cli\CliOutput;
+use Joomla\Application\AbstractApplication;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
 use Joomla\Event\DispatcherAwareInterface;
@@ -27,15 +29,32 @@ use Joomla\Input;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\GitHub\GitHubUser;
+use JTracker\Input\Cli;
 
 /**
  * CLI application for installing the tracker application
  *
  * @since  1.0
  */
-class Application extends AbstractCliApplication implements ContainerAwareInterface, DispatcherAwareInterface
+class Application extends AbstractApplication implements ContainerAwareInterface, DispatcherAwareInterface
 {
 	use ContainerAwareTrait, DispatcherAwareTrait;
+
+	/**
+	 * Output object
+	 *
+	 * @var    CliOutput
+	 * @since  1.0
+	 */
+	protected $output;
+
+	/**
+	 * CLI Input object
+	 *
+	 * @var    CliInput
+	 * @since  1.6.0
+	 */
+	protected $cliInput;
 
 	/**
 	 * Quiet mode - no output.
@@ -80,7 +99,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	/**
 	 * The application input object.
 	 *
-	 * @var    \JTracker\Input\Cli
+	 * @var    Cli
 	 * @since  1.0
 	 */
 	public $input;
@@ -88,19 +107,39 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	/**
 	 * Class constructor.
 	 *
-	 * @param   Input\Cli  $input   An optional argument to provide dependency injection for the application's
-	 *                              input object.  If the argument is a InputCli object that object will become
-	 *                              the application's input object, otherwise a default input object is created.
-	 * @param   Registry   $config  An optional argument to provide dependency injection for the application's
-	 *                              config object.  If the argument is a Registry object that object will become
-	 *                              the application's config object, otherwise a default config object is created.
-	 * @param   CliOutput  $output  The output handler.
+	 * @param   Input\Cli   $input     An optional argument to provide dependency injection for the application's input object.  If the
+	 *                                 argument is an Input\Cli object that object will become the application's input object, otherwise
+	 *                                 a default input object is created.
+	 * @param   Registry    $config    An optional argument to provide dependency injection for the application's config object.  If the
+	 *                                 argument is a Registry object that object will become the application's config object, otherwise
+	 *                                 a default config object is created.
+	 * @param   CliOutput   $output    An optional argument to provide dependency injection for the application's output object.  If the
+	 *                                 argument is a CliOutput object that object will become the application's input object, otherwise
+	 *                                 a default output object is created.
+	 * @param   CliInput    $cliInput  An optional argument to provide dependency injection for the application's CLI input object.  If the
+	 *                                 argument is a CliInput object that object will become the application's input object, otherwise
+	 *                                 a default input object is created.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Input\Cli $input = null, Registry $config = null, CliOutput $output = null)
+	public function __construct(Input\Cli $input = null, Registry $config = null, CliOutput $output = null, CliInput $cliInput = null)
 	{
-		parent::__construct($input, $config, $output);
+		// Close the application if we are not executed from the command line.
+		if (!\defined('STDOUT') || !\defined('STDIN') || !isset($_SERVER['argv']))
+		{
+			$this->close();
+		}
+
+		$this->output = $output ?: new Stdout;
+
+		// Set the CLI input object.
+		$this->cliInput = $cliInput ?: new CliInput;
+
+		// Call the constructor as late as possible (it runs `initialise`).
+		parent::__construct($input ?: new Cli, $config);
+
+		// Set the current directory.
+		$this->set('cwd', getcwd());
 
 		$this->commandOptions[] = new TrackerCommandOption(
 			'quiet',
@@ -132,6 +171,30 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 		{
 			$this->usePBar = false;
 		}
+	}
+
+	/**
+	 * Get an output object.
+	 *
+	 * @return  CliOutput
+	 *
+	 * @since   1.0
+	 */
+	public function getOutput()
+	{
+		return $this->output;
+	}
+
+	/**
+	 * Get a CLI input object.
+	 *
+	 * @return  CliInput
+	 *
+	 * @since   1.0
+	 */
+	public function getCliInput()
+	{
+		return $this->cliInput;
 	}
 
 	/**
@@ -268,6 +331,19 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	}
 
 	/**
+	 * Get a value from standard input.
+	 *
+	 * @return  string  The input string from standard input.
+	 *
+	 * @codeCoverageIgnore
+	 * @since   1.0
+	 */
+	public function in()
+	{
+		return $this->getCliInput()->in();
+	}
+
+	/**
 	 * Write a string to standard output.
 	 *
 	 * @param   string   $text     The text to display.
@@ -280,7 +356,12 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	 */
 	public function out($text = '', $newline = true)
 	{
-		return ($this->quiet) ? $this : parent::out($text, $newline);
+		if (!$this->quiet)
+		{
+			$this->getOutput()->out($text, $newline);
+		}
+
+		return $this;
 	}
 
 	/**
