@@ -70,7 +70,7 @@ class Login extends AbstractTrackerController
 		$options->set('gh.token', $accessToken);
 
 		// GitHub API works best with cURL
-		$transport = HttpFactory::getAvailableDriver($options, ['curl']);
+		$transport = (new HttpFactory)->getAvailableDriver($options, ['curl']);
 
 		if (false === $transport)
 		{
