@@ -53,7 +53,7 @@ final class AddDebugOutputToResponseListener
 
 		$body = $app->getBody();
 
-		$body = JDEBUG ? str_replace('%%%DEBUG%%%', $this->debugger->getOutput(), $body) : '';
+		$body = JDEBUG ? str_replace('%%%DEBUG%%%', $this->debugger->getOutput(), $body) : $body;
 
 		$app->setBody($body);
 	}
