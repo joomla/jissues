@@ -26,7 +26,7 @@ use JTracker\View\AbstractTrackerHtmlView;
  *
  * @since  1.0
  */
-abstract class AbstractTrackerController implements ContainerAwareInterface, DispatcherAwareInterface
+abstract class AbstractTrackerController implements TrackerControllerInterface, ContainerAwareInterface, DispatcherAwareInterface
 {
 	use ContainerAwareTrait, DispatcherAwareTrait;
 
