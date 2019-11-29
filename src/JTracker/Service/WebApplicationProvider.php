@@ -9,12 +9,15 @@
 namespace JTracker\Service;
 
 use Joomla\Application\AbstractWebApplication;
+use Joomla\Application\Controller\ControllerResolver;
+use Joomla\Application\Controller\ControllerResolverInterface;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Event\Dispatcher;
 use Joomla\Input\Input;
 use Joomla\Router\Router;
 use JTracker\Application;
+use JTracker\Controller\TrackerControllerResolver;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -49,10 +52,22 @@ class WebApplicationProvider implements ServiceProviderInterface
 
 					// Inject extra services
 					$application->setContainer($container);
+					$application->setControllerResolver($container->get(ControllerResolverInterface::class));
 					$application->setDispatcher($container->get(Dispatcher::class));
 					$application->setRouter($container->get(Router::class));
 
 					return $application;
+				},
+				true
+			);
+
+		$container->alias(TrackerControllerResolver::class, ControllerResolverInterface::class)
+			->alias(ControllerResolver::class, ControllerResolverInterface::class)
+			->share(
+				ControllerResolverInterface::class,
+				function ()
+				{
+					return new TrackerControllerResolver;
 				},
 				true
 			);

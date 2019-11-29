@@ -13,6 +13,7 @@ use App\Projects\Model\ProjectModel;
 use App\Projects\TrackerProject;
 
 use Joomla\Application\AbstractWebApplication;
+use Joomla\Application\Controller\ControllerResolverInterface;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
 use Joomla\Event\DispatcherAwareInterface;
@@ -27,7 +28,7 @@ use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
-use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\TrackerControllerInterface;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -39,6 +40,14 @@ use Symfony\Component\HttpFoundation\Session\Session;
 final class Application extends AbstractWebApplication implements ContainerAwareInterface, DispatcherAwareInterface
 {
 	use ContainerAwareTrait, DispatcherAwareTrait;
+
+	/**
+	 * The application's controller resolver.
+	 *
+	 * @var    ControllerResolverInterface
+	 * @since  1.0
+	 */
+	protected $controllerResolver;
 
 	/**
 	 * The name of the application.
@@ -131,29 +140,39 @@ final class Application extends AbstractWebApplication implements ContainerAware
 				$this->input->def($key, $value);
 			}
 
-			$controllerClass = $route->getController();
+			$this->mark('Resolving controller');
 
-			$this->mark('Initializing controller: ' . $controllerClass);
+			$controller = $this->getControllerResolver()->resolve($route);
 
-			/** @var AbstractTrackerController $controller */
-			$controller = new $controllerClass();
-
-			if ($controller instanceof ContainerAwareInterface)
+			if (!is_array($controller) || !is_object($controller[0]) || !($controller[0] instanceof TrackerControllerInterface))
 			{
-				$controller->setContainer($this->getContainer());
+				throw new \UnexpectedValueException(
+					sprintf('%s only supports controllers which implement %s', self::class, TrackerControllerInterface::class)
+				);
 			}
 
-			$controller->initialize();
+			/** @var TrackerControllerInterface $controllerInstance */
+			$controllerInstance = $controller[0];
+
+			if ($controllerInstance instanceof ContainerAwareInterface)
+			{
+				$controllerInstance->setContainer($this->getContainer());
+			}
+
+			if ($controllerInstance instanceof TrackerControllerInterface)
+			{
+				$controllerInstance->initialize();
+			}
 
 			$this->mark('Controller initialized.');
 
 			// Execute the App
 
 			// Define the app path
-			define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controller->getApp()));
+			define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controllerInstance->getApp()));
 			$this->mark('JPATH_APP=' . JPATH_APP);
 
-			$contents = $controller->execute();
+			$contents = $controllerInstance->execute();
 			$this->mark('Controller executed');
 
 			if (!$contents)
@@ -634,6 +653,40 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		}
 
 		throw new \UnexpectedValueException('Router not set in ' . __CLASS__);
+	}
+
+	/**
+	 * Set the application's controller resolver.
+	 *
+	 * @param   ControllerResolverInterface  $controllerResolver  Controller resolver to set.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function setControllerResolver(ControllerResolverInterface $controllerResolver)
+	{
+		$this->controllerResolver = $controllerResolver;
+
+		return $this;
+	}
+
+	/**
+	 * Get the controller resolver.
+	 *
+	 * @return  ControllerResolverInterface
+	 *
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException May be thrown if the controller resolver has not been set.
+	 */
+	public function getControllerResolver()
+	{
+		if ($this->controllerResolver)
+		{
+			return $this->controllerResolver;
+		}
+
+		throw new \UnexpectedValueException('Controller resolver not set in ' . __CLASS__);
 	}
 
 	/**
