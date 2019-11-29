@@ -630,45 +630,4 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 		throw new \UnexpectedValueException('Controller resolver not set in ' . __CLASS__);
 	}
-
-	/**
-	 * Set the HTTP Response Header for error conditions
-	 *
-	 * @param   \Exception  $exception  The Exception object
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	private function setErrorHeader(\Exception $exception)
-	{
-		switch ($exception->getCode())
-		{
-			case 401 :
-				$this->setHeader('HTTP/1.1 401 Unauthorized', 401, true);
-
-				break;
-
-			case 403 :
-				$this->setHeader('HTTP/1.1 403 Forbidden', 403, true);
-
-				break;
-
-			case 404 :
-				$this->setHeader('HTTP/1.1 404 Not Found', 404, true);
-
-				break;
-
-			case 405 :
-				$this->setHeader('HTTP/1.1 405 Method Not Allowed', 405, true);
-
-				break;
-
-			case 500 :
-			default  :
-				$this->setHeader('HTTP/1.1 500 Internal Server Error', 500, true);
-
-				break;
-		}
-	}
 }
