@@ -199,17 +199,10 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
 	 */
 	public function execute()
 	{
-		try
-		{
-			// Render our view.
-			$contents = $this->view->render();
+		// Render our view.
+		$contents = $this->view->render();
 
-			$this->getContainer()->get('app')->mark('View rendered: ' . $this->view->getLayout());
-		}
-		catch (\Exception $e)
-		{
-			$contents = $this->getContainer()->get('app')->renderException($e);
-		}
+		$this->getContainer()->get('app')->mark('View rendered: ' . $this->view->getLayout());
 
 		return $contents;
 	}

@@ -110,7 +110,7 @@ abstract class GithubFactory
 				'JTracker-Github',
 				[
 					new StreamHandler(
-						$app->get('debug.log-path', JPATH_ROOT) . '/github.log',
+						$app->get('debug.log-path', JPATH_ROOT . '/logs') . '/github.log',
 						Logger::DEBUG
 					),
 				],

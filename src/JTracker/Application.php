@@ -20,11 +20,8 @@ use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Event\DispatcherAwareTrait;
 use Joomla\Input\Input;
 use Joomla\Registry\Registry;
-use Joomla\Renderer\RendererInterface;
-use Joomla\Router\Exception\RouteNotFoundException;
 use Joomla\Router\Router;
 
-use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
@@ -128,116 +125,61 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 */
 	protected function doExecute()
 	{
-		try
+		$this->mark('Routing request');
+
+		$route = $this->getRouter()->parseRoute($this->get('uri.route'), $this->input->getMethod());
+
+		// Add variables to the input if not already set
+		foreach ($route->getRouteVariables() as $key => $value)
 		{
-			$this->mark('Routing request');
-
-			$route = $this->getRouter()->parseRoute($this->get('uri.route'), $this->input->getMethod());
-
-			// Add variables to the input if not already set
-			foreach ($route->getRouteVariables() as $key => $value)
-			{
-				$this->input->def($key, $value);
-			}
-
-			$this->mark('Resolving controller');
-
-			$controller = $this->getControllerResolver()->resolve($route);
-
-			if (!is_array($controller) || !is_object($controller[0]) || !($controller[0] instanceof TrackerControllerInterface))
-			{
-				throw new \UnexpectedValueException(
-					sprintf('%s only supports controllers which implement %s', self::class, TrackerControllerInterface::class)
-				);
-			}
-
-			/** @var TrackerControllerInterface $controllerInstance */
-			$controllerInstance = $controller[0];
-
-			if ($controllerInstance instanceof ContainerAwareInterface)
-			{
-				$controllerInstance->setContainer($this->getContainer());
-			}
-
-			if ($controllerInstance instanceof TrackerControllerInterface)
-			{
-				$controllerInstance->initialize();
-			}
-
-			$this->mark('Controller initialized.');
-
-			// Execute the App
-
-			// Define the app path
-			define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controllerInstance->getApp()));
-			$this->mark('JPATH_APP=' . JPATH_APP);
-
-			$contents = $controllerInstance->execute();
-			$this->mark('Controller executed');
-
-			if (!$contents)
-			{
-				throw new \UnexpectedValueException(sprintf("The %s controller's execute() method did not return anything!", get_class($controller)));
-			}
-
-			$this->mark('Application terminated OK');
-
-			$this->checkRememberMe();
-
-			$contents = str_replace('%%%DEBUG%%%', $this->getDebugger()->getOutput(), $contents);
-
-			$this->setBody($contents);
+			$this->input->def($key, $value);
 		}
-		catch (AuthenticationException $exception)
+
+		$this->mark('Resolving controller');
+
+		$controller = $this->getControllerResolver()->resolve($route);
+
+		if (!is_array($controller) || !is_object($controller[0]) || !($controller[0] instanceof TrackerControllerInterface))
 		{
-			$this->setHeader('Status', 403, true);
-
-			$this->mark('Application terminated with an AUTH EXCEPTION');
-
-			$context = [];
-			$context['message'] = 'Authentication failure';
-
-			if (JDEBUG)
-			{
-				// The exceptions contains the User object and the action.
-				if ($exception->getUser()->username)
-				{
-					$context['user'] = $exception->getUser()->username;
-					$context['id'] = $exception->getUser()->id;
-				}
-
-				$context['action'] = $exception->getAction();
-			}
-
-			$this->setBody($this->renderException($exception, $context));
-		}
-		catch (RouteNotFoundException $exception)
-		{
-			$this->setHeader('Status', 404, true);
-
-			$this->mark('Application terminated with a ROUTING EXCEPTION');
-
-			$context = JDEBUG ? ['message' => $exception->getMessage()] : [];
-
-			$this->setBody($this->renderException($exception, $context));
-		}
-		catch (\Exception $exception)
-		{
-			// Log the error
-			$this->getLogger()->critical(
-				sprintf(
-					'Exception of type %1$s thrown',
-					get_class($exception)
-				),
-				['exception' => $exception]
+			throw new \UnexpectedValueException(
+				sprintf('%s only supports controllers which implement %s', self::class, TrackerControllerInterface::class)
 			);
-
-			$this->setErrorHeader($exception);
-
-			$this->mark('Application terminated with an EXCEPTION');
-
-			$this->setBody($this->renderException($exception));
 		}
+
+		/** @var TrackerControllerInterface $controllerInstance */
+		$controllerInstance = $controller[0];
+
+		if ($controllerInstance instanceof ContainerAwareInterface)
+		{
+			$controllerInstance->setContainer($this->getContainer());
+		}
+
+		if ($controllerInstance instanceof TrackerControllerInterface)
+		{
+			$controllerInstance->initialize();
+		}
+
+		$this->mark('Controller initialized.');
+
+		// Execute the App
+
+		// Define the app path
+		define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controllerInstance->getApp()));
+		$this->mark('JPATH_APP=' . JPATH_APP);
+
+		$contents = $controllerInstance->execute();
+		$this->mark('Controller executed');
+
+		if (!$contents)
+		{
+			throw new \UnexpectedValueException(sprintf("The %s controller's execute() method did not return anything!", get_class($controller)));
+		}
+
+		$this->mark('Application executed OK');
+
+		$this->checkRememberMe();
+
+		$this->setBody($contents);
 	}
 
 	/**
@@ -728,84 +670,5 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 				break;
 		}
-	}
-
-	/**
-	 * Method to render an exception in a user friendly format
-	 *
-	 * @param   \Exception  $exception  The caught exception.
-	 * @param   array       $context    The message to display.
-	 *
-	 * @return  string  The exception output in rendered format.
-	 *
-	 * @since   1.0
-	 */
-	public function renderException(\Exception $exception, array $context = [])
-	{
-		static $loaded = false;
-
-		// Attach the Exception to the context array (per PSR-3) if not already
-		if (!isset($context['exception']))
-		{
-			$context['exception'] = $exception;
-		}
-
-		if ($loaded)
-		{
-			// Seems that we're recursing...
-			$this->getLogger()->error($exception->getCode() . ' ' . $exception->getMessage(), $context);
-
-			return str_replace(JPATH_ROOT, 'JROOT', $exception->getMessage())
-			. '<pre>' . $exception->getTraceAsString() . '</pre>'
-			. 'Previous: ' . get_class($exception->getPrevious());
-		}
-
-		$rendererName = $this->get('renderer.type');
-
-		// The renderer should exist in the container
-		if (!$this->getContainer()->exists("renderer.$rendererName"))
-		{
-			throw new \RuntimeException('Unsupported renderer: ' . $rendererName);
-		}
-
-		/** @var RendererInterface $renderer */
-		$renderer = $this->getContainer()->get("renderer.$rendererName");
-
-		// Alias the renderer to the interface if not set already
-		if (!$this->getContainer()->exists(RendererInterface::class))
-		{
-			$this->getContainer()->alias(RendererInterface::class, "renderer.$rendererName");
-		}
-
-		$message = '';
-
-		foreach ($context as $key => $value)
-		{
-			// Only render the Exception if debugging
-			if ($key === 'exception' && !JDEBUG)
-			{
-				continue;
-			}
-
-			$message .= $key . ': ' . $value . "\n";
-		}
-
-		$renderer->set('exception', $exception)
-			->set('message', str_replace(JPATH_ROOT, 'ROOT', $message))
-			->set('view', 'exception')
-			->set('layout', '')
-			->set('app', 'core');
-
-		$loaded = true;
-
-		$contents = $renderer->render('exception.twig');
-
-		$debug = JDEBUG ? $this->getDebugger()->getOutput() : '';
-
-		$contents = str_replace('%%%DEBUG%%%', $debug, $contents);
-
-		$this->getLogger()->error($exception->getCode() . ' ' . $exception->getMessage(), $context);
-
-		return $contents;
 	}
 }

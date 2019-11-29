@@ -303,7 +303,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 				return realpath($logPath);
 			}
 
-			return JPATH_ROOT;
+			return JPATH_ROOT . '/logs';
 		}
 
 		if ('php' == $type)

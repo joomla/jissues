@@ -64,7 +64,7 @@ class MonologProvider implements ServiceProviderInterface
 				$level = strtoupper($config->get('log.levels.application', $config->get('log.level', 'error')));
 
 				return new StreamHandler(
-					$config->get('debug.log-path', JPATH_ROOT) . '/app.log',
+					$config->get('debug.log-path', JPATH_ROOT . '/logs') . '/app.log',
 					constant('\\Monolog\\Logger::' . $level)
 				);
 			},
@@ -83,7 +83,7 @@ class MonologProvider implements ServiceProviderInterface
 				$level = strtoupper($config->get('debug.database', false) ? 'debug' : $config->get('log.levels.database', $config->get('log.level', 'error')));
 
 				return new StreamHandler(
-					$config->get('debug.log-path', JPATH_ROOT) . '/database.log',
+					$config->get('debug.log-path', JPATH_ROOT . '/logs') . '/database.log',
 					constant('\\Monolog\\Logger::' . $level)
 				);
 			},

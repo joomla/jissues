@@ -185,7 +185,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 				'JTracker',
 				[
 					new StreamHandler(
-						$application->get('debug.log-path') . '/github_' . strtolower($this->type) . '.log',
+						$application->get('debug.log-path', JPATH_ROOT . '/logs') . '/github_' . strtolower($this->type) . '.log',
 						constant('\\Monolog\\Logger::' . $level)
 					),
 				],

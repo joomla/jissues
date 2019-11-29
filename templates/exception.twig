@@ -4,40 +4,31 @@
 {% extends "index.twig" %}
 
 {% block content %}
-
     <div class="alert alert-error">
-
         <h4>{{ exception.code ? : "0" }} {{ exception|get_class }}</h4>
-
         <p>{{ exception.message|strip_root_path }}</p>
-
-        {% if message %}
-            <p>{{ message|strip_root_path|nl2br|raw }}</p>
-        {% endif %}
     </div>
 
     {% if jdebug %}
-
-        In:
-        <a href="xdebug://{{ exception.file }}@{{ exception.line }}">
-            {{ exception.file }}@{{ exception.line }}
-        </a>
+        In: <a href="xdebug://{{ exception.file }}@{{ exception.line }}">{{ exception.file }} on line {{ exception.line }}</a>
 
         <table class="table table-bordered table-hover table-condensed">
-            <tr>
-                <th>File</th>
-                <th>Line</th>
-                <th>Class->Method()</th>
-            </tr>
-            {% for stack in exception.trace %}
+            <thead>
                 <tr>
-                    <td><a href="xdebug://{{ stack.file }}@{{ stack.line }}">{{ stack.file|basename }}</a></td>
-                    <td>{{ stack.line }}</td>
-                    <td>{{ stack.class }}{{ stack.type }}{{ stack.function }}()</td>
+                    <th>File</th>
+                    <th>Line</th>
+                    <th>Class->Method()</th>
                 </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {% for stack in exception.trace %}
+                    <tr>
+                        <td><a href="xdebug://{{ stack.file }}@{{ stack.line }}">{{ stack.file|basename }}</a></td>
+                        <td>{{ stack.line }}</td>
+                        <td>{{ stack.class }}{{ stack.type }}{{ stack.function }}()</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
-
     {% endif %}
-
 {% endblock %}
