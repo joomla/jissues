@@ -356,7 +356,6 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 	 */
 	public function onPullAfterCreate(Event $event)
 	{
-		var_dump('pull after create');die;
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
@@ -398,7 +397,6 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 	 */
 	public function onPullAfterUpdate(Event $event)
 	{
-		var_dump('pull after update');die;
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
