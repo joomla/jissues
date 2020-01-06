@@ -3033,7 +3033,7 @@ input[type="submit"].btn.btn-mini {
   display: inline-block;
   *display: inline;
   *margin-left: .3em;
-  font-size: 0;
+  font-size: 14px;
   white-space: nowrap;
   vertical-align: middle;
   *zoom: 1;
@@ -3050,7 +3050,7 @@ input[type="submit"].btn.btn-mini {
 .btn-toolbar {
   margin-top: 11px;
   margin-bottom: 11px;
-  font-size: 0;
+  font-size: 14px;
 }
 
 .btn-toolbar > .btn + .btn,
