@@ -194,10 +194,6 @@
     </script>
 
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('.selectpicker').selectpicker();
-        });
-
         // Get issues list
         getListItems();
         /*
@@ -558,6 +554,8 @@
         });
 
         $(document).ready(function ($) {
+            $('.selectpicker').selectpicker();
+
             if ($('#stools-container').hasClass('in')) {
                 $('#stools-container').css('overflow', 'inherit');
             }
