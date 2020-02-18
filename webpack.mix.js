@@ -38,10 +38,14 @@ mix.copy('node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.min.js', 'www/me
 mix.combine(
     [
         'node_modules/blueimp-load-image/js/load-image.js',
-        'node_modules/blueimp-load-image/js/load-image-orientation.js',
+        'node_modules/blueimp-load-image/js/load-image-scale.js',
         'node_modules/blueimp-load-image/js/load-image-meta.js',
+        'node_modules/blueimp-load-image/js/load-image-fetch.js',
         'node_modules/blueimp-load-image/js/load-image-exif.js',
         'node_modules/blueimp-load-image/js/load-image-exif-map.js',
+        'node_modules/blueimp-load-image/js/load-image-iptc.js',
+        'node_modules/blueimp-load-image/js/load-image-iptc-map.js',
+        'node_modules/blueimp-load-image/js/load-image-orientation.js',
     ],
     'www/media/js/vendor/blueimp-load-image.js'
 );
