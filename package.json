@@ -20,7 +20,7 @@
         "blueimp-tmpl": "^2.5.7",
         "bootstrap-2.3.2": "^1.0.0",
         "bootstrap-datepicker": "^1.9.0",
-        "bootstrap-select": "^1.13.12",
+        "bootstrap-select": "1.12.4",
         "bootstrap-switch": "^3.4.0",
         "d3": "^3.5.17",
         "jquery": "1.12.4",
