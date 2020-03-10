@@ -128,6 +128,7 @@ class ReceivePullsHook extends AbstractHookController
 					'modified_by'     => $this->hookData->sender->login,
 					'project_id'      => $this->project->project_id,
 					'has_code'        => 1,
+					'is_draft'        => $this->data-draft ? 1 : 0,
 					'build'           => $this->data->base->ref,
 					'pr_head_sha'     => $this->data->head->sha,
 					'pr_head_user'    => (isset($this->data->head->user)) ? $this->data->head->user->login : 'unknown_repository',
@@ -694,6 +695,11 @@ class ReceivePullsHook extends AbstractHookController
 
 				$this->response->message = 'Hook data processed successfully.';
 
+				break;
+
+			case 'ready_for_review':
+				$model = (new IssueModel($this->db))
+					->markIssueReadyForReview($table->id);
 				break;
 
 			default:
