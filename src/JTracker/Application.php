@@ -439,7 +439,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 * @return  TrackerProject
 	 *
 	 * @since   1.0
-	 * @throws  \InvalidArgumentException
+	 * @throws  \UnexpectedValueException
 	 */
 	public function getProject($reload = false)
 	{
@@ -452,12 +452,6 @@ final class Application extends AbstractWebApplication implements ContainerAware
 				// Change the project
 				$project = (new ProjectModel($this->getContainer()->get('db')))
 					->getByAlias($alias);
-
-				if (!$project)
-				{
-					// No project...
-					throw new \InvalidArgumentException('Invalid project');
-				}
 			}
 			else
 			{
