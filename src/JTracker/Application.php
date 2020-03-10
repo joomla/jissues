@@ -88,6 +88,15 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	private $project;
 
 	/**
+	 * The default project id when all else fails.
+	 * TODO: Pull this from config?
+	 *
+	 * @var    integer
+	 * @since  __DEPLOY_VERSION__
+	 */
+	private $defaultProjectId = 1;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @param   Session   $session  The application's session object
@@ -292,8 +301,20 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	{
 		if (is_null($user))
 		{
+			try
+			{
+				$activeProject = $this->getProject();
+			}
+			catch (\UnexpectedValueException $e)
+			{
+				// If the project can't be found try and fallback - this can happen due to the
+				// exception handlers dependency on the timezone (hence user).
+				$activeProject = (new ProjectModel($this->getContainer()->get('db')))
+					->getItem($this->defaultProjectId);
+			}
+
 			// Logout
-			$this->user = new GitHubUser($this->getProject(), $this->getContainer()->get('db'));
+			$this->user = new GitHubUser($activeProject, $this->getContainer()->get('db'));
 
 			$this->getSession()->set('jissues_user', $this->user);
 
@@ -468,7 +489,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 				{
 					// Nothing found - Get a default project !
 					$project = (new ProjectModel($this->getContainer()->get('db')))
-						->getItem(1);
+						->getItem($this->defaultProjectId);
 				}
 			}
 
