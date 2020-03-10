@@ -179,6 +179,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `rel_number` int(11) unsigned DEFAULT NULL COMMENT 'Relation issue number',
   `rel_type` int(11) unsigned DEFAULT NULL COMMENT 'Relation type',
   `has_code` tinyint(1)NOT NULL DEFAULT 0 COMMENT 'If the issue has code attached - aka a pull request',
+  `is_draft` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'If the pull request is a draft PR',
   `pr_head_user` varchar(150) NULL COMMENT 'Pull request head user',
   `pr_head_ref` varchar(150) NULL COMMENT 'Pull request head ref',
   `pr_head_sha` varchar(40) NULL COMMENT 'Pull request head SHA',
@@ -445,4 +446,5 @@ INSERT INTO `#__migrations` (`version`) VALUES
 ('20160612001'),
 ('20160612002'),
 ('20170723001'),
-('20180218001');
+('20180218001'),
+('20200310001');
