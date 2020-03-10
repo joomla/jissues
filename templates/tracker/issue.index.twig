@@ -100,6 +100,12 @@
             </li>
         {% endif %}
 
+        {% if item.is_draft %}
+            <li>
+                <span class="badge">Draft PR</span>
+            </li>
+        {% endif %}
+
         {% if item.tests %}
             <li>
                 <span class="badge"># of Successful Tests: {{ item.tests }}</span>
