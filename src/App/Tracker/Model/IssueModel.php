@@ -770,6 +770,25 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->where($this->db->quoteName('id') . ' = ' . (int) $id)
 		)->loadResult();
 	}
+	
+	/**
+	 * Get an issue number by its ID and updates it to be ready for review.
+	 *
+	 * @param   integer  $id  The issue ID.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function markIssueReadyForReview($id)
+	{
+		$this->db->setQuery(
+			$this->db->getQuery(true)
+				->update($this->db->quoteName('#__issues'))
+				->set($this->db->quoteName('is_draft') . ' = ' . 0)
+				->where($this->db->quoteName('id') . ' = ' . (int) $id)
+		)->execute();
+	}
 
 	/**
 	 * Get an issue categories by its ID.
