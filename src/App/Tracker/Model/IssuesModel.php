@@ -76,7 +76,7 @@ class IssuesModel extends AbstractTrackerListModel
 
 		$query->select(
 			'a.id, a.priority, a.issue_number, a.title, a.foreign_number, a.opened_date, a.status,
-			a.closed_date, a.modified_date, a.labels, a.merge_state, a.opened_by'
+			a.closed_date, a.modified_date, a.labels, a.merge_state, a.opened_by, a.is_draft'
 		);
 		$query->from($db->quoteName('#__issues', 'a'));
 

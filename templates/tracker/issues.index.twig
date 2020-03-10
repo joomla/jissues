@@ -108,6 +108,9 @@
                         [%= item.title %]
                     </a>
                     [% print(item.labelHtml,true); %]
+                    [% if (item.is_draft) { %]
+                        <span class="label">Draft PR</span>
+                    [% } %]
                     [% if (item.categories.length) { %]
                         <br/>
                         [% for (var n=0, category; category=item.categories[n]; n++) { %]
