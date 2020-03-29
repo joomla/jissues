@@ -1,0 +1,26 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Contact: security@joomla.org
+Encryption: https://developer.joomla.org/security/gpg-keys.html
+Acknowledgments: https://developer.joomla.org/security-centre.html
+Preferred-Languages: en
+Canonical: https://www.joomla.org/.well-known/security.txt
+Policy: https://developer.joomla.org/security.html
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEPYFcJjaqsgoey0InllSCd8GEcsgFAl50ufoACgkQllSCd8GE
+cshH7hAAkk9QrkqmelJZ8k33p4lZeun8E8OitIDsWB0nPyRF373vo++J5rHW7zKP
+/bjImftx9C4KYk1zcUEsG8C7KMGPf/+R/ztjQlQb/wMZZZ+XDiVrdvdGQMWoDRij
+9wp8jr2dic8iisLNcx293MhW6cdDRn6twlzz7QLpdSrnLzPdImMjmN4h2QIEzg5y
+UthsjMWXPjRnzrBr6fFYLk1S4+5gp9yypaSW4nObu7ZL/P2k7foLduM4W0T72jb6
+7qpwZFvOyMag6w5emGaVvZtW1jsm7ltnq4uirc0HgtaeJVUFs+zvKL/xN5DtwurH
+4bRs5t7a5XoW9NTio3htPbejG/2P+jmC9mMJu/ZjCVvC4Hc60kFbMZw1sEkwOTLQ
+ybBDYB7ydxZjAlHwEbS7J7ZAI/+CQg66P06EYTPhYWorsv3CChfmh4odwHZAbPcl
+7ftKSAgTqej97jiBkX40vLNdZfzB7LeUHzxTL+3bBYCcm2oN9Tk3vl8qri7nMJBu
+Bj/OaJIInYE96Ru6AkQV6T89jggJx1eUDv8azSszjMNYhxVd0kvbGVfwdmeWhF/Q
+xCUCL6a8xqHodDDpJ3qepsCjkREw789zqnDjMNKnh2BFjVi5Mqal6X/UneHaNDHO
+/awUs30QMbPwctIfT7BirMsObrGtBaS3u0PYXXXESP4wjYxIYMo=
+=d/gK
+-----END PGP SIGNATURE-----
+
