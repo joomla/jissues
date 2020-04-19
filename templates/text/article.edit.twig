@@ -1,10 +1,7 @@
-{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
-{# GNU General Public License version 2 or later; see LICENSE.txt #}
-
-{% extends "index.twig" %}
+{% extends 'index.twig' %}
 
 {% block title %}
-    {{ parent() }} | {{ item.article_id ? "Edit Article" : "New Article" }}
+    {{ parent() }} | {{ item.article_id ? 'Edit Article' : 'New Article' }}
 {% endblock %}
 
 {% block headerCSS %}
@@ -21,52 +18,40 @@
     <li>
         <a class="btn-inverse" href="{{ uri.base.path }}text">Cancel</a>
     </li>
-
     {{ parent() }}
-
 {% endblock %}
 
 {% block content %}
-    <h2>
-        {{ item.article_id ? "Edit Article" : "New Article" }}
-    </h2>
+    <div class="page-header">
+        <h1>{{ item.article_id ? 'Edit Article' : 'New Article' }}</h1>
+    </div>
 
     <form method="post" action="{{ uri.base.path }}text/save" class="form-horizontal" name="editForm">
-       <div>
-        <fieldset>
-            <div class="control-group">
-                <label class="control-label" for="title">Title</label>
-                <div class="controls">
-                    <input type="text" name="article[title]" id="title" value="{{ item.title }}" />
+        <div>
+            <fieldset>
+                <div class="control-group">
+                    <label class="control-label" for="title">Title</label>
+                    <div class="controls">
+                        <input type="text" name="article[title]" id="title" value="{{ item.title }}" />
+                    </div>
                 </div>
-            </div>
 
-            <div class="control-group">
-                <label class="control-label" for="alias">Alias</label>
-                <div class="controls">
-                    <input type="text" name="article[alias]" id="alias" value="{{ item.alias }}" />
+                <div class="control-group">
+                    <label class="control-label" for="alias">Alias</label>
+                    <div class="controls">
+                        <input type="text" name="article[alias]" id="alias" value="{{ item.alias }}" />
+                    </div>
                 </div>
-            </div>
-        </fieldset>
+            </fieldset>
 
-        {% set editorId="text" %}
-        {% set writeId="write" %}
-        {% set previewId="preview" %}
-        {% set editorName="article[text_md]" %}
-        {% set editorPlaceholder="Article text" %}
-        {% set editorText=item.text_md %}
+           {% include 'editor.twig' with {'editorId': 'text', 'writeId': 'write', 'previewId': 'preview', 'editorName': 'article[text_md]', 'editorPlaceholder': 'Article Text', 'editorText': item.text_md} %}
 
-        {% include "editor.twig" %}
-
-        <input type="hidden" name="article[article_id]" value="{{ item.article_id }}"/>
-
+            <input type="hidden" name="article[article_id]" value="{{ item.article_id }}"/>
         </div>
     </form>
-
 {% endblock %}
 
 {% block JavaScriptBottom %}
-
     {{ parent() }}
 
     <script src="{{ asset('markitup/jquery.markitup.js') }}"></script>

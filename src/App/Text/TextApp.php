@@ -8,6 +8,7 @@
 
 namespace App\Text;
 
+use App\Text\Controller\Article\Add;
 use App\Text\Controller\Articles;
 use App\Text\Model\ArticlesModel;
 use Joomla\DI\Container;
@@ -95,9 +96,35 @@ class TextApp implements AppInterface
 		);
 
 		$container->share(
+			Add::class,
+			function (Container $container) {
+				return new Add(
+					$container->get('articles.edit.view'),
+					$container->get('db')
+				);
+			},
+			true
+		);
+
+		$container->share(
 			ArticlesModel::class,
 			function (Container $container) {
 				return new ArticlesModel($container->get('db'));
+			},
+			true
+		);
+
+		$container->share(
+			'articles.edit.view',
+			function (Container $container) {
+				$view = new BaseHtmlView(
+					$container->get(ArticlesModel::class),
+					$container->get(RendererInterface::class)
+				);
+
+				$view->setLayout('text/article.edit.twig');
+
+				return $view;
 			},
 			true
 		);

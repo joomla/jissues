@@ -9,71 +9,75 @@
 namespace App\Text\Controller\Article;
 
 use App\Text\Table\ArticlesTable;
-use App\Text\View\Article\ArticleHtmlView;
-
-use JTracker\Controller\AbstractTrackerController;
+use Joomla\Controller\AbstractController;
+use Joomla\Database\DatabaseDriver;
+use Joomla\View\BaseHtmlView;
+use Laminas\Diactoros\Response\HtmlResponse;
 
 /**
  * Controller class to add an article.
  *
+ * @method  \JTracker\Application getApplication()
+ *
  * @since  1.0
  */
-class Add extends AbstractTrackerController
+class Add extends AbstractController
 {
 	/**
-	 * The default view for the component
+	 * The add article HTML view
 	 *
-	 * @var    string
+	 * @var    BaseHtmlView
 	 * @since  1.0
 	 */
-	protected $defaultView = 'article';
+	private $view;
 
 	/**
-	 * The default view for the component
+	 * Database driver
 	 *
-	 * @var    string
+	 * @var    DatabaseDriver
 	 * @since  1.0
 	 */
-	protected $defaultLayout = 'edit';
+	private $db;
 
 	/**
-	 * View object
+	 * Controller constructor.
 	 *
-	 * @var    ArticleHtmlView
-	 * @since  1.0
+	 * @param   BaseHtmlView    $view  The add article HTML view
+	 * @param   DatabaseDriver  $db    Database driver
+	 *
+	 * @since   1.0
 	 */
-	protected $view;
+	public function __construct(BaseHtmlView $view, DatabaseDriver $db)
+	{
+		$this->view = $view;
+		$this->db   = $db;
+	}
 
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  string
+	 * @return  boolean
 	 *
 	 * @since   1.0
 	 */
 	public function execute()
 	{
-		$this->getContainer()->get('app')->getUser()->authorize('admin');
+		$this->getApplication()->getUser()->authorize('admin');
 
-		return parent::execute();
-	}
+		// Set view variables required in the template
+		$this->view->addData('view', 'article')
+			->addData('layout', 'edit')
+			->addData('app', 'text');
 
-	/**
-	 * Initialize the controller.
-	 *
-	 * This will set up default model and view classes.
-	 *
-	 * @return  $this  Method supports chaining
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function initialize()
-	{
-		parent::initialize();
+		// Push an empty table object into the view
+		$this->view->addData('item', new ArticlesTable($this->db));
 
-		$this->view->setItem(new ArticlesTable($this->getContainer()->get('db')));
+		$this->getApplication()->setResponse(
+			new HtmlResponse(
+				$this->view->render()
+			)
+		);
 
-		return $this;
+		return true;
 	}
 }

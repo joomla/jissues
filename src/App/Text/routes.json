@@ -8,7 +8,8 @@
 		"methods": ["GET"]
 	},
 	"text/add": {
-		"controller": "App\\Text\\Controller\\Article\\Add"
+		"controller": "App\\Text\\Controller\\Article\\Add",
+		"methods": ["GET"]
 	},
 	"text/delete/:id": {
 		"controller": "App\\Text\\Controller\\Article\\Delete",
