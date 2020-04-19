@@ -169,7 +169,7 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
 			}
 		}
 
-		$this->model = new $modelClass($this->getContainer()->get('db'), $this->getContainer()->get('app')->input);
+		$this->model = new $modelClass($this->getContainer()->get('db'));
 
 		// Create the view
 		/** @var AbstractTrackerHtmlView $view */
