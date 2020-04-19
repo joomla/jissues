@@ -1,8 +1,8 @@
 {
 	"text"           : "App\\Text\\Controller\\Articles",
-	"text/add"       : "\\App\\Text\\Controller\\Article\\Add",
-	"text/edit/:id"  : "\\App\\Text\\Controller\\Article\\Edit",
-	"text/delete/:id": "\\App\\Text\\Controller\\Article\\Delete",
-	"text/save"      : "\\App\\Text\\Controller\\Article\\Save",
-	"page/:alias"    : "\\App\\Text\\Controller\\Page"
+	"text/add"       : "App\\Text\\Controller\\Article\\Add",
+	"text/edit/:id"  : "App\\Text\\Controller\\Article\\Edit",
+	"text/delete/:id": "App\\Text\\Controller\\Article\\Delete",
+	"text/save"      : "App\\Text\\Controller\\Article\\Save",
+	"page/:alias"    : "App\\Text\\Controller\\Page"
 }

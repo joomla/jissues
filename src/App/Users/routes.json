@@ -1,13 +1,13 @@
 {
-	"login" : "\\App\\Users\\Controller\\Login",
-	"logout": "\\App\\Users\\Controller\\Logout",
+	"login" : "App\\Users\\Controller\\Login",
+	"logout": "App\\Users\\Controller\\Logout",
 
-	"user/search": "\\App\\Users\\Controller\\Ajax\\Search",
-	"user/assign": "\\App\\Users\\Controller\\Ajax\\Assign",
-	"users/list" : "\\App\\Users\\Controller\\Ajax\\Listing",
+	"user/search": "App\\Users\\Controller\\Ajax\\Search",
+	"user/assign": "App\\Users\\Controller\\Ajax\\Assign",
+	"users/list" : "App\\Users\\Controller\\Ajax\\Listing",
 
-	"account"               : "\\App\\Users\\Controller\\User",
-	"account/edit"          : "\\App\\Users\\Controller\\User\\Edit",
-	"account/save"          : "\\App\\Users\\Controller\\User\\Save",
-	"account/github-refresh": "\\App\\Users\\Controller\\User\\Refresh"
+	"account"               : "App\\Users\\Controller\\User",
+	"account/edit"          : "App\\Users\\Controller\\User\\Edit",
+	"account/save"          : "App\\Users\\Controller\\User\\Save",
+	"account/github-refresh": "App\\Users\\Controller\\User\\Refresh"
 }

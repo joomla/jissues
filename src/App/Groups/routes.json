@@ -1,8 +1,8 @@
 {
 
-	"project/:project_alias/groups"                : "\\App\\Groups\\Controller\\Groups",
-	"project/:project_alias/group/:group_id"       : "\\App\\Groups\\Controller\\Group",
-	"project/:project_alias/group/:group_id/delete": "\\App\\Groups\\Controller\\Group\\Delete",
-	"project/:project_alias/addgroup"              : "\\App\\Groups\\Controller\\Group\\Add",
-	"project/:project_alias/savegroup"             : "\\App\\Groups\\Controller\\Group\\Save"
+	"project/:project_alias/groups"                : "App\\Groups\\Controller\\Groups",
+	"project/:project_alias/group/:group_id"       : "App\\Groups\\Controller\\Group",
+	"project/:project_alias/group/:group_id/delete": "App\\Groups\\Controller\\Group\\Delete",
+	"project/:project_alias/addgroup"              : "App\\Groups\\Controller\\Group\\Add",
+	"project/:project_alias/savegroup"             : "App\\Groups\\Controller\\Group\\Save"
 }

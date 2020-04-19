@@ -12,6 +12,7 @@ use App\Text\Controller\Articles;
 use App\Text\Model\ArticlesModel;
 use Joomla\DI\Container;
 use Joomla\Renderer\RendererInterface;
+use Joomla\Router\Route;
 use Joomla\Router\Router;
 use Joomla\View\BaseHtmlView;
 use JTracker\AppInterface;
@@ -59,10 +60,14 @@ class TextApp implements AppInterface
 			throw new \RuntimeException('Invalid router file for the Text app: ' . __DIR__ . '/routes.json', 500);
 		}
 
-		foreach ($maps as $patttern => $controller)
+		foreach ($maps as $pattern => $route)
 		{
-			// TODO - Routes should be identified for proper methods
-			$router->all($patttern, $controller);
+			$methods    = $route['methods'] ?? [];
+			$controller = $route['controller'];
+			$rules      = $route['rules'] ?? [];
+			$defaults   = $route['defaults'] ?? [];
+
+			$router->addRoute(new Route($methods, $pattern, $controller, $rules, $defaults));
 		}
 	}
 
