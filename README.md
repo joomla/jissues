@@ -1,4 +1,4 @@
-## Requirements [![Build Status](https://travis-ci.org/joomla/jissues.png?branch=master)](https://travis-ci.org/joomla/jissues) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/joomla/jissues/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/joomla/jissues/?branch=master) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/joomla-official-sites/localized.svg)](https://crowdin.com/project/joomla-official-sites)
+## Requirements [![Build Status](https://travis-ci.org/joomla/jissues.png?branch=master)](https://travis-ci.org/joomla/jissues) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/joomla/jissues/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/joomla/jissues/?branch=master)
 
 The issue tracker application requires a server running:
 
