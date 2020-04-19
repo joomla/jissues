@@ -136,12 +136,12 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	{
 		$this->mark('Routing request');
 
-		$route = $this->getRouter()->parseRoute($this->get('uri.route'), $this->input->getMethod());
+		$route = $this->getRouter()->parseRoute($this->get('uri.route'), $this->getInput()->getMethod());
 
 		// Add variables to the input if not already set
 		foreach ($route->getRouteVariables() as $key => $value)
 		{
-			$this->input->def($key, $value);
+			$this->getInput()->def($key, $value);
 		}
 
 		$this->mark('Resolving controller');
@@ -414,7 +414,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	public function getUserStateFromRequest($key, $request, $default = null, $type = 'none')
 	{
 		$cur_state = $this->getUserState($key, $default);
-		$new_state = $this->input->get($request, null, $type);
+		$new_state = $this->getInput()->get($request, null, $type);
 
 		// Save the new value only if it was set in this request.
 		if ($new_state !== null)
@@ -466,7 +466,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	{
 		if (is_null($this->project) || $reload)
 		{
-			$alias = $this->input->get('project_alias');
+			$alias = $this->getInput()->get('project_alias');
 
 			if ($alias)
 			{
@@ -494,7 +494,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			}
 
 			$this->getSession()->set('project_alias', $project->alias);
-			$this->input->set('project_id', $project->project_id);
+			$this->getInput()->set('project_id', $project->project_id);
 
 			$this->project = $project;
 
@@ -526,7 +526,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			return $this;
 		}
 
-		if (!$this->input->cookie->get('remember_me'))
+		if (!$this->getInput()->cookie->get('remember_me'))
 		{
 			// No "remember me" cookie found
 			return $this;
@@ -573,7 +573,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			$expire = time() - 3600;
 		}
 
-		$this->input->cookie->set('remember_me', $value, $expire);
+		$this->getInput()->cookie->set('remember_me', $value, $expire);
 
 		return $this;
 	}
