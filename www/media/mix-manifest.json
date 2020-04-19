@@ -6,6 +6,7 @@
     "/css/markitup/skins/tracker/style.css": "/css/markitup/skins/tracker/style.css",
     "/js/jtracker.js": "/js/jtracker.js",
     "/js/jtracker-tmpl.js": "/js/jtracker-tmpl.js",
+    "/js/text/article-edit.js": "/js/text/article-edit.js",
     "/js/uploader-img.js": "/js/uploader-img.js",
     "/js/vendor/jquery.js": "/js/vendor/jquery.js",
     "/js/vendor/bootstrap.js": "/js/vendor/bootstrap.js",

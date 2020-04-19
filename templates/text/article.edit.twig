@@ -13,7 +13,7 @@
 
 {% block prependMenu %}
     <li>
-        <a class="btn-success" href="javascript:;" onclick="document.editForm.submit();">Save</a>
+        <a class="btn-success" href="#" id="save-article">Save</a>
     </li>
     <li>
         <a class="btn-inverse" href="{{ uri.base.path }}text">Cancel</a>
@@ -26,7 +26,7 @@
         <h1>{{ item.article_id ? 'Edit Article' : 'New Article' }}</h1>
     </div>
 
-    <form method="post" action="{{ uri.base.path }}text/save" class="form-horizontal" name="editForm">
+    <form method="post" action="{{ uri.base.path }}text/save" class="form-horizontal" name="editForm" id="editForm">
         <div>
             <fieldset>
                 <div class="control-group">
@@ -56,14 +56,5 @@
 
     <script src="{{ asset('markitup/jquery.markitup.js') }}"></script>
     <script src="{{ asset('css/markitup/sets/markdown/set.js') }}"></script>
-
-    <script type="text/javascript">
-        $('#text').markItUp(myMarkdownSettings);
-
-        $('a[data-toggle="tab"]').on('shown', function (e) {
-            if('#preview' == $(e.target).attr('href')) {
-                JTracker.preview('#text', '#preview', '#preview');
-            }
-        });
-    </script>
+    <script src="{{ asset('js/text/article-edit.js') }}"></script>
 {% endblock %}

@@ -124,3 +124,4 @@ mix.js('assets/js/color-select.js', 'js/color-select.js');
 mix.js('assets/js/jtracker.js', 'js/jtracker.js');
 mix.js('assets/js/jtracker-tmpl.js', 'js/jtracker-tmpl.js');
 mix.js('assets/js/uploader-img.js', 'js/uploader-img.js');
+mix.js('assets/js/text/article-edit.js', 'js/text/article-edit.js');
