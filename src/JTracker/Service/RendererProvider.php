@@ -16,8 +16,10 @@ use JTracker\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Twig\AssetsExtension;
 use JTracker\Twig\CdnExtension;
+use JTracker\Twig\FlashExtension;
 use JTracker\Twig\PhpExtension;
 use JTracker\Twig\Service\CdnRenderer;
+use JTracker\Twig\Service\FlashMessageRetriever;
 use JTracker\View\Renderer\ApplicationContext;
 use JTracker\View\Renderer\DebugPathPackage;
 use JTracker\View\Renderer\TrackerExtension;
@@ -90,6 +92,9 @@ class RendererProvider implements ServiceProviderInterface
 					/** @var \Joomla\Registry\Registry $config */
 					$config = $container->get('config');
 
+					/** @var Application $app */
+					$app = $container->get('app');
+
 					$debug = $config->get('debug.template', false);
 
 					$environment = new Environment(
@@ -107,12 +112,10 @@ class RendererProvider implements ServiceProviderInterface
 					$environment->setExtensions($container->getTagged('twig.extension'));
 
 					// Set the Twig environment globals
+					$environment->addGlobal('user', $app->getUser());
 					$environment->addGlobal('useCDN', $config->get('system.use_cdn', true));
 					$environment->addGlobal('templateDebug', $debug);
 					$environment->addGlobal('jdebug', JDEBUG);
-
-					/** @var Application $app */
-					$app = $container->get('app');
 
 					/** @var GitHubLoginHelper $loginHelper */
 					$loginHelper = $container->get(GitHubLoginHelper::class);
@@ -120,6 +123,17 @@ class RendererProvider implements ServiceProviderInterface
 					$environment->addGlobal('uri', $app->get('uri'));
 					$environment->addGlobal('offset', $app->getUser()->params->get('timezone') ?: $config->get('system.offset', 'UTC'));
 					$environment->addGlobal('loginUrl', $loginHelper->getLoginUri());
+
+					// Add build commit if available
+					if (file_exists(JPATH_ROOT . '/current_SHA'))
+					{
+						$data = trim(file_get_contents(JPATH_ROOT . '/current_SHA'));
+						$environment->addGlobal('buildSHA', $data);
+					}
+					else
+					{
+						$environment->addGlobal('buildSHA', '');
+					}
 
 					return $environment;
 				},
@@ -149,6 +163,15 @@ class RendererProvider implements ServiceProviderInterface
 				'twig.extension.debug',
 				function (Container $container) {
 					return new DebugExtension;
+				},
+				true
+			);
+
+		$container->alias(FlashExtension::class, 'twig.extension.flash')
+			->share(
+				'twig.extension.flash',
+				function (Container $container) {
+					return new FlashExtension;
 				},
 				true
 			);
@@ -203,6 +226,17 @@ class RendererProvider implements ServiceProviderInterface
 				true
 			);
 
+		$container->alias(FlashMessageRetriever::class, 'twig.service.flash_message_retriever')
+			->share(
+				'twig.service.flash_message_retriever',
+				function (Container $container) {
+					return new FlashMessageRetriever(
+						$container->get(Application::class)
+					);
+				},
+				true
+			);
+
 		$container->share(
 			Packages::class,
 			function (Container $container) {
@@ -247,6 +281,7 @@ class RendererProvider implements ServiceProviderInterface
 		$twigExtensions = [
 			'twig.extension.assets',
 			'twig.extension.cdn',
+			'twig.extension.flash',
 			'twig.extension.php',
 			'twig.extension.tracker',
 		];

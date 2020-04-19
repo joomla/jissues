@@ -10,7 +10,6 @@ namespace JTracker\Model;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseQuery;
-use Joomla\Input\Input;
 use Joomla\Registry\Registry;
 
 use JTracker\Pagination\TrackerPagination;
@@ -20,7 +19,7 @@ use JTracker\Pagination\TrackerPagination;
  *
  * @since  1.0
  */
-abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
+abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel implements ListfulModelInterface
 {
 	/**
 	 * Internal memory based cache array of data.
@@ -48,14 +47,6 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	protected $query;
 
 	/**
-	 * Input object
-	 *
-	 * @var    Input
-	 * @since  1.0
-	 */
-	protected $input;
-
-	/**
 	 * Pagination object
 	 *
 	 * @var    TrackerPagination
@@ -67,15 +58,12 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 * Instantiate the model.
 	 *
 	 * @param   DatabaseDriver  $database  The database driver.
-	 * @param   Input           $input     The input object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(DatabaseDriver $database, Input $input)
+	public function __construct(DatabaseDriver $database)
 	{
 		parent::__construct($database);
-
-		$this->input = $input;
 
 		// Set the context if not already done
 		if (is_null($this->context))
@@ -90,11 +78,11 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Method to get an array of data items.
 	 *
-	 * @return  mixed  An array of data items on success, false on failure.
+	 * @return  object[]
 	 *
 	 * @since   1.0
 	 */
-	public function getItems()
+	public function getItems(): array
 	{
 		// Get a storage key.
 		$store = $this->getStoreId();
@@ -105,13 +93,8 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 			return $this->cache[$store];
 		}
 
-		// Load the query for the list
-		$query = $this->_getListQuery();
-
-		$items = $this->_getList($query, $this->getStart(), $this->state->get('list.limit'));
-
 		// Add the items to the internal cache.
-		$this->cache[$store] = $items;
+		$this->cache[$store] = $this->_getList($this->_getListQuery(), $this->getStart(), $this->state->get('list.limit'));
 
 		return $this->cache[$store];
 	}
@@ -160,7 +143,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @since   1.0
 	 */
-	public function setPagination(TrackerPagination $pagination)
+	public function setPagination(TrackerPagination $pagination): void
 	{
 		$this->pagination = $pagination;
 	}
@@ -173,7 +156,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
 	 */
-	public function getPagination()
+	public function getPagination(): TrackerPagination
 	{
 		// Get a storage key.
 		$store = $this->getStoreId('getPagination');
@@ -207,7 +190,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @since   1.0
 	 */
-	public function getStart()
+	public function getStart(): int
 	{
 		$store = $this->getStoreId('getstart');
 
@@ -263,7 +246,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @since   1.0
 	 */
-	public function getTotal()
+	public function getTotal(): int
 	{
 		// Get a storage key.
 		$store = $this->getStoreId('getTotal');

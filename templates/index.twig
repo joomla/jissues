@@ -113,10 +113,10 @@
 
     <div class="body">
         <div class="container">
-            {% for type, flashMessages in flashBag %}
-                {% for flashMessage in flashMessages %}
+            {% for type, messages in flash_messages() %}
+                {% for message in messages %}
                     <div class="alert alert-{{ type }}">
-                        {{ flashMessage }}
+                        {{ message }}
                     </div>
                 {% endfor %}
             {% endfor %}

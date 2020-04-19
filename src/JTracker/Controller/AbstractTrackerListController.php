@@ -8,12 +8,8 @@
 
 namespace JTracker\Controller;
 
-use App\Tracker\Model\IssuesModel;
-
-use Joomla\Uri\Uri;
-
 use JTracker\Application;
-use JTracker\Pagination\TrackerPagination;
+use JTracker\Controller\Concerns\HasLists;
 
 /**
  * Abstract Controller class for the Tracker Application
@@ -22,21 +18,7 @@ use JTracker\Pagination\TrackerPagination;
  */
 abstract class AbstractTrackerListController extends AbstractTrackerController
 {
-	/**
-	 * Pagination object
-	 *
-	 * @var    TrackerPagination
-	 * @since  1.0
-	 */
-	protected $pagination;
-
-	/**
-	 * Model object
-	 *
-	 * @var    IssuesModel
-	 * @since  1.0
-	 */
-	protected $model;
+	use HasLists;
 
 	/**
 	 * Initialize the controller.
@@ -52,20 +34,7 @@ abstract class AbstractTrackerListController extends AbstractTrackerController
 		/** @var Application $application */
 		$application = $this->getContainer()->get('app');
 
-		$limit = $application->getUserStateFromRequest('list.limit', 'list_limit', 20, 'int');
-		$page  = $application->input->getInt('page');
-
-		$value = $page ? ($page - 1) * $limit : 0;
-		$limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
-
-		$state = $this->model->getState();
-
-		$state->set('list.start', $limitStart);
-		$state->set('list.limit', $limit);
-
-		$this->model->setState($state);
-
-		$this->model->setPagination(new TrackerPagination(new Uri($this->getContainer()->get('app')->get('uri.request'))));
+		$this->configurePaginationState($application, $this->model);
 
 		return $this;
 	}

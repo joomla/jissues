@@ -15,6 +15,7 @@ use Laminas\Diactoros\Response\TextResponse;
  * Controller class to display a message to individuals looking for the wrong CMS
  *
  * @method  \JTracker\Application getApplication()
+ *
  * @since  1.0
  */
 class WrongCms extends AbstractController

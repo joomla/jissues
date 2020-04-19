@@ -14,9 +14,8 @@ use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Event\DispatcherAwareTrait;
 use Joomla\Event\Event;
 use Joomla\Input\Input;
+use Joomla\Renderer\AddTemplateFolderInterface;
 use Joomla\Renderer\RendererInterface;
-
-use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\GitHub\Github;
 use JTracker\Github\GithubFactory;
 use JTracker\View\AbstractTrackerHtmlView;
@@ -246,40 +245,18 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
 		/** @var RendererInterface $renderer */
 		$renderer = $this->getContainer()->get("renderer.$rendererName");
 
-		// Alias the renderer to the interface if not set already
-		if (!$this->getContainer()->exists(RendererInterface::class))
-		{
-			$this->getContainer()->alias(RendererInterface::class, "renderer.$rendererName");
-		}
-
 		// Add the app path if it exists
 		$path = JPATH_TEMPLATES . '/' . strtolower($this->app);
 
-		if (is_dir($path))
+		if ($renderer instanceof AddTemplateFolderInterface && is_dir($path))
 		{
 			$renderer->addFolder($path);
 		}
 
 		$renderer
-			->set('user', $application->getUser())
 			->set('view', $view)
 			->set('layout', $layout)
 			->set('app', strtolower($this->getApp()));
-
-		// Retrieve and clear the message queue
-		$renderer->set('flashBag', $application->getMessageQueue());
-		$application->clearMessageQueue();
-
-		// Add build commit if available
-		if (file_exists(JPATH_ROOT . '/current_SHA'))
-		{
-			$data = trim(file_get_contents(JPATH_ROOT . '/current_SHA'));
-			$renderer->set('buildSHA', $data);
-		}
-		else
-		{
-			$renderer->set('buildSHA', '');
-		}
 
 		return $renderer;
 	}

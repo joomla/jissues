@@ -192,7 +192,7 @@ class IssuesModel extends AbstractTrackerListModel
 	 *
 	 * @since   1.0
 	 */
-	public function getTotal()
+	public function getTotal(): int
 	{
 		// Get a storage key.
 		$store = $this->getStoreId('getTotal');

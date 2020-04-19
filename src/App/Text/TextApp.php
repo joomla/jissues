@@ -8,8 +8,12 @@
 
 namespace App\Text;
 
+use App\Text\Controller\Articles;
+use App\Text\Model\ArticlesModel;
 use Joomla\DI\Container;
+use Joomla\Renderer\RendererInterface;
 use Joomla\Router\Router;
+use Joomla\View\BaseHtmlView;
 use JTracker\AppInterface;
 
 /**
@@ -32,6 +36,7 @@ class TextApp implements AppInterface
 	public function loadServices(Container $container)
 	{
 		$this->registerRoutes($container->get('router'));
+		$this->registerServices($container);
 	}
 
 	/**
@@ -59,5 +64,52 @@ class TextApp implements AppInterface
 			// TODO - Routes should be identified for proper methods
 			$router->all($patttern, $controller);
 		}
+	}
+
+	/**
+	 * Registers the services for the app
+	 *
+	 * @param   Container  $container  DI Container to load services into
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	private function registerServices(Container $container)
+	{
+		$container->share(
+			Articles::class,
+			function (Container $container) {
+				return new Articles(
+					$container->get(ArticlesModel::class),
+					$container->get('articles.list.view')
+				);
+			},
+			true
+		);
+
+		$container->share(
+			ArticlesModel::class,
+			function (Container $container) {
+				return new ArticlesModel($container->get('db'));
+			},
+			true
+		);
+
+		$container->share(
+			'articles.list.view',
+			function (Container $container) {
+				$view = new BaseHtmlView(
+					$container->get(ArticlesModel::class),
+					$container->get(RendererInterface::class)
+				);
+
+				$view->setLayout('text/articles.index.twig');
+
+				return $view;
+			},
+			true
+		);
 	}
 }
