@@ -1,8 +1,28 @@
 {
-	"text"           : "App\\Text\\Controller\\Articles",
-	"text/add"       : "App\\Text\\Controller\\Article\\Add",
-	"text/edit/:id"  : "App\\Text\\Controller\\Article\\Edit",
-	"text/delete/:id": "App\\Text\\Controller\\Article\\Delete",
-	"text/save"      : "App\\Text\\Controller\\Article\\Save",
-	"page/:alias"    : "App\\Text\\Controller\\Page"
+	"page/:alias": {
+		"controller": "App\\Text\\Controller\\Page",
+		"methods": ["GET"]
+	},
+	"text": {
+		"controller": "App\\Text\\Controller\\Articles",
+		"methods": ["GET"]
+	},
+	"text/add": {
+		"controller": "App\\Text\\Controller\\Article\\Add"
+	},
+	"text/delete/:id": {
+		"controller": "App\\Text\\Controller\\Article\\Delete",
+		"rules": {
+			"id": "(\\d+)"
+		}
+	},
+	"text/edit/:id": {
+		"controller": "App\\Text\\Controller\\Article\\Edit",
+		"rules": {
+			"id": "(\\d+)"
+		}
+	},
+	"text/save": {
+		"controller": "App\\Text\\Controller\\Article\\Save"
+	}
 }
