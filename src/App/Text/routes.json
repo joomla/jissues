@@ -19,11 +19,13 @@
 	},
 	"text/edit/:id": {
 		"controller": "App\\Text\\Controller\\Article\\Edit",
+		"methods": ["GET"],
 		"rules": {
 			"id": "(\\d+)"
 		}
 	},
 	"text/save": {
-		"controller": "App\\Text\\Controller\\Article\\Save"
+		"controller": "App\\Text\\Controller\\Article\\Save",
+		"methods": ["POST"]
 	}
 }
