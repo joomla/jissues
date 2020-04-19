@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dbd94e832a762ac64e6a67e3d554f79c",
+    "content-hash": "47fc816d8a5d5d989e66e3e4111ccb51",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -426,6 +426,57 @@
                 "joomla"
             ],
             "time": "2015-02-24T00:21:06+00:00"
+        },
+        {
+            "name": "joomla/controller",
+            "version": "dev-2.0-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joomla-framework/controller.git",
+                "reference": "e910711ff9b0795f358b7a9b68213246e724f8be"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joomla-framework/controller/zipball/e910711ff9b0795f358b7a9b68213246e724f8be",
+                "reference": "e910711ff9b0795f358b7a9b68213246e724f8be",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2.5"
+            },
+            "require-dev": {
+                "joomla/application": "^1.0|^2.0",
+                "joomla/coding-standards": "^2.0@alpha",
+                "joomla/input": "^1.0|^2.0",
+                "phpunit/phpunit": "^8.5|^9.0"
+            },
+            "suggest": {
+                "joomla/application": "The joomla/application package is required to use Joomla\\Controller\\AbstractController",
+                "joomla/input": "The joomla/input package is required to use Joomla\\Controller\\AbstractController"
+            },
+            "type": "joomla-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.0-dev": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Joomla\\Controller\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "Joomla Controller Package",
+            "homepage": "https://github.com/joomla-framework/controller",
+            "keywords": [
+                "controller",
+                "framework",
+                "joomla"
+            ],
+            "time": "2020-03-07T19:52:03+00:00"
         },
         {
             "name": "joomla/database",
@@ -5441,6 +5492,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "joomla/application": 20,
+        "joomla/controller": 20,
         "joomla/di": 20,
         "joomla/event": 20,
         "joomla/github": 20,
@@ -5457,7 +5509,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2",
+        "php": ">=7.2,<7.4",
         "ext-curl": "*",
         "ext-intl": "*",
         "ext-json": "*"

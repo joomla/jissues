@@ -14,6 +14,8 @@ use App\Projects\TrackerProject;
 
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Application\Controller\ControllerResolverInterface;
+use Joomla\Controller\AbstractController;
+use Joomla\Controller\ControllerInterface;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
 use Joomla\Event\DispatcherAwareInterface;
@@ -148,47 +150,42 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 		$controller = $this->getControllerResolver()->resolve($route);
 
-		if (!is_array($controller) || !is_object($controller[0]) || !($controller[0] instanceof TrackerControllerInterface))
+		if (is_array($controller) && is_object($controller[0]))
 		{
-			throw new \UnexpectedValueException(
-				sprintf('%s only supports controllers which implement %s', self::class, TrackerControllerInterface::class)
-			);
-		}
+			/** @var TrackerControllerInterface|ControllerInterface $controllerInstance */
+			$controllerInstance = $controller[0];
 
-		/** @var TrackerControllerInterface $controllerInstance */
-		$controllerInstance = $controller[0];
+			if ($controllerInstance instanceof AbstractController)
+			{
+				$controllerInstance->setApplication($this);
+				$controllerInstance->setInput($this->getInput());
+			}
 
-		if ($controllerInstance instanceof ContainerAwareInterface)
-		{
-			$controllerInstance->setContainer($this->getContainer());
-		}
+			if ($controllerInstance instanceof ContainerAwareInterface)
+			{
+				$controllerInstance->setContainer($this->getContainer());
+			}
 
-		if ($controllerInstance instanceof TrackerControllerInterface)
-		{
-			$controllerInstance->initialize();
+			if ($controllerInstance instanceof TrackerControllerInterface)
+			{
+				$controllerInstance->initialize();
+			}
 		}
 
 		$this->mark('Controller initialized.');
 
-		// Execute the App
-
-		// Define the app path
-		define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controllerInstance->getApp()));
-		$this->mark('JPATH_APP=' . JPATH_APP);
-
-		$contents = $controllerInstance->execute();
+		// Execute the controller
+		$contents = call_user_func($controller);
 		$this->mark('Controller executed');
-
-		if (!$contents)
-		{
-			throw new \UnexpectedValueException(sprintf("The %s controller's execute() method did not return anything!", get_class($controller)));
-		}
 
 		$this->mark('Application executed OK');
 
 		$this->checkRememberMe();
 
-		$this->setBody($contents);
+		if (!is_bool($contents))
+		{
+			$this->setBody($contents);
+		}
 	}
 
 	/**

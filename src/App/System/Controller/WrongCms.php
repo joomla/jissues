@@ -8,24 +8,30 @@
 
 namespace App\System\Controller;
 
-use JTracker\Controller\AbstractTrackerController;
+use Joomla\Controller\AbstractController;
+use Laminas\Diactoros\Response\TextResponse;
 
 /**
  * Controller class to display a message to individuals looking for the wrong CMS
  *
+ * @method  \JTracker\Application getApplication()
  * @since  1.0
  */
-class WrongCms extends AbstractTrackerController
+class WrongCms extends AbstractController
 {
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  string
+	 * @return  boolean
 	 *
 	 * @since   1.0
 	 */
 	public function execute()
 	{
-		return "This isn't the CMS you're looking for.";
+		$this->getApplication()->setResponse(
+			new TextResponse("This isn't the CMS you're looking for.", 404)
+		);
+
+		return true;
 	}
 }
