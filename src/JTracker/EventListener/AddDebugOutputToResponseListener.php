@@ -10,7 +10,7 @@ namespace JTracker\EventListener;
 
 use App\Debug\TrackerDebugger;
 use Joomla\Application\Event\ApplicationEvent;
-use JTracker\Application;
+use Joomla\Application\WebApplicationInterface;
 
 /**
  * Event listener which adds the debug output to the response
@@ -48,13 +48,11 @@ final class AddDebugOutputToResponseListener
 	 */
 	public function __invoke(ApplicationEvent $event): void
 	{
-		/** @var Application $app */
+		/** @var WebApplicationInterface $app */
 		$app = $event->getApplication();
 
-		$body = $app->getBody();
-
-		$body = str_replace('%%%DEBUG%%%', JDEBUG ? $this->debugger->getOutput() : '', $body);
-
-		$app->setBody($body);
+		$app->setBody(
+			str_replace('%%%DEBUG%%%', JDEBUG ? $this->debugger->getOutput() : '', $app->getBody())
+		);
 	}
 }
