@@ -62,12 +62,11 @@ class WebApplicationProvider implements ServiceProviderInterface
 			);
 
 		$container->alias(TrackerControllerResolver::class, ControllerResolverInterface::class)
-			->alias(ControllerResolver::class, ControllerResolverInterface::class)
 			->share(
 				ControllerResolverInterface::class,
-				function ()
+				function (Container $container)
 				{
-					return new TrackerControllerResolver;
+					return new TrackerControllerResolver($container);
 				},
 				true
 			);

@@ -8,7 +8,7 @@
 
 namespace JTracker\Controller;
 
-use Joomla\Application\Controller\ControllerResolver;
+use Joomla\Application\Controller\ContainerControllerResolver;
 use Joomla\Router\ResolvedRoute;
 
 /**
@@ -16,7 +16,7 @@ use Joomla\Router\ResolvedRoute;
  *
  * @since  1.0
  */
-class TrackerControllerResolver extends ControllerResolver
+class TrackerControllerResolver extends ContainerControllerResolver
 {
 	/**
 	 * Resolve the controller for a route
