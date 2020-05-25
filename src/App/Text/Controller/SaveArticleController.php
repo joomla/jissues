@@ -64,7 +64,7 @@ class SaveArticleController extends AbstractController
 		$this->getApplication()->getUser()->authorize('admin');
 
 		$data = [
-			'article_id' => $this->getInput()->getUint('article_id'),
+			'article_id' => $this->getInput()->getUint('id'),
 			'title'      => $this->getInput()->getString('title'),
 			'alias'      => $this->getInput()->getString('alias'),
 			'text_md'    => $this->getInput()->get('text_md', null, 'raw'),
@@ -72,10 +72,12 @@ class SaveArticleController extends AbstractController
 
 		$data['text'] = $this->github->markdown->render($data['text_md']);
 
+		$this->model->save($data);
+
 		$this->getApplication()->enqueueMessage('The article has been saved.', 'success');
 
 		$this->getApplication()->setResponse(
-			new RedirectResponse($this->getApplication()->get('uri.base.path') . 'text')
+			new RedirectResponse($this->getApplication()->get('uri.base.path') . 'articles')
 		);
 
 		return true;

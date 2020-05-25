@@ -16,7 +16,7 @@
         <a class="btn-success" href="#" id="save-article">Save</a>
     </li>
     <li>
-        <a class="btn-inverse" href="{{ uri.base.path }}text">Cancel</a>
+        <a class="btn-inverse" href="{{ uri.base.path }}articles">Cancel</a>
     </li>
     {{ parent() }}
 {% endblock %}
@@ -26,7 +26,7 @@
         <h1>{{ item.article_id ? 'Edit Article' : 'New Article' }}</h1>
     </div>
 
-    <form method="post" action="{{ uri.base.path }}text/save" class="form-horizontal" name="editForm" id="editForm">
+    <form method="post" action="{{ uri.base.path }}{% if item.article_id %}articles/{{ item.article_id }}{% else %}articles/create{% endif %}" class="form-horizontal" name="editForm" id="editForm">
         <div>
             <fieldset>
                 <div class="control-group">
@@ -45,8 +45,6 @@
             </fieldset>
 
            {% include 'editor.twig' with {'editorId': 'text', 'writeId': 'write', 'previewId': 'preview', 'editorName': 'text_md', 'editorPlaceholder': 'Article Text', 'editorText': item.text_md} %}
-
-            <input type="hidden" name="article_id" value="{{ item.article_id }}"/>
         </div>
     </form>
 {% endblock %}

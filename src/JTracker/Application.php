@@ -29,6 +29,7 @@ use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
 use JTracker\Controller\TrackerControllerInterface;
 
+use Laminas\Diactoros\Response\HtmlResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
@@ -109,8 +110,8 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 */
 	public function __construct(Session $session, Input $input, Registry $config)
 	{
-		// Run the parent constructor
-		parent::__construct($input, $config);
+		// Run the parent constructor, default to HTML response object
+		parent::__construct($input, $config, null, new HtmlResponse(''));
 
 		$this->newSession = $session;
 	}

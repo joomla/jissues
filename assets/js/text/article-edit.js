@@ -8,6 +8,7 @@
 
 	$(function () {
 	    $('#save-article').click(function (e) {
+	        e.preventDefault();
             $('#editForm').submit();
         });
 

@@ -17,7 +17,7 @@
 {% block prependMenu %}
     {% if user.check("create") %}
         <li>
-            <a class="btn-success" href="{{ uri.base.path }}text/add">New Article</a>
+            <a class="btn-success" href="{{ uri.base.path }}articles/create">New Article</a>
         </li>
     {% endif %}
 
@@ -43,7 +43,7 @@
         {% for a in items %}
             <tr>
                 <td>
-                    <a href="{{ uri.base.path }}text/edit/{{ a.article_id }}">
+                    <a href="{{ uri.base.path }}articles/{{ a.article_id }}/edit">
                         {{ a.title ? : '---' }} / {{ a.alias }}
                     </a>
                 </td>

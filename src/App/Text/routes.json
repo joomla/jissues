@@ -1,14 +1,29 @@
 {
-	"page/:alias": {
-		"controller": "App\\Text\\Controller\\ViewArticleController",
-		"methods": ["GET"]
-	},
-	"text": {
+	"articles": {
 		"controller": "App\\Text\\Controller\\ListArticlesController",
 		"methods": ["GET"]
 	},
-	"text/add": {
+	"articles/create": {
+		"controller": "App\\Text\\Controller\\SaveArticleController",
+		"methods": ["POST"]
+	},
+	"articles/new": {
 		"controller": "App\\Text\\Controller\\CreateArticleController",
+		"methods": ["GET"]
+	},
+	"articles/:id": {
+		"controller": "App\\Text\\Controller\\SaveArticleController",
+		"methods": ["POST"]
+	},
+	"articles/:id/edit": {
+		"controller": "App\\Text\\Controller\\EditArticleController",
+		"methods": ["GET"],
+		"rules": {
+			"id": "(\\d+)"
+		}
+	},
+	"page/:alias": {
+		"controller": "App\\Text\\Controller\\ViewArticleController",
 		"methods": ["GET"]
 	},
 	"text/delete/:id": {
@@ -16,16 +31,5 @@
 		"rules": {
 			"id": "(\\d+)"
 		}
-	},
-	"text/edit/:id": {
-		"controller": "App\\Text\\Controller\\EditArticleController",
-		"methods": ["GET"],
-		"rules": {
-			"id": "(\\d+)"
-		}
-	},
-	"text/save": {
-		"controller": "App\\Text\\Controller\\SaveArticleController",
-		"methods": ["POST"]
 	}
 }

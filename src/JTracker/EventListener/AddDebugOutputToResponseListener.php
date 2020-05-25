@@ -11,6 +11,7 @@ namespace JTracker\EventListener;
 use App\Debug\TrackerDebugger;
 use Joomla\Application\Event\ApplicationEvent;
 use Joomla\Application\WebApplicationInterface;
+use Laminas\Diactoros\Response\HtmlResponse;
 
 /**
  * Event listener which adds the debug output to the response
@@ -51,8 +52,11 @@ final class AddDebugOutputToResponseListener
 		/** @var WebApplicationInterface $app */
 		$app = $event->getApplication();
 
-		$app->setBody(
-			str_replace('%%%DEBUG%%%', JDEBUG ? $this->debugger->getOutput() : '', $app->getBody())
-		);
+		if ($app->getResponse() instanceof HtmlResponse)
+		{
+			$app->setBody(
+				str_replace('%%%DEBUG%%%', JDEBUG ? $this->debugger->getOutput() : '', $app->getBody())
+			);
+		}
 	}
 }
