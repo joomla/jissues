@@ -8,34 +8,23 @@
 
 namespace App\Text\Controller;
 
-use App\Text\Model\ArticlesModel;
-use App\Text\View\Articles\ArticlesHtmlView;
+use App\Text\Table\ArticlesTable;
 use Joomla\Controller\AbstractController;
+use Joomla\Database\DatabaseDriver;
 use Joomla\View\BaseHtmlView;
-use JTracker\Controller\Concerns\HasLists;
 use Laminas\Diactoros\Response\HtmlResponse;
 
 /**
- * Articles list controller.
+ * Controller class to add an article.
  *
  * @method  \JTracker\Application getApplication()
  *
  * @since  1.0
  */
-class Articles extends AbstractController
+class CreateArticleController extends AbstractController
 {
-	use HasLists;
-
 	/**
-	 * The articles model
-	 *
-	 * @var    ArticlesModel
-	 * @since  1.0
-	 */
-	private $model;
-
-	/**
-	 * The articles HTML view
+	 * The add article HTML view
 	 *
 	 * @var    BaseHtmlView
 	 * @since  1.0
@@ -43,17 +32,25 @@ class Articles extends AbstractController
 	private $view;
 
 	/**
+	 * Database driver
+	 *
+	 * @var    DatabaseDriver
+	 * @since  1.0
+	 */
+	private $db;
+
+	/**
 	 * Controller constructor.
 	 *
-	 * @param   ArticlesModel  $model  The articles model
-	 * @param   BaseHtmlView   $view   The articles HTML view
+	 * @param   BaseHtmlView    $view  The add article HTML view
+	 * @param   DatabaseDriver  $db    Database driver
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(ArticlesModel $model, BaseHtmlView $view)
+	public function __construct(BaseHtmlView $view, DatabaseDriver $db)
 	{
-		$this->model = $model;
-		$this->view  = $view;
+		$this->view = $view;
+		$this->db   = $db;
 	}
 
 	/**
@@ -67,15 +64,13 @@ class Articles extends AbstractController
 	{
 		$this->getApplication()->getUser()->authorize('admin');
 
-		$this->configurePaginationState($this->getApplication(), $this->model);
-
 		// Set view variables required in the template
-		$this->view->addData('view', 'articles')
-			->addData('layout', 'index')
+		$this->view->addData('view', 'article')
+			->addData('layout', 'edit')
 			->addData('app', 'text');
 
-		// Push articles into view
-		$this->view->addData('items', $this->model->getItems());
+		// Push an empty table object into the view
+		$this->view->addData('item', new ArticlesTable($this->db));
 
 		$this->getApplication()->setResponse(
 			new HtmlResponse(

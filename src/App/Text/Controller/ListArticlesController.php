@@ -9,20 +9,23 @@
 namespace App\Text\Controller;
 
 use App\Text\Model\ArticlesModel;
-use App\Text\View\Page\PageHtmlView;
+use App\Text\View\Articles\ArticlesHtmlView;
 use Joomla\Controller\AbstractController;
 use Joomla\View\BaseHtmlView;
+use JTracker\Controller\Concerns\HasLists;
 use Laminas\Diactoros\Response\HtmlResponse;
 
 /**
- * Page view controller.
+ * Articles list controller.
  *
  * @method  \JTracker\Application getApplication()
  *
- * @since   1.0
+ * @since  1.0
  */
-class Page extends AbstractController
+class ListArticlesController extends AbstractController
 {
+	use HasLists;
+
 	/**
 	 * The articles model
 	 *
@@ -32,7 +35,7 @@ class Page extends AbstractController
 	private $model;
 
 	/**
-	 * The page HTML view
+	 * The articles HTML view
 	 *
 	 * @var    BaseHtmlView
 	 * @since  1.0
@@ -62,14 +65,17 @@ class Page extends AbstractController
 	 */
 	public function execute()
 	{
+		$this->getApplication()->getUser()->authorize('admin');
+
+		$this->configurePaginationState($this->getApplication(), $this->model);
+
 		// Set view variables required in the template
-		$this->view->addData('view', 'page')
+		$this->view->addData('view', 'articles')
 			->addData('layout', 'index')
 			->addData('app', 'text');
 
-		// Push page into view
-		// TODO - Twig doesn't use __get to read properties
-		$this->view->addData('item', $this->model->findByAlias($this->getInput()->getCmd('alias'))->getIterator());
+		// Push articles into view
+		$this->view->addData('items', $this->model->getItems());
 
 		$this->getApplication()->setResponse(
 			new HtmlResponse(

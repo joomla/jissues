@@ -1,14 +1,14 @@
 {
 	"page/:alias": {
-		"controller": "App\\Text\\Controller\\Page",
+		"controller": "App\\Text\\Controller\\ViewArticleController",
 		"methods": ["GET"]
 	},
 	"text": {
-		"controller": "App\\Text\\Controller\\Articles",
+		"controller": "App\\Text\\Controller\\ListArticlesController",
 		"methods": ["GET"]
 	},
 	"text/add": {
-		"controller": "App\\Text\\Controller\\Article\\Add",
+		"controller": "App\\Text\\Controller\\Article\\CreateArticleController",
 		"methods": ["GET"]
 	},
 	"text/delete/:id": {

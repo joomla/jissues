@@ -8,9 +8,9 @@
 
 namespace App\Text;
 
-use App\Text\Controller\Article\Add;
-use App\Text\Controller\Articles;
-use App\Text\Controller\Page;
+use App\Text\Controller\CreateArticleController;
+use App\Text\Controller\ListArticlesController;
+use App\Text\Controller\ViewArticleController;
 use App\Text\Model\ArticlesModel;
 use Joomla\DI\Container;
 use Joomla\Renderer\RendererInterface;
@@ -86,9 +86,9 @@ class TextApp implements AppInterface
 	private function registerServices(Container $container)
 	{
 		$container->share(
-			Articles::class,
+			ListArticlesController::class,
 			function (Container $container) {
-				return new Articles(
+				return new ListArticlesController(
 					$container->get(ArticlesModel::class),
 					$container->get('articles.list.view')
 				);
@@ -97,21 +97,21 @@ class TextApp implements AppInterface
 		);
 
 		$container->share(
-			Page::class,
+			ViewArticleController::class,
 			function (Container $container) {
-				return new Page(
+				return new ViewArticleController(
 					$container->get(ArticlesModel::class),
-					$container->get('page.item.view')
+					$container->get('article.show.view')
 				);
 			},
 			true
 		);
 
 		$container->share(
-			Add::class,
+			CreateArticleController::class,
 			function (Container $container) {
-				return new Add(
-					$container->get('articles.edit.view'),
+				return new CreateArticleController(
+					$container->get('article.edit.view'),
 					$container->get('db')
 				);
 			},
@@ -127,7 +127,7 @@ class TextApp implements AppInterface
 		);
 
 		$container->share(
-			'articles.edit.view',
+			'article.edit.view',
 			function (Container $container) {
 				$view = new BaseHtmlView(
 					$container->get(ArticlesModel::class),
@@ -157,14 +157,14 @@ class TextApp implements AppInterface
 		);
 
 		$container->share(
-			'page.item.view',
+			'article.show.view',
 			function (Container $container) {
 				$view = new BaseHtmlView(
 					$container->get(ArticlesModel::class),
 					$container->get(RendererInterface::class)
 				);
 
-				$view->setLayout('text/page.index.twig');
+				$view->setLayout('text/article.show.twig');
 
 				return $view;
 			},
