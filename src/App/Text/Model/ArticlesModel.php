@@ -185,4 +185,19 @@ class ArticlesModel extends AbstractDatabaseModel implements ListfulModelInterfa
 		return (new ArticlesTable($this->db))
 			->load($id);
 	}
+
+	/**
+	 * Save an article
+	 *
+	 * @param   array  $data  The article data
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function save(array $data): void
+	{
+		(new ArticlesTable($this->db))
+			->save($data);
+	}
 }

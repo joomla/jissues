@@ -32,21 +32,21 @@
                 <div class="control-group">
                     <label class="control-label" for="title">Title</label>
                     <div class="controls">
-                        <input type="text" name="article[title]" id="title" value="{{ item.title }}" />
+                        <input type="text" name="title" id="title" value="{{ item.title }}" />
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="alias">Alias</label>
                     <div class="controls">
-                        <input type="text" name="article[alias]" id="alias" value="{{ item.alias }}" />
+                        <input type="text" name="alias" id="alias" value="{{ item.alias }}" />
                     </div>
                 </div>
             </fieldset>
 
-           {% include 'editor.twig' with {'editorId': 'text', 'writeId': 'write', 'previewId': 'preview', 'editorName': 'article[text_md]', 'editorPlaceholder': 'Article Text', 'editorText': item.text_md} %}
+           {% include 'editor.twig' with {'editorId': 'text', 'writeId': 'write', 'previewId': 'preview', 'editorName': 'text_md', 'editorPlaceholder': 'Article Text', 'editorText': item.text_md} %}
 
-            <input type="hidden" name="article[article_id]" value="{{ item.article_id }}"/>
+            <input type="hidden" name="article_id" value="{{ item.article_id }}"/>
         </div>
     </form>
 {% endblock %}

@@ -10,8 +10,6 @@ namespace App\Text\Table;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Filter\OutputFilter;
-use Joomla\Github\Github;
-
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
@@ -31,14 +29,6 @@ use JTracker\Database\AbstractDatabaseTable;
 class ArticlesTable extends AbstractDatabaseTable
 {
 	/**
-	 * Github object
-	 *
-	 * @var    Github
-	 * @since  1.0
-	 */
-	protected $gitHub = null;
-
-	/**
 	 * Constructor
 	 *
 	 * @param   DatabaseDriver  $db  A database connector object
@@ -48,25 +38,6 @@ class ArticlesTable extends AbstractDatabaseTable
 	public function __construct(DatabaseDriver $db)
 	{
 		parent::__construct('#__articles', 'article_id', $db);
-	}
-
-	/**
-	 * Load an article by alias.
-	 *
-	 * @param   string  $alias  The alias.
-	 *
-	 * @return  ArticlesTable
-	 *
-	 * @since   1.0
-	 */
-	public function loadByAlias($alias)
-	{
-		return $this->db->setQuery(
-			$this->db->getQuery(true)
-				->from($this->db->quoteName($this->tableName))
-				->select(['title', 'text'])
-				->where($this->db->quoteName('alias') . ' = ' . $this->db->quote($alias))
-		)->loadObject();
 	}
 
 	/**
@@ -82,7 +53,7 @@ class ArticlesTable extends AbstractDatabaseTable
 	{
 		$errors = [];
 
-		if (trim($this->alias) == '')
+		if (trim($this->alias) === '')
 		{
 			if (trim($this->title))
 			{
@@ -94,7 +65,7 @@ class ArticlesTable extends AbstractDatabaseTable
 			}
 		}
 
-		if (trim($this->text_md) == '')
+		if (trim($this->text_md) === '')
 		{
 			$errors[] = 'Some text is required.';
 		}
@@ -124,50 +95,12 @@ class ArticlesTable extends AbstractDatabaseTable
 	 */
 	public function store($updateNulls = false)
 	{
-		if (!$this->created_date || $this->created_date == $this->db->getNullDate())
+		if (!$this->created_date || $this->created_date === $this->db->getNullDate())
 		{
-			// New item - set an (arbitrary) created date..
-			$this->created_date = (new \DateTime)->format($this->db->getDateFormat());
+			// New item
+			$this->created_date = (new \DateTime('now', new \DateTimeZone('UTC')))->format($this->db->getDateFormat());
 		}
-
-		// Render markdown
-		$this->text = $this->getGitHub()->markdown
-			->render($this->text_md);
 
 		return parent::store($updateNulls);
-	}
-
-	/**
-	 * Get the GitHub object.
-	 *
-	 * @return  Github
-	 *
-	 * @since   1.0
-	 * @throws  \UnexpectedValueException
-	 */
-	public function getGitHub()
-	{
-		if (is_null($this->gitHub))
-		{
-			throw new \UnexpectedValueException('GitHub object not set.');
-		}
-
-		return $this->gitHub;
-	}
-
-	/**
-	 * Set the GitHub object.
-	 *
-	 * @param   Github  $gitHub  The GitHub object.
-	 *
-	 * @return  $this  Method supports chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setGitHub(Github $gitHub)
-	{
-		$this->gitHub = $gitHub;
-
-		return $this;
 	}
 }

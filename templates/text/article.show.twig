@@ -1,13 +1,15 @@
 {% extends 'index.twig' %}
 
 {%- block title -%}
-    {{ parent() }} | {{ item.title }}
+    {{ parent() }}{% if item.title %} | {{ item.title }}{% endif %}
 {%- endblock -%}
 
 {% block content %}
-    <div class="page-header">
-        <h1>{{ item.title }}</h1>
-    </div>
+    {% if item.title %}
+        <div class="page-header">
+            <h1>{{ item.title }}</h1>
+        </div>
+    {% endif %}
 
     {# Note that using RAW output format here should be safe since the text is the result of a request to GitHub's markdown parser #}
     {{ item.text|raw }}

@@ -25,7 +25,7 @@
 		}
 	},
 	"text/save": {
-		"controller": "App\\Text\\Controller\\Article\\Save",
+		"controller": "App\\Text\\Controller\\SaveArticleController",
 		"methods": ["POST"]
 	}
 }

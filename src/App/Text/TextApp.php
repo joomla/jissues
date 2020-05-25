@@ -11,9 +11,11 @@ namespace App\Text;
 use App\Text\Controller\CreateArticleController;
 use App\Text\Controller\EditArticleController;
 use App\Text\Controller\ListArticlesController;
+use App\Text\Controller\SaveArticleController;
 use App\Text\Controller\ViewArticleController;
 use App\Text\Model\ArticlesModel;
 use Joomla\DI\Container;
+use Joomla\Github\Github;
 use Joomla\Renderer\RendererInterface;
 use Joomla\Router\Route;
 use Joomla\Router\Router;
@@ -125,6 +127,17 @@ class TextApp implements AppInterface
 				return new EditArticleController(
 					$container->get(ArticlesModel::class),
 					$container->get('article.edit.view')
+				);
+			},
+			true
+		);
+
+		$container->share(
+			SaveArticleController::class,
+			function (Container $container) {
+				return new SaveArticleController(
+					$container->get(ArticlesModel::class),
+					$container->get(Github::class)
 				);
 			},
 			true

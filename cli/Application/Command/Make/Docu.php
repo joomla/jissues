@@ -63,11 +63,6 @@ class Docu extends Make
 			->out(sprintf('Compiling documentation in: %s', $docuBase))
 			->out();
 
-		$table = new ArticlesTable($db);
-
-		// @todo compile the md text here.
-		$table->setGitHub($this->github);
-
 		while ($it->valid())
 		{
 			if ($it->isDir())
@@ -86,7 +81,7 @@ class Docu extends Make
 
 			$this->debugOut('Compiling: ' . $page);
 
-			$table->reset();
+			$table = new ArticlesTable($db);
 
 			$table->{$table->getKeyName()} = null;
 
@@ -100,9 +95,10 @@ class Docu extends Make
 			}
 
 			$table->is_file = '1';
-			$table->path = $it->getSubPath();
+			$table->path    = $it->getSubPath();
 			$table->alias   = $page;
 			$table->text_md = file_get_contents($it->key());
+			$table->text    = $this->github->markdown->render($table->text_md);
 
 			$table->store();
 
