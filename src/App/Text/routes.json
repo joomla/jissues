@@ -8,7 +8,7 @@
 		"methods": ["GET"]
 	},
 	"text/add": {
-		"controller": "App\\Text\\Controller\\Article\\CreateArticleController",
+		"controller": "App\\Text\\Controller\\CreateArticleController",
 		"methods": ["GET"]
 	},
 	"text/delete/:id": {
@@ -18,7 +18,7 @@
 		}
 	},
 	"text/edit/:id": {
-		"controller": "App\\Text\\Controller\\Article\\Edit",
+		"controller": "App\\Text\\Controller\\EditArticleController",
 		"methods": ["GET"],
 		"rules": {
 			"id": "(\\d+)"

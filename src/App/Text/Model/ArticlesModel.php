@@ -170,4 +170,19 @@ class ArticlesModel extends AbstractDatabaseModel implements ListfulModelInterfa
 		return (new ArticlesTable($this->db))
 			->load(['alias' => $alias]);
 	}
+
+	/**
+	 * Find an article by its ID
+	 *
+	 * @param   integer  $alias  The item ID.
+	 *
+	 * @return  ArticlesTable
+	 *
+	 * @since   1.0
+	 */
+	public function findById(int $id): ArticlesTable
+	{
+		return (new ArticlesTable($this->db))
+			->load($id);
+	}
 }

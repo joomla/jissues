@@ -8,23 +8,30 @@
 
 namespace App\Text\Controller;
 
-use App\Text\Table\ArticlesTable;
+use App\Text\Model\ArticlesModel;
 use Joomla\Controller\AbstractController;
-use Joomla\Database\DatabaseDriver;
 use Joomla\View\BaseHtmlView;
 use Laminas\Diactoros\Response\HtmlResponse;
 
 /**
- * Controller class to add an article.
+ * Controller class to update an article.
  *
  * @method  \JTracker\Application getApplication()
  *
  * @since  1.0
  */
-class CreateArticleController extends AbstractController
+class EditArticleController extends AbstractController
 {
 	/**
-	 * The add article HTML view
+	 * The articles model
+	 *
+	 * @var    ArticlesModel
+	 * @since  1.0
+	 */
+	private $model;
+
+	/**
+	 * The edit article HTML view
 	 *
 	 * @var    BaseHtmlView
 	 * @since  1.0
@@ -32,25 +39,17 @@ class CreateArticleController extends AbstractController
 	private $view;
 
 	/**
-	 * Database driver
-	 *
-	 * @var    DatabaseDriver
-	 * @since  1.0
-	 */
-	private $db;
-
-	/**
 	 * Controller constructor.
 	 *
-	 * @param   BaseHtmlView    $view  The add article HTML view
-	 * @param   DatabaseDriver  $db    Database driver
+	 * @param   ArticlesModel  $model  The articles model
+	 * @param   BaseHtmlView   $view   The articles HTML view
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(BaseHtmlView $view, DatabaseDriver $db)
+	public function __construct(ArticlesModel $model, BaseHtmlView $view)
 	{
-		$this->view = $view;
-		$this->db   = $db;
+		$this->model = $model;
+		$this->view  = $view;
 	}
 
 	/**
@@ -71,7 +70,7 @@ class CreateArticleController extends AbstractController
 
 		// Push an empty table object into the view
 		// TODO - Twig doesn't use __get to read properties
-		$this->view->addData('item', (new ArticlesTable($this->db))->getIterator());
+		$this->view->addData('item', $this->model->findById($this->getInput()->getUint('id'))->getIterator());
 
 		$this->getApplication()->setResponse(
 			new HtmlResponse(

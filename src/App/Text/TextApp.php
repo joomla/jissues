@@ -9,6 +9,7 @@
 namespace App\Text;
 
 use App\Text\Controller\CreateArticleController;
+use App\Text\Controller\EditArticleController;
 use App\Text\Controller\ListArticlesController;
 use App\Text\Controller\ViewArticleController;
 use App\Text\Model\ArticlesModel;
@@ -113,6 +114,17 @@ class TextApp implements AppInterface
 				return new CreateArticleController(
 					$container->get('article.edit.view'),
 					$container->get('db')
+				);
+			},
+			true
+		);
+
+		$container->share(
+			EditArticleController::class,
+			function (Container $container) {
+				return new EditArticleController(
+					$container->get(ArticlesModel::class),
+					$container->get('article.edit.view')
 				);
 			},
 			true
