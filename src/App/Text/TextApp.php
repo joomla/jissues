@@ -10,6 +10,7 @@ namespace App\Text;
 
 use App\Text\Controller\Article\Add;
 use App\Text\Controller\Articles;
+use App\Text\Controller\Page;
 use App\Text\Model\ArticlesModel;
 use Joomla\DI\Container;
 use Joomla\Renderer\RendererInterface;
@@ -96,6 +97,17 @@ class TextApp implements AppInterface
 		);
 
 		$container->share(
+			Page::class,
+			function (Container $container) {
+				return new Page(
+					$container->get(ArticlesModel::class),
+					$container->get('page.item.view')
+				);
+			},
+			true
+		);
+
+		$container->share(
 			Add::class,
 			function (Container $container) {
 				return new Add(
@@ -138,6 +150,21 @@ class TextApp implements AppInterface
 				);
 
 				$view->setLayout('text/articles.index.twig');
+
+				return $view;
+			},
+			true
+		);
+
+		$container->share(
+			'page.item.view',
+			function (Container $container) {
+				$view = new BaseHtmlView(
+					$container->get(ArticlesModel::class),
+					$container->get(RendererInterface::class)
+				);
+
+				$view->setLayout('text/page.index.twig');
 
 				return $view;
 			},

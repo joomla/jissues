@@ -8,6 +8,7 @@
 
 namespace App\Text\Model;
 
+use App\Text\Table\ArticlesTable;
 use Joomla\Database\DatabaseQuery;
 
 use Joomla\Model\AbstractDatabaseModel;
@@ -153,5 +154,20 @@ class ArticlesModel extends AbstractDatabaseModel implements ListfulModelInterfa
 			->select($this->db->quoteName(['article_id', 'title', 'alias', 'text']))
 			->from($this->db->quoteName('#__articles'))
 			->where($this->db->quoteName('is_file') . ' = 0');
+	}
+
+	/**
+	 * Find an article by its alias
+	 *
+	 * @param   string  $alias  The item alias.
+	 *
+	 * @return  ArticlesTable
+	 *
+	 * @since   1.0
+	 */
+	public function findByAlias(string $alias): ArticlesTable
+	{
+		return (new ArticlesTable($this->db))
+			->load(['alias' => $alias]);
 	}
 }

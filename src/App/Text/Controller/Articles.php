@@ -16,7 +16,7 @@ use JTracker\Controller\Concerns\HasLists;
 use Laminas\Diactoros\Response\HtmlResponse;
 
 /**
- * Controller class for the Text component.
+ * Articles list controller.
  *
  * @method  \JTracker\Application getApplication()
  *

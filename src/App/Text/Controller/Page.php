@@ -8,41 +8,75 @@
 
 namespace App\Text\Controller;
 
+use App\Text\Model\ArticlesModel;
 use App\Text\View\Page\PageHtmlView;
-
-use JTracker\Controller\AbstractTrackerController;
+use Joomla\Controller\AbstractController;
+use Joomla\View\BaseHtmlView;
+use Laminas\Diactoros\Response\HtmlResponse;
 
 /**
- * Controller class for the Text component
+ * Page view controller.
  *
- * @since  1.0
+ * @method  \JTracker\Application getApplication()
+ *
+ * @since   1.0
  */
-class Page extends AbstractTrackerController
+class Page extends AbstractController
 {
 	/**
-	 * View object
+	 * The articles model
 	 *
-	 * @var    PageHtmlView
+	 * @var    ArticlesModel
 	 * @since  1.0
 	 */
-	protected $view = null;
+	private $model;
 
 	/**
-	 * Initialize the controller.
+	 * The page HTML view
 	 *
-	 * This will set up default model and view classes.
+	 * @var    BaseHtmlView
+	 * @since  1.0
+	 */
+	private $view;
+
+	/**
+	 * Controller constructor.
 	 *
-	 * @return  $this  Method supports chaining
+	 * @param   ArticlesModel  $model  The articles model
+	 * @param   BaseHtmlView   $view   The articles HTML view
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	public function initialize()
+	public function __construct(ArticlesModel $model, BaseHtmlView $view)
 	{
-		parent::initialize();
+		$this->model = $model;
+		$this->view  = $view;
+	}
 
-		$this->view->setAlias($this->getContainer()->get('app')->input->getCmd('alias'));
+	/**
+	 * Execute the controller.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	public function execute()
+	{
+		// Set view variables required in the template
+		$this->view->addData('view', 'page')
+			->addData('layout', 'index')
+			->addData('app', 'text');
 
-		return $this;
+		// Push page into view
+		// TODO - Twig doesn't use __get to read properties
+		$this->view->addData('item', $this->model->findByAlias($this->getInput()->getCmd('alias'))->getIterator());
+
+		$this->getApplication()->setResponse(
+			new HtmlResponse(
+				$this->view->render()
+			)
+		);
+
+		return true;
 	}
 }
