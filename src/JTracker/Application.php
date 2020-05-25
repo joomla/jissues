@@ -11,7 +11,6 @@ namespace JTracker;
 use App\Debug\TrackerDebugger;
 use App\Projects\Model\ProjectModel;
 use App\Projects\TrackerProject;
-
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Application\Controller\ControllerResolverInterface;
 use Joomla\Controller\AbstractController;
@@ -23,13 +22,10 @@ use Joomla\Event\DispatcherAwareTrait;
 use Joomla\Input\Input;
 use Joomla\Registry\Registry;
 use Joomla\Router\Router;
-
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
 use JTracker\Controller\TrackerControllerInterface;
-
-use Laminas\Diactoros\Response\HtmlResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
@@ -110,8 +106,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 */
 	public function __construct(Session $session, Input $input, Registry $config)
 	{
-		// Run the parent constructor, default to HTML response object
-		parent::__construct($input, $config, null, new HtmlResponse(''));
+		parent::__construct($input, $config);
 
 		$this->newSession = $session;
 	}

@@ -52,7 +52,7 @@ final class AddDebugOutputToResponseListener
 		/** @var WebApplicationInterface $app */
 		$app = $event->getApplication();
 
-		if ($app->getResponse() instanceof HtmlResponse)
+		if ($app->getResponse() instanceof HtmlResponse || $app->mimeType === 'text/html')
 		{
 			$app->setBody(
 				str_replace('%%%DEBUG%%%', JDEBUG ? $this->debugger->getOutput() : '', $app->getBody())
