@@ -10,7 +10,6 @@ namespace App\Text\Model;
 
 use App\Text\Table\ArticlesTable;
 use Joomla\Database\DatabaseQuery;
-
 use Joomla\Model\AbstractDatabaseModel;
 use JTracker\Model\ListfulModelInterface;
 use JTracker\Pagination\TrackerPagination;
@@ -184,6 +183,21 @@ class ArticlesModel extends AbstractDatabaseModel implements ListfulModelInterfa
 	{
 		return (new ArticlesTable($this->db))
 			->load($id);
+	}
+
+	/**
+	 * Delete an article
+	 *
+	 * @param   integer  $id  The article ID to be deleted
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function delete(int $id): void
+	{
+		(new ArticlesTable($this->db))
+			->delete($id);
 	}
 
 	/**

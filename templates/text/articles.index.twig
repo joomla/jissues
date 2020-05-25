@@ -1,7 +1,4 @@
-{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
-{# GNU General Public License version 2 or later; see LICENSE.txt #}
-
-{% extends "index.twig" %}
+{% extends 'index.twig' %}
 
 {% block title %}{{ parent() }} | Articles{% endblock %}
 
@@ -22,42 +19,43 @@
     {% endif %}
 
     {{ parent() }}
-
 {% endblock %}
 
 {% block content %}
-
-    <h2>Articles List</h2>
+    <div class="page-header">
+        <h1>Articles List</h1>
+    </div>
 
     <table class="table table-bordered table-hover table-condensed">
         <thead>
-        <tr>
-            <th>Title/Alias</th>
-            <th style="width: 10%">Actions</th>
-        </tr>
+            <tr>
+                <th>Title/Alias</th>
+                <th style="width: 10%">Actions</th>
+            </tr>
         </thead>
-        <tfoot>
-
-        </tfoot>
         <tbody>
-        {% for a in items %}
-            <tr>
-                <td>
-                    <a href="{{ uri.base.path }}articles/{{ a.article_id }}/edit">
-                        {{ a.title ? : '---' }} / {{ a.alias }}
-                    </a>
-                </td>
-                <td>
-                    <a href="{{ uri.base.path }}page/{{ a.alias }}">View</a>
-                    <a href="{{ uri.base.path }}text/delete/{{ a.article_id }}">Delete</a>
-                </td>
-            </tr>
+            {% for a in items %}
+                <tr>
+                    <td>
+                        <a href="{{ uri.base.path }}articles/{{ a.article_id }}/edit">{{ a.title ? : '---' }} / {{ a.alias }}</a>
+                    </td>
+                    <td>
+                        <a href="{{ uri.base.path }}page/{{ a.alias }}">View</a>
+                        <a href="#" class="delete-article" data-id="{{ a.article_id }}">Delete</a>
+                        <form method="post" action="{{ uri.base.path }}articles/{{ a.article_id }}/delete" class="element-invisible delete-article-{{ a.article_id }}-form"></form>
+                    </td>
+                </tr>
             {% else %}
-            <tr>
-                <td colspan="3"><div class="alert alert-warning">No articles found</div></td>
-            </tr>
-        {% endfor %}
+                <tr class="warning">
+                    <td colspan="2">No articles found</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
+{% endblock %}
 
+{% block JavaScriptBottom %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/text/articles-index.js') }}"></script>
 {% endblock %}

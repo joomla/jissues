@@ -15,6 +15,13 @@
 		"controller": "App\\Text\\Controller\\SaveArticleController",
 		"methods": ["POST"]
 	},
+	"articles/:id/delete": {
+		"controller": "App\\Text\\Controller\\DeleteArticleController",
+		"methods": ["POST"],
+		"rules": {
+			"id": "(\\d+)"
+		}
+	},
 	"articles/:id/edit": {
 		"controller": "App\\Text\\Controller\\EditArticleController",
 		"methods": ["GET"],
@@ -25,11 +32,5 @@
 	"page/:alias": {
 		"controller": "App\\Text\\Controller\\ViewArticleController",
 		"methods": ["GET"]
-	},
-	"text/delete/:id": {
-		"controller": "App\\Text\\Controller\\Article\\Delete",
-		"rules": {
-			"id": "(\\d+)"
-		}
 	}
 }
