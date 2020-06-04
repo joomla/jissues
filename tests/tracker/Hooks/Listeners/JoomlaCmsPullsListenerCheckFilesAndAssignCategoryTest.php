@@ -60,6 +60,7 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends TestCase
 			'administrator/language' => ['23', '27'],
 			'administrator/modules/' => ['13', '23'],
 			'administrator/templates/' => ['23', '31'],
+			'administrator/templates/atum/scss/template.scss' => ['23', '31', '76'],
 			'build/' => ['36'],
 			'build/media_source' => ['36', '76'],
 			'build.js' => ['1', '76'],

@@ -318,6 +318,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 			'^administrator/components/com_workflow',
 		],
 		self::CATEGORY_NPM => [
+			'\.scss$',
 			'^administrator/components/com_media/resources/scripts',
 			'^administrator/components/com_media/resources/styles',
 			'administrator/components/com_media/package-lock.json',
