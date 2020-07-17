@@ -1,4 +1,22 @@
 {
-	"wp-login.php" : "App\\System\\Controller\\WrongCms",
-	"administrator": "App\\System\\Controller\\WrongCms"
+	"administrator": {
+		"controller": "App\\System\\Controller\\Controller",
+		"methods": ["*"]
+	},
+	"administrator/*": {
+		"controller": "App\\System\\Controller\\Controller",
+		"methods": ["*"]
+	},
+	"wp-admin": {
+		"controller": "App\\System\\Controller\\Controller",
+		"methods": ["*"]
+	},
+	"wp-admin/*": {
+		"controller": "App\\System\\Controller\\Controller",
+		"methods": ["*"]
+	},
+	"wp-login.php": {
+		"controller": "App\\System\\Controller\\Controller",
+		"methods": ["*"]
+	}
 }

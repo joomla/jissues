@@ -8,7 +8,9 @@
 
 namespace App\System;
 
+use App\System\Controller\WrongCmsController;
 use Joomla\DI\Container;
+use Joomla\Router\Route;
 use Joomla\Router\Router;
 use JTracker\AppInterface;
 
@@ -32,6 +34,7 @@ class SystemApp implements AppInterface
 	public function loadServices(Container $container)
 	{
 		$this->registerRoutes($container->get('router'));
+		$this->registerServices($container);
 	}
 
 	/**
@@ -54,10 +57,35 @@ class SystemApp implements AppInterface
 			throw new \RuntimeException('Invalid router file for the System app: ' . __DIR__ . '/routes.json', 500);
 		}
 
-		foreach ($maps as $patttern => $controller)
+		foreach ($maps as $pattern => $route)
 		{
-			// TODO - Routes should be identified for proper methods
-			$router->all($patttern, $controller);
+			$methods    = $route['methods'] ?? [];
+			$controller = $route['controller'];
+			$rules      = $route['rules'] ?? [];
+			$defaults   = $route['defaults'] ?? [];
+
+			$router->addRoute(new Route($methods, $pattern, $controller, $rules, $defaults));
 		}
+	}
+
+	/**
+	 * Registers the services for the app
+	 *
+	 * @param   Container  $container  DI Container to load services into
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	private function registerServices(Container $container)
+	{
+		$container->share(
+			WrongCmsController::class,
+			function (Container $container) {
+				return new WrongCmsController;
+			},
+			true
+		);
 	}
 }

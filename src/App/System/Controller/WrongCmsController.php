@@ -16,9 +16,9 @@ use Laminas\Diactoros\Response\TextResponse;
  *
  * @method  \JTracker\Application getApplication()
  *
- * @since  1.0
+ * @since   1.0
  */
-class WrongCms extends AbstractController
+class WrongCmsController extends AbstractController
 {
 	/**
 	 * Execute the controller.
