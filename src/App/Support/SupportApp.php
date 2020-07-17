@@ -9,6 +9,7 @@
 namespace App\Support;
 
 use Joomla\DI\Container;
+use Joomla\Router\Route;
 use Joomla\Router\Router;
 use JTracker\AppInterface;
 
@@ -54,10 +55,14 @@ class SupportApp implements AppInterface
 			throw new \RuntimeException('Invalid router file for the Support app: ' . __DIR__ . '/routes.json', 500);
 		}
 
-		foreach ($maps as $patttern => $controller)
+		foreach ($maps as $pattern => $route)
 		{
-			// TODO - Routes should be identified for proper methods
-			$router->all($patttern, $controller);
+			$methods    = $route['methods'] ?? [];
+			$controller = $route['controller'];
+			$rules      = $route['rules'] ?? [];
+			$defaults   = $route['defaults'] ?? [];
+
+			$router->addRoute(new Route($methods, $pattern, $controller, $rules, $defaults));
 		}
 	}
 }
