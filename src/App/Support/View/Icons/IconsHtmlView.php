@@ -27,39 +27,41 @@ class IconsHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$lines = file(JPATH_THEMES . '/media/css/template.css');
+		$file = file_get_contents(JPATH_THEMES . '/media/css/template.css');
 
-		$icons = [];
+		preg_match_all('/.(icon-[a-z0-9\-]+:before)/', $file, $matches);
 
-		foreach ($lines as $line)
-		{
-			if (preg_match('/.(icon-[a-z0-9\-]+)/', $line, $matches))
-			{
-				if ('icon-bar' == $matches[1])
-				{
-					continue;
-				}
+		$icons = $matches[1];
 
-				$icons[] = $matches[1];
+		array_walk(
+			$icons,
+			static function (string &$selector): void {
+				$selector = str_replace(':before', '', $selector);
 			}
-		}
+		);
 
-		$this->addData('icons', array_unique($icons));
+		$icons = array_unique($icons);
+		sort($icons);
 
-		// Read octicons - prefer separate source if available, otherwise use combined vendor source
-		$lines = file(JPATH_THEMES . '/media/css/vendor/octicons.css');
+		$this->addData('icons', $icons);
 
-		$icons = [];
+		$file = file_get_contents(JPATH_THEMES . '/media/css/vendor/octicons.css');
 
-		foreach ($lines as $line)
-		{
-			if (preg_match('/.(octicon-[a-z0-9\-]+)/', $line, $matches))
-			{
-				$icons[] = $matches[1];
+		preg_match_all('/.(octicon-[a-z0-9\-]+:before)/', $file, $matches);
+
+		$icons = $matches[1];
+
+		array_walk(
+			$icons,
+			static function (string &$selector): void {
+				$selector = str_replace(':before', '', $selector);
 			}
-		}
+		);
 
-		$this->addData('octicons', array_unique($icons));
+		$icons = array_unique($icons);
+		sort($icons);
+
+		$this->addData('octicons', $icons);
 
 		return parent::render();
 	}
