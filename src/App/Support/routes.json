@@ -1,8 +1,4 @@
 {
-	"clearcache": {
-		"controller": "App\\Support\\Controller\\Clearcache",
-		"methods": ["GET"]
-	},
 	"documentation/show": {
 		"controller": "App\\Support\\Controller\\Ajax\\Documentation\\Show",
 		"methods": ["GET"]
