@@ -7,6 +7,9 @@
 	'use strict';
 
     window.JTracker = {
+        basePath: '',
+        baseUrl: '',
+
         /**
          * Render a Markdown input to formatted HTML
          *

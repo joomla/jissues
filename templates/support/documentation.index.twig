@@ -29,12 +29,12 @@
 {% endblock %}
 
 {% block content %}
-    <div id="docuMain" class="row-fluid">
+    <div id="docs-main" class="row-fluid">
         <div class="span3">
             <h1>Documentation</h1>
             <div id="filetree"></div>
         </div>
-        <div class="span9" id="docuContainer"></div>
+        <div class="span9" id="docs-container"></div>
     </div>
     <div id="loading"></div>
 {% endblock %}
@@ -45,63 +45,17 @@
     <script src="{{ asset('js/vendor/twbs-pagination.js') }}"></script>
     <script src="{{ asset('js/jtracker-tmpl.js', 'debug') }}"></script>
     <script src="{{ asset('js/file-tree/jqueryFileTree.js', 'debug') }}"></script>
+    <script src="{{ asset('js/support/documentation-index.js') }}"></script>
 
     <script type="text/javascript">
-        function loadDocuPage(fullPath) {
-            jQuery.ajax({
-                url: '{{ uri.base.path }}documentation/show/?' + fullPath,
-                beforeSend: function () {
-                    $('#loading').show();
-                },
-                success: function (response) {
-                    if (response.error) {
-                        jQuery('#docuContainer').html(tmpl("tplDocuError", response));
-                    } else {
-                        jQuery('#docuContainer').html(tmpl("tplDocuPage", response));
-                        window.history.pushState({}, '', '{{ uri.base.path }}documentation/view/?' + fullPath);
-                    }
-                },
-                error: (function () {
-                    alert('error..');
-                }),
-                complete: function () {
-                    $('#loading').hide();
+        jQuery(function () {
+            JTracker.initDocumentation('{{ uri.base.path }}', '{{ uri.base.full }}')
 
-                    // Resize the loading overlay
-                    resizeLoading();
-                }
-            });
-        }
-
-        function resizeLoading() {
-            var outerContainer = $('div.body > div.container'),
-                pageSection = $('#docuMain'),
-                loading = $('#loading');
-
-            loading.css('top', pageSection.position().top - $(window).scrollTop())
-                .css('left', pageSection.position().left)
-                .css('width', outerContainer.width())
-                .css('height', outerContainer.height())
-                .css('display', 'none');
-        }
-
-        $(document).ready(function () {
-            $('#filetree').fileTree({
-                root: '{{ docuBase }}',
-                script: '{{ uri.base.path }}filetree',
-                multiFolder: false
-            }, function (fullPath) {
-                loadDocuPage(fullPath);
-            });
-
-            resizeLoading();
-
-            //
-            // Load a page if the path is given
-            // @todo update file tree
-            {% if fullPath %}
-            loadDocuPage('{{ fullPath|raw }}');
-            {% endif %}
+            {#
+            Load a page if the path is given
+            @todo update file tree
+            #}
+            {%- if fullPath -%}JTracker.loadDocumentationPage('{{ fullPath|raw }}');{%- endif -%}
         });
     </script>
 
