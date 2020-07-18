@@ -8,7 +8,7 @@
 
 namespace App\Support;
 
-use App\Support\Controller\ViewCssIconsController;
+use App\Support\Controller\Icons\ViewCssIconsController;
 use App\Support\Model\IconsModel;
 use Joomla\DI\Container;
 use Joomla\Renderer\RendererInterface;

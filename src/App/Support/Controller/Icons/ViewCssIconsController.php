@@ -6,7 +6,7 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-namespace App\Support\Controller;
+namespace App\Support\Controller\Icons;
 
 use App\Support\Model\IconsModel;
 use Joomla\Controller\AbstractController;

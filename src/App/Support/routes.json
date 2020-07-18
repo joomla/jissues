@@ -16,7 +16,7 @@
 		"methods": ["POST"]
 	},
 	"icons": {
-		"controller": "App\\Support\\Controller\\ViewCssIconsController",
+		"controller": "App\\Support\\Controller\\Icons\\ViewCssIconsController",
 		"methods": ["GET"]
 	}
 }
