@@ -8,9 +8,13 @@
 
 namespace App\Support;
 
+use App\Support\Controller\ViewCssIconsController;
+use App\Support\Model\IconsModel;
 use Joomla\DI\Container;
+use Joomla\Renderer\RendererInterface;
 use Joomla\Router\Route;
 use Joomla\Router\Router;
+use Joomla\View\BaseHtmlView;
 use JTracker\AppInterface;
 
 /**
@@ -33,6 +37,7 @@ class SupportApp implements AppInterface
 	public function loadServices(Container $container)
 	{
 		$this->registerRoutes($container->get('router'));
+		$this->registerServices($container);
 	}
 
 	/**
@@ -64,5 +69,53 @@ class SupportApp implements AppInterface
 
 			$router->addRoute(new Route($methods, $pattern, $controller, $rules, $defaults));
 		}
+	}
+
+	/**
+	 * Registers the services for the app
+	 *
+	 * @param   Container  $container  DI Container to load services into
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	private function registerServices(Container $container)
+	{
+		$container->share(
+			ViewCssIconsController::class,
+			function (Container $container) {
+				return new ViewCssIconsController(
+					$container->get(IconsModel::class),
+					$container->get('icons.list.view')
+
+				);
+			},
+			true
+		);
+
+		$container->share(
+			IconsModel::class,
+			function () {
+				return new IconsModel;
+			},
+			true
+		);
+
+		$container->share(
+			'icons.list.view',
+			function (Container $container) {
+				$view = new BaseHtmlView(
+					$container->get(IconsModel::class),
+					$container->get(RendererInterface::class)
+				);
+
+				$view->setLayout('support/icons.index.twig');
+
+				return $view;
+			},
+			true
+		);
 	}
 }
