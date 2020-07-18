@@ -78,6 +78,14 @@ class Html implements ContainerAwareInterface
 				$html[] = Kint::dump($application->getUser());
 				$html[] = '</div>';
 
+				if ($route = $application->get('_resolved_route'))
+				{
+					$html[] = '<div id="dbgRoute">';
+					$html[] = '<h3>Route</h3>';
+					$html[] = Kint::dump($route);
+					$html[] = '</div>';
+				}
+
 				$html[] = '<div id="dbgProject">';
 				$html[] = '<h3>Project</h3>';
 				$html[] = Kint::dump($application->getProject());
@@ -199,6 +207,12 @@ class Html implements ContainerAwareInterface
 				. '<a href="#dbgUser"><i class="icon icon-user"></i> <span class="badge">'
 				. ($user && $user->username ? $user->username : 'Guest')
 				. '</span></a></li>';
+
+			if ($application->get('_resolved_route'))
+			{
+				$html[] = '<li class="hasTooltip" title="Route">'
+					. '<a href="#dbgRoute"><i class="icon icon-earth"></i> <span class="badge">Route</span></a></li>';
+			}
 
 			$html[] = '<li class="hasTooltip" title="Project">'
 				. '<a href="#dbgProject"><i class="icon icon-cube"></i> <span class="badge">'

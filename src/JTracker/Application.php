@@ -136,6 +136,8 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 		$route = $this->getRouter()->parseRoute($this->get('uri.route'), $this->getInput()->getMethod());
 
+		$this->set('_resolved_route', $route);
+
 		// Add variables to the input if not already set
 		foreach ($route->getRouteVariables() as $key => $value)
 		{
