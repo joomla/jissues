@@ -1,26 +1,26 @@
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA512
 
-Contact: security@joomla.org
+Contact: mailto:security@joomla.org
 Encryption: https://developer.joomla.org/security/gpg-keys.html
 Acknowledgments: https://developer.joomla.org/security-centre.html
 Preferred-Languages: en
 Canonical: https://www.joomla.org/.well-known/security.txt
 Policy: https://developer.joomla.org/security.html
+Hiring: https://volunteers.joomla.org/teams/security-strike-team
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEPYFcJjaqsgoey0InllSCd8GEcsgFAl50ufoACgkQllSCd8GE
-cshH7hAAkk9QrkqmelJZ8k33p4lZeun8E8OitIDsWB0nPyRF373vo++J5rHW7zKP
-/bjImftx9C4KYk1zcUEsG8C7KMGPf/+R/ztjQlQb/wMZZZ+XDiVrdvdGQMWoDRij
-9wp8jr2dic8iisLNcx293MhW6cdDRn6twlzz7QLpdSrnLzPdImMjmN4h2QIEzg5y
-UthsjMWXPjRnzrBr6fFYLk1S4+5gp9yypaSW4nObu7ZL/P2k7foLduM4W0T72jb6
-7qpwZFvOyMag6w5emGaVvZtW1jsm7ltnq4uirc0HgtaeJVUFs+zvKL/xN5DtwurH
-4bRs5t7a5XoW9NTio3htPbejG/2P+jmC9mMJu/ZjCVvC4Hc60kFbMZw1sEkwOTLQ
-ybBDYB7ydxZjAlHwEbS7J7ZAI/+CQg66P06EYTPhYWorsv3CChfmh4odwHZAbPcl
-7ftKSAgTqej97jiBkX40vLNdZfzB7LeUHzxTL+3bBYCcm2oN9Tk3vl8qri7nMJBu
-Bj/OaJIInYE96Ru6AkQV6T89jggJx1eUDv8azSszjMNYhxVd0kvbGVfwdmeWhF/Q
-xCUCL6a8xqHodDDpJ3qepsCjkREw789zqnDjMNKnh2BFjVi5Mqal6X/UneHaNDHO
-/awUs30QMbPwctIfT7BirMsObrGtBaS3u0PYXXXESP4wjYxIYMo=
-=d/gK
+iQIzBAEBCgAdFiEEPYFcJjaqsgoey0InllSCd8GEcsgFAl+hoYoACgkQllSCd8GE
+csjqSQ//QTcVVJF6xvg4t2H5RZpiV3X6DxEo0UXIGrc5p8OArduDbUFbNSfMkMhI
+qdzdd6Gcafw4RlKwG4mjADkFkmThNtKn1fBAw3Jvymd/iJaCqPeBmNJu0TWiMuPO
+POlmqhV0Dhu1xzkUNViNn2nFswv4cV3hTStfYpmtdya849nFrw8BTz9Pbe4ghXtG
+RrauDX+gpduNfEZa7+SqDDgqQMrHmEAc0bLoAEIhEUpOsBo5yVBN7vxfqQXpox4O
+CnbzCfWrBxO62Ki7usS7Cp0UGufBgL8hZVJ2dq6FXObxrHfMcPzrJTXUnGnHZUal
+26Xv+X2AxVaJOv9lSckW6beDQdMN9ummjq7ahHgcMdQsinzT4Cb8TQazuVInZOjU
+A2pPHoAJPQ4tTfZeaU83PCaqi5I+osnGVVvaztAIaqd6R5Si+8LavXm2ZhohV9eL
+K/skfTycEPbmlo5jIFF0mQsj/FNLWoCD7mm0tsWpN3G8TVOGrNcFXeqGZfHm2bti
+0Kgq1IgTFfCMdEtIcKoR59GOLsPWWrRod23reavEUl/OBxJyBkYnKn5z5zOTqTZj
+izjhc2NHjm9+CT2UjVm1Lj2ijNqAqrR0Ju3x9uhKDc/Ygso0ocwXODPKu21akoWh
+2QLgb58afoVqqjIwRRWCPE6s6RYI+OzXej2MHD/nWsmgLZ71sgQ=
+=V9SS
 -----END PGP SIGNATURE-----
-
