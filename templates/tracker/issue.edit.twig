@@ -277,6 +277,7 @@
         var form = $('#issueForm');
 
         form.validate({
+            errorElement: "span",
             invalidHandler: function(event, validator) {
                 var e = $('div.alert-danger');
 
