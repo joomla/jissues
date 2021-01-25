@@ -539,7 +539,8 @@ class Application extends AbstractApplication implements ContainerAwareInterface
 	}
 
 	/**
-	 * Add a profiler mark.
+	 * Add a profiler mark. This is being called in the stack, stopping cli updates. This bodges a fix
+	 * but should be either removed or fully implemented in the future
 	 *
 	 * @param   string  $text  The message for the mark.
 	 *
