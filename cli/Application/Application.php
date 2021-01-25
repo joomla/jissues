@@ -537,4 +537,19 @@ class Application extends AbstractApplication implements ContainerAwareInterface
 	{
 		return '';
 	}
+
+	/**
+	 * Add a profiler mark.
+	 *
+	 * @param   string  $text  The message for the mark.
+	 *
+	 * @return  static  Method allows chaining
+	 *
+	 * @since   1.0
+	 * @todo    Remove
+	 */
+	public function mark($text)
+	{
+		return $this;
+	}
 }
