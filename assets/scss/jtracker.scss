@@ -195,6 +195,11 @@ ul.test-results {
   float: left
 }
 
+// Ensure select boxes have visible text in the dropdown. Likely as we are using BS2 with a tool build for BS3+
+.bootstrap-select .dropdown-menu li a span.text {
+  font-size: 14px;
+}
+
 /* Force Bootstrap Select to have the same width as normal selects on desktop; can't use the input-medium class due to load order */
 @media (min-width: 768px) {
   .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
