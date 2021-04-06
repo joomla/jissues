@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace JTracker\GitHub;
+namespace JTracker\Github;
 
 use Joomla\Github\Github as JGitHub;
 use Psr\Log\LoggerAwareInterface;

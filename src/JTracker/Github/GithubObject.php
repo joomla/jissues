@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace JTracker\GitHub;
+namespace JTracker\Github;
 
 use Joomla\Http\Response;
 use Joomla\Github\AbstractGithubObject as JGithubObject;
