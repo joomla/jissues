@@ -60,7 +60,7 @@
 		// compute markItUp! path
 		if (!options.root) {
 			$('script').each(function(a, tag) {
-				var miuScript = $(tag).get(0).src.match(/(.*)jquery\.markitup(\.pack)?\.js$/);
+				miuScript = $(tag).get(0).src.match(/(.*)jquery\.markitup(\.pack)?\.js$/);
 				if (miuScript !== null) {
 					options.root = miuScript[1];
 				}
@@ -419,9 +419,6 @@
 				if (previewWindow && options.previewAutoRefresh) {
 					refreshPreview(); 
 				}
-
-				// Triggers an input event to allow other scripts to react.
-				textarea.dispatchEvent(new Event('input'));
 																									
 				// reinit keyevent
 				shiftKey = altKey = ctrlKey = abort = false;
