@@ -54,10 +54,10 @@ class GroupsApp implements AppInterface
 			throw new \RuntimeException('Invalid router file for the Groups app: ' . __DIR__ . '/routes.json', 500);
 		}
 
-		foreach ($maps as $patttern => $controller)
+		foreach ($maps as $pattern => $controller)
 		{
 			// TODO - Routes should be identified for proper methods
-			$router->all($patttern, $controller);
+			$router->all($pattern, $controller);
 		}
 	}
 }
