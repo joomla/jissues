@@ -6,6 +6,11 @@ mix.setPublicPath('www/media/');
 // Configure base path for media assets
 mix.setResourceRoot('/media/');
 
+// Documented change for mix v6 upgrade - we are copying files out node_modules so require the watching of node_modules
+mix.override((config) => {
+  delete config.watchOptions;
+});
+
 /*
  * Copy and build vendor packages
  */

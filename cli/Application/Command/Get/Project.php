@@ -179,7 +179,7 @@ class Project extends Get
 	}
 
 	/**
-	 * Process the project labels.
+	 * Process the project milestones.
 	 *
 	 * @return  $this
 	 *
