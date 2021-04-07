@@ -38,8 +38,17 @@ class GroupHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
+		// TODO: Fix me - if we have no ID here and are creating a group we're going to iterate over an empty iterator
+		// of table items. For a single items it's an iterator over a field!?!?!?!
+		$data = [];
+
+		foreach ($this->model->getItem() as $property => $value)
+		{
+			$data[$property] = $value;
+		}
+
 		// Set the vars to the template.
-		$this->addData('group', ArrayHelper::fromObject($this->model->getItem()));
+		$this->addData('group', $data);
 		$this->addData('project', $this->getProject());
 
 		return parent::render();
