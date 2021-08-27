@@ -64,7 +64,7 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
 	/**
 	 * Model object
 	 *
-	 * @var    \Joomla\Model\AbstractModel
+	 * @var    \Joomla\Model\StatefulModelInterface
 	 * @since  1.0
 	 */
 	protected $model;

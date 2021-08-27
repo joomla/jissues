@@ -8,13 +8,15 @@
 
 namespace JTracker\Model;
 
-use Joomla\Model\AbstractModel;
+use Joomla\Model\StatefulModelInterface;
+use Joomla\Model\StatefulModelTrait;
 
 /**
  * Default tracker model for the tracker application.
  *
  * @since  1.0
  */
-class TrackerDefaultModel extends AbstractModel
+class TrackerDefaultModel implements StatefulModelInterface
 {
+	use StatefulModelTrait;
 }
