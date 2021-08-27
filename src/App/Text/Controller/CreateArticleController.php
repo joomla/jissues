@@ -11,7 +11,7 @@ namespace App\Text\Controller;
 use App\Text\Table\ArticlesTable;
 use Joomla\Controller\AbstractController;
 use Joomla\Database\DatabaseDriver;
-use Joomla\View\BaseHtmlView;
+use JTracker\View\BaseHtmlView;
 use Laminas\Diactoros\Response\HtmlResponse;
 
 /**

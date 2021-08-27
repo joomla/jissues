@@ -10,7 +10,7 @@ namespace App\Support\Controller\Icons;
 
 use App\Support\Model\IconsModel;
 use Joomla\Controller\AbstractController;
-use Joomla\View\BaseHtmlView;
+use JTracker\View\BaseHtmlView;
 use Laminas\Diactoros\Response\HtmlResponse;
 
 /**

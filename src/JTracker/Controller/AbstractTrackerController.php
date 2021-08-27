@@ -56,7 +56,7 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
 	/**
 	 * View object
 	 *
-	 * @var    \Joomla\View\BaseHtmlView
+	 * @var    \JTracker\View\BaseHtmlView;
 	 * @since  1.0
 	 */
 	protected $view;

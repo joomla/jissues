@@ -10,8 +10,6 @@ namespace JTracker\View;
 
 use App\Projects\ProjectAwareTrait;
 
-use Joomla\View\BaseHtmlView;
-
 /**
  * Abstract HTML view class for the Tracker application
  *

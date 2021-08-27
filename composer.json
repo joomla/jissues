@@ -30,7 +30,7 @@
         "joomla/string": "^2.0",
         "joomla/uri": "^2.0",
         "joomla/utilities": "^2.0",
-        "joomla/view": "dev-2.0-dev#cc23d22f8f314e3f81e6e52247605a277b91aaa9",
+        "joomla/view": "^2.0",
         "symfony/asset": "^5.0.8",
         "symfony/cache": "^5.0.8",
         "symfony/http-foundation": "^5.0.8",

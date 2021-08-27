@@ -10,7 +10,7 @@ namespace App\Text\Controller;
 
 use App\Text\Model\ArticlesModel;
 use Joomla\Controller\AbstractController;
-use Joomla\View\BaseHtmlView;
+use JTracker\View\BaseHtmlView;
 use Laminas\Diactoros\Response\HtmlResponse;
 
 /**
