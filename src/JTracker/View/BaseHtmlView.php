@@ -27,7 +27,7 @@ class BaseHtmlView extends HtmlView
 	 * @var    StatefulModelInterface
 	 * @since  2.0.0
 	 */
-	private $model;
+	protected $model;
 
 	/**
 	 * Method to instantiate the view.
