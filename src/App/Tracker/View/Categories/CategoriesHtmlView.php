@@ -8,8 +8,8 @@
 
 namespace App\Tracker\View\Categories;
 
-use JTracker\View\AbstractTrackerHtmlView;
 use App\Tracker\Model\CategoriesModel;
+use JTracker\View\AbstractTrackerHtmlView;
 
 /**
  * The category list view

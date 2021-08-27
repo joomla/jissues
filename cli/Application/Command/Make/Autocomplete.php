@@ -30,7 +30,7 @@ class Autocomplete extends Make
 	/**
 	 * @var Filesystem
 	 */
-	private $fileSystem = null;
+	private $fileSystem;
 
 	/**
 	 * Array of known auto complete file types.
@@ -78,17 +78,17 @@ class Autocomplete extends Make
 	{
 		$this->getApplication()->outputTitle('Make Auto complete');
 
-		$commands = $this->getCommands();
+		$commands           = $this->getCommands();
 		$applicationOptions = $this->getApplication()->getCommandOptions();
 
-		$type = $this->getOption('type');
+		$type       = $this->getOption('type');
 		$this->echo = (boolean) $this->getOption('echo');
 
 		$this->fileSystem = new Filesystem(new Local(JPATH_ROOT));
 
 		if ($type)
 		{
-			if (false === in_array($type, $this->knownTypes))
+			if (\in_array($type, $this->knownTypes) === false)
 			{
 				throw new \InvalidArgumentException(sprintf('Invalid type supplied. Valid types are: %s', "'" . implode("' '", $this->knownTypes) . "'"));
 			}
@@ -139,7 +139,7 @@ class Autocomplete extends Make
 			$xmlCommand->addChild('name', $command->name);
 			$xmlCommand->addChild('help', $command->description);
 
-			if (false === in_array($command->name, ['help', 'install']))
+			if (\in_array($command->name, ['help', 'install']) === false)
 			{
 				$xmlCommand->addChild('params', 'option');
 			}
@@ -155,7 +155,7 @@ class Autocomplete extends Make
 			}
 		}
 
-		$doc = new \DOMDocument('1.0', 'UTF-8');
+		$doc               = new \DOMDocument('1.0', 'UTF-8');
 		$doc->formatOutput = true;
 
 		$domNode = dom_import_simplexml($xml);
@@ -195,7 +195,7 @@ class Autocomplete extends Make
 	private function makeFish(array $commands, array $applicationOptions)
 	{
 		$template = $this->fileSystem->read('cli/completions/tpl_jtracker.fish');
-		$lines = [];
+		$lines    = [];
 
 		foreach ($commands as $command)
 		{
@@ -258,7 +258,7 @@ class Autocomplete extends Make
 	private function getCommands()
 	{
 		$commands = [];
-		$names = [];
+		$names    = [];
 
 		$helper = new Help;
 		$helper->setContainer($this->getContainer());
@@ -281,11 +281,12 @@ class Autocomplete extends Make
 		usort(
 			$names, function ($a, $b)
 			{
-				if ('Help' == $a)
+				if ($a == 'Help')
 				{
 					return -1;
 				}
-				elseif ('Help' == $b)
+
+				if ($b == 'Help')
 				{
 					return 1;
 				}
@@ -296,7 +297,7 @@ class Autocomplete extends Make
 
 		foreach ($names as $name)
 		{
-			$command = new \stdClass;
+			$command     = new \stdClass;
 			$commandName = '\\Application\\Command\\' . $name;
 
 			$className = $commandName . '\\' . $name;
@@ -305,7 +306,7 @@ class Autocomplete extends Make
 			$class = new $className($this->getApplication());
 			$class->setContainer($this->getContainer());
 
-			$command->name = strtolower($name);
+			$command->name        = strtolower($name);
 			$command->description = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $class->getDescription());
 
 			$actions = $helper->getActions($command->name);
@@ -332,7 +333,7 @@ class Autocomplete extends Make
 	private function formatOption(TrackerCommandOption $option, $command, $action)
 	{
 		$shortArg = $option->shortArg ? ' -s ' . $option->shortArg : '';
-		$longArg = $option->longArg ? ' -l ' . $option->longArg : '';
+		$longArg  = $option->longArg ? ' -l ' . $option->longArg : '';
 
 		return "complete -f -c jtracker -n '__fish_jtracker_using_action $command $action'$shortArg$longArg -d \"$option->description\"";
 	}

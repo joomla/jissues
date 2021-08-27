@@ -10,8 +10,8 @@ namespace JTracker\Model;
 
 use App\Projects\ProjectAwareTrait;
 
-use Joomla\Model\AbstractDatabaseModel;
 use Joomla\Database\DatabaseDriver;
+use Joomla\Model\AbstractDatabaseModel;
 
 use JTracker\Database\AbstractDatabaseTable;
 
@@ -30,7 +30,7 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $name = null;
+	protected $name;
 
 	/**
 	 * The URL option for the component.
@@ -38,7 +38,7 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $option = null;
+	protected $option;
 
 	/**
 	 * Table instance
@@ -63,7 +63,7 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 		if (empty($this->option))
 		{
 			// Get the fully qualified class name for the current object
-			$fqcn = (get_class($this));
+			$fqcn = (\get_class($this));
 
 			// Strip the base component namespace off
 			$className = str_replace('App\\', '', $fqcn);
@@ -97,7 +97,7 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 		if (empty($this->name))
 		{
 			// Get the fully qualified class name for the current object
-			$fqcn = (get_class($this));
+			$fqcn = (\get_class($this));
 
 			// Explode the name into an array
 			$classArray = explode('\\', $fqcn);

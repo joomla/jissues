@@ -33,7 +33,7 @@ class ProjectactivityModel extends AbstractTrackerDatabaseModel
 		$periodList = [1 => 7, 2 => 30, 3 => 90];
 		$period     = $this->state->get('list.period', 1);
 
-		if (!in_array($period, array_keys($periodList)))
+		if (!\in_array($period, array_keys($periodList)))
 		{
 			$period = 1;
 		}

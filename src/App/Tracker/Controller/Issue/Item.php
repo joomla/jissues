@@ -34,7 +34,7 @@ class Item extends AbstractTrackerController
 	 * @var    IssueHtmlView
 	 * @since  1.0
 	 */
-	protected $view = null;
+	protected $view;
 
 	/**
 	 * Model object
@@ -42,7 +42,7 @@ class Item extends AbstractTrackerController
 	 * @var    IssueModel
 	 * @since  1.0
 	 */
-	protected $model = null;
+	protected $model;
 
 	/**
 	 * Initialize the controller.
@@ -60,8 +60,8 @@ class Item extends AbstractTrackerController
 
 		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
-		$project = $application->getProject();
-		$user = $application->getUser();
+		$project     = $application->getProject();
+		$user        = $application->getUser();
 
 		$user->authorize('view');
 
@@ -73,7 +73,7 @@ class Item extends AbstractTrackerController
 
 		if (!empty($item->commits))
 		{
-			$commits = json_decode($item->commits);
+			$commits    = json_decode($item->commits);
 			$lastCommit = end($commits);
 
 			if ($lastCommit)

@@ -109,7 +109,7 @@ class Hook extends Test
 
 		foreach ($paths as $path)
 		{
-			if ('file' == $path['type'])
+			if ($path['type'] == 'file')
 			{
 				$hooks[] = str_replace(['Receive', 'Hook'], '', $path['filename']);
 			}
@@ -140,7 +140,7 @@ class Hook extends Test
 			throw new AbortException('Aborted');
 		}
 
-		if (false === array_key_exists($resp, $checks))
+		if (\array_key_exists($resp, $checks) === false)
 		{
 			throw new AbortException('Invalid hook');
 		}
@@ -213,7 +213,7 @@ class Hook extends Test
 				throw new AbortException('Aborted');
 			}
 
-			if (false === array_key_exists($resp, $checks))
+			if (\array_key_exists($resp, $checks) === false)
 			{
 				throw new AbortException('Invalid project');
 			}
@@ -232,7 +232,7 @@ class Hook extends Test
 				}
 			}
 
-			if (is_null($this->project))
+			if ($this->project === null)
 			{
 				throw new AbortException('Invalid project');
 			}

@@ -50,6 +50,7 @@ class Info extends AbstractAjaxController
 			{
 				case 'comment':
 					$issue->comment_count++;
+
 					break;
 
 				default :

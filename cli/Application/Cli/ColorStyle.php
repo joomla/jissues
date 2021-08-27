@@ -22,7 +22,7 @@ final class ColorStyle
 	 * @var    array
 	 * @since  1.0
 	 */
-	private static $knownColors = array(
+	private static $knownColors = [
 		'black'   => 0,
 		'red'     => 1,
 		'green'   => 2,
@@ -31,7 +31,7 @@ final class ColorStyle
 		'magenta' => 5,
 		'cyan'    => 6,
 		'white'   => 7,
-	);
+	];
 
 	/**
 	 * Known styles
@@ -39,12 +39,12 @@ final class ColorStyle
 	 * @var    array
 	 * @since  1.0
 	 */
-	private static $knownOptions = array(
+	private static $knownOptions = [
 		'bold'       => 1,
 		'underscore' => 4,
 		'blink'      => 5,
 		'reverse'    => 7,
-	);
+	];
 
 	/**
 	 * Foreground base value
@@ -84,7 +84,7 @@ final class ColorStyle
 	 * @var    array
 	 * @since  1.0
 	 */
-	private $options = array();
+	private $options = [];
 
 	/**
 	 * Constructor
@@ -96,11 +96,11 @@ final class ColorStyle
 	 * @since   1.0
 	 * @throws  \InvalidArgumentException
 	 */
-	public function __construct($fg = '', $bg = '', $options = array())
+	public function __construct($fg = '', $bg = '', $options = [])
 	{
 		if ($fg)
 		{
-			if (array_key_exists($fg, static::$knownColors) == false)
+			if (\array_key_exists($fg, static::$knownColors) == false)
 			{
 				throw new \InvalidArgumentException(
 					sprintf('Invalid foreground color "%1$s" [%2$s]',
@@ -115,7 +115,7 @@ final class ColorStyle
 
 		if ($bg)
 		{
-			if (array_key_exists($bg, static::$knownColors) == false)
+			if (\array_key_exists($bg, static::$knownColors) == false)
 			{
 				throw new \InvalidArgumentException(
 					sprintf('Invalid background color "%1$s" [%2$s]',
@@ -130,7 +130,7 @@ final class ColorStyle
 
 		foreach ($options as $option)
 		{
-			if (array_key_exists($option, static::$knownOptions) == false)
+			if (\array_key_exists($option, static::$knownOptions) == false)
 			{
 				throw new \InvalidArgumentException(
 					sprintf('Invalid option "%1$s" [%2$s]',
@@ -172,7 +172,7 @@ final class ColorStyle
 	{
 		$fg      = '';
 		$bg      = '';
-		$options = array();
+		$options = [];
 
 		$parts = explode(';', $string);
 
@@ -221,7 +221,7 @@ final class ColorStyle
 	 */
 	public function getStyle()
 	{
-		$values = array();
+		$values = [];
 
 		if ($this->fgColor)
 		{

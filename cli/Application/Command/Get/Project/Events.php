@@ -95,12 +95,12 @@ class Events extends Project
 		$this->out(
 			sprintf(
 				'Fetch events for <b>%d</b> issues from GitHub...',
-				count($this->changedIssueNumbers)
+				\count($this->changedIssueNumbers)
 			),
 			false
 		);
 
-		$progressBar = $this->getProgressBar(count($this->changedIssueNumbers));
+		$progressBar = $this->getProgressBar(\count($this->changedIssueNumbers));
 
 		$this->usePBar ? $this->out() : null;
 
@@ -110,12 +110,12 @@ class Events extends Project
 				? $progressBar->update($count + 1)
 				: $this->out(
 					sprintf(
-						'%d/%d - # %d: ', $count + 1, count($this->changedIssueNumbers), $issueNumber
+						'%d/%d - # %d: ', $count + 1, \count($this->changedIssueNumbers), $issueNumber
 					),
 					false
 				);
 
-			$page = 0;
+			$page                      = 0;
 			$this->items[$issueNumber] = [];
 
 			do
@@ -128,19 +128,17 @@ class Events extends Project
 
 				$this->checkGitHubRateLimit($this->github->issues->events->getRateLimitRemaining());
 
-				$count = is_array($events) ? count($events) : 0;
+				$count = \is_array($events) ? \count($events) : 0;
 
 				if ($count)
 				{
 					$this->items[$issueNumber] = array_merge($this->items[$issueNumber], $events);
 
-						$this->usePBar
+					$this->usePBar
 							? null
 							: $this->out($count . ' ', false);
 				}
-			}
-
-			while ($count);
+			} while ($count);
 		}
 
 		// Retrieved items, report status
@@ -174,11 +172,11 @@ class Events extends Project
 
 		$this->out('Adding events to the database...', false);
 
-		$progressBar = $this->getProgressBar(count($this->items));
+		$progressBar = $this->getProgressBar(\count($this->items));
 
 		$this->usePBar ? $this->out() : null;
 
-		$adds = 0;
+		$adds  = 0;
 		$count = 0;
 
 		// Initialize our ActivitiesTable instance to insert the new record
@@ -188,7 +186,7 @@ class Events extends Project
 		{
 			$this->usePBar
 				? null
-				: $this->out(sprintf(' #%d (%d/%d)...', $issueNumber, $count + 1, count($this->items)), false);
+				: $this->out(sprintf(' #%d (%d/%d)...', $issueNumber, $count + 1, \count($this->items)), false);
 
 			foreach ($events as $event)
 			{
@@ -244,11 +242,11 @@ class Events extends Project
 
 						// Translate GitHub event names to "our" name schema
 						$evTrans = [
-							'referenced' => 'reference', 'closed' => 'close', 'reopened' => 'reopen',
-							'assigned' => 'assigned', 'unassigned' => 'unassigned', 'merged' => 'merge',
+							'referenced'       => 'reference', 'closed' => 'close', 'reopened' => 'reopen',
+							'assigned'         => 'assigned', 'unassigned' => 'unassigned', 'merged' => 'merge',
 							'head_ref_deleted' => 'head_ref_deleted', 'head_ref_restored' => 'head_ref_restored',
-							'milestoned' => 'change', 'demilestoned' => 'change', 'labeled' => 'change', 'unlabeled' => 'change',
-							'renamed' => 'change', 'locked' => 'locked', 'unlocked' => 'unlocked',
+							'milestoned'       => 'change', 'demilestoned' => 'change', 'labeled' => 'change', 'unlabeled' => 'change',
+							'renamed'          => 'change', 'locked' => 'locked', 'unlocked' => 'unlocked',
 						];
 
 						$table->gh_comment_id = $event->id;
@@ -258,31 +256,31 @@ class Events extends Project
 						$table->event         = $evTrans[$event->event];
 						$table->created_date  = (new Date($event->created_at))->format('Y-m-d H:i:s');
 
-						if ('referenced' == $event->event)
+						if ($event->event == 'referenced')
 						{
 							$table->text_raw = $event->commit_id;
 							$table->text     = $table->text_raw;
 						}
 
-						if ('assigned' == $event->event)
+						if ($event->event == 'assigned')
 						{
 							$table->text_raw = 'Assigned to ' . $event->assignee->login;
 							$table->text     = $table->text_raw;
 						}
 
-						if ('unassigned' == $event->event)
+						if ($event->event == 'unassigned')
 						{
 							$table->text_raw = $event->assignee->login . ' was unassigned';
 							$table->text     = $table->text_raw;
 						}
 
-						if ('locked' == $event->event)
+						if ($event->event == 'locked')
 						{
 							$table->text_raw = $event->actor->login . ' locked the issue';
 							$table->text     = $table->text_raw;
 						}
 
-						if ('unlocked' == $event->event)
+						if ($event->event == 'unlocked')
 						{
 							$table->text_raw = $event->actor->login . ' unlocked the issue';
 							$table->text     = $table->text_raw;
@@ -297,7 +295,8 @@ class Events extends Project
 
 						$table->store();
 
-						++ $adds;
+						 $adds++;
+
 						break;
 
 					case 'mentioned' :
@@ -309,11 +308,12 @@ class Events extends Project
 
 					default:
 						$this->logOut(sprintf('ERROR: Unknown Event: %s', $event->event));
+
 						continue;
 				}
 			}
 
-			++ $count;
+			 $count++;
 
 			$this->usePBar
 				? $progressBar->update($count)
@@ -365,6 +365,7 @@ class Events extends Project
 				$change->name = 'milestone_id';
 				$change->old  = null;
 				$change->new  = $milestoneId;
+
 				break;
 
 			case 'demilestoned':
@@ -387,6 +388,7 @@ class Events extends Project
 				$change->name = 'milestone_id';
 				$change->old  = $milestoneId;
 				$change->new  = null;
+
 				break;
 
 			case 'renamed':
@@ -395,13 +397,14 @@ class Events extends Project
 				$change->name = 'title';
 				$change->old  = $event->rename->from;
 				$change->new  = $event->rename->to;
+
 				break;
 
 			default:
 				$change = null;
 		}
 
-		if (null !== $change)
+		if ($change !== null)
 		{
 			$changes[] = $change;
 		}

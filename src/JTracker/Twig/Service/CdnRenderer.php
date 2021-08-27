@@ -8,7 +8,6 @@
 
 namespace JTracker\Twig\Service;
 
-use Joomla\Application\AbstractApplication;
 use Joomla\Http\Http;
 use JTracker\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
@@ -76,7 +75,7 @@ class CdnRenderer
 	 *
 	 * @since   1.0
 	 */
-	public function getCdnFooter() : string
+	public function getCdnFooter(): string
 	{
 		$key = md5(__METHOD__ . ($this->app->getUser()->id > 0 ? '_authenticated' : '_guest'));
 
@@ -106,7 +105,7 @@ class CdnRenderer
 					$body,
 					[
 						'%reportroute%'  => $this->app->get('uri.base.path') . 'tracker/jtracker/add',
-						'%currentyear%' => date('Y'),
+						'%currentyear%'  => date('Y'),
 					]
 				);
 
@@ -153,7 +152,7 @@ class CdnRenderer
 	 *
 	 * @since   1.0
 	 */
-	public function getCdnMenu() : string
+	public function getCdnMenu(): string
 	{
 		$key = md5(__METHOD__);
 

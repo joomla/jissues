@@ -13,8 +13,8 @@ use App\Tracker\Model\ActivityModel;
 use App\Tracker\Model\IssueModel;
 
 use JTracker\Controller\AbstractAjaxController;
-use JTracker\Helper\GitHubHelper;
 use JTracker\Github\GithubFactory;
+use JTracker\Helper\GitHubHelper;
 
 /**
  * Add test result controller class.
@@ -96,15 +96,21 @@ class Submit extends AbstractAjaxController
 		{
 			case 0:
 				$comment = 'I have not tested this item.';
+
 				break;
+
 			case 1:
 				$comment = 'I have tested this item :white_check_mark: successfully on ' . $sha;
+
 				break;
+
 			case 2:
 				$comment = 'I have tested this item :red_circle: unsuccessfully on ' . $sha;
+
 				break;
 			default:
 				throw new \UnexpectedValueException('Unexpected test result value.');
+
 				break;
 		}
 

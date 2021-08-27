@@ -206,9 +206,9 @@ class Project extends Get
 		$issues = new Issues;
 
 		$issues->rangeFrom = $this->rangeFrom;
-		$issues->rangeTo = $this->rangeTo;
-		$issues->force = $this->force;
-		$issues->usePBar = $this->usePBar;
+		$issues->rangeTo   = $this->rangeTo;
+		$issues->force     = $this->force;
+		$issues->usePBar   = $this->usePBar;
 
 		$issues->setContainer($this->getContainer());
 
@@ -231,7 +231,7 @@ class Project extends Get
 		$comments = new Comments;
 
 		$comments->usePBar = $this->usePBar;
-		$comments->force = $this->force;
+		$comments->force   = $this->force;
 
 		$comments
 			->setContainer($this->getContainer())
@@ -290,7 +290,7 @@ class Project extends Get
 		$issue = (integer) $this->getOption('issue');
 
 		$rangeFrom = (integer) $this->getOption('range_from');
-		$rangeTo = (integer) $this->getOption('range_to');
+		$rangeTo   = (integer) $this->getOption('range_to');
 
 		if ($this->getOption('all'))
 		{
@@ -300,13 +300,13 @@ class Project extends Get
 		{
 			// Process only a single issue
 			$this->rangeFrom = $issue;
-			$this->rangeTo = $issue;
+			$this->rangeTo   = $issue;
 		}
 		elseif ($rangeFrom && $rangeTo)
 		{
 			// Process a range of issues
 			$this->rangeFrom = $rangeFrom;
-			$this->rangeTo = $rangeTo;
+			$this->rangeTo   = $rangeTo;
 		}
 		else
 		{
@@ -319,7 +319,7 @@ class Project extends Get
 
 			$resp = trim($this->getApplication()->in());
 
-			if (2 == (int) $resp)
+			if ((int) $resp == 2)
 			{
 				// Get the first GitHub issue (from)
 				$this->out('<question>Enter the first GitHub issue ID to process (from):</question> ', false);

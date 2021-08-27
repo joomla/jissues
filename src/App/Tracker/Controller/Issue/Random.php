@@ -31,8 +31,8 @@ class Random extends AbstractTrackerController
 	{
 		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
-		$session = $application->getSession();
-		$project = $application->getProject();
+		$session     = $application->getSession();
+		$project     = $application->getProject();
 
 		$application->getUser()->authorize('view');
 

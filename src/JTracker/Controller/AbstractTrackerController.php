@@ -83,7 +83,7 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
 	 * @var GitHub
 	 * @since  1.0
 	 */
-	protected $github = null;
+	protected $github;
 
 	/**
 	 * Constructor.
@@ -96,7 +96,7 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
 		if (empty($this->app))
 		{
 			// Get the fully qualified class name for the current object
-			$fqcn = (get_class($this));
+			$fqcn = (\get_class($this));
 
 			// Strip the base app namespace off
 			$className = str_replace('App\\', '', $fqcn);
@@ -132,8 +132,8 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
 
 		if (!$viewName)
 		{
-			$parts = explode('\\', get_class($this));
-			$viewName = strtolower($parts[count($parts) - 1]);
+			$parts    = explode('\\', \get_class($this));
+			$viewName = strtolower($parts[\count($parts) - 1]);
 		}
 
 		$base = '\\App\\' . $this->app;

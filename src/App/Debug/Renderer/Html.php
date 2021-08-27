@@ -67,8 +67,8 @@ class Html implements ContainerAwareInterface
 			$html[] = $application->getDebugger()->renderProfile();
 			$html[] = '</div>';
 
-			$oldReturn = Kint::$return;
-			Kint::$return = true;
+			$oldReturn            = Kint::$return;
+			Kint::$return         = true;
 			RichRenderer::$folder = false;
 
 			try
@@ -149,7 +149,7 @@ class Html implements ContainerAwareInterface
 
 		if ($application->get('debug.database'))
 		{
-			$count = count($application->getDebugger()->getLog('db'));
+			$count = \count($application->getDebugger()->getLog('db'));
 
 			if ($count === 1)
 			{
@@ -265,13 +265,13 @@ class Html implements ContainerAwareInterface
 		$sqlFormat   = new SqlFormat;
 		$dbDebugger  = new DatabaseDebugger($this->getContainer()->get('db'));
 
-		if (count($dbLog) === 1)
+		if (\count($dbLog) === 1)
 		{
 			$debug[] = 'One database query';
 		}
 		else
 		{
-			$debug[] = sprintf('%d database queries', count($dbLog));
+			$debug[] = sprintf('%d database queries', \count($dbLog));
 		}
 
 		$prefix = $dbDebugger->getPrefix();
@@ -282,7 +282,7 @@ class Html implements ContainerAwareInterface
 
 			$debug[] = '<pre class="dbQuery">' . $sqlFormat->highlightQuery($entry->sql, $prefix) . '</pre>';
 
-			if (isset($entry->times) && is_array($entry->times))
+			if (isset($entry->times) && \is_array($entry->times))
 			{
 				$debug[] = sprintf('Query Time: %.3f ms', ($entry->times[1] - $entry->times[0]) * 1000) . '<br />';
 			}
@@ -296,12 +296,12 @@ class Html implements ContainerAwareInterface
 				$debug[] = '<li><a data-toggle="tab" href="#queryExplain-' . $i . '">Explain</a></li>';
 			}
 
-			if (isset($entry->trace) && is_array($entry->trace))
+			if (isset($entry->trace) && \is_array($entry->trace))
 			{
 				$debug[] = '<li><a data-toggle="tab" href="#queryTrace-' . $i . '">Trace</a></li>';
 			}
 
-			if (isset($entry->profile) && is_array($entry->profile))
+			if (isset($entry->profile) && \is_array($entry->profile))
 			{
 				$debug[] = '<li><a data-toggle="tab" href="#queryProfile-' . $i . '">Profile</a></li>';
 			}
@@ -320,14 +320,14 @@ class Html implements ContainerAwareInterface
 				$debug[] = '</div>';
 			}
 
-			if (isset($entry->trace) && is_array($entry->trace))
+			if (isset($entry->trace) && \is_array($entry->trace))
 			{
 				$debug[] = '<div id="queryTrace-' . $i . '" class="tab-pane">';
 				$debug[] = $tableFormat->fromTrace($entry->trace);
 				$debug[] = '</div>';
 			}
 
-			if (isset($entry->profile) && is_array($entry->profile))
+			if (isset($entry->profile) && \is_array($entry->profile))
 			{
 				$debug[] = '<div id="queryProfile-' . $i . '" class="tab-pane">';
 				$debug[] = $tableFormat->fromArray($entry->profile);

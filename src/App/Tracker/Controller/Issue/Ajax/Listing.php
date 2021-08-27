@@ -8,9 +8,9 @@
 
 namespace App\Tracker\Controller\Issue\Ajax;
 
-use App\Tracker\Twig\IssueExtension;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Model\IssuesModel;
+use App\Tracker\Twig\IssueExtension;
 use Joomla\Uri\Uri;
 use JTracker\Application;
 use JTracker\Controller\AbstractAjaxController;
@@ -43,7 +43,7 @@ class Listing extends AbstractAjaxController
 
 		// Set up pagination values
 		$limit = $application->getUserStateFromRequest('list.limit', 'limit', 20, 'int');
-		$page = $application->getUserStateFromRequest('project_' . $projectId . '.page', 'page', 1, 'uint');
+		$page  = $application->getUserStateFromRequest('project_' . $projectId . '.page', 'page', 1, 'uint');
 
 		$projectIdFromState = $application->getUserState('projectId', 0);
 
@@ -68,16 +68,19 @@ class Listing extends AbstractAjaxController
 			case 1:
 				$state->set('list.ordering', 'a.issue_number');
 				$state->set('list.direction', 'ASC');
+
 				break;
 
 			case 2:
 				$state->set('list.ordering', 'a.modified_date');
 				$state->set('list.direction', 'DESC');
+
 				break;
 
 			case 3:
 				$state->set('list.ordering', 'a.modified_date');
 				$state->set('list.direction', 'ASC');
+
 				break;
 
 			default:

@@ -32,7 +32,7 @@ class TotaluseractivityModel extends AbstractTrackerDatabaseModel
 		$periodList = [1 => '-7 DAY', 2 => '-30 Day', 3 => '-90 DAY', 4 => '-1 YEAR', 5 => 'Custom'];
 		$period     = $this->state->get('list.period', 1);
 
-		if (!in_array($period, array_keys($periodList)))
+		if (!\in_array($period, array_keys($periodList)))
 		{
 			$period = 1;
 		}
@@ -99,7 +99,7 @@ class TotaluseractivityModel extends AbstractTrackerDatabaseModel
 
 		$query->group('t.activity_group');
 
-		if (in_array($this->state->get('list.activity_type'), [1, 2]))
+		if (\in_array($this->state->get('list.activity_type'), [1, 2]))
 		{
 			// This can only filter Tracker and Test activity types
 			$query->where('t.activity_group = ' . $db->quote($type));

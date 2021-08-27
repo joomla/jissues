@@ -41,7 +41,7 @@ class Add extends AbstractTrackerController
 	 * @var    CategoryHtmlView
 	 * @since  1.0
 	 */
-	protected $view = null;
+	protected $view;
 
 	/**
 	 * Execute the controller.

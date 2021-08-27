@@ -58,7 +58,7 @@ class ArticlesModel extends AbstractDatabaseModel implements ListfulModelInterfa
 	 */
 	public function getPagination(): TrackerPagination
 	{
-		if (is_null($this->pagination))
+		if ($this->pagination === null)
 		{
 			throw new \UnexpectedValueException('Pagination not set');
 		}

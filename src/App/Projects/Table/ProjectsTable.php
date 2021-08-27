@@ -130,7 +130,7 @@ class ProjectsTable extends AbstractDatabaseTable
 
 			if ($newId)
 			{
-				$data = [];
+				$data               = [];
 				$data['project_id'] = $newId;
 				$data['title']      = 'Public';
 				$data['can_view']   = 1;

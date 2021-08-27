@@ -152,7 +152,7 @@ class Pulls extends Update
 				100
 			);
 
-			$count = is_array($pulls_more) ? count($pulls_more) : 0;
+			$count = \is_array($pulls_more) ? \count($pulls_more) : 0;
 
 			if ($count)
 			{
@@ -160,9 +160,7 @@ class Pulls extends Update
 
 				$this->out('(' . $count . ')', false);
 			}
-		}
-
-		while ($count);
+		} while ($count);
 
 		$this->pulls = $pulls;
 

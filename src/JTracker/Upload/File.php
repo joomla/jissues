@@ -46,7 +46,7 @@ class File extends UploadFile implements \JsonSerializable
 			JPATH_THEMES . '/' . $this->application->get('system.upload_dir') . '/' . $this->application->getProject()->project_id
 		);
 
-		if (is_array($_FILES[$key]))
+		if (\is_array($_FILES[$key]))
 		{
 			$_FILES[$key]['name']       = $_FILES[$key]['name'][0];
 			$_FILES[$key]['error']      = $_FILES[$key]['error'][0];

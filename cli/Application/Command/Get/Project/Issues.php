@@ -133,11 +133,11 @@ class Issues extends Project
 
 		$resp = trim($this->getApplication()->in());
 
-		if (2 == (int) $resp)
+		if ((int) $resp == 2)
 		{
 			$this->issueStates = ['open'];
 		}
-		elseif (3 == (int) $resp)
+		elseif ((int) $resp == 3)
 		{
 			$this->issueStates = ['closed'];
 		}
@@ -195,7 +195,7 @@ class Issues extends Project
 
 				$this->checkGitHubRateLimit($this->github->issues->getRateLimitRemaining());
 
-				$count = is_array($issues_more) ? count($issues_more) : 0;
+				$count = \is_array($issues_more) ? \count($issues_more) : 0;
 
 				if ($count)
 				{
@@ -203,9 +203,7 @@ class Issues extends Project
 
 					$this->out('(' . $count . ')', false);
 				}
-			}
-
-			while ($count);
+			} while ($count);
 
 			$this->out();
 		}
@@ -220,7 +218,7 @@ class Issues extends Project
 		$this->logOut(
 			sprintf(
 				'Retrieved <b>%d</b> items from GitHub.',
-				count($issues)
+				\count($issues)
 			)
 		);
 
@@ -247,14 +245,14 @@ class Issues extends Project
 			throw new \UnexpectedValueException('No issues received...');
 		}
 
-		$added = 0;
+		$added   = 0;
 		$updated = 0;
 
 		$milestones = $this->getMilestones();
 
 		$this->out('Adding issues to the database...', false);
 
-		$progressBar = $this->getProgressBar(count($ghIssues));
+		$progressBar = $this->getProgressBar(\count($ghIssues));
 
 		$this->usePBar ? $this->out() : null;
 
@@ -269,6 +267,7 @@ class Issues extends Project
 			{
 				// Not in range
 				$this->usePBar ? null : $this->out('NiR ', false);
+
 				continue;
 			}
 
@@ -294,6 +293,7 @@ class Issues extends Project
 					{
 						// No update required
 						$this->usePBar ? null : $this->out('- ', false);
+
 						continue 2;
 					}
 
@@ -335,7 +335,7 @@ class Issues extends Project
 			$stateIds = $statusTable->getStateStatusIds($state);
 
 			// Check if the issue status is in the array; if it is, then the item didn't change open state and we don't need to change the status
-			if (!in_array($table->status, $stateIds))
+			if (!\in_array($table->status, $stateIds))
 			{
 				$table->status = $state ? 10 : 1;
 			}
@@ -346,7 +346,7 @@ class Issues extends Project
 			$table->modified_date = (new Date($ghIssue->updated_at))->format('Y-m-d H:i:s');
 			$table->modified_by   = $ghIssue->user->login;
 
-			$table->project_id = $this->project->project_id;
+			$table->project_id   = $this->project->project_id;
 			$table->milestone_id = ($ghIssue->milestone && isset($milestones[$ghIssue->milestone->number]))
 				? $milestones[$ghIssue->milestone->number]
 				: null;
@@ -382,7 +382,7 @@ class Issues extends Project
 				$combinedStatus = $gitHubHelper->getCombinedStatus($this->project, $pullRequest->head->sha);
 
 				// Save the merge status to database
-				$table->merge_state = $combinedStatus->state;
+				$table->merge_state     = $combinedStatus->state;
 				$table->gh_merge_status = json_encode($combinedStatus->statuses);
 
 				// Get commits
@@ -452,11 +452,11 @@ class Issues extends Project
 			// Store was successful, update status
 			if ($id)
 			{
-				++ $updated;
+				 $updated++;
 			}
 			else
 			{
-				++ $added;
+				 $added++;
 			}
 
 			$this->changedIssueNumbers[] = $ghIssue->number;
@@ -506,7 +506,7 @@ class Issues extends Project
 
 		foreach ($labelObjects as $label)
 		{
-			if (!array_key_exists($label->name, $labels))
+			if (!\array_key_exists($label->name, $labels))
 			{
 				// @todo Label does not exist :( - reload labels for the project
 			}
@@ -529,7 +529,7 @@ class Issues extends Project
 	private function getMilestones()
 	{
 		/** @var \Joomla\Database\DatabaseDriver $db */
-		$db = $this->getContainer()->get('db');
+		$db    = $this->getContainer()->get('db');
 		$table = new MilestonesTable($db);
 
 		$milestoneList = $db->setQuery(

@@ -78,7 +78,8 @@ class UsersApp implements AppInterface
 		$container->alias(AvatarsExtension::class, 'twig.extension.avatars')
 			->share(
 				'twig.extension.avatars',
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new AvatarsExtension($container->get('app'));
 				},
 				true

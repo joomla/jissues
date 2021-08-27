@@ -119,7 +119,7 @@ class Help extends TrackerCommand
 	 */
 	protected function helpCommand($command)
 	{
-		if (false === array_key_exists($command, $this->commands))
+		if (\array_key_exists($command, $this->commands) === false)
 		{
 			$this->out()
 				->out(sprintf('Unknown: %s', $command));
@@ -216,7 +216,7 @@ class Help extends TrackerCommand
 
 			$className = "Application\\Command\\$c\\$c";
 
-			if (false === class_exists($className))
+			if (class_exists($className) === false)
 			{
 				throw new \RuntimeException(sprintf('Required class "%s" not found.', $className));
 			}
@@ -239,7 +239,7 @@ class Help extends TrackerCommand
 	public function getActions($commandName)
 	{
 		$actions = [];
-		$cName = ucfirst($commandName);
+		$cName   = ucfirst($commandName);
 
 		/** @var \DirectoryIterator $fileInfo */
 		foreach (new \DirectoryIterator(__DIR__ . '/../' . $cName) as $fileInfo)

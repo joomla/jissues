@@ -73,7 +73,7 @@ class Labels extends Project
 		$names = [];
 
 		$cntUpdated = 0;
-		$cntNew = 0;
+		$cntNew     = 0;
 
 		foreach ($labels as $label)
 		{
@@ -96,7 +96,7 @@ class Labels extends Project
 
 					$table->store();
 
-					++ $cntUpdated;
+					 $cntUpdated++;
 				}
 			}
 			catch (\RuntimeException $e)
@@ -108,7 +108,7 @@ class Labels extends Project
 
 				$table->store();
 
-				++ $cntNew;
+				 $cntNew++;
 			}
 
 			$names[] = $db->quote($label->name);
@@ -133,7 +133,7 @@ class Labels extends Project
 			)->execute();
 		}
 
-		$cntDeleted = count($ids);
+		$cntDeleted = \count($ids);
 
 		return $this->out('ok')
 			->logOut(

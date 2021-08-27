@@ -8,12 +8,12 @@
 
 namespace Application\Service;
 
-use Joomla\DI\ServiceProviderInterface;
 use Joomla\DI\Container;
+use Joomla\DI\ServiceProviderInterface;
 
 use Joomla\Input\Input;
-use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 use Psr\Log\NullLogger;
 
@@ -56,7 +56,7 @@ class LoggerProvider implements ServiceProviderInterface
 						)
 					);
 				}
-				elseif ('1' != $input->get('quiet', $input->get('q')))
+				elseif ($input->get('quiet', $input->get('q')) != '1')
 				{
 					// Log to screen
 					$logger->pushHandler(

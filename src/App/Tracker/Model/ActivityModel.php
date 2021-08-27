@@ -39,14 +39,14 @@ class ActivityModel extends AbstractTrackerDatabaseModel
 	{
 		return (new ActivitiesTable($this->db))->save(
 			[
-			'created_date' => (new Date($dateTime))->format($this->db->getDateFormat()),
-			'event' => $event,
-			'user' => $userName,
-			'project_id' => (int) $projectId,
-			'issue_number' => (int) $itemNumber,
-			'gh_comment_id' => (int) $commentId,
-			'text' => $text,
-			'text_raw' => $textRaw,
+				'created_date'  => (new Date($dateTime))->format($this->db->getDateFormat()),
+				'event'         => $event,
+				'user'          => $userName,
+				'project_id'    => (int) $projectId,
+				'issue_number'  => (int) $itemNumber,
+				'gh_comment_id' => (int) $commentId,
+				'text'          => $text,
+				'text_raw'      => $textRaw,
 			]
 		);
 	}

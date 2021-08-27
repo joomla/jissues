@@ -38,7 +38,7 @@ class ReceiveIssuesHook extends AbstractHookController
 	 */
 	protected function prepareResponse()
 	{
-		if (!isset($this->hookData->issue->number) || !is_object($this->hookData))
+		if (!isset($this->hookData->issue->number) || !\is_object($this->hookData))
 		{
 			// If we can't get the issue number exit.
 			$this->response->message = 'Hook data does not exist';
@@ -64,7 +64,7 @@ class ReceiveIssuesHook extends AbstractHookController
 
 			$this->logger->critical($logMessage, ['exception' => $e]);
 			$this->setStatusCode(500);
-			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->response->error   = $logMessage . ': ' . $e->getMessage();
 			$this->response->message = 'Hook data processed unsuccessfully.';
 		}
 	}
@@ -96,7 +96,7 @@ class ReceiveIssuesHook extends AbstractHookController
 					'title'           => $this->hookData->issue->title,
 					'description'     => $this->parseText($this->hookData->issue->body),
 					'description_raw' => $this->hookData->issue->body,
-					'status'          => (is_null($status)) ? 1 : $status,
+					'status'          => ($status === null) ? 1 : $status,
 					'opened_date'     => (new Date($this->hookData->issue->created_at))->format($dateFormat),
 					'opened_by'       => $this->hookData->issue->user->login,
 					'modified_date'   => (new Date($this->hookData->issue->updated_at))->format($dateFormat),
@@ -268,7 +268,7 @@ class ReceiveIssuesHook extends AbstractHookController
 			$table->load(
 				[
 					'issue_number' => $this->hookData->issue->number,
-					'project_id' => $this->project->project_id,
+					'project_id'   => $this->project->project_id,
 				]
 			);
 		}
@@ -306,7 +306,7 @@ class ReceiveIssuesHook extends AbstractHookController
 					'title'           => $this->hookData->issue->title,
 					'description'     => $this->parseText($this->hookData->issue->body),
 					'description_raw' => $this->hookData->issue->body,
-					'status'          => is_null($status) ? $table->status : $status,
+					'status'          => $status === null ? $table->status : $status,
 					'modified_date'   => (new Date($this->hookData->issue->updated_at))->format($dateFormat),
 					'modified_by'     => $this->hookData->sender->login,
 					'priority'        => $table->priority,
@@ -333,7 +333,7 @@ class ReceiveIssuesHook extends AbstractHookController
 
 				// Check if the state has changed (e.g. open/closed)
 				$oldState = $model->getOpenClosed($table->status);
-				$state    = is_null($status) ? $oldState : $model->getOpenClosed($data['status']);
+				$state    = $status === null ? $oldState : $model->getOpenClosed($data['status']);
 
 				$data['old_state'] = $oldState;
 				$data['new_state'] = $state;
@@ -617,9 +617,9 @@ class ReceiveIssuesHook extends AbstractHookController
 			$data,
 			[
 				'id'              => $table->id,
-				'title'           => isset($data['title']) ? $data['title'] : $table->title,
-				'description'     => isset($data['description']) ? $data['description'] : $table->description,
-				'description_raw' => isset($data['description_raw']) ? $data['description_raw'] : $table->description_raw,
+				'title'           => $data['title'] ?? $table->title,
+				'description'     => $data['description'] ?? $table->description,
+				'description_raw' => $data['description_raw'] ?? $table->description_raw,
 				'modified_date'   => (new Date($this->hookData->issue->updated_at))->format($this->db->getDateFormat()),
 				'modified_by'     => $this->hookData->sender->login,
 				'status'          => $table->status,

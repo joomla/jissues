@@ -65,7 +65,7 @@ class MonologProvider implements ServiceProviderInterface
 
 				return new StreamHandler(
 					$config->get('debug.log-path', JPATH_ROOT . '/logs') . '/app.log',
-					constant('\\Monolog\\Logger::' . $level)
+					\constant('\\Monolog\\Logger::' . $level)
 				);
 			},
 			true
@@ -84,7 +84,7 @@ class MonologProvider implements ServiceProviderInterface
 
 				return new StreamHandler(
 					$config->get('debug.log-path', JPATH_ROOT . '/logs') . '/database.log',
-					constant('\\Monolog\\Logger::' . $level)
+					\constant('\\Monolog\\Logger::' . $level)
 				);
 			},
 			true

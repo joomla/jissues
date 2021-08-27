@@ -38,7 +38,7 @@ class Show extends AbstractAjaxController
 
 		$base = $this->getContainer()->get('app')->get('uri')->base->path;
 
-		$this->response->editLink = 'https://github.com/joomla/jissues/edit/master/Documentation/' . ($path ? $path . '/' : '') . $page . '.md';
+		$this->response->editLink  = 'https://github.com/joomla/jissues/edit/master/Documentation/' . ($path ? $path . '/' : '') . $page . '.md';
 		$this->response->permaLink = $base . 'documentation/view/?page=' . $page . ($path ? '&path=' . $path : '');
 
 		$data = (new DefaultModel($this->getContainer()->get('db')))->getItem($page, $path)->text;
@@ -54,6 +54,5 @@ class Show extends AbstractAjaxController
 			$this->response->data = $data;
 		}
 
-		return;
 	}
 }

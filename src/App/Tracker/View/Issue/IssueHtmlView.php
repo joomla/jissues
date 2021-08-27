@@ -34,7 +34,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	 * @var    IssuesTable
 	 * @since  1.0
 	 */
-	protected $item = null;
+	protected $item;
 
 	/**
 	 * If the user has "edit own" rights.
@@ -72,7 +72,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function getItem()
 	{
-		if (is_null($this->item))
+		if ($this->item === null)
 		{
 			throw new \RuntimeException('Item not set.');
 		}

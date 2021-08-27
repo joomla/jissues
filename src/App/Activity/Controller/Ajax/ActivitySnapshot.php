@@ -51,12 +51,12 @@ class ActivitySnapshot extends AbstractAjaxController
 	protected function prepareResponse()
 	{
 		$statusLabels = [
-			1 => 'New',
-			2 => 'Confirmed',
-			3 => 'Pending',
-			4 => 'Ready To Commit',
-			6 => 'Needs Review',
-			7 => 'Information Required',
+			1  => 'New',
+			2  => 'Confirmed',
+			3  => 'Pending',
+			4  => 'Ready To Commit',
+			6  => 'Needs Review',
+			7  => 'Information Required',
 			14 => 'Discussion',
 		];
 
@@ -92,7 +92,7 @@ class ActivitySnapshot extends AbstractAjaxController
 		$data         = [];
 		$internalData = [];
 
-		for ($i = 0; $i < count($counts); $i++)
+		for ($i = 0; $i < \count($counts); $i++)
 		{
 			$internalData[] = 0;
 		}

@@ -48,7 +48,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 * @var    \stdClass
 	 * @since  1.0
 	 */
-	protected $tableFields = null;
+	protected $tableFields;
 
 	/**
 	 * DatabaseDriver object.
@@ -78,18 +78,18 @@ class AbstractDatabaseTable implements \IteratorAggregate
 		$this->tableFields = new \stdClass;
 
 		// Set the key to be an array.
-		if (is_string($keys))
+		if (\is_string($keys))
 		{
 			$keys = [$keys];
 		}
-		elseif (is_object($keys))
+		elseif (\is_object($keys))
 		{
 			$keys = (array) $keys;
 		}
 
 		$this->tableKeys = $keys;
 
-		$this->autoIncrement = (count($keys) == 1) ? true : false;
+		$this->autoIncrement = (\count($keys) == 1) ? true : false;
 
 		// Initialise the table properties.
 		$fields = $this->getFields();
@@ -117,7 +117,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 */
 	public function __set($key, $value)
 	{
-		if (isset($this->tableFields->$key) || is_null($this->tableFields->$key))
+		if (isset($this->tableFields->$key) || $this->tableFields->$key === null)
 		{
 			$this->tableFields->$key = $value;
 		}
@@ -139,7 +139,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 */
 	public function __get($key)
 	{
-		if (isset($this->tableFields->$key) || is_null($this->tableFields->$key))
+		if (isset($this->tableFields->$key) || $this->tableFields->$key === null)
 		{
 			return $this->tableFields->$key;
 		}
@@ -192,19 +192,19 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	public function bind($src, $ignore = [])
 	{
 		// If the source value is not an array or object return false.
-		if (!is_object($src) && !is_array($src))
+		if (!\is_object($src) && !\is_array($src))
 		{
-			throw new \InvalidArgumentException(sprintf('%s::bind(*%s*)', get_class($this), gettype($src)));
+			throw new \InvalidArgumentException(sprintf('%s::bind(*%s*)', \get_class($this), \gettype($src)));
 		}
 
 		// If the source value is an object, get its accessible properties.
-		if (is_object($src))
+		if (\is_object($src))
 		{
 			$src = get_object_vars($src);
 		}
 
 		// If the ignore value is a string, explode it over spaces.
-		if (!is_array($ignore))
+		if (!\is_array($ignore))
 		{
 			$ignore = explode(' ', $ignore);
 		}
@@ -213,7 +213,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 		foreach ($this->tableFields as $k => $v)
 		{
 			// Only process fields that are in the source array and  not in the ignore array.
-			if (array_key_exists($k, $src) && !in_array($k, $ignore))
+			if (\array_key_exists($k, $src) && !\in_array($k, $ignore))
 			{
 				$this->tableFields->$k = $src[$k];
 			}
@@ -257,10 +257,10 @@ class AbstractDatabaseTable implements \IteratorAggregate
 				return $this;
 			}
 		}
-		elseif (!is_array($keys))
+		elseif (!\is_array($keys))
 		{
 			// Load by primary key.
-			$keyCount = count($this->tableKeys);
+			$keyCount = \count($this->tableKeys);
 
 			if ($keyCount)
 			{
@@ -291,14 +291,14 @@ class AbstractDatabaseTable implements \IteratorAggregate
 		{
 			// Check that $field is in the table.
 
-			if (isset($this->tableFields->$field) || is_null($this->tableFields->$field))
+			if (isset($this->tableFields->$field) || $this->tableFields->$field === null)
 			{
 				// Add the search tuple to the query.
 				$query->where($this->db->quoteName($field) . ' = ' . $this->db->quote($value));
 			}
 			else
 			{
-				throw new \UnexpectedValueException(sprintf('Missing field in database: %s &#160; %s.', get_class($this), $field));
+				throw new \UnexpectedValueException(sprintf('Missing field in database: %s &#160; %s.', \get_class($this), $field));
 			}
 		}
 
@@ -337,7 +337,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	{
 		$key = $this->getKeyName();
 
-		$pKey = (is_null($pKey)) ? $this->$key : $pKey;
+		$pKey = ($pKey === null) ? $this->$key : $pKey;
 
 		// If no primary key is given, return false.
 		if ($pKey === null)
@@ -371,7 +371,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 		foreach ($this->getFields() as $k => $v)
 		{
 			// If the property is not the primary key, reset it.
-			if (!in_array($k, $this->tableKeys))
+			if (!\in_array($k, $this->tableKeys))
 			{
 				$this->$k = $v->Default;
 			}
@@ -474,7 +474,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 */
 	public function appendPrimaryKeys($query, $pk = null)
 	{
-		if (is_null($pk))
+		if ($pk === null)
 		{
 			foreach ($this->tableKeys as $k)
 			{
@@ -483,7 +483,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 		}
 		else
 		{
-			if (is_string($pk))
+			if (\is_string($pk))
 			{
 				$pk = [$this->tableKeys[0] => $pk];
 			}
@@ -511,18 +511,16 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	public function getKeyName($multiple = false)
 	{
 		// Count the number of keys
-		if (count($this->tableKeys))
+		if (\count($this->tableKeys))
 		{
 			if ($multiple)
 			{
 				// If we want multiple keys, return the raw array.
 				return $this->tableKeys;
 			}
-			else
-			{
-				// If we want the standard method, just return the first key.
-				return $this->tableKeys[0];
-			}
+
+			// If we want the standard method, just return the first key.
+			return $this->tableKeys[0];
 		}
 
 		return '';

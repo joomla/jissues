@@ -8,8 +8,8 @@
 
 namespace App\Tracker\Table;
 
-use JTracker\Database\AbstractDatabaseTable;
 use Joomla\Database\DatabaseDriver;
+use JTracker\Database\AbstractDatabaseTable;
 
 /**
  * Table interface class for the #__issue_category_mapping table

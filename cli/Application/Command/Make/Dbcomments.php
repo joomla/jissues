@@ -76,9 +76,9 @@ class Dbcomments extends Make
 				$l = '';
 				$l .= ' * @property';
 				$l .= '   ' . $line->type;
-				$l .= str_repeat(' ', $maxVals->maxType - strlen($line->type));
+				$l .= str_repeat(' ', $maxVals->maxType - \strlen($line->type));
 				$l .= '  ' . $line->name;
-				$l .= str_repeat(' ', $maxVals->maxName - strlen($line->name));
+				$l .= str_repeat(' ', $maxVals->maxName - \strlen($line->name));
 				$l .= '  ' . $line->comment;
 
 				$this->out($l);
@@ -107,10 +107,10 @@ class Dbcomments extends Make
 
 		foreach ($lines as $line)
 		{
-			$len   = strlen($line->type);
+			$len   = \strlen($line->type);
 			$mType = $len > $mType ? $len : $mType;
 
-			$len   = strlen($line->name);
+			$len   = \strlen($line->name);
 			$mName = $len > $mName ? $len : $mName;
 		}
 
@@ -133,16 +133,16 @@ class Dbcomments extends Make
 	 */
 	private function getType($type)
 	{
-		if (0 === strpos($type, 'int')
-			|| 0 === strpos($type, 'tinyint'))
+		if (strpos($type, 'int') === 0
+			|| strpos($type, 'tinyint') === 0)
 		{
 			return 'integer';
 		}
 
-		if (0 === strpos($type, 'varchar')
-			|| 0 === strpos($type, 'text')
-			|| 0 === strpos($type, 'mediumtext')
-			|| 0 === strpos($type, 'datetime'))
+		if (strpos($type, 'varchar') === 0
+			|| strpos($type, 'text') === 0
+			|| strpos($type, 'mediumtext') === 0
+			|| strpos($type, 'datetime') === 0)
 		{
 			return 'string';
 		}

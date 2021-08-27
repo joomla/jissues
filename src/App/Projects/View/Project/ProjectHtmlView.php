@@ -56,7 +56,7 @@ class ProjectHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function getAlias()
 	{
-		if ('' == $this->alias)
+		if ($this->alias == '')
 		{
 			// New record.
 		}

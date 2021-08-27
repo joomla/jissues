@@ -26,7 +26,7 @@ class ProjectsModel extends AbstractTrackerListModel
 	 * @var    GitHubUser
 	 * @since  1.0
 	 */
-	protected $user = null;
+	protected $user;
 
 	/**
 	 * Get a user object.
@@ -38,7 +38,7 @@ class ProjectsModel extends AbstractTrackerListModel
 	 */
 	public function getUser()
 	{
-		if (is_null($this->user))
+		if ($this->user === null)
 		{
 			throw new \RuntimeException('User not set.');
 		}

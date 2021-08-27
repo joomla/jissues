@@ -81,7 +81,7 @@ abstract class User implements \Serializable
 	 * @var    Registry
 	 * @since  1.0
 	 */
-	public $params = null;
+	public $params;
 
 	/**
 	 * A list of groups a user has access to.
@@ -105,7 +105,7 @@ abstract class User implements \Serializable
 	 * @var    DatabaseDriver
 	 * @since  1.0
 	 */
-	protected $database = null;
+	protected $database;
 
 	/**
 	 * Constructor.
@@ -274,7 +274,7 @@ abstract class User implements \Serializable
 	 */
 	public function check($action)
 	{
-		if (array_key_exists($action, $this->cleared))
+		if (\array_key_exists($action, $this->cleared))
 		{
 			return $this->cleared[$action] ? true : false;
 		}
@@ -304,9 +304,9 @@ abstract class User implements \Serializable
 	 */
 	public function authorize($action)
 	{
-		if (array_key_exists($action, $this->cleared))
+		if (\array_key_exists($action, $this->cleared))
 		{
-			if (0 == $this->cleared[$action])
+			if ($this->cleared[$action] == 0)
 			{
 				throw new AuthenticationException($this, $action);
 			}
@@ -320,14 +320,15 @@ abstract class User implements \Serializable
 			return $this;
 		}
 
-		if ('admin' == $action)
+		if ($action == 'admin')
 		{
 			// "Admin action" requested for non "Admin user".
 			$this->cleared[$action] = 0;
+
 			throw new AuthenticationException($this, $action);
 		}
 
-		if (false === in_array($action, $this->getProject()->getDefaultActions()))
+		if (\in_array($action, $this->getProject()->getDefaultActions()) === false)
 		{
 			throw new \InvalidArgumentException('Undefined action: ' . $action);
 		}
@@ -357,7 +358,7 @@ abstract class User implements \Serializable
 
 			foreach ($groups as $group)
 			{
-				if (in_array($group, $this->accessGroups))
+				if (\in_array($group, $this->accessGroups))
 				{
 					// The User is member of the group.
 					$this->cleared[$action] = 1;

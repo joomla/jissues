@@ -9,8 +9,8 @@
 namespace App\Tracker\Table;
 
 use Joomla\Database\DatabaseDriver;
-use Joomla\Input\Input;
 use Joomla\Date\Date;
+use Joomla\Input\Input;
 use Joomla\Utilities\ArrayHelper;
 
 use JTracker\Database\AbstractDatabaseTable;
@@ -58,7 +58,7 @@ class IssuesTable extends AbstractDatabaseTable
 	 * @var    IssuesTable
 	 * @since  1.0
 	 */
-	protected $oldObject = null;
+	protected $oldObject;
 
 	/**
 	 * Constructor
@@ -100,11 +100,12 @@ class IssuesTable extends AbstractDatabaseTable
 			$this->oldObject = ArrayHelper::toObject($oldValues);
 		}
 
-		if (is_array($src))
+		if (\is_array($src))
 		{
 			return parent::bind($src, $ignore);
 		}
-		elseif ($src instanceof Input)
+
+		if ($src instanceof Input)
 		{
 			$data     = new \stdClass;
 			$data->id = $src->get('id');
@@ -112,7 +113,7 @@ class IssuesTable extends AbstractDatabaseTable
 			return parent::bind($data, $ignore);
 		}
 
-		throw new \InvalidArgumentException(sprintf('%1$s can not bind to %2$s', __METHOD__, gettype($src)));
+		throw new \InvalidArgumentException(sprintf('%1$s can not bind to %2$s', __METHOD__, \gettype($src)));
 	}
 
 	/**
@@ -134,7 +135,7 @@ class IssuesTable extends AbstractDatabaseTable
 		{
 			$errors[] = 'A title is required.';
 		}
-		elseif (strlen($this->title) > 255)
+		elseif (\strlen($this->title) > 255)
 		{
 			$errors[] = 'The title max length is 255 chars.';
 		}
@@ -143,7 +144,7 @@ class IssuesTable extends AbstractDatabaseTable
 		{
 			$errors[] = 'A build is required.';
 		}
-		elseif (strlen($this->build) > 40)
+		elseif (\strlen($this->build) > 40)
 		{
 			$errors[] = 'A build max length is 40 chars.';
 		}
@@ -216,7 +217,7 @@ class IssuesTable extends AbstractDatabaseTable
 		// Add a record to the activity table if a new item
 		if ($isNew)
 		{
-			$data = [];
+			$data                 = [];
 			$data['event']        = 'open';
 			$data['created_date'] = $this->opened_date;
 			$data['user']         = $this->opened_by;
@@ -281,6 +282,7 @@ class IssuesTable extends AbstractDatabaseTable
 
 					default :
 						$changes[] = $change;
+
 						break;
 				}
 			}
@@ -288,7 +290,7 @@ class IssuesTable extends AbstractDatabaseTable
 
 		if ($changes)
 		{
-			$data = [];
+			$data                 = [];
 			$data['event']        = 'change';
 			$data['created_date'] = $this->modified_date;
 			$data['user']         = $this->modified_by;

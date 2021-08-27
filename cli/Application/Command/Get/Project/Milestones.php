@@ -80,7 +80,7 @@ class Milestones extends Project
 		$titles = [];
 
 		$cntUpdated = 0;
-		$cntNew = 0;
+		$cntNew     = 0;
 
 		foreach ($milestones as $milestone)
 		{
@@ -91,34 +91,34 @@ class Milestones extends Project
 				// Check if the milestone exists
 				$table->load(
 					[
-						'project_id' => $this->project->project_id,
+						'project_id'       => $this->project->project_id,
 						'milestone_number' => $milestone->number,
 					]
 				);
 
 				// Values that may have changed
-				$table->title = $milestone->title;
+				$table->title       = $milestone->title;
 				$table->description = $milestone->description;
-				$table->state = $milestone->state;
-				$table->due_on = $milestone->due_on ? (new Date($milestone->due_on))->format('Y-m-d H:i:s') : null;
+				$table->state       = $milestone->state;
+				$table->due_on      = $milestone->due_on ? (new Date($milestone->due_on))->format('Y-m-d H:i:s') : null;
 
 				$table->store(true);
 
-				++ $cntUpdated;
+				 $cntUpdated++;
 			}
 			catch (\RuntimeException $e)
 			{
 				// New milestone
 				$table->milestone_number = $milestone->number;
-				$table->project_id = $this->project->project_id;
-				$table->title = $milestone->title;
-				$table->description = $milestone->description;
-				$table->state = $milestone->state;
-				$table->due_on = $milestone->due_on ? (new Date($milestone->due_on))->format('Y-m-d H:i:s') : null;
+				$table->project_id       = $this->project->project_id;
+				$table->title            = $milestone->title;
+				$table->description      = $milestone->description;
+				$table->state            = $milestone->state;
+				$table->due_on           = $milestone->due_on ? (new Date($milestone->due_on))->format('Y-m-d H:i:s') : null;
 
 				$table->store(true);
 
-				++ $cntNew;
+				 $cntNew++;
 			}
 
 			$titles[] = $milestone->title;
@@ -143,7 +143,7 @@ class Milestones extends Project
 			)->execute();
 		}
 
-		$cntDeleted = count($ids);
+		$cntDeleted = \count($ids);
 
 		return $this->out('ok')
 			->logOut(

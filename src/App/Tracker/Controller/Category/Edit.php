@@ -42,7 +42,7 @@ class Edit extends AbstractTrackerController
 	 * @var    CategoryHtmlView
 	 * @since  1.0
 	 */
-	protected $view = null;
+	protected $view;
 
 	/**
 	 * Model object
@@ -50,7 +50,7 @@ class Edit extends AbstractTrackerController
 	 * @var    CategoryModel
 	 * @since  1.0
 	 */
-	protected $model = null;
+	protected $model;
 
 	/**
 	 * Execute the controller.

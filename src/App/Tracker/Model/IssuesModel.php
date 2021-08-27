@@ -301,7 +301,7 @@ class IssuesModel extends AbstractTrackerListModel
 		$stateFilter = $this->state->get('filter.state');
 
 		// State == 2 means "all".
-		if (is_numeric($stateFilter) && 2 != $stateFilter)
+		if (is_numeric($stateFilter) && $stateFilter != 2)
 		{
 			$query->where($db->quoteName('s.closed') . ' = ' . (int) $stateFilter);
 		}
@@ -323,6 +323,7 @@ class IssuesModel extends AbstractTrackerListModel
 			{
 				case 1:
 					$query->where($db->quoteName('a.opened_by') . ' = ' . $db->quote($username));
+
 					break;
 
 				case 2:
@@ -331,6 +332,7 @@ class IssuesModel extends AbstractTrackerListModel
 					$query->where($db->quoteName('ac.user') . ' = ' . $db->quote($username));
 					$query->where($db->quoteName('ac.project_id') . ' = ' . (int) $this->getProject()->project_id);
 					$query->group('a.issue_number');
+
 					break;
 			}
 		}
@@ -418,17 +420,20 @@ class IssuesModel extends AbstractTrackerListModel
 					$query
 						->where($db->quoteName('it.result') . ' = 1')
 						->having('COUNT(it.item_id) = 1');
+
 					break;
 
 				case 2:
 					$query
 						->where($db->quoteName('it.result') . ' = 1')
 						->having('COUNT(it.item_id) > 1');
+
 					break;
 
 				case 3:
 					$query
 						->having('COUNT(it.item_id) = 0');
+
 					break;
 			}
 		}
@@ -437,7 +442,7 @@ class IssuesModel extends AbstractTrackerListModel
 
 		if (is_numeric($filter) && $filter < 2)
 		{
-			$query->where($db->quoteName('a.easy') . (0 == $filter ? ' != ' : ' = ') . '1');
+			$query->where($db->quoteName('a.easy') . ($filter == 0 ? ' != ' : ' = ') . '1');
 		}
 
 		$filter = (int) $this->state->get('filter.type');
@@ -446,7 +451,7 @@ class IssuesModel extends AbstractTrackerListModel
 		{
 			// 1 - PR
 			// 2 - Issue
-			$query->where($db->quoteName('a.has_code') . ' = ' . (2 == $filter ? 0 : 1));
+			$query->where($db->quoteName('a.has_code') . ' = ' . ($filter == 2 ? 0 : 1));
 		}
 
 		$filter = (int) $this->state->get('filter.milestone');

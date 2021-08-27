@@ -87,16 +87,19 @@ class DefaultController extends AbstractTrackerListController
 				case 1:
 					$state->set('list.ordering', 'a.issue_number');
 					$state->set('list.direction', 'ASC');
+
 					break;
 
 				case 2:
 					$state->set('list.ordering', 'a.modified_date');
 					$state->set('list.direction', 'DESC');
+
 					break;
 
 				case 3:
 					$state->set('list.ordering', 'a.modified_date');
 					$state->set('list.direction', 'ASC');
+
 					break;
 
 				default:
@@ -112,6 +115,7 @@ class DefaultController extends AbstractTrackerListController
 				case 'updated':
 					$state->set('list.ordering', 'a.modified_date');
 					$sort = $sort + 2;
+
 					break;
 
 				default:
@@ -123,6 +127,7 @@ class DefaultController extends AbstractTrackerListController
 				case 'ASC':
 					$state->set('list.direction', 'ASC');
 					$sort++;
+
 					break;
 
 				default:
@@ -139,22 +144,27 @@ class DefaultController extends AbstractTrackerListController
 		{
 			case 'critical':
 				$priority = 1;
+
 				break;
 
 			case 'urgent':
 				$priority = 2;
+
 				break;
 
 			case 'medium':
 				$priority = 3;
+
 				break;
 
 			case 'low':
 				$priority = 4;
+
 				break;
 
 			case 'very-low':
 				$priority = 5;
+
 				break;
 		}
 
@@ -167,14 +177,17 @@ class DefaultController extends AbstractTrackerListController
 		{
 			case 'open':
 				$issuesState = 0;
+
 				break;
 
 			case 'closed':
 				$issuesState = 1;
+
 				break;
 
 			case 'all':
 				$issuesState = 2;
+
 				break;
 		}
 
@@ -195,10 +208,12 @@ class DefaultController extends AbstractTrackerListController
 		{
 			case 'created':
 				$user = 1;
+
 				break;
 
 			case 'participated':
 				$user = 2;
+
 				break;
 		}
 

@@ -44,7 +44,7 @@ class Statuses extends Package
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/statuses/' . $sha;
 
-		if (!in_array($state, ['pending', 'success', 'error', 'failure']))
+		if (!\in_array($state, ['pending', 'success', 'error', 'failure']))
 		{
 			throw new \InvalidArgumentException('State must be one of pending, success, error or failure.');
 		}
@@ -54,17 +54,17 @@ class Statuses extends Package
 			'state' => $state,
 		];
 
-		if (!is_null($targetUrl))
+		if ($targetUrl !== null)
 		{
 			$data['target_url'] = $targetUrl;
 		}
 
-		if (!is_null($description))
+		if ($description !== null)
 		{
 			$data['description'] = $description;
 		}
 
-		if (!is_null($context))
+		if ($context !== null)
 		{
 			$data['context'] = $context;
 		}

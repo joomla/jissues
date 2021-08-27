@@ -25,7 +25,7 @@ class Install extends TrackerCommand
 	 * @var    \Joomla\Database\DatabaseDriver
 	 * @since  1.0
 	 */
-	private $db = null;
+	private $db;
 
 	/**
 	 * Constructor.
@@ -80,7 +80,7 @@ class Install extends TrackerCommand
 
 				$in = trim($this->getApplication()->in());
 
-				if (1 != (int) $in)
+				if ((int) $in != 1)
 				{
 					throw new AbortException;
 				}
@@ -138,7 +138,7 @@ class Install extends TrackerCommand
 
 		foreach ($tables as $table)
 		{
-			if ('sqlite_sequence' == $table)
+			if ($table == 'sqlite_sequence')
 			{
 				continue;
 			}
@@ -167,21 +167,21 @@ class Install extends TrackerCommand
 		// Install.
 		$dbType = $this->getApplication()->get('database.driver');
 
-		if ('mysqli' == $dbType)
+		if ($dbType == 'mysqli')
 		{
 			$dbType = 'mysql';
 		}
 
 		$fName = JPATH_ROOT . '/etc/' . $dbType . '.sql';
 
-		if (false === file_exists($fName))
+		if (file_exists($fName) === false)
 		{
 			throw new \UnexpectedValueException(sprintf('Install SQL file for %s not found.', $dbType));
 		}
 
 		$sql = file_get_contents($fName);
 
-		if (false === $sql)
+		if ($sql === false)
 		{
 			throw new \UnexpectedValueException('SQL file corrupted.');
 		}
@@ -192,7 +192,7 @@ class Install extends TrackerCommand
 		{
 			$q = trim($this->db->replacePrefix($query));
 
-			if ('' == trim($q))
+			if (trim($q) == '')
 			{
 				continue;
 			}

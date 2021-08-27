@@ -10,8 +10,8 @@ namespace App\Users\Model;
 
 use Joomla\Filter\InputFilter;
 
-use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\Database\TableUsers;
+use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**

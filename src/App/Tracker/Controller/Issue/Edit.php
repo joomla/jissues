@@ -43,7 +43,7 @@ class Edit extends AbstractTrackerController
 	 * @var    IssueHtmlView
 	 * @since  1.0
 	 */
-	protected $view = null;
+	protected $view;
 
 	/**
 	 * Model object
@@ -51,7 +51,7 @@ class Edit extends AbstractTrackerController
 	 * @var    IssueModel
 	 * @since  1.0
 	 */
-	protected $model = null;
+	protected $model;
 
 	/**
 	 * Initialize the controller.
@@ -82,9 +82,9 @@ class Edit extends AbstractTrackerController
 
 		if ($item->commits)
 		{
-			$commits = json_decode($item->commits);
+			$commits    = json_decode($item->commits);
 			$lastCommit = end($commits);
-			$sha = $lastCommit->sha;
+			$sha        = $lastCommit->sha;
 		}
 
 		$item->userTest = $this->model->getUserTest($item->id, $user->username, $sha);
@@ -104,7 +104,7 @@ class Edit extends AbstractTrackerController
 		catch (AuthenticationException $e)
 		{
 			// Check if the user has "edit own" permission
-			if (false === $user->canEditOwn($item->opened_by))
+			if ($user->canEditOwn($item->opened_by) === false)
 			{
 				throw $e;
 			}

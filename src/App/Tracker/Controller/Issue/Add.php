@@ -44,7 +44,7 @@ class Add extends AbstractTrackerController
 	 * @var    IssueHtmlView
 	 * @since  1.0
 	 */
-	protected $view = null;
+	protected $view;
 
 	/**
 	 * Initialize the controller.
@@ -63,7 +63,7 @@ class Add extends AbstractTrackerController
 		$this->getContainer()->get('app')->getUser()->authorize('create');
 
 		// Set some defaults
-		$item = new \stdClass;
+		$item                  = new \stdClass;
 		$item->issue_number    = 0;
 		$item->priority        = 3;
 		$item->description_raw = $this->fetchTemplate();
@@ -86,7 +86,7 @@ class Add extends AbstractTrackerController
 	{
 		/** @var $project \App\Projects\TrackerProject */
 		$project = $this->getContainer()->get('app')->getProject();
-		$github = GithubFactory::getInstance($this->getContainer()->get('app'));
+		$github  = GithubFactory::getInstance($this->getContainer()->get('app'));
 
 		$exceptionHandler = function (\Exception $exception) use ($project, $github)
 		{

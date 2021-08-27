@@ -11,7 +11,6 @@ namespace App\Groups\View\Group;
 use App\Groups\Model\GroupModel;
 
 use JTracker\View\AbstractTrackerHtmlView;
-use Joomla\Utilities\ArrayHelper;
 
 /**
  * The group edit view

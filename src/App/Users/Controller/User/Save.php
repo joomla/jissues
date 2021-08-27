@@ -39,7 +39,7 @@ class Save extends AbstractTrackerController
 			throw new \UnexpectedValueException('Not authenticated.');
 		}
 
-		$src = $app->input->get('item', [], 'array');
+		$src       = $app->input->get('item', [], 'array');
 		$src['id'] = $id;
 
 		try

@@ -127,7 +127,7 @@ class UserActivity extends AbstractAjaxController
 		$codePoints    = [];
 
 		// Build series arrays in reverse order for the chart
-		$i = count($items);
+		$i = \count($items);
 
 		while ($i > 0)
 		{
@@ -150,22 +150,26 @@ class UserActivity extends AbstractAjaxController
 			case 1:
 				$data   = [$trackerPoints];
 				$labels = [$label1];
+
 				break;
 
 			case 2:
 				$data   = [$testPoints];
 				$labels = [$label2];
+
 				break;
 
 			case 3:
 				$data   = [$codePoints];
 				$labels = [$label3];
+
 				break;
 
 			case 0:
 			default:
 				$data   = [$trackerPoints, $testPoints, $codePoints];
 				$labels = [$label1, $label2, $label3];
+
 				break;
 		}
 

@@ -37,20 +37,20 @@ class Repositories extends Package
 	 */
 	public function getListOwn($type = 'all', $sort = 'full_name', $direction = '')
 	{
-		if (false === in_array($type, ['all', 'owner', 'public', 'private', 'member']))
+		if (\in_array($type, ['all', 'owner', 'public', 'private', 'member']) === false)
 		{
 			throw new \RuntimeException('Invalid type');
 		}
 
-		if (false === in_array($sort, ['created', 'updated', 'pushed', 'full_name']))
+		if (\in_array($sort, ['created', 'updated', 'pushed', 'full_name']) === false)
 		{
 			throw new \RuntimeException('Invalid sort field');
 		}
 
 		// Sort direction default: when using full_name: asc, otherwise desc.
-		$direction = ($direction) ? : (('full_name' == $sort) ? 'asc' : 'desc');
+		$direction = ($direction) ? : (($sort == 'full_name') ? 'asc' : 'desc');
 
-		if (false === in_array($direction, ['asc', 'desc']))
+		if (\in_array($direction, ['asc', 'desc']) === false)
 		{
 			throw new \RuntimeException('Invalid sort order');
 		}
@@ -84,20 +84,20 @@ class Repositories extends Package
 	 */
 	public function getListUser($user, $type = 'all', $sort = 'full_name', $direction = '')
 	{
-		if (false === in_array($type, ['all', 'owner', 'member']))
+		if (\in_array($type, ['all', 'owner', 'member']) === false)
 		{
 			throw new \RuntimeException('Invalid type');
 		}
 
-		if (false === in_array($sort, ['created', 'updated', 'pushed', 'full_name']))
+		if (\in_array($sort, ['created', 'updated', 'pushed', 'full_name']) === false)
 		{
 			throw new \RuntimeException('Invalid sort field');
 		}
 
 		// Sort direction default: when using full_name: asc, otherwise desc.
-		$direction = ($direction) ?: (('full_name' == $sort) ? 'asc' : 'desc');
+		$direction = ($direction) ?: (($sort == 'full_name') ? 'asc' : 'desc');
 
-		if (false === in_array($direction, ['asc', 'desc']))
+		if (\in_array($direction, ['asc', 'desc']) === false)
 		{
 			throw new \RuntimeException('Invalid sort order');
 		}
@@ -129,7 +129,7 @@ class Repositories extends Package
 	 */
 	public function getListOrg($org, $type = 'all')
 	{
-		if (false === in_array($type, ['all', 'public', 'private', 'forks', 'sources', 'member']))
+		if (\in_array($type, ['all', 'public', 'private', 'forks', 'sources', 'member']) === false)
 		{
 			throw new \RuntimeException('Invalid type');
 		}
@@ -195,8 +195,7 @@ class Repositories extends Package
 	 */
 	public function create($name, $org = '', $description = '', $homepage = '', $private = false, $has_issues = false,
 		$has_wiki = false, $has_downloads = false, $team_id = 0, $auto_init = false, $gitignore_template = ''
-	)
-	{
+	) {
 		$path = ($org)
 			// Create a repository for an organization
 			? '/orgs/' . $org . '/repos'
@@ -265,8 +264,7 @@ class Repositories extends Package
 	 */
 	public function edit($owner, $repo, $name, $description = '', $homepage = '', $private = false, $has_issues = false,
 		$has_wiki = false, $has_downloads = false, $default_branch = ''
-	)
-	{
+	) {
 		$path = '/repos/' . $owner . '/' . $repo;
 
 		$data = [

@@ -91,7 +91,8 @@ class TextApp implements AppInterface
 	{
 		$container->share(
 			ListArticlesController::class,
-			function (Container $container) {
+			function (Container $container)
+			{
 				return new ListArticlesController(
 					$container->get(ArticlesModel::class),
 					$container->get('articles.list.view')
@@ -102,7 +103,8 @@ class TextApp implements AppInterface
 
 		$container->share(
 			ViewArticleController::class,
-			function (Container $container) {
+			function (Container $container)
+			{
 				return new ViewArticleController(
 					$container->get(ArticlesModel::class),
 					$container->get('article.show.view')
@@ -113,7 +115,8 @@ class TextApp implements AppInterface
 
 		$container->share(
 			CreateArticleController::class,
-			function (Container $container) {
+			function (Container $container)
+			{
 				return new CreateArticleController(
 					$container->get('article.edit.view'),
 					$container->get('db')
@@ -124,7 +127,8 @@ class TextApp implements AppInterface
 
 		$container->share(
 			DeleteArticleController::class,
-			function (Container $container) {
+			function (Container $container)
+			{
 				return new DeleteArticleController(
 					$container->get(ArticlesModel::class)
 				);
@@ -134,7 +138,8 @@ class TextApp implements AppInterface
 
 		$container->share(
 			EditArticleController::class,
-			function (Container $container) {
+			function (Container $container)
+			{
 				return new EditArticleController(
 					$container->get(ArticlesModel::class),
 					$container->get('article.edit.view')
@@ -145,7 +150,8 @@ class TextApp implements AppInterface
 
 		$container->share(
 			SaveArticleController::class,
-			function (Container $container) {
+			function (Container $container)
+			{
 				return new SaveArticleController(
 					$container->get(ArticlesModel::class),
 					$container->get(Github::class)
@@ -156,7 +162,8 @@ class TextApp implements AppInterface
 
 		$container->share(
 			ArticlesModel::class,
-			function (Container $container) {
+			function (Container $container)
+			{
 				return new ArticlesModel($container->get('db'));
 			},
 			true
@@ -164,7 +171,8 @@ class TextApp implements AppInterface
 
 		$container->share(
 			'article.edit.view',
-			function (Container $container) {
+			function (Container $container)
+			{
 				$view = new BaseHtmlView(
 					$container->get(ArticlesModel::class),
 					$container->get(RendererInterface::class)
@@ -179,7 +187,8 @@ class TextApp implements AppInterface
 
 		$container->share(
 			'articles.list.view',
-			function (Container $container) {
+			function (Container $container)
+			{
 				$view = new BaseHtmlView(
 					$container->get(ArticlesModel::class),
 					$container->get(RendererInterface::class)
@@ -194,7 +203,8 @@ class TextApp implements AppInterface
 
 		$container->share(
 			'article.show.view',
-			function (Container $container) {
+			function (Container $container)
+			{
 				$view = new BaseHtmlView(
 					$container->get(ArticlesModel::class),
 					$container->get(RendererInterface::class)

@@ -130,7 +130,7 @@ class TrackerProject implements \Serializable
 	 * @var    DatabaseDriver
 	 * @since  1.0
 	 */
-	private $database = null;
+	private $database;
 
 	/**
 	 * Constructor.
@@ -145,14 +145,14 @@ class TrackerProject implements \Serializable
 	{
 		$this->setDatabase($database);
 
-		if (is_null($data))
+		if ($data === null)
 		{
 			return;
 		}
 
 		foreach ($data as $key => $value)
 		{
-			if (isset($this->$key) || is_null($this->$key))
+			if (isset($this->$key) || $this->$key === null)
 			{
 				$this->$key = $value;
 
@@ -197,12 +197,12 @@ class TrackerProject implements \Serializable
 	 */
 	public function getAccessGroups($action, $filter = '')
 	{
-		if (false === in_array($action, $this->defaultActions))
+		if (\in_array($action, $this->defaultActions) === false)
 		{
 			throw new \InvalidArgumentException(__METHOD__ . ' - Invalid action: ' . $action);
 		}
 
-		if ($filter && false === in_array($filter, $this->defaultGroups))
+		if ($filter && \in_array($filter, $this->defaultGroups) === false)
 		{
 			throw new \InvalidArgumentException(__METHOD__ . ' - Invalid filter: ' . $filter);
 		}
@@ -482,7 +482,7 @@ class TrackerProject implements \Serializable
 
 		foreach (get_object_vars($this) as $key => $value)
 		{
-			if (in_array($key, ['authModel', 'cleared', 'authId', 'database']))
+			if (\in_array($key, ['authModel', 'cleared', 'authId', 'database']))
 			{
 				continue;
 			}

@@ -8,8 +8,8 @@
 
 namespace App\Tracker\Table;
 
-use JTracker\Database\AbstractDatabaseTable;
 use Joomla\Database\DatabaseDriver;
+use JTracker\Database\AbstractDatabaseTable;
 
 /**
  * Table interface class for the #__issue_category table
@@ -54,7 +54,7 @@ class CategoryTable extends AbstractDatabaseTable
 			$errors[] = 'A name is required for the category.';
 		}
 
-		if (strlen($this->title) > 150)
+		if (\strlen($this->title) > 150)
 		{
 			$errors[] = 'The length of the name can not exceed 150 characters.';
 		}
@@ -64,12 +64,12 @@ class CategoryTable extends AbstractDatabaseTable
 			$errors[] = 'An alias is required for the category.';
 		}
 
-		if (strlen($this->alias) > 150)
+		if (\strlen($this->alias) > 150)
 		{
 			$errors[] = 'The length of the alias can not exceed 150 characters.';
 		}
 
-		if (strlen($this->color) != 6)
+		if (\strlen($this->color) != 6)
 		{
 			$errors[] = 'Colour should be the hex value.';
 		}

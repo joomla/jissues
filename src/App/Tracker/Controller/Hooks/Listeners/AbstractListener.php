@@ -8,9 +8,9 @@
 
 namespace App\Tracker\Controller\Hooks\Listeners;
 
+use App\Projects\TrackerProject;
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\Table\IssuesTable;
-use App\Projects\TrackerProject;
 
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
@@ -93,7 +93,7 @@ abstract class AbstractListener implements ContainerAwareInterface
 		}
 
 		// Check if the label present that return true
-		if (count($labels) > 0)
+		if (\count($labels) > 0)
 		{
 			foreach ($labels as $label)
 			{
@@ -214,7 +214,6 @@ abstract class AbstractListener implements ContainerAwareInterface
 			return $hookData->issue->number;
 		}
 
-		return;
 	}
 
 	/**
@@ -258,7 +257,7 @@ abstract class AbstractListener implements ContainerAwareInterface
 				$logger->info(
 					sprintf(
 						'Added %s labels to %s/%s #%d',
-						count($addLabels),
+						\count($addLabels),
 						$project->gh_user,
 						$project->gh_project,
 						$issueNumber

@@ -76,7 +76,7 @@ class ErrorSubscriber implements SubscriberInterface, LoggerAwareInterface
 		/** @var Application $app */
 		$app = $event->getApplication();
 
-		$app->mark('Handling Throwable: ' . get_class($event->getError()));
+		$app->mark('Handling Throwable: ' . \get_class($event->getError()));
 
 		switch (true)
 		{

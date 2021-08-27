@@ -8,9 +8,9 @@
 
 namespace App\Tracker\View\Category;
 
-use JTracker\View\AbstractTrackerHtmlView;
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\Table\CategoryTable;
+use JTracker\View\AbstractTrackerHtmlView;
 
 /**
  * The category view
@@ -34,7 +34,7 @@ class CategoryHtmlView extends AbstractTrackerHtmlView
 	 *
 	 * @since 1.0
 	 */
-	protected $item = null;
+	protected $item;
 
 	/**
 	 * Set the item
@@ -63,7 +63,7 @@ class CategoryHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function getItem()
 	{
-		if (is_null($this->item))
+		if ($this->item === null)
 		{
 			throw new \RuntimeException('Item not set.');
 		}

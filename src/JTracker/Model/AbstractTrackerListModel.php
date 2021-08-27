@@ -36,7 +36,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel imp
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $context = null;
+	protected $context;
 
 	/**
 	 * An internal cache for the last query used.
@@ -66,7 +66,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel imp
 		parent::__construct($database);
 
 		// Set the context if not already done
-		if (is_null($this->context))
+		if ($this->context === null)
 		{
 			$this->context = strtolower($this->option . '.' . $this->getName());
 		}
@@ -167,7 +167,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel imp
 			return $this->cache[$store];
 		}
 
-		if (is_null($this->pagination))
+		if ($this->pagination === null)
 		{
 			throw new \UnexpectedValueException('Pagination not set');
 		}
@@ -324,18 +324,16 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel imp
 
 			return (int) $this->db->loadResult();
 		}
-		else
-		{
-			/*
-			 * Performance of this query is very bad as it forces database engine to go
-			 * through all items in the database. If you don't use JDatabaseQuery object,
-			 * you should override this function in your model.
-			 */
-			$this->db->setQuery($query);
-			$this->db->execute();
 
-			return $this->db->getNumRows();
-		}
+		/*
+		 * Performance of this query is very bad as it forces database engine to go
+		 * through all items in the database. If you don't use JDatabaseQuery object,
+		 * you should override this function in your model.
+		 */
+		$this->db->setQuery($query);
+		$this->db->execute();
+
+		return $this->db->getNumRows();
 	}
 
 	/**

@@ -206,7 +206,7 @@ class IssueExtension extends AbstractExtension
 	 */
 	public function getUserTestOptions($id = null)
 	{
-		return ($id !== null && array_key_exists($id, self::USER_TEST_OPTIONS)) ? self::USER_TEST_OPTIONS[$id] : $options;
+		return ($id !== null && \array_key_exists($id, self::USER_TEST_OPTIONS)) ? self::USER_TEST_OPTIONS[$id] : $options;
 	}
 
 	/**
@@ -231,7 +231,7 @@ class IssueExtension extends AbstractExtension
 
 		foreach ($ids as $id)
 		{
-			if (array_key_exists($id, $this->labels))
+			if (\array_key_exists($id, $this->labels))
 			{
 				$bgColor = $this->labels[$id]->color;
 				$color   = ContrastHelper::getContrastColor($bgColor);

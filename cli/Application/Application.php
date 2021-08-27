@@ -8,12 +8,12 @@
 
 namespace Application;
 
-use Application\Command\Help\Help;
 use App\Projects\TrackerProject;
-
 use Application\Cli\CliInput;
+
 use Application\Cli\CliOutput;
 use Application\Cli\Output\Stdout;
+use Application\Command\Help\Help;
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 use Application\Exception\AbortException;
@@ -130,7 +130,7 @@ class Application extends AbstractApplication implements ContainerAwareInterface
 			$this->close();
 		}
 
-		$this->input = $input ?: new Cli;
+		$this->input  = $input ?: new Cli;
 		$this->output = $output ?: new Stdout;
 
 		// Set the CLI input object.
@@ -218,7 +218,7 @@ class Application extends AbstractApplication implements ContainerAwareInterface
 
 		$args = $this->input->args;
 
-		if (!$args || (isset($args[0]) && 'help' == $args[0]))
+		if (!$args || (isset($args[0]) && $args[0] == 'help'))
 		{
 			$command = 'help';
 			$action  = 'help';
@@ -232,7 +232,7 @@ class Application extends AbstractApplication implements ContainerAwareInterface
 
 		$className = 'Application\\Command\\' . ucfirst($command) . '\\' . ucfirst($action);
 
-		if (false === class_exists($className))
+		if (class_exists($className) === false)
 		{
 			$this->out()
 				->out(sprintf('Invalid command: <error>%s</error>', (($command == $action) ? $command : $command . ' ' . $action)))
@@ -240,7 +240,7 @@ class Application extends AbstractApplication implements ContainerAwareInterface
 
 			$alternatives = $this->getAlternatives($command, $action);
 
-			if (count($alternatives))
+			if (\count($alternatives))
 			{
 				$this->out('<b>Did you mean one of this?</b>')
 					->out('    <question> ' . implode(' </question>    <question> ', $alternatives) . ' </question>');
@@ -251,7 +251,7 @@ class Application extends AbstractApplication implements ContainerAwareInterface
 			$className = 'Application\\Command\\Help\\Help';
 		}
 
-		if (false === method_exists($className, 'execute'))
+		if (method_exists($className, 'execute') === false)
 		{
 			throw new \RuntimeException(sprintf('Missing method %1$s::%2$s', $className, 'execute'));
 		}
@@ -303,12 +303,12 @@ class Application extends AbstractApplication implements ContainerAwareInterface
 
 		$alternatives = [];
 
-		if (false === array_key_exists($command, $commands))
+		if (\array_key_exists($command, $commands) === false)
 		{
 			// Unknown command
 			foreach (array_keys($commands) as $cmd)
 			{
-				if (levenshtein($cmd, $command) <= strlen($cmd) / 3 || false !== strpos($cmd, $command))
+				if (levenshtein($cmd, $command) <= \strlen($cmd) / 3 || strpos($cmd, $command) !== false)
 				{
 					$alternatives[] = $cmd;
 				}
@@ -321,7 +321,7 @@ class Application extends AbstractApplication implements ContainerAwareInterface
 
 			foreach (array_keys($actions) as $act)
 			{
-				if (levenshtein($act, $action) <= strlen($act) / 3 || false !== strpos($act, $action))
+				if (levenshtein($act, $action) <= \strlen($act) / 3 || strpos($act, $action) !== false)
 				{
 					$alternatives[] = $command . ' ' . $act;
 				}
@@ -394,11 +394,11 @@ class Application extends AbstractApplication implements ContainerAwareInterface
 	{
 		$this->out(str_repeat('-', $width));
 
-		$this->out(str_repeat(' ', $width / 2 - (strlen($title) / 2)) . '<title>' . $title . '</title>');
+		$this->out(str_repeat(' ', $width / 2 - (\strlen($title) / 2)) . '<title>' . $title . '</title>');
 
 		if ($subTitle)
 		{
-			$this->out(str_repeat(' ', $width / 2 - (strlen($subTitle) / 2)) . '<b>' . $subTitle . '</b>');
+			$this->out(str_repeat(' ', $width / 2 - (\strlen($subTitle) / 2)) . '<b>' . $subTitle . '</b>');
 		}
 
 		$this->out(str_repeat('-', $width));
@@ -437,12 +437,12 @@ class Application extends AbstractApplication implements ContainerAwareInterface
 			{
 				if ($commandOption->longArg == $option->longArg)
 				{
-					throw new \UnexpectedValueException(sprintf($message, get_class($command), $option->longArg));
+					throw new \UnexpectedValueException(sprintf($message, \get_class($command), $option->longArg));
 				}
 
 				if ($commandOption->shortArg && $commandOption->shortArg == $option->shortArg)
 				{
-					throw new \UnexpectedValueException(sprintf($message, get_class($command), $option->shortArg));
+					throw new \UnexpectedValueException(sprintf($message, \get_class($command), $option->shortArg));
 				}
 			}
 		}

@@ -9,10 +9,10 @@
 namespace App\Users\Controller;
 
 use Joomla\Authentication\Authentication;
-use Joomla\Registry\Registry;
 use Joomla\Github\Github;
 use Joomla\Http\Http;
 use Joomla\Http\HttpFactory;
+use Joomla\Registry\Registry;
 
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
@@ -72,7 +72,7 @@ class Login extends AbstractTrackerController
 		// GitHub API works best with cURL
 		$transport = (new HttpFactory)->getAvailableDriver($options, ['curl']);
 
-		if (false === $transport)
+		if ($transport === false)
 		{
 			throw new \DomainException('No transports available (please install php-curl)');
 		}

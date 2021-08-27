@@ -44,7 +44,7 @@ class Get extends TrackerCommand
 	 * @var    TrackerProject
 	 * @since  1.0
 	 */
-	protected $project = null;
+	protected $project;
 
 	/**
 	 * Constructor.
@@ -162,7 +162,7 @@ class Get extends TrackerCommand
 		}
 
 		// Increase or reset the bot id counter.
-		$this->botId = ($this->botId + 1 >= count($accounts)) ? 0 : $this->botId + 1;
+		$this->botId = ($this->botId + 1 >= \count($accounts)) ? 0 : $this->botId + 1;
 
 		$username = $accounts[$this->botId]->username;
 		$password = $accounts[$this->botId]->password;

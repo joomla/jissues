@@ -42,7 +42,7 @@ class Issues extends Package
 	 * @since   1.0
 	 * @throws  \DomainException
 	 */
-	public function create($user, $repo, $title, $body = null, $assignee = null, $milestone = null, array $labels = array(), array $assignees = array())
+	public function create($user, $repo, $title, $body = null, $assignee = null, $milestone = null, array $labels = [], array $assignees = [])
 	{
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/issues';
@@ -55,14 +55,14 @@ class Issues extends Package
 
 		// Build the request data.
 		$data = json_encode(
-			array(
+			[
 				'title'     => $title,
 				'assignee'  => $assignee,
 				'milestone' => $milestone,
 				'labels'    => $labels,
 				'body'      => $body,
 				'assignees' => $assignees,
-			)
+			]
 		);
 
 		// Send the request.
@@ -184,8 +184,7 @@ class Issues extends Package
 	 */
 	public function getList($filter = null, $state = null, $labels = null, $sort = null,
 		$direction = null, \DateTimeInterface $since = null, $page = 0, $limit = 0
-	)
-	{
+	) {
 		// Build the request path.
 		$path = '/issues';
 
@@ -248,8 +247,7 @@ class Issues extends Package
 	 */
 	public function getListByRepository($user, $repo, $milestone = null, $state = null, $assignee = null, $mentioned = null, $labels = null,
 		$sort = null, $direction = null, \DateTime $since = null, $page = 0, $limit = 0
-	)
-	{
+	) {
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/issues';
 
@@ -316,7 +314,7 @@ class Issues extends Package
 		// Build the request path.
 		$path = "/repos/$user/$repo/issues/" . (int) $issueId . '/lock';
 
-		return $this->processResponse($this->client->put($this->fetchUrl($path), array()), 204);
+		return $this->processResponse($this->client->put($this->fetchUrl($path), []), 204);
 	}
 
 	/**

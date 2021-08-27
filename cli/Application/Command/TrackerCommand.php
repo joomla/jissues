@@ -101,14 +101,14 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 			if ($hasOption->longArg == $option->longArg)
 			{
 				throw new \UnexpectedValueException(
-					sprintf('The command "%s" already has an option "%s"', get_class($this), $option->longArg)
+					sprintf('The command "%s" already has an option "%s"', \get_class($this), $option->longArg)
 				);
 			}
 
 			if ($hasOption->shortArg && $hasOption->shortArg == $option->shortArg)
 			{
 				throw new \UnexpectedValueException(
-					sprintf('The command "%s" already has an option "%s"', get_class($this), $option->shortArg)
+					sprintf('The command "%s" already has an option "%s"', \get_class($this), $option->shortArg)
 				);
 			}
 		}
@@ -141,7 +141,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 			}
 		}
 
-		throw new \UnexpectedValueException(sprintf('Option "%s" has not been added to class "%s"', $name, get_class($this)));
+		throw new \UnexpectedValueException(sprintf('Option "%s" has not been added to class "%s"', $name, \get_class($this)));
 	}
 
 	/**
@@ -228,20 +228,20 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	 */
 	public function displayMissingOption($dir)
 	{
-		$command = strtolower(implode('', array_slice(explode('\\', get_class($this)), -1)));
+		$command = strtolower(implode('', \array_slice(explode('\\', \get_class($this)), -1)));
 
 		$this->getApplication()->outputTitle(sprintf('Command: %s', ucfirst($command)));
 
 		$errorTitle1 = sprintf('Missing option for command: %s', $command);
 		$errorTitle2 = 'Please use one of the following :';
 
-		$maxLen = (strlen($errorTitle1) > strlen($errorTitle2)) ? strlen($errorTitle1) : strlen($errorTitle2);
+		$maxLen = (\strlen($errorTitle1) > \strlen($errorTitle2)) ? \strlen($errorTitle1) : \strlen($errorTitle2);
 
 		$filesystem = new Filesystem(new Local($dir));
 
 		$this->out('<error>  ' . str_repeat(' ', $maxLen) . '  </error>');
-		$this->out('<error>  ' . $errorTitle1 . str_repeat(' ', $maxLen - strlen($errorTitle1)) . '  </error>');
-		$this->out('<error>  ' . $errorTitle2 . str_repeat(' ', $maxLen - strlen($errorTitle2)) . '  </error>');
+		$this->out('<error>  ' . $errorTitle1 . str_repeat(' ', $maxLen - \strlen($errorTitle1)) . '  </error>');
+		$this->out('<error>  ' . $errorTitle2 . str_repeat(' ', $maxLen - \strlen($errorTitle2)) . '  </error>');
 		$this->out('<error>  ' . str_repeat(' ', $maxLen) . '  </error>');
 
 		$files = $filesystem->listContents();
@@ -251,14 +251,14 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 		{
 			$cmd = strtolower($file['filename']);
 
-			if ('file' != $file['type'] || $command == $cmd)
+			if ($file['type'] != 'file' || $command == $cmd)
 			{
 				// Exclude the base class
 				continue;
 			}
 
 			$this->out('<error>  ' . $command . ' ' . $cmd
-				. str_repeat(' ', $maxLen - strlen($cmd) - strlen($command) + 1)
+				. str_repeat(' ', $maxLen - \strlen($cmd) - \strlen($command) + 1)
 				. '</error>'
 			);
 		}
@@ -372,7 +372,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 				throw new AbortException('Aborted');
 			}
 
-			if (false === array_key_exists($resp, $checks))
+			if (\array_key_exists($resp, $checks) === false)
 			{
 				throw new AbortException('Invalid project');
 			}
@@ -391,7 +391,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 				}
 			}
 
-			if (is_null($this->project))
+			if ($this->project === null)
 			{
 				throw new AbortException('Invalid project');
 			}

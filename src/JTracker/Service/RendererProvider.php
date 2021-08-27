@@ -59,7 +59,8 @@ class RendererProvider implements ServiceProviderInterface
 			->alias(TwigRenderer::class, RendererInterface::class)
 			->share(
 				RendererInterface::class,
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new TwigRenderer($container->get('twig.environment'));
 				},
 				true
@@ -68,7 +69,8 @@ class RendererProvider implements ServiceProviderInterface
 		$container->alias(CacheInterface::class, 'twig.cache')
 			->share(
 				'twig.cache',
-				function (Container $container) {
+				function (Container $container)
+				{
 					/** @var \Joomla\Registry\Registry $config */
 					$config = $container->get('config');
 
@@ -88,7 +90,8 @@ class RendererProvider implements ServiceProviderInterface
 		$container->alias(Environment::class, 'twig.environment')
 			->share(
 				'twig.environment',
-				function (Container $container) {
+				function (Container $container)
+				{
 					/** @var \Joomla\Registry\Registry $config */
 					$config = $container->get('config');
 
@@ -143,7 +146,8 @@ class RendererProvider implements ServiceProviderInterface
 		$container->alias(AssetsExtension::class, 'twig.extension.assets')
 			->share(
 				'twig.extension.assets',
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new AssetsExtension;
 				},
 				true
@@ -152,7 +156,8 @@ class RendererProvider implements ServiceProviderInterface
 		$container->alias(CdnExtension::class, 'twig.extension.cdn')
 			->share(
 				'twig.extension.cdn',
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new CdnExtension;
 				},
 				true
@@ -161,7 +166,8 @@ class RendererProvider implements ServiceProviderInterface
 		$container->alias(DebugExtension::class, 'twig.extension.debug')
 			->share(
 				'twig.extension.debug',
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new DebugExtension;
 				},
 				true
@@ -170,7 +176,8 @@ class RendererProvider implements ServiceProviderInterface
 		$container->alias(FlashExtension::class, 'twig.extension.flash')
 			->share(
 				'twig.extension.flash',
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new FlashExtension;
 				},
 				true
@@ -179,7 +186,8 @@ class RendererProvider implements ServiceProviderInterface
 		$container->alias(PhpExtension::class, 'twig.extension.php')
 			->share(
 				'twig.extension.php',
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new PhpExtension;
 				},
 				true
@@ -188,7 +196,8 @@ class RendererProvider implements ServiceProviderInterface
 		$container->alias(TrackerExtension::class, 'twig.extension.tracker')
 			->share(
 				'twig.extension.tracker',
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new TrackerExtension;
 				},
 				true
@@ -197,7 +206,8 @@ class RendererProvider implements ServiceProviderInterface
 		$container->alias(LoaderInterface::class, 'twig.loader')
 			->share(
 				'twig.loader',
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new FilesystemLoader([JPATH_TEMPLATES]);
 				},
 				true
@@ -206,7 +216,8 @@ class RendererProvider implements ServiceProviderInterface
 		$container->alias(ContainerRuntimeLoader::class, 'twig.runtime.loader')
 			->share(
 				'twig.runtime.loader',
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new ContainerRuntimeLoader($container);
 				},
 				true
@@ -215,7 +226,8 @@ class RendererProvider implements ServiceProviderInterface
 		$container->alias(CdnRenderer::class, 'twig.service.cdn_renderer')
 			->share(
 				'twig.service.cdn_renderer',
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new CdnRenderer(
 						$container->get(Application::class),
 						$container->get('cache'),
@@ -229,7 +241,8 @@ class RendererProvider implements ServiceProviderInterface
 		$container->alias(FlashMessageRetriever::class, 'twig.service.flash_message_retriever')
 			->share(
 				'twig.service.flash_message_retriever',
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new FlashMessageRetriever(
 						$container->get(Application::class)
 					);
@@ -239,8 +252,9 @@ class RendererProvider implements ServiceProviderInterface
 
 		$container->share(
 			Packages::class,
-			function (Container $container) {
-				$version = file_exists(JPATH_ROOT . '/sha.txt') ? trim(file_get_contents(JPATH_ROOT . '/sha.txt')) : md5(get_class($this));
+			function (Container $container)
+			{
+				$version = file_exists(JPATH_ROOT . '/sha.txt') ? trim(file_get_contents(JPATH_ROOT . '/sha.txt')) : md5(\get_class($this));
 				$context = new ApplicationContext($container->get('app'));
 
 				return new Packages(

@@ -186,7 +186,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 				[
 					new StreamHandler(
 						$application->get('debug.log-path', JPATH_ROOT . '/logs') . '/github_' . strtolower($this->type) . '.log',
-						constant('\\Monolog\\Logger::' . $level)
+						\constant('\\Monolog\\Logger::' . $level)
 					),
 				],
 				[
@@ -242,7 +242,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
 		{
 			$parts = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-			$myIP = $parts[0];
+			$myIP  = $parts[0];
 		}
 		// Check if request is from CLI
 		elseif (strpos($_SERVER['SCRIPT_NAME'], 'cli/tracker.php') !== false || strpos($_SERVER['SCRIPT_NAME'], 'bin/jtracker') !== false)
@@ -254,7 +254,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 			$myIP = $application->input->server->getString('REMOTE_ADDR');
 		}
 
-		if (!IpHelper::IPinList($myIP, $validIps->hooks) && '127.0.0.1' != $myIP)
+		if (!IpHelper::IPinList($myIP, $validIps->hooks) && $myIP != '127.0.0.1')
 		{
 			// Log the unauthorized request
 			$this->logger->critical('Unauthorised request from ' . $myIP);
@@ -469,7 +469,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 
 				// Check if the issue status is in the array.
 				// If it is, then the item didn't change close state and we don't need to change the status.
-				if ($currentStatusId && in_array($currentStatusId, $statusIds))
+				if ($currentStatusId && \in_array($currentStatusId, $statusIds))
 				{
 					$status = null;
 				}
@@ -486,7 +486,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 
 				// Check if the issue status is in the array.
 				// If it is, then the item didn't change open state and we don't need to change the status.
-				if ($currentStatusId && in_array($currentStatusId, $statusIds))
+				if ($currentStatusId && \in_array($currentStatusId, $statusIds))
 				{
 					$status = null;
 				}

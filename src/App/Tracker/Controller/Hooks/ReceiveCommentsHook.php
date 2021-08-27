@@ -63,7 +63,7 @@ class ReceiveCommentsHook extends AbstractHookController
 					['comment_id' => (int) $this->hookData->comment->id, 'exception' => $e]
 				);
 				$this->setStatusCode(500);
-				$this->response->error = $logMessage . ': ' . $e->getMessage();
+				$this->response->error   = $logMessage . ': ' . $e->getMessage();
 				$this->response->message = 'Hook data processed unsuccessfully.';
 
 				return;
@@ -94,7 +94,7 @@ class ReceiveCommentsHook extends AbstractHookController
 
 			$this->logger->critical($logMessage, ['exception' => $e]);
 			$this->setStatusCode(500);
-			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->response->error   = $logMessage . ': ' . $e->getMessage();
 			$this->response->message = 'Hook data processed unsuccessfully.';
 		}
 	}
@@ -234,7 +234,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		// Prepare the dates for insertion to the database
 		$dateFormat = $this->db->getDateFormat();
 
-		$data = [];
+		$data                    = [];
 		$data['issue_number']    = $this->hookData->issue->number;
 		$data['title']           = $this->hookData->issue->title;
 		$data['description']     = $this->parseText($this->hookData->issue->body);

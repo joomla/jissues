@@ -26,7 +26,7 @@ class Comment
 	/**
 	 * @var null @todo User object class
 	 */
-	public $user = null;
+	public $user;
 
 	public $created_at = '';
 

@@ -94,7 +94,7 @@ class StatusExtension extends AbstractExtension
 			$this->statuses = $statuses;
 		}
 
-		if (!array_key_exists($id, $this->statuses))
+		if (!\array_key_exists($id, $this->statuses))
 		{
 			throw new \UnexpectedValueException('Unknown status ID:' . (int) $id);
 		}
@@ -117,20 +117,20 @@ class StatusExtension extends AbstractExtension
 		{
 			case '0':
 				return [
-					1 => 'New',
-					2 => 'Confirmed',
-					3 => 'Pending',
-					4 => 'Ready To Commit',
-					6 => 'Needs Review',
-					7 => 'Information Required',
+					1  => 'New',
+					2  => 'Confirmed',
+					3  => 'Pending',
+					4  => 'Ready To Commit',
+					6  => 'Needs Review',
+					7  => 'Information Required',
 					14 => 'Discussion',
 				];
 
 			case '1':
 				return [
-					5 => 'Fixed in Code Base',
-					8 => 'Unconfirmed Report',
-					9 => 'No Reply',
+					5  => 'Fixed in Code Base',
+					8  => 'Unconfirmed Report',
+					9  => 'No Reply',
 					10 => 'Closed',
 					11 => 'Expected Behaviour',
 					12 => 'Known Issue',
@@ -139,16 +139,16 @@ class StatusExtension extends AbstractExtension
 
 			default:
 				return [
-					1 => 'New',
-					2 => 'Confirmed',
-					3 => 'Pending',
-					4 => 'Ready To Commit',
-					6 => 'Needs Review',
-					7 => 'Information Required',
+					1  => 'New',
+					2  => 'Confirmed',
+					3  => 'Pending',
+					4  => 'Ready To Commit',
+					6  => 'Needs Review',
+					7  => 'Information Required',
 					14 => 'Discussion',
-					5 => 'Fixed in Code Base',
-					8 => 'Unconfirmed Report',
-					9 => 'No Reply',
+					5  => 'Fixed in Code Base',
+					8  => 'Unconfirmed Report',
+					9  => 'No Reply',
 					10 => 'Closed',
 					11 => 'Expected Behaviour',
 					12 => 'Known Issue',

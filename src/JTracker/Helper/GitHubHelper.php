@@ -74,9 +74,9 @@ class GitHubHelper
 			}
 
 			$data->created_at = $gitHubResponse->created_at;
-			$data->opened_by = $gitHubResponse->user->login;
+			$data->opened_by  = $gitHubResponse->user->login;
 			$data->comment_id = $gitHubResponse->id;
-			$data->text_raw = $gitHubResponse->body;
+			$data->text_raw   = $gitHubResponse->body;
 
 			$data->text = $this->gitHub->markdown->render(
 				$comment,
@@ -89,8 +89,8 @@ class GitHubHelper
 			$data->created_at = (new Date)->format($database->getDateFormat());
 			$data->opened_by  = $userName;
 			$data->comment_id = '???';
-			$data->text_raw = $comment;
-			$data->text = $this->gitHub->markdown->render($comment, 'markdown');
+			$data->text_raw   = $comment;
+			$data->text       = $this->gitHub->markdown->render($comment, 'markdown');
 		}
 
 		(new ActivityModel($database))
@@ -128,11 +128,11 @@ class GitHubHelper
 		{
 			$c = new Commit;
 
-			$c->sha = $commit->sha;
-			$c->message = $commit->commit->message;
-			$c->author_name = isset($commit->author->login) ? $commit->author->login : '';
-			$c->author_date = $commit->commit->author->date;
-			$c->committer_name = isset($commit->committer->login) ? $commit->committer->login : '';
+			$c->sha            = $commit->sha;
+			$c->message        = $commit->commit->message;
+			$c->author_name    = $commit->author->login ?? '';
+			$c->author_date    = $commit->commit->author->date;
+			$c->committer_name = $commit->committer->login ?? '';
 			$c->committer_date = $commit->commit->committer->date;
 
 			$commits[] = $c;
@@ -165,10 +165,10 @@ class GitHubHelper
 		{
 			$s = new Status;
 
-			$s->state = $status->state;
-			$s->targetUrl = $status->target_url;
+			$s->state       = $status->state;
+			$s->targetUrl   = $status->target_url;
 			$s->description = $status->description;
-			$s->context = $status->context;
+			$s->context     = $status->context;
 
 			$combinedStatus->statuses[] = $s;
 		}

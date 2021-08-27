@@ -9,7 +9,6 @@
 namespace JTracker\Service;
 
 use Joomla\Application\AbstractWebApplication;
-use Joomla\Application\Controller\ControllerResolver;
 use Joomla\Application\Controller\ControllerResolverInterface;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;

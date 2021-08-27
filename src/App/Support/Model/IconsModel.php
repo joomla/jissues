@@ -64,7 +64,8 @@ class IconsModel implements ModelInterface
 
 		array_walk(
 			$icons,
-			static function (string &$selector): void {
+			static function (string &$selector): void
+			{
 				$selector = str_replace(':before', '', $selector);
 			}
 		);

@@ -67,7 +67,7 @@ class ReceivePullReviewHook extends AbstractHookController
 	 */
 	protected function prepareResponse()
 	{
-		if (!isset($this->hookData->pull_request->number) || !is_object($this->hookData))
+		if (!isset($this->hookData->pull_request->number) || !\is_object($this->hookData))
 		{
 			// If we can't get the issue number exit.
 			$this->response->message = 'Hook data does not exist.';
@@ -110,7 +110,7 @@ class ReceivePullReviewHook extends AbstractHookController
 
 			$this->logger->critical($logMessage, ['exception' => $e]);
 			$this->setStatusCode(500);
-			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->response->error   = $logMessage . ': ' . $e->getMessage();
 			$this->response->message = 'Hook data processed unsuccessfully.';
 		}
 	}
@@ -144,14 +144,17 @@ class ReceivePullReviewHook extends AbstractHookController
 		{
 			case 'APPROVED':
 				$data['review_state'] = ReviewsTable::APPROVED_STATE;
+
 				break;
 
 			case 'CHANGES_REQUESTED':
 				$data['review_state'] = ReviewsTable::CHANGES_REQUIRED_STATE;
+
 				break;
 
 			case 'COMMENTED':
 				$data['review_state'] = ReviewsTable::COMMENTED;
+
 				break;
 
 			default:
@@ -280,7 +283,7 @@ class ReceivePullReviewHook extends AbstractHookController
 				];
 
 				$table->load(
-					array('review_id' => $this->hookData->review->id)
+					['review_id' => $this->hookData->review->id]
 				);
 
 				try
@@ -318,11 +321,11 @@ class ReceivePullReviewHook extends AbstractHookController
 				 */
 				$data = [
 					'dismissed_on'      => (new Date($this->hookData->pull_request->created_at))->format($dateFormat),
-					'review_state'      => ReviewsTable::DISMISSED_STATE
+					'review_state'      => ReviewsTable::DISMISSED_STATE,
 				];
 
 				$table->load(
-					array('review_id' => $this->hookData->review->id)
+					['review_id' => $this->hookData->review->id]
 				);
 
 				try
@@ -373,7 +376,7 @@ class ReceivePullReviewHook extends AbstractHookController
 		// Prepare the dates for insertion to the database
 		$dateFormat = $this->db->getDateFormat();
 
-		$data = [];
+		$data                    = [];
 		$data['issue_number']    = $this->hookData->pull_request->number;
 		$data['title']           = $this->hookData->pull_request->title;
 		$data['description']     = $this->parseText($this->hookData->pull_request->body);

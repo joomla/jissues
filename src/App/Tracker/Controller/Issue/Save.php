@@ -46,7 +46,7 @@ class Save extends AbstractTrackerController
 
 		$application->getLogger()->debug('Submitted data from save controller.', ['data' => $src]);
 
-		$user = $application->getUser();
+		$user    = $application->getUser();
 		$project = $application->getProject();
 
 		$model = new IssueModel($this->getContainer()->get('db'));
@@ -124,7 +124,7 @@ class Save extends AbstractTrackerController
 			{
 				foreach ($project->getLabels() as $id => $label)
 				{
-					if (in_array($id, $data['labels']))
+					if (\in_array($id, $data['labels']))
 					{
 						$ghLabels[] = $label->name;
 					}
@@ -366,7 +366,7 @@ class Save extends AbstractTrackerController
 				// Allow only specific group to reset milestone
 				if (!empty($gitHubResponse->milestone) && $isAllowed)
 				{
-					$milestone = '';
+					$milestone  = '';
 					$needUpdate = true;
 				}
 			}
@@ -383,7 +383,7 @@ class Save extends AbstractTrackerController
 					foreach ($gitHubResponse->labels as $ghLabel)
 					{
 						// If labels differ then need to update
-						if (!in_array($ghLabel->name, $labels))
+						if (!\in_array($ghLabel->name, $labels))
 						{
 							$needUpdate = true;
 
@@ -413,7 +413,7 @@ class Save extends AbstractTrackerController
 		catch (UnexpectedResponseException $exception)
 		{
 			// GitHub will return either a 403 or 404 in case there is a permission problem.
-			if (!in_array($exception->getResponse()->getStatusCode(), [403, 404]))
+			if (!\in_array($exception->getResponse()->getStatusCode(), [403, 404]))
 			{
 				throw $exception;
 			}
@@ -442,7 +442,7 @@ class Save extends AbstractTrackerController
 			{
 				if (!empty($gitHubResponse->milestone))
 				{
-					$milestone = '';
+					$milestone  = '';
 					$needUpdate = true;
 				}
 			}
@@ -459,7 +459,7 @@ class Save extends AbstractTrackerController
 					foreach ($gitHubResponse->labels as $ghLabel)
 					{
 						// If labels differ then need to update
-						if (!in_array($ghLabel->name, $labels))
+						if (!\in_array($ghLabel->name, $labels))
 						{
 							$needUpdate = true;
 

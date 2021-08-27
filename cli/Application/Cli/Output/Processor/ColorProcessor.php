@@ -49,7 +49,7 @@ class ColorProcessor implements ProcessorInterface
 	 * @var    array
 	 * @since  1.0
 	 */
-	protected $styles = array();
+	protected $styles = [];
 
 	/**
 	 * Class constructor
@@ -125,7 +125,7 @@ class ColorProcessor implements ProcessorInterface
 
 		foreach ($matches[0] as $i => $m)
 		{
-			if (array_key_exists($matches[1][$i], $this->styles))
+			if (\array_key_exists($matches[1][$i], $this->styles))
 			{
 				$string = $this->replaceColors($string, $matches[1][$i], $matches[2][$i], $this->styles[$matches[1][$i]]);
 			}
@@ -171,12 +171,12 @@ class ColorProcessor implements ProcessorInterface
 	{
 		$this->addStyle(
 			'info',
-			new ColorStyle('green', '', array('bold'))
+			new ColorStyle('green', '', ['bold'])
 		);
 
 		$this->addStyle(
 			'comment',
-			new ColorStyle('yellow', '', array('bold'))
+			new ColorStyle('yellow', '', ['bold'])
 		);
 
 		$this->addStyle(

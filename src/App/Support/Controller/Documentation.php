@@ -8,8 +8,6 @@
 
 namespace App\Support\Controller;
 
-use App\Support\View\Documentation\DocumentationHtmlView;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**

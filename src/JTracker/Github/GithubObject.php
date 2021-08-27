@@ -8,8 +8,8 @@
 
 namespace JTracker\Github;
 
-use Joomla\Http\Response;
 use Joomla\Github\AbstractGithubObject as JGithubObject;
+use Joomla\Http\Response;
 use JTracker\Github\Exception\GithubException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;

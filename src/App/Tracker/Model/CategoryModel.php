@@ -9,12 +9,12 @@
 namespace App\Tracker\Model;
 
 use App\Tracker\Table\ActivitiesTable;
-use App\Tracker\Table\IssueCategoryMappingTable;
-use JTracker\Model\AbstractTrackerDatabaseModel;
-use Joomla\Filter\InputFilter;
 use App\Tracker\Table\CategoryTable;
-use Joomla\String\StringHelper;
+use App\Tracker\Table\IssueCategoryMappingTable;
 use Joomla\Date\Date;
+use Joomla\Filter\InputFilter;
+use Joomla\String\StringHelper;
+use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
  * Model of categories
@@ -337,7 +337,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 */
 	public function getIssueIdsWithCategory()
 	{
-		$db = $this->getDb();
+		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 		$query->select('DISTINCT issue_id')->from('#__issue_category_map');
 

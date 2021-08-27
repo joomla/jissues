@@ -27,9 +27,9 @@ class ContrastHelper
 	 */
 	public static function getContrastColor($hexColor): string
 	{
-		$r = hexdec(substr($hexColor, 0, 2));
-		$g = hexdec(substr($hexColor, 2, 2));
-		$b = hexdec(substr($hexColor, 4, 2));
+		$r   = hexdec(substr($hexColor, 0, 2));
+		$g   = hexdec(substr($hexColor, 2, 2));
+		$b   = hexdec(substr($hexColor, 4, 2));
 		$yiq = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
 
 		return $yiq >= 128 ? 'black' : 'white';

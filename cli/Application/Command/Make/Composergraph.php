@@ -26,7 +26,7 @@ class Composergraph extends Make
 	 * @var    GraphComposer
 	 * @since  1.0
 	 */
-	protected $graph = null;
+	protected $graph;
 
 	/**
 	 * Constructor.

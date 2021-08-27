@@ -85,7 +85,8 @@ class SupportApp implements AppInterface
 	{
 		$container->share(
 			ViewCssIconsController::class,
-			function (Container $container) {
+			function (Container $container)
+			{
 				return new ViewCssIconsController(
 					$container->get(IconsModel::class),
 					$container->get('icons.list.view')
@@ -97,7 +98,8 @@ class SupportApp implements AppInterface
 
 		$container->share(
 			IconsModel::class,
-			function () {
+			function ()
+			{
 				return new IconsModel;
 			},
 			true
@@ -105,7 +107,8 @@ class SupportApp implements AppInterface
 
 		$container->share(
 			'icons.list.view',
-			function (Container $container) {
+			function (Container $container)
+			{
 				$view = new BaseHtmlView(
 					$container->get(IconsModel::class),
 					$container->get(RendererInterface::class)

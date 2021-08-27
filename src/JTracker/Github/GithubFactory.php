@@ -75,8 +75,8 @@ abstract class GithubFactory
 
 				if ($accounts)
 				{
-					$user     = isset($accounts[0]->username) ? $accounts[0]->username : null;
-					$password = isset($accounts[0]->password) ? $accounts[0]->password : null;
+					$user     = $accounts[0]->username ?? null;
+					$password = $accounts[0]->password ?? null;
 
 					// Store the other accounts
 					$options->set('api.accounts', $accounts);

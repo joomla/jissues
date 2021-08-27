@@ -70,8 +70,8 @@ class JoomlacmsTestsListener extends AbstractListener implements SubscriberInter
 	{
 		$status = new Status;
 
-		$successes = count($testsSuccess);
-		$failures  = count($testsFailure);
+		$successes = \count($testsSuccess);
+		$failures  = \count($testsFailure);
 
 		if ($successes >= 2 && $failures == 0)
 		{

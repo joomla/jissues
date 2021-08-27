@@ -54,7 +54,7 @@ class GroupModel extends AbstractTrackerDatabaseModel
 	 */
 	public function getGroupId()
 	{
-		if (0 == $this->group_id)
+		if ($this->group_id == 0)
 		{
 			// A new item.
 		}

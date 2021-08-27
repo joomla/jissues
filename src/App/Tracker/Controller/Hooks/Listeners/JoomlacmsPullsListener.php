@@ -87,7 +87,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 	 */
 	protected $trackerHandledCategories = [
 		self::CATEGORY_JAVASCRIPT => [
-			'.js$'
+			'.js$',
 		],
 		self::CATEGORY_POSTGRESQL => [
 			'^administrator/components/com_admin/sql/updates/postgresql',
@@ -117,7 +117,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 			'^installation/sql',
 		],
 		self::CATEGORY_LIBRARIES => [
-			'^libraries/'
+			'^libraries/',
 		],
 		self::CATEGORY_MODULES => [
 			'^administrator/modules/',
@@ -138,20 +138,20 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 			'RoboFile.php',
 			'RoboFile.dist.ini',
 			'drone-package.json',
-			'.hound.yml'
+			'.hound.yml',
 		],
 		self::CATEGORY_LAYOUTS => [
-			'^layouts/'
+			'^layouts/',
 		],
 		self::CATEGORY_TAGS => [
 			'^administrator/components/com_tags',
 			'^components/com_tags',
 		],
 		self::CATEGORY_CLI => [
-			'^cli/'
+			'^cli/',
 		],
 		self::CATEGORY_ADMINISTRATION => [
-			'^administrator/'
+			'^administrator/',
 		],
 		self::CATEGORY_FRONTEND => [
 			'^components/',
@@ -160,7 +160,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 			'^templates/',
 		],
 		self::CATEGORY_INSTALLATION => [
-			'^installation/'
+			'^installation/',
 		],
 		self::CATEGORY_LANGUAGES => [
 			'^administrator/language',
@@ -175,13 +175,13 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 			'^templates/aurora/language',
 		],
 		self::CATEGORY_PLUGINS => [
-			'^plugins/'
+			'^plugins/',
 		],
 		self::CATEGORY_SITE_TEMPLATES => [
-			'^templates/'
+			'^templates/',
 		],
 		self::CATEGORY_ADMIN_TEMPLATES => [
-			'^administrator/templates/'
+			'^administrator/templates/',
 		],
 		self::CATEGORY_MEDIA_MANAGER => [
 			'^administrator/components/com_media',
@@ -208,20 +208,20 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 			'^components/com_ajax',
 		],
 		self::CATEGORY_COM_ADMIN => [
-			'^administrator/components/com_admin'
+			'^administrator/components/com_admin',
 		],
 		self::CATEGORY_COM_BANNERS => [
 			'^administrator/components/com_banners',
 			'^components/com_banners',
 		],
 		self::CATEGORY_COM_CACHE => [
-			'^administrator/components/com_cache'
+			'^administrator/components/com_cache',
 		],
 		self::CATEGORY_COM_CATEGORIES => [
-			'^administrator/components/com_categories'
+			'^administrator/components/com_categories',
 		],
 		self::CATEGORY_COM_CHECKIN => [
-			'^administrator/components/com_checkin'
+			'^administrator/components/com_checkin',
 		],
 		self::CATEGORY_COM_CONFIG => [
 			'^administrator/components/com_config',
@@ -240,29 +240,29 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 			'^components/com_contenthistory',
 		],
 		self::CATEGORY_COM_CPANEL => [
-			'^administrator/components/com_cpanel'
+			'^administrator/components/com_cpanel',
 		],
 		self::CATEGORY_COM_FINDER => [
 			'^administrator/components/com_finder',
 			'^components/com_finder',
 		],
 		self::CATEGORY_COM_INSTALLER => [
-			'^administrator/components/com_installer'
+			'^administrator/components/com_installer',
 		],
 		self::CATEGORY_COM_JOOMLAUPDATE => [
-			'^administrator/components/com_joomlaupdate'
+			'^administrator/components/com_joomlaupdate',
 		],
 		self::CATEGORY_COM_LANGUAGES => [
-			'^administrator/components/com_languages'
+			'^administrator/components/com_languages',
 		],
 		self::CATEGORY_COM_LOGIN => [
-			'^administrator/components/com_login'
+			'^administrator/components/com_login',
 		],
 		self::CATEGORY_COM_MENUS => [
-			'^administrator/components/com_menus'
+			'^administrator/components/com_menus',
 		],
 		self::CATEGORY_COM_MESSAGES => [
-			'^administrator/components/com_messages'
+			'^administrator/components/com_messages',
 		],
 		self::CATEGORY_COM_MODULES => [
 			'^administrator/components/com_modules',
@@ -273,37 +273,37 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 			'^components/com_newsfeeds',
 		],
 		self::CATEGORY_COM_PLUGINS => [
-			'^administrator/components/com_plugins'
+			'^administrator/components/com_plugins',
 		],
 		self::CATEGORY_COM_POSTINSTALL => [
-			'^administrator/components/com_postinstall'
+			'^administrator/components/com_postinstall',
 		],
 		self::CATEGORY_COM_REDIRECT => [
-			'^administrator/components/com_redirect'
+			'^administrator/components/com_redirect',
 		],
 		self::CATEGORY_COM_SEARCH => [
 			'^administrator/components/com_search',
 			'^components/com_search',
 		],
 		self::CATEGORY_COM_TEMPLATES => [
-			'^administrator/components/com_templates'
+			'^administrator/components/com_templates',
 		],
 		self::CATEGORY_COM_USERS => [
 			'^administrator/components/com_users',
 			'^components/com_users',
 		],
 		self::CATEGORY_COM_MAILTO => [
-			'^components/com_mailto'
+			'^components/com_mailto',
 		],
 		self::CATEGORY_COM_WRAPPER => [
-			'^components/com_wrapper'
+			'^components/com_wrapper',
 		],
 		self::CATEGORY_COM_FIELDS => [
 			'^administrator/components/com_fields',
 			'^components/com_fields',
 		],
 		self::CATEGORY_COM_ASSOCIATIONS => [
-			'^administrator/components/com_associations'
+			'^administrator/components/com_associations',
 		],
 		self::CATEGORY_COMPOSER => [
 			'^libraries/vendor',
@@ -423,7 +423,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 		}
 
 		// Only perform these events for open/close/edit/sync events
-		if (in_array($arguments['action'], ['opened', 'closed', 'reopened', 'edited', 'synchronize']))
+		if (\in_array($arguments['action'], ['opened', 'closed', 'reopened', 'edited', 'synchronize']))
 		{
 			// Check that pull requests have certain labels
 			$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
@@ -567,7 +567,6 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 			$this->removeLabels($hookData, $github, $logger, $project, $removeLabels);
 		}
 
-		return;
 	}
 
 	/**
@@ -672,7 +671,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 		}
 
 		// If we don't have a foreign ID, we can't do anything here
-		if (is_null($table->foreign_number))
+		if ($table->foreign_number === null)
 		{
 			return;
 		}
@@ -893,7 +892,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 		{
 			foreach ($this->trackerHandledCategories as $catIndex => $checks)
 			{
-				if (in_array($catIndex, $categories))
+				if (\in_array($catIndex, $categories))
 				{
 					continue;
 				}

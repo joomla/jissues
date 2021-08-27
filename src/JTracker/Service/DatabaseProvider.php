@@ -14,7 +14,6 @@ use Joomla\Database\DatabaseInterface;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 
-use Joomla\Registry\Registry;
 use JTracker\Database\Migrations;
 
 use League\Flysystem\Adapter\Local;

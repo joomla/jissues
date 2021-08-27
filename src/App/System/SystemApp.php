@@ -82,7 +82,8 @@ class SystemApp implements AppInterface
 	{
 		$container->share(
 			WrongCmsController::class,
-			function (Container $container) {
+			function (Container $container)
+			{
 				return new WrongCmsController;
 			},
 			true

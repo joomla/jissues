@@ -52,7 +52,7 @@ class GitHubUser extends User
 
 		foreach ($data as $k => $v)
 		{
-			if (property_exists($this, $k) && false == in_array($k, ['id']))
+			if (property_exists($this, $k) && \in_array($k, ['id']) == false)
 			{
 				$this->$k = $v;
 			}

@@ -72,7 +72,7 @@ class Submit extends AbstractTrackerController
 		 * Store the "No code attached yet" label for CMS issue
 		 * @todo Remove after #596 is implemented
 		 */
-		if ($project->project_id == 1 && !in_array(39, $labels))
+		if ($project->project_id == 1 && !\in_array(39, $labels))
 		{
 			$labels[] = 39;
 		}
@@ -95,7 +95,7 @@ class Submit extends AbstractTrackerController
 			{
 				foreach ($project->getLabels() as $id => $label)
 				{
-					if (in_array($id, $labels))
+					if (\in_array($id, $labels))
 					{
 						$ghLabels[] = $label->name;
 					}
@@ -182,7 +182,6 @@ class Submit extends AbstractTrackerController
 			$application->get('uri.base.path') . 'tracker/' . $project->alias . '/' . $data['number']
 		);
 
-		return;
 	}
 
 	/**

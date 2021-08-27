@@ -42,7 +42,7 @@ class Filetree extends AbstractTrackerController
 
 		natcasesort($files);
 
-		if (count($files) > 2)
+		if (\count($files) > 2)
 		{
 			$response[] = '<ul class="jqueryFileTree" style="display: none;">';
 

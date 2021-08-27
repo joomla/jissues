@@ -48,7 +48,7 @@ class Users extends Get
 			$this->usePBar = false;
 		}
 
-		defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_ROOT . '/www');
+		\defined('JPATH_THEMES') || \define('JPATH_THEMES', JPATH_ROOT . '/www');
 
 		$this->getApplication()->outputTitle('Retrieve Users');
 
@@ -82,7 +82,7 @@ class Users extends Get
 				->order($db->quoteName('user'))
 		)->loadColumn();
 
-		if (!count($userNames))
+		if (!\count($userNames))
 		{
 			throw new \UnexpectedValueException('No users found in database.');
 		}
@@ -90,17 +90,17 @@ class Users extends Get
 		$this->out(
 			sprintf(
 				'Getting user info for %d users.',
-				count($userNames)
+				\count($userNames)
 			)
 		);
 
-		$progressBar = $this->getProgressBar(count($userNames));
+		$progressBar = $this->getProgressBar(\count($userNames));
 
 		$this->usePBar ? $this->out() : null;
 
 		/** @var GitHubLoginHelper $loginHelper */
 		$loginHelper = $this->getContainer()->get(GitHubLoginHelper::class);
-		$user = new GitHubUser(new TrackerProject($this->getContainer()->get('db')), $this->getContainer()->get('db'));
+		$user        = new GitHubUser(new TrackerProject($this->getContainer()->get('db')), $this->getContainer()->get('db'));
 
 		foreach ($userNames as $i => $userName)
 		{

@@ -30,7 +30,7 @@ class GithubException extends UnexpectedResponseException
 		$error = (string) $response->body;
 		$code  = $response->getStatusCode();
 
-		$message = isset($error->message) ? $error->message : 'Invalid response received from GitHub.';
+		$message = $error->message ?? 'Invalid response received from GitHub.';
 
 		parent::__construct($response, $message, $code);
 	}

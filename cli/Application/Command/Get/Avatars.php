@@ -45,7 +45,7 @@ class Avatars extends Get
 			$this->usePBar = false;
 		}
 
-		defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_ROOT . '/www');
+		\defined('JPATH_THEMES') || \define('JPATH_THEMES', JPATH_ROOT . '/www');
 
 		$this->getApplication()->outputTitle('Retrieve Avatars');
 
@@ -76,7 +76,7 @@ class Avatars extends Get
 				->order($db->quoteName('user'))
 		)->loadColumn();
 
-		if (!count($usernames))
+		if (!\count($usernames))
 		{
 			throw new \UnexpectedValueException('No users found in database.');
 		}
@@ -84,11 +84,11 @@ class Avatars extends Get
 		$this->logOut(
 			sprintf(
 				'Processing avatars for %d users.',
-				count($usernames)
+				\count($usernames)
 			)
 		);
 
-		$progressBar = $this->getProgressBar(count($usernames));
+		$progressBar = $this->getProgressBar(\count($usernames));
 
 		$this->usePBar ? $this->out() : null;
 
@@ -122,7 +122,7 @@ class Avatars extends Get
 			{
 				$loginHelper->saveAvatar($username);
 
-				++$adds;
+				$adds++;
 			}
 			catch (\DomainException $e)
 			{

@@ -16,7 +16,6 @@ use Joomla\Registry\Registry;
 use JTracker\Service\AuthenticationProvider;
 use JTracker\Service\CacheProvider;
 use JTracker\Service\DatabaseProvider;
-use JTracker\Service\DebuggerProvider;
 use JTracker\Service\DispatcherProvider;
 use JTracker\Service\GitHubProvider;
 use JTracker\Service\HttpProvider;
@@ -176,7 +175,7 @@ abstract class Kernel implements ContainerAwareInterface
 
 		$config = new Registry($configObject);
 
-		defined('JDEBUG') || define('JDEBUG', ($config->get('debug.system') || $config->get('debug.database')));
+		\defined('JDEBUG') || \define('JDEBUG', ($config->get('debug.system') || $config->get('debug.database')));
 
 		return $config;
 	}

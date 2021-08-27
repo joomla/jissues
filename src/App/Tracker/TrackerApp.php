@@ -81,7 +81,8 @@ class TrackerApp implements AppInterface
 		$container->alias(MilestoneExtension::class, 'twig.extension.issue')
 			->share(
 				'twig.extension.issue',
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new IssueExtension($container->get(Application::class));
 				},
 				true
@@ -91,7 +92,8 @@ class TrackerApp implements AppInterface
 		$container->alias(MilestoneExtension::class, 'twig.extension.milestone')
 			->share(
 				'twig.extension.milestone',
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new MilestoneExtension($container->get('db'));
 				},
 				true
@@ -101,7 +103,8 @@ class TrackerApp implements AppInterface
 		$container->alias(RelationExtension::class, 'twig.extension.relation')
 			->share(
 				'twig.extension.relation',
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new RelationExtension($container->get('db'));
 				},
 				true
@@ -111,7 +114,8 @@ class TrackerApp implements AppInterface
 		$container->alias(StatusExtension::class, 'twig.extension.status')
 			->share(
 				'twig.extension.status',
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new StatusExtension($container->get('db'));
 				},
 				true

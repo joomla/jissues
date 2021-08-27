@@ -51,7 +51,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 * @var    array
 	 * @since  1.0
 	 */
-	protected $name = null;
+	protected $name;
 
 	/**
 	 * A session object.
@@ -60,7 +60,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 * @since  1.0
 	 * @note   This has been created to avoid a conflict with the $session member var from the parent class.
 	 */
-	private $newSession = null;
+	private $newSession;
 
 	/**
 	 * Application router.
@@ -148,7 +148,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 		$controller = $this->getControllerResolver()->resolve($route);
 
-		if (is_array($controller) && is_object($controller[0]))
+		if (\is_array($controller) && \is_object($controller[0]))
 		{
 			/** @var TrackerControllerInterface|ControllerInterface $controllerInstance */
 			$controllerInstance = $controller[0];
@@ -173,14 +173,14 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		$this->mark('Controller initialized.');
 
 		// Execute the controller
-		$contents = call_user_func($controller);
+		$contents = \call_user_func($controller);
 		$this->mark('Controller executed');
 
 		$this->mark('Application executed OK');
 
 		$this->checkRememberMe();
 
-		if (!is_bool($contents))
+		if (!\is_bool($contents))
 		{
 			$this->setBody($contents);
 		}
@@ -237,7 +237,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			$registry = $this->newSession->get('registry');
 
-			if (is_null($registry))
+			if ($registry === null)
 			{
 				$this->newSession->set('registry', new Registry('session'));
 			}
@@ -262,7 +262,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			return new GitHubUser($this->getProject(), $this->getContainer()->get('db'), $id);
 		}
 
-		if (is_null($this->user))
+		if ($this->user === null)
 		{
 			$sessionUser = $this->getSession()->get('jissues_user');
 
@@ -294,7 +294,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 */
 	public function setUser(User $user = null)
 	{
-		if (is_null($user))
+		if ($user === null)
 		{
 			try
 			{
@@ -313,12 +313,12 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			$this->getSession()->set('jissues_user', $this->user);
 
-			// @todo cleanup more ?
+		// @todo cleanup more ?
 		}
 		elseif ($user instanceof User)
 		{
 			// Login
-			$user->isAdmin = in_array($user->username, $this->get('acl.admin_users'));
+			$user->isAdmin = \in_array($user->username, $this->get('acl.admin_users'));
 
 			$this->user = $user;
 
@@ -386,7 +386,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		/** @var Registry $registry */
 		$registry = $this->getSession()->get('registry');
 
-		if (!is_null($registry))
+		if ($registry !== null)
 		{
 			return $registry->get($key, $default);
 		}
@@ -439,12 +439,11 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		/** @var Registry $registry */
 		$registry = $this->getSession()->get('registry');
 
-		if (!is_null($registry))
+		if ($registry !== null)
 		{
 			return $registry->set($key, $value);
 		}
 
-		return null;
 	}
 
 	/**
@@ -459,7 +458,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 */
 	public function getProject($reload = false)
 	{
-		if (is_null($this->project) || $reload)
+		if ($this->project === null || $reload)
 		{
 			$alias = $this->getInput()->get('project_alias');
 
@@ -564,7 +563,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		else
 		{
 			// Forget me - delete the cookie
-			$value = '';
+			$value  = '';
 			$expire = time() - 3600;
 		}
 

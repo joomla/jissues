@@ -86,7 +86,7 @@ class Comments extends Project
 	 */
 	protected function fetchData()
 	{
-		if (!count($this->changedIssueNumbers))
+		if (!\count($this->changedIssueNumbers))
 		{
 			return $this;
 		}
@@ -94,12 +94,12 @@ class Comments extends Project
 		$this->out(
 			sprintf(
 				'Fetching comments for <b>%d</b> modified issues from GitHub...',
-				count($this->changedIssueNumbers)
+				\count($this->changedIssueNumbers)
 			),
 			false
 		);
 
-		$progressBar = $this->getProgressBar(count($this->changedIssueNumbers));
+		$progressBar = $this->getProgressBar(\count($this->changedIssueNumbers));
 
 		$this->usePBar ? $this->out() : null;
 
@@ -110,7 +110,7 @@ class Comments extends Project
 				: $this->out(
 					sprintf(
 						'#%d (%d/%d):',
-						$issueNumber, $count, count($this->changedIssueNumbers)
+						$issueNumber, $count, \count($this->changedIssueNumbers)
 					),
 					false
 				);
@@ -129,7 +129,7 @@ class Comments extends Project
 
 				$this->checkGitHubRateLimit($this->github->issues->comments->getRateLimitRemaining());
 
-				$count = is_array($comments) ? count($comments) : 0;
+				$count = \is_array($comments) ? \count($comments) : 0;
 
 				if ($count)
 				{
@@ -139,9 +139,7 @@ class Comments extends Project
 				$this->usePBar
 					? null
 					: $this->out($count . ' ', false);
-			}
-
-			while ($count);
+			} while ($count);
 		}
 
 		$this->out()
@@ -175,11 +173,11 @@ class Comments extends Project
 		$this->out(
 			sprintf(
 				'Processing comments for %d modified issues...',
-				count($this->items)
+				\count($this->items)
 			)
 		);
 
-		$adds = 0;
+		$adds    = 0;
 		$updates = 0;
 
 		$count = 1;
@@ -196,7 +194,7 @@ class Comments extends Project
 		// Start processing the comments now
 		foreach ($this->items as $issueNumber => $comments)
 		{
-			if (!count($comments))
+			if (!\count($comments))
 			{
 				$this
 					->out()
@@ -209,14 +207,14 @@ class Comments extends Project
 					->out(
 						sprintf(
 							'Processing %1$d comments for issue # %2$d (%3$d/%4$d)',
-							count($comments),
+							\count($comments),
 							$issueNumber,
 							$count,
-							count($this->items)
+							\count($this->items)
 						)
 					);
 
-				$progressBar = $this->getProgressBar(count($comments));
+				$progressBar = $this->getProgressBar(\count($comments));
 
 				$this->usePBar ? $this->out() : null;
 
@@ -290,11 +288,11 @@ class Comments extends Project
 
 					if ($check)
 					{
-						++ $updates;
+						 $updates++;
 					}
 					else
 					{
-						++ $adds;
+						 $adds++;
 					}
 
 					$this->usePBar
@@ -302,11 +300,11 @@ class Comments extends Project
 						: null;
 				}
 
-				++ $count;
+				 $count++;
 			}
 
 			// Compute the difference between GitHub comments and issue comments
-			$issueComments = $this->getIssueCommentsIds($issueNumber);
+			$issueComments    = $this->getIssueCommentsIds($issueNumber);
 			$commentsToDelete = array_diff($issueComments, $commentsIds);
 
 			$toDelete = array_merge($toDelete, $commentsToDelete);
@@ -320,7 +318,7 @@ class Comments extends Project
 
 		$this->out()
 			->outOK()
-			->logOut(sprintf('%1$d added, %2$d updated, %3$d deleted.', $adds, $updates, count($toDelete)));
+			->logOut(sprintf('%1$d added, %2$d updated, %3$d deleted.', $adds, $updates, \count($toDelete)));
 
 		return $this;
 	}

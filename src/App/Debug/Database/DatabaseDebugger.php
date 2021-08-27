@@ -85,7 +85,7 @@ class DatabaseDebugger
 		// Run an EXPLAIN EXTENDED query on the SQL query if possible:
 		$explain = '';
 
-		if (in_array($db->getName(), ['mysqli', 'mysql', 'postgresql']))
+		if (\in_array($db->getName(), ['mysqli', 'mysql', 'postgresql']))
 		{
 			$dbVersion56 = (strncmp($db->getName(), 'mysql', 5) == 0) && version_compare($db->getVersion(), '5.6', '>=');
 
@@ -126,7 +126,7 @@ class DatabaseDebugger
 		// Run a SHOW PROFILE query:
 		$profile = '';
 
-		if (false === in_array($db->getName(), ['mysqli', 'mysql']))
+		if (\in_array($db->getName(), ['mysqli', 'mysql']) === false)
 		{
 			return sprintf('%s database is not supported yet.', $db->getName());
 		}
@@ -152,7 +152,7 @@ class DatabaseDebugger
 			}
 		}
 
-		if (in_array($db->getName(), ['mysqli', 'mysql', 'postgresql']))
+		if (\in_array($db->getName(), ['mysqli', 'mysql', 'postgresql']))
 		{
 			$log = $db->getLog();
 

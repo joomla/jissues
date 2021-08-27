@@ -45,7 +45,8 @@ class DispatcherProvider implements ServiceProviderInterface
 			->alias(Dispatcher::class, DispatcherInterface::class)
 			->share(
 				DispatcherInterface::class,
-				function (Container $container) {
+				function (Container $container)
+				{
 					$dispatcher = new Dispatcher;
 
 					foreach ($container->getTagged('event.subscriber') as $subscriber)
@@ -72,7 +73,8 @@ class DispatcherProvider implements ServiceProviderInterface
 		$container->alias(ErrorSubscriber::class, 'event.subscriber.error')
 			->share(
 				'event.subscriber.error',
-				function (Container $container) {
+				function (Container $container)
+				{
 					/** @var Registry $config */
 					$config = $container->get('config');
 
@@ -103,7 +105,8 @@ class DispatcherProvider implements ServiceProviderInterface
 		$container->alias(AddDebugOutputToResponseListener::class, 'event.listener.add_debug_output_to_response')
 			->share(
 				'event.listener.add_debug_output_to_response',
-				function (Container $container) {
+				function (Container $container)
+				{
 					return new AddDebugOutputToResponseListener($container->get(TrackerDebugger::class));
 				},
 				true

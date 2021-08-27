@@ -56,7 +56,7 @@ class Modify extends AbstractAjaxController
 		// Get a valid hook object
 		$hook = $this->getHook($hookId);
 
-		if ('delete' == $action)
+		if ($action == 'delete')
 		{
 			// Delete the hook
 			$this->github->repositories->hooks->delete($project->gh_user, $project->gh_project, $hookId);
@@ -90,14 +90,17 @@ class Modify extends AbstractAjaxController
 		{
 			case 'activate' :
 				$hook->active = true;
+
 				break;
 
 			case 'deactivate' :
 				$hook->active = false;
+
 				break;
 
 			default :
 				throw new \RuntimeException('Invalid action');
+
 				break;
 		}
 

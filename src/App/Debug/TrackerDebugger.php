@@ -19,8 +19,8 @@ use Joomla\Profiler\Profiler;
 use JTracker\Application;
 
 use Monolog\Handler\NullHandler;
-use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Monolog\Processor\WebProcessor;
 
 use Psr\Log\LoggerAwareInterface;
@@ -183,7 +183,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 	{
 		// $db = $this->getContainer()->get('db');
 
-		if (false === isset($record['context']))
+		if (isset($record['context']) === false)
 		{
 			return $record;
 		}
@@ -192,9 +192,9 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 
 		$entry = new \stdClass;
 
-		$entry->sql   = isset($context['sql']) ? $context['sql'] : 'n/a';
-		$entry->times = isset($context['times']) ? $context['times'] : 'n/a';
-		$entry->trace = isset($context['trace']) ? $context['trace'] : 'n/a';
+		$entry->sql   = $context['sql'] ?? 'n/a';
+		$entry->times = $context['times'] ?? 'n/a';
+		$entry->trace = $context['trace'] ?? 'n/a';
 
 		if ($entry->sql == 'SHOW PROFILE')
 		{
@@ -212,7 +212,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 					$profile = '';
 		*/
 
-		$entry->profile = isset($context['profile']) ? $context['profile'] : 'n/a';
+		$entry->profile = $context['profile'] ?? 'n/a';
 
 		$this->log['db'][] = $entry;
 
@@ -233,7 +233,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 	{
 		if ($category)
 		{
-			if (false === array_key_exists($category, $this->log))
+			if (\array_key_exists($category, $this->log) === false)
 			{
 				throw new \UnexpectedValueException(__METHOD__ . ' unknown category: ' . $category);
 			}
@@ -256,7 +256,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 		$points = $this->profiler->getPoints();
 
 		$pointStart = $points[0]->getName();
-		$pointEnd   = $points[count($points) - 1]->getName();
+		$pointEnd   = $points[\count($points) - 1]->getName();
 
 		$profile = new \stdClass;
 
@@ -289,7 +289,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 	 */
 	public function getLogPath($type)
 	{
-		if ('root' == $type)
+		if ($type == 'root')
 		{
 			$logPath = $this->application->get('debug.log-path');
 
@@ -306,7 +306,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 			return JPATH_ROOT . '/logs';
 		}
 
-		if ('php' == $type)
+		if ($type == 'php')
 		{
 			return ini_get('error_log');
 		}
@@ -315,12 +315,12 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 
 		$logPath = $this->application->get('debug.' . $type . '-log');
 
-		if (!realpath(dirname($logPath)))
+		if (!realpath(\dirname($logPath)))
 		{
 			$logPath = JPATH_ROOT . '/' . $logPath;
 		}
 
-		if (realpath(dirname($logPath)))
+		if (realpath(\dirname($logPath)))
 		{
 			return realpath($logPath);
 		}

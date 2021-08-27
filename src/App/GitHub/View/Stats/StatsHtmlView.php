@@ -31,7 +31,7 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 	 * @var    object
 	 * @since  1.0
 	 */
-	protected $contributors = null;
+	protected $contributors;
 
 	/**
 	 * Method to render the view.
@@ -58,7 +58,7 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function getContributors()
 	{
-		if (is_null($this->contributors))
+		if ($this->contributors === null)
 		{
 			throw new \UnexpectedValueException('Contributor data not set.');
 		}

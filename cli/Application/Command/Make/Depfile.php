@@ -26,7 +26,7 @@ class Depfile extends Make
 	 * @var    object
 	 * @since  1.0
 	 */
-	public $product = null;
+	public $product;
 
 	/**
 	 * Dependencies.
@@ -83,10 +83,10 @@ class Depfile extends Make
 			$package = new \stdClass;
 
 			$package->name        = $entry->name;
-			$package->description = isset($entry->description) ? $entry->description : '';
+			$package->description = $entry->description ?? '';
 			$package->version     = $entry->version;
 			$package->sourceURL   = $entry->source->url;
-			$package->sourceRef   = isset($entry->source->reference) ? $entry->source->reference : '';
+			$package->sourceRef   = $entry->source->reference ?? '';
 
 			$packages['composer'][$entry->name] = $package;
 		}
@@ -156,9 +156,9 @@ class Depfile extends Make
 
 			foreach ($defined['composer']->$sub as $packageName => $version)
 			{
-				if ('php' == $packageName)
+				if ($packageName == 'php')
 				{
-					$o = new \stdClass;
+					$o          = new \stdClass;
 					$o->version = $version;
 
 					$sorted['php-version'] = $o;
@@ -181,7 +181,7 @@ class Depfile extends Make
 					$item->installed   = $packages['composer'][$packageName]->version;
 					$item->sourceURL   = $packages['composer'][$packageName]->sourceURL;
 
-					if ('dev-master' == $packages['composer'][$packageName]->version)
+					if ($packages['composer'][$packageName]->version == 'dev-master')
 					{
 						$item->sourceRef = $packages['composer'][$packageName]->sourceRef;
 					}

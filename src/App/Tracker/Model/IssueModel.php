@@ -104,7 +104,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		$activityData = $this->db->setQuery($query)->loadObjectList();
 
-		$commits = json_decode($item->commits) ? : [];
+		$commits    = json_decode($item->commits) ? : [];
 		$activities = [];
 
 		// Store the last commit to fetch the test results later
@@ -123,10 +123,10 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 					$a = new \stdClass;
 
-					$a->event = 'commit';
-					$a->user = $commit->author_name;
-					$a->text = $m[0];
-					$a->created_date = $commit->committer_date;
+					$a->event         = 'commit';
+					$a->user          = $commit->author_name;
+					$a->text          = $m[0];
+					$a->created_date  = $commit->committer_date;
 					$a->activities_id = $commit->sha;
 
 					$activities[] = $a;
@@ -160,7 +160,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 			foreach ($item->relations_f as $relation)
 			{
-				if (false === isset($arr[$relation->rel_name]))
+				if (isset($arr[$relation->rel_name]) === false)
 				{
 					$arr[$relation->rel_name] = [];
 				}
@@ -536,7 +536,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			$data['closed_by']   = null;
 		}
 
-		if (isset($src['labels']) && is_array($src['labels']))
+		if (isset($src['labels']) && \is_array($src['labels']))
 		{
 			$data['labels'] = null;
 
@@ -770,7 +770,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->where($this->db->quoteName('id') . ' = ' . (int) $id)
 		)->loadResult();
 	}
-	
+
 	/**
 	 * Get an issue number by its ID and updates it to be ready for review.
 	 *

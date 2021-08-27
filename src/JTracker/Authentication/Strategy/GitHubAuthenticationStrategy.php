@@ -8,8 +8,8 @@
 
 namespace JTracker\Authentication\Strategy;
 
-use Joomla\Authentication\AuthenticationStrategyInterface;
 use Joomla\Authentication\Authentication;
+use Joomla\Authentication\AuthenticationStrategyInterface;
 use Joomla\Input\Input;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 

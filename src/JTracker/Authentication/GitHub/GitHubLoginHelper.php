@@ -112,8 +112,7 @@ class GitHubLoginHelper
 		string $clientId,
 		string $clientSecret,
 		string $authScope
-	)
-	{
+	) {
 		$this->application  = $application;
 		$this->db           = $db;
 		$this->github       = $github;
@@ -162,7 +161,7 @@ class GitHubLoginHelper
 		$data = [
 			'client_id'     => $this->clientId,
 			'client_secret' => $this->clientSecret,
-			'code'          => $code
+			'code'          => $code,
 		];
 
 		$response = $this->http->post(
@@ -223,7 +222,7 @@ class GitHubLoginHelper
 				return 1;
 			}
 
-			if (false === unlink($path))
+			if (unlink($path) === false)
 			{
 				throw new \DomainException('Can not remove: ' . $path);
 			}
@@ -238,7 +237,7 @@ class GitHubLoginHelper
 
 		$result = file_put_contents($path, $response->body);
 
-		if (false === $result)
+		if ($result === false)
 		{
 			throw new \RuntimeException(sprintf('Can not write the avatar image to file %s', $path));
 		}
@@ -259,7 +258,7 @@ class GitHubLoginHelper
 	{
 		static $avatars = [];
 
-		if (array_key_exists($user->username, $avatars))
+		if (\array_key_exists($user->username, $avatars))
 		{
 			return $avatars[$user->username];
 		}
@@ -285,7 +284,7 @@ class GitHubLoginHelper
 
 		if (file_exists($path))
 		{
-			if (false === unlink($path))
+			if (unlink($path) === false)
 			{
 				throw new \DomainException('Can not remove: ' . $path);
 			}

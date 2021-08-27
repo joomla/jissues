@@ -55,14 +55,14 @@ class Repoinfo extends Make
 		$branch = $this->execCommand('cd ' . JPATH_ROOT . ' && git rev-parse --abbrev-ref HEAD 2>&1');
 		$sha    = trim($this->execCommand('cd ' . JPATH_ROOT . ' && git rev-parse --short HEAD 2>&1'));
 
-		if (false === file_put_contents($path, $info . ' ' . $branch))
+		if (file_put_contents($path, $info . ' ' . $branch) === false)
 		{
 			$this->logOut(sprintf('Can not write to path: %s', str_replace(JPATH_ROOT, 'J_ROOT', $path)));
 
 			throw new \DomainException('Can not write to path: ' . $path);
 		}
 
-		if (false === file_put_contents($shaPath, $sha))
+		if (file_put_contents($shaPath, $sha) === false)
 		{
 			$this->logOut(sprintf('Can not write to path: %s', str_replace(JPATH_ROOT, 'J_ROOT', $shaPath)));
 

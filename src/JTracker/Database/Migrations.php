@@ -79,7 +79,7 @@ class Migrations
 		sort($knownMigrations);
 
 		// Validate all migrations are applied; the count and latest versions should match
-		if (count($appliedMigrations) === count($knownMigrations))
+		if (\count($appliedMigrations) === \count($knownMigrations))
 		{
 			$appliedValues = array_values($appliedMigrations);
 			$knownValues   = array_values($knownMigrations);
@@ -97,7 +97,7 @@ class Migrations
 		}
 
 		// The system is not on the latest version, get the relevant data
-		$countMissing   = count($knownMigrations) - count($appliedMigrations);
+		$countMissing   = \count($knownMigrations) - \count($appliedMigrations);
 		$currentVersion = array_pop($appliedMigrations);
 		$latestVersion  = array_pop($knownMigrations);
 
@@ -133,7 +133,7 @@ class Migrations
 		if ($version !== null)
 		{
 			// If it's already applied, there's nothing to do here
-			if (in_array($version, $appliedMigrations))
+			if (\in_array($version, $appliedMigrations))
 			{
 				return;
 			}
