@@ -35,7 +35,7 @@ define('JTRACKER_START_MEMORY', memory_get_usage());
 	{
 		(new \JTracker\Kernel\WebKernel)->run();
 	}
-	catch (\Exception $e)
+	catch (\Throwable $e)
 	{
 		error_log($e);
 
