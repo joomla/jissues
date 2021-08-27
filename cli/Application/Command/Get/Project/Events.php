@@ -313,7 +313,7 @@ class Events extends Project
 				}
 			}
 
-			 $count++;
+			$count++;
 
 			$this->usePBar
 				? $progressBar->update($count)

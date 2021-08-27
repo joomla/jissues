@@ -104,7 +104,7 @@ class Milestones extends Project
 
 				$table->store(true);
 
-				 $cntUpdated++;
+				$cntUpdated++;
 			}
 			catch (\RuntimeException $e)
 			{
@@ -118,7 +118,7 @@ class Milestones extends Project
 
 				$table->store(true);
 
-				 $cntNew++;
+				$cntNew++;
 			}
 
 			$titles[] = $milestone->title;

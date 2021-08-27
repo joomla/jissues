@@ -53,6 +53,5 @@ class Show extends AbstractAjaxController
 		{
 			$this->response->data = $data;
 		}
-
 	}
 }

@@ -159,6 +159,5 @@ class JoomlacmsIssuesListener extends AbstractListener implements SubscriberInte
 		{
 			$this->removeLabels($hookData, $github, $logger, $project, $removeLabels);
 		}
-
 	}
 }

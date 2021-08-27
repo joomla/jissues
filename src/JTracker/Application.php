@@ -443,7 +443,6 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		{
 			return $registry->set($key, $value);
 		}
-
 	}
 
 	/**

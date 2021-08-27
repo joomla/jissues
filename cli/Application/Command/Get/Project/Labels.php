@@ -96,7 +96,7 @@ class Labels extends Project
 
 					$table->store();
 
-					 $cntUpdated++;
+					$cntUpdated++;
 				}
 			}
 			catch (\RuntimeException $e)
@@ -108,7 +108,7 @@ class Labels extends Project
 
 				$table->store();
 
-				 $cntNew++;
+				$cntNew++;
 			}
 
 			$names[] = $db->quote($label->name);

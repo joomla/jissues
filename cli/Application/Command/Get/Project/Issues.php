@@ -452,11 +452,11 @@ class Issues extends Project
 			// Store was successful, update status
 			if ($id)
 			{
-				 $updated++;
+				$updated++;
 			}
 			else
 			{
-				 $added++;
+				$added++;
 			}
 
 			$this->changedIssueNumbers[] = $ghIssue->number;

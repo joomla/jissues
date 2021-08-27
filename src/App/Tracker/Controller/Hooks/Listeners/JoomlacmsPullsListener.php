@@ -566,7 +566,6 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 		{
 			$this->removeLabels($hookData, $github, $logger, $project, $removeLabels);
 		}
-
 	}
 
 	/**

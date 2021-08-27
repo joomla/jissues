@@ -9,7 +9,7 @@ $mainFinder = PhpCsFixer\Finder::create()
 		]
 	);
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config)
 	->setRules(
 		[
 			// psr-1
@@ -26,7 +26,7 @@ return PhpCsFixer\Config::create()
 			'elseif'                                => true,
 			'function_declaration'                  => true,
 			'line_ending'                           => true,
-			'lowercase_constants'                   => true,
+			'constant_case'                         => true,
 			'lowercase_keywords'                    => true,
 			'method_argument_space'                 => true,
 			'no_spaces_after_function_name'         => true,
@@ -39,7 +39,7 @@ return PhpCsFixer\Config::create()
 			'switch_case_semicolon_to_colon'        => true,
 			'visibility_required'                   => true,
 			// symfony
-			'binary_operator_spaces'                => ['align_double_arrow' => true, 'align_equals' => true],
+			'binary_operator_spaces'                => ['operators' => ['=>' => 'align', '=' => 'align']],
 			'blank_line_before_statement'           => [
 				'statements' => [
 					'break', 'case', 'continue', 'declare', 'for', 'foreach', 'if', 'return', 'switch', 'throw', 'try',
@@ -52,7 +52,7 @@ return PhpCsFixer\Config::create()
 			'function_typehint_space'               => true,
 			'include'                               => true,
 			'increment_style'                       => ['style' => 'post'],
-			'is_null'                               => ['use_yoda_style' => false],
+			'is_null'                               => true,
 			'lowercase_static_reference'            => true,
 			'magic_constant_casing'                 => true,
 			'modernize_types_casting'               => true,
@@ -61,7 +61,7 @@ return PhpCsFixer\Config::create()
 			'no_blank_lines_after_class_opening'    => true,
 			'no_blank_lines_after_phpdoc'           => true,
 			'no_empty_statement'                    => true,
-			'no_extra_consecutive_blank_lines'      => true,
+			'no_extra_blank_lines'                  => true,
 			'no_trailing_comma_in_list_call'        => true,
 			'no_trailing_comma_in_singleline_array' => true,
 			'no_unneeded_control_parentheses'       => true,
@@ -74,7 +74,7 @@ return PhpCsFixer\Config::create()
 			'simplified_null_return'                => true,
 			'single_blank_line_before_namespace'    => true,
 			'single_quote'                          => true,
-			'trailing_comma_in_multiline_array'     => true,
+			'trailing_comma_in_multiline'           => true,
 			'whitespace_after_comma_in_array'       => true,
 			'yoda_style'                            => ['equal' => false, 'identical' => false],
 			// misc

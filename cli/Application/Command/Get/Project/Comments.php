@@ -288,11 +288,11 @@ class Comments extends Project
 
 					if ($check)
 					{
-						 $updates++;
+						$updates++;
 					}
 					else
 					{
-						 $adds++;
+						$adds++;
 					}
 
 					$this->usePBar
@@ -300,7 +300,7 @@ class Comments extends Project
 						: null;
 				}
 
-				 $count++;
+				$count++;
 			}
 
 			// Compute the difference between GitHub comments and issue comments

@@ -213,7 +213,6 @@ abstract class AbstractListener implements ContainerAwareInterface
 		{
 			return $hookData->issue->number;
 		}
-
 	}
 
 	/**
