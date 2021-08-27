@@ -44,7 +44,7 @@
         "laminas/laminas-diactoros": "^2.3"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.19.0",
+        "friendsofphp/php-cs-fixer": "^3.0.2",
         "joomla/coding-standards": "dev-master",
         "phpunit/phpunit": "^8.5.5",
         "squizlabs/php_codesniffer": "^2.9.2",
