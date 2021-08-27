@@ -10,6 +10,7 @@ namespace JTracker\EventListener;
 
 use Joomla\Application\ApplicationEvents;
 use Joomla\Application\Event\ApplicationErrorEvent;
+use Joomla\Application\WebApplicationInterface;
 use Joomla\Event\SubscriberInterface;
 use Joomla\Renderer\RendererInterface;
 use Joomla\Router\Exception\MethodNotAllowedException;
@@ -18,8 +19,8 @@ use JTracker\Application;
 use JTracker\Authentication\Exception\AuthenticationException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
-use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Diactoros\Response\JsonResponse;
+use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\JsonResponse;
 
 /**
  * Error handling event subscriber
@@ -167,11 +168,15 @@ class ErrorSubscriber implements SubscriberInterface, LoggerAwareInterface
 		/** @var Application $app */
 		$app = $event->getApplication();
 
-		$app->allowCache(false);
+		// If we hit here in a CLI context things will fail. So just bail out.
+		if ($app instanceof WebApplicationInterface)
+		{
+			$app->allowCache(false);
+		}
 
 		switch (true)
 		{
-			case $app->input->getString('_format', 'html') === 'json' :
+			case $app->getInput()->getString('_format', 'html') === 'json' :
 			case $app->mimeType === 'application/json' :
 			case $app->getResponse() instanceof JsonResponse :
 				$data = [
