@@ -10,7 +10,10 @@ namespace App\Text\Model;
 
 use App\Text\Table\ArticlesTable;
 use Joomla\Database\DatabaseQuery;
-use Joomla\Model\AbstractDatabaseModel;
+use Joomla\Model\DatabaseModelInterface;
+use Joomla\Model\DatabaseModelTrait;
+use Joomla\Model\StatefulModelInterface;
+use Joomla\Model\StatefulModelTrait;
 use JTracker\Model\ListfulModelInterface;
 use JTracker\Pagination\TrackerPagination;
 
@@ -19,8 +22,10 @@ use JTracker\Pagination\TrackerPagination;
  *
  * @since  1.0
  */
-class ArticlesModel extends AbstractDatabaseModel implements ListfulModelInterface
+class ArticlesModel implements ListfulModelInterface, DatabaseModelInterface
 {
+	use StatefulModelTrait, DatabaseModelTrait;
+
 	/**
 	 * The pagination object.
 	 *

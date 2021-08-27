@@ -11,7 +11,10 @@ namespace JTracker\Model;
 use App\Projects\ProjectAwareTrait;
 
 use Joomla\Database\DatabaseDriver;
-use Joomla\Model\AbstractDatabaseModel;
+use Joomla\Model\DatabaseModelInterface;
+use Joomla\Model\DatabaseModelTrait;
+use Joomla\Model\StatefulModelInterface;
+use Joomla\Model\StatefulModelTrait;
 
 use JTracker\Database\AbstractDatabaseTable;
 
@@ -20,9 +23,9 @@ use JTracker\Database\AbstractDatabaseTable;
  *
  * @since  1.0
  */
-abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
+abstract class AbstractTrackerDatabaseModel implements DatabaseModelInterface, StatefulModelInterface
 {
-	use ProjectAwareTrait;
+	use ProjectAwareTrait, DatabaseModelTrait, StatefulModelTrait;
 
 	/**
 	 * The model (base) name
