@@ -9,6 +9,7 @@
 namespace App\Text\Model;
 
 use App\Text\Table\ArticlesTable;
+use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseQuery;
 use Joomla\Model\DatabaseModelInterface;
 use Joomla\Model\DatabaseModelTrait;
@@ -33,6 +34,18 @@ class ArticlesModel implements ListfulModelInterface, DatabaseModelInterface
 	 * @since  1.0
 	 */
 	private $pagination;
+
+	/**
+	 * Constructor
+	 *
+	 * @param   DatabaseDriver  $database  A database connector object.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct(DatabaseDriver $database)
+	{
+		$this->setDb($database);
+	}
 
 	/**
 	 * Set the pagination object.
