@@ -10,6 +10,7 @@ namespace App\Activity\Controller\Ajax;
 
 use App\Activity\Model\UseractivityModel;
 
+use Joomla\Registry\Registry;
 use JTracker\Controller\AbstractAjaxController;
 
 /**
@@ -38,8 +39,7 @@ class UserActivity extends AbstractAjaxController
 		$this->model = new UseractivityModel($this->getContainer()->get('db'));
 		$this->model->setProject($application->getProject());
 
-		$state = $this->model->getState();
-
+		$state         = new Registry;
 		$enteredPeriod = $application->input->getUint('period', 1);
 
 		$state->set('list.activity_type', $application->input->getUint('activity_type', 0));

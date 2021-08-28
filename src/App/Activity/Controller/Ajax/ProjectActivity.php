@@ -10,6 +10,7 @@ namespace App\Activity\Controller\Ajax;
 
 use App\Activity\Model\ProjectactivityModel;
 
+use Joomla\Registry\Registry;
 use JTracker\Application;
 use JTracker\Controller\AbstractAjaxController;
 
@@ -40,7 +41,7 @@ class ProjectActivity extends AbstractAjaxController
 		$this->model = new ProjectactivityModel($this->getContainer()->get('db'));
 		$this->model->setProject($application->getProject());
 
-		$state = $this->model->getState();
+		$state = new Registry;
 
 		$state->set('list.limit', 25);
 		$state->set('list.start', 0);
