@@ -60,6 +60,7 @@ abstract class AbstractTrackerDatabaseModel implements DatabaseModelInterface, S
 	 */
 	public function __construct(DatabaseDriver $database)
 	{
+		$this->setState(new Registry);
 		$this->setDb($database);
 
 		// Guess the option from the class name (Option)Model(View).
