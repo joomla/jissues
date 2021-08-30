@@ -15,6 +15,7 @@ use Joomla\Model\DatabaseModelInterface;
 use Joomla\Model\DatabaseModelTrait;
 use Joomla\Model\StatefulModelInterface;
 use Joomla\Model\StatefulModelTrait;
+use Joomla\Registry\Registry;
 
 use JTracker\Database\AbstractDatabaseTable;
 
