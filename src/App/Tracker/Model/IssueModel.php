@@ -15,6 +15,7 @@ use App\Tracker\Table\StatusTable;
 use Joomla\Date\Date;
 use Joomla\Filter\InputFilter;
 
+use Joomla\Registry\Registry;
 use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
@@ -442,7 +443,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			->save($src);
 
 		// Store the saved issue id for category.
-		$state = $this->getState();
+		$state = new Registry;
 		$state->set('issue_id', $table->id);
 		$this->setState($state);
 

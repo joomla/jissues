@@ -42,7 +42,7 @@ class Issues extends Package
 	 * @since   1.0
 	 * @throws  \DomainException
 	 */
-	public function create($user, $repo, $title, $body = null, $assignee = null, $milestone = null, array $labels = [], array $assignees = [])
+	public function create($user, $repo, $title, $body = null, $assignee = null, $milestone = null, array $labels = [])
 	{
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/issues';
@@ -61,7 +61,6 @@ class Issues extends Package
 				'milestone' => $milestone,
 				'labels'    => $labels,
 				'body'      => $body,
-				'assignees' => $assignees,
 			]
 		);
 
