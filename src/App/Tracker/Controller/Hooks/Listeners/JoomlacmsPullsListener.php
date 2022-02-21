@@ -164,15 +164,17 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 		],
 		self::CATEGORY_LANGUAGES => [
 			'^administrator/language',
+			'^api/language',
 			'^installation/language',
 			'^language',
 			'^media/system/js/fields/calendar-locales',
+			'^build/media_source/system/js/fields/calendar-locales',
+			'^build/media_source/vendor/tinymce/langs',
 			'^administrator/templates/atum/language',
 			'^administrator/templates/isis/language',
 			'^administrator/templates/hathor/language',
 			'^templates/protostar/language',
 			'^templates/beez3/language',
-			'^templates/aurora/language',
 		],
 		self::CATEGORY_PLUGINS => [
 			'^plugins/',
