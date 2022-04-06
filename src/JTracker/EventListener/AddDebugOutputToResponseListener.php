@@ -15,6 +15,8 @@ use Laminas\Diactoros\Response\HtmlResponse;
 
 /**
  * Event listener which adds the debug output to the response
+ *
+ * @since  1.0
  */
 final class AddDebugOutputToResponseListener
 {

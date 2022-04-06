@@ -12,6 +12,8 @@ use JTracker\Application;
 
 /**
  * Service class retrieving the flash messages from the message queue and resetting it
+ *
+ * @since  1.0
  */
 class FlashMessageRetriever
 {

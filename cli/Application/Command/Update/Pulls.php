@@ -160,7 +160,8 @@ class Pulls extends Update
 
 				$this->out('(' . $count . ')', false);
 			}
-		} while ($count);
+		}
+		while ($count);
 
 		$this->pulls = $pulls;
 

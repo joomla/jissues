@@ -138,7 +138,8 @@ class Events extends Project
 							? null
 							: $this->out($count . ' ', false);
 				}
-			} while ($count);
+			}
+			while ($count);
 		}
 
 		// Retrieved items, report status
