@@ -18,6 +18,7 @@ steps:
     depends_on: [ composer ]
     commands:
       - echo $(date)
+      - ./vendor/bin/phpcs --config-set installed_paths vendor/joomla/coding-standards
       - ./vendor/bin/phpcs --extensions=php -p --standard=ruleset.xml .
       - echo $(date)
 
@@ -78,6 +79,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 80362c91ad5cc3f74dc91df3c450a8d288578a00e0ea716e72d54234814697d9
+hmac: 572ca95cabf88ae2123e3146d12da59f7c0efb9e2a251a9b8f48745e73fae390
 
 ...
