@@ -46,10 +46,10 @@ ini_set('display_errors', 1);
 		$trace = $e->getTraceAsString();
 
 		echo "\n\n"
-            . 'ERROR: ' . $e->getMessage()
-            . "\n\n"
-            . 'Call stack:' . "\n"
-            . str_replace(JPATH_ROOT, 'JPATH_ROOT', $e->getTraceAsString());
+			. 'ERROR: ' . $e->getMessage()
+			. "\n\n"
+			. 'Call stack:' . "\n"
+			. str_replace(JPATH_ROOT, 'JPATH_ROOT', $e->getTraceAsString());
 
 		exit($e->getCode() ? : 255);
 	}

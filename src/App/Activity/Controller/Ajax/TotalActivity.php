@@ -128,7 +128,6 @@ class TotalActivity extends AbstractAjaxController
 		$data   = [];
 		$label1 = new \stdClass;
 		$label2 = new \stdClass;
-		/* $label3 = new \stdClass; */
 
 		$types         = array_keys($points);
 		$label1->label = sprintf('%1$s Points', $types[0]);
@@ -136,9 +135,8 @@ class TotalActivity extends AbstractAjaxController
 		if ($activityType === 0)
 		{
 			$label2->label = sprintf('%1$s Points', $types[1]);
-			/* $label3->label = sprintf('%1$s Points', $types[2]); */
-			$data          = [$points[$types[0]], $points[$types[1]]/*, $points[$types[2]]*/];
-			$labels        = [$label1, $label2/*, $label3*/];
+			$data          = [$points[$types[0]], $points[$types[1]]];
+			$labels        = [$label1, $label2];
 		}
 		else
 		{

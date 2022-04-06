@@ -46,7 +46,7 @@ class ConsoleKernel extends Kernel
 	/**
 	 * Build the service container
 	 *
-	 * @return  void
+	 * @return  Container
 	 *
 	 * @since   1.0
 	 */

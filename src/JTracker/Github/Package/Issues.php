@@ -35,7 +35,6 @@ class Issues extends Package
 	 * @param   string    $assignee   The login for the GitHub user that this issue should be assigned to.
 	 * @param   integer   $milestone  The milestone to associate this issue with.
 	 * @param   string[]  $labels     The labels to associate with this issue.
-	 * @param   string[]  $assignees  The logins for GitHub users to assign to this issue.
 	 *
 	 * @return  object
 	 *

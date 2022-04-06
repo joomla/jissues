@@ -17,17 +17,20 @@
     <exclude-pattern>*/www/*</exclude-pattern>
 
     <!-- Exclude 3rd party libraries. -->
-    <exclude-pattern>*/src/App/Tracker/DiffRenderer/Html/Inline.php</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
 
     <!-- Exclude non-PHP files -->
     <exclude-pattern>*/Gruntfile.js</exclude-pattern>
+
+    <!-- Exclude tracker.php because of strange error -->
+    <exclude-pattern>*/cli/tracker.php</exclude-pattern>
 
     <rule ref="Joomla">
         <exclude name="Joomla.NamingConventions.ValidVariableName.MemberNotCamelCaps"/>
         <exclude name="Joomla.NamingConventions.ValidVariableName.NotCamelCaps"/>
         <exclude name="Joomla.NamingConventions.ValidFunctionName.ScopeNotCamelCaps"/>
         <exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+        <exclude name="Generic.Files.LineEndings.InvalidEOLChar" />
     </rule>
 
     <rule ref="Joomla.Classes.InstantiateNewClasses">

@@ -14,6 +14,8 @@ use Twig\TwigFunction;
 
 /**
  * Twig extension integrating support for the application's flash message queue
+ *
+ * @since  1.0
  */
 class FlashExtension extends AbstractExtension
 {

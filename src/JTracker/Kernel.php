@@ -86,7 +86,7 @@ abstract class Kernel implements ContainerAwareInterface
 	/**
 	 * Build the service container
 	 *
-	 * @return  void
+	 * @return  Container
 	 *
 	 * @since   1.0
 	 */

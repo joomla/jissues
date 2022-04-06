@@ -14,6 +14,8 @@ use Twig\TwigFunction;
 
 /**
  * Twig extension integrating `joomla.org` template elements from the CDN
+ *
+ * @since  1.0
  */
 class CdnExtension extends AbstractExtension
 {

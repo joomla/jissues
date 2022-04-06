@@ -191,7 +191,7 @@ class ArticlesModel implements ListfulModelInterface, DatabaseModelInterface
 	/**
 	 * Find an article by its ID
 	 *
-	 * @param   integer  $alias  The item ID.
+	 * @param   integer  $id  The item ID.
 	 *
 	 * @return  ArticlesTable
 	 *

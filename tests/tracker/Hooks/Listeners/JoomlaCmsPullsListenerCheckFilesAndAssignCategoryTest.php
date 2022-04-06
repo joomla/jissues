@@ -141,7 +141,8 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends TestCase
 		$files = json_decode('[
 			{ "filename" : "installation/" },
 			{ "filename" : "test.js" }
-		]');
+		]'
+		);
 
 		$this->assertThat(
 			$this->object->testCheckFilesAndAssignCategory($files),

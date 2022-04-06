@@ -90,7 +90,6 @@ class SupportApp implements AppInterface
 				return new ViewCssIconsController(
 					$container->get(IconsModel::class),
 					$container->get('icons.list.view')
-
 				);
 			},
 			true
