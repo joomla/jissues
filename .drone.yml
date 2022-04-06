@@ -53,7 +53,7 @@ steps:
         from_secret: jissues_host
       username:
         from_secret: jissues_username
-      password:
+      passphrase:
         from_secret: jissues_password
       key:
         from_secret: jissues_key
@@ -78,6 +78,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 30a0fe4cae93a52a2fd75736147b5111e4ddaf6dde427732b384e00fc626ce50
+hmac: 80362c91ad5cc3f74dc91df3c450a8d288578a00e0ea716e72d54234814697d9
 
 ...
