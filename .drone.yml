@@ -1,0 +1,84 @@
+---
+kind: pipeline
+name: default
+
+clone:
+
+steps:
+  - name: composer
+    image: joomlaprojects/docker-images:php7.3
+    volumes:
+      - name: composer-cache
+        path: /tmp/composer-cache
+    commands:
+      - composer install --no-progress --no-suggest
+
+  - name: phpcs
+    image: joomlaprojects/docker-images:php7.2
+    depends_on: [ composer ]
+    commands:
+      - echo $(date)
+      - ./vendor/bin/phpcs --config-set installed_paths vendor/joomla/coding-standards
+      - ./vendor/bin/phpcs --extensions=php -p --standard=ruleset.xml .
+      - echo $(date)
+
+  - name: php72
+    depends_on: [ phpcs ]
+    image: joomlaprojects/docker-images:php7.2
+    commands:
+      - php -v
+      - ./vendor/bin/phpunit --configuration=phpunit.xml
+
+  - name: php73
+    depends_on: [ phpcs ]
+    image: joomlaprojects/docker-images:php7.3
+    commands:
+      - php -v
+      - ./vendor/bin/phpunit --configuration=phpunit.xml
+
+  - name: php74
+    depends_on: [ phpcs ]
+    image: joomlaprojects/docker-images:php7.4
+    commands:
+      - php -v
+      - ./vendor/bin/phpunit --configuration=phpunit.xml
+
+  - name: deployment
+    image: appleboy/drone-ssh
+    depends_on:
+      - php72
+      - php73
+      - php74
+    settings:
+      host:
+        from_secret: jissues_host
+      username:
+        from_secret: jissues_username
+      passphrase:
+        from_secret: jissues_password
+      key:
+        from_secret: jissues_key
+      port: 22
+      script:
+        - bin/jtracker update server --log=cron.log
+    when:
+      branch:
+        - master
+      status:
+        - success
+      event:
+        - push
+
+branches:
+  exclude: [ l10n_* ]
+
+volumes:
+  - name: composer-cache
+    host:
+      path: /tmp/composer-cache
+
+---
+kind: signature
+hmac: 572ca95cabf88ae2123e3146d12da59f7c0efb9e2a251a9b8f48745e73fae390
+
+...

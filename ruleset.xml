@@ -24,6 +24,7 @@
 
     <!-- Exclude tracker.php because of strange error -->
     <exclude-pattern>*/cli/tracker.php</exclude-pattern>
+    <exclude-pattern>*/src/App/Support/Model/IconsModel.php</exclude-pattern>
 
     <rule ref="Joomla">
         <exclude name="Joomla.NamingConventions.ValidVariableName.MemberNotCamelCaps"/>
