@@ -24,6 +24,8 @@ use Laminas\Diactoros\Response\JsonResponse;
 
 /**
  * Error handling event subscriber
+ *
+ * @since  1.0
  */
 class ErrorSubscriber implements SubscriberInterface, LoggerAwareInterface
 {

@@ -139,7 +139,8 @@ class Comments extends Project
 				$this->usePBar
 					? null
 					: $this->out($count . ' ', false);
-			} while ($count);
+			}
+			while ($count);
 		}
 
 		$this->out()

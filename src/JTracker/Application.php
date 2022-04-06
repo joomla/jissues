@@ -313,7 +313,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			$this->getSession()->set('jissues_user', $this->user);
 
-		// @todo cleanup more ?
+			// @todo cleanup more ?
 		}
 		elseif ($user instanceof User)
 		{

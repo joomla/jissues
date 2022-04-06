@@ -203,7 +203,8 @@ class Issues extends Project
 
 					$this->out('(' . $count . ')', false);
 				}
-			} while ($count);
+			}
+			while ($count);
 
 			$this->out();
 		}

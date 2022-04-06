@@ -15,6 +15,8 @@ use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * Service class rendering the `joomla.org` CDN template elements
+ *
+ * @since  1.0
  */
 class CdnRenderer
 {

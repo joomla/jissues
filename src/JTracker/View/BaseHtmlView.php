@@ -32,7 +32,8 @@ class BaseHtmlView extends HtmlView
 	/**
 	 * Method to instantiate the view.
 	 *
-	 * @param   RendererInterface  $renderer  The renderer object.
+	 * @param   StatefulModelInterface  $model     The model object.
+	 * @param   RendererInterface       $renderer  The renderer object.
 	 *
 	 * @since   2.0.0
 	 */
