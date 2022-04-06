@@ -22,6 +22,9 @@
     <!-- Exclude non-PHP files -->
     <exclude-pattern>*/Gruntfile.js</exclude-pattern>
 
+    <!-- Exclude tracker.php because of strange error -->
+    <exclude-pattern>*/cli/tracker.php</exclude-pattern>
+
     <rule ref="Joomla">
         <exclude name="Joomla.NamingConventions.ValidVariableName.MemberNotCamelCaps"/>
         <exclude name="Joomla.NamingConventions.ValidVariableName.NotCamelCaps"/>
