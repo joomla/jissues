@@ -11,7 +11,6 @@ steps:
       - name: composer-cache
         path: /tmp/composer-cache
     commands:
-      - composer validate --no-check-all --strict
       - composer install --no-progress --no-suggest
 
   - name: phpcs
@@ -77,6 +76,6 @@ volumes:
 
 ---
 kind: signature
-hmac: a6f3f2ed21261b612d052724e5f43a5dd55168f98cbaa48eeaa358816bb255df
+hmac: 30a0fe4cae93a52a2fd75736147b5111e4ddaf6dde427732b384e00fc626ce50
 
 ...
