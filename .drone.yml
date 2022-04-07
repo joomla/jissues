@@ -69,9 +69,6 @@ steps:
       event:
         - push
 
-branches:
-  exclude: [ l10n_* ]
-
 volumes:
   - name: composer-cache
     host:
@@ -79,6 +76,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 572ca95cabf88ae2123e3146d12da59f7c0efb9e2a251a9b8f48745e73fae390
+hmac: aa71a706c42ca9d5ad2548ffe23a7d0956685bf4ce7050f58b55be2d907a1c98
 
 ...
