@@ -1,4 +1,13 @@
-## Requirements [![Build Status](https://travis-ci.org/joomla/jissues.png?branch=master)](https://travis-ci.org/joomla/jissues) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/joomla/jissues/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/joomla/jissues/?branch=master)
+Joomla! Issue Tracker
+=====================
+
+Build Status
+---------------------
+| Drone-CI      |   
+| ------------- | 
+| [![Build Status](http://ci.joomla.org/api/badges/joomla/jissues/status.svg)](http://ci.joomla.org/joomla/jissues) |
+
+## Requirements
 
 The issue tracker application requires a server running:
 
