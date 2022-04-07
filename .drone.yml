@@ -54,10 +54,10 @@ steps:
         from_secret: jissues_host
       username:
         from_secret: jissues_username
-      passphrase:
-        from_secret: jissues_password
       key:
         from_secret: jissues_key
+      passphrase:
+        from_secret: jissues_password
       port: 22
       script:
         - bin/jtracker update server --log=cron.log
@@ -76,6 +76,6 @@ volumes:
 
 ---
 kind: signature
-hmac: aa71a706c42ca9d5ad2548ffe23a7d0956685bf4ce7050f58b55be2d907a1c98
+hmac: 26b40e4bd17b0a5bd5bf0963a6cb72681d804c64693b4bbf17fb206079283e39
 
 ...
