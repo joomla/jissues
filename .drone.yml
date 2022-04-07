@@ -5,75 +5,22 @@ name: default
 clone:
 
 steps:
-  - name: composer
+  - name: deploy-test
     image: joomlaprojects/docker-images:php7.3
-    volumes:
-      - name: composer-cache
-        path: /tmp/composer-cache
-    commands:
-      - composer install --no-progress --no-suggest
-
-  - name: phpcs
-    image: joomlaprojects/docker-images:php7.2
-    depends_on: [ composer ]
-    commands:
-      - echo $(date)
-      - ./vendor/bin/phpcs --config-set installed_paths vendor/joomla/coding-standards
-      - ./vendor/bin/phpcs --extensions=php -p --standard=ruleset.xml .
-      - echo $(date)
-
-  - name: php72
-    depends_on: [ phpcs ]
-    image: joomlaprojects/docker-images:php7.2
-    commands:
-      - php -v
-      - ./vendor/bin/phpunit --configuration=phpunit.xml
-
-  - name: php73
-    depends_on: [ phpcs ]
-    image: joomlaprojects/docker-images:php7.3
-    commands:
-      - php -v
-      - ./vendor/bin/phpunit --configuration=phpunit.xml
-
-  - name: php74
-    depends_on: [ phpcs ]
-    image: joomlaprojects/docker-images:php7.4
-    commands:
-      - php -v
-      - ./vendor/bin/phpunit --configuration=phpunit.xml
-
-  - name: deployment
-    image: appleboy/drone-ssh
-    depends_on:
-      - php72
-      - php73
-      - php74
-    settings:
-      host:
+    environment:
+      JHOST:
         from_secret: jissues_host
-      username:
+      JUSERNAME:
         from_secret: jissues_username
-      port: 22
-      key:
+      JKEY:
         from_secret: jissues_key
-      script:
-        - bin/jtracker update server --log=cron.log
-    when:
-      branch:
-        - master
-      status:
-        - success
-      event:
-        - push
-
-volumes:
-  - name: composer-cache
-    host:
-      path: /tmp/composer-cache
+    commands:
+      - TEMP=$(mktemp)
+      - echo "$JKEY" > $TEMP
+      - ssh -o 'StrictHostKeyChecking no' -i $TEMP $JUSERNAME@$JHOST 'bash -s' < "echo 1"
 
 ---
 kind: signature
-hmac: 2223e677a5b70785c18e9916f192eab09fe7dc0793f1bf1168756d6c76b0fe80
+hmac: 636745455223159c1565bc6e572a2e6cd625d75c783f783ce68222a81f468353
 
 ...
