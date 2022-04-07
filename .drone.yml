@@ -55,17 +55,18 @@ steps:
       username:
         from_secret: jissues_username
       port: 22
+      debug: true
       key:
         from_secret: jissues_key
       script:
         - bin/jtracker update server --log=cron.log
-    when:
-      branch:
-        - master
-      status:
-        - success
-      event:
-        - push
+#    when:
+#      branch:
+#        - master
+#      status:
+#        - success
+#      event:
+#        - push
 
 volumes:
   - name: composer-cache
@@ -74,6 +75,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 2223e677a5b70785c18e9916f192eab09fe7dc0793f1bf1168756d6c76b0fe80
+hmac: 855ceb4a08ce9a58508a0f4a51a263f400cebf3427f63fd7dacea4a93c266650
 
 ...
