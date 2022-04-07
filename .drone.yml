@@ -17,10 +17,10 @@ steps:
     commands:
       - TEMP=$(mktemp)
       - echo "$JKEY" > $TEMP
-      - ssh -o 'StrictHostKeyChecking no' -i $TEMP $JUSERNAME@$JHOST 'bash -s' < "echo 1"
+      - ssh -o 'StrictHostKeyChecking no' -i $TEMP $JUSERNAME@$JHOST 'bash -s'
 
 ---
 kind: signature
-hmac: 636745455223159c1565bc6e572a2e6cd625d75c783f783ce68222a81f468353
+hmac: d2434b64a8bdf72f0bec17b945ba6557d1a223fb2cb4c1a00ce98cbd83e6595d
 
 ...
