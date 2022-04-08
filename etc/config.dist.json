@@ -69,14 +69,7 @@
 			"image/png",
 			"image/jpeg",
 			"image/gif",
-			"text/plain",
-			"application/pdf",
-			"application/msword",
-			"application/vnd.ms-excel",
-			"application/vnd.ms-powerpoint",
-			"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-			"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-			"application/vnd.openxmlformats-officedocument.presentationml.presentation"
+			"text/plain"
 		],
 		"file_size" : "1M"
 	}
