@@ -7,6 +7,6 @@
   ],
   "versioning": "semver",
   "dependencyDashboard": true,
-  "lockFileMaintenance": { "enabled": true }.
+  "lockFileMaintenance": { "enabled": true },
   "composerIgnorePlatformReqs": null
 }
