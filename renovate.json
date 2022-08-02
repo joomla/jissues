@@ -8,5 +8,6 @@
   "versioning": "semver",
   "dependencyDashboard": true,
   "lockFileMaintenance": { "enabled": true },
-  "composerIgnorePlatformReqs": null
+  "composerIgnorePlatformReqs": null,
+  "rangeStrategy": "update-lockfile",
 }
