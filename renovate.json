@@ -9,5 +9,5 @@
   "dependencyDashboard": true,
   "lockFileMaintenance": { "enabled": true },
   "composerIgnorePlatformReqs": null,
-  "rangeStrategy": "update-lockfile",
+  "rangeStrategy": "update-lockfile"
 }
