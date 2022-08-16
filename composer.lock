@@ -442,27 +442,27 @@
         },
         {
             "name": "joomla/console",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/console.git",
-                "reference": "9db90c5b99e84a48cbaaf14c4c0d881b4d92480d"
+                "reference": "e575f65a74c2af7e7ed9647383d17d198194dfa4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/console/zipball/9db90c5b99e84a48cbaaf14c4c0d881b4d92480d",
-                "reference": "9db90c5b99e84a48cbaaf14c4c0d881b4d92480d",
+                "url": "https://api.github.com/repos/joomla-framework/console/zipball/e575f65a74c2af7e7ed9647383d17d198194dfa4",
+                "reference": "e575f65a74c2af7e7ed9647383d17d198194dfa4",
                 "shasum": ""
             },
             "require": {
                 "joomla/application": "^2.0",
                 "joomla/event": "^2.0",
                 "joomla/string": "^2.0",
-                "php": "^7.2.5",
+                "php": "^7.2.5|~8.0.0|~8.1.0",
                 "symfony/console": "^3.4|^4.4|^5.0"
             },
             "require-dev": {
-                "joomla/coding-standards": "^2.0@alpha",
+                "joomla/coding-standards": "^3.0@dev",
                 "joomla/test": "^2.0",
                 "phpunit/phpunit": "^8.5|^9.0",
                 "psr/container": "^1.0"
@@ -494,7 +494,7 @@
             ],
             "support": {
                 "issues": "https://github.com/joomla-framework/console/issues",
-                "source": "https://github.com/joomla-framework/console/tree/2.0.0"
+                "source": "https://github.com/joomla-framework/console/tree/2.0.1"
             },
             "funding": [
                 {
@@ -506,7 +506,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-08-10T20:31:15+00:00"
+            "time": "2022-08-15T15:13:17+00:00"
         },
         {
             "name": "joomla/controller",
@@ -692,20 +692,20 @@
         },
         {
             "name": "joomla/di",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/di.git",
-                "reference": "22ef18207e8945c8247aa2372bddbe76383bd0bc"
+                "reference": "908e104a4a0782668479f9ec15f2e1634bce063e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/di/zipball/22ef18207e8945c8247aa2372bddbe76383bd0bc",
-                "reference": "22ef18207e8945c8247aa2372bddbe76383bd0bc",
+                "url": "https://api.github.com/repos/joomla-framework/di/zipball/908e104a4a0782668479f9ec15f2e1634bce063e",
+                "reference": "908e104a4a0782668479f9ec15f2e1634bce063e",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.5|~8",
+                "php": "^7.2.5|~8.0.0|~8.1.0",
                 "psr/container": "^1.0",
                 "symfony/deprecation-contracts": "^2.1"
             },
@@ -744,7 +744,7 @@
             ],
             "support": {
                 "issues": "https://github.com/joomla-framework/di/issues",
-                "source": "https://github.com/joomla-framework/di/tree/2.0.0"
+                "source": "https://github.com/joomla-framework/di/tree/2.0.1"
             },
             "funding": [
                 {
@@ -756,24 +756,24 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-04-06T22:33:15+00:00"
+            "time": "2022-08-15T18:01:53+00:00"
         },
         {
             "name": "joomla/event",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/event.git",
-                "reference": "dc19eae9a6cbffb608d4719f4eeb986e785692bd"
+                "reference": "30e781b96fb0b5d325d21f7549a13db99a4c5d2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/event/zipball/dc19eae9a6cbffb608d4719f4eeb986e785692bd",
-                "reference": "dc19eae9a6cbffb608d4719f4eeb986e785692bd",
+                "url": "https://api.github.com/repos/joomla-framework/event/zipball/30e781b96fb0b5d325d21f7549a13db99a4c5d2b",
+                "reference": "30e781b96fb0b5d325d21f7549a13db99a4c5d2b",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.5",
+                "php": "^7.2.5|~8.0.0|~8.1.0",
                 "symfony/deprecation-contracts": "^2.1"
             },
             "require-dev": {
@@ -810,7 +810,7 @@
             ],
             "support": {
                 "issues": "https://github.com/joomla-framework/event/issues",
-                "source": "https://github.com/joomla-framework/event/tree/2.0.1"
+                "source": "https://github.com/joomla-framework/event/tree/2.0.2"
             },
             "funding": [
                 {
@@ -822,7 +822,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-12-10T11:50:27+00:00"
+            "time": "2022-08-15T15:02:54+00:00"
         },
         {
             "name": "joomla/filter",
@@ -1196,21 +1196,21 @@
         },
         {
             "name": "joomla/registry",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/registry.git",
-                "reference": "4fcfa060f1ec101ec8311770a1d1c166eba6e367"
+                "reference": "a3932a478dab2d7c38e65d91d185c6a86b32cc66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/registry/zipball/4fcfa060f1ec101ec8311770a1d1c166eba6e367",
-                "reference": "4fcfa060f1ec101ec8311770a1d1c166eba6e367",
+                "url": "https://api.github.com/repos/joomla-framework/registry/zipball/a3932a478dab2d7c38e65d91d185c6a86b32cc66",
+                "reference": "a3932a478dab2d7c38e65d91d185c6a86b32cc66",
                 "shasum": ""
             },
             "require": {
-                "joomla/utilities": "^1.4.1|^2.0",
-                "php": "^7.2.5"
+                "joomla/utilities": "^2.0",
+                "php": "^7.2.5|~8.0.0|~8.1.0"
             },
             "conflict": {
                 "symfony/yaml": "<3.4"
@@ -1221,6 +1221,8 @@
                 "symfony/yaml": "^3.4|^4.4|^5.0"
             },
             "suggest": {
+                "ext-json": "ext-json is needed for JSON support",
+                "ext-simplexml": "ext-simplexml is needed for XML support",
                 "symfony/yaml": "Install symfony/yaml if you require YAML support."
             },
             "type": "joomla-package",
@@ -1247,7 +1249,7 @@
             ],
             "support": {
                 "issues": "https://github.com/joomla-framework/registry/issues",
-                "source": "https://github.com/joomla-framework/registry/tree/2.0.1"
+                "source": "https://github.com/joomla-framework/registry/tree/2.0.2"
             },
             "funding": [
                 {
@@ -1259,7 +1261,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-12-10T11:52:55+00:00"
+            "time": "2022-08-15T13:44:22+00:00"
         },
         {
             "name": "joomla/renderer",
@@ -1344,27 +1346,27 @@
         },
         {
             "name": "joomla/router",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/router.git",
-                "reference": "8dfb320fde8ed2c914c6e52df1e7266e9b25379a"
+                "reference": "73b52fea0122546d7f2296f43af1e1f947ad274b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/router/zipball/8dfb320fde8ed2c914c6e52df1e7266e9b25379a",
-                "reference": "8dfb320fde8ed2c914c6e52df1e7266e9b25379a",
+                "url": "https://api.github.com/repos/joomla-framework/router/zipball/73b52fea0122546d7f2296f43af1e1f947ad274b",
+                "reference": "73b52fea0122546d7f2296f43af1e1f947ad274b",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.5|^8.0"
+                "php": "^7.2.5|~8.0.0|~8.1.0"
             },
             "conflict": {
                 "jeremeamia/superclosure": "<2.4"
             },
             "require-dev": {
                 "jeremeamia/superclosure": "^2.4",
-                "joomla/coding-standards": "^2.0@alpha",
+                "joomla/coding-standards": "^3.0@dev",
                 "joomla/console": "^2.0",
                 "phpunit/phpunit": "^8.5|^9.0"
             },
@@ -1396,7 +1398,7 @@
             ],
             "support": {
                 "issues": "https://github.com/joomla-framework/router/issues",
-                "source": "https://github.com/joomla-framework/router/tree/2.0.0"
+                "source": "https://github.com/joomla-framework/router/tree/2.0.1"
             },
             "funding": [
                 {
@@ -1408,33 +1410,33 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-08-16T20:04:57+00:00"
+            "time": "2022-08-15T21:21:11+00:00"
         },
         {
             "name": "joomla/string",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/string.git",
-                "reference": "778682c04a1909323da6a453a5b3030d7a7a2fa9"
+                "reference": "bcdb8d45ad3953bf3cfc2b9577288823cab381b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/string/zipball/778682c04a1909323da6a453a5b3030d7a7a2fa9",
-                "reference": "778682c04a1909323da6a453a5b3030d7a7a2fa9",
+                "url": "https://api.github.com/repos/joomla-framework/string/zipball/bcdb8d45ad3953bf3cfc2b9577288823cab381b9",
+                "reference": "bcdb8d45ad3953bf3cfc2b9577288823cab381b9",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.5",
+                "php": "^7.2.5|~8.0.0|~8.1.0",
                 "symfony/deprecation-contracts": "^2.1"
             },
             "conflict": {
                 "doctrine/inflector": "<1.2"
             },
             "require-dev": {
-                "doctrine/inflector": "1.2",
+                "doctrine/inflector": "^1.2",
                 "joomla/coding-standards": "^3.0@dev",
-                "joomla/test": "^2.0",
+                "joomla/test": "^2.0.1",
                 "phpunit/phpunit": "^8.5|^9.0"
             },
             "suggest": {
@@ -1482,7 +1484,7 @@
             ],
             "support": {
                 "issues": "https://github.com/joomla-framework/string/issues",
-                "source": "https://github.com/joomla-framework/string/tree/2.0.0"
+                "source": "https://github.com/joomla-framework/string/tree/2.0.1"
             },
             "funding": [
                 {
@@ -1494,7 +1496,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-08-10T18:57:12+00:00"
+            "time": "2022-08-15T12:47:17+00:00"
         },
         {
             "name": "joomla/uri",
@@ -1557,24 +1559,24 @@
         },
         {
             "name": "joomla/utilities",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/utilities.git",
-                "reference": "f5d4fcf778abbbf1c099814297c87ef177e8b268"
+                "reference": "ab1660fd22184700306b932c39410ba955dc82e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/utilities/zipball/f5d4fcf778abbbf1c099814297c87ef177e8b268",
-                "reference": "f5d4fcf778abbbf1c099814297c87ef177e8b268",
+                "url": "https://api.github.com/repos/joomla-framework/utilities/zipball/ab1660fd22184700306b932c39410ba955dc82e1",
+                "reference": "ab1660fd22184700306b932c39410ba955dc82e1",
                 "shasum": ""
             },
             "require": {
-                "joomla/string": "^1.3|^2.0",
-                "php": "^7.2.5|^8.0"
+                "joomla/string": "^2.0",
+                "php": "^7.2.5|~8.0.0|~8.1.0"
             },
             "require-dev": {
-                "joomla/coding-standards": "^2.0@alpha",
+                "joomla/coding-standards": "^3.0@dev",
                 "phpunit/phpunit": "^8.5|^9.0"
             },
             "type": "joomla-package",
@@ -1601,7 +1603,7 @@
             ],
             "support": {
                 "issues": "https://github.com/joomla-framework/utilities/issues",
-                "source": "https://github.com/joomla-framework/utilities/tree/2.0.0"
+                "source": "https://github.com/joomla-framework/utilities/tree/2.0.1"
             },
             "funding": [
                 {
@@ -1613,7 +1615,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-08-16T20:13:00+00:00"
+            "time": "2022-08-15T11:29:34+00:00"
         },
         {
             "name": "joomla/view",
@@ -3435,16 +3437,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.4.1",
+            "version": "v3.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "e939eae92386b69b49cfa4599dd9bead6bf4a342"
+                "reference": "e07cdd3d430cd7e453c31b36eb5ad6c0c5e43077"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/e939eae92386b69b49cfa4599dd9bead6bf4a342",
-                "reference": "e939eae92386b69b49cfa4599dd9bead6bf4a342",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/e07cdd3d430cd7e453c31b36eb5ad6c0c5e43077",
+                "reference": "e07cdd3d430cd7e453c31b36eb5ad6c0c5e43077",
                 "shasum": ""
             },
             "require": {
@@ -3495,7 +3497,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.4.1"
+                "source": "https://github.com/twigphp/Twig/tree/v3.4.2"
             },
             "funding": [
                 {
@@ -3507,7 +3509,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-17T05:48:52+00:00"
+            "time": "2022-08-12T06:47:24+00:00"
         }
     ],
     "packages-dev": [
