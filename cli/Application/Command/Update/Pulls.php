@@ -81,7 +81,7 @@ class Pulls extends Update
 		// Only process for joomla/joomla-cms
 		if ($this->project->gh_user == 'joomla' && $this->project->gh_project == 'joomla-cms')
 		{
-			$message = 'Thank you for your pull request. Joomla! 3 is in security only mode and does no longer accept pull requests please target your PR against Joomla! 4.';
+			$message = 'Thank you for your pull request. Joomla! 3 is in security only mode and no longer accepts pull requests. Please target your PR against Joomla! 4.';
 
 			foreach ($this->pulls as $pull)
 			{
