@@ -81,11 +81,11 @@ class Pulls extends Update
 		// Only process for joomla/joomla-cms
 		if ($this->project->gh_user == 'joomla' && $this->project->gh_project == 'joomla-cms')
 		{
-			$message = 'Joomla! 2.5 is no longer supported.  Pull requests for this branch are no longer accepted.';
+			$message = 'Thank you for your pull request. Joomla! 3 is in security only mode and does no longer accept pull requests please target your PR against Joomla! 4.';
 
 			foreach ($this->pulls as $pull)
 			{
-				if ($pull->base->ref == '2.5.x')
+				if ($pull->base->ref == '3.10-dev')
 				{
 					// We have to do this in two requests; first add our closing comment then close the item
 					$this->github->issues->comments->create(
@@ -98,7 +98,7 @@ class Pulls extends Update
 
 					$this->out(
 						sprintf(
-							'GitHub item %s/%s #%d has been closed because it is a pull targeting Joomla! 2.5.',
+							'GitHub item %s/%s #%d has been closed because it is a pull targeting Joomla! 3.10.',
 							$this->project->gh_user,
 							$this->project->gh_project,
 							$pull->number
