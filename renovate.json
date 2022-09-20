@@ -9,5 +9,9 @@
   "dependencyDashboard": true,
   "lockFileMaintenance": { "enabled": true },
   "composerIgnorePlatformReqs": ["ext-*", "lib-*"],
-  "rangeStrategy": "update-lockfile"
+  "rangeStrategy": "update-lockfile",
+  "constraints": {
+    "composer": "> 2.3",
+    "npm": "> 8.0"
+  }
 }
