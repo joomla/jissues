@@ -35,7 +35,7 @@
     "devDependencies": {
         "cross-env": "^6.0.3",
         "laravel-mix": "^6.0.43",
-        "resolve-url-loader": "^3.1.4",
+        "resolve-url-loader": "^5.0.0",
         "sass": "^1.50.0",
         "sass-loader": "^8.0.2",
         "vue-template-compiler": "^2.6.14"
