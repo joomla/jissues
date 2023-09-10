@@ -6,7 +6,7 @@
     "license": "GPL-2.0+",
     "version": "1.0.0-beta",
     "require": {
-        "php": ">=7.2,<7.4",
+        "php": ">=7.4,<8.0",
         "ext-curl": "*",
         "ext-intl": "*",
         "ext-json": "*",
@@ -71,7 +71,7 @@
     },
     "config": {
         "platform": {
-            "php": "7.2.30"
+            "php": "7.4.33"
         }
     }
 }
