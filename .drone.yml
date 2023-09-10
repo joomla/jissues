@@ -22,6 +22,15 @@ steps:
       - ./vendor/bin/phpcs --extensions=php -p --standard=ruleset.xml .
       - echo $(date)
 
+  - name: phpstan
+    image: joomlaprojects/docker-images:php7.4
+    failure: ignore
+    depends_on: [ composer ]
+    commands:
+      - echo $(date)
+      - ./vendor/bin/phpstan analyse src tests
+      - echo $(date)
+
   - name: php74
     depends_on: [ phpcs ]
     image: joomlaprojects/docker-images:php7.4
@@ -74,6 +83,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 06277bfebae11eb27ea66217e78e0f97880bbd429e8487a10708bb2643590809
+hmac: 1ce3deb585b9078c653724f454f2175cdae9b95730833fd106c59bac200c9d4b
 
 ...
