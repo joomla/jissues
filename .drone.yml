@@ -14,7 +14,7 @@ steps:
       - composer install --no-progress --no-suggest
 
   - name: phpcs
-    image: joomlaprojects/docker-images:php7.2
+    image: joomlaprojects/docker-images:php7.4
     depends_on: [ composer ]
     commands:
       - echo $(date)
@@ -74,6 +74,6 @@ volumes:
 
 ---
 kind: signature
-hmac: feb5f918a441c30e0b9554d463a000af68cd9c68d6adc55b34b61436264af7f8
+hmac: 75a45e3252d09b14176488e348037944d21e69fe672c91c7c57ec0e51efc63ef
 
 ...
