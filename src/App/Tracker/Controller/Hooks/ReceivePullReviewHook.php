@@ -19,6 +19,8 @@ use Joomla\Date\Date;
  * Controller class receive and inject pull request review webhook events from GitHub.
  *
  * @since  1.0
+ * @TODO:  In some cases the comment is sent by GitHub first as a edited event immediately followed
+ *         by a submitted event (leading the latter to have a 500 back to GitHub)
  */
 class ReceivePullReviewHook extends AbstractHookController
 {
@@ -61,7 +63,7 @@ class ReceivePullReviewHook extends AbstractHookController
 	/**
 	 * Prepare the response.
 	 *
-	 * @return  mixed
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
