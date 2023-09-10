@@ -27,7 +27,7 @@ class Inline extends ArrayRenderer
 	protected $defaultOptions = [
 		'show_header'       => true,
 		'show_line_numbers' => true,
-        'tabSize'           => 4,
+		'tabSize'           => 4,
 	];
 
 	/**
