@@ -22,20 +22,6 @@ steps:
       - ./vendor/bin/phpcs --extensions=php -p --standard=ruleset.xml .
       - echo $(date)
 
-  - name: php72
-    depends_on: [ phpcs ]
-    image: joomlaprojects/docker-images:php7.2
-    commands:
-      - php -v
-      - ./vendor/bin/phpunit --configuration=phpunit.xml
-
-  - name: php73
-    depends_on: [ phpcs ]
-    image: joomlaprojects/docker-images:php7.3
-    commands:
-      - php -v
-      - ./vendor/bin/phpunit --configuration=phpunit.xml
-
   - name: php74
     depends_on: [ phpcs ]
     image: joomlaprojects/docker-images:php7.4
@@ -43,11 +29,25 @@ steps:
       - php -v
       - ./vendor/bin/phpunit --configuration=phpunit.xml
 
+  - name: php80
+    depends_on: [ phpcs ]
+    failure: ignore
+    image: joomlaprojects/docker-images:php8.0
+    commands:
+      - php -v
+      - ./vendor/bin/phpunit --configuration=phpunit.xml
+
+  - name: php81
+    depends_on: [ phpcs ]
+    failure: ignore
+    image: joomlaprojects/docker-images:php8.1
+    commands:
+      - php -v
+      - ./vendor/bin/phpunit --configuration=phpunit.xml
+
   - name: deployment
     image: appleboy/drone-ssh
     depends_on:
-      - php72
-      - php73
       - php74
     settings:
       host:
@@ -74,6 +74,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 75a45e3252d09b14176488e348037944d21e69fe672c91c7c57ec0e51efc63ef
+hmac: 06277bfebae11eb27ea66217e78e0f97880bbd429e8487a10708bb2643590809
 
 ...
