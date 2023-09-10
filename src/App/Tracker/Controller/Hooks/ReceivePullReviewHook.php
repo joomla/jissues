@@ -20,7 +20,8 @@ use Joomla\Date\Date;
  *
  * @since  1.0
  * @TODO:  In some cases the comment is sent by GitHub first as a edited event immediately followed
- *         by a submitted event (leading the latter to have a 500 back to GitHub)
+ *         by a submitted event (leading the latter to have a 500 back to GitHub). This also gives
+ *         Undefined property: stdClass::$body on line 284 of this file
  */
 class ReceivePullReviewHook extends AbstractHookController
 {
