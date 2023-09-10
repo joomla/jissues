@@ -88,7 +88,7 @@ class ConsoleApplication extends Application implements ContainerAwareInterface
 		parent::__construct($input, $output, $config);
 
 		$this->usePBar = $this->get('cli-application.progress-bar');
-    }
+	}
 
 	/**
 	 * Configures the console input and output instances for the process.
@@ -98,21 +98,22 @@ class ConsoleApplication extends Application implements ContainerAwareInterface
 	 * @since   2.0.0
 	 */
 	protected function configureIO(): void
-    {
-        if ($this->getConsoleInput()->hasParameterOption(['--nocolors'], true)) {
-            trigger_deprecation('The --nocolors flag is deprecated in favour of the --ansii and --no-ansii flags');
-            $this->getConsoleOutput()->setDecorated(false);
-        }
+	{
+		if ($this->getConsoleInput()->hasParameterOption(['--nocolors'], true))
+		{
+			trigger_deprecation('The --nocolors flag is deprecated in favour of the --ansii and --no-ansii flags');
+			$this->getConsoleOutput()->setDecorated(false);
+		}
 
-        // TODO: This probably won't work as a parameter option?
-        if ($this->getConsoleInput()->hasParameterOption(['noprogress'], true))
-        {
-            $this->usePBar = false;
-        }
+		// TODO: This probably won't work as a parameter option?
+		if ($this->getConsoleInput()->hasParameterOption(['noprogress'], true))
+		{
+			$this->usePBar = false;
+		}
 
-        $composerCfg = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
-        $this->setName('Joomla! Tracker CLI Application ' . $composerCfg->version);
-    }
+		$composerCfg = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
+		$this->setName('Joomla! Tracker CLI Application ' . $composerCfg->version);
+	}
 
 	/**
 	 * Builds the default input definition.
@@ -130,6 +131,7 @@ class ConsoleApplication extends Application implements ContainerAwareInterface
 		$definition->addOption(
 			new InputOption('--log', '', InputOption::VALUE_NONE, 'Optionally log output to the specified log file')
 		);
+
 		return $definition;
 	}
 
@@ -144,6 +146,7 @@ class ConsoleApplication extends Application implements ContainerAwareInterface
 	protected function doExecute(): int
 	{
 		return parent::doExecute();
+
 		$this->quiet   = $this->input->get('quiet', $this->input->get('q'));
 		$this->verbose = $this->input->get('verbose', $this->input->get('v'));
 
@@ -216,7 +219,8 @@ class ConsoleApplication extends Application implements ContainerAwareInterface
 				)
 			)
 			->out(str_repeat('_', 40));
-        return 0;
+
+		return 0;
 	}
 
 	/**

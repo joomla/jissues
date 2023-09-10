@@ -14,8 +14,6 @@ use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Event\DispatcherInterface;
 
-use JTracker\Input\Cli;
-
 /**
  * Console application service provider
  *
@@ -35,12 +33,12 @@ class ConsoleApplicationProvider implements ServiceProviderInterface
 	public function register(Container $container)
 	{
 		$container->share(
-            ConsoleApplication::class,
+			ConsoleApplication::class,
 			function (Container $container)
 			{
 				$application = new ConsoleApplication(
 					null,
-                    null,
+					null,
 					$container->get('config'),
 				);
 
@@ -52,5 +50,5 @@ class ConsoleApplicationProvider implements ServiceProviderInterface
 			},
 			true
 		);
-    }
+	}
 }
