@@ -206,7 +206,7 @@ class IssueExtension extends AbstractExtension
 	 */
 	public function getUserTestOptions($id = null)
 	{
-		return ($id !== null && \array_key_exists($id, self::USER_TEST_OPTIONS)) ? self::USER_TEST_OPTIONS[$id] : $options;
+		return ($id !== null && \array_key_exists($id, self::USER_TEST_OPTIONS)) ? self::USER_TEST_OPTIONS[$id] : self::USER_TEST_OPTIONS;
 	}
 
 	/**
