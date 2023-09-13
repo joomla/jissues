@@ -12,6 +12,7 @@ use App\Projects\TrackerProject;
 
 use Application\Exception\AbortException;
 
+use Joomla\Console\Command\AbstractCommand;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
 
@@ -26,7 +27,7 @@ use Psr\Log\LoggerAwareTrait;
  *
  * @since  1.0
  */
-abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInterface
+abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInterface, ContainerAwareInterface
 {
 	use LoggerAwareTrait;
 	use ContainerAwareTrait;
@@ -38,14 +39,6 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	 * @since  1.0
 	 */
 	protected $options = [];
-
-	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = '';
 
 	/**
 	 * Use the progress bar.
@@ -64,27 +57,6 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	protected $project;
 
 	/**
-	 * Execute the command.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	abstract public function execute();
-
-	/**
-	 * Get a description text.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function getDescription()
-	{
-		return $this->description;
-	}
-
-	/**
 	 * Add a command option.
 	 *
 	 * @param   TrackerCommandOption  $option  The command option.
@@ -93,30 +65,30 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	 *
 	 * @since   1.0
 	 */
-	protected function addOption(TrackerCommandOption $option)
-	{
-		// Check if the option has been defined already.
-		foreach ($this->options as $hasOption)
-		{
-			if ($hasOption->longArg == $option->longArg)
-			{
-				throw new \UnexpectedValueException(
-					sprintf('The command "%s" already has an option "%s"', \get_class($this), $option->longArg)
-				);
-			}
-
-			if ($hasOption->shortArg && $hasOption->shortArg == $option->shortArg)
-			{
-				throw new \UnexpectedValueException(
-					sprintf('The command "%s" already has an option "%s"', \get_class($this), $option->shortArg)
-				);
-			}
-		}
-
-		$this->options[] = $option;
-
-		return $this;
-	}
+//	protected function addOption(TrackerCommandOption $option)
+//	{
+//		// Check if the option has been defined already.
+//		foreach ($this->options as $hasOption)
+//		{
+//			if ($hasOption->longArg == $option->longArg)
+//			{
+//				throw new \UnexpectedValueException(
+//					sprintf('The command "%s" already has an option "%s"', \get_class($this), $option->longArg)
+//				);
+//			}
+//
+//			if ($hasOption->shortArg && $hasOption->shortArg == $option->shortArg)
+//			{
+//				throw new \UnexpectedValueException(
+//					sprintf('The command "%s" already has an option "%s"', \get_class($this), $option->shortArg)
+//				);
+//			}
+//		}
+//
+//		$this->options[] = $option;
+//
+//		return $this;
+//	}
 
 	/**
 	 * Get the current value of a command option.
@@ -266,18 +238,6 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 		$this->out('<error>  ' . str_repeat(' ', $maxLen) . '  </error>');
 
 		return $this;
-	}
-
-	/**
-	 * Get the application object.
-	 *
-	 * @return  \Application\Application
-	 *
-	 * @since   1.0
-	 */
-	protected function getApplication()
-	{
-		return $this->getContainer()->get('app');
 	}
 
 	/**

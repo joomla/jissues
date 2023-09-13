@@ -8,35 +8,42 @@
 
 namespace Application\Command\Clear;
 
+use Application\Command\TrackerCommand;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
+
 /**
  * Class for clearing all cache stores.
  *
  * @since  1.0
  */
-class Allcache extends Clear
+class Allcache extends TrackerCommand
 {
-	/**
-	 * Constructor.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct()
-	{
-		parent::__construct();
+    /**
+     * Configure the command.
+     *
+     * @return  void
+     *
+     * @since   2.0.0
+     */
+    protected function configure(): void
+    {
+        $this->setName('clear:allcache');
+        $this->setDescription('Clear all cache stores.');
+    }
 
-		$this->description = 'Clear all cache stores.';
-	}
-
-	/**
+    /**
 	 * Execute the command.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+    protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Clearing All Cache Stores');
+        $ioStyle = new SymfonyStyle($input, $output);
+        $ioStyle->title('Clearing All Cache Stores');
 
 		(new Cache)
 			->setContainer($this->getContainer())
@@ -46,7 +53,7 @@ class Allcache extends Clear
 			->setContainer($this->getContainer())
 			->execute();
 
-		$this->out()
-			->out('<ok>All cache stores have been cleared.</ok>');
+        $ioStyle->text('');
+        $ioStyle->success('All cache stores have been cleared.');
 	}
 }

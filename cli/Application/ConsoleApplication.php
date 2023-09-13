@@ -18,6 +18,7 @@ use Application\Exception\AbortException;
 use Elkuku\Console\Helper\ConsoleProgressBar;
 
 use Joomla\Console\Application;
+use Joomla\Console\Command\AbstractCommand;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
 use Joomla\Registry\Registry;
@@ -223,7 +224,25 @@ class ConsoleApplication extends Application implements ContainerAwareInterface
 		return 0;
 	}
 
-	/**
+    /**
+     * Get the commands which should be registered by default to the application.
+     *
+     * @return  AbstractCommand[]
+     *
+     * @since   1.0.0
+     */
+    protected function getDefaultCommands(): array
+    {
+        $defaultCommands = parent::getDefaultCommands();
+
+        return array_merge(
+            $defaultCommands,
+            [
+            new Command\Clear\Allcache,
+        ]);
+    }
+
+    /**
 	 * Get alternatives for a not found command or action.
 	 *
 	 * @param   string  $command  The command.
