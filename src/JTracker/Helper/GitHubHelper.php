@@ -19,7 +19,7 @@ use JTracker\Github\DataType\Commit;
 use JTracker\Github\DataType\Commit\CombinedStatus;
 use JTracker\Github\DataType\Commit\Status;
 use JTracker\Github\DataType\JTracker\Issues\Comment;
-use JTracker\GitHub\Github;
+use JTracker\Github\Github;
 
 /**
  * Helper class containing methods for working with GitHub.
