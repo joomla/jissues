@@ -18,6 +18,14 @@ use Twig\Environment;
  */
 class Inline extends ArrayRenderer
 {
+    /**
+     * Array of the default options that apply to this renderer.
+     *
+     * @var    Environment
+     * @since  1.0
+     */
+    protected $twig;
+
 	/**
 	 * Array of the default options that apply to this renderer.
 	 *
@@ -51,6 +59,7 @@ class Inline extends ArrayRenderer
 	 * @return  string
 	 *
 	 * @since   1.0
+     * @throws  \Exception
 	 */
 	public function render()
 	{
