@@ -171,7 +171,7 @@ class DatabaseDebugger
 		if (isset($this->sqlShowProfileEach[$k]))
 		{
 			$profileTable = $this->sqlShowProfileEach[$k];
-			$profile      = $this->tableToHtml($profileTable);
+			$profile      = (new TableFormat)->fromArray($profileTable);
 		}
 		else
 		{
