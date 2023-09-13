@@ -177,5 +177,7 @@ class DatabaseDebugger
 		{
 			$profile = 'No SHOW PROFILE (maybe because more than 100 queries)';
 		}
+
+		return $profile;
 	}
 }
