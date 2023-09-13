@@ -8,12 +8,12 @@
 
 namespace Application\Kernel;
 
-use Application\Application;
+use Application\ConsoleApplication;
 use Application\Service\LoggerProvider;
 use Joomla\Application\AbstractApplication;
 use Joomla\DI\Container;
 use JTracker\Kernel;
-use JTracker\Service\CliApplicationProvider;
+use JTracker\Service\ConsoleApplicationProvider;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 
@@ -54,12 +54,12 @@ class ConsoleKernel extends Kernel
 	{
 		$container = parent::buildContainer();
 
-		$container->registerServiceProvider(new CliApplicationProvider)
+		$container->registerServiceProvider(new ConsoleApplicationProvider)
 			->registerServiceProvider(new LoggerProvider);
 
 		// Create the application aliases for the common 'app' key and base application class
-		$container->alias(AbstractApplication::class, Application::class)
-			->alias('app', Application::class);
+		$container->alias(AbstractApplication::class, ConsoleApplication::class)
+			->alias('app', ConsoleApplication::class);
 
 		// Create the logger aliases for the common 'monolog' key, the Monolog Logger class, and the PSR-3 interface
 		$container->alias('monolog', 'monolog.logger.cli')
@@ -68,8 +68,8 @@ class ConsoleKernel extends Kernel
 			->alias(LoggerInterface::class, 'monolog.logger.cli');
 
 		// Set error reporting based on config
-		$errorReporting = (int) $container->get('config')->get('system.error_reporting', 0);
-		error_reporting($errorReporting);
+//		$errorReporting = (int) $container->get('config')->get('system.error_reporting', 0);
+//		error_reporting($errorReporting);
 
 		return $container;
 	}
