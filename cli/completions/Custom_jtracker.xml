@@ -98,16 +98,8 @@
     <help>Run PHP CodeSniffer tests.</help>
   </command>
   <command>
-    <name>test copypaste</name>
-    <help>Run Copy/Paste Detector (CPD) for PHP code.</help>
-  </command>
-  <command>
     <name>test hook</name>
     <help>Tests web hooks</help>
-  </command>
-  <command>
-    <name>test phploc</name>
-    <help>Run Lines Of Code (LOC) for PHP code.</help>
   </command>
   <command>
     <name>test phpunit</name>
