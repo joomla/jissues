@@ -11,7 +11,7 @@ namespace JTracker\Service;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Github\Github as BaseGithub;
-use JTracker\GitHub\Github;
+use JTracker\Github\Github;
 use JTracker\Github\GithubFactory;
 
 /**
