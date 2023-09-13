@@ -8,7 +8,7 @@
 
 namespace App\Support\Model;
 
-use Joomla\Model\ModelInterface;
+use Joomla\Model\StatefulModelInterface;
 use Joomla\Model\StatefulModelTrait;
 
 /**
@@ -16,7 +16,7 @@ use Joomla\Model\StatefulModelTrait;
  *
  * @since  1.0
  */
-class IconsModel implements ModelInterface
+class IconsModel implements StatefulModelInterface
 {
 	use StatefulModelTrait;
 
