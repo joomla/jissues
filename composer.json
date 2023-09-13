@@ -45,6 +45,7 @@
         "laminas/laminas-diactoros": "^2.17"
     },
     "require-dev": {
+        "clue/graph-composer": "^1.1.0",
         "friendsofphp/php-cs-fixer": "^3.0.2",
         "joomla/coding-standards": "2.0-rc4",
         "phpunit/phpunit": "^9.6.11",
