@@ -28,7 +28,7 @@ steps:
     depends_on: [ composer ]
     commands:
       - echo $(date)
-      - ./vendor/bin/phpstan analyse src tests
+      - ./vendor/bin/phpstan analyse src tests cli
       - echo $(date)
 
   - name: php74
