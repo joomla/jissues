@@ -138,7 +138,9 @@ class Migrations
 				return;
 			}
 
-			return $this->doMigration($version);
+			$this->doMigration($version);
+
+			return;
 		}
 
 		// We need to check the known migrations and filter out the applied ones to know what to do
