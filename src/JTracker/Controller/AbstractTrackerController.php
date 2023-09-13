@@ -16,7 +16,7 @@ use Joomla\Event\Event;
 use Joomla\Input\Input;
 use Joomla\Renderer\AddTemplateFolderInterface;
 use Joomla\Renderer\RendererInterface;
-use JTracker\GitHub\Github;
+use JTracker\Github\Github;
 use JTracker\Github\GithubFactory;
 use JTracker\View\AbstractTrackerHtmlView;
 
