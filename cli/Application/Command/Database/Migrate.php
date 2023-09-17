@@ -8,50 +8,53 @@
 
 namespace Application\Command\Database;
 
-use Application\Command\TrackerCommandOption;
+use Application\Command\TrackerCommand;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * CLI command for migrating the database
  *
  * @since  1.0
  */
-class Migrate extends Database
+class Migrate extends TrackerCommand
 {
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = 'Migrate the database schema to a newer version.';
-
-		$this->addOption(
-			new TrackerCommandOption(
-				'version', '',
-				'Apply a specific database version.'
-			)
-		);
+		$this->setName('database:migrate');
+		$this->setDescription('Migrate the database schema to a newer version.');
+		$this->addOption('version', null, InputOption::VALUE_OPTIONAL, 'Apply a specific database version.');
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Database Migrations: Migrate');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Database Migrations: Migrate');
 
 		/** @var \JTracker\Database\Migrations $migrations */
 		$migrations = $this->getContainer()->get('db.migrations');
 
 		// If a version is given, we are only executing that migration
-		$version = $this->getOption('version');
+		$version = $input->getOption('version');
 
 		try
 		{
@@ -69,11 +72,12 @@ class Migrate extends Database
 				$exception->getMessage()
 			);
 
-			$this->getApplication()->out("<error>$message</error>");
+			$ioStyle->error($message);
 		}
 
 		$this->getLogger()->info('Database migrated to latest version.');
+		$ioStyle->success('Database migrated to latest version.');
 
-		$this->getApplication()->out('<ok>Database migrated to latest version.</ok>');
+		return 0;
 	}
 }

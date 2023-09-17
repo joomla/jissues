@@ -9,20 +9,10 @@
 namespace JTracker\Service;
 
 use Application\Application;
-use Application\Cli\CliInput;
-use Application\Cli\CliOutput;
-use Application\Cli\ColorStyle;
-use Application\Cli\Output\Processor\ColorProcessor;
-use Application\Cli\Output\Stdout;
 
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Event\DispatcherInterface;
-use Joomla\Input\Cli as BaseCli;
-use Joomla\Input\Input;
-use Joomla\Registry\Registry;
-
-use JTracker\Input\Cli;
 
 /**
  * CLI application service provider
@@ -47,10 +37,9 @@ class CliApplicationProvider implements ServiceProviderInterface
 			function (Container $container)
 			{
 				$application = new Application(
-					$container->get(Cli::class),
+					null,
+					null,
 					$container->get('config'),
-					$container->get(CliOutput::class),
-					$container->get(CliInput::class)
 				);
 
 				// Inject extra services
@@ -61,61 +50,5 @@ class CliApplicationProvider implements ServiceProviderInterface
 			},
 			true
 		);
-
-		$container->alias(BaseCli::class, Cli::class)
-			->share(
-				Cli::class,
-				function ()
-				{
-					return new Cli;
-				},
-				true
-			);
-
-		$container->share(
-			ColorProcessor::class,
-			function (Container $container)
-			{
-				$processor = new ColorProcessor;
-
-				/** @var Input $input */
-				$input = $container->get(Cli::class);
-
-				/** @var Registry $config */
-				$config = $container->get('config');
-
-				if ($input->get('nocolors') || !$config->get('cli-application.colors'))
-				{
-					$processor->noColors = true;
-				}
-
-				// Setup app colors (also required in "nocolors" mode - to strip them).
-				$processor->addStyle('b', new ColorStyle('', '', ['bold']))
-					->addStyle('title', new ColorStyle('yellow', '', ['bold']))
-					->addStyle('ok', new ColorStyle('green', '', ['bold']));
-
-				return $processor;
-			},
-			true
-		);
-
-		$container->share(
-			CliInput::class,
-			function (Container $container)
-			{
-				return new CliInput;
-			},
-			true
-		);
-
-		$container->alias(CliOutput::class, Stdout::class)
-			->share(
-				Stdout::class,
-				function (Container $container)
-				{
-					return new Stdout($container->get(ColorProcessor::class));
-				},
-				true
-			);
 	}
 }

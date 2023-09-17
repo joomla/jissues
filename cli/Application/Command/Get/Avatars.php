@@ -9,6 +9,10 @@
 namespace Application\Command\Get;
 
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\StyleInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for retrieving avatars from GitHub for selected projects
@@ -18,25 +22,31 @@ use JTracker\Authentication\GitHub\GitHubLoginHelper;
 class Avatars extends Get
 {
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = 'Retrieve avatar images from GitHub.';
+		$this->setName('get:avatars');
+		$this->setDescription('Retrieve avatar images from GitHub.');
+		$this->addProjectOption();
+		$this->addProgressBarOption();
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
 		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
 
@@ -47,24 +57,28 @@ class Avatars extends Get
 
 		\defined('JPATH_THEMES') || \define('JPATH_THEMES', JPATH_ROOT . '/www');
 
-		$this->getApplication()->outputTitle('Retrieve Avatars');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Retrieve Avatars');
 
 		$this->logOut('Start retrieving Avatars.')
 			->setupGitHub()
-			->fetchAvatars()
-			->out()
+			->fetchAvatars($ioStyle)
 			->logOut('Finished.');
+
+		return 0;
 	}
 
 	/**
 	 * Fetch avatars.
 	 *
+	 * @param   StyleInterface  $io  The output to inject into the command.
+	 *
 	 * @return  $this
 	 *
-	 * @since   1.0
 	 * @throws  \UnexpectedValueException
+	 * @since   1.0
 	 */
-	private function fetchAvatars()
+	private function fetchAvatars(StyleInterface $io)
 	{
 		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
@@ -88,9 +102,7 @@ class Avatars extends Get
 			)
 		);
 
-		$progressBar = $this->getProgressBar(\count($usernames));
-
-		$this->usePBar ? $this->out() : null;
+		$this->usePBar ? $io->progressStart(\count($usernames)) : null;
 
 		$base = JPATH_THEMES . '/images/avatars/';
 		$adds = 0;
@@ -110,7 +122,7 @@ class Avatars extends Get
 				$this->debugOut(sprintf('User avatar already fetched for user %s', $username));
 
 				$this->usePBar
-					? $progressBar->update($i + 1)
+					? $io->progressAdvance()
 					: $this->out('-', false);
 
 				continue;
@@ -137,7 +149,7 @@ class Avatars extends Get
 			}
 
 			$this->usePBar
-				? $progressBar->update($i + 1)
+				? $io->progressAdvance()
 				: $this->out('+', false);
 		}
 

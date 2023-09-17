@@ -57,40 +57,6 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 	protected $project;
 
 	/**
-	 * Add a command option.
-	 *
-	 * @param   TrackerCommandOption  $option  The command option.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-//	protected function addOption(TrackerCommandOption $option)
-//	{
-//		// Check if the option has been defined already.
-//		foreach ($this->options as $hasOption)
-//		{
-//			if ($hasOption->longArg == $option->longArg)
-//			{
-//				throw new \UnexpectedValueException(
-//					sprintf('The command "%s" already has an option "%s"', \get_class($this), $option->longArg)
-//				);
-//			}
-//
-//			if ($hasOption->shortArg && $hasOption->shortArg == $option->shortArg)
-//			{
-//				throw new \UnexpectedValueException(
-//					sprintf('The command "%s" already has an option "%s"', \get_class($this), $option->shortArg)
-//				);
-//			}
-//		}
-//
-//		$this->options[] = $option;
-//
-//		return $this;
-//	}
-
-	/**
 	 * Get the current value of a command option.
 	 *
 	 * Checks first the long option (e.g. --option) then the short option (e.g. -o).
