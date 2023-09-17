@@ -8,48 +8,59 @@
 
 namespace Application\Command\Clear;
 
+use Application\Command\TrackerCommand;
 use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for clearing the application cache.
  *
  * @since  1.0
  */
-class Cache extends Clear
+class Cache extends TrackerCommand
 {
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = 'Clear the application cache.';
+		$this->setName('clear:cache');
+		$this->setDescription('Clear the application cache.');
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Clear Application Cache');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Clear Application Cache');
 
 		/** @var CacheItemPoolInterface $cache */
 		$cache = $this->getContainer()->get('cache');
 
 		if ($cache->clear())
 		{
-			$this->out('<ok>The application cache has been cleared.</ok>');
+			$ioStyle->success('The application cache has been cleared.');
 		}
 		else
 		{
-			$this->out('<error>There was an error clearing the application cache.</error>');
+			$ioStyle->error('There was an error clearing the application cache.');
 		}
+
+		return 0;
 	}
 }

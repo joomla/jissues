@@ -14,13 +14,14 @@ use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 
 use JTracker\Github\Github;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class for retrieving data from external providers for selected projects
  *
  * @since  1.0
  */
-class Get extends TrackerCommand
+abstract class Get extends TrackerCommand
 {
 	/**
 	 * Joomla! Github object
@@ -47,43 +48,27 @@ class Get extends TrackerCommand
 	protected $project;
 
 	/**
-	 * Constructor.
+	 * Common Option for project filtering.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function addProjectOption(): void
 	{
-		$this->description = 'Retrieve Information from various sources.';
-
-		$this
-			->addOption(
-				new TrackerCommandOption(
-					'project',
-					'p',
-					'Process the project with the given ID.'
-				)
-			)
-			->addOption(
-				new TrackerCommandOption(
-					'noprogress',
-					'',
-					"Don't use a progress bar."
-				)
-			);
+		$this->addOption('project', 'p', InputOption::VALUE_OPTIONAL, 'Process the project with the given ID.');
 	}
 
 	/**
-	 * Execute the command.
+	 * Common option for progress bars.
 	 *
-	 * NOTE: This command must not be executed without parameters !
+	 * @return  void
 	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
+	 * @since   2.0.0
 	 */
-	public function execute()
+	protected function addProgressBarOption(): void
 	{
-		return $this->displayMissingOption(__DIR__);
+		$this->addOption('noprogress', '', InputOption::VALUE_OPTIONAL, 'Don\'t use a progress bar.');
 	}
 
 	/**

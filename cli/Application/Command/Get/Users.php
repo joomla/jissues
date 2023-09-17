@@ -12,6 +12,9 @@ use App\Projects\TrackerProject;
 
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for updating user information from GitHub.
@@ -21,25 +24,31 @@ use JTracker\Authentication\GitHub\GitHubUser;
 class Users extends Get
 {
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = 'Retrieve user info from GitHub.';
+		$this->setName('get:users');
+		$this->setDescription('Retrieve user info from GitHub.');
+		$this->addProjectOption();
+		$this->addProgressBarOption();
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
 		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
 
@@ -50,13 +59,16 @@ class Users extends Get
 
 		\defined('JPATH_THEMES') || \define('JPATH_THEMES', JPATH_ROOT . '/www');
 
-		$this->getApplication()->outputTitle('Retrieve Users');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Retrieve Users');
 
 		$this->logOut('Start retrieving Users.')
 			->setupGitHub()
 			->getUserName()
 			->out()
 			->logOut('Finished.');
+
+		return 0;
 	}
 
 	/**

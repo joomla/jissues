@@ -8,44 +8,53 @@
 
 namespace Application\Command\Clear;
 
+use Application\Command\TrackerCommand;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for clearing the Twig cache.
  *
  * @since  1.0
  */
-class Twig extends Clear
+class Twig extends TrackerCommand
 {
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = 'Clear the Twig cache.';
+		$this->setName('clear:twig');
+		$this->setDescription('Clear the Twig cache.');
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Clear Twig Cache Directory');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Clear Twig Cache Directory');
 
 		if (!$this->getApplication()->get('renderer.cache', false))
 		{
-			$this->out('<info>Twig caching is not enabled.</info>');
+			$ioStyle->info('Twig caching is not enabled.');
 
-			return;
+			return 0;
 		}
 
 		$cacheDir     = JPATH_ROOT . '/cache';
@@ -60,7 +69,9 @@ class Twig extends Clear
 			$filesystem->deleteDir($twigCacheDir);
 		}
 
-		$this->out()
-			->out('<ok>The Twig cache directory has been cleared.</ok>');
+		$ioStyle->newLine();
+		$ioStyle->success('The Twig cache directory has been cleared.');
+
+		return 0;
 	}
 }

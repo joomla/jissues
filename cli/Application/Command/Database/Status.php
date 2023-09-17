@@ -8,35 +8,45 @@
 
 namespace Application\Command\Database;
 
+use Application\Command\TrackerCommand;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
+
 /**
  * CLI command for checking the database migration status
  *
  * @since  1.0
  */
-class Status extends Database
+class Status extends TrackerCommand
 {
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = 'Check the database migration status.';
+		$this->setName('database:status');
+		$this->setDescription('Check the database migration status.');
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Database Migrations: Check Status');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Database Migrations: Check Status');
 
 		/** @var \JTracker\Database\Migrations $migrations */
 		$migrations = $this->getContainer()->get('db.migrations');
@@ -45,20 +55,29 @@ class Status extends Database
 
 		if ($status['latest'])
 		{
-			$this->getApplication()->out('<ok>Your database is up-to-date.</ok>');
+			$ioStyle->success('Your database is up-to-date.');
 		}
 		else
 		{
-			$this->getApplication()->out(
+			$ioStyle->comment(
 				sprintf(
-					'<comment>Your database is not up-to-date. You are missing %d migrations.</comment>', $status['missingMigrations']
+					'Your database is not up-to-date. You are missing %d migrations.',
+					$status['missingMigrations']
 				)
-			)
-				->out()
-				->out(sprintf('<comment>Current Version: %1$s</comment>', $status['currentVersion']))
-				->out(sprintf('<comment>Latest Version: %1$s</comment>', $status['latestVersion']))
-				->out()
-				->out('To update, run the <question>database:migrate</question> command.');
+			);
+			$ioStyle->newLine();
+			$ioStyle->comment(
+				[
+					sprintf('Current Version: %1$s', $status['currentVersion']),
+					sprintf('Latest Version: %1$s', $status['latestVersion'])
+				]
+			);
+			$ioStyle->newLine(2);
+
+			// TODO: Validate how the <question> element works with symfony output
+			$ioStyle->text('To update, run the <question>database:migrate</question> command.');
 		}
+
+		return 0;
 	}
 }

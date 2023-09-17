@@ -9,8 +9,13 @@
 namespace Application\Command\Install;
 
 use Application\Command\TrackerCommand;
-use Application\Command\TrackerCommandOption;
 use Application\Exception\AbortException;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ChoiceQuestion;
+use Symfony\Component\Console\Style\StyleInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class to install the tracker application.
@@ -28,66 +33,72 @@ class Install extends TrackerCommand
 	private $db;
 
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		$this->description = 'Install the application.';
-
-		$this->addOption(
-			new TrackerCommandOption(
-				'reinstall',
-				'',
-				'Reinstall the application (without confirmation)'
-			)
-		);
+		$this->setName('install');
+		$this->setDescription('Install the application.');
+		$this->addOption('reinstall', null, InputOption::VALUE_OPTIONAL, 'Reinstall the application (without confirmation).');
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
 	 *
-	 * @since   1.0
+	 * @return  integer
+	 *
 	 * @throws  AbortException
 	 * @throws  \RuntimeException
 	 * @throws  \UnexpectedValueException
+	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Installer');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Installer');
 
 		$this->db = $this->getContainer()->get('db');
+
+		// TODO: Fix reference!
+		$helper   = $this->getHelper('question');
 
 		try
 		{
 			// Check if the database "exists"
 			$tables = $this->db->getTableList();
 
-			if (!$this->getOption('reinstall'))
+			if (!$input->getOption('reinstall'))
 			{
-				$this->out()
-					->out('<fg=black;bg=yellow>WARNING: A database has been found!</fg=black;bg=yellow>')
-					->out()
-					->out('Do you want to reinstall?')
-					->out()
-					->out('1) Yes')
-					->out('2) No')
-					->out()
-					->out('<question>Select:</question>', false);
+				$ioStyle->newLine();
+				$ioStyle->text('<fg=black;bg=yellow>WARNING: A database has been found!</fg=black;bg=yellow>');
+				$ioStyle->newLine(2);
+				$ioStyle->text('Do you want to reinstall?');
+				$ioStyle->newLine();
 
-				$in = trim($this->getApplication()->in());
+				$question = new ChoiceQuestion(
+					'Do you want to reinstall? (default: no)',
+					['yes', 'no'],
+					'no'
+				);
+				$question->setErrorMessage('Chosen answer %s is invalid.');
 
-				if ((int) $in != 1)
+				$reinstallAnswer = $helper->ask($input, $output, $question);
+
+				if ($reinstallAnswer !== 'yes')
 				{
 					throw new AbortException;
 				}
 			}
 
-			$this->cleanDatabase($tables)
-				->outOK();
+			$this->cleanDatabase($tables, $ioStyle);
+			$ioStyle->success('ok');
 		}
 		catch (\RuntimeException $e)
 		{
@@ -95,16 +106,15 @@ class Install extends TrackerCommand
 			if (strpos($e->getMessage(), 'Could not connect to database.') !== false)
 			{
 				// ? really..
-				$this
-					->out('No database found.')
-					->out('Creating the database...', false);
+				$ioStyle->text('No database found.');
+				$ioStyle->text('Creating the database...');
 
 				$this->db->setQuery('CREATE DATABASE ' . $this->db->quoteName($this->getApplication()->get('database.name')))
 					->execute();
 
 				$this->db->select($this->getApplication()->get('database.name'));
 
-				$this->outOK();
+				$ioStyle->success('ok');
 			}
 			else
 			{
@@ -113,24 +123,26 @@ class Install extends TrackerCommand
 		}
 
 		// Perform the installation
-		$this
-			->processSql()
-			->out()
-			->out('<ok>Installation has been completed successfully.</ok>');
+		$this->processSql($ioStyle);
+		$ioStyle->newLine();
+		$ioStyle->success('Installation has been completed successfully.');
+
+		return 0;
 	}
 
 	/**
 	 * Cleanup the database.
 	 *
-	 * @param   array  $tables  Tables to remove.
+	 * @param   array           $tables  Tables to remove.
+	 * @param   StyleInterface  $output  The output to inject into the command.
 	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	private function cleanDatabase(array $tables)
+	private function cleanDatabase(array $tables, StyleInterface $output)
 	{
-		$this->out('Removing existing tables...', false);
+		$output->text('Removing existing tables...');
 
 		// Foreign key constraint fails fix
 		$this->db->setQuery('SET FOREIGN_KEY_CHECKS=0')
@@ -144,7 +156,7 @@ class Install extends TrackerCommand
 			}
 
 			$this->db->dropTable($table, true);
-			$this->out('.', false);
+			$output->writeln('.');
 		}
 
 		$this->db->setQuery('SET FOREIGN_KEY_CHECKS=1')
@@ -156,13 +168,15 @@ class Install extends TrackerCommand
 	/**
 	 * Process the main SQL file.
 	 *
+	 * @param   StyleInterface  $output  The output to inject into the command.
+	 *
 	 * @return  $this
 	 *
-	 * @since   1.0
 	 * @throws  \RuntimeException
 	 * @throws  \UnexpectedValueException
+	 * @since   1.0
 	 */
-	private function processSql()
+	private function processSql(StyleInterface $output)
 	{
 		// Install.
 		$dbType = $this->getApplication()->get('database.driver');
@@ -186,7 +200,7 @@ class Install extends TrackerCommand
 			throw new \UnexpectedValueException('SQL file corrupted.');
 		}
 
-		$this->out(sprintf('Creating tables from file %s', realpath($fName)), false);
+		$output->text(sprintf('Creating tables from file %s', realpath($fName)));
 
 		foreach ($this->db->splitSql($sql) as $query)
 		{
@@ -200,10 +214,10 @@ class Install extends TrackerCommand
 			$this->db->setQuery($q)
 				->execute();
 
-			$this->out('.', false);
+			$output->writeln('.');
 		}
 
-		$this->outOK();
+		$output->success('ok');
 
 		return $this;
 	}

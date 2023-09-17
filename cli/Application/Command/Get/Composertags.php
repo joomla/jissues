@@ -8,7 +8,10 @@
 
 namespace Application\Command\Get;
 
-use Application\Command\TrackerCommandOption;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for retrieving repository tags from GitHub based on the composer file.
@@ -18,37 +21,34 @@ use Application\Command\TrackerCommandOption;
 class Composertags extends Get
 {
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = 'Retrieve a list of project tags from GitHub and show their installed versions.';
-
-		$this
-			->addOption(
-				new TrackerCommandOption(
-					'all',
-					'',
-					'Show all tags or only the most recent.'
-				)
-			);
+		$this->setName('get:composertags');
+		$this->setDescription('Retrieve a list of project tags from GitHub and show their installed versions.');
+		$this->addProjectOption();
+		$this->addOption('all', '', InputOption::VALUE_OPTIONAL, 'Show all tags or only the most recent.', false);
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
 	 *
-	 * @throws \UnexpectedValueException
+	 * @return  integer
+	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Retrieve Composer tags');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Retrieve Composer tags');
 
 		$path = JPATH_ROOT . '/vendor/composer/installed.json';
 
@@ -62,9 +62,11 @@ class Composertags extends Get
 		$this->logOut('Start getting Composer tags.')
 			->setupGitHub()
 			->displayGitHubRateLimit()
-			->fetchTags($packages, $this->getOption('all'))
+			->fetchTags($packages, $input->getOption('all'))
 			->out()
 			->logOut('Finished.');
+
+		return 0;
 	}
 
 	/**
