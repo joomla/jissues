@@ -11,7 +11,6 @@ namespace Application\Command\Get;
 use App\Projects\TrackerProject;
 
 use Application\Command\TrackerCommand;
-use Application\Command\TrackerCommandOption;
 
 use JTracker\Github\Github;
 use Symfony\Component\Console\Input\InputOption;

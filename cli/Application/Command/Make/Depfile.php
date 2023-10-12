@@ -8,8 +8,12 @@
 
 namespace Application\Command\Make;
 
-use Application\Command\TrackerCommandOption;
+use Application\Command\TrackerCommand;
 
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -18,7 +22,7 @@ use Twig\Loader\FilesystemLoader;
  *
  * @since  1.0
  */
-class Depfile extends Make
+class Depfile extends TrackerCommand
 {
 	/**
 	 * Product object.
@@ -37,35 +41,35 @@ class Depfile extends Make
 	public $dependencies = [];
 
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = 'Create and update a dependency file.';
-
-		$this->addOption(
-			new TrackerCommandOption(
-				'file',
-				'f',
-				'Write output to a file.'
-			)
-		);
+		$this->setName('make:depfile');
+		$this->setDescription('Create and update a dependency file.');
+		$this->addOption('file', 'f', InputOption::VALUE_OPTIONAL, 'Write output to a file.');
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
 	 *
+	 * @return  integer
+	 *
+	 * @throws  \RuntimeException
+	 * @throws  \UnexpectedValueException
 	 * @since   1.0
-	 * @throws  \Exception
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
+		$ioStyle = new SymfonyStyle($input, $output);
+
 		$packages = [];
 		$defined  = [];
 
@@ -119,21 +123,23 @@ class Depfile extends Make
 			['dependencies' => $this->dependencies, 'product' => $this->product]
 		);
 
-		$fileName = $this->getOption('file');
+		$fileName = $input->getOption('file');
 
 		if ($fileName)
 		{
-			$this->out(sprintf('Writing contents to: %s', $fileName));
+			$ioStyle->text(sprintf('Writing contents to: %s', $fileName));
 
 			file_put_contents($fileName, $contents);
 		}
 		else
 		{
-			echo $contents;
+			$ioStyle->text($contents);
 		}
 
-		$this->out()
-			->out('Finished.');
+		$ioStyle->newLine();
+		$ioStyle->success('Finished.');
+
+		return 0;
 	}
 
 	/**

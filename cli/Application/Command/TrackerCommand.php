@@ -83,16 +83,6 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 	}
 
 	/**
-	 * Get defined options.
-	 *
-	 * @return TrackerCommandOption[]
-	 */
-	public function getOptions()
-	{
-		return $this->options;
-	}
-
-	/**
 	 * Write a string to standard output.
 	 *
 	 * @param   string   $text  The text to display.
@@ -141,18 +131,6 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 		$this->getLogger()->info(preg_replace('/\<[a-z\/]+\>/', '', $text));
 
 		return $this;
-	}
-
-	/**
-	 * Write a string to the standard output if an operation has terminated successfully.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	protected function outOK()
-	{
-		return $this->out('<ok>ok</ok>');
 	}
 
 	/**

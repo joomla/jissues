@@ -8,35 +8,47 @@
 
 namespace Application\Command\Make;
 
+use Application\Command\TrackerCommand;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
+
 /**
  * Class for generating class doc blocks in JTracker\Database\AbstractDatabaseTable classes
  *
  * @since  1.0
  */
-class Dbcomments extends Make
+class Dbcomments extends TrackerCommand
 {
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = 'Generate class doc blocks for Table classes';
+		$this->setName('make:dbcomments');
+		$this->setDescription('Generate class doc blocks for Table classes.');
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
 	 *
+	 * @return  integer
+	 *
+	 * @throws  \RuntimeException
+	 * @throws  \UnexpectedValueException
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Make Table Comments');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Make Table Comments');
 
 		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
@@ -81,14 +93,16 @@ class Dbcomments extends Make
 				$l .= str_repeat(' ', $maxVals->maxName - \strlen($line->name));
 				$l .= '  ' . $line->comment;
 
-				$this->out($l);
+				$ioStyle->text($l);
 			}
 
-			$this->out();
+			$ioStyle->newLine();
 		}
 
-		$this->out()
-			->out('Finished.');
+		$ioStyle->newLine();
+		$ioStyle->success('Finished.');
+
+		return 0;
 	}
 
 	/**

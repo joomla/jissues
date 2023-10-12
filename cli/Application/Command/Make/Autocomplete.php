@@ -10,17 +10,23 @@ namespace Application\Command\Make;
 
 use Application\Command\Help\Help;
 use Application\Command\TrackerCommand;
-use Application\Command\TrackerCommandOption;
 
+use Joomla\Console\Command\AbstractCommand;
+use Joomla\Console\Descriptor\ApplicationDescription;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\OutputStyle;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for generating a PhpStorm autocomplete file for using the CLI tools
  *
  * @since  1.0
  */
-class Autocomplete extends Make
+class Autocomplete extends TrackerCommand
 {
 	/**
 	 * @var boolean
@@ -40,49 +46,53 @@ class Autocomplete extends Make
 	private $knownTypes = ['phpstorm', 'fish'];
 
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
+		$this->setName('make:autocomplete');
+		$this->setDescription('Generate autocomplete files.');
+		$this->addOption(
+			'type',
+			't',
+			InputOption::VALUE_OPTIONAL,
+			sprintf('The type of auto complete file (currently supported: %s).', "'" . implode("' '", $this->knownTypes) . "'")
+		);
 
-		$this->description = 'Generate autocomplete files.';
-
-		$this
-			->addOption(
-				new TrackerCommandOption(
-					'type',
-					't',
-					sprintf('The type of auto complete file (currently supported: %s).', "'" . implode("' '", $this->knownTypes) . "'")
-				)
-			)
-			->addOption(
-				new TrackerCommandOption(
-					'echo',
-					'e',
-					'Echo the output instead of writing it to a file.'
-				)
-			);
+		$this->addOption(
+			'echo',
+			'e',
+			InputOption::VALUE_OPTIONAL,
+			'Echo the output instead of writing it to a file.'
+		);
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
 	 *
+	 * @return  integer
+	 *
+	 * @throws  \RuntimeException
+	 * @throws  \UnexpectedValueException
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Make Auto complete');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Make Auto complete');
 
-		$commands           = $this->getCommands();
-		$applicationOptions = $this->getApplication()->getCommandOptions();
+		$description = new ApplicationDescription($this->getApplication(), '');
+		$namespaces  = $description->getNamespaces();
 
-		$type       = $this->getOption('type');
-		$this->echo = (boolean) $this->getOption('echo');
+		$type       = $input->getOption('type');
+		$this->echo = (boolean) $input->getOption('echo');
 
 		$this->fileSystem = new Filesystem(new Local(JPATH_ROOT));
 
@@ -94,36 +104,40 @@ class Autocomplete extends Make
 			}
 
 			$command = 'make' . $type;
-			$this->$command($commands, $applicationOptions);
+			$this->$command($namespaces, $description, $ioStyle);
 		}
 		else
 		{
 			foreach ($this->knownTypes as $type)
 			{
 				$command = 'make' . $type;
-				$this->$command($commands, $applicationOptions);
+				$this->$command($namespaces, $description, $ioStyle);
 			}
 		}
 
-		$this->out()
-			->out('Finished.');
+		$ioStyle->newLine();
+		$ioStyle->success('Finished.');
 
 		if (false)
 		{
 			// This is here just to make our IDEs happy :P
-			$this->makeFish($commands, $applicationOptions);
-			$this->makePhpStorm($commands);
+			$this->makeFish($namespaces, $description, $ioStyle);
+			$this->makePhpStorm($namespaces, $description, $ioStyle);
 		}
+
+		return 0;
 	}
 
 	/**
 	 * Make a PHPStorm auto complete file.
 	 *
-	 * @param   array  $commands  Available commands.
+	 * @param   array                   $namespaces   Available commands grouped by namespace.
+	 * @param   ApplicationDescription  $description  The description object.
+	 * @param   OutputStyle             $ioStyle      The renderer.
 	 *
 	 * @return $this
 	 */
-	private function makePhpStorm(array $commands)
+	private function makePhpStorm(array $namespaces, ApplicationDescription $description, OutputStyle $ioStyle)
 	{
 		$xml = simplexml_load_string(
 			'<framework xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
@@ -132,25 +146,26 @@ class Autocomplete extends Make
 			. '</framework>'
 		);
 
-		foreach ($commands as $command)
+		foreach ($namespaces as $namespace)
 		{
+			$namespaceId = $namespace['id'];
+
 			$xmlCommand = $xml->addChild('command');
 
-			$xmlCommand->addChild('name', $command->name);
-			$xmlCommand->addChild('help', $command->description);
+			$xmlCommand->addChild('name', $namespaceId);
 
-			if (\in_array($command->name, ['help', 'install']) === false)
+			if (\in_array($namespaceId, ['help', 'install', 'list']) === false)
 			{
 				$xmlCommand->addChild('params', 'option');
 			}
 
-			/** @var TrackerCommand $action */
-			foreach ($command->actions as $name => $action)
+			foreach ($namespace['commands'] as $command)
 			{
-				$help = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $action->getDescription());
+				$commandObject = $description->getCommand($command);
+				$help = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $commandObject->getDescription());
 
 				$xmlCommand = $xml->addChild('command');
-				$xmlCommand->addChild('name', $command->name . ' ' . strtolower($name));
+				$xmlCommand->addChild('name', $commandObject->getName());
 				$xmlCommand->addChild('help', $help);
 			}
 		}
@@ -178,7 +193,7 @@ class Autocomplete extends Make
 				throw new \RuntimeException('Can not write to path.');
 			}
 
-			$this->out(strtr('File has been written to: %path%', ['%path%' => $path]));
+			$ioStyle->success(strtr('File has been written to: %path%', ['%path%' => $path]));
 		}
 
 		return $this;
@@ -187,41 +202,49 @@ class Autocomplete extends Make
 	/**
 	 * Make a fish auto complete file.
 	 *
-	 * @param   array  $commands            Available commands.
-	 * @param   array  $applicationOptions  Available application options.
+	 * @param   array                   $namespaces   Available commands grouped by namespace.
+	 * @param   ApplicationDescription  $description  The description object.
+	 * @param   OutputStyle             $ioStyle      The renderer.
 	 *
 	 * @return $this
 	 */
-	private function makeFish(array $commands, array $applicationOptions)
+	private function makeFish(array $namespaces, ApplicationDescription $description, OutputStyle $ioStyle)
 	{
 		$template = $this->fileSystem->read('cli/completions/tpl_jtracker.fish');
 		$lines    = [];
 
-		foreach ($commands as $command)
+		/** @var string $namespace */
+		/** @var string[] $commands */
+		foreach ($namespaces as $namespace)
 		{
-			$lines[] = "# jtracker $command->name";
-			$lines[] = "complete -f -c jtracker -n '__fish_jtracker_needs_command' -a $command->name -d \"$command->description\"";
+			$namespaceId = $namespace['id'];
 
-			/** @var TrackerCommand $action */
-			foreach ($command->actions as $name => $action)
+			if ($namespaceId !== '_global')
 			{
-				$description = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $action->getDescription());
+				$lines[] = "# jtracker $namespaceId";
+				$lines[] = "complete -f -c jtracker -n '__fish_jtracker_using_command list' -a $namespaceId";
+			}
 
-				$lines[] = "complete -f -c jtracker -n '__fish_jtracker_using_command $command->name' -a $name -d \"$description\"";
+			foreach ($namespace['commands'] as $command)
+			{
+				$commandObject = $description->getCommand($command);
+				$commandName = $commandObject->getName();
 
-				if ($action->options)
+				if ($namespaceId === '_global')
 				{
-					foreach ($action->options as $option)
-					{
-						$lines[] = $this->formatOption($option, $command->name, $name);
-					}
+					$lines[] = "# jtracker $commandName";
 				}
 
-				if ($applicationOptions)
+				$commandDescription = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $commandObject->getDescription());
+				$commandOptions = $commandObject->getDefinition()->getOptions();
+
+				$lines[] = "complete -f -c jtracker -n '__fish_jtracker_using_command' -a $commandName -d \"$commandDescription\"";
+
+				if (!empty($commandOptions))
 				{
-					foreach ($applicationOptions as $option)
+					foreach ($commandOptions as $option)
 					{
-						$lines[] = $this->formatOption($option, $command->name, $name);
+						$lines[] = $this->formatOption($commandObject, $option);
 					}
 				}
 			}
@@ -244,97 +267,28 @@ class Autocomplete extends Make
 				throw new \RuntimeException('Can not write to path.');
 			}
 
-			$this->out(strtr('File has been written to: %path%', ['%path%' => $path]));
+			$ioStyle->success(strtr('File has been written to: %path%', ['%path%' => $path]));
 		}
 
 		return $this;
 	}
 
-	/**
-	 * get known commands.
-	 *
-	 * @return array
-	 */
-	private function getCommands()
-	{
-		$commands = [];
-		$names    = [];
-
-		$helper = new Help;
-		$helper->setContainer($this->getContainer());
-
-		/** @var \DirectoryIterator $fileInfo */
-		foreach (new \DirectoryIterator(JPATH_ROOT . '/cli/Application/Command') as $fileInfo)
-		{
-			if ($fileInfo->isDot())
-			{
-				continue;
-			}
-
-			if ($fileInfo->isDir())
-			{
-				$names[] = $fileInfo->getFilename();
-			}
-		}
-
-		// Sort the array and put the "Help" command in first place.
-		usort(
-			$names, function ($a, $b)
-			{
-				if ($a == 'Help')
-				{
-					return -1;
-				}
-
-				if ($b == 'Help')
-				{
-					return 1;
-				}
-
-				return strcmp($a, $b);
-			}
-		);
-
-		foreach ($names as $name)
-		{
-			$command     = new \stdClass;
-			$commandName = '\\Application\\Command\\' . $name;
-
-			$className = $commandName . '\\' . $name;
-
-			/** @var TrackerCommand $class */
-			$class = new $className($this->getApplication());
-			$class->setContainer($this->getContainer());
-
-			$command->name        = strtolower($name);
-			$command->description = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $class->getDescription());
-
-			$actions = $helper->getActions($command->name);
-
-			ksort($actions);
-
-			$command->actions = $actions;
-
-			$commands[] = $command;
-		}
-
-		return $commands;
-	}
 
 	/**
 	 * Display a command option.
 	 *
-	 * @param   TrackerCommandOption  $option   The command option.
-	 * @param   string                $command  The command name.
-	 * @param   string                $action   The action name.
+	 * @param   AbstractCommand $command  The command.
+	 * @param   InputOption     $option   The command option.
 	 *
 	 * @return string
 	 */
-	private function formatOption(TrackerCommandOption $option, $command, $action)
+	private function formatOption(AbstractCommand $command, InputOption $option)
 	{
-		$shortArg = $option->shortArg ? ' -s ' . $option->shortArg : '';
-		$longArg  = $option->longArg ? ' -l ' . $option->longArg : '';
+		$shortArg = $option->getShortcut() ? ' -s ' . $option->getShortcut() : '';
+		$longArg  = $option->getName() ? ' -l ' . $option->getName() : '';
+		$commandName  = $command->getName();
+		$description  = $option->getDescription();
 
-		return "complete -f -c jtracker -n '__fish_jtracker_using_action $command $action'$shortArg$longArg -d \"$option->description\"";
+		return "complete -f -c jtracker -n '__fish_jtracker_using_action $commandName'$shortArg$longArg -d \"$description\"";
 	}
 }

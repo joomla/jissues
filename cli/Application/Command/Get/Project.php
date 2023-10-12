@@ -20,7 +20,7 @@ use Application\Command\TrackerCommandOption;
  *
  * @since  1.0
  */
-class Project extends Get
+abstract class Project extends Get
 {
 	/**
 	 * Lowest issue to fetch.

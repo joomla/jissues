@@ -11,6 +11,7 @@ namespace Application\Command\Get;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\OutputStyle;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
@@ -62,9 +63,9 @@ class Composertags extends Get
 		$this->logOut('Start getting Composer tags.')
 			->setupGitHub()
 			->displayGitHubRateLimit()
-			->fetchTags($packages, $input->getOption('all'))
-			->out()
-			->logOut('Finished.');
+			->fetchTags($ioStyle, $packages, $input->getOption('all'));
+		$ioStyle->newLine();
+		$this->logOut('Finished.');
 
 		return 0;
 	}
@@ -72,22 +73,23 @@ class Composertags extends Get
 	/**
 	 * Fetch Tags.
 	 *
-	 * @param   array    $packages  List of installed packages
-	 * @param   boolean  $allTags   Fetch all tags or only the "most recent".
+	 * @param   OutputStyle  $io        Fetch all tags or only the "most recent".
+	 * @param   array        $packages  List of installed packages
+	 * @param   boolean      $allTags   Fetch all tags or only the "most recent".
 	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	private function fetchTags(array $packages, $allTags = false)
+	private function fetchTags(OutputStyle $io, array $packages, $allTags = false)
 	{
 		foreach ($packages as $package)
 		{
-			$this->out($package->name);
+			$io->text($package->name);
 
 			if (!preg_match('|https://github.com/([A-z0-9\-]+)/([A-z0-9\-\.]+).git|', $package->source->url, $matches))
 			{
-				$this->out('CAN NOT PARSE: ' . $package->source->url);
+				$io->text('CAN NOT PARSE: ' . $package->source->url);
 
 				continue;
 			}
@@ -103,7 +105,7 @@ class Composertags extends Get
 			{
 				if ($tag->name == $package->version)
 				{
-					$this->out($tag->name . ' <= Installed');
+					$io->text($tag->name . ' <= Installed');
 
 					$found = true;
 
@@ -114,16 +116,16 @@ class Composertags extends Get
 				}
 				else
 				{
-					$this->out($tag->name);
+					$io->text($tag->name);
 				}
 			}
 
 			if (!$found)
 			{
-				$this->out(sprintf('Installed: %s', $package->version));
+				$io->text(sprintf('Installed: %s', $package->version));
 			}
 
-			$this->out();
+			$io->newLine();
 		}
 
 		return $this;
