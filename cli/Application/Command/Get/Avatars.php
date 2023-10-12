@@ -123,7 +123,7 @@ class Avatars extends Get
 
 				$this->usePBar
 					? $io->progressAdvance()
-					: $this->out('-', false);
+					: $io->text('-');
 
 				continue;
 			}
@@ -150,15 +150,16 @@ class Avatars extends Get
 
 			$this->usePBar
 				? $io->progressAdvance()
-				: $this->out('+', false);
+				: $io->text('+');
 		}
 
-		return $this->out()
-			->logOut(
-				sprintf(
-					'Added %d new user avatars',
-					$adds
-				)
-			);
+		$io->newLine();
+
+		return $this->logOut(
+			sprintf(
+				'Added %d new user avatars',
+				$adds
+			)
+		);
 	}
 }

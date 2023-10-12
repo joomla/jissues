@@ -8,9 +8,13 @@
 
 namespace Application\Command\Make;
 
-use Application\Command\TrackerCommandOption;
+use Application\Command\TrackerCommand;
 
 use Clue\GraphComposer\Graph\GraphComposer;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for generating a graphical representation of the scripts that
@@ -18,7 +22,7 @@ use Clue\GraphComposer\Graph\GraphComposer;
  *
  * @since  1.0
  */
-class Composergraph extends Make
+class Composergraph extends TrackerCommand
 {
 	/**
 	 * The GraphComposer object.
@@ -29,50 +33,41 @@ class Composergraph extends Make
 	protected $graph;
 
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = "Graph visualisation for your project's composer.json and its dependencies.";
-
-		$this
-			->addOption(
-				new TrackerCommandOption(
-					'file',
-					'f',
-					'Write output to a file.'
-				)
-			)
-			->addOption(
-				new TrackerCommandOption(
-					'format',
-					'',
-					'The image type.'
-				)
-			);
+		$this->setName('make:composergraph');
+		$this->setDescription('Graph visualisation for your project\'s composer.json and its dependencies.');
+		$this->addOption('file', 'f', InputOption::VALUE_OPTIONAL, 'Write output to a file.');
+		$this->addOption('format', '', InputOption::VALUE_OPTIONAL, 'The image type.');
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  $this
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
 	 *
+	 * @return  integer
+	 *
+	 * @throws  \RuntimeException
+	 * @throws  \UnexpectedValueException
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Make Composer graph');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Make Composer graph');
 
 		$this->graph = new GraphComposer(JPATH_ROOT);
 
-		$input = $this->getApplication()->input;
-
-		$filePath = $input->get('file', $input->get('f', '', 'raw'), 'raw');
-		$format   = $input->get('format');
+		$filePath = $input->getOption('file', '', 'raw');
+		$format   = $input->getOption('format');
 
 		if ($filePath)
 		{
@@ -83,7 +78,7 @@ class Composergraph extends Make
 			$this->show($format);
 		}
 
-		return $this;
+		return 0;
 	}
 
 	/**

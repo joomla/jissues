@@ -8,47 +8,50 @@
 
 namespace Application\Command\Make;
 
+use Application\Command\TrackerCommand;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
+
 /**
  * Class for generating repository information.
  *
  * @since  1.0
  */
-class Repoinfo extends Make
+class Repoinfo extends TrackerCommand
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Configure the command.
 	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Generate repository information.';
-
-	/**
-	 * Constructor.
+	 * @return  void
 	 *
-	 * @since   1.0
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = 'Generate repository information.';
+		$this->setName('make:repoinfo');
+		$this->setDescription('Generate repository information.');
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
 	 *
-	 * @since   1.0
+	 * @return  integer
+	 *
 	 * @throws  \DomainException
+	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
 		$path    = JPATH_ROOT . '/current_SHA';
 		$shaPath = JPATH_ROOT . '/sha.txt';
 
-		$this->getApplication()->outputTitle('Generate repository information');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Generate repository information');
+
 		$this->logOut('Generating Repoinfo.');
 
 		$info   = $this->execCommand('cd ' . JPATH_ROOT . ' && git describe --long --abbrev=10 --tags 2>&1');
@@ -69,8 +72,11 @@ class Repoinfo extends Make
 			throw new \DomainException('Can not write to path: ' . $shaPath);
 		}
 
-		$this->logOut(sprintf('Wrote repoinfo file to: %s', str_replace(JPATH_ROOT, 'J_ROOT', $path)))
-			->out()
-			->out('Finished.');
+		$this->logOut(sprintf('Wrote repoinfo file to: %s', str_replace(JPATH_ROOT, 'J_ROOT', $path)));
+
+		$ioStyle->newLine();
+		$ioStyle->success('Finished.');
+
+		return 0;
 	}
 }

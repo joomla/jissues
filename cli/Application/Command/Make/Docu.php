@@ -9,40 +9,53 @@
 namespace Application\Command\Make;
 
 use App\Text\Table\ArticlesTable;
+use Application\Command\TrackerCommand;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for parsing documentation files to inject into the site
  *
  * @since  1.0
  */
-class Docu extends Make
+class Docu extends TrackerCommand
 {
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = 'Compile documentation using GitHub Flavored Markdown';
+		$this->setName('make:docu');
+		$this->setDescription('Compile documentation using GitHub Flavored Markdown.');
+		$this->addOption('noprogress', null, InputOption::VALUE_OPTIONAL, "Don't use a progress bar.");
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
 	 *
+	 * @return  integer
+	 *
+	 * @throws  \RuntimeException
+	 * @throws  \UnexpectedValueException
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Make Documentation');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Make Documentation');
 
 		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
 
-		if ($this->getOption('noprogress'))
+		if ($input->getOption('noprogress'))
 		{
 			$this->usePBar = false;
 		}
@@ -59,9 +72,8 @@ class Docu extends Make
 		/** @var  \RecursiveDirectoryIterator $it */
 		$it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($docuBase, \FilesystemIterator::SKIP_DOTS));
 
-		$this
-			->out(sprintf('Compiling documentation in: %s', $docuBase))
-			->out();
+		$ioStyle->text(sprintf('Compiling documentation in: %s', $docuBase));
+		$ioStyle->newLine();
 
 		while ($it->valid())
 		{
@@ -102,12 +114,14 @@ class Docu extends Make
 
 			$table->store();
 
-			$this->out('.', false);
+			$ioStyle->text('.');
 
 			$it->next();
 		}
 
-		$this->out()
-			->out('Finished.');
+		$ioStyle->newLine();
+		$ioStyle->success('Finished.');
+
+		return 0;
 	}
 }

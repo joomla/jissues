@@ -48,13 +48,20 @@ class Allcache extends TrackerCommand
 		$ioStyle = new SymfonyStyle($input, $output);
 		$ioStyle->title('Clearing All Cache Stores');
 
-		(new Cache)
-			->setContainer($this->getContainer())
-			->execute($input, $output);
+		/** @var TrackerCommand[] $cacheCommands */
+		$cacheCommands = $this->getApplication()->getAllCommands('cache');
 
-		(new Twig)
-			->setContainer($this->getContainer())
-			->execute($input, $output);
+		foreach ($cacheCommands as $command)
+		{
+			// Skip the allcache commands but run any other cache ones.
+			if (get_class($command) === self::class)
+			{
+				continue;
+			}
+
+			$command->setContainer($this->getContainer());
+			$command->execute($input, $output);
+		}
 
 		$ioStyle->newLine();
 		$ioStyle->success('All cache stores have been cleared.');

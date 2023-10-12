@@ -13,7 +13,7 @@ use Application\Service\LoggerProvider;
 use Joomla\Application\AbstractApplication;
 use Joomla\DI\Container;
 use JTracker\Kernel;
-use JTracker\Service\ConsoleApplicationProvider;
+use JTracker\Service\CliApplicationProvider;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 
@@ -54,7 +54,7 @@ class ConsoleKernel extends Kernel
 	{
 		$container = parent::buildContainer();
 
-		$container->registerServiceProvider(new ConsoleApplicationProvider)
+		$container->registerServiceProvider(new CliApplicationProvider)
 			->registerServiceProvider(new LoggerProvider);
 
 		// Create the application aliases for the common 'app' key and base application class

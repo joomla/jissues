@@ -10,8 +10,6 @@ namespace Application;
 
 use App\Projects\TrackerProject;
 
-use Application\Command\TrackerCommandOption;
-
 use Elkuku\Console\Helper\ConsoleProgressBar;
 
 use Joomla\Console\Application as FrameworkApplication;
@@ -25,6 +23,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * CLI application for installing the tracker application
@@ -50,14 +49,6 @@ class Application extends FrameworkApplication implements ContainerAwareInterfac
 	 * @since  1.0
 	 */
 	protected $pBarFormat = '[%bar%] %fraction% %elapsed% ETA: %estimate%';
-
-	/**
-	 * Array of TrackerCommandOption objects
-	 *
-	 * @var    TrackerCommandOption[]
-	 * @since  1.0
-	 */
-	protected $commandOptions = [];
 
 	/**
 	 * Class constructor.
@@ -145,15 +136,19 @@ class Application extends FrameworkApplication implements ContainerAwareInterfac
 	{
 		$result = parent::doExecute();
 
-		$this->out()
-			->out(str_repeat('_', 40))
-			->out(
-				sprintf(
-					'Execution time: <b>%d sec.</b>',
-					time() - $this->get('execution.timestamp')
-				)
+		$input  = $this->getConsoleInput();
+		$output = $this->getConsoleOutput();
+
+		$outputStyle = (new SymfonyStyle($input, $output));
+		$outputStyle->newLine();
+		$outputStyle->text(str_repeat('_', 40));
+		$outputStyle->text(
+			sprintf(
+				'Execution time: <b>%d sec.</b>',
+				time() - $this->get('execution.timestamp')
 			)
-			->out(str_repeat('_', 40));
+		);
+		$outputStyle->text(str_repeat('_', 40));
 
 		return $result;
 	}
@@ -173,6 +168,20 @@ class Application extends FrameworkApplication implements ContainerAwareInterfac
 			$defaultCommands,
 			[
 				new Command\Clear\Allcache,
+				new Command\Clear\Cache,
+				new Command\Clear\Twig,
+				new Command\Database\Migrate,
+				new Command\Database\Status,
+				new Command\Get\Avatars,
+				new Command\Get\Composertags,
+				new Command\Get\Users,
+				new Command\Install\Install,
+				new Command\Make\Autocomplete,
+				new Command\Make\Composergraph,
+				new Command\Make\Dbcomments,
+				new Command\Make\Depfile,
+				new Command\Make\Docu,
+				new Command\Make\Repoinfo,
 			]
 		);
 	}
@@ -202,18 +211,6 @@ class Application extends FrameworkApplication implements ContainerAwareInterfac
 		$this->out(str_repeat('-', $width));
 
 		return $this;
-	}
-
-	/**
-	 * Get the command options.
-	 *
-	 * @return  array
-	 *
-	 * @since   1.0
-	 */
-	public function getCommandOptions()
-	{
-		return $this->commandOptions;
 	}
 
 	/**
