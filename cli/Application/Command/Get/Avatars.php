@@ -154,7 +154,7 @@ class Avatars extends Get
 				: $io->text('+');
 		}
 
-		$io->newLine();
+		$io->progressFinish();
 
 		return $this->logOut(
 			sprintf(
