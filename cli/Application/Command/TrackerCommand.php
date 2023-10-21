@@ -185,7 +185,7 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 			}
 
 			$io->newLine();
-			$question = new ChoiceQuestion('Select a project:');
+			$question = new ChoiceQuestion('Select a project:', array_keys($checks));
 			$resp = (int) $io->askQuestion($question);
 
 			if (!$resp)

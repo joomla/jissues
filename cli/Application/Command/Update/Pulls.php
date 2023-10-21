@@ -62,7 +62,7 @@ class Pulls extends Update
 
 		$this->logOut('Start Updating Project');
 
-		$this->selectProject();
+		$this->selectProject($input, $ioStyle);
 
 		$this->getApplication()->input->set('project', $this->project->project_id);
 

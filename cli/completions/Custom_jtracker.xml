@@ -1,125 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <framework xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schemas/frameworkDescriptionVersion1.1.4.xsd" name="Custom_jtracker" invoke="cli/tracker.php" alias="jt" enabled="true" version="2">
   <command>
+    <name>_global</name>
+    <params>option</params>
+  </command>
+  <command>
     <name>help</name>
-    <help>Displays helpful information</help>
-  </command>
-  <command>
-    <name>clear</name>
-    <help>This will clear things.</help>
-    <params>option</params>
-  </command>
-  <command>
-    <name>clear allcache</name>
-    <help>Clear all cache stores.</help>
-  </command>
-  <command>
-    <name>clear cache</name>
-    <help>Clear the application cache.</help>
-  </command>
-  <command>
-    <name>clear twig</name>
-    <help>Clear the Twig cache.</help>
-  </command>
-  <command>
-    <name>database</name>
-    <help>This will track the database status.</help>
-    <params>option</params>
-  </command>
-  <command>
-    <name>database migrate</name>
-    <help>Migrate the database schema to a newer version.</help>
-  </command>
-  <command>
-    <name>database status</name>
-    <help>Check the database migration status.</help>
-  </command>
-  <command>
-    <name>get</name>
-    <help>Retrieve Information from various sources.</help>
-    <params>option</params>
-  </command>
-  <command>
-    <name>get avatars</name>
-    <help>Retrieve avatar images from GitHub.</help>
-  </command>
-  <command>
-    <name>get composertags</name>
-    <help>Retrieve a list of project tags from GitHub and show their installed versions.</help>
-  </command>
-  <command>
-    <name>get project</name>
-    <help>Get the whole project info from GitHub, including issues and issue comments.</help>
-  </command>
-  <command>
-    <name>get users</name>
-    <help>Retrieve user info from GitHub.</help>
+    <help>Show the help for a command</help>
   </command>
   <command>
     <name>install</name>
     <help>Install the application.</help>
   </command>
   <command>
-    <name>make</name>
-    <help>The make engine</help>
+    <name>list</name>
+    <help>List the application's available commands</help>
+  </command>
+  <command>
+    <name>clear</name>
     <params>option</params>
   </command>
   <command>
-    <name>make autocomplete</name>
+    <name>clear:allcache</name>
+    <help>Clear all cache stores.</help>
+  </command>
+  <command>
+    <name>clear:cache</name>
+    <help>Clear the application cache.</help>
+  </command>
+  <command>
+    <name>clear:twig</name>
+    <help>Clear the Twig cache.</help>
+  </command>
+  <command>
+    <name>database</name>
+    <params>option</params>
+  </command>
+  <command>
+    <name>database:migrate</name>
+    <help>Migrate the database schema to a newer version.</help>
+  </command>
+  <command>
+    <name>database:status</name>
+    <help>Check the database migration status.</help>
+  </command>
+  <command>
+    <name>get</name>
+    <params>option</params>
+  </command>
+  <command>
+    <name>get:avatars</name>
+    <help>Retrieve avatar images from GitHub.</help>
+  </command>
+  <command>
+    <name>get:composertags</name>
+    <help>Retrieve a list of project tags from GitHub and show their installed versions.</help>
+  </command>
+  <command>
+    <name>get:project</name>
+    <help>Get the whole project info from GitHub, including issues and issue comments.</help>
+  </command>
+  <command>
+    <name>get:users</name>
+    <help>Retrieve user info from GitHub.</help>
+  </command>
+  <command>
+    <name>make</name>
+    <params>option</params>
+  </command>
+  <command>
+    <name>make:autocomplete</name>
     <help>Generate autocomplete files.</help>
   </command>
   <command>
-    <name>make composergraph</name>
+    <name>make:composergraph</name>
     <help>Graph visualisation for your project's composer.json and its dependencies.</help>
   </command>
   <command>
-    <name>make dbcomments</name>
-    <help>Generate class doc blocks for Table classes</help>
+    <name>make:dbcomments</name>
+    <help>Generate class doc blocks for Table classes.</help>
   </command>
   <command>
-    <name>make depfile</name>
+    <name>make:depfile</name>
     <help>Create and update a dependency file.</help>
   </command>
   <command>
-    <name>make docu</name>
-    <help>Compile documentation using GitHub Flavored Markdown</help>
+    <name>make:docu</name>
+    <help>Compile documentation using GitHub Flavored Markdown.</help>
   </command>
   <command>
-    <name>make repoinfo</name>
+    <name>make:repoinfo</name>
     <help>Generate repository information.</help>
   </command>
   <command>
     <name>test</name>
-    <help>The test engine</help>
     <params>option</params>
   </command>
   <command>
-    <name>test checkstyle</name>
+    <name>test:checkstyle</name>
     <help>Run PHP CodeSniffer tests.</help>
   </command>
   <command>
-    <name>test hook</name>
-    <help>Tests web hooks</help>
+    <name>test:hook</name>
+    <help>Tests web hooks.</help>
   </command>
   <command>
-    <name>test phpunit</name>
+    <name>test:phpunit</name>
     <help>Run PHPUnit tests.</help>
   </command>
   <command>
-    <name>test run</name>
-    <help>Run all tests</help>
+    <name>test:run</name>
+    <help>Run all tests.</help>
   </command>
   <command>
     <name>update</name>
-    <help>Used to update resources</help>
     <params>option</params>
   </command>
   <command>
-    <name>update pulls</name>
+    <name>update:pulls</name>
     <help>Updates selected information for pull requests on GitHub for a specified project.</help>
   </command>
   <command>
-    <name>update server</name>
-    <help>Updates the local installation to either a specified version or latest git HEAD for the active branch</help>
+    <name>update:sever</name>
+    <help>Updates the local installation to either a specified version or latest git HEAD for the active branch.</help>
   </command>
 </framework>

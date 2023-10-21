@@ -24,6 +24,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class Docu extends TrackerCommand
 {
 	/**
+	 * Joomla! Github object
+	 *
+	 * @var    \Joomla\Github\Github
+	 * @since  1.0
+	 */
+	protected $github;
+
+	/**
 	 * Configure the command.
 	 *
 	 * @return  void

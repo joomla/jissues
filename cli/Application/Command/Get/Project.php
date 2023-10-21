@@ -26,7 +26,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  *
  * @since  1.0
  */
-abstract class Project extends Get
+class Project extends Get
 {
 	/**
 	 * Lowest issue to fetch.

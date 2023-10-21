@@ -20,6 +20,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
@@ -84,7 +85,7 @@ class Hook extends Test
 
 		$this->logOut('Start testing hook');
 
-		$this->selectProject($input)->selectHook();
+		$this->selectProject($input, $ioStyle)->selectHook($ioStyle);
 
 		$this->getApplication()->input->set('project', $this->project->project_id);
 
@@ -99,13 +100,15 @@ class Hook extends Test
 	/**
 	 * Select the hook.
 	 *
+	 * @param   SymfonyStyle  $io  Output decorator
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 * @throws  AbortException
 	 */
-	protected function selectHook()
+	protected function selectHook(SymfonyStyle $io)
 	{
 		$paths = (new Filesystem(new Local(JPATH_ROOT . '/src/App/Tracker/Controller/Hooks')))->listContents();
 		$hooks = [];
@@ -118,9 +121,9 @@ class Hook extends Test
 			}
 		}
 
-		$this->out()
-			->out('<b>Available hooks:</b>')
-			->out();
+		$io->newLine();
+		$io->text('Available hooks:');
+		$io->newLine();
 
 		$cnt = 1;
 
@@ -128,25 +131,14 @@ class Hook extends Test
 
 		foreach ($hooks as $hook)
 		{
-			$this->out('  <b>' . $cnt . '</b> ' . $hook);
+			$io->text('  <b>' . $cnt . '</b> ' . $hook);
 			$checks[$cnt] = $hook;
 			$cnt++;
 		}
 
-		$this->out()
-			->out('<question>Select a hook:</question> ', false);
-
-		$resp = (int) trim($this->getApplication()->in());
-
-		if (!$resp)
-		{
-			throw new AbortException('Aborted');
-		}
-
-		if (\array_key_exists($resp, $checks) === false)
-		{
-			throw new AbortException('Invalid hook');
-		}
+		$io->newLine();
+		$question = new ChoiceQuestion('Select a hook:', array_keys($checks));
+		$resp = (int) $io->askQuestion($question);
 
 		$classname = '\\App\\Tracker\\Controller\\Hooks\\Receive' . $checks[$resp] . 'Hook';
 
@@ -168,6 +160,7 @@ class Hook extends Test
 	 * Select the project.
 	 *
 	 * @param   InputInterface  $input  The input to inject into the command.
+	 * @param   SymfonyStyle    $io     The output decorator.
 	 *
 	 * @return  $this
 	 *
@@ -175,7 +168,7 @@ class Hook extends Test
 	 * @throws  AbortException
 	 * @since   1.0
 	 */
-	protected function selectProject(InputInterface $input)
+	protected function selectProject(InputInterface $input, SymfonyStyle $io)
 	{
 		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
@@ -190,9 +183,9 @@ class Hook extends Test
 
 		if (!$id)
 		{
-			$this->out()
-				->out('<b>Available projects:</b>')
-				->out();
+			$io->newLine();
+			$io->text('<b>Available projects:</b>');
+			$io->newLine();
 
 			$cnt = 1;
 
@@ -202,26 +195,15 @@ class Hook extends Test
 			{
 				if ($project->gh_user && $project->gh_project)
 				{
-					$this->out('  <b>' . $cnt . '</b> (id: ' . $project->project_id . ') ' . $project->title);
+					$io->text('  <b>' . $cnt . '</b> (id: ' . $project->project_id . ') ' . $project->title);
 					$checks[$cnt] = $project;
 					$cnt++;
 				}
 			}
 
-			$this->out()
-				->out('<question>Select a project:</question> ', false);
-
-			$resp = (int) trim($this->getApplication()->in());
-
-			if (!$resp)
-			{
-				throw new AbortException('Aborted');
-			}
-
-			if (\array_key_exists($resp, $checks) === false)
-			{
-				throw new AbortException('Invalid project');
-			}
+			$io->newLine();
+			$question = new ChoiceQuestion('Select a project:', array_keys($checks));
+			$resp = (int) $io->askQuestion($question);
 
 			$this->project = $checks[$resp];
 		}
