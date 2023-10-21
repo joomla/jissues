@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bac6811a8d83ec46abc8418d0a5838ed",
+    "content-hash": "cd9b18cb35c30bc32c986a9ec6f2da5c",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -173,53 +173,6 @@
                 }
             ],
             "time": "2023-08-30T09:31:38+00:00"
-        },
-        {
-            "name": "elkuku/console-progressbar",
-            "version": "2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/elkuku/ConsoleProgressBar.git",
-                "reference": "4f875777ea6a3b509925c8f8a1c512710cc9a0c7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/ConsoleProgressBar/zipball/4f875777ea6a3b509925c8f8a1c512710cc9a0c7",
-                "reference": "4f875777ea6a3b509925c8f8a1c512710cc9a0c7",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.4|8.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Elkuku": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Stefan Walk",
-                    "email": "et@php.net"
-                },
-                {
-                    "name": "Nikolai Plath",
-                    "homepage": "https://github.com/elkuku"
-                }
-            ],
-            "description": "This class provides you with an easy-to-use interface to progress bars.",
-            "keywords": [
-                "console"
-            ],
-            "support": {
-                "issues": "https://github.com/elkuku/ConsoleProgressBar/issues",
-                "source": "https://github.com/elkuku/ConsoleProgressBar/tree/2.0"
-            },
-            "time": "2021-02-11T13:00:25+00:00"
         },
         {
             "name": "filp/whoops",
@@ -6893,5 +6846,5 @@
     "platform-overrides": {
         "php": "7.4.33"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }

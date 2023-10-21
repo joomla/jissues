@@ -10,8 +10,6 @@ namespace Application;
 
 use App\Projects\TrackerProject;
 
-use Elkuku\Console\Helper\ConsoleProgressBar;
-
 use Joomla\Console\Application as FrameworkApplication;
 use Joomla\Console\Command\AbstractCommand;
 use Joomla\DI\ContainerAwareInterface;
@@ -41,14 +39,6 @@ class Application extends FrameworkApplication implements ContainerAwareInterfac
 	 * @since  1.0
 	 */
 	protected $usePBar;
-
-	/**
-	 * Progress bar format.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $pBarFormat = '[%bar%] %fraction% %elapsed% ETA: %estimate%';
 
 	/**
 	 * Class constructor.
@@ -108,9 +98,6 @@ class Application extends FrameworkApplication implements ContainerAwareInterfac
 	protected function getDefaultInputDefinition(): InputDefinition
 	{
 		$definition = parent::getDefaultInputDefinition();
-		$definition->addOption(
-			new InputOption('--nocolor', '', InputOption::VALUE_NONE, 'Suppress ANSI colours on unsupported terminals (deprecated)')
-		);
 		$definition->addOption(
 			new InputOption('--log', '', InputOption::VALUE_NONE, 'Optionally log output to the specified log file')
 		);
@@ -211,22 +198,6 @@ class Application extends FrameworkApplication implements ContainerAwareInterfac
 		$user->isAdmin = true;
 
 		return $user;
-	}
-
-	/**
-	 * Get a progress bar object.
-	 *
-	 * @param   integer  $targetNum  The target number.
-	 *
-	 * @return  ConsoleProgressBar
-	 *
-	 * @since   1.0
-	 */
-	public function getProgressBar($targetNum)
-	{
-		return ($this->usePBar)
-			? new ConsoleProgressBar($this->pBarFormat, '=>', ' ', 60, $targetNum)
-			: null;
 	}
 
 	/**

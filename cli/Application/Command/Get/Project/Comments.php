@@ -112,14 +112,12 @@ class Comments extends Project
 			)
 		);
 
-		$progressBar = $this->getProgressBar(\count($this->changedIssueNumbers));
-
-		$this->usePBar ? $io->newLine() : null;
+		$this->usePBar ? $io->progressStart(\count($this->changedIssueNumbers)) : null;
 
 		foreach ($this->changedIssueNumbers as $count => $issueNumber)
 		{
 			$this->usePBar
-				? $progressBar->update($count + 1)
+				? $io->progressAdvance()
 				: $io->text(
 					sprintf(
 						'#%d (%d/%d):',
@@ -155,6 +153,7 @@ class Comments extends Project
 			while ($count);
 		}
 
+		$io->progressFinish();
 		$io->newLine();
 		$io->success('Finished');
 
@@ -164,11 +163,13 @@ class Comments extends Project
 	/**
 	 * Method to process the list of issues and inject into the database as needed
 	 *
+	 * @param   SymfonyStyle  $io  The output decorator
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	protected function processData()
+	protected function processData(SymfonyStyle $io)
 	{
 		if (!$this->items)
 		{
@@ -183,7 +184,7 @@ class Comments extends Project
 		// Initialize our query object
 		$query = $db->getQuery(true);
 
-		$this->out(
+		$io->text(
 			sprintf(
 				'Processing comments for %d modified issues...',
 				\count($this->items)
@@ -209,27 +210,23 @@ class Comments extends Project
 		{
 			if (!\count($comments))
 			{
-				$this
-					->out()
-					->out(sprintf('No comments for issue # %d', $issueNumber));
+				$io->newLine();
+				$io->text(sprintf('No comments for issue # %d', $issueNumber));
 			}
 			else
 			{
-				$this
-					->out()
-					->out(
-						sprintf(
-							'Processing %1$d comments for issue # %2$d (%3$d/%4$d)',
-							\count($comments),
-							$issueNumber,
-							$count,
-							\count($this->items)
-						)
-					);
+				$io->newLine();
+				$io->text(
+					sprintf(
+						'Processing %1$d comments for issue # %2$d (%3$d/%4$d)',
+						\count($comments),
+						$issueNumber,
+						$count,
+						\count($this->items)
+					)
+				);
 
-				$progressBar = $this->getProgressBar(\count($comments));
-
-				$this->usePBar ? $this->out() : null;
+				$this->usePBar ? $io->progressStart(\count($comments)) : null;
 
 				foreach ($comments as $i => $comment)
 				{
@@ -259,8 +256,8 @@ class Comments extends Project
 							{
 								// No update required
 								$this->usePBar
-									? $progressBar->update($i + 1)
-									: $this->out('-', false);
+									? $io->progressAdvance()
+									: $io->write('-');
 
 								continue;
 							}
@@ -268,7 +265,7 @@ class Comments extends Project
 
 						$table->load($check->{$table->getKeyName()});
 
-						$this->usePBar ? null : $this->out(($this->force ? 'F ' : '~ '), false);
+						$this->usePBar ? null : $io->write(($this->force ? 'F ' : '~ '));
 					}
 					else
 					{
@@ -309,10 +306,11 @@ class Comments extends Project
 					}
 
 					$this->usePBar
-						? $progressBar->update($i + 1)
+						? $io->progressAdvance()
 						: null;
 				}
 
+				$io->progressFinish();
 				$count++;
 			}
 
@@ -329,9 +327,9 @@ class Comments extends Project
 			$this->deleteIssuesComments($toDelete);
 		}
 
-		$this->out()
-			->outOK()
-			->logOut(sprintf('%1$d added, %2$d updated, %3$d deleted.', $adds, $updates, \count($toDelete)));
+		$io->newLine();
+		$io->success('OK');
+		$this->logOut(sprintf('%1$d added, %2$d updated, %3$d deleted.', $adds, $updates, \count($toDelete)));
 
 		return $this;
 	}

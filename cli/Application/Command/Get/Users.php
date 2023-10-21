@@ -65,7 +65,7 @@ class Users extends Get
 
 		$this->logOut('Start retrieving Users.')
 			->setupGitHub()
-			->getUserName()
+			->getUserName($ioStyle)
 			->out()
 			->logOut('Finished.');
 
@@ -75,12 +75,14 @@ class Users extends Get
 	/**
 	 * Fetch Username and store into DB.
 	 *
+	 * @param   SymfonyStyle  $io  The output decorator
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
 	 */
-	private function getUserName()
+	private function getUserName(SymfonyStyle $io)
 	{
 		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
@@ -100,16 +102,14 @@ class Users extends Get
 			throw new \UnexpectedValueException('No users found in database.');
 		}
 
-		$this->out(
+		$io->text(
 			sprintf(
 				'Getting user info for %d users.',
 				\count($userNames)
 			)
 		);
 
-		$progressBar = $this->getProgressBar(\count($userNames));
-
-		$this->usePBar ? $this->out() : null;
+		$this->usePBar ? $io->progressStart(\count($userNames)) : null;
 
 		/** @var GitHubLoginHelper $loginHelper */
 		$loginHelper = $this->getContainer()->get(GitHubLoginHelper::class);
@@ -122,7 +122,10 @@ class Users extends Get
 				continue;
 			}
 
-			$this->debugOut(sprintf('Fetching User Info for user: %s', $userName));
+			if ($io->isVeryVerbose())
+			{
+				$io->text(sprintf('Fetching User Info for user: %s', $userName));
+			}
 
 			try
 			{
@@ -138,13 +141,15 @@ class Users extends Get
 			}
 			catch (\Exception $exception)
 			{
-				$this->out(sprintf('An error has occurred during user refresh: %s', $exception->getMessage()));
+				$io->error(sprintf('An error has occurred during user refresh: %s', $exception->getMessage()));
 			}
 
 			$this->usePBar
-				? $progressBar->update($i + 1)
-				: $this->out('.', false);
+				? $io->progressAdvance(1)
+				: $io->write('.', false);
 		}
+
+		$io->progressFinish();
 
 		return $this->out('User information has been refreshed.');
 	}

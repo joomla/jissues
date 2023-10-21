@@ -96,7 +96,7 @@ class Issues extends Project
 			->setupGitHub()
 			->selectType($input)
 			->fetchData()
-			->processData()
+			->processData($ioStyle)
 			->out()
 			->logOut('Finished.');
 
@@ -239,12 +239,14 @@ class Issues extends Project
 	/**
 	 * Method to process the list of issues and inject into the database as needed
 	 *
+	 * @param   SymfonyStyle  $io  The output decorator
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function processData()
+	protected function processData(SymfonyStyle $io)
 	{
 		$ghIssues = $this->issues;
 		$dbIssues = $this->getDbIssues();
@@ -259,23 +261,21 @@ class Issues extends Project
 
 		$milestones = $this->getMilestones();
 
-		$this->out('Adding issues to the database...', false);
+		$io->write('Adding issues to the database...');
 
-		$progressBar = $this->getProgressBar(\count($ghIssues));
-
-		$this->usePBar ? $this->out() : null;
+		$this->usePBar ? $io->progressStart(\count($ghIssues)) : null;
 
 		// Start processing the pulls now
 		foreach ($ghIssues as $count => $ghIssue)
 		{
 			$this->usePBar
-				? $progressBar->update($count + 1)
-				: $this->out($ghIssue->number . '...', false);
+				? $io->progressAdvance()
+				: $io->write($ghIssue->number . '...', false);
 
 			if (!$this->checkInRange($ghIssue->number))
 			{
 				// Not in range
-				$this->usePBar ? null : $this->out('NiR ', false);
+				$this->usePBar ? null : $io->write('NiR ', false);
 
 				continue;
 			}
@@ -289,7 +289,7 @@ class Issues extends Project
 					if ($this->force)
 					{
 						// Force update
-						$this->usePBar ? null : $this->out('F ', false);
+						$this->usePBar ? null : $io->write('F ', false);
 						$id = $dbIssue->id;
 
 						break;
@@ -301,7 +301,7 @@ class Issues extends Project
 					if ($d1 == $d2)
 					{
 						// No update required
-						$this->usePBar ? null : $this->out('- ', false);
+						$this->usePBar ? null : $io->write('- ', false);
 
 						continue 2;
 					}
@@ -372,7 +372,10 @@ class Issues extends Project
 				$table->has_code = 1;
 
 				// Get the pull request corresponding to an issue.
-				$this->debugOut('Get PR for the issue');
+				if ($io->isVerbose())
+				{
+					$io->text('Get PR for the issue');
+				}
 
 				$pullRequest = $this->github->pulls->get(
 					$this->project->gh_user, $this->project->gh_project, $ghIssue->number
@@ -472,8 +475,8 @@ class Issues extends Project
 		}
 
 		// Output the final result
-		$this->out()
-			->logOut(sprintf('<ok>%1$d added, %2$d updated.</ok>', $added, $updated));
+		$io->progressFinish();
+		$this->logOut(sprintf('<ok>%1$d added, %2$d updated.</ok>', $added, $updated));
 
 		return $this;
 	}

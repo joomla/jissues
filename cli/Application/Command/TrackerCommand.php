@@ -134,20 +134,6 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 	}
 
 	/**
-	 * Get a progress bar object.
-	 *
-	 * @param   integer  $targetNum  The target number.
-	 *
-	 * @return  \Elkuku\Console\Helper\ConsoleProgressBar
-	 *
-	 * @since   1.0
-	 */
-	protected function getProgressBar($targetNum)
-	{
-		return $this->getApplication()->getProgressBar($targetNum);
-	}
-
-	/**
 	 * Select the project.
 	 *
 	 * @param   InputInterface  $input  The input to inject into the command.

@@ -67,9 +67,8 @@ class Events extends Project
 		$this->logOut('Start retrieve Events')
 			->selectProject($input, $ioStyle)
 			->setupGitHub()
-			->fetchData()
-			->processData()
-			->out()
+			->fetchData($ioStyle)
+			->processData($ioStyle)
 			->logOut('Finished.');
 
 		return Command::SUCCESS;
@@ -94,38 +93,36 @@ class Events extends Project
 	/**
 	 * Method to get the comments on items from GitHub
 	 *
+	 * @param   SymfonyStyle  $io  The output decorator
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	protected function fetchData()
+	protected function fetchData(SymfonyStyle $io)
 	{
 		if (!$this->changedIssueNumbers)
 		{
 			return $this;
 		}
 
-		$this->out(
+		$io->text(
 			sprintf(
 				'Fetch events for <b>%d</b> issues from GitHub...',
 				\count($this->changedIssueNumbers)
-			),
-			false
+			)
 		);
 
-		$progressBar = $this->getProgressBar(\count($this->changedIssueNumbers));
-
-		$this->usePBar ? $this->out() : null;
+		$this->usePBar ? $io->progressStart(\count($this->changedIssueNumbers)) : null;
 
 		foreach ($this->changedIssueNumbers as $count => $issueNumber)
 		{
 			$this->usePBar
-				? $progressBar->update($count + 1)
-				: $this->out(
+				? $io->progressAdvance()
+				: $io->write(
 					sprintf(
 						'%d/%d - # %d: ', $count + 1, \count($this->changedIssueNumbers), $issueNumber
-					),
-					false
+					)
 				);
 
 			$page                      = 0;
@@ -149,15 +146,15 @@ class Events extends Project
 
 					$this->usePBar
 							? null
-							: $this->out($count . ' ', false);
+							: $io->write($count . ' ');
 				}
 			}
 			while ($count);
 		}
 
 		// Retrieved items, report status
-		$this->out()
-			->outOK();
+		$io->progressFinish();
+		$io->success('OK');
 
 		return $this;
 	}
@@ -165,12 +162,14 @@ class Events extends Project
 	/**
 	 * Method to process the list of issues and inject into the database as needed
 	 *
+	 * @param   SymfonyStyle  $io  The output decorator
+	 *
 	 * @return  $this
 	 *
-	 * @since   1.0
 	 * @throws  \UnexpectedValueException
+	 * @since   1.0
 	 */
-	protected function processData()
+	protected function processData(SymfonyStyle $io)
 	{
 		if (!$this->items)
 		{
@@ -186,9 +185,7 @@ class Events extends Project
 
 		$this->out('Adding events to the database...', false);
 
-		$progressBar = $this->getProgressBar(\count($this->items));
-
-		$this->usePBar ? $this->out() : null;
+		$this->usePBar ? $io->progressStart(\count($this->items)) : null;
 
 		$adds  = 0;
 		$count = 0;
@@ -200,7 +197,7 @@ class Events extends Project
 		{
 			$this->usePBar
 				? null
-				: $this->out(sprintf(' #%d (%d/%d)...', $issueNumber, $count + 1, \count($this->items)), false);
+				: $io->write(sprintf(' #%d (%d/%d)...', $issueNumber, $count + 1, \count($this->items)));
 
 			foreach ($events as $event)
 			{
@@ -237,21 +234,21 @@ class Events extends Project
 							if ($this->force)
 							{
 								// Force update
-								$this->usePBar ? null : $this->out('F', false);
+								$this->usePBar ? null : $io->write('F', false);
 
 								$table->{$table->getKeyName()} = $id;
 							}
 							else
 							{
 								// If we have something already, then move on to the next item
-								$this->usePBar ? null : $this->out('-', false);
+								$this->usePBar ? null : $io->write('-', false);
 
 								continue;
 							}
 						}
 						else
 						{
-							$this->usePBar ? null : $this->out('+', false);
+							$this->usePBar ? null : $io->write('+', false);
 						}
 
 						// Translate GitHub event names to "our" name schema
@@ -330,13 +327,13 @@ class Events extends Project
 			$count++;
 
 			$this->usePBar
-				? $progressBar->update($count)
+				? $io->progressAdvance()
 				: null;
 		}
 
-		$this->out()
-			->outOK()
-			->logOut(sprintf('Added %d new issue events to the database', $adds));
+		$io->progressFinish();
+		$io->success('OK');
+		$this->logOut(sprintf('Added %d new issue events to the database', $adds));
 
 		return $this;
 	}
