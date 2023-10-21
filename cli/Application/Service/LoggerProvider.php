@@ -8,10 +8,10 @@
 
 namespace Application\Service;
 
+use Application\Application;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 
-use Joomla\Input\Input;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
@@ -40,13 +40,13 @@ class LoggerProvider implements ServiceProviderInterface
 			'monolog.logger.cli',
 			function (Container $container)
 			{
-				/** @var Input $input */
-				$input = $container->get('JTracker\\Input\\Cli');
+				/** @var Application $app */
+				$app = $container->get(Application::class);
 
 				// Instantiate the object
 				$logger = new Logger('JTracker');
 
-				if ($file = $input->get('log'))
+				if ($file = $app->getConsoleInput()->getOption('log'))
 				{
 					// Log to a file
 					$logger->pushHandler(
@@ -56,7 +56,7 @@ class LoggerProvider implements ServiceProviderInterface
 						)
 					);
 				}
-				elseif ($input->get('quiet', $input->get('q')) != '1')
+				elseif ($app->getConsoleInput()->getOption('quiet'))
 				{
 					// Log to screen
 					$logger->pushHandler(
