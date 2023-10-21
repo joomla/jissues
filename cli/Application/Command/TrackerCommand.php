@@ -114,13 +114,20 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 	/**
 	 * Display the GitHub rate limit.
 	 *
+	 * @param   SymfonyStyle  $io  The output decorator
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	protected function displayGitHubRateLimit()
+	protected function displayGitHubRateLimit(SymfonyStyle $io)
 	{
-		$this->getApplication()->displayGitHubRateLimit();
+		$rate = $this->getContainer()->get('gitHub')->authorization->getRateLimit()->resources->core;
+
+		$io->newLine();
+		$io->info('GitHub rate limit:...');
+		$io->text(sprintf('%1$d (remaining: <b>%2$d</b>)', $rate->limit, $rate->remaining));
+		$io->newLine();
 
 		return $this;
 	}

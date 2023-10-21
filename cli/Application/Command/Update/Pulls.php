@@ -67,7 +67,7 @@ class Pulls extends Update
 		$this->getApplication()->input->set('project', $this->project->project_id);
 
 		$this->setupGitHub()
-			->displayGitHubRateLimit()
+			->displayGitHubRateLimit($ioStyle)
 			->out(
 				sprintf(
 					'Updating pull requests for project: %s/%s',

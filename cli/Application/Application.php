@@ -220,26 +220,6 @@ class Application extends FrameworkApplication implements ContainerAwareInterfac
 	}
 
 	/**
-	 * Display the GitHub rate limit.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	public function displayGitHubRateLimit()
-	{
-		$this->out()
-			->out('<info>GitHub rate limit:...</info> ', false);
-
-		$rate = $this->container->get('gitHub')->authorization->getRateLimit()->resources->core;
-
-		$this->out(sprintf('%1$d (remaining: <b>%2$d</b>)', $rate->limit, $rate->remaining))
-			->out();
-
-		return $this;
-	}
-
-	/**
 	 * Get a progress bar object.
 	 *
 	 * @param   integer  $targetNum  The target number.
