@@ -71,7 +71,7 @@ class Docu extends TrackerCommand
 
 		$this->github = $this->getContainer()->get('gitHub');
 
-		$this->getApplication()->displayGitHubRateLimit();
+		$this->displayGitHubRateLimit($ioStyle);
 
 		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');

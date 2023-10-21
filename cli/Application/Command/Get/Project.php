@@ -103,7 +103,7 @@ class Project extends Get
 			->setParams($input)
 			->selectRange($input, $ioStyle)
 			->setupGitHub()
-			->displayGitHubRateLimit();
+			->displayGitHubRateLimit($ioStyle);
 		$ioStyle->text(
 			strtr(
 				'Updating project info for project: %user%/%project%',
