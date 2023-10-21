@@ -8,6 +8,11 @@
 
 namespace Application\Command\Test;
 
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
+
 /**
  * Class for running a test suite.
  *
@@ -16,39 +21,44 @@ namespace Application\Command\Test;
 class Run extends Test
 {
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = 'Run all tests';
+		$this->setName('test:run');
+		$this->setDescription('Run all tests.');
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Test Suite');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Test Suite');
 
 		$statusCS = (new Checkstyle)
 			->setContainer($this->getContainer())
 			->setExit(false)
-			->execute();
+			->execute($input, $output);
 
 		$statusUT = (new Phpunit)
 			->setContainer($this->getContainer())
 			->setExit(false)
-			->execute();
+			->execute($input, $output);
 
-		$status = ($statusCS > Checkstyle::ALLOWED_FAIL_COUNT || $statusUT) ? 1 : 0;
+		$status = ($statusCS > Checkstyle::ALLOWED_FAIL_COUNT || $statusUT) ? Command::FAILURE : Command::SUCCESS;
 
 		$this
 			->out()
@@ -58,6 +68,6 @@ class Run extends Test
 					: '<ok>Test Suite Finished.</ok>'
 			);
 
-		exit($status);
+		return $status;
 	}
 }

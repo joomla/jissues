@@ -16,11 +16,11 @@ use Joomla\Console\Command\AbstractCommand;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
 
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
-
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Question\ChoiceQuestion;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * TrackerCommand class
@@ -31,14 +31,6 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 {
 	use LoggerAwareTrait;
 	use ContainerAwareTrait;
-
-	/**
-	 * Array of options.
-	 *
-	 * @var    TrackerCommandOption[]
-	 * @since  1.0
-	 */
-	protected $options = [];
 
 	/**
 	 * Use the progress bar.
@@ -55,32 +47,6 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 	 * @since  1.0
 	 */
 	protected $project;
-
-	/**
-	 * Get the current value of a command option.
-	 *
-	 * Checks first the long option (e.g. --option) then the short option (e.g. -o).
-	 *
-	 * @param   string  $name  the option name.
-	 *
-	 * @return string
-	 */
-	protected function getOption($name)
-	{
-		$input = $this->getApplication()->input;
-
-		foreach ($this->options as $option)
-		{
-			if ($option->longArg == $name)
-			{
-				return $option->shortArg
-				? $input->get($option->longArg, $input->get($option->shortArg))
-				: $input->get($option->longArg);
-			}
-		}
-
-		throw new \UnexpectedValueException(sprintf('Option "%s" has not been added to class "%s"', $name, \get_class($this)));
-	}
 
 	/**
 	 * Write a string to standard output.
@@ -134,57 +100,6 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 	}
 
 	/**
-	 * Display an error "page" if no options have been found for a given command.
-	 *
-	 * @param   string  $dir  The base directory for the commands.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	public function displayMissingOption($dir)
-	{
-		$command = strtolower(implode('', \array_slice(explode('\\', \get_class($this)), -1)));
-
-		$this->getApplication()->outputTitle(sprintf('Command: %s', ucfirst($command)));
-
-		$errorTitle1 = sprintf('Missing option for command: %s', $command);
-		$errorTitle2 = 'Please use one of the following :';
-
-		$maxLen = (\strlen($errorTitle1) > \strlen($errorTitle2)) ? \strlen($errorTitle1) : \strlen($errorTitle2);
-
-		$filesystem = new Filesystem(new Local($dir));
-
-		$this->out('<error>  ' . str_repeat(' ', $maxLen) . '  </error>');
-		$this->out('<error>  ' . $errorTitle1 . str_repeat(' ', $maxLen - \strlen($errorTitle1)) . '  </error>');
-		$this->out('<error>  ' . $errorTitle2 . str_repeat(' ', $maxLen - \strlen($errorTitle2)) . '  </error>');
-		$this->out('<error>  ' . str_repeat(' ', $maxLen) . '  </error>');
-
-		$files = $filesystem->listContents();
-		sort($files);
-
-		foreach ($files as $file)
-		{
-			$cmd = strtolower($file['filename']);
-
-			if ($file['type'] != 'file' || $command == $cmd)
-			{
-				// Exclude the base class
-				continue;
-			}
-
-			$this->out('<error>  ' . $command . ' ' . $cmd
-				. str_repeat(' ', $maxLen - \strlen($cmd) - \strlen($command) + 1)
-				. '</error>'
-			);
-		}
-
-		$this->out('<error>  ' . str_repeat(' ', $maxLen) . '  </error>');
-
-		return $this;
-	}
-
-	/**
 	 * Get the logger object.
 	 *
 	 * @return  \Psr\Log\LoggerInterface
@@ -227,13 +142,16 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 	/**
 	 * Select the project.
 	 *
+	 * @param   InputInterface  $input  The input to inject into the command.
+	 * @param   SymfonyStyle    $io     The output object for rendering text.
+	 *
 	 * @return  $this
 	 *
-	 * @since   1.0
 	 * @throws  \RuntimeException
 	 * @throws  AbortException
+	 * @since   1.0
 	 */
-	protected function selectProject()
+	protected function selectProject(InputInterface $input, SymfonyStyle $io)
 	{
 		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
@@ -244,13 +162,13 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 				->select(['project_id', 'title', 'gh_user', 'gh_project', 'gh_editbot_user', 'gh_editbot_pass'])
 		)->loadObjectList();
 
-		$id = (integer) $this->getOption('project');
+		$id = (integer) $input->getOption('project');
 
 		if (!$id)
 		{
-			$this->out()
-				->out('<b>Available projects:</b>')
-				->out();
+			$io->newLine();
+			$io->text('<b>Available projects:</b>');
+			$io->newLine();
 
 			$cnt = 1;
 
@@ -260,16 +178,15 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 			{
 				if ($project->gh_user && $project->gh_project)
 				{
-					$this->out('  <b>' . $cnt . '</b> (id: ' . $project->project_id . ') ' . $project->title);
+					$io->text('  <b>' . $cnt . '</b> (id: ' . $project->project_id . ') ' . $project->title);
 					$checks[$cnt] = $project;
 					$cnt++;
 				}
 			}
 
-			$this->out()
-				->out('<question>Select a project:</question> ', false);
-
-			$resp = (int) trim($this->getApplication()->in());
+			$io->newLine();
+			$question = new ChoiceQuestion('Select a project:');
+			$resp = (int) $io->askQuestion($question);
 
 			if (!$resp)
 			{
@@ -303,7 +220,8 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 
 		$this->logOut(sprintf('Processing project: <info>%s</info>', $this->project->title));
 
-		$this->getApplication()->input->set('project', $this->project->project_id);
+		// TODO: FIX ME!!
+		$this->getApplication()->getInput()->set('project', $this->project->project_id);
 
 		return $this;
 	}

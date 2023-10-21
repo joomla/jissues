@@ -11,8 +11,12 @@ namespace Application\Command\Update;
 use Application\Command\Clear\Twig;
 use Application\Command\Database\Migrate;
 use Application\Command\Make\Repoinfo;
-use Application\Command\TrackerCommandOption;
 use Application\Exception\AbortException;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for synchronizing a server with the primary git repository
@@ -22,41 +26,38 @@ use Application\Exception\AbortException;
 class Server extends Update
 {
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = 'Updates the local installation to either a specified version or latest git HEAD for the active branch';
-
-		$this->addOption(
-			new TrackerCommandOption(
-				'version',
-				'',
-				'An optional version number to update to.'
-			)
-		);
+		$this->setName('update:sever');
+		$this->setDescription('Updates the local installation to either a specified version or latest git HEAD for the active branch.');
+		$this->addOption('version', null, InputOption::VALUE_OPTIONAL, 'An optional version number to update to.');
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 * @throws  AbortException
-	 * @throws  \RuntimeException
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Update Server');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Update Server');
 
 		$this->logOut('Beginning git update');
 
-		$version = $this->getOption('version');
+		$version = $input->getOption('version');
 
 		if ($version)
 		{
@@ -74,26 +75,28 @@ class Server extends Update
 		}
 
 		// Update the Composer installation
-		$this->out('<info>Installing current Composer dependencies and regenerating autoloader</info>');
+		$ioStyle->info('Installing current Composer dependencies and regenerating autoloader');
 		$this->execCommand('cd ' . JPATH_ROOT . ' && composer install --no-dev --optimize-autoloader 2>&1');
 
 		// Execute the database migrations (if any) for this version
 		(new Migrate)
 			->setContainer($this->getContainer())
-			->execute();
+			->execute($input, $output);
 
 		// Flush the Twig cache
 		(new Twig)
 			->setContainer($this->getContainer())
-			->execute();
+			->execute($input, $output);
 
 		(new Repoinfo)
 			->setContainer($this->getContainer())
-			->execute();
+			->execute($input, $output);
 
 		$this->logOut($message);
-		$this->out("<info>$message</info>");
+		$ioStyle->info($message);
 
 		$this->logOut('Update Finished');
+
+		return Command::SUCCESS;
 	}
 }

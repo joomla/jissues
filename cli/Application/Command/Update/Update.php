@@ -9,16 +9,16 @@
 namespace Application\Command\Update;
 
 use Application\Command\TrackerCommand;
-use Application\Command\TrackerCommandOption;
 
 use Joomla\Github\Github;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Command package for updating selected resources
  *
  * @since  1.0
  */
-class Update extends TrackerCommand
+abstract class Update extends TrackerCommand
 {
 	/**
 	 * Joomla! Github object
@@ -29,43 +29,15 @@ class Update extends TrackerCommand
 	protected $github;
 
 	/**
-	 * Constructor.
+	 * Common Option for project filtering.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function addProjectOption(): void
 	{
-		$this->description = 'Used to update resources';
-
-		$this
-			->addOption(
-				new TrackerCommandOption(
-					'project',
-					'p',
-					'Process the project with the given ID.'
-				)
-			)
-			->addOption(
-				new TrackerCommandOption(
-					'noprogress',
-					'',
-					"Don't use a progress bar."
-				)
-			);
-	}
-
-	/**
-	 * Execute the command.
-	 *
-	 * NOTE: This command must not be executed without parameters !
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		return $this->displayMissingOption(__DIR__);
+		$this->addOption('project', 'p', InputOption::VALUE_OPTIONAL, 'Process the project with the given ID.');
 	}
 
 	/**

@@ -9,6 +9,7 @@
 namespace Application\Command\Database;
 
 use Application\Command\TrackerCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -78,6 +79,6 @@ class Status extends TrackerCommand
 			$ioStyle->text('To update, run the <question>database:migrate</question> command.');
 		}
 
-		return 0;
+		return Command::SUCCESS;
 	}
 }

@@ -9,6 +9,7 @@
 namespace Application\Command\Get;
 
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
@@ -50,7 +51,7 @@ class Avatars extends Get
 	{
 		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
 
-		if ($this->getOption('noprogress'))
+		if ($input->getOption('noprogress'))
 		{
 			$this->usePBar = false;
 		}
@@ -65,7 +66,7 @@ class Avatars extends Get
 			->fetchAvatars($ioStyle)
 			->logOut('Finished.');
 
-		return 0;
+		return Command::SUCCESS;
 	}
 
 	/**

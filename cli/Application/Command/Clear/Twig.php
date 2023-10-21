@@ -11,6 +11,7 @@ namespace Application\Command\Clear;
 use Application\Command\TrackerCommand;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -54,7 +55,7 @@ class Twig extends TrackerCommand
 		{
 			$ioStyle->info('Twig caching is not enabled.');
 
-			return 0;
+			return Command::SUCCESS;
 		}
 
 		$cacheDir     = JPATH_ROOT . '/cache';
@@ -72,6 +73,6 @@ class Twig extends TrackerCommand
 		$ioStyle->newLine();
 		$ioStyle->success('The Twig cache directory has been cleared.');
 
-		return 0;
+		return Command::SUCCESS;
 	}
 }

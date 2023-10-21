@@ -9,6 +9,7 @@
 namespace Application\Command\Database;
 
 use Application\Command\TrackerCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -73,11 +74,13 @@ class Migrate extends TrackerCommand
 			);
 
 			$ioStyle->error($message);
+
+			return Command::FAILURE;
 		}
 
 		$this->getLogger()->info('Database migrated to latest version.');
 		$ioStyle->success('Database migrated to latest version.');
 
-		return 0;
+		return Command::SUCCESS;
 	}
 }

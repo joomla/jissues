@@ -10,6 +10,7 @@ namespace Application\Command\Clear;
 
 use Application\Command\TrackerCommand;
 use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -61,6 +62,6 @@ class Cache extends TrackerCommand
 			$ioStyle->error('There was an error clearing the application cache.');
 		}
 
-		return 0;
+		return Command::SUCCESS;
 	}
 }

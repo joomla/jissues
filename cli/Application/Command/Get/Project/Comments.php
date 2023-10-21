@@ -13,6 +13,9 @@ use App\Tracker\Table\ActivitiesTable;
 use Application\Command\Get\Project;
 
 use Joomla\Date\Date;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for retrieving comments from GitHub for selected projects
@@ -30,35 +33,44 @@ class Comments extends Project
 	protected $items = [];
 
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
+		$this->setName('get:project:comments');
+		$this->setDescription('Retrieve comments from GitHub.');
 
-		$this->description = 'Retrieve comments from GitHub.';
+		parent::configure();
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Retrieve Comments');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Retrieve Comments');
 
 		$this->logOut('Start retrieve Comments')
-			->selectProject()
+			->selectProject($input, $ioStyle)
 			->setupGitHub()
-			->fetchData()
-			->processData()
-			->out()
-			->logOut('Finished.');
+			->fetchData($ioStyle)
+			->processData($ioStyle);
+		$ioStyle->newLine();
+		$this->logOut('Finished.');
+
+		return 0;
 	}
 
 	/**
@@ -80,39 +92,39 @@ class Comments extends Project
 	/**
 	 * Method to get the comments on items from GitHub
 	 *
+	 * @param   SymfonyStyle  $io  The output object for rendering text.
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	protected function fetchData()
+	protected function fetchData($io)
 	{
 		if (!\count($this->changedIssueNumbers))
 		{
 			return $this;
 		}
 
-		$this->out(
+		$io->text(
 			sprintf(
 				'Fetching comments for <b>%d</b> modified issues from GitHub...',
 				\count($this->changedIssueNumbers)
-			),
-			false
+			)
 		);
 
 		$progressBar = $this->getProgressBar(\count($this->changedIssueNumbers));
 
-		$this->usePBar ? $this->out() : null;
+		$this->usePBar ? $io->newLine() : null;
 
 		foreach ($this->changedIssueNumbers as $count => $issueNumber)
 		{
 			$this->usePBar
 				? $progressBar->update($count + 1)
-				: $this->out(
+				: $io->text(
 					sprintf(
 						'#%d (%d/%d):',
 						$issueNumber, $count, \count($this->changedIssueNumbers)
-					),
-					false
+					)
 				);
 
 			$page = 0;
@@ -138,13 +150,13 @@ class Comments extends Project
 
 				$this->usePBar
 					? null
-					: $this->out($count . ' ', false);
+					: $io->text($count . ' ');
 			}
 			while ($count);
 		}
 
-		$this->out()
-			->outOK();
+		$io->newLine();
+		$io->success('Finished');
 
 		return $this;
 	}

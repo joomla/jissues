@@ -9,6 +9,7 @@
 namespace Application\Command\Clear;
 
 use Application\Command\TrackerCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -66,6 +67,6 @@ class Allcache extends TrackerCommand
 		$ioStyle->newLine();
 		$ioStyle->success('All cache stores have been cleared.');
 
-		return 0;
+		return Command::SUCCESS;
 	}
 }

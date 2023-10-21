@@ -11,6 +11,7 @@ namespace Application\Command\Make;
 use Application\Command\TrackerCommand;
 
 use Clue\GraphComposer\Graph\GraphComposer;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -78,7 +79,7 @@ class Composergraph extends TrackerCommand
 			$this->show($format);
 		}
 
-		return 0;
+		return Command::SUCCESS;
 	}
 
 	/**

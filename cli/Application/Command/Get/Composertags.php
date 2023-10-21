@@ -8,6 +8,7 @@
 
 namespace Application\Command\Get;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -67,7 +68,7 @@ class Composertags extends Get
 		$ioStyle->newLine();
 		$this->logOut('Finished.');
 
-		return 0;
+		return Command::SUCCESS;
 	}
 
 	/**
