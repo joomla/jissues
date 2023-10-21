@@ -57,11 +57,12 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 	 * @return  $this
 	 *
 	 * @codeCoverageIgnore
-	 * @since   1.0
+	 * @since       1.0
+	 * @deprecated  2.0  Use the write method directly in the Output injected into the command.
 	 */
 	protected function out($text = '', $nl = true)
 	{
-		$this->getApplication()->out($text, $nl);
+		$this->getApplication()->getConsoleOutput()->write($text, $nl);
 
 		return $this;
 	}
@@ -73,13 +74,13 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 	 *
 	 * @return  $this
 	 *
-	 * @since   1.0
+	 * @since       1.0
+	 * @deprecated  2.0   Use the output variable in the command's execute method and use the various levels of
+	 *                    verbosity as required for your application (rather than a single fixed level)
 	 */
 	protected function debugOut($text)
 	{
-		$this->getApplication()->debugOut($text);
-
-		return $this;
+		return ($this->getApplication()->getConsoleOutput()->isVerbose()) ? $this->out('DEBUG ' . $text) : $this;
 	}
 
 	/**
