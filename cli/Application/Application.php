@@ -88,12 +88,6 @@ class Application extends FrameworkApplication implements ContainerAwareInterfac
 	 */
 	protected function configureIO(): void
 	{
-		if ($this->getConsoleInput()->hasParameterOption(['--nocolors'], true))
-		{
-			trigger_deprecation('The --nocolors flag is deprecated in favour of the --ansii and --no-ansii flags');
-			$this->getConsoleOutput()->setDecorated(false);
-		}
-
 		// TODO: This probably won't work as a parameter option?
 		if ($this->getConsoleInput()->hasParameterOption(['noprogress'], true))
 		{
