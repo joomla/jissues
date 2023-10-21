@@ -15,6 +15,7 @@ use Joomla\Console\Command\AbstractCommand;
 use Joomla\Console\Descriptor\ApplicationDescription;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -125,7 +126,7 @@ class Autocomplete extends TrackerCommand
 			$this->makePhpStorm($namespaces, $description, $ioStyle);
 		}
 
-		return 0;
+		return Command::SUCCESS;
 	}
 
 	/**

@@ -11,6 +11,10 @@ namespace Application\Command\Get\Project;
 use App\Projects\Table\LabelsTable;
 
 use Application\Command\Get\Project;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for retrieving labels from GitHub for selected projects.
@@ -20,34 +24,43 @@ use Application\Command\Get\Project;
 class Labels extends Project
 {
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
+		$this->setName('get:project:labels');
+		$this->setDescription('Retrieve project labels from GitHub.');
 
-		$this->description = 'Retrieve project labels from GitHub.';
+		parent::configure();
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  $this
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Retrieve Labels');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Retrieve Labels');
 
-		return $this->logOut('Start retrieve Labels')
-			->selectProject()
+		$this->logOut('Start retrieve Labels')
+			->selectProject($input, $ioStyle)
 			->setupGitHub()
 			->processLabels()
 			->out()
 			->logOut('Finished.');
+
+		return Command::SUCCESS;
 	}
 
 	/**

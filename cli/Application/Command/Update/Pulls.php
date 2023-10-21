@@ -8,6 +8,12 @@
 
 namespace Application\Command\Update;
 
+use Application\Exception\AbortException;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
+
 /**
  * Class for updating pull requests GitHub for selected projects
  *
@@ -24,27 +30,35 @@ class Pulls extends Update
 	protected $pulls = [];
 
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
+		$this->setName('update:pulls');
+		$this->setDescription('Updates selected information for pull requests on GitHub for a specified project.');
 
-		$this->description = 'Updates selected information for pull requests on GitHub for a specified project.';
+		$this->addProjectOption();
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
+	 * @throws  AbortException
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Update Pull Requests');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Update Pull Requests');
 
 		$this->logOut('Start Updating Project');
 
@@ -67,6 +81,8 @@ class Pulls extends Update
 			->closePulls()
 			->out()
 			->logOut('Finished.');
+
+		return Command::SUCCESS;
 	}
 
 	/**

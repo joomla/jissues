@@ -9,6 +9,10 @@
 namespace Application\Command\Test;
 
 use PHPUnit\TextUI\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for running PHPUnit tests.
@@ -18,27 +22,32 @@ use PHPUnit\TextUI\Command;
 class Phpunit extends Test
 {
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = 'Run PHPUnit tests.';
+		$this->setName('test:phpunit');
+		$this->setDescription('Run PHPUnit tests.');
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  integer  PHPUnit_TextUI_TestRunner exit status.
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Test PHPUnit');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Test PHPUnit');
 
 		$command = new Command;
 

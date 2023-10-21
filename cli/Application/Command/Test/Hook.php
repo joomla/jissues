@@ -10,13 +10,17 @@ namespace Application\Command\Test;
 
 use App\Projects\TrackerProject;
 
-use Application\Command\TrackerCommandOption;
 use Application\Exception\AbortException;
 
 use Joomla\Github\Github;
 
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for testing web hooks.
@@ -50,40 +54,37 @@ class Hook extends Test
 	protected $project;
 
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = 'Tests web hooks';
-
-		$this->addOption(
-			new TrackerCommandOption(
-				'project',
-				'p',
-				'Process the project with the given ID.'
-			)
-		);
+		$this->setName('test:hook');
+		$this->setDescription('Tests web hooks.');
+		$this->addOption('project', 'p', InputOption::VALUE_OPTIONAL, 'Process the project with the given ID.');
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
-	 * @throws  \UnexpectedValueException
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Test Hooks');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Test Hooks');
 
 		$this->logOut('Start testing hook');
 
-		$this->selectProject()->selectHook();
+		$this->selectProject($input)->selectHook();
 
 		$this->getApplication()->input->set('project', $this->project->project_id);
 
@@ -91,6 +92,8 @@ class Hook extends Test
 
 		$result = $this->controller->execute();
 		$this->logOut($result);
+
+		return Command::SUCCESS;
 	}
 
 	/**
@@ -164,13 +167,15 @@ class Hook extends Test
 	/**
 	 * Select the project.
 	 *
+	 * @param   InputInterface  $input  The input to inject into the command.
+	 *
 	 * @return  $this
 	 *
-	 * @since   1.0
 	 * @throws  \RuntimeException
 	 * @throws  AbortException
+	 * @since   1.0
 	 */
-	protected function selectProject()
+	protected function selectProject(InputInterface $input)
 	{
 		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
@@ -181,7 +186,7 @@ class Hook extends Test
 				->select(['project_id', 'title', 'gh_user', 'gh_project'])
 		)->loadObjectList();
 
-		$id = (integer) $this->getOption('project');
+		$id = (integer) $input->getOption('project');
 
 		if (!$id)
 		{

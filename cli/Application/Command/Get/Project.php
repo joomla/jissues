@@ -13,7 +13,13 @@ use Application\Command\Get\Project\Events;
 use Application\Command\Get\Project\Issues;
 use Application\Command\Get\Project\Labels;
 use Application\Command\Get\Project\Milestones;
-use Application\Command\TrackerCommandOption;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ChoiceQuestion;
+use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -57,104 +63,81 @@ abstract class Project extends Get
 	protected $force = false;
 
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
+		$this->setName('get:project');
+		$this->setDescription('Get the whole project info from GitHub, including issues and issue comments.');
 
-		$this->description = 'Get the whole project info from GitHub, including issues and issue comments.';
-
-		$this
-			->addOption(
-				new TrackerCommandOption(
-					'all',
-					'',
-					'Process all issues.'
-				)
-			)
-			->addOption(
-				new TrackerCommandOption(
-					'issue',
-					'',
-					'<n> Process only a single issue.'
-				)
-			)
-			->addOption(
-				new TrackerCommandOption(
-					'range_from',
-					'',
-					'<n> First issue to process.'
-				)
-			)
-			->addOption(
-				new TrackerCommandOption(
-					'range_to',
-					'',
-					'<n> Last issue to process.'
-				)
-			)
-			->addOption(
-				new TrackerCommandOption(
-					'force',
-					'f',
-					'Force an update even if the issue has not changed.'
-				)
-			);
+		$this->addOption('all', '', InputOption::VALUE_OPTIONAL, 'Process all issues.');
+		$this->addOption('issue', '', InputOption::VALUE_OPTIONAL, 'Process only a single issue.');
+		$this->addOption('range_from', '', InputOption::VALUE_OPTIONAL, 'First issue to process.');
+		$this->addOption('range_to', '', InputOption::VALUE_OPTIONAL, 'Last issue to process.');
+		$this->addOption('force', 'f', InputOption::VALUE_OPTIONAL, 'Force an update even if the issue has not changed.');
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Retrieve Project');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Retrieve Project');
 
 		$this->logOut('---- Bulk Start retrieve Project');
 
-		$this->selectProject();
-
 		$this
-			->setParams()
-			->selectRange()
+			->selectProject($input, $ioStyle)
+			->setParams($input)
+			->selectRange($input, $ioStyle)
 			->setupGitHub()
-			->displayGitHubRateLimit()
-			->out(
-				strtr(
-					'Updating project info for project: %user%/%project%',
-					['%user%' => $this->project->gh_user, '%project%' => $this->project->gh_project]
-				)
+			->displayGitHubRateLimit();
+		$ioStyle->text(
+			strtr(
+				'Updating project info for project: %user%/%project%',
+				['%user%' => $this->project->gh_user, '%project%' => $this->project->gh_project]
 			)
-			->processLabels()
+		);
+		$this->processLabels()
 			->processMilestones()
 			->processIssues()
 			->processComments()
 			->processEvents()
-			->processAvatars()
-			->out()
-			->logOut('---- Bulk Finished');
+			->processAvatars();
+		$ioStyle->newLine();
+		$this->logOut('---- Bulk Finished');
+
+		return Command::SUCCESS;
 	}
 
 	/**
 	 * Set internal parameters from the input..
 	 *
+	 * @param   InputInterface  $input  The input to inject into the command.
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	protected function setParams()
+	protected function setParams(InputInterface $input)
 	{
-		$this->force = $this->getOption('force');
+		$this->force = $input->getOption('force');
 
 		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
 
-		if ($this->getOption('noprogress'))
+		if ($input->getOption('noprogress'))
 		{
 			$this->usePBar = false;
 		}
@@ -281,18 +264,21 @@ abstract class Project extends Get
 	/**
 	 * Select the range of issues to process.
 	 *
+	 * @param   InputInterface  $input  The input to inject into the command.
+	 * @param   SymfonyStyle    $io     Add output interface
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	protected function selectRange()
+	protected function selectRange(InputInterface $input, SymfonyStyle $io)
 	{
-		$issue = (integer) $this->getOption('issue');
+		$issue = (integer) $input->getOption('issue');
 
-		$rangeFrom = (integer) $this->getOption('range_from');
-		$rangeTo   = (integer) $this->getOption('range_to');
+		$rangeFrom = (integer) $input->getOption('range_from');
+		$rangeTo   = (integer) $input->getOption('range_to');
 
-		if ($this->getOption('all'))
+		if ($input->getOption('all'))
 		{
 			// Process all issues - do nothing
 		}
@@ -311,23 +297,26 @@ abstract class Project extends Get
 		else
 		{
 			// Select what to process
-			$this->out('<question>GitHub issues to process?</question>')
-				->out()
-				->out('1) All')
-				->out('2) Range')
-				->out('Select: ', false);
+			$question = new ChoiceQuestion(
+				'GitHub issues to process? 1) All, 2) Range',
+				['1', '2']
+			);
 
-			$resp = trim($this->getApplication()->in());
+			$resp = $io->askQuestion($question);
 
 			if ((int) $resp == 2)
 			{
 				// Get the first GitHub issue (from)
-				$this->out('<question>Enter the first GitHub issue ID to process (from):</question> ', false);
-				$this->rangeFrom = (int) trim($this->getApplication()->in());
+				$question = new Question(
+					'Enter the first GitHub issue ID to process (from):',
+				);
+				$this->rangeFrom = (int) $io->askQuestion($question);
 
 				// Get the ending GitHub issue (to)
-				$this->out('<question>Enter the latest GitHub issue ID to process (to):</question> ', false);
-				$this->rangeTo = (int) trim($this->getApplication()->in());
+				$question = new Question(
+					'Enter the latest GitHub issue ID to process (to):',
+				);
+				$this->rangeTo = (int) $io->askQuestion($question);
 			}
 		}
 

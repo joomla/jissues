@@ -9,6 +9,9 @@
 namespace Application\Command\Test;
 
 use PHP_CodeSniffer_CLI;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for running checkstyle tests.
@@ -26,28 +29,32 @@ class Checkstyle extends Test
 	const ALLOWED_FAIL_COUNT = 0;
 
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
-
-		$this->description = 'Run PHP CodeSniffer tests.';
+		$this->setName('test:checkstyle');
+		$this->setDescription('Run PHP CodeSniffer tests.');
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  string  Number of errors.
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
-	 * @throws  \UnexpectedValueException
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Test Checkstyle');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Test Checkstyle');
 
 		// Make sure coding standards are registered
 		$this->execCommand('cd ' . JPATH_ROOT . ' && vendor/bin/phpcs --config-set installed_paths vendor/joomla/coding-standards 2>&1');

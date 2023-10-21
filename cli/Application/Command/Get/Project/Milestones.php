@@ -13,6 +13,10 @@ use App\Projects\Table\MilestonesTable;
 use Application\Command\Get\Project;
 
 use Joomla\Date\Date;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for retrieving milestones from GitHub for selected projects.
@@ -22,34 +26,43 @@ use Joomla\Date\Date;
 class Milestones extends Project
 {
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
+		$this->setName('get:project:milestones');
+		$this->setDescription('Retrieve project milestones from GitHub.');
 
-		$this->description = 'Retrieve project milestones from GitHub.';
+		parent::configure();
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  $this
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Retrieve Milestones');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Retrieve Milestones');
 
-		return $this->logOut('Start retrieving Milestones')
-			->selectProject()
+		$this->logOut('Start retrieving Milestones')
+			->selectProject($input, $ioStyle)
 			->setupGitHub()
 			->processMilestones()
 			->out()
 			->logOut('Finished.');
+
+		return Command::SUCCESS;
 	}
 
 	/**

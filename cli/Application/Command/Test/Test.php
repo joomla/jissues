@@ -15,7 +15,7 @@ use Application\Command\TrackerCommand;
  *
  * @since  1.0
  */
-class Test extends TrackerCommand
+abstract class Test extends TrackerCommand
 {
 	/**
 	 * Should the command exit or return the status.
@@ -24,30 +24,6 @@ class Test extends TrackerCommand
 	 * @since  1.0
 	 */
 	protected $exit = true;
-
-	/**
-	 * Constructor.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct()
-	{
-		$this->description = 'The test engine';
-	}
-
-	/**
-	 * Execute the command.
-	 *
-	 * NOTE: This command must not be executed without parameters !
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		return $this->displayMissingOption(__DIR__);
-	}
 
 	/**
 	 * Set the exit behavior.

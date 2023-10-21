@@ -12,6 +12,7 @@ use App\Projects\TrackerProject;
 
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -52,7 +53,7 @@ class Users extends Get
 	{
 		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
 
-		if ($this->getOption('noprogress'))
+		if ($input->getOption('noprogress'))
 		{
 			$this->usePBar = false;
 		}
@@ -68,7 +69,7 @@ class Users extends Get
 			->out()
 			->logOut('Finished.');
 
-		return 0;
+		return Command::SUCCESS;
 	}
 
 	/**

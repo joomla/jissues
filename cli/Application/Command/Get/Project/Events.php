@@ -14,6 +14,10 @@ use App\Tracker\Table\ActivitiesTable;
 use Application\Command\Get\Project;
 
 use Joomla\Date\Date;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for retrieving events from GitHub for selected projects
@@ -31,35 +35,44 @@ class Events extends Project
 	protected $items = [];
 
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
+		$this->setName('get:project:events');
+		$this->setDescription('Retrieve issue events from GitHub.');
 
-		$this->description = 'Retrieve issue events from GitHub.';
+		parent::configure();
 	}
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Retrieve Events');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Retrieve Events');
 
 		$this->logOut('Start retrieve Events')
-			->selectProject()
+			->selectProject($input, $ioStyle)
 			->setupGitHub()
 			->fetchData()
 			->processData()
 			->out()
 			->logOut('Finished.');
+
+		return Command::SUCCESS;
 	}
 
 	/**

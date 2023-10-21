@@ -10,6 +10,7 @@ namespace Application\Command\Make;
 
 use Application\Command\TrackerCommand;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -139,7 +140,7 @@ class Depfile extends TrackerCommand
 		$ioStyle->newLine();
 		$ioStyle->success('Finished.');
 
-		return 0;
+		return Command::SUCCESS;
 	}
 
 	/**

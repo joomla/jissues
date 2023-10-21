@@ -10,6 +10,7 @@ namespace Application\Command\Install;
 
 use Application\Command\TrackerCommand;
 use Application\Exception\AbortException;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -127,7 +128,7 @@ class Install extends TrackerCommand
 		$ioStyle->newLine();
 		$ioStyle->success('Installation has been completed successfully.');
 
-		return 0;
+		return Command::SUCCESS;
 	}
 
 	/**

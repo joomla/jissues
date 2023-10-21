@@ -14,12 +14,16 @@ use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
 
 use Application\Command\Get\Project;
-use Application\Command\TrackerCommandOption;
 
 use Joomla\Date\Date;
 
 use JTracker\Github\GithubFactory;
 use JTracker\Helper\GitHubHelper;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -56,58 +60,62 @@ class Issues extends Project
 	protected $issueStates = ['open', 'closed'];
 
 	/**
-	 * Constructor.
+	 * Configure the command.
 	 *
-	 * @since   1.0
+	 * @return  void
+	 *
+	 * @since   2.0.0
 	 */
-	public function __construct()
+	protected function configure(): void
 	{
-		parent::__construct();
+		$this->setName('get:project:issues');
+		$this->setDescription('Retrieve issue from GitHub.');
+		$this->addOption('status', '', InputOption::VALUE_OPTIONAL, 'Process only an issue of given status.');
 
-		$this
-			->addOption(
-				new TrackerCommandOption(
-					'status',
-					'',
-					'<n> Process only an issue of given status.'
-				)
-			);
-
-		$this->description = 'Retrieve issues from GitHub.';
+		parent::configure();
 	}
+
 
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
-		$this->getApplication()->outputTitle('Retrieve Issues');
+		$ioStyle = new SymfonyStyle($input, $output);
+		$ioStyle->title('Retrieve Issues');
 
 		$this->logOut('Start retrieve Issues')
-			->selectProject()
+			->selectProject($input, $ioStyle)
 			->setupGitHub()
-			->selectType()
+			->selectType($input)
 			->fetchData()
 			->processData()
 			->out()
 			->logOut('Finished.');
+
+		return Command::SUCCESS;
 	}
 
 	/**
 	 * Select the status of issues to process.
 	 *
+	 * @param   InputInterface  $input  The input to inject into the command.
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	protected function selectType()
+	protected function selectType($input)
 	{
 		// Get status option
-		$status = $this->getOption('status');
+		$status = $input->getOption('status');
 
 		// Process all the status - do nothing
 		if ($status == 'all')
