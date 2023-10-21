@@ -174,6 +174,12 @@ class Application extends FrameworkApplication implements ContainerAwareInterfac
 				new Command\Database\Status,
 				new Command\Get\Avatars,
 				new Command\Get\Composertags,
+				new Command\Get\Project,
+				new Command\Get\Project\Comments,
+				new Command\Get\Project\Events,
+				new Command\Get\Project\Issues,
+				new Command\Get\Project\Labels,
+				new Command\Get\Project\Milestones,
 				new Command\Get\Users,
 				new Command\Install\Install,
 				new Command\Make\Autocomplete,
@@ -182,35 +188,14 @@ class Application extends FrameworkApplication implements ContainerAwareInterfac
 				new Command\Make\Depfile,
 				new Command\Make\Docu,
 				new Command\Make\Repoinfo,
+				new Command\Test\Checkstyle,
+				new Command\Test\Hook,
+				new Command\Test\Phpunit,
+				new Command\Test\Run,
+				new Command\Update\Pulls,
+				new Command\Update\Server,
 			]
 		);
-	}
-
-	/**
-	 * Output a nicely formatted title for the application.
-	 *
-	 * @param   string   $title     The title to display.
-	 * @param   string   $subTitle  A subtitle.
-	 * @param   integer  $width     Total width in chars.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	public function outputTitle($title, $subTitle = '', $width = 60)
-	{
-		$this->out(str_repeat('-', $width));
-
-		$this->out(str_repeat(' ', $width / 2 - (\strlen($title) / 2)) . '<title>' . $title . '</title>');
-
-		if ($subTitle)
-		{
-			$this->out(str_repeat(' ', $width / 2 - (\strlen($subTitle) / 2)) . '<b>' . $subTitle . '</b>');
-		}
-
-		$this->out(str_repeat('-', $width));
-
-		return $this;
 	}
 
 	/**

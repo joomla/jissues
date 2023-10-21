@@ -67,9 +67,6 @@ class Install extends TrackerCommand
 
 		$this->db = $this->getContainer()->get('db');
 
-		// TODO: Fix reference!
-		$helper   = $this->getHelper('question');
-
 		try
 		{
 			// Check if the database "exists"
@@ -89,8 +86,7 @@ class Install extends TrackerCommand
 					'no'
 				);
 				$question->setErrorMessage('Chosen answer %s is invalid.');
-
-				$reinstallAnswer = $helper->ask($input, $output, $question);
+				$reinstallAnswer = $ioStyle->askQuestion($question);
 
 				if ($reinstallAnswer !== 'yes')
 				{
