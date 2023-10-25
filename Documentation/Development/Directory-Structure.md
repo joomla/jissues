@@ -13,7 +13,6 @@
 `├── cli` The command line application.<br />
 `│   ├── Application` All code for the command line application.<br />
 `│   ├── completions` Autocomplete files for various command line resources.<br />
-`│   ├── g11n` Translations for the command line application's output.<br />
 `│   ├── tracker.php` The front controller for the command line application.<br />
 `├── Documentation` The project documentation.<br />
 `├── etc`<br />

@@ -16,10 +16,6 @@ Usage:
 See: `jtracker help` for more information.
 Or: `jtracker help <command>` for more information on a specific command.
 
-The output of the script is language aware. Just add a `--lang` argument:
-
-`jtracker get project --lang=ru-RU`
-
 ### Install the application
 
 Copy `/etc/config.dist.json` to `/etc/config.json` and fill in your database details. To interface with GitHub, fill in your GitHub credentials.
@@ -34,9 +30,9 @@ This should be used during installation and periodical executions.
 
 To bypass inputs and write the output to a log file during cron execution, a similar command could be used:
 
-`jtracker get project -p 2 --all --status=all --quiet --noprogress --log cron.log`
+`jtracker get:project -p 2 --all --status=all --quiet --noprogress --log cron.log`
 
-*Note* `get project` will "batch run" the available `get` commands in the correct (..erm) order.
+*Note* `get:project` will "batch run" the available `get` commands in the correct (..erm) order.
 
 ### Colors
 
@@ -50,11 +46,7 @@ Then [Cygwin](http://www.cygwin.com/) was installed and produced the following o
 
 ### Progress Bar
 
-Since there are some long running operations (over 10 minutes pulling the CMS' issues), there is support for a "high class" progress bar.
-
-The progress bar comes from the [elkuku/console-progressbar](https://packagist.org/packages/elkuku/console-progressbar) package (which is a fork of [PEAR/Console_ProgressBar](http://pear.php.net/package/Console_ProgressBar))
-
-![progressbar3](https://f.cloud.github.com/assets/33978/491733/a36ce152-ba54-11e2-8c06-179b6a379876.png)
+Since there are some long running operations (over 10 minutes pulling the CMS' issues), we use the Joomla Console Package progress bar.
 
 ### Unsupported...
 
@@ -64,22 +56,16 @@ If your terminal does not support ANSI control codes you may see something like 
 
 ### Turn it off !
 
-To suppress color output for a single command use the `--nocolors` switch.
+To suppress color output for a single command use the `--no-ansi` switch.
 To suppress the progress bar for a single command use the `--noprogress` switch.
 Example:
-`jtracker get project --nocolors --noprogress`
+`jtracker get project --no-ansi --noprogress`
 
 To turn the feature(s) off permanently edit `etc/config.json` and set the values for the undesired features from `1` to `0`.
 
 ### Auto Complete
 
 Auto complete files are provided for some environments.
-
-Optionally you can generate the files for your language using
-
-`jtracker make autocomplete --lang=xx-XX`
-
-using one of the supported languages.
 
 #### PhpStorm
 

@@ -25,4 +25,4 @@ To validate an installation is on the correct version there is a CLI command whi
 
 To migrate the database to the current version, run the `database migrate` CLI command. This will apply all migrations that have not been applied to the current installation.
 
-To apply a single migration (if it has not been applied), you can pass the `--version` option (`-v` as a shortcut), for example `bin/jtracker database migrate --version=20160611001` would apply only the `20160611001` versioned migration.
+To apply a single migration (if it has not been applied), you can pass the `--db_version` option, for example `bin/jtracker database migrate --db_version=20160611001` would apply only the `20160611001` versioned migration.
