@@ -46,7 +46,7 @@ class LoggerProvider implements ServiceProviderInterface
 				// Instantiate the object
 				$logger = new Logger('JTracker');
 
-				if ($file = $app->getConsoleInput()->getOption('log'))
+				if ($file = $app->getConsoleInput()->getArgument('log'))
 				{
 					// Log to a file
 					$logger->pushHandler(

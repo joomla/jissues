@@ -82,7 +82,6 @@ complete -f -c jtracker -n '__fish_jtracker_using_action make:autocomplete' -s V
 complete -f -c jtracker -n '__fish_jtracker_using_action make:autocomplete' -l ansi -d "Force ANSI output"
 complete -f -c jtracker -n '__fish_jtracker_using_action make:autocomplete' -l no-ansi -d "Disable ANSI output"
 complete -f -c jtracker -n '__fish_jtracker_using_action make:autocomplete' -s n -l no-interaction -d "Flag to disable interacting with the user"
-complete -f -c jtracker -n '__fish_jtracker_using_action make:autocomplete' -l log -d "Optionally log output to the specified log file"
 complete -f -c jtracker -n '__fish_jtracker_using_command' -a make:composergraph -d "Graph visualisation for your project's composer.json and its dependencies."
 complete -f -c jtracker -n '__fish_jtracker_using_action make:composergraph' -s f -l file -d "Write output to a file."
 complete -f -c jtracker -n '__fish_jtracker_using_action make:composergraph' -l format -d "The image type."
