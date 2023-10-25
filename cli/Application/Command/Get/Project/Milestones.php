@@ -66,7 +66,7 @@ class Milestones extends Project
 		$this->logOut('Start retrieving Milestones')
 			->selectProject($input, $ioStyle)
 			->setupGitHub()
-			->processMilestones()
+			->fetchData($ioStyle)
 			->out()
 			->logOut('Finished.');
 
@@ -76,13 +76,15 @@ class Milestones extends Project
 	/**
 	 * Get the project's milestones.
 	 *
+	 * @param   SymfonyStyle  $io  The output decorator
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	protected function processMilestones()
+	protected function fetchData(SymfonyStyle $io)
 	{
-		$this->out('Fetching milestones...', false);
+		$io->write('Fetching milestones...');
 
 		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');

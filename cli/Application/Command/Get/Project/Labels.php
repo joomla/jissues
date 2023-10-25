@@ -64,7 +64,7 @@ class Labels extends Project
 		$this->logOut('Start retrieve Labels')
 			->selectProject($input, $ioStyle)
 			->setupGitHub()
-			->processLabels()
+			->fetchData()
 			->out()
 			->logOut('Finished.');
 
@@ -74,13 +74,15 @@ class Labels extends Project
 	/**
 	 * Get the project labels.
 	 *
+	 * @param   SymfonyStyle  $io  The output decorator
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	protected function processLabels()
+	protected function fetchData(SymfonyStyle $io)
 	{
-		$this->out('Fetching labels...', false);
+		$io->write('Fetching labels...');
 
 		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');

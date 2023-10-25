@@ -106,7 +106,7 @@ class Comments extends Project
 	 *
 	 * @since   1.0
 	 */
-	protected function fetchData($io)
+	protected function fetchData(SymfonyStyle $io)
 	{
 		if (!\count($this->changedIssueNumbers))
 		{
