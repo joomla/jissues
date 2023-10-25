@@ -150,7 +150,8 @@ class Users extends Get
 		}
 
 		$io->progressFinish();
+		$io->text('User information has been refreshed.');
 
-		return $this->out('User information has been refreshed.');
+		return $this;
 	}
 }
