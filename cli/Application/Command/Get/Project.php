@@ -149,10 +149,10 @@ class Project extends Get
 
 	/**
 	 * Process the project labels.
-     *
-     * @param   InputInterface   $input   The input to inject into the command.
-     * @param   OutputInterface  $output  The output to inject into the command.
-     *
+	 *
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
@@ -167,10 +167,10 @@ class Project extends Get
 
 	/**
 	 * Process the project milestones.
-     *
-     * @param   InputInterface   $input   The input to inject into the command.
-     * @param   OutputInterface  $output  The output to inject into the command.
-     *
+	 *
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
@@ -186,9 +186,9 @@ class Project extends Get
 	/**
 	 * Process the project issues.
 	 *
-     * @param   InputInterface   $input   The input to inject into the command.
-     * @param   OutputInterface  $output  The output to inject into the command.
-     *
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
@@ -213,9 +213,9 @@ class Project extends Get
 	/**
 	 * Process the project comments.
 	 *
-     * @param   InputInterface   $input   The input to inject into the command.
-     * @param   OutputInterface  $output  The output to inject into the command.
-     *
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
@@ -236,10 +236,10 @@ class Project extends Get
 
 	/**
 	 * Process the project events.
-     *
-     * @param   InputInterface   $input   The input to inject into the command.
-     * @param   OutputInterface  $output  The output to inject into the command.
-     *
+	 *
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
@@ -259,10 +259,10 @@ class Project extends Get
 
 	/**
 	 * Process the project avatars.
-     *
-     * @param   InputInterface   $input   The input to inject into the command.
-     * @param   OutputInterface  $output  The output to inject into the command.
-     *
+	 *
+	 * @param   InputInterface   $input   The input to inject into the command.
+	 * @param   OutputInterface  $output  The output to inject into the command.
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
