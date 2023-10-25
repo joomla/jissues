@@ -55,7 +55,7 @@ abstract class Get extends TrackerCommand
 	 */
 	protected function addProjectOption(): void
 	{
-		$this->addOption('project', 'p', InputOption::VALUE_OPTIONAL, 'Process the project with the given ID.');
+		$this->addOption('project', 'p', InputOption::VALUE_REQUIRED, 'Process the project with the given ID.');
 	}
 
 	/**
@@ -67,7 +67,7 @@ abstract class Get extends TrackerCommand
 	 */
 	protected function addProgressBarOption(): void
 	{
-		$this->addOption('noprogress', '', InputOption::VALUE_OPTIONAL, 'Don\'t use a progress bar.');
+		$this->addOption('noprogress', '', InputOption::VALUE_NONE, 'Don\'t use a progress bar.');
 	}
 
 	/**

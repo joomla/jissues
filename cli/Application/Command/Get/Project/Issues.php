@@ -70,7 +70,7 @@ class Issues extends Project
 	{
 		$this->setName('get:project:issues');
 		$this->setDescription('Retrieve issue from GitHub.');
-		$this->addOption('status', '', InputOption::VALUE_OPTIONAL, 'Process only an issue of given status.');
+		$this->addOption('status', '', InputOption::VALUE_REQUIRED, 'Process only an issue of given status.');
 
 		parent::configure();
 	}

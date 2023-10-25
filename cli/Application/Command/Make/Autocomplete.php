@@ -60,14 +60,14 @@ class Autocomplete extends TrackerCommand
 		$this->addOption(
 			'type',
 			't',
-			InputOption::VALUE_OPTIONAL,
+			InputOption::VALUE_REQUIRED,
 			sprintf('The type of auto complete file (currently supported: %s).', "'" . implode("' '", $this->knownTypes) . "'")
 		);
 
 		$this->addOption(
 			'echo',
 			'e',
-			InputOption::VALUE_OPTIONAL,
+			InputOption::VALUE_NONE,
 			'Echo the output instead of writing it to a file.'
 		);
 	}

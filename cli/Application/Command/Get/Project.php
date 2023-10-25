@@ -74,11 +74,11 @@ class Project extends Get
 		$this->setName('get:project');
 		$this->setDescription('Get the whole project info from GitHub, including issues and issue comments.');
 
-		$this->addOption('all', '', InputOption::VALUE_OPTIONAL, 'Process all issues.');
-		$this->addOption('issue', '', InputOption::VALUE_OPTIONAL, 'Process only a single issue.');
-		$this->addOption('range_from', '', InputOption::VALUE_OPTIONAL, 'First issue to process.');
-		$this->addOption('range_to', '', InputOption::VALUE_OPTIONAL, 'Last issue to process.');
-		$this->addOption('force', 'f', InputOption::VALUE_OPTIONAL, 'Force an update even if the issue has not changed.');
+		$this->addOption('all', '', InputOption::VALUE_NONE, 'Process all issues.');
+		$this->addOption('issue', '', InputOption::VALUE_REQUIRED, 'Process only a single issue.');
+		$this->addOption('range_from', '', InputOption::VALUE_REQUIRED, 'First issue to process.');
+		$this->addOption('range_to', '', InputOption::VALUE_REQUIRED, 'Last issue to process.');
+		$this->addOption('force', 'f', InputOption::VALUE_NONE, 'Force an update even if the issue has not changed.');
 	}
 
 	/**

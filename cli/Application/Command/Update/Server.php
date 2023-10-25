@@ -36,7 +36,7 @@ class Server extends Update
 	{
 		$this->setName('update:server');
 		$this->setDescription('Updates the local installation to either a specified version or latest git HEAD for the active branch.');
-		$this->addOption('app_version', null, InputOption::VALUE_OPTIONAL, 'An optional version number to update to.');
+		$this->addOption('app_version', null, InputOption::VALUE_REQUIRED, 'An optional version number to update to.');
 	}
 
 	/**

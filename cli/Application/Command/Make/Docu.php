@@ -42,7 +42,7 @@ class Docu extends TrackerCommand
 	{
 		$this->setName('make:docu');
 		$this->setDescription('Compile documentation using GitHub Flavored Markdown.');
-		$this->addOption('noprogress', null, InputOption::VALUE_OPTIONAL, "Don't use a progress bar.");
+		$this->addOption('noprogress', null, InputOption::VALUE_NONE, "Don't use a progress bar.");
 	}
 
 	/**

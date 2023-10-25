@@ -37,7 +37,7 @@ abstract class Update extends TrackerCommand
 	 */
 	protected function addProjectOption(): void
 	{
-		$this->addOption('project', 'p', InputOption::VALUE_OPTIONAL, 'Process the project with the given ID.');
+		$this->addOption('project', 'p', InputOption::VALUE_REQUIRED, 'Process the project with the given ID.');
 	}
 
 	/**

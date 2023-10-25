@@ -52,7 +52,7 @@ class Depfile extends TrackerCommand
 	{
 		$this->setName('make:depfile');
 		$this->setDescription('Create and update a dependency file.');
-		$this->addOption('file', 'f', InputOption::VALUE_OPTIONAL, 'Write output to a file.');
+		$this->addOption('file', 'f', InputOption::VALUE_REQUIRED, 'Write output to a file.');
 	}
 
 	/**

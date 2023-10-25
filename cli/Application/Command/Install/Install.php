@@ -44,7 +44,7 @@ class Install extends TrackerCommand
 	{
 		$this->setName('install');
 		$this->setDescription('Install the application.');
-		$this->addOption('reinstall', null, InputOption::VALUE_OPTIONAL, 'Reinstall the application (without confirmation).');
+		$this->addOption('reinstall', null, InputOption::VALUE_NONE, 'Reinstall the application (without confirmation).');
 	}
 
 	/**
