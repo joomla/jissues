@@ -34,7 +34,7 @@ class Server extends Update
 	 */
 	protected function configure(): void
 	{
-		$this->setName('update:sever');
+		$this->setName('update:server');
 		$this->setDescription('Updates the local installation to either a specified version or latest git HEAD for the active branch.');
 		$this->addOption('version', null, InputOption::VALUE_OPTIONAL, 'An optional version number to update to.');
 	}

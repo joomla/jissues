@@ -82,7 +82,6 @@ complete -f -c jtracker -n '__fish_jtracker_using_action make:autocomplete' -s V
 complete -f -c jtracker -n '__fish_jtracker_using_action make:autocomplete' -l ansi -d "Force ANSI output"
 complete -f -c jtracker -n '__fish_jtracker_using_action make:autocomplete' -l no-ansi -d "Disable ANSI output"
 complete -f -c jtracker -n '__fish_jtracker_using_action make:autocomplete' -s n -l no-interaction -d "Flag to disable interacting with the user"
-complete -f -c jtracker -n '__fish_jtracker_using_action make:autocomplete' -l nocolor -d "Suppress ANSI colours on unsupported terminals (deprecated)"
 complete -f -c jtracker -n '__fish_jtracker_using_action make:autocomplete' -l log -d "Optionally log output to the specified log file"
 complete -f -c jtracker -n '__fish_jtracker_using_command' -a make:composergraph -d "Graph visualisation for your project's composer.json and its dependencies."
 complete -f -c jtracker -n '__fish_jtracker_using_action make:composergraph' -s f -l file -d "Write output to a file."
@@ -106,5 +105,5 @@ complete -f -c jtracker -n '__fish_jtracker_using_command' -a test:run -d "Run a
 complete -f -c jtracker -n '__fish_jtracker_using_command list' -a update
 complete -f -c jtracker -n '__fish_jtracker_using_command' -a update:pulls -d "Updates selected information for pull requests on GitHub for a specified project."
 complete -f -c jtracker -n '__fish_jtracker_using_action update:pulls' -s p -l project -d "Process the project with the given ID."
-complete -f -c jtracker -n '__fish_jtracker_using_command' -a update:sever -d "Updates the local installation to either a specified version or latest git HEAD for the active branch."
-complete -f -c jtracker -n '__fish_jtracker_using_action update:sever' -l version -d "An optional version number to update to."
+complete -f -c jtracker -n '__fish_jtracker_using_command' -a update:server -d "Updates the local installation to either a specified version or latest git HEAD for the active branch."
+complete -f -c jtracker -n '__fish_jtracker_using_action update:server' -l version -d "An optional version number to update to."

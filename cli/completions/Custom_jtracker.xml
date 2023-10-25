@@ -121,7 +121,7 @@
     <help>Updates selected information for pull requests on GitHub for a specified project.</help>
   </command>
   <command>
-    <name>update:sever</name>
+    <name>update:server</name>
     <help>Updates the local installation to either a specified version or latest git HEAD for the active branch.</help>
   </command>
 </framework>
