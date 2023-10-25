@@ -60,7 +60,6 @@ class Allcache extends TrackerCommand
 				continue;
 			}
 
-			$command->setContainer($this->getContainer());
 			$command->execute($input, $output);
 		}
 
