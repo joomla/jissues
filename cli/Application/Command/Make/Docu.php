@@ -100,7 +100,10 @@ class Docu extends TrackerCommand
 			$path = $it->getSubPath();
 			$page = substr($it->getFilename(), 0, strrpos($it->getFilename(), '.'));
 
-			$this->debugOut('Compiling: ' . $page);
+			if ($output->isVeryVerbose())
+			{
+				$ioStyle->text(sprintf('Compiling: %s', $page));
+			}
 
 			$table = new ArticlesTable($db);
 
