@@ -79,18 +79,15 @@ class Server extends Update
 		$this->execCommand('cd ' . JPATH_ROOT . ' && composer install --no-dev --optimize-autoloader 2>&1');
 
 		// Execute the database migrations (if any) for this version
-		(new Migrate)
-			->setContainer($this->getContainer())
-			->execute($input, $output);
+        $migrateCommand = $this->getApplication()->getCommand(Migrate::COMMAND_NAME);
+        $migrateCommand->execute($input, $output);
 
 		// Flush the Twig cache
-		(new Twig)
-			->setContainer($this->getContainer())
-			->execute($input, $output);
+        $twigCommand = $this->getApplication()->getCommand(Twig::COMMAND_NAME);
+        $twigCommand->execute($input, $output);
 
-		(new Repoinfo)
-			->setContainer($this->getContainer())
-			->execute($input, $output);
+        $repoInfoCommand = $this->getApplication()->getCommand(Repoinfo::COMMAND_NAME);
+        $repoInfoCommand->execute($input, $output);
 
 		$this->logOut($message);
 		$ioStyle->info($message);

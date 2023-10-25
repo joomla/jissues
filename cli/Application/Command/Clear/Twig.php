@@ -24,6 +24,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class Twig extends TrackerCommand
 {
 	/**
+	 * The command name - available to be used as a reference for searching.
+	 *
+	 * @var    string
+	 * @since  2.0.0
+	 */
+	const COMMAND_NAME = 'clear:twig';
+
+	/**
 	 * Configure the command.
 	 *
 	 * @return  void
@@ -32,7 +40,7 @@ class Twig extends TrackerCommand
 	 */
 	protected function configure(): void
 	{
-		$this->setName('clear:twig');
+		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Clear the Twig cache.');
 	}
 

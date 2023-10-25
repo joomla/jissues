@@ -23,6 +23,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class Migrate extends TrackerCommand
 {
 	/**
+	 * The command name - available to be used as a reference for searching.
+	 *
+	 * @var    string
+	 * @since  2.0.0
+	 */
+	const COMMAND_NAME = 'database:migrate';
+
+	/**
 	 * Configure the command.
 	 *
 	 * @return  void
@@ -31,7 +39,7 @@ class Migrate extends TrackerCommand
 	 */
 	protected function configure(): void
 	{
-		$this->setName('database:migrate');
+		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Migrate the database schema to a newer version.');
 		$this->addOption('db_version', null, InputOption::VALUE_REQUIRED, 'Apply a specific database version.');
 	}

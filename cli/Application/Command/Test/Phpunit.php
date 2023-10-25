@@ -22,6 +22,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class Phpunit extends Test
 {
 	/**
+	 * The command name - available to be used as a reference for searching.
+	 *
+	 * @var    string
+	 * @since  2.0.0
+	 */
+	const COMMAND_NAME = 'test:phpunit';
+
+	/**
 	 * Configure the command.
 	 *
 	 * @return  void
@@ -30,7 +38,7 @@ class Phpunit extends Test
 	 */
 	protected function configure(): void
 	{
-		$this->setName('test:phpunit');
+		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Run PHPUnit tests.');
 	}
 

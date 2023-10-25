@@ -22,6 +22,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class Repoinfo extends TrackerCommand
 {
 	/**
+	 * The command name - available to be used as a reference for searching.
+	 *
+	 * @var    string
+	 * @since  2.0.0
+	 */
+	const COMMAND_NAME = 'make:repoinfo';
+
+	/**
 	 * Configure the command.
 	 *
 	 * @return  void
@@ -30,7 +38,7 @@ class Repoinfo extends TrackerCommand
 	 */
 	protected function configure(): void
 	{
-		$this->setName('make:repoinfo');
+		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Generate repository information.');
 	}
 

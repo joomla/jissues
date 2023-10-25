@@ -29,6 +29,14 @@ class Checkstyle extends Test
 	const ALLOWED_FAIL_COUNT = 0;
 
 	/**
+	 * The command name - available to be used as a reference for searching.
+	 *
+	 * @var    string
+	 * @since  2.0.0
+	 */
+	const COMMAND_NAME = 'test:checkstyle';
+
+	/**
 	 * Configure the command.
 	 *
 	 * @return  void
@@ -37,7 +45,7 @@ class Checkstyle extends Test
 	 */
 	protected function configure(): void
 	{
-		$this->setName('test:checkstyle');
+		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Run PHP CodeSniffer tests.');
 	}
 
