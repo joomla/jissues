@@ -14,6 +14,7 @@ use Application\Exception\AbortException;
 
 use Joomla\Github\Github;
 
+use Joomla\Input\Input;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Symfony\Component\Console\Command\Command;
@@ -82,6 +83,18 @@ class Hook extends Test
 	{
 		$ioStyle = new SymfonyStyle($input, $output);
 		$ioStyle->title('Test Hooks');
+
+		// TODO: Fix me!!!
+		$ioStyle->error(
+			sprintf(
+				'The test hook command is broken since the migration of the CLI to the new console class. 
+				A full rewrite is required before it will correctly function to remove the dependency of the controller
+				class on %s',
+				Input::class
+			)
+		);
+
+		return Command::FAILURE;
 
 		$this->logOut('Start testing hook');
 
