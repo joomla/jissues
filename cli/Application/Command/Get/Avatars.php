@@ -22,15 +22,15 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class Avatars extends Get
 {
-    /**
-     * The command name - available to be used as a reference for searching.
-     *
-     * @var    string
-     * @since  2.0.0
-     */
-    const COMMAND_NAME = 'get:avatars';
+	/**
+	 * The command name - available to be used as a reference for searching.
+	 *
+	 * @var    string
+	 * @since  2.0.0
+	 */
+	const COMMAND_NAME = 'get:avatars';
 
-    /**
+	/**
 	 * Configure the command.
 	 *
 	 * @return  void

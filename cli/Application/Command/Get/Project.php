@@ -74,8 +74,8 @@ class Project extends Get
 		$this->setName('get:project');
 		$this->setDescription('Get the whole project info from GitHub, including issues and issue comments.');
 
-        $this->addProgressBarOption();
-        $this->addProjectOption();
+		$this->addProgressBarOption();
+		$this->addProjectOption();
 		$this->addOption('all', '', InputOption::VALUE_NONE, 'Process all issues.');
 		$this->addOption('issue', '', InputOption::VALUE_REQUIRED, 'Process only a single issue.');
 		$this->addOption('range_from', '', InputOption::VALUE_REQUIRED, 'First issue to process.');
@@ -149,30 +149,36 @@ class Project extends Get
 
 	/**
 	 * Process the project labels.
-	 *
+     *
+     * @param   InputInterface   $input   The input to inject into the command.
+     * @param   OutputInterface  $output  The output to inject into the command.
+     *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
 	protected function processLabels(InputInterface $input, OutputInterface $output)
 	{
-        $labelsCommand = $this->getApplication()->getCommand(Labels::COMMAND_NAME);
-        $labelsCommand->execute($input, $output);
+		$labelsCommand = $this->getApplication()->getCommand(Labels::COMMAND_NAME);
+		$labelsCommand->execute($input, $output);
 
 		return $this;
 	}
 
 	/**
 	 * Process the project milestones.
-	 *
+     *
+     * @param   InputInterface   $input   The input to inject into the command.
+     * @param   OutputInterface  $output  The output to inject into the command.
+     *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
 	protected function processMilestones(InputInterface $input, OutputInterface $output)
 	{
-        $labelsCommand = $this->getApplication()->getCommand(Milestones::COMMAND_NAME);
-        $labelsCommand->execute($input, $output);
+		$labelsCommand = $this->getApplication()->getCommand(Milestones::COMMAND_NAME);
+		$labelsCommand->execute($input, $output);
 
 		return $this;
 	}
@@ -180,14 +186,17 @@ class Project extends Get
 	/**
 	 * Process the project issues.
 	 *
+     * @param   InputInterface   $input   The input to inject into the command.
+     * @param   OutputInterface  $output  The output to inject into the command.
+     *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
 	protected function processIssues(InputInterface $input, OutputInterface $output)
 	{
-        /** @var Issues $issues */
-        $issues = $this->getApplication()->getCommand(Issues::COMMAND_NAME);
+		/** @var Issues $issues */
+		$issues = $this->getApplication()->getCommand(Issues::COMMAND_NAME);
 
 		$issues->rangeFrom = $this->rangeFrom;
 		$issues->rangeTo   = $this->rangeTo;
@@ -204,6 +213,9 @@ class Project extends Get
 	/**
 	 * Process the project comments.
 	 *
+     * @param   InputInterface   $input   The input to inject into the command.
+     * @param   OutputInterface  $output  The output to inject into the command.
+     *
 	 * @return  $this
 	 *
 	 * @since   1.0
@@ -211,7 +223,7 @@ class Project extends Get
 	protected function processComments(InputInterface $input, OutputInterface $output)
 	{
 		/** @var Comments $comments */
-        $comments = $this->getApplication()->getCommand(Comments::COMMAND_NAME);
+		$comments = $this->getApplication()->getCommand(Comments::COMMAND_NAME);
 
 		$comments->usePBar = $this->usePBar;
 		$comments->force   = $this->force;
@@ -224,15 +236,18 @@ class Project extends Get
 
 	/**
 	 * Process the project events.
-	 *
+     *
+     * @param   InputInterface   $input   The input to inject into the command.
+     * @param   OutputInterface  $output  The output to inject into the command.
+     *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
 	protected function processEvents(InputInterface $input, OutputInterface $output)
 	{
-        /** @var Events $comments */
-        $events = $this->getApplication()->getCommand(Events::COMMAND_NAME);
+		/** @var Events $comments */
+		$events = $this->getApplication()->getCommand(Events::COMMAND_NAME);
 
 		$events->usePBar = $this->usePBar;
 
@@ -244,16 +259,19 @@ class Project extends Get
 
 	/**
 	 * Process the project avatars.
-	 *
+     *
+     * @param   InputInterface   $input   The input to inject into the command.
+     * @param   OutputInterface  $output  The output to inject into the command.
+     *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
 	protected function processAvatars(InputInterface $input, OutputInterface $output)
 	{
-        /** @var Avatars $comments */
-        $avatars = $this->getApplication()->getCommand(Avatars::COMMAND_NAME);
-        $avatars->execute($input, $output);
+		/** @var Avatars $comments */
+		$avatars = $this->getApplication()->getCommand(Avatars::COMMAND_NAME);
+		$avatars->execute($input, $output);
 
 		return $this;
 	}
