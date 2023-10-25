@@ -243,7 +243,7 @@ class Events extends Project
 								// If we have something already, then move on to the next item
 								$this->usePBar ? null : $io->write('-', false);
 
-								continue;
+								break;
 							}
 						}
 						else
@@ -315,12 +315,12 @@ class Events extends Project
 					case 'unsubscribed' :
 					case 'labeled' :
 					case 'unlabeled' :
-						continue;
+						break;
 
 					default:
 						$this->logOut(sprintf('ERROR: Unknown Event: %s', $event->event));
 
-						continue;
+						break;
 				}
 			}
 
