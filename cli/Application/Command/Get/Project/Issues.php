@@ -33,6 +33,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class Issues extends Project
 {
 	/**
+	 * The command name - available to be used as a reference for searching.
+	 *
+	 * @var    string
+	 * @since  2.0.0
+	 */
+	const COMMAND_NAME = 'get:project:issues';
+
+	/**
 	 * List of changed issue numbers.
 	 *
 	 * @var array
@@ -68,7 +76,7 @@ class Issues extends Project
 	 */
 	protected function configure(): void
 	{
-		$this->setName('get:project:issues');
+		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Retrieve issue from GitHub.');
 		$this->addOption('status', '', InputOption::VALUE_REQUIRED, 'Process only an issue of given status.');
 

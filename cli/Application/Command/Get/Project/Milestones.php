@@ -26,6 +26,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class Milestones extends Project
 {
 	/**
+	 * The command name - available to be used as a reference for searching.
+	 *
+	 * @var    string
+	 * @since  2.0.0
+	 */
+	const COMMAND_NAME = 'get:project:milestones';
+
+	/**
 	 * Configure the command.
 	 *
 	 * @return  void
@@ -34,7 +42,7 @@ class Milestones extends Project
 	 */
 	protected function configure(): void
 	{
-		$this->setName('get:project:milestones');
+		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Retrieve project milestones from GitHub.');
 
 		parent::configure();

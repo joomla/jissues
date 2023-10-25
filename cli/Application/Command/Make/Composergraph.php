@@ -44,8 +44,8 @@ class Composergraph extends TrackerCommand
 	{
 		$this->setName('make:composergraph');
 		$this->setDescription('Graph visualisation for your project\'s composer.json and its dependencies.');
-		$this->addOption('file', 'f', InputOption::VALUE_OPTIONAL, 'Write output to a file.');
-		$this->addOption('format', '', InputOption::VALUE_OPTIONAL, 'The image type.');
+		$this->addOption('file', 'f', InputOption::VALUE_REQUIRED, 'Write output to a file.');
+		$this->addOption('format', '', InputOption::VALUE_REQUIRED, 'The image type.');
 	}
 
 	/**
@@ -67,7 +67,7 @@ class Composergraph extends TrackerCommand
 
 		$this->graph = new GraphComposer(JPATH_ROOT);
 
-		$filePath = $input->getOption('file', '', 'raw');
+		$filePath = $input->getOption('file');
 		$format   = $input->getOption('format');
 
 		if ($filePath)

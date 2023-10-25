@@ -26,7 +26,15 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class Events extends Project
 {
-	/**
+    /**
+     * The command name - available to be used as a reference for searching.
+     *
+     * @var    string
+     * @since  2.0.0
+     */
+    const COMMAND_NAME = 'get:project:events';
+
+    /**
 	 * Event data from GitHub
 	 *
 	 * @var    array
@@ -43,7 +51,7 @@ class Events extends Project
 	 */
 	protected function configure(): void
 	{
-		$this->setName('get:project:events');
+		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Retrieve issue events from GitHub.');
 
 		parent::configure();

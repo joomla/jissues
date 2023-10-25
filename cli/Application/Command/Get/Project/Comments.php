@@ -25,6 +25,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class Comments extends Project
 {
 	/**
+	 * The command name - available to be used as a reference for searching.
+	 *
+	 * @var    string
+	 * @since  2.0.0
+	 */
+	const COMMAND_NAME = 'get:project:comments';
+
+	/**
 	 * Comment data from GitHub
 	 *
 	 * @var    array
@@ -41,7 +49,7 @@ class Comments extends Project
 	 */
 	protected function configure(): void
 	{
-		$this->setName('get:project:comments');
+		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Retrieve comments from GitHub.');
 
 		parent::configure();

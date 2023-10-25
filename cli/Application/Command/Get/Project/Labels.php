@@ -24,6 +24,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class Labels extends Project
 {
 	/**
+	 * The command name - available to be used as a reference for searching.
+	 *
+	 * @var    string
+	 * @since  2.0.0
+	 */
+	const COMMAND_NAME = 'get:project:labels';
+
+	/**
 	 * Configure the command.
 	 *
 	 * @return  void
@@ -32,7 +40,7 @@ class Labels extends Project
 	 */
 	protected function configure(): void
 	{
-		$this->setName('get:project:labels');
+		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Retrieve project labels from GitHub.');
 
 		parent::configure();

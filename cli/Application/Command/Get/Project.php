@@ -74,6 +74,8 @@ class Project extends Get
 		$this->setName('get:project');
 		$this->setDescription('Get the whole project info from GitHub, including issues and issue comments.');
 
+        $this->addProgressBarOption();
+        $this->addProjectOption();
 		$this->addOption('all', '', InputOption::VALUE_NONE, 'Process all issues.');
 		$this->addOption('issue', '', InputOption::VALUE_REQUIRED, 'Process only a single issue.');
 		$this->addOption('range_from', '', InputOption::VALUE_REQUIRED, 'First issue to process.');
@@ -110,12 +112,12 @@ class Project extends Get
 				['%user%' => $this->project->gh_user, '%project%' => $this->project->gh_project]
 			)
 		);
-		$this->processLabels()
-			->processMilestones()
-			->processIssues()
-			->processComments()
-			->processEvents()
-			->processAvatars();
+		$this->processLabels($input, $output)
+			->processMilestones($input, $output)
+			->processIssues($input, $output)
+			->processComments($input, $output)
+			->processEvents($input, $output)
+			->processAvatars($input, $output);
 		$ioStyle->newLine();
 		$this->logOut('---- Bulk Finished');
 
@@ -152,11 +154,10 @@ class Project extends Get
 	 *
 	 * @since   1.0
 	 */
-	protected function processLabels()
+	protected function processLabels(InputInterface $input, OutputInterface $output)
 	{
-		(new Labels)
-			->setContainer($this->getContainer())
-			->execute();
+        $labelsCommand = $this->getApplication()->getCommand(Labels::COMMAND_NAME);
+        $labelsCommand->execute($input, $output);
 
 		return $this;
 	}
@@ -168,11 +169,10 @@ class Project extends Get
 	 *
 	 * @since   1.0
 	 */
-	protected function processMilestones()
+	protected function processMilestones(InputInterface $input, OutputInterface $output)
 	{
-		(new Milestones)
-			->setContainer($this->getContainer())
-			->execute();
+        $labelsCommand = $this->getApplication()->getCommand(Milestones::COMMAND_NAME);
+        $labelsCommand->execute($input, $output);
 
 		return $this;
 	}
@@ -184,18 +184,17 @@ class Project extends Get
 	 *
 	 * @since   1.0
 	 */
-	protected function processIssues()
+	protected function processIssues(InputInterface $input, OutputInterface $output)
 	{
-		$issues = new Issues;
+        /** @var Issues $issues */
+        $issues = $this->getApplication()->getCommand(Issues::COMMAND_NAME);
 
 		$issues->rangeFrom = $this->rangeFrom;
 		$issues->rangeTo   = $this->rangeTo;
 		$issues->force     = $this->force;
 		$issues->usePBar   = $this->usePBar;
 
-		$issues->setContainer($this->getContainer());
-
-		$issues->execute();
+		$issues->execute($input, $output);
 
 		$this->changedIssueNumbers = $issues->getChangedIssueNumbers();
 
@@ -209,17 +208,16 @@ class Project extends Get
 	 *
 	 * @since   1.0
 	 */
-	protected function processComments()
+	protected function processComments(InputInterface $input, OutputInterface $output)
 	{
-		$comments = new Comments;
+		/** @var Comments $comments */
+        $comments = $this->getApplication()->getCommand(Comments::COMMAND_NAME);
 
 		$comments->usePBar = $this->usePBar;
 		$comments->force   = $this->force;
 
-		$comments
-			->setContainer($this->getContainer())
-			->setChangedIssueNumbers($this->changedIssueNumbers)
-			->execute();
+		$comments->setChangedIssueNumbers($this->changedIssueNumbers)
+			->execute($input, $output);
 
 		return $this;
 	}
@@ -231,16 +229,15 @@ class Project extends Get
 	 *
 	 * @since   1.0
 	 */
-	protected function processEvents()
+	protected function processEvents(InputInterface $input, OutputInterface $output)
 	{
-		$events = new Events;
+        /** @var Events $comments */
+        $events = $this->getApplication()->getCommand(Events::COMMAND_NAME);
 
 		$events->usePBar = $this->usePBar;
 
-		$events
-			->setContainer($this->getContainer())
-			->setChangedIssueNumbers($this->changedIssueNumbers)
-			->execute();
+		$events->setChangedIssueNumbers($this->changedIssueNumbers)
+			->execute($input, $output);
 
 		return $this;
 	}
@@ -252,11 +249,11 @@ class Project extends Get
 	 *
 	 * @since   1.0
 	 */
-	protected function processAvatars()
+	protected function processAvatars(InputInterface $input, OutputInterface $output)
 	{
-		(new Avatars)
-			->setContainer($this->getContainer())
-			->execute();
+        /** @var Avatars $comments */
+        $avatars = $this->getApplication()->getCommand(Avatars::COMMAND_NAME);
+        $avatars->execute($input, $output);
 
 		return $this;
 	}
