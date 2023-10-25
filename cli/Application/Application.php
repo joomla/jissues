@@ -148,33 +148,60 @@ class Application extends FrameworkApplication implements ContainerAwareInterfac
 		return array_merge(
 			$defaultCommands,
 			[
-				new Command\Clear\Allcache,
-				new Command\Clear\Cache,
-				new Command\Clear\Twig,
-				new Command\Database\Migrate,
-				new Command\Database\Status,
-				new Command\Get\Avatars,
-				new Command\Get\Composertags,
-				new Command\Get\Project,
-				new Command\Get\Project\Comments,
-				new Command\Get\Project\Events,
-				new Command\Get\Project\Issues,
-				new Command\Get\Project\Labels,
-				new Command\Get\Project\Milestones,
-				new Command\Get\Users,
-				new Command\Install\Install,
-				new Command\Make\Autocomplete,
-				new Command\Make\Composergraph,
-				new Command\Make\Dbcomments,
-				new Command\Make\Depfile,
-				new Command\Make\Docu,
-				new Command\Make\Repoinfo,
-				new Command\Test\Checkstyle,
-				new Command\Test\Hook,
-				new Command\Test\Phpunit,
-				new Command\Test\Run,
-				new Command\Update\Pulls,
-				new Command\Update\Server,
+				(new Command\Clear\Allcache)
+					->setContainer($this->getContainer()),
+				(new Command\Clear\Cache)
+					->setContainer($this->getContainer()),
+				(new Command\Clear\Twig)
+					->setContainer($this->getContainer()),
+				(new Command\Database\Migrate)
+					->setContainer($this->getContainer()),
+				(new Command\Database\Status)
+					->setContainer($this->getContainer()),
+				(new Command\Get\Avatars)
+					->setContainer($this->getContainer()),
+				(new Command\Get\Composertags)
+					->setContainer($this->getContainer()),
+				(new Command\Get\Project)
+					->setContainer($this->getContainer()),
+				(new Command\Get\Project\Comments)
+					->setContainer($this->getContainer()),
+				(new Command\Get\Project\Events)
+					->setContainer($this->getContainer()),
+				(new Command\Get\Project\Issues)
+					->setContainer($this->getContainer()),
+				(new Command\Get\Project\Labels)
+					->setContainer($this->getContainer()),
+				(new Command\Get\Project\Milestones)
+					->setContainer($this->getContainer()),
+				(new Command\Get\Users)
+					->setContainer($this->getContainer()),
+				(new Command\Install\Install)
+					->setContainer($this->getContainer()),
+				(new Command\Make\Autocomplete)
+					->setContainer($this->getContainer()),
+				(new Command\Make\Composergraph)
+					->setContainer($this->getContainer()),
+				(new Command\Make\Dbcomments)
+					->setContainer($this->getContainer()),
+				(new Command\Make\Depfile)
+					->setContainer($this->getContainer()),
+				(new Command\Make\Docu)
+					->setContainer($this->getContainer()),
+				(new Command\Make\Repoinfo)
+					->setContainer($this->getContainer()),
+				(new Command\Test\Checkstyle)
+					->setContainer($this->getContainer()),
+				(new Command\Test\Hook)
+					->setContainer($this->getContainer()),
+				(new Command\Test\Phpunit)
+					->setContainer($this->getContainer()),
+				(new Command\Test\Run)
+					->setContainer($this->getContainer()),
+				(new Command\Update\Pulls)
+					->setContainer($this->getContainer()),
+				(new Command\Update\Server)
+					->setContainer($this->getContainer()),
 			]
 		);
 	}
