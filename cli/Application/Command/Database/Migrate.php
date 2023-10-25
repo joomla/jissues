@@ -33,7 +33,7 @@ class Migrate extends TrackerCommand
 	{
 		$this->setName('database:migrate');
 		$this->setDescription('Migrate the database schema to a newer version.');
-		$this->addOption('version', null, InputOption::VALUE_OPTIONAL, 'Apply a specific database version.');
+		$this->addOption('db_version', null, InputOption::VALUE_OPTIONAL, 'Apply a specific database version.');
 	}
 
 	/**
@@ -55,7 +55,7 @@ class Migrate extends TrackerCommand
 		$migrations = $this->getContainer()->get('db.migrations');
 
 		// If a version is given, we are only executing that migration
-		$version = $input->getOption('version');
+		$version = $input->getOption('db_version');
 
 		try
 		{

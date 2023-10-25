@@ -49,7 +49,7 @@ complete -f -c jtracker -n '__fish_jtracker_using_command' -a clear:twig -d "Cle
 # jtracker database
 complete -f -c jtracker -n '__fish_jtracker_using_command list' -a database
 complete -f -c jtracker -n '__fish_jtracker_using_command' -a database:migrate -d "Migrate the database schema to a newer version."
-complete -f -c jtracker -n '__fish_jtracker_using_action database:migrate' -l version -d "Apply a specific database version."
+complete -f -c jtracker -n '__fish_jtracker_using_action database:migrate' -l db_version -d "Apply a specific database version."
 complete -f -c jtracker -n '__fish_jtracker_using_command' -a database:status -d "Check the database migration status."
 
 # jtracker get
@@ -106,4 +106,4 @@ complete -f -c jtracker -n '__fish_jtracker_using_command list' -a update
 complete -f -c jtracker -n '__fish_jtracker_using_command' -a update:pulls -d "Updates selected information for pull requests on GitHub for a specified project."
 complete -f -c jtracker -n '__fish_jtracker_using_action update:pulls' -s p -l project -d "Process the project with the given ID."
 complete -f -c jtracker -n '__fish_jtracker_using_command' -a update:server -d "Updates the local installation to either a specified version or latest git HEAD for the active branch."
-complete -f -c jtracker -n '__fish_jtracker_using_action update:server' -l version -d "An optional version number to update to."
+complete -f -c jtracker -n '__fish_jtracker_using_action update:server' -l app_version -d "An optional version number to update to."
