@@ -17,9 +17,9 @@ use Joomla\DI\ContainerAwareTrait;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\GitHub\GitHubUser;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -98,8 +98,8 @@ class Application extends FrameworkApplication implements ContainerAwareInterfac
 	protected function getDefaultInputDefinition(): InputDefinition
 	{
 		$definition = parent::getDefaultInputDefinition();
-		$definition->addArgument(
-			new InputArgument('--log', InputArgument::OPTIONAL, 'Optionally log output to the specified log file')
+		$definition->addOption(
+			new InputOption('--log', '', InputOption::VALUE_REQUIRED, 'Optionally log output to the specified log file')
 		);
 
 		return $definition;
