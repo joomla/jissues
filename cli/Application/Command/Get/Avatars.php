@@ -72,14 +72,14 @@ class Avatars extends Get
 	/**
 	 * Fetch avatars.
 	 *
-	 * @param   StyleInterface  $io  The output to inject into the command.
+	 * @param   SymfonyStyle  $io  The output to inject into the command.
 	 *
 	 * @return  $this
 	 *
 	 * @throws  \UnexpectedValueException
 	 * @since   1.0
 	 */
-	private function fetchAvatars(StyleInterface $io)
+	private function fetchAvatars(SymfonyStyle $io)
 	{
 		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
@@ -120,7 +120,10 @@ class Avatars extends Get
 
 			if (file_exists($base . '/' . $username . '.png'))
 			{
-				$this->debugOut(sprintf('User avatar already fetched for user %s', $username));
+				if ($io->isVeryVerbose())
+				{
+					$io->text(sprintf('User avatar already fetched for user %s', $username));
+				}
 
 				$this->usePBar
 					? $io->progressAdvance()
@@ -129,7 +132,10 @@ class Avatars extends Get
 				continue;
 			}
 
-			$this->debugOut(sprintf('Fetching avatar for user: %s', $username));
+			if ($io->isVeryVerbose())
+			{
+				$io->text(sprintf('Fetching avatar for user: %s', $username));
+			}
 
 			try
 			{
@@ -139,9 +145,15 @@ class Avatars extends Get
 			}
 			catch (\DomainException $e)
 			{
-				$this->debugOut($e->getMessage());
+				if ($io->isVerbose())
+				{
+					$io->text($e->getMessage());
+				}
 
-				$this->debugOut(sprintf('Copy default image for user: %s', $username));
+				if ($io->isVeryVerbose())
+				{
+					$io->text(sprintf('Copy default image for user: %s', $username));
+				}
 
 				copy(
 					JPATH_THEMES . '/images/avatars/user-default.png',

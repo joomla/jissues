@@ -75,7 +75,7 @@ class Pulls extends Update
 					$this->project->gh_project
 				)
 			)
-			->fetchPulls()
+			->fetchPulls($ioStyle)
 			->labelPulls()
 			->updatePullStatus()
 			->closePulls()
@@ -140,14 +140,20 @@ class Pulls extends Update
 	/**
 	 * Retrieves pull requests
 	 *
+	 * @param   SymfonyStyle  $io  The output decorator
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	protected function fetchPulls()
+	protected function fetchPulls(SymfonyStyle $io)
 	{
-		$this->out('Retrieving <b>open</b> pull requests from GitHub...', false);
-		$this->debugOut('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
+		$io->text('Retrieving <b>open</b> pull requests from GitHub...');
+
+		if ($io->isVeryVerbose())
+		{
+			$io->text('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
+		}
 
 		$pulls = [];
 		$page  = 0;
@@ -174,7 +180,7 @@ class Pulls extends Update
 			{
 				$pulls = array_merge($pulls, $pulls_more);
 
-				$this->out('(' . $count . ')', false);
+				$io->text('(' . $count . ')', false);
 			}
 		}
 		while ($count);

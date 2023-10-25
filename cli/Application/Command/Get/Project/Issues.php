@@ -95,10 +95,10 @@ class Issues extends Project
 			->selectProject($input, $ioStyle)
 			->setupGitHub()
 			->selectType($input)
-			->fetchData()
-			->processData($ioStyle)
-			->out()
-			->logOut('Finished.');
+			->fetchData($ioStyle)
+			->processData($ioStyle);
+		$ioStyle->newLine();
+		$this->logOut('Finished.');
 
 		return Command::SUCCESS;
 	}
@@ -156,18 +156,24 @@ class Issues extends Project
 	/**
 	 * Method to pull the list of issues from GitHub
 	 *
+	 * @param   SymfonyStyle  $io  The output decorator
+	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	protected function fetchData()
+	protected function fetchData(SymfonyStyle $io)
 	{
 		$issues = [];
 
 		foreach ($this->issueStates as $state)
 		{
-			$this->out(sprintf('Retrieving <b>%s</b> items from GitHub...', $state), false);
-			$this->debugOut('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
+			$io->write(sprintf('Retrieving <b>%s</b> items from GitHub...', $state));
+
+			if ($io->isVerbose())
+			{
+				$io->write('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
+			}
 
 			$page = 0;
 
@@ -209,12 +215,12 @@ class Issues extends Project
 				{
 					$issues = array_merge($issues, $issues_more);
 
-					$this->out('(' . $count . ')', false);
+					$io->write('(' . $count . ')');
 				}
 			}
 			while ($count);
 
-			$this->out();
+			$io->newLine();
 		}
 
 		usort(
