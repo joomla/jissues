@@ -204,7 +204,7 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 		$this->logOut(sprintf('Processing project: <info>%s</info>', $this->project->title));
 
 		// TODO: FIX ME!! - Unclear if this is actually used?
-//		$this->getApplication()->getInput()->set('project', $this->project->project_id);
+		// $this->getApplication()->getInput()->set('project', $this->project->project_id);
 
 		return $this;
 	}
