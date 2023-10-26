@@ -23,6 +23,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
@@ -103,7 +104,7 @@ class Issues extends Project
 		$this->logOut('Start retrieve Issues')
 			->selectProject($input, $ioStyle)
 			->setupGitHub()
-			->selectType($input)
+			->selectType($input, $ioStyle)
 			->fetchData($ioStyle)
 			->processData($ioStyle);
 		$ioStyle->newLine();
@@ -116,12 +117,13 @@ class Issues extends Project
 	 * Select the status of issues to process.
 	 *
 	 * @param   InputInterface  $input  The input to inject into the command.
+	 * @param   SymfonyStyle    $io     The output decorator
 	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	protected function selectType($input)
+	protected function selectType(InputInterface $input, SymfonyStyle $io)
 	{
 		// Get status option
 		$status = $input->getOption('status');
@@ -140,15 +142,13 @@ class Issues extends Project
 			return $this;
 		}
 
-		// Get input from user to process based on different status of the issue.
-		$this->out('<question>Select GitHub issues status?</question>')
-			->out()
-			->out('1) All')
-			->out('2) Open')
-			->out('3) Closed')
-			->out('Select: ', false);
+		// Select what to process
+		$question = new ChoiceQuestion(
+			'Select GitHub issues status? 1) All, 2) Open, 3) Closed',
+			['1', '2']
+		);
 
-		$resp = trim($this->getApplication()->in());
+		$resp = $io->askQuestion($question);
 
 		if ((int) $resp == 2)
 		{
