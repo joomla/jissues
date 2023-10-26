@@ -38,7 +38,7 @@ class Issues extends Project
 	 * @var    string
 	 * @since  2.0.0
 	 */
-	const COMMAND_NAME = 'get:project:issues';
+	const COMMAND_NAME = 'get:project_issues';
 
 	/**
 	 * List of changed issue numbers.
@@ -76,11 +76,12 @@ class Issues extends Project
 	 */
 	protected function configure(): void
 	{
-		$this->setName(self::COMMAND_NAME);
-		$this->setDescription('Retrieve issue from GitHub.');
 		$this->addOption('status', '', InputOption::VALUE_REQUIRED, 'Process only an issue of given status.');
 
 		parent::configure();
+
+		$this->setName(self::COMMAND_NAME);
+		$this->setDescription('Retrieve issue from GitHub.');
 	}
 
 

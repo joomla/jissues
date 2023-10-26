@@ -32,7 +32,7 @@ class Events extends Project
 	 * @var    string
 	 * @since  2.0.0
 	 */
-	const COMMAND_NAME = 'get:project:events';
+	const COMMAND_NAME = 'get:project_events';
 
 	/**
 	 * Event data from GitHub
@@ -51,10 +51,10 @@ class Events extends Project
 	 */
 	protected function configure(): void
 	{
+		parent::configure();
+
 		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Retrieve issue events from GitHub.');
-
-		parent::configure();
 	}
 
 	/**

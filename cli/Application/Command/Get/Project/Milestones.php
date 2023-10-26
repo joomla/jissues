@@ -31,7 +31,7 @@ class Milestones extends Project
 	 * @var    string
 	 * @since  2.0.0
 	 */
-	const COMMAND_NAME = 'get:project:milestones';
+	const COMMAND_NAME = 'get:project_milestones';
 
 	/**
 	 * Configure the command.
@@ -42,10 +42,10 @@ class Milestones extends Project
 	 */
 	protected function configure(): void
 	{
+		parent::configure();
+
 		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Retrieve project milestones from GitHub.');
-
-		parent::configure();
 	}
 
 	/**

@@ -29,7 +29,7 @@ class Labels extends Project
 	 * @var    string
 	 * @since  2.0.0
 	 */
-	const COMMAND_NAME = 'get:project:labels';
+	const COMMAND_NAME = 'get:project_labels';
 
 	/**
 	 * Configure the command.
@@ -40,10 +40,10 @@ class Labels extends Project
 	 */
 	protected function configure(): void
 	{
+		parent::configure();
+
 		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Retrieve project labels from GitHub.');
-
-		parent::configure();
 	}
 
 	/**

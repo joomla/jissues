@@ -30,7 +30,7 @@ class Comments extends Project
 	 * @var    string
 	 * @since  2.0.0
 	 */
-	const COMMAND_NAME = 'get:project:comments';
+	const COMMAND_NAME = 'get:project_comments';
 
 	/**
 	 * Comment data from GitHub
@@ -49,10 +49,10 @@ class Comments extends Project
 	 */
 	protected function configure(): void
 	{
+		parent::configure();
+
 		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Retrieve comments from GitHub.');
-
-		parent::configure();
 	}
 
 	/**
