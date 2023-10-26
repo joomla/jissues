@@ -141,11 +141,10 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 	 *
 	 * @return  $this
 	 *
-	 * @throws  \RuntimeException
-	 * @throws  AbortException
+	 * @throws  \InvalidArgumentException
 	 * @since   1.0
 	 */
-	protected function selectProject(InputInterface $input, SymfonyStyle $io)
+	protected function selectProject(InputInterface $input, SymfonyStyle $io): self
 	{
 		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
@@ -182,16 +181,6 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 			$question = new ChoiceQuestion('Select a project:', array_keys($checks));
 			$resp = (int) $io->askQuestion($question);
 
-			if (!$resp)
-			{
-				throw new AbortException('Aborted');
-			}
-
-			if (\array_key_exists($resp, $checks) === false)
-			{
-				throw new AbortException('Invalid project');
-			}
-
 			$this->project = new TrackerProject($db, $checks[$resp]);
 		}
 		else
@@ -208,14 +197,14 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
 
 			if ($this->project === null)
 			{
-				throw new AbortException('Invalid project');
+				throw new \InvalidArgumentException('Invalid project');
 			}
 		}
 
 		$this->logOut(sprintf('Processing project: <info>%s</info>', $this->project->title));
 
-		// TODO: FIX ME!!
-		$this->getApplication()->getInput()->set('project', $this->project->project_id);
+		// TODO: FIX ME!! - Unclear if this is actually used?
+//		$this->getApplication()->getInput()->set('project', $this->project->project_id);
 
 		return $this;
 	}

@@ -158,8 +158,9 @@ class Labels extends Project
 
 		$cntDeleted = \count($ids);
 
-		return $this->out('ok')
-			->logOut(
+        $io->success('ok');
+
+		return $this->logOut(
 				sprintf(
 					'Labels: %1$d new, %2$d updated, %3$d deleted.',
 					$cntNew, $cntUpdated, $cntDeleted
