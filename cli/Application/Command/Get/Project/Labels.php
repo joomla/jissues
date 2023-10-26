@@ -64,7 +64,7 @@ class Labels extends Project
 		$this->logOut('Start retrieve Labels')
 			->selectProject($input, $ioStyle)
 			->setupGitHub()
-			->fetchData()
+			->fetchData($ioStyle)
 			->out()
 			->logOut('Finished.');
 
