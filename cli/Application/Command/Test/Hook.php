@@ -181,7 +181,7 @@ class Hook extends Test
 	 * @throws  AbortException
 	 * @since   1.0
 	 */
-	protected function selectProject(InputInterface $input, SymfonyStyle $io)
+	protected function selectProject(InputInterface $input, SymfonyStyle $io): self
 	{
 		/** @var \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
