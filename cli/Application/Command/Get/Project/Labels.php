@@ -40,10 +40,10 @@ class Labels extends Project
 	 */
 	protected function configure(): void
 	{
-		parent::configure();
-
 		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Retrieve project labels from GitHub.');
+		$this->addProgressBarOption();
+		$this->addProjectOption();
 	}
 
 	/**

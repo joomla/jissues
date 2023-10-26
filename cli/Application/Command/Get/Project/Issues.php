@@ -77,12 +77,11 @@ class Issues extends Project
 	 */
 	protected function configure(): void
 	{
-		$this->addOption('status', '', InputOption::VALUE_REQUIRED, 'Process only an issue of given status.');
-
-		parent::configure();
-
 		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Retrieve issue from GitHub.');
+		$this->addProgressBarOption();
+		$this->addProjectOption();
+		$this->addStatusOption();
 	}
 
 

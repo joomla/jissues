@@ -81,6 +81,7 @@ class Project extends Get
 		$this->addOption('range_from', '', InputOption::VALUE_REQUIRED, 'First issue to process.');
 		$this->addOption('range_to', '', InputOption::VALUE_REQUIRED, 'Last issue to process.');
 		$this->addOption('force', 'f', InputOption::VALUE_NONE, 'Force an update even if the issue has not changed.');
+		$this->addStatusOption('all');
 	}
 
 	/**
@@ -356,5 +357,19 @@ class Project extends Get
 
 		return ($number >= $this->rangeFrom && $number <= $this->rangeTo)
 			? true : false;
+	}
+
+	/**
+	 * Common Option for status filtering.
+	 *
+	 * @param   mixed  $default  The default value for the status field
+	 *
+	 * @return  void
+	 *
+	 * @since   2.0.0
+	 */
+	protected function addStatusOption($default = null): void
+	{
+		$this->addOption('status', '', InputOption::VALUE_REQUIRED, 'Process only an issue of given status.', $default);
 	}
 }

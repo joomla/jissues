@@ -49,10 +49,10 @@ class Comments extends Project
 	 */
 	protected function configure(): void
 	{
-		parent::configure();
-
 		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Retrieve comments from GitHub.');
+		$this->addProgressBarOption();
+		$this->addProjectOption();
 	}
 
 	/**
