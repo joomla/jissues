@@ -83,7 +83,6 @@ class Issues extends Project
 		$this->setDescription('Retrieve issue from GitHub.');
 	}
 
-
 	/**
 	 * Execute the command.
 	 *
