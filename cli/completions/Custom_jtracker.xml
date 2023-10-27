@@ -61,6 +61,26 @@
     <help>Get the whole project info from GitHub, including issues and issue comments.</help>
   </command>
   <command>
+    <name>get:project_comments</name>
+    <help>Retrieve comments from GitHub.</help>
+  </command>
+  <command>
+    <name>get:project_events</name>
+    <help>Retrieve issue events from GitHub.</help>
+  </command>
+  <command>
+    <name>get:project_issues</name>
+    <help>Retrieve issue from GitHub.</help>
+  </command>
+  <command>
+    <name>get:project_labels</name>
+    <help>Retrieve project labels from GitHub.</help>
+  </command>
+  <command>
+    <name>get:project_milestones</name>
+    <help>Retrieve project milestones from GitHub.</help>
+  </command>
+  <command>
     <name>get:users</name>
     <help>Retrieve user info from GitHub.</help>
   </command>
