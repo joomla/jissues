@@ -9,13 +9,13 @@ var __webpack_exports__ = {};
  */
 
 /*jslint nomen: true, regexp: true */
-
 /*global $, window, blueimp */
+
 $(function () {
   'use strict';
 
-  var uploadarea = $('#fileupload'); // Initialize the jQuery File Upload widget:
-
+  var uploadarea = $('#fileupload');
+  // Initialize the jQuery File Upload widget:
   uploadarea.fileupload({
     completed: function completed(e, data) {
       if (data.result.error) {
@@ -37,7 +37,6 @@ $(function () {
   });
   uploadarea.bind('fileuploadsubmit', function (e, data) {
     var val = $('input[name="editorId"]').val();
-
     if (!val) {
       $('#select-message').html('First please select an editor to attach the uploads to.').show().delay(3000).fadeOut();
       $('tbody.files').empty();
@@ -52,8 +51,9 @@ $(function () {
     var regex = new RegExp('!?' + RegExp.escape('[') + '[^' + RegExp.escape(']') + ']*' + RegExp.escape(']') + RegExp.escape('(') + '[^' + RegExp.escape('[]') + ']*?' + RegExp.escape(fileName) + RegExp.escape(')'), 'i');
     var newContent = content.replace(regex, '');
     target.val(newContent);
-  }); // Load existing files:
+  });
 
+  // Load existing files:
   uploadarea.addClass('fileupload-processing');
   uploadarea.fileupload('option', {
     url: '/upload/put/',
@@ -65,7 +65,6 @@ $(function () {
     acceptFileTypes: /(\.|\/)(gif|jpe?g|png|txt)$/i
   });
 });
-
 RegExp.escape = function (s) {
   return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 };
