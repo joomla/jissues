@@ -207,8 +207,8 @@ ul.test-results {
     margin-bottom: 5px;
   }
   .btn-toolbar .pull-left .btn,
-.btn-toolbar a.pull-right.btn,
-#stools-container > .btn-group {
+  .btn-toolbar a.pull-right.btn,
+  #stools-container > .btn-group {
     width: 50%;
     margin: 0;
     padding-bottom: 4px;
@@ -227,7 +227,7 @@ ul.test-results {
     float: left;
   }
   .comment-wrapper,
-#stools-container select {
+  #stools-container select {
     width: 100%;
   }
   #stools-container input {
@@ -240,8 +240,8 @@ ul.test-results {
   }
   /* Show upload button text on handheld devices */
   .files .btn span,
-.files .toggle,
-.fileupload-buttonbar .toggle {
+  .files .toggle,
+  .fileupload-buttonbar .toggle {
     display: inherit;
   }
 }

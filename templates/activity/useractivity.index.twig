@@ -8,7 +8,7 @@
 {% block headerCSS %}
     {{ parent() }}
 
-    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-datepicker.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor/datepicker.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/jqplot/jquery.jqplot.min.css', 'debug') }}" />
     <link rel="stylesheet" href="{{ asset('css/jquery-ui/jquery-ui.min.css', 'debug') }}" />
 {% endblock %}
@@ -46,9 +46,9 @@
     		<br />
     		<div id="hidedates" class="form-inline">
     			<label>Start Date</label>
-    			<input id="start_date" class="datepicker input-small" type="text" />
+    			<input id="start_date" class="datepicker-input input-small" type="text" />
     			<label>End Date</label>
-    			<input id="end_date" class="datepicker input-small" type="text" />
+    			<input id="end_date" class="datepicker-input input-small" type="text" />
     		</div>
 
     	</fieldset>
@@ -58,8 +58,8 @@
 {% block JavaScriptBottom %}
     {{ parent() }}
 
-    <script src="{{ asset('js/vendor/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js') }}"></script>
+    <script src="{{ asset('js/vendor/datepicker.js') }}"></script>
+    <script src="{{ asset('js/vendor/datepicker/locales/en-GB.js') }}"></script>
     <script src="{{ asset('js/jqplot/jquery.jqplot.min.js', 'debug') }}"></script>
     <script src="{{ asset('js/jqplot/jqplot.barRenderer.js', 'debug') }}"></script>
     <script src="{{ asset('js/jqplot/jqplot.categoryAxisRenderer.js', 'debug') }}"></script>
@@ -104,9 +104,14 @@
             });
         })(jQuery);
 
-        $('.datepicker').datepicker({
-            format: 'yyyy-mm-dd',
-            language: 'en-GB'
+        const datepickerElements = document.querySelectorAll('.datepicker-input');
+
+        datepickerElements.forEach((elem) => {
+            new Datepicker(elem, {
+                format: 'yyyy-mm-dd',
+                language: 'en-GB',
+                buttonClass: 'btn'
+            });
         });
     </script>
 {% endblock %}

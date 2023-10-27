@@ -7,15 +7,14 @@ var __webpack_exports__ = {};
  * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
-;
 
+;
 (function (window, $) {
   'use strict';
 
   window.JTracker = {
     basePath: '',
     baseUrl: '',
-
     /**
      * Render a Markdown input to formatted HTML
      *
@@ -29,7 +28,6 @@ var __webpack_exports__ = {};
         text: $(text).val()
       }, function (r) {
         out.empty();
-
         if (r.error) {
           out.html(r.error);
         } else if (!r.data.length) {
@@ -39,7 +37,6 @@ var __webpack_exports__ = {};
         }
       });
     },
-
     /**
      * Submit a comment
      *
@@ -51,8 +48,8 @@ var __webpack_exports__ = {};
      */
     submitComment: function submitComment(issue_number, statusContainer, outContainer, template, shaContainer) {
       var out = $(outContainer),
-          status = $(statusContainer),
-          sha = $(shaContainer).val();
+        status = $(statusContainer),
+        sha = $(shaContainer).val();
       status.html('Submitting comment...');
       $.post('/submit/comment', {
         text: $('#comment').val(),
@@ -68,20 +65,20 @@ var __webpack_exports__ = {};
         } else {
           // Success
           status.html(r.message);
-          out.html(out.html() + tmpl(template, r.data)); // Clear textarea and files
+          out.html(out.html() + tmpl(template, r.data));
 
+          // Clear textarea and files
           $('#comment').val('');
-          $('tbody.files').empty(); // Submit test result but only when the "Not Tested" option is not selected
+          $('tbody.files').empty();
 
+          // Submit test result but only when the "Not Tested" option is not selected
           var testResult = $('input[name=comment-tested]').filter(':checked').val();
-
           if (testResult > 0) {
             JTracker.submitTestWithComment(out, 'tplNewTestResult');
           }
         }
       });
     },
-
     /**
      * Submit a vote on an issue
      *
@@ -90,8 +87,8 @@ var __webpack_exports__ = {};
      */
     submitVote: function submitVote(issueId, debugContainer) {
       var status = $(debugContainer),
-          importance = $('input[name=importanceRadios]').filter(':checked').val(),
-          experienced = $('input[name=experiencedRadios]').filter(':checked').val();
+        importance = $('input[name=importanceRadios]').filter(':checked').val(),
+        experienced = $('input[name=experiencedRadios]').filter(':checked').val();
       status.addClass('disabled').removeAttr('href').removeAttr('onclick').html('Adding vote...');
       $.post('/submit/vote', {
         issueId: issueId,
@@ -103,8 +100,9 @@ var __webpack_exports__ = {};
           status.addClass('btn-danger').removeClass('btn-success').html(r.error);
         } else {
           // Success
-          status.html(r.message); // Update votes display
+          status.html(r.message);
 
+          // Update votes display
           if (r.data.votes > 0) {
             $('div[id=experienced]').html(r.data.experienced + '/' + r.data.votes);
             $('div[id=importance]').html(r.data.importanceScore.toFixed(2));
@@ -113,7 +111,6 @@ var __webpack_exports__ = {};
         }
       });
     },
-
     /**
      * Submit a test result on an issue
      *
@@ -126,10 +123,10 @@ var __webpack_exports__ = {};
      */
     submitTest: function submitTest(issueId, statusContainer, resultContainer, commentContainer, shaContainer, templateName) {
       var status = $(statusContainer),
-          result = $(resultContainer),
-          testResult = $('input[name=tested]').filter(':checked').val(),
-          comment = $(commentContainer).val(),
-          sha = $(shaContainer).val();
+        result = $(resultContainer),
+        testResult = $('input[name=tested]').filter(':checked').val(),
+        comment = $(commentContainer).val(),
+        sha = $(shaContainer).val();
       status.html('Submitting test result...');
       $.post('/submit/testresult', {
         issueId: issueId,
@@ -145,17 +142,18 @@ var __webpack_exports__ = {};
           status.addClass('text-success').html(r.message);
           var data = $.parseJSON(r.data);
           JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure);
-          result.html(result.html() + tmpl(templateName, data.event)); // Update comment checkboxes
+          result.html(result.html() + tmpl(templateName, data.event));
 
+          // Update comment checkboxes
           $('#current-test-result').val(testResult);
           $('.comment-test-result').prop('checked', false);
-          $("#comment-test-result-" + testResult).prop('checked', true); // Hide the container
+          $("#comment-test-result-" + testResult).prop('checked', true);
 
+          // Hide the container
           $('#testContainer').delay(1000).slideUp();
         }
       });
     },
-
     /**
      * Submit a test result with a comment
      *
@@ -164,9 +162,8 @@ var __webpack_exports__ = {};
      */
     submitTestWithComment: function submitTestWithComment(result, templateName) {
       var issueId = $('#issue-id').val(),
-          testResult = $('input[name=comment-tested]').filter(':checked').val(),
-          currentTestResult = $('#current-test-result').val();
-
+        testResult = $('input[name=comment-tested]').filter(':checked').val(),
+        currentTestResult = $('#current-test-result').val();
       if (testResult && currentTestResult != testResult) {
         $.post('/submit/testresult', {
           issueId: issueId,
@@ -184,14 +181,14 @@ var __webpack_exports__ = {};
             $('#current-test-result').val(testResult);
             var data = $.parseJSON(r.data);
             JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure);
-            result.html(result.html() + tmpl(templateName, data.event)); // Hide the container
+            result.html(result.html() + tmpl(templateName, data.event));
 
+            // Hide the container
             $('#testContainer').delay(1000).slideUp();
           }
         });
       }
     },
-
     /**
      * Alter a test result on an issue
      *
@@ -203,16 +200,14 @@ var __webpack_exports__ = {};
      */
     alterTest: function alterTest(issueId, statusContainer, resultContainer, shaContainer, templateName) {
       var status = $(statusContainer),
-          result = $(resultContainer),
-          sha = $(shaContainer).val(),
-          altered = $('select[name=altered]').val(),
-          user = $('input[name=altered-user]').val();
-
+        result = $(resultContainer),
+        sha = $(shaContainer).val(),
+        altered = $('select[name=altered]').val(),
+        user = $('input[name=altered-user]').val();
       if ('' == user) {
         status.html('Please select a user');
         return;
       }
-
       status.html('Submitting test result...');
       $.post('/alter/testresult', {
         issueId: issueId,
@@ -228,7 +223,9 @@ var __webpack_exports__ = {};
           status.addClass('text-success').html(r.message);
           var data = $.parseJSON(r.data);
           JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure);
-          result.html(result.html() + tmpl(templateName, data.event)); // Hide the container
+          result.html(result.html() + tmpl(templateName, data.event));
+
+          // Hide the container
           //$('#testAlterContainer').delay(1000).slideUp();
         }
       });
@@ -246,7 +243,6 @@ var __webpack_exports__ = {};
       $('#usertests-fail-num').text(testsFailure.length);
       $('#usertests-fail').text(testsFailure.join(', '));
     },
-
     /**
      * Get a contrasting color for a given hex color code
      *
@@ -255,12 +251,11 @@ var __webpack_exports__ = {};
      */
     getContrastColor: function getContrastColor(hexColor) {
       var r = parseInt(hexColor.substr(0, 2), 16),
-          g = parseInt(hexColor.substr(2, 2), 16),
-          b = parseInt(hexColor.substr(4, 2), 16),
-          yiq = (r * 299 + g * 587 + b * 114) / 1000;
+        g = parseInt(hexColor.substr(2, 2), 16),
+        b = parseInt(hexColor.substr(4, 2), 16),
+        yiq = (r * 299 + g * 587 + b * 114) / 1000;
       return yiq >= 128 ? 'black' : 'white';
     },
-
     /**
      * Configure the jquery.atwho integration
      *

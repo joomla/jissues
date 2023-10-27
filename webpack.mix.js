@@ -96,10 +96,11 @@ mix.copy('node_modules/markItUp!/markitup', 'www/media/markitup');
 // twbs-pagination
 mix.copy('node_modules/twbs-pagination/jquery.twbsPagination.min.js', 'www/media/js/vendor/twbs-pagination.js');
 
-// Bootstrap Datepicker
-mix.copy('node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css', 'www/media/css/vendor/bootstrap-datepicker.css');
-mix.copy('node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js', 'www/media/js/vendor/bootstrap-datepicker.js');
-mix.copy('node_modules/bootstrap-datepicker/dist/locales/bootstrap-datepicker.en-GB.min.js', 'www/media/js/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js');
+// Datepicker
+// TODO: Move to the BS5 style file once upgraded from BS2 to BS5
+mix.copy('node_modules/vanillajs-datepicker/dist/css/datepicker.min.css', 'www/media/css/vendor/datepicker.css');
+mix.copy('node_modules/vanillajs-datepicker/dist/js/datepicker.min.js', 'www/media/js/vendor/datepicker.js');
+mix.copy('node_modules/vanillajs-datepicker/dist/js/locales/en-GB.js', 'www/media/js/vendor/datepicker/locales/en-GB.js');
 
 // d3
 mix.copy('node_modules/d3/d3.min.js', 'www/media/js/vendor/d3.js');
