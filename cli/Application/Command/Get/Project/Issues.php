@@ -77,7 +77,7 @@ class Issues extends Project
 	 */
 	protected function configure(): void
 	{
-        parent::configure();
+		parent::configure();
 
 		$this->setName(self::COMMAND_NAME);
 		$this->setDescription('Retrieve issue from GitHub.');
