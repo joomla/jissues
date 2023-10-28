@@ -19,7 +19,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/vendor/blueimp-file-upload.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-select.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-switch.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/switch.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/vendor/jquery.atwho.css') }}" />
 
     <!-- CSS for coloured code -->
@@ -38,7 +38,7 @@
             <div class="span3 pull-right well well-small issue-add-right-block">
 
                 <label for="helpSwitch" class="btn btn-small">View Mode</label>
-                <input id="helpSwitch" type="checkbox" data-on-text="Help" data-off-text="Pro" data-on-color="success" data-off-color="info"{{ user.check("manage") ? "" : " checked" }} />
+                <input class="switcher switcher-info-off" id="helpSwitch" type="checkbox" data-on-text="Help" data-off-text="Pro"{{ user.check("manage") ? "" : " checked" }} />
 
                 <hr />
 
@@ -133,7 +133,6 @@
     {{ parent() }}
 
     <script src="{{ asset('markitup/jquery.markitup.js') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap-switch.js') }}"></script>
     <script src="{{ asset('js/vendor/jquery-validation.js') }}"></script>
     <script src="{{ asset('js/vendor/blueimp-canvas-to-blob.js') }}"></script>
     <script src="{{ asset('js/vendor/blueimp-load-image.js') }}"></script>

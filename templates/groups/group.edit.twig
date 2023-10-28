@@ -17,13 +17,11 @@
 {% block headerCSS %}
     {{ parent() }}
 
-    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-switch.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/switch.css') }}" />
 {% endblock %}
 
 {% block JavaScriptBottom %}
     {{ parent() }}
-
-    <script src="{{ asset('js/vendor/bootstrap-switch.js') }}"></script>
 
     <script type="text/javascript">
         jQuery('#searchUser').typeahead({
@@ -117,13 +115,6 @@
                 }
             );
         }
-
-        // Initialize bootstrap-switch on elements
-        $('#can_view').bootstrapSwitch();
-        $('#can_create').bootstrapSwitch();
-        $('#can_edit').bootstrapSwitch();
-        $('#can_editown').bootstrapSwitch();
-        $('#can_manage').bootstrapSwitch();
     </script>
 {% endblock %}
 
@@ -167,35 +158,35 @@
 
                     <ul class="unstyled">
                         <li>
-                            <input type="checkbox" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_view" name="group[can_view]"{{ group.can_view ? " checked='checked'" : "" }} />
+                            <input type="checkbox" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_view" class="switcher" name="group[can_view]"{{ group.can_view ? " checked='checked'" : "" }} />
                             <label for="can_view">
                                 <i class="icon-eye-2"></i>
                                 View
                             </label>
                         </li>
                         <li>
-                            <input type="checkbox" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_create" name="group[can_create]"{{ group.can_create ? " checked='checked'" : "" }} />
+                            <input type="checkbox" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_create" class="switcher" name="group[can_create]"{{ group.can_create ? " checked='checked'" : "" }} />
                             <label for="can_create">
                                 <i class="icon-plus-2"></i>
                                 Create
                             </label>
                         </li>
                         <li>
-                            <input type="checkbox" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_edit" name="group[can_edit]"{{ group.can_edit ? " checked='checked'" : "" }} />
+                            <input type="checkbox" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_edit" class="switcher" name="group[can_edit]"{{ group.can_edit ? " checked='checked'" : "" }} />
                             <label for="can_edit">
                                 <i class="icon-pencil"></i>
                                 Edit
                             </label>
                         </li>
                         <li>
-                            <input type="checkbox" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_editown" name="group[can_editown]"{{ group.can_editown ? " checked='checked'" : "" }} />
+                            <input type="checkbox" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_editown" class="switcher" name="group[can_editown]"{{ group.can_editown ? " checked='checked'" : "" }} />
                             <label for="can_editown">
                                 <i class="icon-pencil"></i>
                                 Edit own
                             </label>
                         </li>
                         <li>
-                            <input type="checkbox" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_manage" name="group[can_manage]"{{ group.can_manage ? " checked='checked'" : "" }} />
+                            <input type="checkbox" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_manage" class="switcher" name="group[can_manage]"{{ group.can_manage ? " checked='checked'" : "" }} />
                             <label for="can_manage">
                                 <i class="icon-user-3"></i>
                                 Manage

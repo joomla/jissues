@@ -93,7 +93,7 @@ class CdnRenderer
 			try
 			{
 				// Set a very short timeout to try and not bring the site down
-				$response = $this->http->get('https://cdn.joomla.org/template/renderer.php?section=footer', [], 2);
+				$response = $this->http->get('https://cdn.joomla.org/template/j4/renderer.php?section=footer', [], 2);
 
 				if ($response->code !== 200)
 				{
@@ -170,7 +170,7 @@ class CdnRenderer
 			try
 			{
 				// Set a very short timeout to try and not bring the site down
-				$response = $this->http->get('https://cdn.joomla.org/template/renderer.php?section=menu', [], 2);
+				$response = $this->http->get('https://cdn.joomla.org/template/j4/renderer.php?section=menu', [], 2);
 
 				if ($response->code !== 200)
 				{
