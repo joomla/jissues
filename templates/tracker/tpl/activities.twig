@@ -3,16 +3,16 @@
 
 {% macro change(name, old, new) %}
     <tr class="table-condensed">
-        <td class="span2">{{ name|title }}</td>
-        <td class="span4 center">{{ old }}</td>
-        <td class="span1 center">&rArr;</td>
-        <td class="span4 center">{{ new }}</td>
+        <td class="col-md-2">{{ name|title }}</td>
+        <td class="col-md-4 center">{{ old }}</td>
+        <td class="col-md-1 center">&rArr;</td>
+        <td class="col-md-4 center">{{ new }}</td>
     </tr>
 {% endmacro %}
 
 {% macro description(old, new, cnt) %}
     <tr class="table-condensed">
-        <td class="span2">Description</td>
+        <td class="col-md-2">Description</td>
         <td colspan="3">
             <button type="button" class="btn" data-toggle="collapse" data-target="#diff-{{ cnt }}">Differences</button>
 
@@ -25,7 +25,7 @@
 
 {% macro title(old, new, cnt) %}
     <tr class="table-condensed">
-        <td class="span2">Title</td>
+        <td class="col-md-2">Title</td>
         <td colspan="4">
             <button type="button" class="btn" data-toggle="collapse" data-target="#diff-{{ cnt }}">Differences</button>
 
@@ -38,30 +38,30 @@
 
 {% macro status(old, new) %}
     <tr class="table-condensed">
-        <td class="span2">Status</td>
-        <td class="span4 alert-{{ status(old).closed ? "error" : "success" }} center">{{ status(old).status }}</td>
-        <td class="span1 center">&rArr;</td>
-        <td class="span4 alert-{{ status(new).closed ? "error" : "success" }} center">{{ status(new).status }}</td>
+        <td class="col-md-2">Status</td>
+        <td class="col-md-4 alert-{{ status(old).closed ? "error" : "success" }} center">{{ status(old).status }}</td>
+        <td class="col-md-1 center">&rArr;</td>
+        <td class="col-md-4 alert-{{ status(new).closed ? "error" : "success" }} center">{{ status(new).status }}</td>
     </tr>
 {% endmacro %}
 
 {% macro easy(old, new) %}
     <tr class="table-condensed">
-        <td class="span2">Easy</td>
-        <td class="span4 center">{{ old ? 'Yes' : 'No' }}</td>
-        <td class="span1 center">&rArr;</td>
-        <td class="span4 center">{{ new ? 'Yes' : 'No' }}</td>
+        <td class="col-md-2">Easy</td>
+        <td class="col-md-4 center">{{ old ? 'Yes' : 'No' }}</td>
+        <td class="col-md-1 center">&rArr;</td>
+        <td class="col-md-4 center">{{ new ? 'Yes' : 'No' }}</td>
     </tr>
 {% endmacro %}
 
 {% macro priority(old, new) %}
     <tr class="table-condensed">
-        <td class="span2">Priority</td>
-        <td class="span4 center">
+        <td class="col-md-2">Priority</td>
+        <td class="col-md-4 text-center">
             <span class="badge {{ issue_priority_class(old) }}">{{ issue_priority(old) }}</span>
         </td>
-        <td class="span1 center">&rArr;</td>
-        <td class="span4 center">
+        <td class="col-md-1 text-center">&rArr;</td>
+        <td class="col-md-4 text-center">
             <span class="badge {{ issue_priority_class(new) }}">{{ issue_priority(new) }}</span>
         </td>
     </tr>
@@ -69,7 +69,7 @@
 
 {% macro labels(old, new) %}
     <tr class="table-condensed">
-        <td class="span2">Labels</td>
+        <td class="col-md-2">Labels</td>
         <td colspan="3">
             {% set added = string_array_diff(new, old) %}
             {% if added %}
@@ -85,7 +85,7 @@
 
 {% macro milestone(old, new) %}
     <tr class="table-condensed">
-        <td class="span2">Milestone</td>
+        <td class="col-md-2">Milestone</td>
         <td colspan="3">
             {% if new %}
                 Added: {{ milestone_title(new) }}<br />
@@ -100,25 +100,25 @@
 
 {% macro relationType(old, new) %}
     <tr class="table-condensed">
-        <td class="span2">Relation Type</td>
-        <td class="span4 center">{{ issue_relation_type(old) }}</td>
-        <td class="span1 center">&rArr;</td>
-        <td class="span4 center">{{ issue_relation_type(new) }}</td>
+        <td class="col-md-2">Relation Type</td>
+        <td class="col-md-4 text-center">{{ issue_relation_type(old) }}</td>
+        <td class="col-md-1 text-center">&rArr;</td>
+        <td class="col-md-4 text-center">{{ issue_relation_type(new) }}</td>
     </tr>
 {% endmacro %}
 
 {% macro category(old, new) %}
     <tr class="table-condensed">
-        <td class="span2">Category</td>
-        <td class="span4 center">
+        <td class="col-md-2">Category</td>
+        <td class="col-md-4 text-center">
             {% for oldCategory in old %}
                 <span class="label" style="background-color: {{ '#' ~ oldCategory.color }}; color: {{ contrast_color(oldCategory.color) }};">
                     {{ oldCategory.title }}
                 </span>
             {% endfor %}
         </td>
-        <td class="span1 center">&rArr;</td>
-        <td class="span4 center">
+        <td class="col-md-1 center">&rArr;</td>
+        <td class="col-md-4 center">
             {% for newCategory in new %}
                 <span class="label" style="background-color: {{ '#' ~ newCategory.color }}; color: {{ contrast_color(newCategory.color) }};">
                     {{ newCategory.title }}

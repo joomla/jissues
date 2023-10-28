@@ -7,7 +7,7 @@
 
 {% block prependMenu %}
     <li>
-        <a class="btn-success" href="javascript:" onclick="showNewMilestone();">New Milestone</a>
+        <a class="nav-link bg-success" href="javascript:" onclick="showNewMilestone();">New Milestone</a>
     </li>
 
     {{ parent() }}
@@ -29,7 +29,7 @@
             <form name="newMilestone" class="form-horizontal">
                 <div>
                     <label for="number">Number</label>
-                    <input type="text" id="number" name="number" placeholder="#" disabled="disabled" class="span1"/>
+                    <input type="text" id="number" name="number" placeholder="#" disabled="disabled" class="col-md-1"/>
                 </div>
                 <div class="form-group">
                     <label for="title" class="control-label">Title</label>
@@ -49,7 +49,7 @@
                 <div class="form-group">
 
                     <label for="description">Description</label>
-                    <textarea name="description" id="description" class="span6"></textarea>
+                    <textarea name="description" id="description" class="col-md-6"></textarea>
                 </div>
             </form>
         </div>

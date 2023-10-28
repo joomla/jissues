@@ -4,11 +4,11 @@
 {% set firstPart = uri.route|split("?")|first|split("/")|first %}
 
 <li{{ "" == uri.route or "tracker" == firstPart ? ' class="active"' : "" }}>
-    <a href="{{ uri.base.path }}tracker/{{ project.alias }}">Tracker</a>
+    <a class="nav-link" href="{{ uri.base.path }}tracker/{{ project.alias }}">Tracker</a>
 </li>
 {% if project.project_id %}
     <li class="dropdown{{ firstPart in ['project', 'activity', 'category'] ? " active" : "" }}">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">Project <span class="caret"></span></a>
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:;">Project <span class="caret"></span></a>
 
         <ul class="dropdown-menu">
             <li class="nav-header">{{ project.title }}</li>
@@ -47,7 +47,7 @@
 {% endif %}
 
 <li class="{{ "projects" == firstPart ? "active" : "" }}">
-    <a href="{{ uri.base.path }}projects">Projects</a>
+    <a class="nav-link" href="{{ uri.base.path }}projects">Projects</a>
 </li>
 
 {% if user.isAdmin %}
@@ -65,7 +65,7 @@
 {% endif %}
 
 <li class="dropdown{{firstPart in ['documentation'] or uri.route == 'page/about' ? ' active' : '' }}">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">/etc <span class="caret"></span></a>
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:;">/etc <span class="caret"></span></a>
 
     <ul class="dropdown-menu">
         <li class="{{ "page/about" == uri.route ? "active" : "" }}">
@@ -80,8 +80,8 @@
 {# @todo If an Exception is thrown, this information is not available #}
 {% if not exception %}
     {% if user.id %}
-    <li class="dropdown pull-right">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">Account <span class="caret"></span></a>
+    <li class="dropdown float-end">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:;">Account <span class="caret"></span></a>
         <ul class="dropdown-menu">
             {% if user.isAdmin %}
                 <li class="nav-header"><i class="icon-user-3"></i> Admin</li>
@@ -99,7 +99,7 @@
         </ul>
     </li>
     {% else %}
-    <li class="pull-right">
+    <li class="float-end">
         {% if loginUrl %}
             <a class="btn-success" href="{{ loginUrl }}">Login with GitHub</a>
         {% else %}

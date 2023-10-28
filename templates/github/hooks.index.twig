@@ -19,18 +19,18 @@
     <h2>New Hook</h2>
 
     <form name="newHook" class="form-inline">
-        <div class="row-fluid well well-small">
-            <div class="span5">
+        <div class="row well well-small">
+            <div class="col-md-5">
                 <label for="url">URL</label><br/>
                 <input type="text" id="url" name="url" placeholder="http://domain.tld / web / hook"/>
             </div>
-            <div class="span5">
+            <div class="col-md-5">
                 <label for="events">Events</label><br />
                 <input type="text" id="events" name="events" placeholder="event,event,n..."/><br />
                 NOTE: comma separated, no spaces
             </div>
-            <div class="span2">
-                <div class="btn btn-large btn-success btn-block" onclick="addHook('{{ project.alias }}');">Add Hook</div>
+            <div class="col-md-2">
+                <div class="btn btn-lg btn-success btn-block" onclick="addHook('{{ project.alias }}');">Add Hook</div>
                 <a href="#eventsModal" role="button" class="btn btn-info btn-small btn-block" data-toggle="modal">
                     Help: Events
                 </a>

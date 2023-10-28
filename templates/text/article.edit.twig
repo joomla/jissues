@@ -13,10 +13,10 @@
 
 {% block prependMenu %}
     <li>
-        <a class="btn-success" href="#" id="save-article">Save</a>
+        <a class="nav-link bg-success" href="#" id="save-article">Save</a>
     </li>
     <li>
-        <a class="btn-inverse" href="{{ uri.base.path }}articles">Cancel</a>
+        <a class="nav-link bg-inverse" href="{{ uri.base.path }}articles">Cancel</a>
     </li>
     {{ parent() }}
 {% endblock %}

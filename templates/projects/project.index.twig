@@ -10,7 +10,7 @@
 {% block content %}
 
     {% if user.check('admin') %}
-        <div class="btn-group pull-right">
+        <div class="btn-group float-end">
             <a class="btn btn-info" href="{{ uri.base.path }}project/{{ project.alias }}/edit">Edit</a>
             <a class="btn btn-danger" href="{{ uri.base.path }}project/{{ project.alias }}/delete">Delete</a>
         </div>

@@ -47,38 +47,34 @@
     <!-- End Google Tag Manager -->
     {% block nav %}
         <nav class="navigation" role="navigation">
-            <div id="mega-menu" class="navbar navbar-inverse navbar-fixed-top">
-                <div class="navbar-inner">
-                    <div class="container">
-                        {% block topnav %}
-                            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </a>
+            <div id="mega-menu" class="navbar navbar-expand-md py-md-1">
+                <div class="container-xxl">
+                    {% block topnav %}
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryMenu" aria-controls="primaryMenu" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
 
-                            {{ cdn_menu() }}
-                        {% endblock %}
-                    </div>
+                        {{ cdn_menu() }}
+                    {% endblock %}
                 </div>
             </div>
         </nav>
     {% endblock %}
 
     <header class="header">
-        <div class="container">
-            <div class="row-fluid">
+        <div class="container-md">
+            <div class="row">
                 {% block header %}
-                    <div class="span7">
+                    <div class="col-md-7">
                         <h1 class="page-title"><a href="{{ uri.base.path }}">Joomla! Issue Tracker{% block headerText %}{% endblock %}</a></h1>
                     </div>
-                    <div class="span5">
-                        <div class="btn-toolbar pull-right">
-                            <div class="btn-group">
-                                <a href="https://downloads.joomla.org" class="btn btn-large btn-warning">Download</a>
+                    <div class="col-md-5">
+                        <div class="btn-toolbar pt-md-1 row">
+                            <div class="btn-group col-6">
+                                <a href="https://downloads.joomla.org" class="btn btn-lg btn-warning">Download</a>
                             </div>
-                            <div class="btn-group">
-                                <a href="https://launch.joomla.org" class="btn btn-large btn-primary">Launch</a>
+                            <div class="btn-group col-6">
+                                <a href="https://launch.joomla.org" class="btn btn-lg btn-primary">Launch</a>
                             </div>
                         </div>
                     </div>
@@ -89,7 +85,7 @@
 
     <div class="subnav-wrapper">
         <div class="subnav">
-            <div class="container">
+            <div class="container-md">
                 {% block subnav %}
                     <ul class="nav menu nav-pills">
                         {% block prependMenu %}{% endblock %}
@@ -120,18 +116,18 @@
         </div>
     </div>
 
-    <div class="footer center">
+    <footer class="footer text-center">
         <div class="container">
             {% block footer %}
                 <hr />
                 {{ cdn_footer() }}
             {% endblock %}
         </div>
-    </div>
+    </footer>
 
 {% block JavaScriptBottom %}
     <script src="{{ asset('js/vendor/jquery.js') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/vendor/blueimp-tmpl.js') }}"></script>
     <script src="{{ asset('js/jtracker.js') }}"></script>
 
