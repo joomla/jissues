@@ -9,7 +9,7 @@
 
 {% block prependMenu %}
     <li id="issueResult">
-        <a class="btn-success submit-button" href="javascript:" id="submit">Submit</a>
+        <a class="nav-link bg-success submit-button" href="javascript:" id="submit">Submit</a>
     </li>
     {{ parent() }}
 {% endblock %}
@@ -34,8 +34,8 @@
     <div class="alert alert-danger" style="display: none"></div>
 
     <form method="post" action="/{{ uri.route }}-submit" name="editForm" id="issueForm">
-        <div class="row-fluid">
-            <div class="span3 pull-right well well-small issue-add-right-block">
+        <div class="row">
+            <div class="col-md-3 float-end well well-small issue-add-right-block">
 
                 <label for="helpSwitch" class="btn btn-small">View Mode</label>
                 <input class="switcher switcher-info-off" id="helpSwitch" type="checkbox" data-on-text="Help" data-off-text="Pro"{{ user.check("manage") ? "" : " checked" }} />
@@ -73,13 +73,13 @@
 
                     {% if project.milestones %}
                         {{ fields.label('milestone_id', 'Milestone') }}
-                        {{ fields.selectMilestone('milestone_id', project.milestones, 0, 'milestone_id', 'span12') }}
+                        {{ fields.selectMilestone('milestone_id', project.milestones, 0, 'milestone_id', 'col-md-12') }}
                     {% endif %}
 
                 {% endif %}
             </div>
 
-            <div class="span9 issue-add-details">
+            <div class="col-md-9 issue-add-details">
 
                 <div class="alert alert-warning">
                     Report security issues to the Joomla! Security Strike Team (JSST) at <a class="alert-link" href="mailto:security@joomla.org">security@joomla.org</a> or with the <a class="alert-link" href="https://developer.joomla.org/security/contact-the-team.html">JSST contact form</a>, please do not use the public tracker for security issues.
@@ -116,14 +116,14 @@
                     </div>
 
                 </fieldset>
-                <a class="submit-button pull-right btn btn-success" href="javascript:" id="submit">Submit</a>
+                <a class="submit-button float-end btn btn-success" href="javascript:" id="submit">Submit</a>
 
             </div>
         </div>
     </form>
 
-    <div class="row-fluid">
-        <div class="offset1 span6">
+    <div class="row">
+        <div class="offset-md-1 col-md-6">
             {% include "uploader.full.twig" %}
         </div>
     </div>

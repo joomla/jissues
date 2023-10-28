@@ -56,14 +56,14 @@
         </div>
     {% else %}
         <div class="page-header">
-            <a class="btn pull-right" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">Feeling Lucky</a>
+            <a class="btn btn-secondary float-end" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">Feeling Lucky</a>
 
             <h1>[#{{ item.issue_number }}] - {{ item.title }}</h1>
         </div>
 
     <!-- Status bar -->
 
-    <span class="pull-right">{{ issue_labels(item.labels) }}</span>
+    <span class="float-end">{{ issue_labels(item.labels) }}</span>
 
     <ul class="breadcrumb">
 
@@ -96,7 +96,7 @@
 
         {% if item.easy %}
             <li>
-                <span class="badge badge-success">Easy Test</span>
+                <span class="badge bg-success">Easy Test</span>
             </li>
         {% endif %}
 
@@ -168,7 +168,7 @@
     <!-- Merge Status -->
     {% if item.merge_state %}
         <h4>{{ item.merge_state|issue_merge_badge }}</h4>
-        <ul class="unstyled">
+        <ul class="list-unstyled">
             {% if item.gh_merge_status is iterable %}
                 {% for status in item.gh_merge_status %}
                     <li>
@@ -266,17 +266,17 @@
 
     <!-- Main content -->
 
-    <div class="row-fluid">
-        <div class="span2 well-small user-wrapper">
+    <div class="row">
+        <div class="col-md-2 well-small user-wrapper">
             {{ avatar(item.opened_by, '', 'avatar') }}<br />
             <span class="icon-github"></span> <a href="https://github.com/{{ item.opened_by }}" target="_blank">{{ item.opened_by }}</a><br />
             <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y", offset) }}
         </div>
 
         {% if item.votes or user.id %}
-            {% set mainClass = 'span7' %}
+            {% set mainClass = 'col-md-7' %}
         {% else %}
-            {% set mainClass = 'span10' %}
+            {% set mainClass = 'col-md-10' %}
         {% endif %}
 
         <div class="{{ mainClass }} well-small issue-description">
@@ -284,7 +284,7 @@
         </div>
 
         {% if item.votes or user.id %}
-        <div class="span3 well">
+        <div class="col-md-3 well">
 
             {% if item.votes or user.id %}
             <h4>Votes</h4>
@@ -296,13 +296,13 @@
             {% endif %}
 
             <div id="issue-votes"{{ displayVotes|raw }}>
-                <div class="row-fluid">
-                    <div class="span10"><strong># of Users Experiencing Issue</strong></div>
-                    <div id="experienced" class="span2">{{ item.experienced }}/{{ item.votes }}</div>
+                <div class="row">
+                    <div class="col-md-10"><strong># of Users Experiencing Issue</strong></div>
+                    <div id="experienced" class="col-md-2">{{ item.experienced }}/{{ item.votes }}</div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span10"><strong>Average Importance Score</strong></div>
-                    <div id="importance" class="span2">{{ item.importanceScore|number_format(2) }}</div>
+                <div class="row">
+                    <div class="col-md-10"><strong>Average Importance Score</strong></div>
+                    <div id="importance" class="col-md-2">{{ item.importanceScore|number_format(2) }}</div>
                 </div>
                 <hr class="issue-votes" />
             </div>
@@ -360,10 +360,10 @@
     {% set activitiesCnt = 0 %}
     {% for activity in item.activities %}
         <div id="event-{{ activity.activities_id }}">
-            <div class="row-fluid">
+            <div class="row">
             {% if 'test_item' == activity.event %}
                 {% set change = activity.text|json_decode %}
-                <div class="offset1 span9 activity-action">
+                <div class="offset-md-1 col-md-9 activity-action">
                     <i class="octicon octicon-person"></i>
                     {{ avatar(activity.user, 20, 'avatar') }}
                     <b>{{ activity.user }}</b>
@@ -373,7 +373,7 @@
                 </div>
             {% elseif 'alter_testresult' == activity.event %}
                 {% set change = activity.text|json_decode %}
-                <div class="offset1 span9 activity-action">
+                <div class="offset-md-1 col-md-9 activity-action">
                     <i class="octicon octicon-eye"></i>
                     {{ avatar(activity.user, 20, 'avatar') }}
                     <b>{{ activity.user }}</b>
@@ -382,14 +382,14 @@
                     - <b>{{ change.user }}</b>: <span class="tests-{{ change.value }}">{{ user_test_options(change.value) }}</span>
                 </div>
             {% elseif 'commit' == activity.event %}
-                <div class="offset1 span11">
-                    <span class="pull-right">
+                <div class="offset-md-1 col-md-11">
+                    <span class="float-end">
                         <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/commit/' ~ activity.activities_id }}">
                             {{ activity.activities_id|slice(0, 7) }}
                         </a>
-                        <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}">{{ activity.created_date|date("j M Y", offset) }} <i class="icon-calendar" style="cursor: help"></i></span>
+                        <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}">{{ activity.created_date|date("j M Y", offset) }} <span aria-hidden=true class="icon-calendar" style="cursor: help"></span></span>
                     </span>
-                    <i class="octicon octicon-git-commit" title="{{ 'Git commit' }}"></i>
+                    <span aria-hidden=true class="octicon octicon-git-commit" title="{{ 'Git commit' }}"></span>
                     <span title="{{ activity.user }}">
                         {{ avatar(activity.user, 20, 'avatar') }}
                     </span>
@@ -398,7 +398,7 @@
                     </a>
                 </div>
             {% elseif 'assigned' == activity.event or 'unassigned' == activity.event %}
-                <div class="offset1 span9 activity-action">
+                <div class="offset-md-1 col-md-9 activity-action">
                     <i class="octicon octicon-person"></i>
                     {{ avatar(activity.user, 20, 'avatar') }}
                     <b>{{ activity.user }}</b>
@@ -406,7 +406,7 @@
                     - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
                 </div>
             {% elseif 'reference' == activity.event %}
-                <div class="offset1 span9 activity-action">
+                <div class="offset-md-1 col-md-9 activity-action">
                     <i class="octicon octicon-git-commit"></i>
                     {{ avatar(activity.user, 20, 'avatar') }}
                     <b>{{ activity.user }}</b>
@@ -417,7 +417,7 @@
                     - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
                 </div>
             {% elseif 'locked' == activity.event or 'unlocked' == activity.event %}
-                <div class="offset1 span9 activity-action">
+                <div class="offset-md-1 col-md-9 activity-action">
                     {% if 'locked' == activity.event %}
                         <i class="octicon octicon-lock"></i>
                     {% elseif 'unlocked' == activity.event %}
@@ -429,15 +429,15 @@
                     - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
                 </div>
             {% elseif 'change' == activity.event %}
-                <div class="offset1 span9 activity-action">
+                <div class="offset-md-1 col-md-9 activity-action">
                     <i class="octicon octicon-gear"></i>
                     {{ avatar(activity.user, 20, 'avatar') }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                     - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
                 </div>
-                <div class="row-fluid">
-                    <div class="offset1 span9">
+                <div class="row">
+                    <div class="offset-md-1 col-md-9">
                         {% if "change" == activity.event %}
                             <table class="table">
                             {% for change in activity.text|json_decode %}
@@ -477,10 +477,10 @@
                 </div>
             {% elseif activity.text != '' %}
                 {# Comment #}
-                <div class="span1 activity-avatar">
+                <div class="col-md-1 activity-avatar">
                     {{ avatar(activity.user, 40, 'avatar') }}
                 </div>
-                <div class="span11 activity-comment">
+                <div class="col-md-11 activity-comment">
                     <div class="well well-small">
                         <b>{{ activity.user }}</b>
                         - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
@@ -491,7 +491,7 @@
                     </div>
                 </div>
             {% elseif activity.event != 'synchronize' %}
-                <div class="offset1 span9">
+                <div class="offset-md-1 col-md-9">
                     <i class="octicon octicon-pulse"></i>
                     {{ avatar(activity.user, 20, 'avatar') }}
                     <b>{{ activity.user }}</b>
@@ -511,11 +511,11 @@
 
     {% if user.id %}
         {% if user.check("create") or user.check("manage") %}
-            <div class="row-fluid">
-                <div class="span1 well-small">
+            <div class="row">
+                <div class="col-md-1 well-small">
                     {{ avatar(user.username, '', 'avatar') }}
                 </div>
-                <div class="span11">
+                <div class="col-md-11">
                     {% set editorId="comment" %}
                     {% set writeId="write" %}
                     {% set previewId="preview" %}
@@ -523,15 +523,15 @@
                     {% include "editor.twig" %}
                 </div>
             </div>
-            <div class="row-fluid">
-                <div class="pull-right comment-wrapper">
+            <div class="row">
+                <div class="float-end comment-wrapper">
                     <div id="commentStatus"></div>
                     <a href="javascript:" class="btn btn-success" onclick="JTracker.submitComment('{{ item.issue_number }}', '#commentStatus', '#newComment', 'tplNewComment', '#shaTest');">Post Comment</a>
                 </div>
             </div>
 
-            <div class="row-fluid">
-                <div class="offset2 span10">
+            <div class="row">
+                <div class="offset-md-2 col-md-10">
                     {% include "uploader.full.twig" %}
                 </div>
             </div>
@@ -543,12 +543,12 @@
         <a class="btn btn-success" href="{{ loginUrl }}">Login with GitHub to post a comment</a>
     {% endif %}
 
-    <ul class="pager">
-        <li class="previous{% if not item.previousIssue %} disabled{% endif %}">
-            <a href="{% if item.previousIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.previousIssue }}{% else %}#{% endif %}"><i class="icon-arrow-left"></i> Older</a>
+    <ul class="mb-4 text-center list-unstyled">
+        <li class="d-inline previous{% if not item.previousIssue %} disabled{% endif %}">
+            <a class="float-start" href="{% if item.previousIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.previousIssue }}{% else %}#{% endif %}"><span aria-hidden="true" class="icon-arrow-left"></span> Older</a>
         </li>
-        <li class="next{% if not item.nextIssue %} disabled{% endif %}">
-            <a href="{% if item.nextIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.nextIssue }}{% else %}#{% endif %}">Newer <i class="icon-arrow-right"></i></a>
+        <li class="d-inline next{% if not item.nextIssue %} disabled{% endif %}">
+            <a class="float-end" href="{% if item.nextIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.nextIssue }}{% else %}#{% endif %}">Newer <span aria-hidden="true" class="icon-arrow-right"></span></a>
         </li>
     </ul>
 
@@ -560,11 +560,11 @@
 
     <script type="text/x-tmpl" id="tplNewComment">
         <div id="event-[%= o.activities_id %]">
-            <div class="row-fluid">
-                <div class="span1 activity-avatar">
+            <div class="row">
+                <div class="col-md-1 activity-avatar">
                     {{ avatar(user.username, 40, 'avatar') }}
                 </div>
-                <div class="span11 activity-comment">
+                <div class="col-md-11 activity-comment">
                     <div class="well well-small">
                         <b>{{ user.username }}</b>
                         - <a href="/{{ uri.route }}#event-[%= o.activities_id %]">comment</a>
@@ -581,8 +581,8 @@
     <script type="text/x-tmpl" id="tplNewTestResult">
         [% var resultValues = ['{{ user_test_options(0) }}', '{{ user_test_options(1) }}', '{{ user_test_options(2) }}']; %]
         <div id="event-[%= o.activities_id %]">
-            <div class="row-fluid">
-                <div class="offset1 span11 activity-action">
+            <div class="row">
+                <div class="offset-md-1 col-md-11 activity-action">
                     <i class="octicon octicon-person"></i>
                     {{ avatar(user.username, 20, 'avatar') }}
                     <b>{{ user.username }}</b>
@@ -597,8 +597,8 @@
     <script type="text/x-tmpl" id="tplNewAlterTestResult">
         [% var resultValues = ['{{ user_test_options(0) }}', '{{ user_test_options(1) }}', '{{ user_test_options(2) }}']; %]
         <div id="event-[%= o.activities_id %]">
-            <div class="row-fluid">
-                <div class="offset1 span11 activity-action">
+            <div class="row">
+                <div class="offset-md-1 col-md-11 activity-action">
                     <i class="octicon octicon-eye"></i>
                     {{ avatar(user.username, 20, 'avatar') }}
                     <b>{{ user.username }}</b>

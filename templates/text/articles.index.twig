@@ -14,7 +14,7 @@
 {% block prependMenu %}
     {% if user.check("create") %}
         <li>
-            <a class="btn-success" href="{{ uri.base.path }}articles/create">New Article</a>
+            <a class="nav-link bg-success" href="{{ uri.base.path }}articles/create">New Article</a>
         </li>
     {% endif %}
 

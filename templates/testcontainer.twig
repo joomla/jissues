@@ -12,7 +12,7 @@
                 </a>
                 <input type="hidden" id="shaTest" value="{{ item.commits|json_decode|last.sha }}" />
             </p>
-            <ul class="unstyled">
+            <ul class="list-unstyled">
                 <li>
                     <label class="radio">
                         <input id="test-result-0" class="test-result" type="radio" name="tested" value="0"{{ item.userTest == 0 ? ' checked="checked"' : '' }}>

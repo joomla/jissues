@@ -21,7 +21,7 @@
             <option {% if c == count %}selected="selected"{% endif %}>{{ c }}</option>
             {% endfor %}
         </select>
-        <ul class="unstyled">
+        <ul class="list-unstyled">
         {% for entry in log|slice(-count-1)|reverse %}
             <li>
                 <div class="logHeader" onclick="$('.logMessage').hide(); $(this).next().show()">

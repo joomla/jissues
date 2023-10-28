@@ -90,7 +90,7 @@
         <ul class="breadcrumb">
             <li>
                 <label for="status">Status</label>
-                <select name="item[status]" id="status" class="span2">
+                <select name="item[status]" id="status" class="col-md-2">
                     {% for key, value in statuses_by_state() %}
                         <option {{ key == item.status ? "selected='selected'" : ""  }} value="{{ key }}">{{ value }}</option>
                     {% endfor %}
@@ -98,16 +98,16 @@
             </li>
             <li>
                 <label for="priority">Priority</label>
-                <select name="item[priority]" id="priority" class="span2">
+                <select name="item[priority]" id="priority" class="col-md-2">
                     {% for key, value in issue_priorities() %}
                         <option {{ key == item.priority ? "selected='selected'" : ""  }} value="{{ key }}">{{ value }}</option>
                     {% endfor %}
                 </select>
             </li>
-            <li><div class="span1"></div></li>
+            <li><div class="col-md-1"></div></li>
             <li>
                 <label for="rel_type">Item</label>
-                <select name="item[rel_type]" id="rel_type" class="span2">
+                <select name="item[rel_type]" id="rel_type" class="col-md-2">
                     <option value="0"></option>
                     {% for relType in issue_relation_types() %}
                         {% set selected = item.rel_type == relType.value ? 'selected="selected"' : '' %}
@@ -117,19 +117,19 @@
             </li>
             <li>
                 <label for="rel_number">#</label>
-                <input name="item[rel_number]" id="rel_number" type="text" class="span1" value="{{ item.rel_number }}" />
+                <input name="item[rel_number]" id="rel_number" type="text" class="col-md-1" value="{{ item.rel_number }}" />
             </li>
         </ul>
 
         <ul class="breadcrumb">
             <li>
                 <label for="build">Build</label>
-                <input name="item[build]" id="build" type="text" class="span1 validateBuild" value="{{ item.build }}" />
+                <input name="item[build]" id="build" type="text" class="col-md-1 validateBuild" value="{{ item.build }}" />
             </li>
             {% if item.has_code %}
                 <li>
                     <label for="easy">Easy test</label>
-                    <select name="item[easy]" id="easy" class="span1">
+                    <select name="item[easy]" id="easy" class="col-md-1">
                         <option {{ 0 == item.easy ? "selected='selected'" : ""  }} value="0">{{ '0'|yesno }}</option>
                         <option {{ 1 == item.easy ? "selected='selected'" : ""  }} value="1">{{ '1'|yesno }}</option>
                     </select>
@@ -162,9 +162,9 @@
         </ul>
     {% endif %}
 
-    <div class="row-fluid">
-        <div class="span11 well-small">
-            <ul class="unstyled">
+    <div class="row">
+        <div class="col-md-11 well-small">
+            <ul class="list-unstyled">
                 <li style="padding-bottom: 10px">
                     <label for="title">Title</label>
                     <input name="item[title]" id="title" type="text"
@@ -186,8 +186,8 @@
             </ul>
         </div>
 
-        <div class="row-fluid">
-            <div class="span11 well-small">
+        <div class="row">
+            <div class="col-md-11 well-small">
                 <h4>Add a Comment</h4>
 
                 {% set editorId="comment" %}
@@ -199,7 +199,7 @@
                 {% set editorPlaceholder="Leave a comment" %}
 
                 {% include "editor.twig" %}
-                <a class="pull-right btn btn-success" href="javascript:" id="submit-bottom">Save</a>
+                <a class="float-end btn btn-success" href="javascript:" id="submit-bottom">Save</a>
             </div>
         </div>
 
@@ -210,8 +210,8 @@
 
     </form>
 
-    <div class="row-fluid">
-        <div class="offset1 span10">
+    <div class="row">
+        <div class="offset-md-1 col-md-10">
             {% include "uploader.full.twig" %}
         </div>
     </div>

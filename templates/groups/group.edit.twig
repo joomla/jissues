@@ -7,7 +7,7 @@
 
 {% block prependMenu %}
     <li>
-        <a class="btn-success" href="javascript:" onclick="document.editForm.submit();">Save</a>
+        <a class="nav-link bg-success" href="javascript:" onclick="document.editForm.submit();">Save</a>
     </li>
 
     {{ parent() }}
@@ -132,8 +132,8 @@
 
     <form method="post" action="{{ uri.base.path }}project/{{ project.alias }}/savegroup" class="form-inline" name="editForm">
 
-        <div class="row-fluid">
-            <div class="span6">
+        <div class="row">
+            <div class="col-md-6">
                 <fieldset>
 
                     <legend>Details</legend>
@@ -142,7 +142,7 @@
                         <h4>{{ group.title }} (system)</h4>
                         <input type="hidden" name="group[title]" id="title" value="{{ group.title }}">
                     {% else %}
-                        <ul class="unstyled">
+                        <ul class="list-unstyled">
                             <li>
                                 <label for="title">Title</label>
                                 <input type="text" name="group[title]" id="title" value="{{ group.title }}">
@@ -151,12 +151,12 @@
                     {% endif %}
                 </fieldset>
             </div>
-            <div class="span6">
+            <div class="col-md-6">
                 <fieldset>
 
                     <legend>Permissions</legend>
 
-                    <ul class="unstyled">
+                    <ul class="list-unstyled">
                         <li>
                             <input type="checkbox" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_view" class="switcher" name="group[can_view]"{{ group.can_view ? " checked='checked'" : "" }} />
                             <label for="can_view">
@@ -204,26 +204,26 @@
 
                 <legend>Users</legend>
 
-                <div class="row-fluid" style="min-height: 200px;">
-                    <div class="span4">
+                <div class="row" style="min-height: 200px;">
+                    <div class="col-md-4">
                         <label for="searchUser">Add user</label>&nbsp;<span id="searchUser-msg"></span><br/>
-                        <input type="text" class="span6" id="searchUser" data-provide="typeahead"
+                        <input type="text" class="col-md-6" id="searchUser" data-provide="typeahead"
                                data-items="6" autocomplete="off" value="" placeholder="username"/>
 
                         <a class="btn" href="javascript:" onclick="assignUser($('#searchUser').val(), {{ group.group_id }}, {{ project.project_id }}, 1, 'searchUser');">
                             Add user
                         </a>
                     </div>
-                    <div class="span4">
+                    <div class="col-md-4">
                         <label for="searchUserGroup">Remove user</label>&nbsp;<span
                                 id="searchUserGroup-msg"></span><br/>
-                        <input type="text" class="span6" id="searchUserGroup" data-provide="typeahead"
+                        <input type="text" class="col-md-6" id="searchUserGroup" data-provide="typeahead"
                                data-items="6" autocomplete="off" value="" placeholder="username"/>
                         <a class="btn" href="javascript:" onclick="assignUser($('#searchUserGroup').val(), {{ group.group_id }}, {{ project.project_id }}, 0, 'searchUserGroup');">
                             Remove user
                         </a>
                     </div>
-                    <div class="span4">
+                    <div class="col-md-4">
                         <a class="btn" href="javascript:" onclick="listUsers({{ group.group_id }});">
                             List assigned users
                         </a>

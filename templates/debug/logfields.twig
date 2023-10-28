@@ -11,7 +11,7 @@
 
 {% macro displayFields(title, fields) %}
     <h4>{{ title }}</h4>
-    <ul class="unstyled">
+    <ul class="list-unstyled">
     {% for key, value in fields %}
         {% if 'trace' == key %}
             <li>

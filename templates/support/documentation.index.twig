@@ -29,12 +29,12 @@
 {% endblock %}
 
 {% block content %}
-    <div id="docs-main" class="row-fluid">
-        <div class="span3">
+    <div id="docs-main" class="row">
+        <div class="col-md-3">
             <h1>Documentation</h1>
             <div id="filetree"></div>
         </div>
-        <div class="span9" id="docs-container"></div>
+        <div class="col-md-9" id="docs-container"></div>
     </div>
     <div id="loading"></div>
 {% endblock %}
@@ -66,7 +66,7 @@
     <script type="text/x-tmpl" id="tplDocuPage">
         <div class="breadcrumb">
             <a class="btn btn-success" href="[%= o.editLink %]">Improve</a>
-            <a class="btn btn-info pull-right" href="[%= o.permaLink %]">Permalink</a>
+            <a class="btn btn-info float-end" href="[%= o.permaLink %]">Permalink</a>
         </div>
 
         [%# o.data %]

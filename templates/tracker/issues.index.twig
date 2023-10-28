@@ -19,7 +19,7 @@
 {% block prependMenu %}
     {% if user.check("create") %}
         <li>
-            <a class="btn-success" href="{{ uri.base.path }}tracker/{{ project.alias }}/add">New Item</a>
+            <a class="nav-link bg-success" href="{{ uri.base.path }}tracker/{{ project.alias }}/add">New Item</a>
         </li>
     {% endif %}
 
@@ -66,7 +66,7 @@
     @todo add much more info =;)
 
 <script type="text/x-tmpl" id="tplIssueInfo">
-    <ul class="unstyled">
+    <ul class="list-unstyled">
         <li>Opened by: [%= o.opened_by %]</li>
         <li>Comments: [%= o.comment_count %]</li>
     </ul>
@@ -100,7 +100,7 @@
                 </th>
                 <td class="hasContext">
                     {% if user.check("edit") %}
-                        <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/[%= item.issue_number %]/edit" title="Edit">
+                        <a class="float-end btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/[%= item.issue_number %]/edit" title="Edit">
                             <span class="icon-pencil-2"> </span>
                         </a>
                     {% endif %}
@@ -178,7 +178,7 @@
                     [%= getStatusName(item.status) %]
                     [% if(item.merge_state) { %]
                         <br />
-                        <span class="badge badge-[%= getMergeStateClass(item.merge_state) %] " title="GitHub merge status">
+                        <span class="badge bg-[%= getMergeStateClass(item.merge_state) %] " title="GitHub merge status">
                             [%= translateMergeState(item.merge_state) %]
                         </span>
                     [% } %]
@@ -272,13 +272,13 @@
 
             switch (priority) {
                 case 1 :
-                    return 'badge-important';
+                    return 'bg-important';
                 case 2 :
-                    return 'badge-warning';
+                    return 'bg-warning';
                 case 3 :
-                    return 'badge-info';
+                    return 'bg-info';
                 case 4 :
-                    return 'badge-inverse';
+                    return 'bg-inverse';
                 default :
                     return '';
             }

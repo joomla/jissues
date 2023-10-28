@@ -8,7 +8,7 @@
 {% block prependMenu %}
     {% if user.check("manage") %}
         <li>
-            <a class="btn-success" href="{{ uri.base.path }}category/{{ project.alias }}/add">New Category</a>
+            <a class="nav-link bg-success" href="{{ uri.base.path }}category/{{ project.alias }}/add">New Category</a>
         </li>
     {% endif %}
 

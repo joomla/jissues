@@ -244,7 +244,7 @@ class IssueExtension extends AbstractExtension
 				$name    = '?';
 			}
 
-			$html[] = '<span class="label" style="background-color: #' . $bgColor . '; color: ' . $color . ';">';
+			$html[] = '<span class="badge" style="background-color: #' . $bgColor . '; color: ' . $color . ';">';
 			$html[] = $name;
 			$html[] = '</span>';
 		}
