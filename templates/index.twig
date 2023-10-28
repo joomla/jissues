@@ -132,44 +132,14 @@
     <script src="{{ asset('js/jtracker.js') }}"></script>
 
     <script type="text/javascript">
-        jQuery(document).ready(function ($) {
-            var navTop;
-            var isFixed = false;
-
-            $('.hasTooltip').tooltip();
+        window.addEventListener('DOMContentLoaded', (event) => {
             processScrollInit();
-            processScroll();
 
             function processScrollInit() {
-                if ($('.subnav-wrapper').length) {
-                    navTop = $('.subnav-wrapper').length && $('.subnav-wrapper').offset().top - 30;
-
-                    // Fix the container top
-                    $('.body .container-main').css('top', $('.subnav-wrapper').height() + $('#mega-menu').height());
-
-                    // Only apply the scrollspy when the toolbar is not collapsed
-                    if (document.body.clientWidth > 480) {
-                        $('.subnav-wrapper').height($('.subnav').outerHeight());
-                        $('.subnav').affix({
-                            offset: {top: $('.subnav').offset().top - $('#mega-menu').height()}
-                        });
-                    }
-                }
-            }
-
-            function processScroll() {
-                if ($('.subnav-wrapper').length) {
-                    var scrollTop = $(window).scrollTop();
-                    if (scrollTop >= navTop && !isFixed) {
-                        isFixed = true;
-                        $('.subnav-wrapper').addClass('subhead-fixed');
-
-                        // Fix the container top
-                        $('.body .container-main').css('top', $('.subnav-wrapper').height() + $('#mega-menu').height());
-                    } else if (scrollTop <= navTop && isFixed) {
-                        isFixed = false;
-                        $('.subnav-wrapper').removeClass('subhead-fixed');
-                    }
+                // This width corresponds to the sm width in bootstrap css at which point the nav becomes sticky
+                if (document.body.clientWidth > 575) {
+                    const subnav = document.querySelector('.subnav-wrapper');
+                    subnav.style.top = `${document.getElementById('mega-menu').offsetHeight}px`
                 }
             }
         });

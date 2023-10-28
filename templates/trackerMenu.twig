@@ -8,21 +8,27 @@
 </li>
 {% if project.project_id %}
     <li class="dropdown{{ firstPart in ['project', 'activity', 'category'] ? " active" : "" }}">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:;">Project <span class="caret"></span></a>
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">Project <span class="caret"></span></a>
 
         <ul class="dropdown-menu">
             <li class="nav-header">{{ project.title }}</li>
             <li class="divider"><span></span></li>
             <li>
-                <a href="{{ uri.base.path }}project/{{ project.alias }}"><i class="icon-eye"></i> Show</a>
-                <a href="{{ uri.base.path }}activity/project/{{ project.alias }}"><i class="icon-stats-growth"></i> Project Activity</a>
-                <a href="{{ uri.base.path }}activity/snapshot/{{ project.alias }}"><i class="icon-stats-growth"></i> Snapshot</a>
-                <a href="{{ uri.base.path }}activity/user/{{ project.alias }}"><i class="icon-stats-growth"></i> User Activity</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}project/{{ project.alias }}"><span aria-hidden="true" class="icon-eye"></span> Show</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ uri.base.path }}activity/project/{{ project.alias }}"><span aria-hidden="true" class="icon-stats-growth"></span> Project Activity</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ uri.base.path }}activity/snapshot/{{ project.alias }}"><span aria-hidden="true" class="icon-stats-growth"></span> Snapshot</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ uri.base.path }}activity/user/{{ project.alias }}"><span aria-hidden="true" class="icon-stats-growth"></span> User Activity</a>
             </li>
 
             {% if user.check("admin") %}
             <li>
-                <a href="{{ uri.base.path }}project/{{ project.alias }}/edit"><i class="icon-pencil"></i> Edit</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}project/{{ project.alias }}/edit"><span aria-hidden="true" class="icon-pencil"></span> Edit</a>
             </li>
             {% endif %}
 
@@ -30,16 +36,16 @@
             <li class="divider"><span></span></li>
 
             <li{{ "project/" ~ project.alias ~ "/groups" == firstPart ? ' class="active"' : "" }}>
-                <a href="{{ uri.base.path }}project/{{ project.alias }}/groups"><i class="icon-user-2"></i> Access Groups</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}project/{{ project.alias }}/groups"><span aria-hidden="true" class="icon-user-2"></span> Access Groups</a>
             </li>
             <li{{ "project/" ~ project.alias ~ "/labels" == firstPart ? ' class="active"' : "" }}>
-                <a href="{{ uri.base.path }}project/{{ project.alias }}/labels"><i class="icon-tag"></i> Labels</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}project/{{ project.alias }}/labels"><span aria-hidden="true" class="icon-tag"></span> Labels</a>
             </li>
             <li{{ "project/" ~ project.alias ~ "/milestones" == firstPart ? ' class="active"' : "" }}>
-                <a href="{{ uri.base.path }}project/{{ project.alias }}/milestones"><i class="octicon octicon-milestone"></i> Milestones</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}project/{{ project.alias }}/milestones"><span aria-hidden="true" class="octicon octicon-milestone"></span> Milestones</a>
             </li>
             <li{{ "category/" ~ project.alias == firstPart ? ' class="active"' : "" }}>
-                <a href="{{ uri.base.path }}category/{{ project.alias }}"><i class="icon-tag"></i> Categories</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}category/{{ project.alias }}"><span aria-hidden="true" class="icon-tag"></span> Categories</a>
             </li>
             {% endif %}
         </ul>
@@ -52,27 +58,27 @@
 
 {% if user.isAdmin %}
     <li class="dropdown{{ firstPart in ['icons', 'text'] ? ' active' : '' }}">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">System <span class="caret"></span></a>
+        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">System <span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li class="{{ "icons" == firstPart ? "active" : "" }}">
-                <a href="{{ uri.base.path }}icons"><i class="icon-smiley-2"></i> Icons</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}icons"><span aria-hidden="true" class="icon-smiley-2"></span> Icons</a>
             </li>
             <li class="{{ "articles" == firstPart ? "active" : "" }}">
-                <a href="{{ uri.base.path }}articles"><i class="icon-pencil-2"></i> Text</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}articles"><span aria-hidden="true" class="icon-pencil-2"></span> Text</a>
             </li>
         </ul>
     </li>
 {% endif %}
 
 <li class="dropdown{{firstPart in ['documentation'] or uri.route == 'page/about' ? ' active' : '' }}">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:;">/etc <span class="caret"></span></a>
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">/etc <span class="caret"></span></a>
 
     <ul class="dropdown-menu">
         <li class="{{ "page/about" == uri.route ? "active" : "" }}">
-            <a href="{{ uri.base.path }}page/about">About</a>
+            <a class="dropdown-item" href="{{ uri.base.path }}page/about">About</a>
         </li>
         <li class="{{ "documentation" == firstPart ? "active" : "" }}">
-            <a href="{{ uri.base.path }}documentation">Documentation</a>
+            <a class="dropdown-item" href="{{ uri.base.path }}documentation">Documentation</a>
         </li>
     </ul>
 </li>
@@ -80,21 +86,21 @@
 {# @todo If an Exception is thrown, this information is not available #}
 {% if not exception %}
     {% if user.id %}
-    <li class="dropdown float-end">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:;">Account <span class="caret"></span></a>
+    <li class="dropdown ms-auto">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">Account <span class="caret"></span></a>
         <ul class="dropdown-menu">
             {% if user.isAdmin %}
-                <li class="nav-header"><i class="icon-user-3"></i> Admin</li>
+                <li class="nav-header"><span aria-hidden="true" class="icon-user-3"></span> Admin</li>
             {% endif %}
             <li>
-                <a href="{{ uri.base.path }}account"><i class="icon-user"></i> View profile</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}account"><i class="icon-user"></i> View profile</a>
             </li>
             <li>
-                <a href="{{ uri.base.path }}account/edit"><i class="icon-user"></i> Edit profile</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}account/edit"><i class="icon-user"></i> Edit profile</a>
             </li>
             <li class="divider"><span></span></li>
             <li>
-                <a href="{{ uri.base.path }}logout"><i class="icon-lock"></i> Logout</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}logout"><i class="icon-lock"></i> Logout</a>
             </li>
         </ul>
     </li>

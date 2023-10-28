@@ -33,7 +33,7 @@
     <div id="issuesForm" class="form-inline form-search">
         {% include "tpl/filters.twig" %}
 
-        <table class="table table-bordered table-striped table-condensed" id="issuesList">
+        <table class="table table-bordered table-striped table-sm" id="issuesList">
             <thead>
             <tr>
                 <th scope="col" width="2%" class="nowrap center">ID</th>
@@ -95,7 +95,7 @@
             } %]
 
             <tr [%= rowClass %]>
-                <th scope="row" class="center valign-center">
+                <th scope="row" class="text-center valign-center">
                     [%= item.issue_number %]
                 </th>
                 <td class="hasContext">
@@ -109,13 +109,13 @@
                     </a>
                     [% print(item.labelHtml,true); %]
                     [% if (item.is_draft) { %]
-                        <span class="label">Draft PR</span>
+                        <span class="badge rounded-pill text-bg-secondary">Draft PR</span>
                     [% } %]
                     [% if (item.categories.length) { %]
                         <br/>
                         [% for (var n=0, category; category=item.categories[n]; n++) { %]
-                            <a href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/?category=' }}[%= category.alias %]">
-                                <span class="label" style="background-color:#[%= category.color %]; color:[%= JTracker.getContrastColor(category.color) %];">
+                            <a class="text-decoration-none" href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/?category=' }}[%= category.alias %]">
+                                <span class="badge rounded-pill" style="background-color:#[%= category.color %]; color:[%= JTracker.getContrastColor(category.color) %];">
                                     [%= category.title %]
                                 </span>
                             </a>
@@ -172,13 +172,13 @@
                 </td>
                 <td class="center valign-center">
                     [% var priorities = {1: 'Critical', 2: 'Urgent', 3: 'Medium', 4: 'Low', 5: 'Very Low'  }; %]
-                    <span class="badge [%=getIssuePriorityClass(item.priority)%] ">[%=priorities[item.priority]%]</span>
+                    <span class="badge rounded-pill [%=getIssuePriorityClass(item.priority)%] ">[%=priorities[item.priority]%]</span>
                  </td>
                 <td class="center valign-center">
                     [%= getStatusName(item.status) %]
                     [% if(item.merge_state) { %]
                         <br />
-                        <span class="badge bg-[%= getMergeStateClass(item.merge_state) %] " title="GitHub merge status">
+                        <span class="badge rounded-pill text-bg-[%= getMergeStateClass(item.merge_state) %] " title="GitHub merge status">
                             [%= translateMergeState(item.merge_state) %]
                         </span>
                     [% } %]
@@ -272,13 +272,13 @@
 
             switch (priority) {
                 case 1 :
-                    return 'bg-important';
+                    return 'text-bg-danger';
                 case 2 :
-                    return 'bg-warning';
+                    return 'text-bg-warning';
                 case 3 :
-                    return 'bg-info';
+                    return 'text-bg-info';
                 case 4 :
-                    return 'bg-inverse';
+                    return 'text-bg-inverse';
                 default :
                     return '';
             }
@@ -292,7 +292,7 @@
                     return 'warning';
                 case 'error' :
                 case 'failure' :
-                    return 'important';
+                    return 'danger';
             }
 
             return '';

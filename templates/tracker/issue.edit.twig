@@ -258,7 +258,7 @@
             $('input[name="editorId"]').val(this.id);
         });
 
-        $('a[data-toggle="tab"]').on('shown', function (e) {
+        $('a[data-bs-toggle="tab"]').on('shown', function (e) {
             if ('#previewDesc' == $(e.target).attr('href')) {
                 JTracker.preview('#description', '#previewDesc');
             }

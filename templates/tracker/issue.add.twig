@@ -37,8 +37,10 @@
         <div class="row">
             <div class="col-md-3 float-end well well-small issue-add-right-block">
 
-                <label for="helpSwitch" class="btn btn-small">View Mode</label>
-                <input class="switcher switcher-info-off" id="helpSwitch" type="checkbox" data-on-text="Help" data-off-text="Pro"{{ user.check("manage") ? "" : " checked" }} />
+                <div class="switcher-elem">
+                    <input class="switcher" id="helpSwitch" type="checkbox" {{ user.check("manage") ? "" : " checked" }} />
+                    <label for="helpSwitch">Display Help</label>
+                </div>
 
                 <hr />
 
@@ -153,27 +155,30 @@
             $('.selectpicker').selectpicker();
         });
 
-        var switcher = $('#helpSwitch');
+        var helpSwitch = document.getElementById('helpSwitch');
 
-        // Show and hide help texts
-        switcher.bootstrapSwitch();
+        helpSwitch.addEventListener('change', (event) => {
+          var helpItems = document.querySelectorAll('.helpText');
 
-        switcher.on('switchChange.bootstrapSwitch', function (event, state) {
-            if (state) {
-                $('.helpText').show();
-            } else {
-                $('.helpText').hide();
-            }
-        });
+          helpItems.forEach((helpItem) => {
+              if (event.currentTarget.checked) {
+                helpItem.classList.remove('d-none');
+              } else {
+                helpItem.classList.add('d-none');
+              }
+          });
+        })
 
         // Set the initial state
-        if (switcher.children('input').attr('checked')) {
-            $('.helpText').show();
-        } else {
-            $('.helpText').hide();
+        if (!helpSwitch.checked) {
+          var helpItems = document.querySelectorAll('.helpText');
+
+          helpItems.forEach((helpItem) => {
+              helpItem.classList.add('d-none');
+          });
         }
 
-        $('a[data-toggle="tab"]').on('shown', function (e) {
+        $('a[data-bs-toggle="tab"]').on('shown', function (e) {
             if ('#preview' == $(e.target).attr('href')) {
                 JTracker.preview('#description', '#preview');
             }
