@@ -1,12 +1,1 @@
-.subnav li.pull-right {
-  float: left;
-}
-
-ul.trackerPagination li {
-  float: right !important;
-}
-
-.example-markdown,
-.example-rendered {
-  direction: ltr;
-}
+.subnav li.pull-right{float:left}ul.trackerPagination li{float:right!important}.example-markdown,.example-rendered{direction:ltr}

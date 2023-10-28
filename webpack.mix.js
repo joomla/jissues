@@ -20,21 +20,7 @@ mix.copy('node_modules/jquery/dist/jquery.min.js', 'www/media/js/vendor/jquery.j
 
 // Bootstrap v2.3.2 release order: bootstrap-transition.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-carousel.js, bootstrap-collapse.js, bootstrap-dropdown.js, bootstrap-modal.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-typeahead.js, bootstrap-affix.js
 // TODO - Just pull the modified version from the CMS?
-mix.combine(
-    [
-        'node_modules/bootstrap-2.3.2/js/bootstrap-transition.js',
-        'node_modules/bootstrap-2.3.2/js/bootstrap-collapse.js',
-        'node_modules/bootstrap-2.3.2/js/bootstrap-dropdown.js',
-        'node_modules/bootstrap-2.3.2/js/bootstrap-modal.js',
-        'node_modules/bootstrap-2.3.2/js/bootstrap-tooltip.js',
-        'node_modules/bootstrap-2.3.2/js/bootstrap-popover.js',
-        'node_modules/bootstrap-2.3.2/js/bootstrap-scrollspy.js',
-        'node_modules/bootstrap-2.3.2/js/bootstrap-tab.js',
-        'node_modules/bootstrap-2.3.2/js/bootstrap-typeahead.js',
-        'node_modules/bootstrap-2.3.2/js/bootstrap-affix.js',
-    ],
-    'www/media/js/vendor/bootstrap.js'
-);
+mix.copy('node_modules/bootstrap/dist/js/bootstrap.min.js', 'www/media/js/vendor/bootstrap.min.js');
 
 // Blueimp Canvas to Blob
 mix.copy('node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.min.js', 'www/media/js/vendor/blueimp-canvas-to-blob.js');
@@ -80,10 +66,6 @@ mix.combine(
     'www/media/js/vendor/blueimp-file-upload.js'
 );
 
-// Bootstrap Switch
-mix.copy('node_modules/bootstrap-switch/dist/css/bootstrap2/bootstrap-switch.min.css', 'www/media/css/vendor/bootstrap-switch.css');
-mix.copy('node_modules/bootstrap-switch/dist/js/bootstrap-switch.min.js', 'www/media/js/vendor/bootstrap-switch.js');
-
 // jQuery Simple Color
 mix.copy('node_modules/jquery-simple-color/jquery.simple-color.min.js', 'www/media/js/vendor/jquery-simple-color.js');
 
@@ -97,8 +79,7 @@ mix.copy('node_modules/markItUp!/markitup', 'www/media/markitup');
 mix.copy('node_modules/twbs-pagination/jquery.twbsPagination.min.js', 'www/media/js/vendor/twbs-pagination.js');
 
 // Datepicker
-// TODO: Move to the BS5 style file once upgraded from BS2 to BS5
-mix.copy('node_modules/vanillajs-datepicker/dist/css/datepicker.min.css', 'www/media/css/vendor/datepicker.css');
+mix.copy('node_modules/vanillajs-datepicker/dist/css/datepicker-bs5.min.css', 'www/media/css/vendor/datepicker.css');
 mix.copy('node_modules/vanillajs-datepicker/dist/js/datepicker.min.js', 'www/media/js/vendor/datepicker.js');
 mix.copy('node_modules/vanillajs-datepicker/dist/js/locales/en-GB.js', 'www/media/js/vendor/datepicker/locales/en-GB.js');
 
