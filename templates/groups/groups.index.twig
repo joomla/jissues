@@ -43,19 +43,19 @@
                     <a href="{{ uri.base.path }}project/{{ project.alias }}/group/{{ group.group_id }}">{{ group.title }}</a>
                 </td>
 
-                <td class="{{ group.can_view ? "alert-success" : "alert-error" }}">
+                <td class="alert {{ group.can_view ? "alert-success" : "alert-error" }}">
                     {{ group.can_view|yesno }}
                 </td>
-                <td class="{{ group.can_create ? "alert-success" : "alert-error" }}">
+                <td class="alert {{ group.can_create ? "alert-success" : "alert-error" }}">
                     {{ group.can_create|yesno }}
                 </td>
-                <td class="{{ group.can_edit ? "alert-success" : "alert-error" }}">
+                <td class="alert {{ group.can_edit ? "alert-success" : "alert-error" }}">
                     {{ group.can_edit|yesno }}
                 </td>
-                <td class="{{ group.can_editown ? "alert-success" : "alert-error" }}">
+                <td class="alert {{ group.can_editown ? "alert-success" : "alert-error" }}">
                     {{ group.can_editown|yesno }}
                 </td>
-                <td class="{{ group.can_manage ? "alert-success" : "alert-error" }}">
+                <td class="alert {{ group.can_manage ? "alert-success" : "alert-error" }}">
                     {{ group.can_manage|yesno }}
                 </td>
 

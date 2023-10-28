@@ -19,17 +19,10 @@ pre {
   }
 }
 
-.table-condensed {
-  th,
-  td {
-    padding: 4px;
-  }
-}
-
 .breadcrumb {
-  > li {
-    padding: 2px 0;
-  }
+  --bs-breadcrumb-padding-y: 0.5rem;
+  --bs-breadcrumb-bg: var(--bs-gray-200);
+  --bs-breadcrumb-border-radius: 0.25rem;
 }
 
 /** Custom JTracker CSS **/
@@ -178,9 +171,12 @@ th.valign-center {
 }
 
 .activity-comment {
-  border: 1px solid silver;
-  margin: 0 0 20px;
-  border-radius: 3px;
+  --bs-card-border-color: silver;
+  --bs-card-border-radius: 3px;
+}
+
+.activity-action {
+  min-height: 32px;
 }
 
 /* Adjust target within the page because of fixed navbar and affix */
@@ -261,7 +257,6 @@ ul.test-results {
     float: left;
   }
 
-  .comment-wrapper,
   #stools-container select {
     width: 100%;
   }
@@ -296,8 +291,4 @@ div.logHeader:hover {
 div.logMessage {
   background-color: #eeeeee;
   display: none;
-}
-
-.breadcrumb li a {
-  text-shadow: none;
 }

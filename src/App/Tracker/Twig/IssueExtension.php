@@ -179,16 +179,16 @@ class IssueExtension extends AbstractExtension
 		switch ($priority)
 		{
 			case 1 :
-				return 'badge-important';
+				return 'text-bg-danger';
 
 			case 2 :
-				return 'badge-warning';
+				return 'text-bg-warning';
 
 			case 3 :
-				return 'badge-info';
+				return 'text-bg-info';
 
 			case 4 :
-				return 'badge-inverse';
+				return 'text-bg-inverse';
 
 			default :
 				return '';
@@ -244,7 +244,7 @@ class IssueExtension extends AbstractExtension
 				$name    = '?';
 			}
 
-			$html[] = '<span class="badge" style="background-color: #' . $bgColor . '; color: ' . $color . ';">';
+			$html[] = '<span class="badge rounded-pill" style="background-color: #' . $bgColor . '; color: ' . $color . ';">';
 			$html[] = $name;
 			$html[] = '</span>';
 		}
@@ -286,7 +286,7 @@ class IssueExtension extends AbstractExtension
 				throw new \InvalidArgumentException('Unknown status: ' . $status);
 		}
 
-		return '<span class="badge badge-' . $class . '">' . $this->getIssueMergeStatus($status) . '</span>';
+		return '<span class="badge rounded-pill text-bg-' . $class . '">' . $this->getIssueMergeStatus($status) . '</span>';
 	}
 
 	/**

@@ -12,6 +12,7 @@
     "/css/vendor/octicons.css": "/css/vendor/octicons.css",
     "/js/vendor/jquery.js": "/js/vendor/jquery.js",
     "/js/vendor/bootstrap.min.js": "/js/vendor/bootstrap.min.js",
+    "/js/vendor/bootstrap.min.js.map": "/js/vendor/bootstrap.min.js.map",
     "/js/vendor/blueimp-canvas-to-blob.js": "/js/vendor/blueimp-canvas-to-blob.js",
     "/js/vendor/blueimp-load-image.js": "/js/vendor/blueimp-load-image.js",
     "/js/vendor/blueimp-tmpl.js": "/js/vendor/blueimp-tmpl.js",

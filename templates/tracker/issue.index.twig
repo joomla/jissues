@@ -74,7 +74,7 @@
         {% endif %}
 
         <li>
-            <span class="badge badge-{{ item.closed ? "important" : "success" }}">{{ item.status_title }}</span>
+            <span class="badge rounded-pill text-bg-{{ item.closed ? "danger" : "success" }}">{{ item.status_title }}</span>
         </li>
 
         {% if item.closed %}
@@ -85,30 +85,30 @@
         {% endif %}
 
         <li>
-            <span class="badge {{ issue_priority_class(item.priority) }}">{{ issue_priority(item.priority) }}</span>
+            <span class="badge rounded-pill {{ issue_priority_class(item.priority) }}">{{ issue_priority(item.priority) }}</span>
         </li>
 
         {% if item.build %}
             <li>
-                <span class="badge">Build: {{ item.build }}</span>
+                <span class="badge rounded-pill text-bg-secondary">Build: {{ item.build }}</span>
             </li>
         {% endif %}
 
         {% if item.easy %}
             <li>
-                <span class="badge bg-success">Easy Test</span>
+                <span class="badge rounded-pill text-bg-success">Easy Test</span>
             </li>
         {% endif %}
 
         {% if item.is_draft %}
             <li>
-                <span class="badge">Draft PR</span>
+                <span class="badge rounded-pill text-bg-secondary">Draft PR</span>
             </li>
         {% endif %}
 
         {% if item.tests %}
             <li>
-                <span class="badge"># of Successful Tests: {{ item.tests }}</span>
+                <span class="badge rounded-pill text-bg-secondary"># of Successful Tests: {{ item.tests }}</span>
             </li>
         {% endif %}
 
@@ -167,7 +167,7 @@
 
     <!-- Merge Status -->
     {% if item.merge_state %}
-        <h4>{{ item.merge_state|issue_merge_badge }}</h4>
+        {{ item.merge_state|issue_merge_badge }}
         <ul class="list-unstyled">
             {% if item.gh_merge_status is iterable %}
                 {% for status in item.gh_merge_status %}
@@ -202,7 +202,7 @@
             {% for category in item.categories %}
                 <li>
                     <a href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/?category=' ~ category.alias }}">
-                        <span class="label" style="background-color:#{{ category.color }};color:{{ contrast_color(category.color) }}">{{ category.title }}</span>
+                        <span class="badge rounded-pill" style="background-color:#{{ category.color }};color:{{ contrast_color(category.color) }}">{{ category.title }}</span>
                     </a>
                 </li>
             {% endfor %}
@@ -284,71 +284,77 @@
         </div>
 
         {% if item.votes or user.id %}
-        <div class="col-md-3 well">
+        <div class="col-md-3">
+            <div class="card">
 
-            {% if item.votes or user.id %}
-            <h4>Votes</h4>
-            {% endif %}
-
-            {% set displayVotes = ' style="display: none"' %}
-            {% if item.votes %}
-                {% set displayVotes = '' %}
-            {% endif %}
-
-            <div id="issue-votes"{{ displayVotes|raw }}>
-                <div class="row">
-                    <div class="col-md-10"><strong># of Users Experiencing Issue</strong></div>
-                    <div id="experienced" class="col-md-2">{{ item.experienced }}/{{ item.votes }}</div>
+                {% if item.votes or user.id %}
+                <div class="card-header">
+                    <h4>Votes</h4>
                 </div>
-                <div class="row">
-                    <div class="col-md-10"><strong>Average Importance Score</strong></div>
-                    <div id="importance" class="col-md-2">{{ item.importanceScore|number_format(2) }}</div>
+                {% endif %}
+
+                {% set displayVotes = ' class="d-none"' %}
+                {% if item.votes %}
+                    {% set displayVotes = '' %}
+                {% endif %}
+
+                <div class="card-body">
+                    <div id="issue-votes"{{ displayVotes|raw }}>
+                        <div class="row">
+                            <div class="col-md-10"><strong># of Users Experiencing Issue</strong></div>
+                            <div id="experienced" class="col-md-2">{{ item.experienced }}/{{ item.votes }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10"><strong>Average Importance Score</strong></div>
+                            <div id="importance" class="col-md-2">{{ item.importanceScore|number_format(2) }}</div>
+                        </div>
+                        <hr class="issue-votes" />
+                    </div>
+
+                    {% if user.id %}
+                    <form class="form-inline scores-report" name="voteForm">
+                        <fieldset>
+                            <p>I've experienced this issue</p>
+                            <label class="radio">
+                                <input type="radio" name="experiencedRadios" id="experiencedRadiosYes" value="1">
+                                Yes
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="experiencedRadios" id="experiencedRadiosNo" value="0" checked>
+                                 No
+                            </label>
+                        </fieldset>
+                        <hr class="issue-votes" />
+                        <fieldset>
+                            <p>Importance of issue to me</p>
+                            <label class="radio">
+                                <input type="radio" name="importanceRadios" id="importanceRadios1" value="1">
+                                1
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="importanceRadios" id="importanceRadios2" value="2">
+                                2
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="importanceRadios" id="importanceRadios3" value="3" checked>
+                                3
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="importanceRadios" id="importanceRadios4" value="4">
+                                4
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="importanceRadios" id="importanceRadios5" value="5">
+                                5
+                            </label>
+                        </fieldset>
+                        <hr class="issue-votes" />
+                        <div id="voteResult"></div>
+                        <a href="javascript:" class="btn btn-primary" id="voteButton" onclick="JTracker.submitVote('{{ item.id }}', '#voteResult');">Vote</a>
+                    </form>
+                    {% endif %}
                 </div>
-                <hr class="issue-votes" />
             </div>
-
-            {% if user.id %}
-            <form class="form-inline scores-report" name="voteForm">
-                <fieldset>
-                    <p>I've experienced this issue</p>
-                    <label class="radio">
-                        <input type="radio" name="experiencedRadios" id="experiencedRadiosYes" value="1">
-                        Yes
-                    </label>
-                    <label class="radio">
-                        <input type="radio" name="experiencedRadios" id="experiencedRadiosNo" value="0" checked>
-                         No
-                    </label>
-                </fieldset>
-                <hr class="issue-votes" />
-                <fieldset>
-                    <p>Importance of issue to me</p>
-                    <label class="radio">
-                        <input type="radio" name="importanceRadios" id="importanceRadios1" value="1">
-                        1
-                    </label>
-                    <label class="radio">
-                        <input type="radio" name="importanceRadios" id="importanceRadios2" value="2">
-                        2
-                    </label>
-                    <label class="radio">
-                        <input type="radio" name="importanceRadios" id="importanceRadios3" value="3" checked>
-                        3
-                    </label>
-                    <label class="radio">
-                        <input type="radio" name="importanceRadios" id="importanceRadios4" value="4">
-                        4
-                    </label>
-                    <label class="radio">
-                        <input type="radio" name="importanceRadios" id="importanceRadios5" value="5">
-                        5
-                    </label>
-                </fieldset>
-                <hr class="issue-votes" />
-                <div id="voteResult"></div>
-                <a href="javascript:" class="btn btn-primary" id="voteButton" onclick="JTracker.submitVote('{{ item.id }}', '#voteResult');">Vote</a>
-            </form>
-            {% endif %}
         </div>
         {% endif %}
     </div>
@@ -480,13 +486,13 @@
                 <div class="col-md-1 activity-avatar">
                     {{ avatar(activity.user, 40, 'avatar') }}
                 </div>
-                <div class="col-md-11 activity-comment">
-                    <div class="well well-small">
+                <div class="col-md-11 g-0 activity-comment card mb-4">
+                    <div class="card-header">
                         <b>{{ activity.user }}</b>
                         - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                         - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
                     </div>
-                    <div style="margin: 10px;">
+                    <div class="card-body">
                         {{ activity.text|raw }}
                     </div>
                 </div>
@@ -524,9 +530,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="float-end comment-wrapper">
-                    <div id="commentStatus"></div>
-                    <a href="javascript:" class="btn btn-success" onclick="JTracker.submitComment('{{ item.issue_number }}', '#commentStatus', '#newComment', 'tplNewComment', '#shaTest');">Post Comment</a>
+                <div class="col-md-12">
+                    <div class="float-end">
+                        <div id="commentStatus"></div>
+                        <a href="javascript:" class="btn btn-success" onclick="JTracker.submitComment('{{ item.issue_number }}', '#commentStatus', '#newComment', 'tplNewComment', '#shaTest');">Post Comment</a>
+                    </div>
                 </div>
             </div>
 
@@ -545,10 +553,10 @@
 
     <ul class="mb-4 text-center list-unstyled">
         <li class="d-inline previous{% if not item.previousIssue %} disabled{% endif %}">
-            <a class="float-start" href="{% if item.previousIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.previousIssue }}{% else %}#{% endif %}"><span aria-hidden="true" class="icon-arrow-left"></span> Older</a>
+            <a class="btn btn-secondary" href="{% if item.previousIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.previousIssue }}{% else %}#{% endif %}"><span aria-hidden="true" class="icon-arrow-left"></span> Older</a>
         </li>
         <li class="d-inline next{% if not item.nextIssue %} disabled{% endif %}">
-            <a class="float-end" href="{% if item.nextIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.nextIssue }}{% else %}#{% endif %}">Newer <span aria-hidden="true" class="icon-arrow-right"></span></a>
+            <a class="btn btn-secondary" href="{% if item.nextIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.nextIssue }}{% else %}#{% endif %}">Newer <span aria-hidden="true" class="icon-arrow-right"></span></a>
         </li>
     </ul>
 
@@ -564,13 +572,13 @@
                 <div class="col-md-1 activity-avatar">
                     {{ avatar(user.username, 40, 'avatar') }}
                 </div>
-                <div class="col-md-11 activity-comment">
-                    <div class="well well-small">
+                <div class="col-md-11 g-0 activity-comment card mb-4">
+                    <div class="card-header">
                         <b>{{ user.username }}</b>
                         - <a href="/{{ uri.route }}#event-[%= o.activities_id %]">comment</a>
-                        - <span title="[%= o.created_at %]"><i class="icon-calendar"></i>[%= o.created_at %]</span>
+                        - <span title="[%= o.created_at %]"><span aria-hidden="true" class="icon-calendar"></span>[%= o.created_at %]</span>
                     </div>
-                    <div style="margin: 10px;">
+                    <div class="card-body">
                         [%# o.text %]
                     </div>
                 </div>
@@ -637,7 +645,7 @@
             );
         });
 
-        $('a[data-toggle="tab"]').on('shown', function (e)
+        $('a[data-bs-toggle="tab"]').on('shown', function (e)
         {
             if ('#preview' == $(e.target).attr('href')) {
                 JTracker.preview('#comment', '#preview');

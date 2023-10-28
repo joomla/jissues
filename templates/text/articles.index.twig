@@ -26,7 +26,7 @@
         <h1>Articles List</h1>
     </div>
 
-    <table class="table table-bordered table-hover table-condensed">
+    <table class="table table-bordered table-hover table-sm">
         <thead>
             <tr>
                 <th>Title/Alias</th>
@@ -42,7 +42,7 @@
                     <td>
                         <a href="{{ uri.base.path }}page/{{ a.alias }}">View</a>
                         <a href="#" class="delete-article" data-id="{{ a.article_id }}">Delete</a>
-                        <form method="post" action="{{ uri.base.path }}articles/{{ a.article_id }}/delete" class="element-invisible delete-article-{{ a.article_id }}-form"></form>
+                        <form method="post" action="{{ uri.base.path }}articles/{{ a.article_id }}/delete" class="visually-hidden delete-article-{{ a.article_id }}-form"></form>
                     </td>
                 </tr>
             {% else %}

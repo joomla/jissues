@@ -20,7 +20,8 @@ mix.copy('node_modules/jquery/dist/jquery.min.js', 'www/media/js/vendor/jquery.j
 
 // Bootstrap v2.3.2 release order: bootstrap-transition.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-carousel.js, bootstrap-collapse.js, bootstrap-dropdown.js, bootstrap-modal.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-typeahead.js, bootstrap-affix.js
 // TODO - Just pull the modified version from the CMS?
-mix.copy('node_modules/bootstrap/dist/js/bootstrap.min.js', 'www/media/js/vendor/bootstrap.min.js');
+mix.copy('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', 'www/media/js/vendor/bootstrap.min.js');
+mix.copy('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js.map', 'www/media/js/vendor/bootstrap.min.js.map');
 
 // Blueimp Canvas to Blob
 mix.copy('node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.min.js', 'www/media/js/vendor/blueimp-canvas-to-blob.js');

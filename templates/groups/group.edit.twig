@@ -158,39 +158,49 @@
 
                     <ul class="list-unstyled">
                         <li>
-                            <input type="checkbox" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_view" class="switcher" name="group[can_view]"{{ group.can_view ? " checked='checked'" : "" }} />
-                            <label for="can_view">
-                                <i class="icon-eye-2"></i>
-                                View
-                            </label>
+                            <div class="switcher-elem">
+                                <input type="checkbox" id="can_view" class="switcher" name="group[can_view]"{{ group.can_view ? " checked='checked'" : "" }} />
+                                <label for="can_view">
+                                    <span aria-hidden="true" class="icon-eye-2"></span>
+                                    View
+                                </label>
+                            </div>
                         </li>
                         <li>
-                            <input type="checkbox" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_create" class="switcher" name="group[can_create]"{{ group.can_create ? " checked='checked'" : "" }} />
-                            <label for="can_create">
-                                <i class="icon-plus-2"></i>
-                                Create
-                            </label>
+                            <div class="switcher-elem">
+                                <input type="checkbox" id="can_create" class="switcher" name="group[can_create]"{{ group.can_create ? " checked='checked'" : "" }} />
+                                <label for="can_create">
+                                    <span aria-hidden="true" class="icon-plus-2"></span>
+                                    Create
+                                </label>
+                            </div>
                         </li>
                         <li>
-                            <input type="checkbox" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_edit" class="switcher" name="group[can_edit]"{{ group.can_edit ? " checked='checked'" : "" }} />
-                            <label for="can_edit">
-                                <i class="icon-pencil"></i>
-                                Edit
-                            </label>
+                            <div class="switcher-elem">
+                                <input type="checkbox" id="can_edit" class="switcher" name="group[can_edit]"{{ group.can_edit ? " checked='checked'" : "" }} />
+                                <label for="can_edit">
+                                    <span aria-hidden="true" class="icon-pencil"></span>
+                                    Edit
+                                </label>
+                            </div>
                         </li>
                         <li>
-                            <input type="checkbox" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_editown" class="switcher" name="group[can_editown]"{{ group.can_editown ? " checked='checked'" : "" }} />
-                            <label for="can_editown">
-                                <i class="icon-pencil"></i>
-                                Edit own
-                            </label>
+                            <div class="switcher-elem">
+                                <input type="checkbox" id="can_editown" class="switcher" name="group[can_editown]"{{ group.can_editown ? " checked='checked'" : "" }} />
+                                <label for="can_editown">
+                                    <span aria-hidden="true" class="icon-pencil"></span>
+                                    Edit own
+                                </label>
+                            </div>
                         </li>
                         <li>
-                            <input type="checkbox" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_manage" class="switcher" name="group[can_manage]"{{ group.can_manage ? " checked='checked'" : "" }} />
-                            <label for="can_manage">
-                                <i class="icon-user-3"></i>
-                                Manage
-                            </label>
+                            <div class="switcher-elem">
+                                <input type="checkbox" id="can_manage" class="switcher" name="group[can_manage]"{{ group.can_manage ? " checked='checked'" : "" }} />
+                                <label for="can_manage">
+                                    <span aria-hidden="true" class="icon-user-3"></span>
+                                    Manage
+                                </label>
+                            </div>
                         </li>
                     </ul>
                 </fieldset>
