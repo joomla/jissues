@@ -25,7 +25,7 @@
     <table class="table table-bordered table-hover">
         <tr>
             <th>Tracker</th>
-            <th><i class="icon-github"></i>&nbsp;GitHub</th>
+            <th><span aria-hidden="true" class="fab fa-github"></span>&nbsp;GitHub</th>
             <th>Actions</th>
 
             {% if jdebug %}
@@ -45,7 +45,7 @@
                             <a href="{{ uri.base.path }}project/{{ project.alias }}/labels">Labels</a> |
                         {% endif %}
                         <a href="{{ uri.base.path }}project/{{ project.alias }}/stats">Stats</a> |
-                        <i class="icon-github"></i>
+                        <span aria-hidden="true" class="fab fa-github"></span>
                         <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}">
                             {{ project.gh_user }}/{{ project.gh_project }}
                         </a>

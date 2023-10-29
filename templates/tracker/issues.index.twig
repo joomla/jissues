@@ -101,7 +101,7 @@
                 <td class="hasContext">
                     {% if user.check("edit") %}
                         <a class="float-end btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/[%= item.issue_number %]/edit" title="Edit">
-                            <span class="icon-pencil-2"> </span>
+                            <span class="fas fa-pencil"> </span>
                         </a>
                     {% endif %}
                     <a class="list-issue-title" href="{{ uri.base.path }}tracker/{{ project.alias }}/[%= item.issue_number %]">

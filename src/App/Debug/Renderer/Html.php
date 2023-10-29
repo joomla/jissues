@@ -143,7 +143,7 @@ class Html implements ContainerAwareInterface
 		$html[] = '<div class="navbar navbar-fixed-bottom" id="debugBar">';
 
 		$html[] = '<a href="#top" class="brand hasTooltip" title="Go up">'
-			. '&nbsp;<i class="icon icon-joomla"></i></a>';
+			. '&nbsp;<span aria-hidden="true" class="fab fa-joomla"></span></a>';
 
 		$html[] = '<ul class="nav">';
 
@@ -161,7 +161,7 @@ class Html implements ContainerAwareInterface
 			}
 
 			$html[] = '<li class="hasTooltip" title="' . $title . '">'
-				. '<a href="#dbgDatabase"><i class="icon icon-database"></i> '
+				. '<a href="#dbgDatabase"><span class="fab fa-database"></span> '
 				. $this->getBadge($count)
 				. '</a></li>';
 		}
@@ -171,7 +171,7 @@ class Html implements ContainerAwareInterface
 			$profile = $application->getDebugger()->getProfile();
 
 			$html[] = '<li class="hasTooltip" title="Profile">'
-				. '<a href="#dbgProfile"><i class="icon icon-lightning"></i> '
+				. '<a href="#dbgProfile"><span class="fas fa-bolt-lightning"></span> '
 				. sprintf('%s MB', $this->getBadge(number_format($profile->peak / 1000000, 2)))
 				. ' '
 				. sprintf('%s ms', $this->getBadge(number_format($profile->time * 1000)))
@@ -204,29 +204,29 @@ class Html implements ContainerAwareInterface
 			}
 
 			$html[] = '<li class="hasTooltip" title="User">'
-				. '<a href="#dbgUser"><i class="icon icon-user"></i> <span class="badge">'
+				. '<a href="#dbgUser"><span class="fas fa-user"></span> <span class="badge">'
 				. ($user && $user->username ? $user->username : 'Guest')
 				. '</span></a></li>';
 
 			if ($application->get('_resolved_route'))
 			{
 				$html[] = '<li class="hasTooltip" title="Route">'
-					. '<a href="#dbgRoute"><i class="icon icon-earth"></i> <span class="badge">Route</span></a></li>';
+					. '<a href="#dbgRoute"><span class="fas fa-route"></span> <span class="badge">Route</span></a></li>';
 			}
 
 			$html[] = '<li class="hasTooltip" title="Project">'
-				. '<a href="#dbgProject"><i class="icon icon-cube"></i> <span class="badge">'
+				. '<a href="#dbgProject"><span class="fas fa-cube"></span> <span class="badge">'
 				. $title
 				. '</span></a></li>';
 
 			$html[] = '<li class="hasTooltip" title="Request variables">'
-				. '<a href="#dbgRequest"><i class="icon icon-earth"></i> <span class="badge">Request</span></a></li>';
+				. '<a href="#dbgRequest"><span class="fas fa-earth-europe"></span> <span class="badge">Request</span></a></li>';
 
 			// Display the build to admins
 			if ($application->getUser()->isAdmin)
 			{
 				$html[] = '<li class="hasTooltip" title="Build">'
-					. '<a href="' . $buildHref . '"><i class="icon icon-broadcast"></i> <span class="badge">'
+					. '<a href="' . $buildHref . '"><span class="fas fa-bullhorn"></span> <span class="badge">'
 					. $build
 					. '</span></a></li>';
 			}

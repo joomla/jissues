@@ -43,7 +43,7 @@
             <input type="text" class="toclear search-query form-control" name="filter-search" id="filter-search" value="{{ state.get('filter.search') }}"
                    title="Filter the list by ID, summary, or description."
                    placeholder="Filter the list by ID, summary, or description."/>
-            <button class="btn button-submit" type="button"><span aria-hidden="true" class="icon-search"></span></button>
+            <button class="btn button-submit" type="button"><span aria-hidden="true" class="fas fa-magnifying-glass"></span></button>
         </div>
         <div class="btn-group">
             {{ filters.type(state.get('filter.type'), 'filter-type', 'toclear input-medium-140 form-select') }}
@@ -81,7 +81,7 @@
             <input type="text" class="toclear search-query form-control" name="filter-created_by" id="filter-created_by" value="{{ state.get('filter.created_by') }}"
                    title="Filter the list by creator."
                    placeholder="Filter the list by creator."/>
-            <button class="btn button-submit" type="button"><span class="icon-search"></span></button>
+            <button class="btn button-submit" type="button"><span class="fas fa-magnifying-glass"></span></button>
         </div>
         <div class="btn-group">
             {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'toclear input-small-120 form-select') }}

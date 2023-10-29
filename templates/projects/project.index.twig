@@ -31,7 +31,7 @@
     <ul>
     {% if project.gh_user and project.gh_project %}
         <li>
-            <i class="icon-github"></i>
+            <span aria-hidden="true" class="fab fa-github"></span>
             <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}">
                 {{ "Project %s on GitHub"|format(project.gh_user ~ "/" ~ project.gh_project) }}
             </a>

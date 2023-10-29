@@ -6,8 +6,8 @@
         <h6>Submit test result</h6>
         <fieldset>
             <p>I have tested this item - SHA: {{ item.commits|json_decode|last.sha[:7] }}
-                <a class="help-icon" href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects">
-                    <i class="help-icon icon-help"></i>
+                <a href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects">
+                    <span aria-hidden="true" class="fas fa-question-circle"></span>
                     The git SHA
                 </a>
                 <input type="hidden" id="shaTest" value="{{ item.commits|json_decode|last.sha }}" />

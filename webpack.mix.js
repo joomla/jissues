@@ -90,6 +90,15 @@ mix.copy('node_modules/d3/d3.min.js', 'www/media/js/vendor/d3.js');
 // octicons
 mix.sass('node_modules/octicons/build/font/_octicons.scss', 'css/vendor/octicons.css');
 
+// Font Awesome
+mix.copy('node_modules/@fortawesome/fontawesome-free/css/all.min.css', 'www/media/css/fontawesome.min.css');
+mix.copy('node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf', 'www/media/webfonts/fa-brands-400.ttf');
+mix.copy('node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2', 'www/media/webfonts/fa-brands-400.woff2');
+mix.copy('node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf', 'www/media/webfonts/fa-regular-400.ttf');
+mix.copy('node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2', 'www/media/webfonts/fa-regular-400.woff2');
+mix.copy('node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf', 'www/media/webfonts/fa-solid-900.ttf');
+mix.copy('node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2', 'www/media/webfonts/fa-solid-900.woff2');
+
 // Bootstrap Select
 mix.copy('node_modules/bootstrap-select/dist/css/bootstrap-select.min.css', 'www/media/css/vendor/bootstrap-select.css');
 mix.copy('node_modules/bootstrap-select/dist/js/bootstrap-select.min.js', 'www/media/js/vendor/bootstrap-select.js');
