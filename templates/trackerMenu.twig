@@ -14,21 +14,21 @@
             <li class="nav-header">{{ project.title }}</li>
             <li class="dropdown-divider"><span></span></li>
             <li>
-                <a class="dropdown-item" href="{{ uri.base.path }}project/{{ project.alias }}"><span aria-hidden="true" class="icon-eye"></span> Show</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}project/{{ project.alias }}"><span aria-hidden="true" class="fas fa-eye"></span> Show</a>
             </li>
             <li>
-                <a class="dropdown-item" href="{{ uri.base.path }}activity/project/{{ project.alias }}"><span aria-hidden="true" class="icon-stats-growth"></span> Project Activity</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}activity/project/{{ project.alias }}"><span aria-hidden="true" class="fas fa-chart-line"></span> Project Activity</a>
             </li>
             <li>
-                <a class="dropdown-item" href="{{ uri.base.path }}activity/snapshot/{{ project.alias }}"><span aria-hidden="true" class="icon-stats-growth"></span> Snapshot</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}activity/snapshot/{{ project.alias }}"><span aria-hidden="true" class="fas fa-chart-line"></span> Snapshot</a>
             </li>
             <li>
-                <a class="dropdown-item" href="{{ uri.base.path }}activity/user/{{ project.alias }}"><span aria-hidden="true" class="icon-stats-growth"></span> User Activity</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}activity/user/{{ project.alias }}"><span aria-hidden="true" class="fas fa-chart-line"></span> User Activity</a>
             </li>
 
             {% if user.check("admin") %}
             <li>
-                <a class="dropdown-item" href="{{ uri.base.path }}project/{{ project.alias }}/edit"><span aria-hidden="true" class="icon-pencil"></span> Edit</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}project/{{ project.alias }}/edit"><span aria-hidden="true" class="fas fa-pencil"></span> Edit</a>
             </li>
             {% endif %}
 
@@ -36,16 +36,16 @@
             <li class="dropdown-divider"><span></span></li>
 
             <li{{ "project/" ~ project.alias ~ "/groups" == firstPart ? ' class="active"' : "" }}>
-                <a class="dropdown-item" href="{{ uri.base.path }}project/{{ project.alias }}/groups"><span aria-hidden="true" class="icon-user-2"></span> Access Groups</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}project/{{ project.alias }}/groups"><span aria-hidden="true" class="fas fa-users"></span> Access Groups</a>
             </li>
             <li{{ "project/" ~ project.alias ~ "/labels" == firstPart ? ' class="active"' : "" }}>
-                <a class="dropdown-item" href="{{ uri.base.path }}project/{{ project.alias }}/labels"><span aria-hidden="true" class="icon-tag"></span> Labels</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}project/{{ project.alias }}/labels"><span aria-hidden="true" class="fas fa-tag"></span> Labels</a>
             </li>
             <li{{ "project/" ~ project.alias ~ "/milestones" == firstPart ? ' class="active"' : "" }}>
                 <a class="dropdown-item" href="{{ uri.base.path }}project/{{ project.alias }}/milestones"><span aria-hidden="true" class="octicon octicon-milestone"></span> Milestones</a>
             </li>
             <li{{ "category/" ~ project.alias == firstPart ? ' class="active"' : "" }}>
-                <a class="dropdown-item" href="{{ uri.base.path }}category/{{ project.alias }}"><span aria-hidden="true" class="icon-tag"></span> Categories</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}category/{{ project.alias }}"><span aria-hidden="true" class="fas fa-tag"></span> Categories</a>
             </li>
             {% endif %}
         </ul>
@@ -61,10 +61,10 @@
         <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">System <span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li class="{{ "icons" == firstPart ? "active" : "" }}">
-                <a class="dropdown-item" href="{{ uri.base.path }}icons"><span aria-hidden="true" class="icon-smiley-2"></span> Icons</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}icons"><span aria-hidden="true" class="fas fa-face-smile"></span> Icons</a>
             </li>
             <li class="{{ "articles" == firstPart ? "active" : "" }}">
-                <a class="dropdown-item" href="{{ uri.base.path }}articles"><span aria-hidden="true" class="icon-pencil-2"></span> Text</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}articles"><span aria-hidden="true" class="fas fa-pencil"></span> Text</a>
             </li>
         </ul>
     </li>
@@ -90,17 +90,17 @@
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">Account <span class="caret"></span></a>
         <ul class="dropdown-menu">
             {% if user.isAdmin %}
-                <li class="nav-header"><span aria-hidden="true" class="icon-user-3"></span> Admin</li>
+                <li class="nav-header"><span aria-hidden="true" class="fas fa-user"></span> Admin</li>
             {% endif %}
             <li>
-                <a class="dropdown-item" href="{{ uri.base.path }}account"><i class="icon-user"></i> View profile</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}account"><span aria-hidden="true" class="fas fa-user"></span> View profile</a>
             </li>
             <li>
-                <a class="dropdown-item" href="{{ uri.base.path }}account/edit"><i class="icon-user"></i> Edit profile</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}account/edit"><span aria-hidden="true" class="fas fa-user"></span> Edit profile</a>
             </li>
             <li class="dropdown-divider"><span></span></li>
             <li>
-                <a class="dropdown-item" href="{{ uri.base.path }}logout"><i class="icon-lock"></i> Logout</a>
+                <a class="dropdown-item" href="{{ uri.base.path }}logout"><span aria-hidden="true" class="fas fa-lock"></span> Logout</a>
             </li>
         </ul>
     </li>

@@ -60,7 +60,7 @@
 
         {% if project.gh_user and project.gh_project %}
             <li>
-                <i class="icon-github"></i>
+                <span aria-hidden="true" class="fab fa-github"></span>
                 <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/issues/' ~ item.issue_number }}" target="_blank" class="external">GitHub #{{ item.issue_number }}</a>
             </li>
         {% endif %}
