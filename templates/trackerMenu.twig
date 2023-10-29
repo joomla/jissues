@@ -12,7 +12,7 @@
 
         <ul class="dropdown-menu">
             <li class="nav-header">{{ project.title }}</li>
-            <li class="divider"><span></span></li>
+            <li class="dropdown-divider"><span></span></li>
             <li>
                 <a class="dropdown-item" href="{{ uri.base.path }}project/{{ project.alias }}"><span aria-hidden="true" class="icon-eye"></span> Show</a>
             </li>
@@ -33,7 +33,7 @@
             {% endif %}
 
             {% if user.check("manage") %}
-            <li class="divider"><span></span></li>
+            <li class="dropdown-divider"><span></span></li>
 
             <li{{ "project/" ~ project.alias ~ "/groups" == firstPart ? ' class="active"' : "" }}>
                 <a class="dropdown-item" href="{{ uri.base.path }}project/{{ project.alias }}/groups"><span aria-hidden="true" class="icon-user-2"></span> Access Groups</a>
@@ -98,7 +98,7 @@
             <li>
                 <a class="dropdown-item" href="{{ uri.base.path }}account/edit"><i class="icon-user"></i> Edit profile</a>
             </li>
-            <li class="divider"><span></span></li>
+            <li class="dropdown-divider"><span></span></li>
             <li>
                 <a class="dropdown-item" href="{{ uri.base.path }}logout"><i class="icon-lock"></i> Logout</a>
             </li>
