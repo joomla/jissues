@@ -35,7 +35,48 @@
 
     <form method="post" action="/{{ uri.route }}-submit" name="editForm" id="issueForm">
         <div class="row">
-            <div class="col-md-3 float-end well well-small issue-add-right-block">
+            <div class="col-md-9">
+
+                <div class="alert alert-warning">
+                    Report security issues to the Joomla! Security Strike Team (JSST) at <a class="alert-link" href="mailto:security@joomla.org">security@joomla.org</a> or with the <a class="alert-link" href="https://developer.joomla.org/security/contact-the-team.html">JSST contact form</a>, please do not use the public tracker for security issues.
+                </div>
+
+                <div class="helpText alert alert-info">
+                    To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly.
+                </div>
+
+                <h2>New Item</h2>
+
+                <fieldset>
+                    {{ fields.label('title', 'Title', '') }}
+                    {{ fields.input('title', '', '', '', 'validateTitle input-issue-title') }}
+
+                    <div class="helpText alert alert-info">
+                        Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug.
+                    </div>
+
+                    {{ fields.label('description', 'Description', '') }}
+
+                    {% set editorId="description" %}
+                    {% set writeId="write" %}
+                    {% set previewId="preview" %}
+                    {% set editorClass="validateDescription" %}
+                    {% set editorName="body" %}
+                    {% set editorText=item.description_raw %}
+                    {% set editorPlaceholder="Description text" %}
+
+                    {% include "editor.twig" %}
+
+                    <div class="helpText alert alert-info">
+                        This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report.
+                    </div>
+
+                </fieldset>
+                <a class="submit-button float-end btn btn-success" href="javascript:" id="submit">Submit</a>
+
+            </div>
+
+            <div class="col-md-3 float-end well well-small">
 
                 <div class="switcher-elem">
                     <input class="switcher" id="helpSwitch" type="checkbox" {{ user.check("manage") ? "" : " checked" }} />
@@ -79,47 +120,6 @@
                     {% endif %}
 
                 {% endif %}
-            </div>
-
-            <div class="col-md-9 issue-add-details">
-
-                <div class="alert alert-warning">
-                    Report security issues to the Joomla! Security Strike Team (JSST) at <a class="alert-link" href="mailto:security@joomla.org">security@joomla.org</a> or with the <a class="alert-link" href="https://developer.joomla.org/security/contact-the-team.html">JSST contact form</a>, please do not use the public tracker for security issues.
-                </div>
-
-                <div class="helpText alert alert-info">
-                    To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly.
-                </div>
-
-                <h2>New Item</h2>
-
-                <fieldset>
-                    {{ fields.label('title', 'Title', '') }}
-                    {{ fields.input('title', '', '', '', 'validateTitle input-issue-title') }}
-
-                    <div class="helpText alert alert-info">
-                        Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug.
-                    </div>
-
-                    {{ fields.label('description', 'Description', '') }}
-
-                    {% set editorId="description" %}
-                    {% set writeId="write" %}
-                    {% set previewId="preview" %}
-                    {% set editorClass="validateDescription" %}
-                    {% set editorName="body" %}
-                    {% set editorText=item.description_raw %}
-                    {% set editorPlaceholder="Description text" %}
-
-                    {% include "editor.twig" %}
-
-                    <div class="helpText alert alert-info">
-                        This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report.
-                    </div>
-
-                </fieldset>
-                <a class="submit-button float-end btn btn-success" href="javascript:" id="submit">Submit</a>
-
             </div>
         </div>
     </form>
