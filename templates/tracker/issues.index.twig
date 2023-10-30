@@ -88,10 +88,10 @@
             [% var rowClass = ''; %]
             [% var blockers = [1,2]; %]
             [% if (item.priority in blockers) { %]
-                [% rowClass = 'class=error';
+                [% rowClass = 'class=table-error';
             } %]
             [% if (item.status === 4) { %]
-               [% rowClass = 'class=success';
+               [% rowClass = 'class=table-success';
             } %]
 
             <tr [%= rowClass %]>
