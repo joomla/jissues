@@ -11,8 +11,8 @@
             <button type="button" class="btn{% if state.get('filter.state') == 2 %} active btn-dark{% else %} btn-secondary{% endif %}" value="2">All</button>
         </div>
         <div id="stools-button" class="btn-group">
-            <button type="button" class="btn btn-secondary float-start" data-bs-toggle="collapse" data-bs-target="#stools-container">
-                Search Tools <b class="caret"></b>
+            <button type="button" class="btn btn-secondary float-start" data-bs-toggle="collapse" data-bs-target="#stools-container" aria-controls="stools-container" aria-expanded="false">
+                Search Tools <span aria-hidden="true" class="fas fa-caret-down"></span>
             </button>
         </div>
         <div class="btn-group">
