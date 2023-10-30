@@ -4,8 +4,8 @@
 {% import "tracker.filters.twig" as filters %}
 
 <div class="filters btn-toolbar clearfix mb-4">
-    <div class="clearfix">
-        <div class="btn-group float-start me-1" data-bs-toggle="buttons-checkbox" id="filter-state-div">
+    <div class="clearfix w-100">
+        <div class="btn-group" data-bs-toggle="buttons-checkbox" id="filter-state-div">
             <button type="button" class="btn{% if state.get('filter.state') == 0 %} active btn-success{% else %} btn-secondary{% endif %}" value="0">Open</button>
             <button type="button" class="btn{% if state.get('filter.state') == 1 %} active btn-danger{% else %} btn-secondary{% endif %}" value="1">Closed</button>
             <button type="button" class="btn{% if state.get('filter.state') == 2 %} active btn-dark{% else %} btn-secondary{% endif %}" value="2">All</button>
@@ -18,8 +18,10 @@
         <div class="btn-group">
             <button class="btn btn-secondary" id="button-remove" type="button">Clear</button>
         </div>
-        <a class="btn btn-secondary float-end" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">Feeling Lucky</a>
-        <a class="btn btn-secondary float-end" id="permalink" href="javascript:">Permalink</a>
+        <div class="btn-group float-end">
+            <a class="btn btn-secondary" id="permalink" href="javascript:">Permalink</a>
+            <a class="btn btn-secondary" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">Feeling Lucky</a>
+        </div>
     </div>
 
     <div id="stools-container" class="collapse
