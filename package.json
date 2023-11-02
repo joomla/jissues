@@ -20,7 +20,7 @@
         "blueimp-load-image": "^5.16.0",
         "blueimp-tmpl": "^3.0.0",
         "bootstrap": "^5.3.2",
-        "bootstrap-select": "1.13.18",
+        "bootstrap-select": "1.14.0-beta3",
         "d3": "^3.5.17",
         "jquery": "^3.7.1",
         "jquery-simple-color": "github:recurser/jquery-simple-color",
