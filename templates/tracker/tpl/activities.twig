@@ -14,7 +14,7 @@
     <tr class="table-sm">
         <td class="col-md-2">Description</td>
         <td colspan="3">
-            <button type="button" class="btn" data-bs-toggle="collapse" data-bs-target="#diff-{{ cnt }}">Differences</button>
+            <button type="button" class="btn btn-secondary" data-bs-toggle="collapse" data-bs-target="#diff-{{ cnt }}">Differences</button>
 
             <div id="diff-{{ cnt }}" class="collapse">
                 {{ render_diff(old, new) }}
@@ -27,7 +27,7 @@
     <tr class="table-sm">
         <td class="col-md-2">Title</td>
         <td colspan="4">
-            <button type="button" class="btn" data-bs-toggle="collapse" data-bs-target="#diff-{{ cnt }}">Differences</button>
+            <button type="button" class="btn btn-secondary" data-bs-toggle="collapse" data-bs-target="#diff-{{ cnt }}">Differences</button>
 
             <div id="diff-{{ cnt }}" class="collapse">
                 {{ render_diff(old, new, false, false) }}

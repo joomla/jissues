@@ -220,7 +220,7 @@
                         <input type="text" class="col-md-6" id="searchUser" data-provide="typeahead"
                                data-items="6" autocomplete="off" value="" placeholder="username"/>
 
-                        <a class="btn" href="javascript:" onclick="assignUser($('#searchUser').val(), {{ group.group_id }}, {{ project.project_id }}, 1, 'searchUser');">
+                        <a class="btn btn-secondary" href="javascript:" onclick="assignUser($('#searchUser').val(), {{ group.group_id }}, {{ project.project_id }}, 1, 'searchUser');">
                             Add user
                         </a>
                     </div>
@@ -229,12 +229,12 @@
                                 id="searchUserGroup-msg"></span><br/>
                         <input type="text" class="col-md-6" id="searchUserGroup" data-provide="typeahead"
                                data-items="6" autocomplete="off" value="" placeholder="username"/>
-                        <a class="btn" href="javascript:" onclick="assignUser($('#searchUserGroup').val(), {{ group.group_id }}, {{ project.project_id }}, 0, 'searchUserGroup');">
+                        <a class="btn btn-secondary" href="javascript:" onclick="assignUser($('#searchUserGroup').val(), {{ group.group_id }}, {{ project.project_id }}, 0, 'searchUserGroup');">
                             Remove user
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a class="btn" href="javascript:" onclick="listUsers({{ group.group_id }});">
+                        <a class="btn btn-secondary" href="javascript:" onclick="listUsers({{ group.group_id }});">
                             List assigned users
                         </a>
 
