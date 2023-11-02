@@ -127,7 +127,7 @@
                     {  },
                     function (response) {
                         if (response.error) {
-                            out.html('<div class="alert alert-error">' + response.error + '</div>');
+                            out.html('<div class="alert alert-danger">' + response.error + '</div>');
                         }
                         else if (!response.data.length) {
                             out.html('<div class="alert alert-warning">No milestones found.</div>');
@@ -166,7 +166,7 @@
                     function (response) {
                         out.empty();
                         if (response.error) {
-                            out.html('<div class="alert alert-error">' + response.error + '</div>');
+                            out.html('<div class="alert alert-danger">' + response.error + '</div>');
                         }
                         else if (!response.data.length) {
                             out.html('<div class="alert alert-warning">No milestones found.</div>');
@@ -199,7 +199,7 @@
                     function (response) {
                         out.empty();
                         if (response.error) {
-                            out.html('<div class="alert alert-error">' + response.error + '</div>');
+                            out.html('<div class="alert alert-danger">' + response.error + '</div>');
                         }
                         else if (!response.data.length) {
                             out.html('<div class="alert alert-warning">No milestones found.</div>');
