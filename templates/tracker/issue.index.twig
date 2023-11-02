@@ -264,7 +264,7 @@
     <!-- Main content -->
 
     <div class="row">
-        <div class="col-md-2 well-small user-wrapper">
+        <div class="col-md-2 p-3 user-wrapper">
             {{ avatar(item.opened_by, '', 'avatar') }}<br />
             <span class="fab fa-github"></span> <a href="https://github.com/{{ item.opened_by }}" target="_blank">{{ item.opened_by }}</a><br />
             <span class="far fa-calendar"></span> {{ item.opened_date|date("j M Y", offset) }}
@@ -276,7 +276,7 @@
             {% set mainClass = 'col-md-10' %}
         {% endif %}
 
-        <div class="{{ mainClass }} well-small issue-description">
+        <div class="{{ mainClass }} p-3 issue-description">
             {{ item.description|raw }}
         </div>
 
@@ -358,7 +358,7 @@
 
     <!-- Activity stream -->
 
-    <div class="well-small" style="font-size: 32px;" data-icon="&#xe010;" aria-hidden="true"></div>
+    <div class="fas fa-caret-right fs-2" aria-hidden="true"></div>
 
     {% set activitiesCnt = 0 %}
     {% for activity in item.activities %}
@@ -515,7 +515,7 @@
     {% if user.id %}
         {% if user.check("create") or user.check("manage") %}
             <div class="row">
-                <div class="col-md-1 well-small">
+                <div class="col-md-1 p-2">
                     {{ avatar(user.username, '', 'avatar') }}
                 </div>
                 <div class="col-md-11">
