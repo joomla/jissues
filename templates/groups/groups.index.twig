@@ -43,19 +43,19 @@
                     <a href="{{ uri.base.path }}project/{{ project.alias }}/group/{{ group.group_id }}">{{ group.title }}</a>
                 </td>
 
-                <td class="alert {{ group.can_view ? "alert-success" : "alert-error" }}">
+                <td class="alert {{ group.can_view ? "alert-success" : "alert-danger" }}">
                     {{ group.can_view|yesno }}
                 </td>
-                <td class="alert {{ group.can_create ? "alert-success" : "alert-error" }}">
+                <td class="alert {{ group.can_create ? "alert-success" : "alert-danger" }}">
                     {{ group.can_create|yesno }}
                 </td>
-                <td class="alert {{ group.can_edit ? "alert-success" : "alert-error" }}">
+                <td class="alert {{ group.can_edit ? "alert-success" : "alert-danger" }}">
                     {{ group.can_edit|yesno }}
                 </td>
-                <td class="alert {{ group.can_editown ? "alert-success" : "alert-error" }}">
+                <td class="alert {{ group.can_editown ? "alert-success" : "alert-danger" }}">
                     {{ group.can_editown|yesno }}
                 </td>
-                <td class="alert {{ group.can_manage ? "alert-success" : "alert-error" }}">
+                <td class="alert {{ group.can_manage ? "alert-success" : "alert-danger" }}">
                     {{ group.can_manage|yesno }}
                 </td>
 
@@ -74,7 +74,7 @@
         {% else %}
             <tr>
                 <td colspan="5">
-                    <div class="alert alert-error">No groups defined!</div>
+                    <div class="alert alert-danger">No groups defined!</div>
                 </td>
             </tr>
         {% endfor %}
