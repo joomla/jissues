@@ -105,11 +105,11 @@
         </ul>
     </li>
     {% else %}
-    <li class="float-end">
+    <li class="ms-auto">
         {% if loginUrl %}
-            <a class="btn-success" href="{{ loginUrl }}">Login with GitHub</a>
+            <a class="nav-link bg-success" href="{{ loginUrl }}">Login with GitHub</a>
         {% else %}
-            <a class="btn-danger" href="#">No GitHub credentials set in config</a>
+            <a class="nav-link bg-danger" href="#">No GitHub credentials set in config</a>
         {% endif %}
     </li>
     {% endif %}
