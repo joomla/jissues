@@ -15,9 +15,14 @@
 	margin:5px 0 5px 0;
 	border:5px solid #F5F5F5;
 }
+@media (prefers-color-scheme: dark) {
+	.markItUp {
+		border: 5px solid var(--bs-light-bg-subtle);
+	}
+}
 .markItUpContainer  {
 	border:1px solid #E3E3E3;
-	background:#FFF url(../images/markitup/skins/tracker/bg-container.png) repeat-x top left;
+	background: var(--bs-body-bg) url(../images/markitup/skins/tracker/bg-container.png) repeat-x top left;
 	padding:5px 5px 2px 5px;
 	font:11px Verdana, Arial, Helvetica, sans-serif;
 }
@@ -25,7 +30,7 @@
 	font:12px 'Courier New', Courier, monospace;
 	padding:5px;
 	border:3px solid #E3E3E3;
-	background:#FFF;
+	background:var(--bs-body-bg);
 	clear:both;
 	line-height:18px;
 	overflow:auto;
@@ -117,8 +122,8 @@
 	width:16px; height:16px;
 	text-indent:-10000px;
 	background-repeat:no-repeat;
-	padding:3px 5px 3px 3px;
-	margin:0;
+	padding:0;
+	margin:3px 5px 3px 3px;
 }
 .markItUpHeader ul ul a {
 	display:block;
