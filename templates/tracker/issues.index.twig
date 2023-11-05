@@ -33,22 +33,24 @@
     <div id="issuesForm" class="form-inline form-search">
         {% include "tpl/filters.twig" %}
 
-        <table class="table table-bordered table-striped table-sm table-responsive" id="issuesList">
-            <thead>
-            <tr>
-                <th scope="col" width="2%" class="nowrap center">ID</th>
-                <th scope="col">Summary</th>
-                <th scope="col" width="5%" class="center">Priority</th>
-                <th scope="col" width="10%" class="center">Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="center" colspan="4">Loading, please wait...</td>
-            </tr>
-            </tbody>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-sm" id="issuesList">
+                <thead>
+                <tr>
+                    <th scope="col" width="2%" class="nowrap center">ID</th>
+                    <th scope="col">Summary</th>
+                    <th scope="col" width="5%" class="center">Priority</th>
+                    <th scope="col" width="10%" class="center">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="center" colspan="4">Loading, please wait...</td>
+                </tr>
+                </tbody>
 
-        </table>
+            </table>
+        </div>
     </div>
 
     <ul id="pagination" class="trackerPagination"></ul>
