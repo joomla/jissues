@@ -138,7 +138,7 @@ class TrackerPagination
 			return $bar;
 		}
 
-		$bar[] = '<ul class="trackerPagination">';
+		$bar[] = '<ul class="trackerPagination pagination">';
 
 		if ($lastPage < 7 + ($neighbours * 2))
 		{
@@ -146,11 +146,11 @@ class TrackerPagination
 			{
 				if ($counter == $page)
 				{
-					$bar[] = '<li><a class="current">' . $counter . '</a></li>';
+					$bar[] = '<li class="page-item active"><a class="page-link" href="#" aria-current="page">' . $counter . '</a></li>';
 				}
 				else
 				{
-					$bar[] = '<li><a href="' . $this->uri($counter) . '">' . $counter . '</a></li>';
+					$bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri($counter) . '">' . $counter . '</a></li>';
 				}
 			}
 		}
@@ -162,55 +162,55 @@ class TrackerPagination
 				{
 					if ($counter == $page)
 					{
-						$bar[] = '<li><a class="current">' . $counter . '</a></li>';
+						$bar[] = '<li class="page-item active"><a class="page-link" href="#" aria-current="page">' . $counter . '</a></li>';
 					}
 					else
 					{
-						$bar[] = '<li><a href="' . $this->uri($counter) . '">' . $counter . '</a></li>';
+						$bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri($counter) . '">' . $counter . '</a></li>';
 					}
 				}
 
 				$bar[] = '<li class="dot">...</li>';
-				$bar[] = '<li><a href="' . $this->uri($lpm1) . '">' . $lpm1 . '</a></li>';
-				$bar[] = '<li><a href="' . $this->uri($lastPage) . '">' . $lastPage . '</a></li>';
+				$bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri($lpm1) . '">' . $lpm1 . '</a></li>';
+				$bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri($lastPage) . '">' . $lastPage . '</a></li>';
 			}
 			elseif ($lastPage - ($neighbours * 2) > $page && $page > ($neighbours * 2))
 			{
-				$bar[] = '<li><a href="' . $this->uri(1) . '">1</a></li>';
-				$bar[] = '<li><a href="' . $this->uri(2) . '">2</a></li>';
+				$bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri(1) . '">1</a></li>';
+				$bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri(2) . '">2</a></li>';
 				$bar[] = '<li class="dot">...</li>';
 
 				for ($counter = $page - $neighbours; $counter <= $page + $neighbours; $counter++)
 				{
 					if ($counter == $page)
 					{
-						$bar[] = '<li><a class="current">' . $counter . '</a></li>';
+						$bar[] = '<li class="page-item active"><a class="page-link" href="#" aria-current="page">' . $counter . '</a></li>';
 					}
 					else
 					{
-						$bar[] = '<li><a href="' . $this->uri($counter) . '">' . $counter . '</a></li>';
+						$bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri($counter) . '">' . $counter . '</a></li>';
 					}
 				}
 
 				$bar[] = '<li class="dot">..</li>';
-				$bar[] = '<li><a href="' . $this->uri($lpm1) . '">' . $lpm1 . '</a></li>';
-				$bar[] = '<li><a href="' . $this->uri($lastPage) . '">' . $lastPage . '</a></li>';
+				$bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri($lpm1) . '">' . $lpm1 . '</a></li>';
+				$bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri($lastPage) . '">' . $lastPage . '</a></li>';
 			}
 			else
 			{
-				$bar[] = '<li><a href="' . $this->uri(1) . '">1</a></li>';
-				$bar[] = '<li><a href="' . $this->uri(2) . '">2</a></li>';
+				$bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri(1) . '">1</a></li>';
+				$bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri(2) . '">2</a></li>';
 				$bar[] = '<li class="dot">..</li>';
 
 				for ($counter = $lastPage - (2 + ($neighbours * 2)); $counter <= $lastPage; $counter++)
 				{
 					if ($counter == $page)
 					{
-						$bar[] = '<li><a class="current">' . $counter . '</a></li>';
+						$bar[] = '<li class="page-item active"><a class="page-link" href="#" aria-current="page">' . $counter . '</a></li>';
 					}
 					else
 					{
-						$bar[] = '<li><a href="' . $this->uri($counter) . '">' . $counter . '</a></li>';
+						$bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri($counter) . '">' . $counter . '</a></li>';
 					}
 				}
 			}
@@ -218,13 +218,13 @@ class TrackerPagination
 
 		if ($page < $counter - 1)
 		{
-			$bar[] = '<li><a href="' . $this->uri($next) . '">Next</a></li>';
-			$bar[] = '<li><a href="' . $this->uri($lastPage) . '">Last</a></li>';
+			$bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri($next) . '">Next</a></li>';
+			$bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri($lastPage) . '">Last</a></li>';
 		}
 		else
 		{
-			$bar[] = '<li><a class="current">Next</a></li>';
-			$bar[] = '<li><a class="current">Last</a></li>';
+			$bar[] = '<li class="page-item active"><a class="page-link" href="#" aria-current="page">Next</a></li>';
+			$bar[] = '<li class="page-item active"><a class="page-link" href="#" aria-current="page">Last</a></li>';
 		}
 
 		$bar[] = '</ul>';
