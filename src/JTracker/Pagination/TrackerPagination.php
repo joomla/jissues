@@ -223,8 +223,8 @@ class TrackerPagination
 		}
 		else
 		{
-			$bar[] = '<li class="page-item active"><a class="page-link" href="#" aria-current="page">Next</a></li>';
-			$bar[] = '<li class="page-item active"><a class="page-link" href="#" aria-current="page">Last</a></li>';
+			$bar[] = '<li class="page-item disabled"><a tabindex="-1" class="page-link" href="#" aria-current="page">Next</a></li>';
+			$bar[] = '<li class="page-item disabled"><a tabindex="-1" class="page-link" href="#" aria-current="page">Last</a></li>';
 		}
 
 		$bar[] = '</ul>';
