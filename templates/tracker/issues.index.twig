@@ -172,11 +172,11 @@
                         [% } %]
                     </span>
                 </td>
-                <td class="center valign-center">
+                <td class="text-center valign-center">
                     [% var priorities = {1: 'Critical', 2: 'Urgent', 3: 'Medium', 4: 'Low', 5: 'Very Low'  }; %]
                     <span class="badge rounded-pill [%=getIssuePriorityClass(item.priority)%] ">[%=priorities[item.priority]%]</span>
                  </td>
-                <td class="center valign-center">
+                <td class="text-center valign-center">
                     [%= getStatusName(item.status) %]
                     [% if(item.merge_state) { %]
                         <br />
