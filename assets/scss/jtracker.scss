@@ -19,6 +19,11 @@ pre {
   }
 }
 
+.table tr.table-success a {
+  --bs-link-color: #025ADE;
+  --bs-link-color-rgb: 2,90,222;
+}
+
 /** Used on the issue page for styling the status transition boxes */
 td.alert {
   --bs-table-bg: var(--bs-alert-bg);
