@@ -20,42 +20,50 @@
         <h1>{{ '%s - Milestones'|format(project.title) }}</h1>
     </div>
 
-    <div id="milestoneModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="milestoneModalLabel"></h3>
-        </div>
-        <div class="modal-body">
-            <form name="newMilestone" class="form-horizontal">
-                <div>
-                    <label for="number">Number</label>
-                    <input type="text" id="number" name="number" placeholder="#" disabled="disabled" class="col-md-1"/>
+    <div id="milestoneModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="milestoneModalLabel"></h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="form-group">
-                    <label for="title" class="control-label">Title</label>
-                    <input type="text" id="title" name="title" placeholder="Milestone title"/>
-                </div>
-                <div class="form-group">
-                    <label for="due_on" class="control-label">Due on</label>
-                    <input type="text" name="due_on" id="due_on" placeholder="Date"/>
-                </div>
-                <div class="form-group">
-                    <label for="state" class="control-label">State</label>
-                    <select name="state" id="state">
-                        <option value="open">Open</option>
-                        <option value="closed">Closed</option>
-                    </select>
-                </div>
-                <div class="form-group">
+                <div class="modal-body">
+                    <form name="newMilestone" class="form-horizontal">
+                        <div class="row g-3 align-items-center">
+                          <div class="col-auto">
+                            <label for="number" class="col-form-label">Number</label>
+                          </div>
+                          <div class="col-auto">
+                            <input class="form-control form-control-sm" type="text" id="number" name="number" placeholder="#" disabled="disabled"/>
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input class="form-control" type="text" id="title" name="title" placeholder="Milestone title"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="due_on" class="form-label">Due on</label>
+                            <input class="form-control" type="text" name="due_on" id="due_on" placeholder="Date"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="state" class="form-label">State</label>
+                            <select class="form-select" name="state" id="state">
+                                <option value="open">Open</option>
+                                <option value="closed">Closed</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
 
-                    <label for="description">Description</label>
-                    <textarea name="description" id="description" class="col-md-6"></textarea>
+                            <label class="form-label" for="description">Description</label>
+                            <textarea class="form-control" name="description" id="description" class="col-md-6"></textarea>
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Cancel</button>
-            <button class="btn btn-primary" onclick="$('#milestoneModal').modal('hide'); saveMilestone('{{ project.alias }}', '#listMilestones', 'tplMilestones');">Save</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="$('#milestoneModal').modal('hide'); saveMilestone('{{ project.alias }}', '#listMilestones', 'tplMilestones');">Save</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -220,7 +228,8 @@
             $('select[name="state"]').val('open');
             $('textarea[name="description"]').val('');
 
-            $('#milestoneModal').modal('show');
+            var milestoneModal = new bootstrap.Modal(document.getElementById('milestoneModal'));
+            milestoneModal.show();
         }
         function showEditMilestone(e) {
             $('#milestoneModalLabel').html('Edit Milestone');
@@ -231,7 +240,8 @@
             $('select[name="state"]').val($(e).closest('td').prev().prev().text());
             $('textarea[name="description"]').val($(e).closest('td').prev().prev().prev().text());
 
-            $('#milestoneModal').modal('show');
+            var milestoneModal = new bootstrap.Modal(document.getElementById('milestoneModal'));
+            milestoneModal.show();
         }
     </script>
 {% endblock %}
