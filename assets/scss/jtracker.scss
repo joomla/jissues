@@ -294,3 +294,17 @@ div.logMessage {
   background-color: #eeeeee;
   display: none;
 }
+
+// .text-bg-dark in light mode and .text-bg-light in dark mode. In the future we can include Bootstrap SCSS and use
+// @extend to do this - but this will do for now
+.text-bg-inverse {
+  color: #fff;
+  background-color: RGBA(33,37,41,var(--bs-bg-opacity,1));
+}
+
+@media (prefers-color-scheme: dark) {
+  .text-bg-inverse {
+    color: #000;
+    background-color: RGBA(248,249,250,var(--bs-bg-opacity,1));
+  }
+}
