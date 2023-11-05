@@ -60,7 +60,7 @@ textarea.error, textarea:focus.error {
 }
 
 img.avatar {
-  border: 1px solid #EEEEEE;
+  border: 1px solid var(--bs-light-border-subtle);
   padding: 2px;
   border-radius: 3px;
   margin-bottom: 5px;
