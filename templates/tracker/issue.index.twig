@@ -27,10 +27,10 @@
             padding-top: 120px;
         }
         .tests-success, .tests-1 {
-            color: green;
+            color: var(--bs-success);
         }
         .tests-fail, .tests-2 {
-            color: red;
+            color: var(--bs-danger);
         }
         .testForm {
             background-color: #f5f5f5;
@@ -43,7 +43,7 @@
             border-radius: 4px;
         }
         @media (prefers-color-scheme: dark) {
-          .highlightRow {
+          .highlightRow, .testForm {
             background-color: var(--bs-light-bg-subtle);
           }
         }
@@ -196,7 +196,7 @@
 
     <!-- Categories -->
     {% if item.categories %}
-        <ul class="breadcrumb">
+        <ul class="breadcrumb rounded">
             <li>
                 <strong>Categories:</strong>
             </li>
