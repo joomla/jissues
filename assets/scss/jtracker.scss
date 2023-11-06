@@ -325,3 +325,7 @@ div.logMessage {
     background-color: RGBA(248,249,250,var(--bs-bg-opacity,1));
   }
 }
+
+ul.jqueryFileTree a {
+  color: var(--bs-light-text-emphasis);
+}
