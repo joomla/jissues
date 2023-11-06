@@ -10,6 +10,7 @@ namespace App\Text\Controller;
 
 use App\Text\Model\ArticlesModel;
 use Joomla\Controller\AbstractController;
+use Joomla\Registry\Registry;
 use JTracker\View\BaseHtmlView;
 use JTracker\Controller\Concerns\HasLists;
 use Laminas\Diactoros\Response\HtmlResponse;
@@ -66,7 +67,11 @@ class ListArticlesController extends AbstractController
 	{
 		$this->getApplication()->getUser()->authorize('admin');
 
-		$this->configurePaginationState($this->getApplication(), $this->model);
+        // Initialise the state of the model before setting the paginated data
+        $state = new Registry;
+        $this->model->setState($state);
+
+        $this->configurePaginationState($this->getApplication(), $this->model);
 
 		// Set view variables required in the template
 		$this->view->addData('view', 'articles')

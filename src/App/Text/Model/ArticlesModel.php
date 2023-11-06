@@ -13,7 +13,6 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseQuery;
 use Joomla\Model\DatabaseModelInterface;
 use Joomla\Model\DatabaseModelTrait;
-use Joomla\Model\StatefulModelInterface;
 use Joomla\Model\StatefulModelTrait;
 use JTracker\Model\ListfulModelInterface;
 use JTracker\Pagination\TrackerPagination;
