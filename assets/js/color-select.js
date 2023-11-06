@@ -13,7 +13,7 @@ $(document).ready(function() {
 		cellHeight: 25,
 		cellMargin: 0,
 		columns: 8,
-		displayCSS: { 'width': '25px' },
+		displayCSS: { 'width': '25px', 'height': '25px' },
 		chooserCSS: { 'left': '25px', 'border': '0' },
 		onSelect: function(hex, element) {
 			$('#' + element.attr('id') + '_display').val(hex);
