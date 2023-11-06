@@ -29,7 +29,7 @@ class IconsModel implements StatefulModelInterface
 	 */
 	public function getJoomlaIcons(): array
 	{
-		return $this->parseCssFileForIcons(JPATH_THEMES . '/media/css/template.css', '/.(icon-[a-z0-9\-]+:before)/');
+		return $this->parseCssFileForIcons(JPATH_THEMES . '/media/css/fontawesome.min.css', '/.(fa-[a-z\-]+:before)/');
 	}
 
 	/**
