@@ -67,11 +67,11 @@ class ListArticlesController extends AbstractController
 	{
 		$this->getApplication()->getUser()->authorize('admin');
 
-        // Initialise the state of the model before setting the paginated data
-        $state = new Registry;
-        $this->model->setState($state);
+		// Initialise the state of the model before setting the paginated data
+		$state = new Registry;
+		$this->model->setState($state);
 
-        $this->configurePaginationState($this->getApplication(), $this->model);
+		$this->configurePaginationState($this->getApplication(), $this->model);
 
 		// Set view variables required in the template
 		$this->view->addData('view', 'articles')
