@@ -8,7 +8,7 @@
 </li>
 {% if project.project_id %}
     <li class="dropdown{{ firstPart in ['project', 'activity', 'category'] ? " active" : "" }}">
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">Project <span class="caret"></span></a>
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">Project</a>
 
         <ul class="dropdown-menu">
             <li class="nav-header">{{ project.title }}</li>
@@ -58,7 +58,7 @@
 
 {% if user.isAdmin %}
     <li class="dropdown{{ firstPart in ['icons', 'text'] ? ' active' : '' }}">
-        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">System <span class="caret"></span></a>
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">System</a>
         <ul class="dropdown-menu">
             <li class="{{ "icons" == firstPart ? "active" : "" }}">
                 <a class="dropdown-item" href="{{ uri.base.path }}icons"><span aria-hidden="true" class="fas fa-face-smile"></span> Icons</a>
@@ -71,7 +71,7 @@
 {% endif %}
 
 <li class="dropdown{{firstPart in ['documentation'] or uri.route == 'page/about' ? ' active' : '' }}">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">/etc <span class="caret"></span></a>
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">/etc</a>
 
     <ul class="dropdown-menu">
         <li class="{{ "page/about" == uri.route ? "active" : "" }}">
@@ -87,7 +87,7 @@
 {% if not exception %}
     {% if user.id %}
     <li class="dropdown ms-auto">
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">Account <span class="caret"></span></a>
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">Account</a>
         <ul class="dropdown-menu">
             {% if user.isAdmin %}
                 <li class="nav-header"><span aria-hidden="true" class="fas fa-user"></span> Admin</li>
