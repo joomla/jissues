@@ -23,29 +23,20 @@
         <fieldset>
             <legend>Details</legend>
 
-            <div class="control-group">
-                <label class="control-label" for="title">Title</label>
-
-                <div class="controls">
-                    <input type="text" name="category[title]" id="title"/>
-                </div>
+            <div class="mb-3">
+                <label class="form-label" for="title">Title</label>
+                <input class="form-control" type="text" name="category[title]" id="title"/>
             </div>
 
-            <div class="control-group">
-                <label class="control-label" for="alias">Alias</label>
-
-                <div class="controls">
-                    <input type="text" name="category[alias]" id="alias"/>
-                </div>
+            <div class="mb-3">
+                <label class="form-label" for="alias">Alias</label>
+                <input class="form-control" type="text" name="category[alias]" id="alias"/>
             </div>
 
-            <div class="control-group">
-                <label class="control-label" for="color_display">Colour</label>
-
-                <div class="controls">
-                    <input class="color_select" id="color"/>
-                    <input type="text" name="category[color]" id="color_display"/>
-                </div>
+            <div class="mb-3">
+                <label class="form-label" for="color_display">Colour</label>
+                <input class="color_select" id="color"/>
+                <input class="form-control" type="text" name="category[color]" id="color_display"/>
             </div>
 
             <input type="hidden" name="category[project_id]" value="{{ project.project_id }}"/>
