@@ -29,6 +29,8 @@ class IconsModel implements StatefulModelInterface
 	 */
 	public function getJoomlaIcons(): array
 	{
+        // TODO: This parses the icons names correctly - but doesn't associate the far/fas/fab class too.
+        //       it wouldn't be ideal but for this script to work we might need to
 		return $this->parseCssFileForIcons(JPATH_THEMES . '/media/css/fontawesome.min.css', '/.(fa-[a-z\-]+:before)/');
 	}
 
