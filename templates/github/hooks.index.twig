@@ -42,37 +42,40 @@
     <!-- +  Modal "Windows"  + -->
     <!-- +++++++++++++++++++++ -->
 
-    <div id="eventsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="Events"
-         aria-hidden="true">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="myModalLabel">Hook Events</h3>
-        </div>
-        <div class="modal-body">
-            <ul>
-                <li><b>push</b> - Any git push to a Repository.</li>
-                <li><b>issues</b> - Any time an Issue is opened or closed.</li>
-                <li><b>issue_comment</b> - Any time an Issue is commented on.</li>
-                <li><b>commit_comment</b> - Any time a Commit is commented on.</li>
-                <li><b>pull_request</b> - Any time a Pull Request is opened, closed,
-                    or synchronized (updated due to a new push in the branch that the pull request is tracking).
-                </li>
-                <li><b>pull_request_review_comment</b> - Any time a Commit is commented on while inside a Pull Request
-                    review (the Files Changed tab).
-                </li>
-                <li><b>gollum</b> - Any time a Wiki page is updated.</li>
-                <li><b>watch</b> - Any time a User watches the Repository.</li>
-                <li><b>download</b> - Any time a Download is added to the Repository.</li>
-                <li><b>fork</b> - Any time a Repository is forked.</li>
-                <li><b>fork_apply</b> - Any time a patch is applied to the Repository from the Fork Queue.</li>
-                <li><b>member</b> - Any time a User is added as a collaborator to a non-Organization Repository.</li>
-                <li><b>public</b> - Any time a Repository changes from private to public.</li>
-                <li><b>team_add</b> - Any time a team is added or modified on a Repository.</li>
-                <li><b>status</b> - Any time a Repository has a status update from the API</li>
-            </ul>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Close</button>
+    <div id="eventsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Events">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="myModalLabel">Hook Events</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li><b>push</b> - Any git push to a Repository.</li>
+                        <li><b>issues</b> - Any time an Issue is opened or closed.</li>
+                        <li><b>issue_comment</b> - Any time an Issue is commented on.</li>
+                        <li><b>commit_comment</b> - Any time a Commit is commented on.</li>
+                        <li><b>pull_request</b> - Any time a Pull Request is opened, closed,
+                            or synchronized (updated due to a new push in the branch that the pull request is tracking).
+                        </li>
+                        <li><b>pull_request_review_comment</b> - Any time a Commit is commented on while inside a Pull Request
+                            review (the Files Changed tab).
+                        </li>
+                        <li><b>gollum</b> - Any time a Wiki page is updated.</li>
+                        <li><b>watch</b> - Any time a User watches the Repository.</li>
+                        <li><b>download</b> - Any time a Download is added to the Repository.</li>
+                        <li><b>fork</b> - Any time a Repository is forked.</li>
+                        <li><b>fork_apply</b> - Any time a patch is applied to the Repository from the Fork Queue.</li>
+                        <li><b>member</b> - Any time a User is added as a collaborator to a non-Organization Repository.</li>
+                        <li><b>public</b> - Any time a Repository changes from private to public.</li>
+                        <li><b>team_add</b> - Any time a team is added or modified on a Repository.</li>
+                        <li><b>status</b> - Any time a Repository has a status update from the API</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 
