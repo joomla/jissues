@@ -70,5 +70,7 @@
     "/js/vendor/jquery.caret.js": "/js/vendor/jquery.caret.js",
     "/css/vendor/jquery.atwho.css": "/css/vendor/jquery.atwho.css",
     "/js/vendor/jquery.atwho.js": "/js/vendor/jquery.atwho.js",
-    "/js/vendor/jquery-textrange.js": "/js/vendor/jquery-textrange.js"
+    "/js/vendor/jquery-textrange.js": "/js/vendor/jquery-textrange.js",
+    "/js/vendor/skipto.min.js": "/js/vendor/skipto.min.js",
+    "/js/vendor/skipto.min.js.map": "/js/vendor/skipto.min.js.map"
 }
