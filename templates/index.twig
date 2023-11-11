@@ -47,7 +47,7 @@
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-M7HXQ7');</script>
     <!-- End Google Tag Manager -->
     {% block nav %}
-        <nav class="navigation" role="navigation">
+        <nav class="navigation" role="navigation" aria-label="Quick Links to Joomla Official Websites">
             <div id="mega-menu" class="navbar navbar-expand-md py-md-1">
                 <div class="container-xxl">
                     {% block topnav %}
@@ -129,10 +129,27 @@
 {% block JavaScriptBottom %}
     <script src="{{ asset('js/vendor/jquery.js') }}"></script>
     <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/vendor/skipto.min.js') }}"></script>
     <script src="{{ asset('js/vendor/blueimp-tmpl.js') }}"></script>
     <script src="{{ asset('js/jtracker.js') }}"></script>
 
     <script type="text/javascript">
+        var SkipToConfig =  {
+          'settings': {
+            'skipTo': {
+              enableActions: false,
+              enableHeadingLevelShortcuts: false,
+              accesskey: '9',
+              displayOption: 'popup',
+              headings: 'h1, h2, h3',
+              landmarks: 'main, nav, search, aside, header, footer, form',
+              attachElement: '.navigation',
+              asideLabel: 'Aside',
+              headerLabel: 'Header',
+              footerLabel: 'Footer'
+            }
+          }
+        };
         window.addEventListener('DOMContentLoaded', (event) => {
             processScrollInit();
 

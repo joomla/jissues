@@ -113,6 +113,10 @@ mix.copy('node_modules/at.js/dist/js/jquery.atwho.min.js', 'www/media/js/vendor/
 // jQuery Textrange
 mix.copy('node_modules/jquery-textrange/jquery-textrange.js', 'www/media/js/vendor/jquery-textrange.js');
 
+// SkipTo
+mix.copy('node_modules/skipto/downloads/js/skipto.min.js', 'www/media/js/vendor/skipto.min.js');
+mix.copy('node_modules/skipto/downloads/js/skipto.min.js.map', 'www/media/js/vendor/skipto.min.js.map');
+
 // Build site resources
 mix.sass('assets/scss/jtracker.scss', 'css/jtracker.css');
 mix.sass('assets/scss/jtracker-rtl.scss', 'css/jtracker-rtl.css');
