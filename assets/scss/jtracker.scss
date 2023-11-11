@@ -239,9 +239,10 @@ ul.test-results {
     text-align: center
   }
 
-  .well-small > .avatar {
+  .user-wrapper > .avatar, .issue-add-comment-avatar > .avatar {
     max-width: 100px;
     margin-right: 10px;
+    float: left;
   }
 
   #fileupload {
@@ -280,10 +281,6 @@ ul.test-results {
   #filtersForm .btn-group {
     margin: 0 5px;
     width: auto;
-  }
-
-  .user-wrapper > .avatar {
-    float: left;
   }
 
   #stools-container select {
