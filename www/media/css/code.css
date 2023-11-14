@@ -6,7 +6,7 @@
  */
 
 .highlight {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: none repeat scroll 0 0 var(--bs-body-bg);
 }
 .highlight .c {
     color: #999988;
