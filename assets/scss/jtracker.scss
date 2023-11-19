@@ -137,7 +137,7 @@ img.emoji, .row-activity .well img {
   overflow: auto
 }
 
-.issue-information {
+.issue-information, .edit-issue-form {
   background-color: #f5f5f5;
   padding: 6px 0 6px 6px;
 
@@ -147,7 +147,7 @@ img.emoji, .row-activity .well img {
 }
 
 @media (prefers-color-scheme: dark) {
-  .issue-information {
+  .issue-information, .edit-issue-form {
     background-color: var(--bs-light-bg-subtle);
   }
 }
