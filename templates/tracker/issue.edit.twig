@@ -133,7 +133,7 @@
             {% if item.has_code %}
                 <li>
                     <label for="easy">Easy test</label>
-                    <select name="item[easy]" id="easy" class="col-md-1">
+                    <select name="item[easy]" id="easy" class="form-select col-md-1">
                         <option {{ 0 == item.easy ? "selected='selected'" : ""  }} value="0">{{ '0'|yesno }}</option>
                         <option {{ 1 == item.easy ? "selected='selected'" : ""  }} value="1">{{ '1'|yesno }}</option>
                     </select>
