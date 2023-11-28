@@ -93,7 +93,7 @@
     {% if user.check('edit') %}
         {# Show only if the user has *full*^edit rights - e.g. not "edit own" #}
         <div class="edit-issue-form row gx-0 mb-3">
-            <label for="status" class="col-md-1 col-form-label text-end">Status</label>
+            <label for="status" class="col-md-1 col-form-label text-md-end">Status</label>
             <div class="col-md-2">
                 <select name="item[status]" id="status" class="form-select">
                     {% for key, value in statuses_by_state() %}
@@ -101,7 +101,7 @@
                     {% endfor %}
                 </select>
             </div>
-            <label for="priority" class="col-md-1 col-form-label text-end">Priority</label>
+            <label for="priority" class="col-md-1 col-form-label text-md-end">Priority</label>
             <div class="col-md-2">
                 <select name="item[priority]" id="priority" class="form-select">
                     {% for key, value in issue_priorities() %}
@@ -109,7 +109,7 @@
                     {% endfor %}
                 </select>
             </div>
-            <label for="rel_type" class="col-md-1 col-form-label text-end">Item</label>
+            <label for="rel_type" class="col-md-1 col-form-label text-md-end">Item</label>
             <div class="col-md-2">
                 <select name="item[rel_type]" id="rel_type" class="form-select">
                     <option value="0"></option>
@@ -119,7 +119,7 @@
                     {% endfor %}
                 </select>
             </div>
-            <label for="rel_number" class="col-md-1 col-form-label text-end">#</label>
+            <label for="rel_number" class="col-md-1 col-form-label text-md-end">#</label>
             <div class="col-md-2">
                 <input name="item[rel_number]" id="rel_number" type="text" class="form-control w-50" value="{{ item.rel_number }}" />
             </div>
