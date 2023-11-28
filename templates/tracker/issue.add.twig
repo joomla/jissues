@@ -183,10 +183,12 @@
           });
         }
 
-        $('a[data-bs-toggle="tab"]').on('shown', function (e) {
-            if ('#preview' == $(e.target).attr('href')) {
-                JTracker.preview('#description', '#preview');
-            }
+        document.querySelectorAll('a[data-bs-toggle="tab"]').forEach((el) => {
+            el.addEventListener('shown.bs.tab', (event) => {
+                if ('#preview' == $(e.target).attr('href')) {
+                    JTracker.preview('#description', '#preview');
+                }
+            })
         });
 
         $('#description').focus(function() {

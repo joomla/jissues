@@ -649,14 +649,15 @@
             );
         });
 
-        $('a[data-bs-toggle="tab"]').on('shown', function (e)
-        {
-            if ('#preview' == $(e.target).attr('href')) {
-                JTracker.preview('#comment', '#preview');
-            }
-            if ('#previewTest' == $(e.target).attr('href')) {
-                JTracker.preview('#commentTest', '#previewTest');
-            }
+        document.querySelectorAll('a[data-bs-toggle="tab"]').forEach((el) => {
+            el.addEventListener('shown.bs.tab', (e) => {
+                if ('#preview' == $(e.target).attr('href')) {
+                    JTracker.preview('#comment', '#preview');
+                }
+                if ('#previewTest' == $(e.target).attr('href')) {
+                    JTracker.preview('#commentTest', '#previewTest');
+                }
+            })
         });
 
         $('#comment').focus(function() {

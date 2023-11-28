@@ -262,17 +262,20 @@
             $('input[name="editorId"]').val(this.id);
         });
 
-        $('a[data-bs-toggle="tab"]').on('shown', function (e) {
-            if ('#previewDesc' == $(e.target).attr('href')) {
-                JTracker.preview('#description', '#previewDesc');
-            }
+        document.querySelectorAll('a[data-bs-toggle="tab"]').forEach((el) => {
+            el.addEventListener('shown.bs.tab', (event) => {
+                if ('#previewDesc' == $(e.target).attr('href')) {
+                    JTracker.preview('#description', '#previewDesc');
+                }
 
-            if ('#previewComment' == $(e.target).attr('href')) {
-                JTracker.preview('#comment', '#previewComment');
-            }
-            if ('#previewTest' == $(e.target).attr('href')) {
-                JTracker.preview('#commentTest', '#previewTest');
-            }
+                if ('#previewComment' == $(e.target).attr('href')) {
+                    JTracker.preview('#comment', '#previewComment');
+                }
+
+                if ('#previewTest' == $(e.target).attr('href')) {
+                    JTracker.preview('#commentTest', '#previewTest');
+                }
+            })
         });
 
         // Validate and submit form
