@@ -9,7 +9,6 @@
 namespace Application\Command\Install;
 
 use Application\Command\TrackerCommand;
-use Application\Exception\AbortException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -55,7 +54,6 @@ class Install extends TrackerCommand
 	 *
 	 * @return  integer
 	 *
-	 * @throws  AbortException
 	 * @throws  \RuntimeException
 	 * @throws  \UnexpectedValueException
 	 * @since   1.0
@@ -90,7 +88,7 @@ class Install extends TrackerCommand
 
 				if ($reinstallAnswer !== 'yes')
 				{
-					throw new AbortException;
+					return Command::SUCCESS;
 				}
 			}
 

@@ -10,8 +10,6 @@ namespace Application\Command\Test;
 
 use App\Projects\TrackerProject;
 
-use Application\Exception\AbortException;
-
 use Joomla\Github\Github;
 
 use Joomla\Input\Input;
@@ -119,7 +117,6 @@ class Hook extends Test
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
-	 * @throws  AbortException
 	 */
 	protected function selectHook(SymfonyStyle $io)
 	{
@@ -178,7 +175,7 @@ class Hook extends Test
 	 * @return  $this
 	 *
 	 * @throws  \RuntimeException
-	 * @throws  AbortException
+	 * @throws  \InvalidArgumentException
 	 * @since   1.0
 	 */
 	protected function selectProject(InputInterface $input, SymfonyStyle $io): self
@@ -234,7 +231,7 @@ class Hook extends Test
 
 			if ($this->project === null)
 			{
-				throw new AbortException('Invalid project');
+				throw new \InvalidArgumentException('Invalid project');
 			}
 		}
 
