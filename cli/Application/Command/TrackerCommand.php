@@ -10,8 +10,6 @@ namespace Application\Command;
 
 use App\Projects\TrackerProject;
 
-use Application\Exception\AbortException;
-
 use Joomla\Console\Command\AbstractCommand;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;

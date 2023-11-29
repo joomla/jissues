@@ -11,7 +11,6 @@ namespace Application\Command\Update;
 use Application\Command\Clear\Twig;
 use Application\Command\Database\Migrate;
 use Application\Command\Make\Repoinfo;
-use Application\Exception\AbortException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -48,7 +47,6 @@ class Server extends Update
 	 * @return  integer
 	 *
 	 * @since   1.0
-	 * @throws  AbortException
 	 */
 	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{

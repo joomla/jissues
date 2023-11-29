@@ -8,7 +8,6 @@
 
 namespace Application\Command\Update;
 
-use Application\Exception\AbortException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -53,7 +52,6 @@ class Pulls extends Update
 	 * @return  integer
 	 *
 	 * @since   1.0
-	 * @throws  AbortException
 	 */
 	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
