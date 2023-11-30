@@ -23,7 +23,6 @@
     <exclude-pattern>*/Gruntfile.js</exclude-pattern>
 
     <!-- Exclude tracker.php because of strange error -->
-    <exclude-pattern>*/cli/tracker.php</exclude-pattern>
     <exclude-pattern>*/src/App/Support/Model/IconsModel.php</exclude-pattern>
 
     <rule ref="Joomla">

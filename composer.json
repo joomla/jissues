@@ -65,6 +65,7 @@
             "App\\": "src/App/"
         }
     },
+    "bin": ["bin/jtracker"],
     "autoload-dev": {
         "psr-4": {
             "JTracker\\Tests\\": "tests/tracker/"

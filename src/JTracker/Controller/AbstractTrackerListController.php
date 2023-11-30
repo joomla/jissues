@@ -8,7 +8,7 @@
 
 namespace JTracker\Controller;
 
-use JTracker\Application;
+use JTracker\Application\Application;
 use JTracker\Controller\Concerns\HasLists;
 
 /**

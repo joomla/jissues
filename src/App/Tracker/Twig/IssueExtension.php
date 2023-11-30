@@ -8,7 +8,7 @@
 
 namespace App\Tracker\Twig;
 
-use JTracker\Application;
+use JTracker\Application\Application;
 use JTracker\View\Renderer\ContrastHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;

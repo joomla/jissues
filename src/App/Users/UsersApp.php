@@ -11,7 +11,7 @@ namespace App\Users;
 use App\Users\Renderer\AvatarsExtension;
 use Joomla\DI\Container;
 use Joomla\Router\Router;
-use JTracker\AppInterface;
+use JTracker\Application\AppInterface;
 
 /**
  * Users app

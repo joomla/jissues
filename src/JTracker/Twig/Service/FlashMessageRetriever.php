@@ -8,7 +8,7 @@
 
 namespace JTracker\Twig\Service;
 
-use JTracker\Application;
+use JTracker\Application\Application;
 
 /**
  * Service class retrieving the flash messages from the message queue and resetting it

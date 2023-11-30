@@ -9,7 +9,6 @@
 namespace App\Users\Controller\User;
 
 use App\Users\Model\UserModel;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -29,7 +28,7 @@ class Save extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/** @var \JTracker\Application $app */
+		/** @var \JTracker\Application\Application $app */
 		$app = $this->getContainer()->get('app');
 
 		$id = $app->getUser()->id;

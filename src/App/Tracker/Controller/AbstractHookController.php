@@ -12,18 +12,14 @@ use App\Projects\Table\LabelsTable;
 use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
 use App\Tracker\Table\StatusTable;
-
 use Joomla\Database\DatabaseDriver;
 use Joomla\Http\Exception\InvalidResponseCodeException;
 use Joomla\Utilities\IpHelper;
-
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Controller\AbstractAjaxController;
 use JTracker\Github\GithubFactory;
-
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-
 use Monolog\Processor\WebProcessor;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -153,8 +149,8 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 			$this->getContainer()->get('app')->close();
 		}
 
-		/** @var \JTracker\Application $application */
-		$application = $this->getContainer()->get('JTracker\\Application');
+		/** @var \JTracker\Application\Application $application */
+		$application = $this->getContainer()->get('JTracker\\Application\\Application');
 
 		$application->input->set('project_alias', $alias);
 
@@ -171,7 +167,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	 */
 	public function initialize()
 	{
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$this->debug = $application->get('debug.hooks');

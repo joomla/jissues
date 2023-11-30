@@ -231,7 +231,7 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
 	 */
 	protected function fetchRenderer($view, $layout)
 	{
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$rendererName = $application->get('renderer.type');
@@ -272,8 +272,8 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
 	 */
 	protected function addEventListener($type)
 	{
-		/** @var \JTracker\Application $application */
-		$application = $this->getContainer()->get('JTracker\\Application');
+		/** @var \JTracker\Application\Application $application */
+		$application = $this->getContainer()->get('JTracker\\Application\\Application');
 
 		/*
 		 * Add the event listener if it exists.  Listeners are named in the format of <project><type>Listener in the Hooks\Listeners namespace.
@@ -310,7 +310,7 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
 			return;
 		}
 
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		// Create the event with default arguments.

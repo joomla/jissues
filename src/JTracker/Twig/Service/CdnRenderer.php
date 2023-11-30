@@ -9,7 +9,7 @@
 namespace JTracker\Twig\Service;
 
 use Joomla\Http\Http;
-use JTracker\Application;
+use JTracker\Application\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use Psr\Cache\CacheItemPoolInterface;
 

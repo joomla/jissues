@@ -19,8 +19,6 @@ The application also has external dependencies installable via [Composer](https:
 
 See also: [Dependencies](Documentation/Development/Dependencies.md).
 
-Note: All references to `bin/jtracker` refer to an executable symlink to `cli/tracker.php`. If you cannot execute the `bin/jtracker` symlink replace that path with `cli/tracker.php`
-
 ## Setup
 
 1. Clone the git repo to where ever your test environment is located or download a ZIP file.

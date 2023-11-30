@@ -16,7 +16,7 @@ use Laminas\Diactoros\Response\HtmlResponse;
 /**
  * Page view controller.
  *
- * @method  \JTracker\Application getApplication()
+ * @method  \JTracker\Application\Application getApplication()
  *
  * @since   1.0
  */

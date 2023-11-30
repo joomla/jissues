@@ -8,11 +8,10 @@
 
 namespace JTracker\Service;
 
-use Application\Application;
-
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Event\DispatcherInterface;
+use JTracker\Application\ConsoleApplication;
 
 /**
  * CLI application service provider
@@ -33,10 +32,10 @@ class CliApplicationProvider implements ServiceProviderInterface
 	public function register(Container $container)
 	{
 		$container->share(
-			Application::class,
+			ConsoleApplication::class,
 			function (Container $container)
 			{
-				$application = new Application(
+				$application = new ConsoleApplication(
 					null,
 					null,
 					$container->get('config'),

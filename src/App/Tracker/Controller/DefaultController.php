@@ -10,7 +10,6 @@ namespace App\Tracker\Controller;
 
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\View\Issues\IssuesHtmlView;
-
 use JTracker\Controller\AbstractTrackerListController;
 
 /**
@@ -47,7 +46,7 @@ class DefaultController extends AbstractTrackerListController
 	{
 		parent::initialize();
 
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$application->getUser()->authorize('view');
@@ -69,7 +68,7 @@ class DefaultController extends AbstractTrackerListController
 	 */
 	private function setModelState()
 	{
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$state = $this->model->getState();

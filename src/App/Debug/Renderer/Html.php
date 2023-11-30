@@ -11,10 +11,8 @@ namespace App\Debug\Renderer;
 use App\Debug\Database\DatabaseDebugger;
 use App\Debug\Format\Html\SqlFormat;
 use App\Debug\Format\Html\TableFormat;
-
 use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
-
 use Kint\Kint;
 use Kint\Renderer\RichRenderer;
 
@@ -39,7 +37,7 @@ class Html implements ContainerAwareInterface
 	{
 		$html = [];
 
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		// Check if debug is only displayed for admin users
@@ -119,7 +117,7 @@ class Html implements ContainerAwareInterface
 	 */
 	private function getNavigation()
 	{
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$html = [];
@@ -249,7 +247,7 @@ class Html implements ContainerAwareInterface
 	{
 		$debug = [];
 
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$debugger = $application->getDebugger();

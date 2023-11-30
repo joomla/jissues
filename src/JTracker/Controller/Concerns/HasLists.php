@@ -9,7 +9,7 @@
 namespace JTracker\Controller\Concerns;
 
 use Joomla\Uri\Uri;
-use JTracker\Application;
+use JTracker\Application\Application;
 use JTracker\Model\ListfulModelInterface;
 use JTracker\Pagination\TrackerPagination;
 

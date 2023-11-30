@@ -10,7 +10,7 @@ namespace App\Groups;
 
 use Joomla\DI\Container;
 use Joomla\Router\Router;
-use JTracker\AppInterface;
+use JTracker\Application\AppInterface;
 
 /**
  * Groups app

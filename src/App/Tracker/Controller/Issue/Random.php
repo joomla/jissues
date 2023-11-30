@@ -9,7 +9,6 @@
 namespace App\Tracker\Controller\Issue;
 
 use App\Tracker\Model\IssueModel;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -29,7 +28,7 @@ class Random extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 		$session     = $application->getSession();
 		$project     = $application->getProject();

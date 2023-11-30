@@ -9,7 +9,6 @@
 namespace App\Tracker\Controller\Category;
 
 use App\Tracker\Model\CategoryModel;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -44,7 +43,7 @@ class Save extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/** @var \JTracker\Application $app */
+		/** @var \JTracker\Application\Application $app */
 		$app = $this->getContainer()->get('app');
 
 		$app->getUser()->authorize('manage');

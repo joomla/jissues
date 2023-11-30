@@ -8,7 +8,7 @@
 
 namespace App\Users\Controller;
 
-use JTracker\Application;
+use JTracker\Application\Application;
 use JTracker\Controller\AbstractTrackerController;
 
 /**

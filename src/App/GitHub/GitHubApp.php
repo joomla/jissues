@@ -10,7 +10,7 @@ namespace App\GitHub;
 
 use Joomla\DI\Container;
 use Joomla\Router\Router;
-use JTracker\AppInterface;
+use JTracker\Application\AppInterface;
 
 /**
  * GitHub app

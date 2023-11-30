@@ -26,7 +26,7 @@ class Users extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		/** @var \Joomla\Database\DatabaseDriver $db */

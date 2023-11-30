@@ -28,7 +28,7 @@ steps:
     depends_on: [ composer ]
     commands:
       - echo $(date)
-      - ./vendor/bin/phpstan analyse src tests cli
+      - ./vendor/bin/phpstan analyse src tests
       - echo $(date)
 
   - name: php74
@@ -83,6 +83,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 52d4d6492e6060882b25d6eac8e86d78a3e49bcca526fcf4b00e3c7b4a8246f0
+hmac: 31d8b4222de772e09097b43afa09f63b73d82571a036621f4c528404a3dd42b8
 
 ...

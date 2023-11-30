@@ -11,9 +11,7 @@ namespace App\Tracker\Controller\Issue;
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\ActivitiesTable;
-
 use Joomla\Date\Date;
-
 use Joomla\Http\Exception\UnexpectedResponseException;
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Controller\AbstractTrackerController;
@@ -39,7 +37,7 @@ class Save extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$src = $application->input->get('item', [], 'array');
@@ -321,7 +319,7 @@ class Save extends AbstractTrackerController
 	 */
 	private function updateGitHub($issueNumber, array $data, $state, $oldState, $assignee, $milestone, $labels)
 	{
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$project = $application->getProject();

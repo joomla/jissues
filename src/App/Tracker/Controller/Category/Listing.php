@@ -10,7 +10,6 @@ namespace App\Tracker\Controller\Category;
 
 use App\Tracker\Model\CategoriesModel;
 use App\Tracker\View\Categories\CategoriesHtmlView;
-
 use JTracker\Controller\AbstractTrackerListController;
 
 /**
@@ -55,7 +54,7 @@ class Listing extends AbstractTrackerListController
 	{
 		parent::initialize();
 
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 		$application->getUser()->authorize('manage');
 

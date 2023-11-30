@@ -9,7 +9,7 @@
 namespace App\Debug;
 
 use Joomla\DI\Container;
-use JTracker\AppInterface;
+use JTracker\Application\AppInterface;
 
 /**
  * Debug app

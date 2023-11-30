@@ -12,7 +12,7 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Github\Github;
 use Joomla\Http\Http;
 use Joomla\Uri\Uri;
-use JTracker\Application;
+use JTracker\Application\Application;
 
 /**
  * Helper class for logging into the application via GitHub.

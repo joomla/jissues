@@ -12,7 +12,7 @@ use App\System\Controller\WrongCmsController;
 use Joomla\DI\Container;
 use Joomla\Router\Route;
 use Joomla\Router\Router;
-use JTracker\AppInterface;
+use JTracker\Application\AppInterface;
 
 /**
  * System app

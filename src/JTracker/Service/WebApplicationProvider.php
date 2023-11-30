@@ -15,7 +15,7 @@ use Joomla\DI\ServiceProviderInterface;
 use Joomla\Event\Dispatcher;
 use Joomla\Input\Input;
 use Joomla\Router\Router;
-use JTracker\Application;
+use JTracker\Application\Application;
 use JTracker\Controller\TrackerControllerResolver;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;

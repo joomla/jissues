@@ -1,7 +1,6 @@
 ## CLI - Command Line Application
 
-The script is located at `/bin/jtracker`, which is a symlink to `/cli/tracker.php` created for convenience.
-It is meant to be executed on the computers [command line interface](https://en.wikipedia.org/wiki/Command-line_interface).
+The script is located at `/bin/jtracker` and is meant to be executed on the computers [command line interface](https://en.wikipedia.org/wiki/Command-line_interface).
 
 This script will do:
 

@@ -8,8 +8,7 @@
 
 namespace JTracker\Upload;
 
-use JTracker\Application;
-
+use JTracker\Application\Application;
 use Upload\File as UploadFile;
 use Upload\Storage\FileSystem;
 use Upload\Validation\Mimetype;

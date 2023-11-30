@@ -10,22 +10,17 @@ namespace App\Debug;
 
 use App\Debug\Handler\ProductionHandler;
 use App\Debug\Renderer\Html;
-
 use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
 use Joomla\Profiler\Profiler;
-
-use JTracker\Application;
-
+use JTracker\Application\Application;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\WebProcessor;
-
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
-
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 

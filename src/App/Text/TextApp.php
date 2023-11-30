@@ -20,8 +20,8 @@ use Joomla\Github\Github;
 use Joomla\Renderer\RendererInterface;
 use Joomla\Router\Route;
 use Joomla\Router\Router;
+use JTracker\Application\AppInterface;
 use JTracker\View\BaseHtmlView;
-use JTracker\AppInterface;
 
 /**
  * Text app
