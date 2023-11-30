@@ -10,7 +10,6 @@ namespace App\Tracker\Controller\Category;
 
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\View\Categories\CategoriesHtmlView;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -73,7 +72,7 @@ class Delete extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		try

@@ -10,7 +10,6 @@ namespace App\Tracker\Controller\Issue;
 
 use App\Tracker\Model\IssueModel;
 use App\Tracker\View\Issue\IssueHtmlView;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -58,7 +57,7 @@ class Item extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 		$project     = $application->getProject();
 		$user        = $application->getUser();

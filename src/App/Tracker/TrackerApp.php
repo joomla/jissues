@@ -14,8 +14,8 @@ use App\Tracker\Twig\RelationExtension;
 use App\Tracker\Twig\StatusExtension;
 use Joomla\DI\Container;
 use Joomla\Router\Router;
-use JTracker\AppInterface;
-use JTracker\Application;
+use JTracker\Application\AppInterface;
+use JTracker\Application\Application;
 
 /**
  * Tracker app

@@ -9,7 +9,6 @@
 namespace App\Activity\Controller;
 
 use App\Activity\View\DefaultHtmlView;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -38,7 +37,7 @@ abstract class AbstractBaseController extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$application->getUser()->authorize('view');

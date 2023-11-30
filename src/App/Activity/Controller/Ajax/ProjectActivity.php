@@ -9,9 +9,8 @@
 namespace App\Activity\Controller\Ajax;
 
 use App\Activity\Model\ProjectactivityModel;
-
 use Joomla\Registry\Registry;
-use JTracker\Application;
+use JTracker\Application\Application;
 use JTracker\Controller\AbstractAjaxController;
 
 /**

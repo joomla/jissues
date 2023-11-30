@@ -10,11 +10,9 @@ namespace JTracker\Helper;
 
 use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
-
 use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
-
-use JTracker\Application;
+use JTracker\Application\Application;
 use JTracker\Github\DataType\Commit;
 use JTracker\Github\DataType\Commit\CombinedStatus;
 use JTracker\Github\DataType\Commit\Status;

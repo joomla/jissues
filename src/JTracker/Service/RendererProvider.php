@@ -12,7 +12,7 @@ use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Renderer\RendererInterface;
 use Joomla\Renderer\TwigRenderer;
-use JTracker\Application;
+use JTracker\Application\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Twig\AssetsExtension;
 use JTracker\Twig\CdnExtension;

@@ -10,10 +10,8 @@ namespace JTracker\Github;
 
 use Joomla\Http\Http;
 use Joomla\Registry\Registry;
-
-use JTracker\Application;
+use JTracker\Application\Application;
 use JTracker\Http\CurlTransport;
-
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\WebProcessor;

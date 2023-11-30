@@ -10,7 +10,7 @@ namespace App\Users\Controller;
 
 use App\Users\Model\UserModel;
 use App\Users\View\User\UserHtmlView;
-use JTracker\Application;
+use JTracker\Application\Application;
 use JTracker\Controller\AbstractTrackerController;
 
 /**

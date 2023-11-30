@@ -16,7 +16,7 @@ use Laminas\Diactoros\Response\HtmlResponse;
 /**
  * Controller class to update an article.
  *
- * @method  \JTracker\Application getApplication()
+ * @method  \JTracker\Application\Application getApplication()
  *
  * @since  1.0
  */

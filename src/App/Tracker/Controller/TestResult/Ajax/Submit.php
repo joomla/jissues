@@ -11,7 +11,6 @@ namespace App\Tracker\Controller\TestResult\Ajax;
 use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
 use App\Tracker\Model\IssueModel;
-
 use JTracker\Controller\AbstractAjaxController;
 use JTracker\Github\GithubFactory;
 use JTracker\Helper\GitHubHelper;
@@ -33,7 +32,7 @@ class Submit extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 		$user        = $application->getUser();
 		$project     = $application->getProject();

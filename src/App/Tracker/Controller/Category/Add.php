@@ -9,7 +9,6 @@
 namespace App\Tracker\Controller\Category;
 
 use App\Tracker\View\Category\CategoryHtmlView;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -52,7 +51,7 @@ class Add extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 		$application->getUser()->authorize('manage');
 		$this->view->setProject($application->getProject());

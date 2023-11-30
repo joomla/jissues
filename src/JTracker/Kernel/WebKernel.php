@@ -10,8 +10,7 @@ namespace JTracker\Kernel;
 
 use Joomla\Application\AbstractApplication;
 use Joomla\DI\Container;
-use JTracker\Application;
-use JTracker\Kernel;
+use JTracker\Application\Application;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 
@@ -20,7 +19,7 @@ use Psr\Log\LoggerInterface;
  *
  * @since  1.0
  */
-class WebKernel extends Kernel
+class WebKernel extends AbstractKernel
 {
 	/**
 	 * Build the service container

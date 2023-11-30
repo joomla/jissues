@@ -12,7 +12,7 @@ use App\Tracker\Model\IssueModel;
 use App\Tracker\Model\IssuesModel;
 use App\Tracker\Twig\IssueExtension;
 use Joomla\Uri\Uri;
-use JTracker\Application;
+use JTracker\Application\Application;
 use JTracker\Controller\AbstractAjaxController;
 use JTracker\Pagination\TrackerPagination;
 
@@ -34,7 +34,7 @@ class Listing extends AbstractAjaxController
 	 */
 	private function setModelState(IssuesModel $model)
 	{
-		/** @var \JTracker\Application $application */
+		/** @var \JTracker\Application\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$state = $model->getState();

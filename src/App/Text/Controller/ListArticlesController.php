@@ -11,14 +11,14 @@ namespace App\Text\Controller;
 use App\Text\Model\ArticlesModel;
 use Joomla\Controller\AbstractController;
 use Joomla\Registry\Registry;
-use JTracker\View\BaseHtmlView;
 use JTracker\Controller\Concerns\HasLists;
+use JTracker\View\BaseHtmlView;
 use Laminas\Diactoros\Response\HtmlResponse;
 
 /**
  * Articles list controller.
  *
- * @method  \JTracker\Application getApplication()
+ * @method  \JTracker\Application\Application getApplication()
  *
  * @since  1.0
  */

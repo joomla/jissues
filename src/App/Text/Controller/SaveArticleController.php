@@ -16,7 +16,7 @@ use Laminas\Diactoros\Response\RedirectResponse;
 /**
  * Controller class to save an article.
  *
- * @method  \JTracker\Application getApplication()
+ * @method  \JTracker\Application\Application getApplication()
  *
  * @since  1.0
  */

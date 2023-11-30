@@ -15,12 +15,12 @@ use Joomla\Event\SubscriberInterface;
 use Joomla\Renderer\RendererInterface;
 use Joomla\Router\Exception\MethodNotAllowedException;
 use Joomla\Router\Exception\RouteNotFoundException;
-use JTracker\Application;
+use JTracker\Application\Application;
 use JTracker\Authentication\Exception\AuthenticationException;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\JsonResponse;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 
 /**
  * Error handling event subscriber
