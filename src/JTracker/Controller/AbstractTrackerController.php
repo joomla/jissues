@@ -331,6 +331,6 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
 		}
 
 		// Trigger the event.
-		$this->getDispatcher()->triggerEvent($event);
+		$this->getDispatcher()->dispatch($event);
 	}
 }
