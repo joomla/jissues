@@ -20,7 +20,7 @@ use Joomla\Event\Dispatcher;
 
 use JTracker\Database\Migrations;
 
-use League\Flysystem\Adapter\Local;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 use League\Flysystem\Filesystem;
 use Monolog\Logger;
 use Psr\Log\LogLevel;
@@ -137,7 +137,7 @@ class DatabaseProvider implements ServiceProviderInterface
 				{
 					return new Migrations(
 						$container->get(DatabaseDriver::class),
-						new Filesystem(new Local(JPATH_CONFIGURATION))
+						new Filesystem(new LocalFilesystemAdapter(JPATH_CONFIGURATION))
 					);
 				},
 				true

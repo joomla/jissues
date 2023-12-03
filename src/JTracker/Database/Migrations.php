@@ -9,7 +9,7 @@
 namespace JTracker\Database;
 
 use Joomla\Database\DatabaseDriver;
-use League\Flysystem\FileNotFoundException;
+use League\Flysystem\UnableToReadFile;
 use League\Flysystem\Filesystem;
 
 /**
@@ -165,7 +165,7 @@ class Migrations
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  FileNotFoundException
+	 * @throws  UnableToReadFile
 	 */
 	private function doMigration($version)
 	{
@@ -173,7 +173,7 @@ class Migrations
 
 		if (!$this->filesystem->has($sqlFile))
 		{
-			throw new FileNotFoundException($sqlFile);
+			throw new UnableToReadFile($sqlFile);
 		}
 
 		$queries = $this->filesystem->read($sqlFile);

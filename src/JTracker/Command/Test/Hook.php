@@ -11,7 +11,7 @@ namespace JTracker\Command\Test;
 use App\Projects\TrackerProject;
 use Joomla\Github\Github;
 use Joomla\Input\Input;
-use League\Flysystem\Adapter\Local;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 use League\Flysystem\Filesystem;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -118,7 +118,7 @@ class Hook extends Test
 	 */
 	protected function selectHook(SymfonyStyle $io)
 	{
-		$paths = (new Filesystem(new Local(JPATH_ROOT . '/src/App/Tracker/Controller/Hooks')))->listContents();
+		$paths = (new Filesystem(new LocalFilesystemAdapter(JPATH_ROOT . '/src/App/Tracker/Controller/Hooks')))->listContents();
 		$hooks = [];
 
 		foreach ($paths as $path)

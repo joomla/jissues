@@ -8,11 +8,10 @@
 
 namespace JTracker\Command\Make;
 
-use Application\Command\Help\Help;
 use Joomla\Console\Command\AbstractCommand;
 use Joomla\Console\Descriptor\ApplicationDescription;
 use JTracker\Command\TrackerCommand;
-use League\Flysystem\Adapter\Local;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 use League\Flysystem\Filesystem;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -94,7 +93,7 @@ class Autocomplete extends TrackerCommand
 		$type       = $input->getOption('type');
 		$this->echo = (boolean) $input->getOption('echo');
 
-		$this->fileSystem = new Filesystem(new Local(JPATH_ROOT));
+		$this->fileSystem = new Filesystem(new LocalFilesystemAdapter(JPATH_ROOT));
 
 		if ($type)
 		{

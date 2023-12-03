@@ -9,7 +9,7 @@
 namespace JTracker\Command\Clear;
 
 use JTracker\Command\TrackerCommand;
-use League\Flysystem\Adapter\Local;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 use League\Flysystem\Filesystem;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -71,7 +71,7 @@ class Twig extends TrackerCommand
 
 		$this->logOut(sprintf('Cleaning the cache dir in "%s"', $cacheDir . '/' . $twigCacheDir));
 
-		$filesystem = new Filesystem(new Local($cacheDir));
+		$filesystem = new Filesystem(new LocalFilesystemAdapter($cacheDir));
 
 		if ($filesystem->has($twigCacheDir))
 		{
