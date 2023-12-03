@@ -15,7 +15,7 @@
         "joomla/console": "^2.0",
         "joomla/controller": "^2.0",
         "joomla/database": "^2.0",
-        "joomla/date": "^1.2",
+        "joomla/date": "^2.0",
         "joomla/di": "^2.0",
         "joomla/event": "^2.0",
         "joomla/filter": "^2.0",
@@ -73,7 +73,7 @@
     },
     "config": {
         "platform": {
-            "php": "7.4.33"
+            "php": "8.0.30"
         },
         "allow-plugins": {
             "phpstan/extension-installer": true
