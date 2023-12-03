@@ -80,8 +80,6 @@ class DatabaseDebugger
 	{
 		$db = $this->database;
 
-		$db->setDebug(false);
-
 		// Run an EXPLAIN EXTENDED query on the SQL query if possible:
 		$explain = '';
 
@@ -103,8 +101,6 @@ class DatabaseDebugger
 				}
 			}
 		}
-
-		$db->setDebug(true);
 
 		return $explain;
 	}
@@ -130,8 +126,6 @@ class DatabaseDebugger
 		{
 			return sprintf('%s database is not supported yet.', $db->getName());
 		}
-
-		$db->setDebug(false);
 
 		$dbVersion5037 = (strncmp($db->getName(), 'mysql', 5) == 0) && version_compare($db->getVersion(), '5.0.37', '>=');
 

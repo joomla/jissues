@@ -9,15 +9,21 @@
 namespace JTracker\Service;
 
 use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseEvents;
 use Joomla\Database\DatabaseFactory;
 use Joomla\Database\DatabaseInterface;
+use Joomla\Database\Event\ConnectionEvent;
+use Joomla\Database\Monitor\DebugMonitor;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
+use Joomla\Event\Dispatcher;
 
 use JTracker\Database\Migrations;
 
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use Monolog\Logger;
+use Psr\Log\LogLevel;
 
 /**
  * Database service provider
@@ -69,10 +75,37 @@ class DatabaseProvider implements ServiceProviderInterface
 							break;
 					}
 
+					if ($config->get('debug.database', false))
+					{
+						$options['monitor'] = new DebugMonitor;
+
+						/** @var Dispatcher $dispatcher */
+						$dispatcher = $container->get(Dispatcher::class);
+
+						$dispatcher->addListener(
+							DatabaseEvents::POST_DISCONNECT,
+							function (ConnectionEvent $event) use ($container) {
+								$driver = $event->getDriver();
+
+								if ($driver instanceof DatabaseDriver)
+								{
+									/** @var DebugMonitor $monitor */
+									$monitor = $driver->getMonitor();
+
+									/** @var Logger $logger */
+									$logger = $container->get('monolog.logger.database');
+
+									foreach ($monitor->getLogs() as $log)
+									{
+										$logger->log(LogLevel::DEBUG, $log, ['category' => 'databasequery']);
+									}
+								}
+							}
+						);
+					}
+
 					/** @var DatabaseDriver $driver */
 					$driver = $container->get(DatabaseFactory::class)->getDriver($options['driver'], $options);
-					$driver->setDebug($config->get('debug.database', false));
-					$driver->setLogger($container->get('monolog.logger.database'));
 
 					return $driver;
 				}
