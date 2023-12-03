@@ -14,7 +14,7 @@ steps:
       - composer install --no-progress --no-suggest
 
   - name: phpcs
-    image: joomlaprojects/docker-images:php7.4
+    image: joomlaprojects/docker-images:php8.0
     depends_on: [ composer ]
     commands:
       - echo $(date)
@@ -23,20 +23,13 @@ steps:
       - echo $(date)
 
   - name: phpstan
-    image: joomlaprojects/docker-images:php7.4
+    image: joomlaprojects/docker-images:php8.0
     failure: ignore
     depends_on: [ composer ]
     commands:
       - echo $(date)
       - ./vendor/bin/phpstan analyse src tests
       - echo $(date)
-
-  - name: php74
-    depends_on: [ phpcs ]
-    image: joomlaprojects/docker-images:php7.4
-    commands:
-      - php -v
-      - ./vendor/bin/phpunit --configuration=phpunit.xml
 
   - name: php80
     depends_on: [ phpcs ]
@@ -50,6 +43,14 @@ steps:
     depends_on: [ phpcs ]
     failure: ignore
     image: joomlaprojects/docker-images:php8.1
+    commands:
+      - php -v
+      - ./vendor/bin/phpunit --configuration=phpunit.xml
+
+  - name: php82
+    depends_on: [ phpcs ]
+    failure: ignore
+    image: joomlaprojects/docker-images:php8.2
     commands:
       - php -v
       - ./vendor/bin/phpunit --configuration=phpunit.xml
@@ -83,6 +84,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 45f4f6eb3467affe1f3cc9508d4529b1ca04579450de94f252ce86b9ad381fac
+hmac: 3785b4cdabf64537a723f5773ba4fed322ca803c7d8a0714c44ba671a37312e5
 
 ...

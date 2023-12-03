@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "18f979ff2425d0064229e73ad99ab984",
+    "content-hash": "c3436879902cbdcac5d440585af57e8c",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -7112,7 +7112,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.4,<8.3",
+        "php": ">=8.0,<8.3",
         "ext-curl": "*",
         "ext-intl": "*",
         "ext-json": "*"
