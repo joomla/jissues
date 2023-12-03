@@ -10,9 +10,14 @@ namespace App\Debug;
 
 use App\Debug\Handler\ProductionHandler;
 use App\Debug\Renderer\Html;
+use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseEvents;
+use Joomla\Database\Event\ConnectionEvent;
+use Joomla\Database\Monitor\DebugMonitor;
 use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
+use Joomla\Event\Dispatcher;
 use Joomla\Profiler\Profiler;
 use JTracker\Application\Application;
 use Monolog\Handler\NullHandler;
@@ -21,6 +26,7 @@ use Monolog\Logger;
 use Monolog\Processor\WebProcessor;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LogLevel;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
@@ -121,9 +127,29 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 
 		if ($this->application->get('debug.database'))
 		{
-			$db = $this->getContainer()->get('db');
-			$db->setDebug(true);
-			$db->setLogger(new Logger('JTracker', [new NullHandler], [[$this, 'addDatabaseEntry']]));
+			$container = $this->getContainer();
+
+			/** @var Dispatcher $dispatcher */
+			$dispatcher = $container->get(Dispatcher::class);
+
+			$dispatcher->addListener(
+				DatabaseEvents::POST_DISCONNECT,
+				function (ConnectionEvent $event) use ($container) {
+					$driver = $event->getDriver();
+
+					if ($driver instanceof DatabaseDriver)
+					{
+						/** @var DebugMonitor $monitor */
+						$monitor = $driver->getMonitor();
+						$logger  = new Logger('JTracker', [new NullHandler], [[$this, 'addDatabaseEntry']]);
+
+						foreach ($monitor->getLogs() as $log)
+						{
+							$logger->log(LogLevel::DEBUG, $log, ['category' => 'databasequery']);
+						}
+					}
+				}
+			);
 		}
 
 		if (!$this->application->get('debug.logging'))
