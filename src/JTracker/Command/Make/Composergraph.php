@@ -64,6 +64,11 @@ class Composergraph extends TrackerCommand
 		$ioStyle = new SymfonyStyle($input, $output);
 		$ioStyle->title('Make Composer graph');
 
+        $ioStyle->error('Currently Composer graphs dependencies are not compatible with Symfony 6. So this command
+        is disabled. At that point we will re-add clue/graph-composer as a dependency.');
+
+        return Command::FAILURE;
+
 		$this->graph = new GraphComposer(JPATH_ROOT);
 
 		$filePath = $input->getOption('file');
