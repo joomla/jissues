@@ -59,6 +59,17 @@ class DatabaseProvider implements ServiceProviderInterface
 						'password' => $config->get('database.password'),
 						'database' => $config->get('database.name'),
 						'prefix'   => $config->get('database.prefix'),
+                        'sqlModes' => [
+                            /**
+                             * Currently our application can't process hooks if STRICT_TRANS_TABLES is enabled with
+                             * errors such as "Field 'pr_head_user' doesn't have a default value" when opening an issue
+                             * in GitHub. This should be fixed in the application. But for now - we can override to
+                             * disable this option to get us across the line of upgrading the issue tracker to framework
+                             * version 2.
+                             */
+                            'ERROR_FOR_DIVISION_BY_ZERO',
+                            'NO_ENGINE_SUBSTITUTION',
+                        ],
 					];
 
 					// Apply extra options based on the active driver
