@@ -89,7 +89,7 @@ class Github extends JGitHub implements LoggerAwareInterface
 	 *
 	 * @since   1.0
 	 */
-	public function setLogger(LoggerInterface $logger)
+	public function setLogger(LoggerInterface $logger): void
 	{
 		$this->logger = $logger;
 	}
