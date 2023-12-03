@@ -58,7 +58,7 @@ steps:
   - name: deployment
     image: appleboy/drone-ssh
     depends_on:
-      - php74
+      - php80
     settings:
       host:
         from_secret: jissues_host
@@ -84,6 +84,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 3785b4cdabf64537a723f5773ba4fed322ca803c7d8a0714c44ba671a37312e5
+hmac: 51d49e217eb34b3b077fc88c5dda43b3654ff3c17f1cf66f706d34670ce9d7a9
 
 ...
