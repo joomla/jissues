@@ -30,6 +30,7 @@ current_SHA
 /sha.txt
 /.php_cs.cache
 /.phpunit.result.cache
+.php-cs-fixer.cache
 
 # Ignore uploads #
 www/uploads/*

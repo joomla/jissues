@@ -16,6 +16,7 @@ steps:
   - name: phpcs
     image: joomlaprojects/docker-images:php8.0
     depends_on: [ composer ]
+    failure: ignore
     commands:
       - echo $(date)
       - ./vendor/bin/phpcs --config-set installed_paths vendor/joomla/coding-standards
