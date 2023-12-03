@@ -6,7 +6,7 @@ clone:
 
 steps:
   - name: composer
-    image: joomlaprojects/docker-images:php7.4
+    image: joomlaprojects/docker-images:php8.0
     volumes:
       - name: composer-cache
         path: /tmp/composer-cache
@@ -83,6 +83,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 31d8b4222de772e09097b43afa09f63b73d82571a036621f4c528404a3dd42b8
+hmac: 45f4f6eb3467affe1f3cc9508d4529b1ca04579450de94f252ce86b9ad381fac
 
 ...
