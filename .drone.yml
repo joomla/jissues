@@ -11,7 +11,7 @@ steps:
       - name: composer-cache
         path: /tmp/composer-cache
     commands:
-      - composer install --no-progress --no-suggest
+      - composer install --no-progress --no-suggest --ignore-platform-req=ext-intl
 
   - name: phpcs
     image: joomlaprojects/docker-images:php8.0
@@ -84,6 +84,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 51d49e217eb34b3b077fc88c5dda43b3654ff3c17f1cf66f706d34670ce9d7a9
+hmac: 495ffa8cec8e0bb3158879af320a8070cd0b96ee7a720422c82509da49757d38
 
 ...
