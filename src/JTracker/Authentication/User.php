@@ -380,7 +380,7 @@ abstract class User implements \Serializable
 	 *
 	 * @since   1.0
 	 */
-	public function serialize()
+	public function serialize(): ?string
 	{
 		return serialize(
 			[
@@ -394,17 +394,51 @@ abstract class User implements \Serializable
 	/**
 	 * Unserialize the object
 	 *
-	 * @param   string  $serialized  The serialized string
+	 * @param   string  $data  The serialized string
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function unserialize($serialized)
+	public function unserialize($data): void
 	{
-		list($this->id, $this->username, $this->project) = unserialize($serialized);
+		list($this->id, $this->username, $this->project) = unserialize($data);
 
 		// Initialize the user parameters object.
+		$this->params = new Registry;
+	}
+
+	/**
+	 * Serialize the object
+	 *
+	 * @return  array
+	 *
+	 * @since   2.0
+	 */
+	public function __serialize(): array
+	{
+		return [
+			'id' => $this->id,
+			'username' => $this->username,
+			'project' => $this->project,
+		];
+	}
+
+	/**
+	 * Unserialize the object
+	 *
+	 * @param   array  $data  The serialized data
+	 *
+	 * @return  void
+	 *
+	 * @since   2.0
+	 */
+	public function __unserialize(array $data): void
+	{
+		$this->id = $data['id'];
+		$this->username = $data['username'];
+		$this->project = $data['project'];
+
 		$this->params = new Registry;
 	}
 
