@@ -146,9 +146,9 @@ class Migrations
 		// We need to check the known migrations and filter out the applied ones to know what to do
 		$knownMigrations = [];
 
-		foreach ($this->filesystem->listContents('migrations') as $migrationFiles)
+		foreach ($this->filesystem->listContents('migrations') as $migrationFile)
 		{
-			$knownMigrations[] = $migrationFiles['filename'];
+            $knownMigrations[] = basename($migrationFile->path(), '.sql');
 		}
 
 		foreach (array_diff($knownMigrations, $appliedMigrations) as $version)
