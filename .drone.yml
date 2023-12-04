@@ -6,7 +6,7 @@ clone:
 
 steps:
   - name: composer
-    image: joomlaprojects/docker-images:php8.0
+    image: joomlaprojects/docker-images:php8.1
     volumes:
       - name: composer-cache
         path: /tmp/composer-cache
@@ -14,7 +14,7 @@ steps:
       - composer install --no-progress --no-suggest --ignore-platform-req=ext-intl
 
   - name: phpcs
-    image: joomlaprojects/docker-images:php8.0
+    image: joomlaprojects/docker-images:php8.1
     depends_on: [ composer ]
     failure: ignore
     commands:
@@ -24,21 +24,13 @@ steps:
       - echo $(date)
 
   - name: phpstan
-    image: joomlaprojects/docker-images:php8.0
+    image: joomlaprojects/docker-images:php8.1
     failure: ignore
     depends_on: [ composer ]
     commands:
       - echo $(date)
       - ./vendor/bin/phpstan analyse src tests
       - echo $(date)
-
-  - name: php80
-    depends_on: [ phpcs ]
-    failure: ignore
-    image: joomlaprojects/docker-images:php8.0
-    commands:
-      - php -v
-      - ./vendor/bin/phpunit --configuration=phpunit.xml
 
   - name: php81
     depends_on: [ phpcs ]
@@ -59,7 +51,7 @@ steps:
   - name: deployment
     image: appleboy/drone-ssh
     depends_on:
-      - php80
+      - php81
     settings:
       host:
         from_secret: jissues_host
@@ -85,6 +77,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 8347345cd139cfec3667b7db16fa845e3a2d681c962c5ef598e955bd700d3b02
+hmac: 68a338fe9dd102f1d86b2437c48b8cdf14a113efe5624ac1814f7da6dae3fd91
 
 ...
