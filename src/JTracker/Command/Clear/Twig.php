@@ -9,6 +9,7 @@
 namespace JTracker\Command\Clear;
 
 use JTracker\Command\TrackerCommand;
+use League\Flysystem\FilesystemException;
 use League\Flysystem\Local\LocalFilesystemAdapter;
 use League\Flysystem\Filesystem;
 use Symfony\Component\Console\Command\Command;
@@ -53,6 +54,7 @@ class Twig extends TrackerCommand
 	 * @return  integer
 	 *
 	 * @since   1.0
+     * @throws  FilesystemException
 	 */
 	protected function doExecute(InputInterface $input, OutputInterface $output): int
 	{
@@ -75,7 +77,7 @@ class Twig extends TrackerCommand
 
 		if ($filesystem->has($twigCacheDir))
 		{
-			$filesystem->deleteDir($twigCacheDir);
+			$filesystem->deleteDirectory($twigCacheDir);
 		}
 
 		$ioStyle->newLine();
