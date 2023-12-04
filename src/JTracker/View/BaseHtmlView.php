@@ -8,8 +8,6 @@
 
 namespace JTracker\View;
 
-use App\Projects\ProjectAwareTrait;
-
 use Joomla\Model\StatefulModelInterface;
 use Joomla\Renderer\RendererInterface;
 use Joomla\View\HtmlView;
