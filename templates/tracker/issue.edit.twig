@@ -263,7 +263,7 @@
         });
 
         document.querySelectorAll('a[data-bs-toggle="tab"]').forEach((el) => {
-            el.addEventListener('shown.bs.tab', (event) => {
+            el.addEventListener('shown.bs.tab', (e) => {
                 if ('#previewDesc' == $(e.target).attr('href')) {
                     JTracker.preview('#description', '#previewDesc');
                 }
