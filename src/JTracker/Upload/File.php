@@ -64,7 +64,7 @@ class File extends UploadFile implements \JsonSerializable
 	 *
 	 * @since   1.0
 	 */
-	public function jsonSerialize()
+	public function jsonSerialize(): array
 	{
 		return [
 			'name'   => $this->getNameWithExtension(),
