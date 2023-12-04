@@ -576,4 +576,43 @@ class TrackerProject implements \Serializable
 
 		return $categories;
 	}
+
+    /**
+     * Serialize the object
+     *
+     * @return  array
+     *
+     * @since   2.0
+     */
+    public function __serialize(): array
+    {
+        foreach (get_object_vars($this) as $key => $value)
+        {
+            if (\in_array($key, ['authModel', 'cleared', 'authId', 'database']))
+            {
+                continue;
+            }
+
+            $props[$key] = $value;
+        }
+
+        return $props;
+    }
+
+    /**
+     * Unserialize the object
+     *
+     * @param   array  $data  The serialized data
+     *
+     * @return  void
+     *
+     * @since   2.0
+     */
+    public function __unserialize(array $data): void
+    {
+        foreach ($data as $key => $value)
+        {
+            $this->$key = $value;
+        }
+    }
 }
