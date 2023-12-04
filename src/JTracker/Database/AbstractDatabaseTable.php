@@ -59,6 +59,14 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	protected $db;
 
 	/**
+	 * Cache of the class variables.
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	protected static $fieldsCache = [];
+
+	/**
 	 * Object constructor to set table and key fields.  In most cases this will
 	 * be overridden by child classes to explicitly set the table and key fields
 	 * for a particular database table.
@@ -536,9 +544,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 */
 	public function getFields()
 	{
-		static $cache = null;
-
-		if ($cache === null)
+		if (!array_key_exists($this->tableName, static::$fieldsCache))
 		{
 			// Lookup the fields for this table only once.
 			$fields = $this->db->getTableColumns($this->tableName, false);
@@ -548,10 +554,10 @@ class AbstractDatabaseTable implements \IteratorAggregate
 				throw new \UnexpectedValueException(sprintf('No columns found for %s table', $this->tableName));
 			}
 
-			$cache = $fields;
+			static::$fieldsCache[$this->tableName] = $fields;
 		}
 
-		return $cache;
+		return static::$fieldsCache[$this->tableName];
 	}
 
 	/**
