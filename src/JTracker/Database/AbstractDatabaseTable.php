@@ -573,7 +573,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 *
 	 * @since   1.0
 	 */
-	public function getIterator()
+	public function getIterator(): \Traversable
 	{
 		return new \ArrayIterator($this->tableFields);
 	}

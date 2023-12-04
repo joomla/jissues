@@ -46,7 +46,7 @@ class ApplicationContext implements ContextInterface
 	 *
 	 * @since   1.0
 	 */
-	public function getBasePath()
+	public function getBasePath(): string
 	{
 		return rtrim($this->app->get('uri.base.path'), '/');
 	}
@@ -58,7 +58,7 @@ class ApplicationContext implements ContextInterface
 	 *
 	 * @since   1.0
 	 */
-	public function isSecure()
+	public function isSecure(): bool
 	{
 		if ($this->app instanceof AbstractWebApplication)
 		{

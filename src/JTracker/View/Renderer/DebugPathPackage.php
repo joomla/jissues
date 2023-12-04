@@ -53,7 +53,7 @@ class DebugPathPackage extends BasePathPackage
 	 *
 	 * @since   1.0
 	 */
-	public function getUrl($path)
+	public function getUrl($path): string
 	{
 		if ($this->isAbsoluteUrl($path))
 		{
