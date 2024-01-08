@@ -221,7 +221,7 @@ class IssuesModel extends AbstractTrackerListModel
 
 			$newQuery = $db->getQuery(true)
 				->select('COUNT(*)')
-				->from($subQuery, 'tbl');
+				->from($subQuery->alias('tbl'));
 
 			$this->db->setQuery($newQuery);
 			$total = (int) $this->db->loadResult();
