@@ -16,8 +16,7 @@
         <h1>{{ "User Tracker Activity - %s"|format(project.title) }}</h1>
     </div>
 
-    <div id="barchart" style="width:700px; height:600px;" data-href="{{ uri.base.path }}activity/user/{{ project.alias }}/query"></div>
-    <div id="new-barchart"></div>
+    <canvas id="barchart" style="width:700px; height:600px;"></canvas>
 
     <br />
     <h2>Chart Options</h2>
@@ -72,7 +71,7 @@
             }
         });
 
-        const ctx = document.getElementById('new-barchart');
+        const ctx = document.getElementById('barchart');
 
         const myChart = new Chart(ctx, {
             type: 'bar',
