@@ -113,12 +113,16 @@
                         datasets: []
                     };
 
+                    let i = 0;
+
                     while (i < json.data[0].length) {
                         chartData['datasets'].push({
                             label: json.data[2][i]['label'],
                             data: json.data[0][i],
                             borderWidth: 1,
                         })
+
+                        i++
                     }
 
                     myChart.data = chartData
