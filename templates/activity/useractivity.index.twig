@@ -9,8 +9,6 @@
     {{ parent() }}
 
     <link rel="stylesheet" href="{{ asset('css/vendor/datepicker.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/jqplot/jquery.jqplot.min.css', 'debug') }}" />
-    <link rel="stylesheet" href="{{ asset('css/jquery-ui/jquery-ui.min.css', 'debug') }}" />
 {% endblock %}
 
 {% block content %}
@@ -19,13 +17,14 @@
     </div>
 
     <div id="barchart" style="width:700px; height:600px;" data-href="{{ uri.base.path }}activity/user/{{ project.alias }}/query"></div>
+    <div id="new-barchart"></div>
 
     <br />
     <h2>Chart Options</h2>
     <div class="form-inline">
     	<fieldset>
-    		<label>Period</label>
-    		<select id="period" name="period" class="input" size="1">
+    		<label for="period">Period</label>
+    		<select id="period" name="period" class="form-control form-control-sm d-inline-block w-auto" size="1">
     			<option value="1" selected="selected">7 Days</option>
     			<option value="2">30 Days</option>
     			<option value="3">90 Days</option>
@@ -33,21 +32,21 @@
     			<option value="5">Custom Period</option>
     		</select>
 
-    		<label>Type</label>
-    		<select id="type" name="type" class="input-small" size="1">
+    		<label for="type">Type</label>
+    		<select id="type" name="type" class="form-control form-control-sm d-inline-block w-auto" size="1">
     			<option value="0" selected="selected">All</option>
     			<option value="1">Tracker</option>
     			<option value="2">Test</option>
     			<option value="3">Code</option>
     		</select>
 
-    		<button class="btn btn-primary" id="dataUpdate">Update Chart</button>
+    		<button type="button" class="btn btn-primary btn-sm" id="dataUpdate">Update Chart</button>
     		<br />
     		<br />
     		<div id="hidedates" class="form-inline">
-    			<label>Start Date</label>
+    			<label for="start_date">Start Date</label>
     			<input id="start_date" class="datepicker-input input-small" type="text" />
-    			<label>End Date</label>
+    			<label for="end_date">End Date</label>
     			<input id="end_date" class="datepicker-input input-small" type="text" />
     		</div>
 
@@ -60,49 +59,74 @@
 
     <script src="{{ asset('js/vendor/datepicker.js') }}"></script>
     <script src="{{ asset('js/vendor/datepicker/locales/en-GB.js') }}"></script>
-    <script src="{{ asset('js/jqplot/jquery.jqplot.min.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jqplot/jqplot.barRenderer.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jqplot/jqplot.categoryAxisRenderer.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jqplot/jqplot.pointLabels.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jqplot/jqplot.highlighter.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jqplot/barchart.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jquery-ui/jquery-ui.min.js', 'debug') }}"></script>
+    <script src="{{ asset('js/vendor/chart.js') }}"></script>
 
     <script type="text/javascript">
-        (function ($) {
-            $(document).ready(function () {
-                var barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'horizontal', true, '10');
+        document.getElementById('hidedates').style.display = 'none';
 
-                $('#dataUpdate').click(function () {
-                    // add the form variables to the URL
-                    var chartContainer = $('#barchart'),
-                        period = $('#period').val(),
-                        type = $('#type').val(),
-                        startdate = $('#start_date').val(),
-                        enddate = $('#end_date').val(),
-                        href = '{{ uri.base.path }}activity/user/{{ project.alias }}/query?period=' + period + '&activity_type=' + type;
+        document.getElementById('period').addEventListener('change', (event) => {
+            if (event.target.value === '5') {
+                document.getElementById('hidedates').style.removeProperty('display');
+            } else {
+                document.getElementById('hidedates').style.display = 'none';
+            }
+        });
 
-                    if (period == 5) {
-                        href += '&startdate=' + startdate + '&enddate=' + enddate;
+        const ctx = document.getElementById('new-barchart');
+
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {},
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true
                     }
-
-                    chartContainer.empty();
-                    chartContainer.attr('data-href', href);
-
-                    barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'horizontal', true, '10');
-                });
-
-                $('#hidedates').hide();
-
-                $('#period').change(function () {
-                    if ($(this).val() == 5) {
-                        $('#hidedates').show();
-                    } else {
-                        $('#hidedates').hide();
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Custom Chart Title'
                     }
+                }
+            }
+        });
+
+        function updateChart(){
+            const period = document.getElementById('period').value;
+            const type = document.getElementById('type').value;
+            const start_date = document.getElementById('start_date').value;
+            const end_date = document.getElementById('end_date').value;
+
+            // add the form variables to the URL
+            let href = '{{ uri.base.path }}activity/user/{{ project.alias }}/query?period=' + period + '&activity_type=' + type;
+
+            if (period === '5') {
+                href += '&startdate=' + start_date + '&enddate=' + end_date;
+            }
+
+            fetch(href)
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log(json);
+                    myChart.data = {
+                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        datasets: [
+                            {
+                                label: '# of Votes',
+                                data: [12, 19, 3, 5, 2, 3],
+                                borderWidth: 1
+                            }
+                        ]
+                    };
+                    myChart.update();
                 });
-            });
-        })(jQuery);
+        }
+
+        // Populate the chart with initial data and set up the click event for any modifications
+        document.getElementById('dataUpdate').addEventListener('click', updateChart);
+        updateChart();
 
         const datepickerElements = document.querySelectorAll('.datepicker-input');
 

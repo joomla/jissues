@@ -57,6 +57,8 @@
     "/css/vendor/datepicker.css": "/css/vendor/datepicker.css",
     "/js/vendor/datepicker.js": "/js/vendor/datepicker.js",
     "/js/vendor/datepicker/locales/en-GB.js": "/js/vendor/datepicker/locales/en-GB.js",
+    "/js/vendor/chart.js": "/js/vendor/chart.js",
+    "/js/vendor/chart.js.map": "/js/vendor/chart.js.map",
     "/js/vendor/d3.js": "/js/vendor/d3.js",
     "/css/fontawesome.min.css": "/css/fontawesome.min.css",
     "/webfonts/fa-brands-400.ttf": "/webfonts/fa-brands-400.ttf",

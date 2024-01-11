@@ -18,8 +18,7 @@ mix.override((config) => {
 // jQuery
 mix.copy('node_modules/jquery/dist/jquery.min.js', 'www/media/js/vendor/jquery.js');
 
-// Bootstrap v2.3.2 release order: bootstrap-transition.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-carousel.js, bootstrap-collapse.js, bootstrap-dropdown.js, bootstrap-modal.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-typeahead.js, bootstrap-affix.js
-// TODO - Just pull the modified version from the CMS?
+// Bootstrap
 mix.copy('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', 'www/media/js/vendor/bootstrap.min.js');
 mix.copy('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js.map', 'www/media/js/vendor/bootstrap.min.js.map');
 
@@ -83,6 +82,10 @@ mix.copy('node_modules/twbs-pagination/jquery.twbsPagination.min.js', 'www/media
 mix.copy('node_modules/vanillajs-datepicker/dist/css/datepicker-bs5.min.css', 'www/media/css/vendor/datepicker.css');
 mix.copy('node_modules/vanillajs-datepicker/dist/js/datepicker.min.js', 'www/media/js/vendor/datepicker.js');
 mix.copy('node_modules/vanillajs-datepicker/dist/js/locales/en-GB.js', 'www/media/js/vendor/datepicker/locales/en-GB.js');
+
+// Chart.js
+mix.copy('node_modules/chart.js/dist/chart.js', 'www/media/js/vendor/chart.js');
+mix.copy('node_modules/chart.js/dist/chart.js.map', 'www/media/js/vendor/chart.js.map');
 
 // d3
 mix.copy('node_modules/d3/d3.min.js', 'www/media/js/vendor/d3.js');
