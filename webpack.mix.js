@@ -84,8 +84,8 @@ mix.copy('node_modules/vanillajs-datepicker/dist/js/datepicker.min.js', 'www/med
 mix.copy('node_modules/vanillajs-datepicker/dist/js/locales/en-GB.js', 'www/media/js/vendor/datepicker/locales/en-GB.js');
 
 // Chart.js
-mix.copy('node_modules/chart.js/dist/chart.js', 'www/media/js/vendor/chart.js');
-mix.copy('node_modules/chart.js/dist/chart.js.map', 'www/media/js/vendor/chart.js.map');
+mix.copy('node_modules/chart.js/dist/chart.umd.js', 'www/media/js/vendor/chart.js');
+mix.copy('node_modules/chart.js/dist/chart.umd.js.map', 'www/media/js/vendor/chart.js.map');
 
 // d3
 mix.copy('node_modules/d3/d3.min.js', 'www/media/js/vendor/d3.js');
