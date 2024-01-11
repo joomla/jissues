@@ -87,7 +87,7 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Custom Chart Title'
+                        text: 'All Points for Past 7 Days'
                     }
                 }
             }
@@ -109,17 +109,20 @@
             fetch(href)
                 .then((response) => response.json())
                 .then((json) => {
-                    console.log(json);
-                    myChart.data = {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                        datasets: [
-                            {
-                                label: '# of Votes',
-                                data: [12, 19, 3, 5, 2, 3],
-                                borderWidth: 1
-                            }
-                        ]
+                    const chartData = {
+                        labels: json.data[1],
+                        datasets: []
                     };
+
+                    while (i < json.data[0].length) {
+                        chartData['datasets'].push({
+                            label: json.data[2][i]['label'],
+                            data: json.data[0][i],
+                            borderWidth: 1,
+                        })
+                    }
+
+                    myChart.data = chartData
                     myChart.update();
                 });
         }
