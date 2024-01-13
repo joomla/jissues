@@ -5,33 +5,26 @@
 
 {% block title %}{{ parent() }} | {{ "%s - Total Activity Chart"|format(project.short_title) }}{% endblock %}
 
-{% block headerCSS %}
-    {{ parent() }}
-
-    <link rel="stylesheet" href="{{ asset('css/jqplot/jquery.jqplot.min.css', 'debug') }}" />
-    <link rel="stylesheet" href="{{ asset('css/jquery-ui/jquery-ui.min.css', 'debug') }}" />
-{% endblock %}
-
 {% block content %}
     <div class="page-header">
         <h1>{{ "Total Activity - %s"|format(project.title) }}</h1>
     </div>
 
-    <div id="barchart" style="width:700px; height:600px;" data-href="{{ uri.base.path }}activity/total/{{ project.alias }}/query"></div>
+    <canvas id="barchart"></canvas>
 
     <br />
     <h2>Chart Options</h2>
     <div class="form-inline">
     	<fieldset>
     		<label for="period">Period</label>
-    		<select id="period" name="period" class="input" size="1">
+    		<select id="period" name="period" class="form-control form-control-sm d-inline-block w-auto" size="1">
     			<option value="1" selected="selected">7 Days</option>
     			<option value="2">30 Days</option>
     			<option value="3">90 Days</option>
     		</select>
 
     		<label for="type">Type</label>
-    		<select id="type" name="type" class="input-small" size="1">
+    		<select id="type" name="type" class="form-control form-control-sm d-inline-block w-auto" size="1">
     			<option value="0" selected="selected">All</option>
     			<option value="1">Tracker</option>
     			<option value="2">Test</option>
@@ -47,32 +40,63 @@
 {% block JavaScriptBottom %}
     {{ parent() }}
 
-    <script src="{{ asset('js/jqplot/jquery.jqplot.min.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jqplot/jqplot.barRenderer.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jqplot/jqplot.categoryAxisRenderer.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jqplot/jqplot.pointLabels.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jqplot/jqplot.highlighter.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jqplot/barchart.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jquery-ui/jquery-ui.min.js', 'debug') }}"></script>
+    <script src="{{ asset('js/vendor/chart.js') }}"></script>
 
     <script type="text/javascript">
-        (function ($) {
-            $(document).ready(function () {
-                var barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'vertical', true, '50');
+        const ctx = document.getElementById('barchart');
 
-                $('#dataUpdate').click(function () {
-                    // add the form variables to the URL
-                    var chartContainer = $('#barchart'),
-                        period = $('#period').val(),
-                        type = $('#type').val(),
-                        href = '{{ uri.base.path }}activity/total/{{ project.alias }}/query?period=' + period + '&activity_type=' + type;
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {},
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        font: {
+                            size: '32px',
+                        }
+                    }
+                }
+            }
+        });
 
-                    chartContainer.empty();
-                    chartContainer.attr('data-href', href);
+        function updateChart() {
+            const period = document.getElementById('period').value;
+            const type = document.getElementById('type').value;
+            const href = '{{ uri.base.path }}activity/total/{{ project.alias }}/query?period=' + period + '&activity_type=' + type;
 
-                    barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'vertical', true, '50');
+            fetch(href)
+                .then((response) => response.json())
+                .then((json) => {
+                    const chartData = {
+                        labels: json.data[1],
+                        datasets: []
+                    };
+
+                    let i = 0;
+
+                    while (i < json.data[0].length) {
+                        chartData['datasets'].push({
+                            label: json.data[2][i]['label'],
+                            data: json.data[0][i],
+                            borderWidth: 1,
+                        })
+
+                        i++
+                    }
+
+                    myChart.data = chartData;
+                    myChart.update();
                 });
-            });
-        })(jQuery);
+        }
+
+        // Populate the chart with initial data and set up the click event for any modifications
+        document.getElementById('dataUpdate').addEventListener('click', updateChart);
+        updateChart();
     </script>
 {% endblock %}
