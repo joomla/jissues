@@ -46,7 +46,7 @@
             .then((response) => response.json())
             .then((json) => {
                 const chartData = {
-                    labels: json.data[1].reverse(),
+                    labels: json.data[1],
                     datasets: []
                 };
 
@@ -55,7 +55,7 @@
                 while (i < json.data[0].length) {
                     chartData['datasets'].push({
                         label: json.data[2][i]['label'],
-                        data: json.data[0][i].reverse(),
+                        data: json.data[0][i],
                         borderWidth: 1,
                     })
 
