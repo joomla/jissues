@@ -35,7 +35,7 @@
                     <td>
                         <a href="{{ uri.base.path }}page/{{ a.alias }}">View</a>
                         <a href="#" class="delete-article" data-id="{{ a.article_id }}">Delete</a>
-                        <form method="post" action="{{ uri.base.path }}articles/{{ a.article_id }}/delete" class="visually-hidden delete-article-{{ a.article_id }}-form"></form>
+                        <form id="delete-article-{{ a.article_id }}-form" method="post" action="{{ uri.base.path }}articles/{{ a.article_id }}/delete" class="visually-hidden"></form>
                     </td>
                 </tr>
             {% else %}

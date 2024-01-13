@@ -1,1 +1,1 @@
-!function(t,e){"use strict";e((function(){e(".delete-article").click((function(t){t.preventDefault();var i=e(this).attr("data-id");e(".delete-article-"+i+"-form").submit()}))}))}(window,jQuery);
+document.querySelectorAll(".delete-article").forEach((function(e){e.addEventListener("click",(function(t){t.preventDefault();var c=".delete-article-"+e.dataset.id+"-form";document.getElementById(c).submit()}))}));

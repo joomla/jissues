@@ -3,17 +3,13 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-;(function (window, $) {
-	'use strict';
+const deleteArticleLinks = document.querySelectorAll('.delete-article');
 
-	$(function () {
-	    $('.delete-article').click(function (e) {
-	        e.preventDefault();
+deleteArticleLinks.forEach((article) => {
+	article.addEventListener('click', (e) => {
+		e.preventDefault();
 
-	        let articleId = $(this).attr('data-id');
-            let formClass = '.delete-article-' + articleId + '-form';
-
-            $(formClass).submit();
-        });
-    });
-})(window, jQuery);
+		let formClass = '.delete-article-' + article.dataset.id + '-form';
+		document.getElementById(formClass).submit();
+	})
+});
