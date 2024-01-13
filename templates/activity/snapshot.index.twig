@@ -5,37 +5,65 @@
 
 {% block title %}{{ parent() }} | {{ "%s - Open Issues By Status"|format(project.short_title) }}{% endblock %}
 
-{% block headerCSS %}
-    {{ parent() }}
-
-    <link rel="stylesheet" href="{{ asset('css/jqplot/jquery.jqplot.min.css', 'debug') }}" />
-    <link rel="stylesheet" href="{{ asset('css/jquery-ui/jquery-ui.min.css', 'debug') }}" />
-{% endblock %}
-
 {% block content %}
     <div class="page-header">
         <h1>{{ "Open Issues By Status - %s"|format(project.title) }}</h1>
     </div>
 
-    <div id="barchart" style="width:700px; height:600px;" data-href="{{ uri.base.path }}activity/snapshot/{{ project.alias }}/query"></div>
+    <canvas id="barchart" style="width:700px; height:600px;"></canvas>
 {% endblock %}
 
 {% block JavaScriptBottom %}
     {{ parent() }}
 
-    <script src="{{ asset('js/jqplot/jquery.jqplot.min.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jqplot/jqplot.barRenderer.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jqplot/jqplot.categoryAxisRenderer.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jqplot/jqplot.pointLabels.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jqplot/jqplot.highlighter.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jqplot/barchart.js', 'debug') }}"></script>
-    <script src="{{ asset('js/jquery-ui/jquery-ui.min.js', 'debug') }}"></script>
+    <script src="{{ asset('js/vendor/chart.js') }}"></script>
 
     <script type="text/javascript">
-        (function ($) {
-            $(document).ready(function () {
-                var barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'vertical', true, '35');
+        const ctx = document.getElementById('barchart');
+
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {},
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Total Open Issues By Status',
+                        font: {
+                            size: '32px',
+                        }
+                    }
+                }
+            }
+        });
+
+        fetch('{{ uri.base.path }}activity/snapshot/{{ project.alias }}/query')
+            .then((response) => response.json())
+            .then((json) => {
+                const chartData = {
+                    labels: json.data[1].reverse(),
+                    datasets: []
+                };
+
+                let i = 0;
+
+                while (i < json.data[0].length) {
+                    chartData['datasets'].push({
+                        label: json.data[2][i]['label'],
+                        data: json.data[0][i].reverse(),
+                        borderWidth: 1,
+                    })
+
+                    i++
+                }
+
+                myChart.data = chartData;
+                myChart.update();
             });
-        })(jQuery);
     </script>
 {% endblock %}

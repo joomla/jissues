@@ -61,11 +61,7 @@ class ActivitySnapshot extends AbstractAjaxController
 		];
 
 		$iterator = $this->model->getOpenIssues();
-
-		$title = 'Total Open Issues By Status';
-
-		$ticks  = [];
-		$counts = [];
+		$counts   = [];
 
 		foreach ($iterator as $item)
 		{
@@ -105,6 +101,6 @@ class ActivitySnapshot extends AbstractAjaxController
 		}
 
 		// Setup the response data
-		$this->response->data = [$data, $ticks, $labels, $title];
+		$this->response->data = [$data, $ticks, $labels];
 	}
 }
