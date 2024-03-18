@@ -1,11 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="Joomla">
-
-    <arg name="report" value="full"/>
-    <arg name="tab-width" value="4"/>
-    <arg name="encoding" value="utf-8"/>
-    <arg value="sp"/>
-    <arg name="colors" />
+    <description>The Joomla Issue tracker PSR-12 exceptions.</description>
 
     <!-- Exclude folders not containing production code -->
     <exclude-pattern>*/build/*</exclude-pattern>
@@ -23,35 +18,24 @@
     <exclude-pattern>*/Gruntfile.js</exclude-pattern>
 
     <!-- Exclude tracker.php because of strange error -->
-    <exclude-pattern>*/src/App/Support/Model/IconsModel.php</exclude-pattern>
+    <!--<exclude-pattern>*/src/App/Support/Model/IconsModel.php</exclude-pattern>-->
+    <exclude-pattern>*/tests/bootstrap.php</exclude-pattern>
+    <rule ref="PSR12" />
 
-    <rule ref="Joomla">
-        <exclude name="Joomla.NamingConventions.ValidVariableName.MemberNotCamelCaps"/>
-        <exclude name="Joomla.NamingConventions.ValidVariableName.NotCamelCaps"/>
-        <exclude name="Joomla.NamingConventions.ValidFunctionName.ScopeNotCamelCaps"/>
-        <exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
-        <exclude name="Generic.Files.LineEndings.InvalidEOLChar" />
-    </rule>
-
-    <rule ref="Joomla.Classes.InstantiateNewClasses">
+    <!-- temporary extend the line length -->
+    <rule ref="Generic.Files.LineLength">
         <properties>
-            <property name="shortArraySyntax" value="true"/>
+            <property name="lineLimit" value="560"/>
+            <property name="absoluteLineLimit" value="560"/>
         </properties>
     </rule>
 
-    <rule ref="Joomla.NamingConventions.ValidFunctionName.MethodUnderscore">
-        <exclude-pattern>*/src/App/Tracker/Model/IssuesModel.php</exclude-pattern>
-        <exclude-pattern>*/src/JTracker/Model/AbstractTrackerListModel.php</exclude-pattern>
+    <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
+        <exclude-pattern type="relative">src/JTracker/Model/AbstractTrackerListModel\.php</exclude-pattern>
+        <exclude-pattern type="relative">src/App/Tracker/Model/IssuesModel\.php</exclude-pattern>
     </rule>
 
-    <rule ref="Generic.Files.LineLength">
-   		<properties>
-   			<property name="lineLimit" value="250" />
-   			<property name="absoluteLineLimit" value="0" />
-   		</properties>
-   	</rule>
-
-    <rule ref="Squiz.Commenting.VariableComment.Missing">
-        <exclude-pattern>*/src/JTracker/Github/DataType/*</exclude-pattern>
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern type="relative">src/App/Projects/TrackerProject\.php</exclude-pattern>
     </rule>
 </ruleset>

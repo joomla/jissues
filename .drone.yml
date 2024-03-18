@@ -19,7 +19,7 @@ steps:
     failure: ignore
     commands:
       - echo $(date)
-      - ./vendor/bin/phpcs --config-set installed_paths vendor/joomla/coding-standards
+      - ./vendor/bin/php-cs-fixer fix -vvv --dry-run --diff
       - ./vendor/bin/phpcs --extensions=php -p --standard=ruleset.xml .
       - echo $(date)
 
@@ -77,6 +77,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 68a338fe9dd102f1d86b2437c48b8cdf14a113efe5624ac1814f7da6dae3fd91
+hmac: 59007ec8408b9665b23c6160cac1b13045cbecd68c8305d7d7ea97b6ea2332b2
 
 ...
