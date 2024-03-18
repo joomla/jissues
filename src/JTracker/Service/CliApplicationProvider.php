@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Service Package
  *
@@ -20,34 +21,33 @@ use JTracker\Application\ConsoleApplication;
  */
 class CliApplicationProvider implements ServiceProviderInterface
 {
-	/**
-	 * Registers the service provider with a DI container.
-	 *
-	 * @param   Container  $container  The DI container.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function register(Container $container)
-	{
-		$container->share(
-			ConsoleApplication::class,
-			function (Container $container)
-			{
-				$application = new ConsoleApplication(
-					null,
-					null,
-					$container->get('config'),
-				);
+    /**
+     * Registers the service provider with a DI container.
+     *
+     * @param   Container  $container  The DI container.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    public function register(Container $container)
+    {
+        $container->share(
+            ConsoleApplication::class,
+            function (Container $container) {
+                $application = new ConsoleApplication(
+                    null,
+                    null,
+                    $container->get('config'),
+                );
 
-				// Inject extra services
-				$application->setContainer($container);
-				$application->setDispatcher($container->get(DispatcherInterface::class));
+                // Inject extra services
+                $application->setContainer($container);
+                $application->setDispatcher($container->get(DispatcherInterface::class));
 
-				return $application;
-			},
-			true
-		);
-	}
+                return $application;
+            },
+            true
+        );
+    }
 }

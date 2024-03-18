@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Controller Package
  *
@@ -18,24 +19,24 @@ use JTracker\Controller\Concerns\HasLists;
  */
 abstract class AbstractTrackerListController extends AbstractTrackerController
 {
-	use HasLists;
+    use HasLists;
 
-	/**
-	 * Initialize the controller.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function initialize()
-	{
-		parent::initialize();
+    /**
+     * Initialize the controller.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     */
+    public function initialize()
+    {
+        parent::initialize();
 
-		/** @var Application $application */
-		$application = $this->getContainer()->get('app');
+        /** @var Application $application */
+        $application = $this->getContainer()->get('app');
 
-		$this->configurePaginationState($application, $this->model);
+        $this->configurePaginationState($application, $this->model);
 
-		return $this;
-	}
+        return $this;
+    }
 }

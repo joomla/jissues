@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Projects Application
  *
@@ -9,7 +10,6 @@
 namespace App\Projects\Table;
 
 use Joomla\Database\DatabaseDriver;
-
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
@@ -24,15 +24,15 @@ use JTracker\Database\AbstractDatabaseTable;
  */
 class LabelsTable extends AbstractDatabaseTable
 {
-	/**
-	 * Constructor
-	 *
-	 * @param   DatabaseDriver  $database  A database connector object
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(DatabaseDriver $database)
-	{
-		parent::__construct('#__tracker_labels', 'label_id', $database);
-	}
+    /**
+     * Constructor
+     *
+     * @param   DatabaseDriver  $database  A database connector object
+     *
+     * @since   1.0
+     */
+    public function __construct(DatabaseDriver $database)
+    {
+        parent::__construct('#__tracker_labels', 'label_id', $database);
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla! Tracker application.
  *
@@ -20,59 +21,58 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class Phpunit extends Test
 {
-	/**
-	 * The command name - available to be used as a reference for searching.
-	 *
-	 * @var    string
-	 * @since  2.0.0
-	 */
-	const COMMAND_NAME = 'test:phpunit';
+    /**
+     * The command name - available to be used as a reference for searching.
+     *
+     * @var    string
+     * @since  2.0.0
+     */
+    public const COMMAND_NAME = 'test:phpunit';
 
-	/**
-	 * Configure the command.
-	 *
-	 * @return  void
-	 *
-	 * @since   2.0.0
-	 */
-	protected function configure(): void
-	{
-		$this->setName(self::COMMAND_NAME);
-		$this->setDescription('Run PHPUnit tests.');
-	}
+    /**
+     * Configure the command.
+     *
+     * @return  void
+     *
+     * @since   2.0.0
+     */
+    protected function configure(): void
+    {
+        $this->setName(self::COMMAND_NAME);
+        $this->setDescription('Run PHPUnit tests.');
+    }
 
-	/**
-	 * Execute the command.
-	 *
-	 * @param   InputInterface   $input   The input to inject into the command.
-	 * @param   OutputInterface  $output  The output to inject into the command.
-	 *
-	 * @return  integer
-	 *
-	 * @since   1.0
-	 */
-	protected function doExecute(InputInterface $input, OutputInterface $output): int
-	{
-		$ioStyle = new SymfonyStyle($input, $output);
-		$ioStyle->title('Test PHPUnit');
+    /**
+     * Execute the command.
+     *
+     * @param   InputInterface   $input   The input to inject into the command.
+     * @param   OutputInterface  $output  The output to inject into the command.
+     *
+     * @return  integer
+     *
+     * @since   1.0
+     */
+    protected function doExecute(InputInterface $input, OutputInterface $output): int
+    {
+        $ioStyle = new SymfonyStyle($input, $output);
+        $ioStyle->title('Test PHPUnit');
 
-		$command = new Command;
+        $command = new Command();
 
-		$options = [
-			'--configuration=' . JPATH_ROOT . '/phpunit.xml',
-		];
+        $options = [
+            '--configuration=' . JPATH_ROOT . '/phpunit.xml',
+        ];
 
-		$returnVal = $command->run($options, false);
+        $returnVal = $command->run($options, false);
 
-		$this
-			->out()
-			->out($returnVal ? '<error>Finished with errors.</error>' : '<ok>Success</ok>');
+        $this
+            ->out()
+            ->out($returnVal ? '<error>Finished with errors.</error>' : '<ok>Success</ok>');
 
-		if ($this->exit)
-		{
-			exit($returnVal ? 1 : 0);
-		}
+        if ($this->exit) {
+            exit($returnVal ? 1 : 0);
+        }
 
-		return $returnVal;
-	}
+        return $returnVal;
+    }
 }

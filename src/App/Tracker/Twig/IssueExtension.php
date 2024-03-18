@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -21,294 +22,286 @@ use Twig\TwigFunction;
  */
 class IssueExtension extends AbstractExtension
 {
-	/**
-	 * A list of the tracker's issue priorities
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	private const ISSUE_PRIORITIES = [
-		1 => 'Critical',
-		2 => 'Urgent',
-		3 => 'Medium',
-		4 => 'Low',
-		5 => 'Very low',
-	];
+    /**
+     * A list of the tracker's issue priorities
+     *
+     * @var    array
+     * @since  1.0
+     */
+    private const ISSUE_PRIORITIES = [
+        1 => 'Critical',
+        2 => 'Urgent',
+        3 => 'Medium',
+        4 => 'Low',
+        5 => 'Very low',
+    ];
 
-	/**
-	 * A list of the user test options
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	private const USER_TEST_OPTIONS = [
-		0 => 'Not tested',
-		1 => 'Tested successfully',
-		2 => 'Tested unsuccessfully',
-	];
+    /**
+     * A list of the user test options
+     *
+     * @var    array
+     * @since  1.0
+     */
+    private const USER_TEST_OPTIONS = [
+        0 => 'Not tested',
+        1 => 'Tested successfully',
+        2 => 'Tested unsuccessfully',
+    ];
 
-	/**
-	 * Web application
-	 *
-	 * @var    Application
-	 * @since  1.0
-	 */
-	private $app;
+    /**
+     * Web application
+     *
+     * @var    Application
+     * @since  1.0
+     */
+    private $app;
 
-	/**
-	 * Cached label data, lazy loaded when needed
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	private $labels;
+    /**
+     * Cached label data, lazy loaded when needed
+     *
+     * @var    array
+     * @since  1.0
+     */
+    private $labels;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param   Application  $app  Web application
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(Application $app)
-	{
-		$this->app = $app;
-	}
+    /**
+     * Constructor.
+     *
+     * @param   Application  $app  Web application
+     *
+     * @since   1.0
+     */
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+    }
 
-	/**
-	 * Returns a list of filters to add to the existing list.
-	 *
-	 * @return  TwigFilter[]  An array of filters
-	 *
-	 * @since   1.0
-	 */
-	public function getFilters()
-	{
-		return [
-			new TwigFilter('issue_merge_badge', [$this, 'renderIssueMergeBadge'], ['is_safe' => ['html']]),
-		];
-	}
+    /**
+     * Returns a list of filters to add to the existing list.
+     *
+     * @return  TwigFilter[]  An array of filters
+     *
+     * @since   1.0
+     */
+    public function getFilters()
+    {
+        return [
+            new TwigFilter('issue_merge_badge', [$this, 'renderIssueMergeBadge'], ['is_safe' => ['html']]),
+        ];
+    }
 
-	/**
-	 * Returns a list of functions to add to the existing list.
-	 *
-	 * @return  TwigFunction[]  An array of functions.
-	 *
-	 * @since   1.0
-	 */
-	public function getFunctions()
-	{
-		return [
-			new TwigFunction('issue_labels', [$this, 'renderIssueLabels'], ['is_safe' => ['html']]),
-			new TwigFunction('issue_link', [$this, 'renderIssueLink'], ['is_safe' => ['html']]),
-			new TwigFunction('issue_priorities', [$this, 'getIssuePriorities']),
-			new TwigFunction('issue_priority', [$this, 'getIssuePriority']),
-			new TwigFunction('issue_priority_class', [$this, 'getIssuePriorityClass']),
-			new TwigFunction('user_test_options', [$this, 'getUserTestOptions']),
-		];
-	}
+    /**
+     * Returns a list of functions to add to the existing list.
+     *
+     * @return  TwigFunction[]  An array of functions.
+     *
+     * @since   1.0
+     */
+    public function getFunctions()
+    {
+        return [
+            new TwigFunction('issue_labels', [$this, 'renderIssueLabels'], ['is_safe' => ['html']]),
+            new TwigFunction('issue_link', [$this, 'renderIssueLink'], ['is_safe' => ['html']]),
+            new TwigFunction('issue_priorities', [$this, 'getIssuePriorities']),
+            new TwigFunction('issue_priority', [$this, 'getIssuePriority']),
+            new TwigFunction('issue_priority_class', [$this, 'getIssuePriorityClass']),
+            new TwigFunction('user_test_options', [$this, 'getUserTestOptions']),
+        ];
+    }
 
-	/**
-	 * Generate a translated merge status.
-	 *
-	 * @param   string  $status  The merge status.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 * @throws  \InvalidArgumentException
-	 */
-	public function getIssueMergeStatus($status)
-	{
-		switch ($status)
-		{
-			case 'success':
-				return 'Success';
+    /**
+     * Generate a translated merge status.
+     *
+     * @param   string  $status  The merge status.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     * @throws  \InvalidArgumentException
+     */
+    public function getIssueMergeStatus($status)
+    {
+        switch ($status) {
+            case 'success':
+                return 'Success';
 
-			case 'pending':
-				return 'Pending';
+            case 'pending':
+                return 'Pending';
 
-			case 'error':
-				return 'Error';
+            case 'error':
+                return 'Error';
 
-			case 'failure':
-				return 'Failure';
+            case 'failure':
+                return 'Failure';
 
-			default:
-				throw new \InvalidArgumentException('Unknown status: ' . $status);
-		}
-	}
+            default:
+                throw new \InvalidArgumentException('Unknown status: ' . $status);
+        }
+    }
 
-	/**
-	 * Get a text list of issue priorities.
-	 *
-	 * @return  array
-	 *
-	 * @since   1.0
-	 */
-	public function getIssuePriorities(): array
-	{
-		return self::ISSUE_PRIORITIES;
-	}
+    /**
+     * Get a text list of issue priorities.
+     *
+     * @return  array
+     *
+     * @since   1.0
+     */
+    public function getIssuePriorities(): array
+    {
+        return self::ISSUE_PRIORITIES;
+    }
 
-	/**
-	 * Get the issue priority text.
-	 *
-	 * @param   integer  $id  The priority id.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function getIssuePriority($id): string
-	{
-		return self::ISSUE_PRIORITIES[$id] ?? 'N/A';
-	}
+    /**
+     * Get the issue priority text.
+     *
+     * @param   integer  $id  The priority id.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    public function getIssuePriority($id): string
+    {
+        return self::ISSUE_PRIORITIES[$id] ?? 'N/A';
+    }
 
-	/**
-	 * Get a CSS class according to the issue's priority.
-	 *
-	 * @param   integer  $priority  The priority
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function getIssuePriorityClass($priority): string
-	{
-		switch ($priority)
-		{
-			case 1 :
-				return 'text-bg-danger';
+    /**
+     * Get a CSS class according to the issue's priority.
+     *
+     * @param   integer  $priority  The priority
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    public function getIssuePriorityClass($priority): string
+    {
+        switch ($priority) {
+            case 1:
+                return 'text-bg-danger';
 
-			case 2 :
-				return 'text-bg-warning';
+            case 2:
+                return 'text-bg-warning';
 
-			case 3 :
-				return 'text-bg-info';
+            case 3:
+                return 'text-bg-info';
 
-			case 4 :
-				return 'text-bg-inverse';
+            case 4:
+                return 'text-bg-inverse';
 
-			default :
-				return '';
-		}
-	}
+            default:
+                return '';
+        }
+    }
 
-	/**
-	 * Get a user test option string.
-	 *
-	 * @param   integer  $id  The option ID.
-	 *
-	 * @return  array|string  Option name if a known ID is given otherwise the full options list
-	 *
-	 * @since   1.0
-	 */
-	public function getUserTestOptions($id = null)
-	{
-		return ($id !== null && \array_key_exists($id, self::USER_TEST_OPTIONS)) ? self::USER_TEST_OPTIONS[$id] : self::USER_TEST_OPTIONS;
-	}
+    /**
+     * Get a user test option string.
+     *
+     * @param   integer  $id  The option ID.
+     *
+     * @return  array|string  Option name if a known ID is given otherwise the full options list
+     *
+     * @since   1.0
+     */
+    public function getUserTestOptions($id = null)
+    {
+        return ($id !== null && \array_key_exists($id, self::USER_TEST_OPTIONS)) ? self::USER_TEST_OPTIONS[$id] : self::USER_TEST_OPTIONS;
+    }
 
-	/**
-	 * Render a list of labels.
-	 *
-	 * @param   string  $idsString  Comma separated list of IDs.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function renderIssueLabels($idsString)
-	{
-		if ($this->labels === null)
-		{
-			$this->labels = $this->app->getProject()->getLabels();
-		}
+    /**
+     * Render a list of labels.
+     *
+     * @param   string  $idsString  Comma separated list of IDs.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    public function renderIssueLabels($idsString)
+    {
+        if ($this->labels === null) {
+            $this->labels = $this->app->getProject()->getLabels();
+        }
 
-		$html = [];
+        $html = [];
 
-		$ids = ($idsString) ? explode(',', $idsString) : [];
+        $ids = ($idsString) ? explode(',', $idsString) : [];
 
-		foreach ($ids as $id)
-		{
-			if (\array_key_exists($id, $this->labels))
-			{
-				$bgColor = $this->labels[$id]->color;
-				$color   = ContrastHelper::getContrastColor($bgColor);
-				$name    = $this->labels[$id]->name;
-			}
-			else
-			{
-				$bgColor = '000000';
-				$color   = 'ffffff';
-				$name    = '?';
-			}
+        foreach ($ids as $id) {
+            if (\array_key_exists($id, $this->labels)) {
+                $bgColor = $this->labels[$id]->color;
+                $color   = ContrastHelper::getContrastColor($bgColor);
+                $name    = $this->labels[$id]->name;
+            } else {
+                $bgColor = '000000';
+                $color   = 'ffffff';
+                $name    = '?';
+            }
 
-			$html[] = '<span class="badge rounded-pill" style="background-color: #' . $bgColor . '; color: ' . $color . ';">';
-			$html[] = $name;
-			$html[] = '</span>';
-		}
+            $html[] = '<span class="badge rounded-pill" style="background-color: #' . $bgColor . '; color: ' . $color . ';">';
+            $html[] = $name;
+            $html[] = '</span>';
+        }
 
-		return implode("\n", $html);
-	}
+        return implode("\n", $html);
+    }
 
-	/**
-	 * Generate HTML output for a merge status badge.
-	 *
-	 * @param   string  $status  The merge status.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 * @throws  \InvalidArgumentException
-	 */
-	public function renderIssueMergeBadge($status)
-	{
-		switch ($status)
-		{
-			case 'success':
-				$class = 'success';
+    /**
+     * Generate HTML output for a merge status badge.
+     *
+     * @param   string  $status  The merge status.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     * @throws  \InvalidArgumentException
+     */
+    public function renderIssueMergeBadge($status)
+    {
+        switch ($status) {
+            case 'success':
+                $class = 'success';
 
-				break;
+                break;
 
-			case 'pending':
-				$class = 'warning';
+            case 'pending':
+                $class = 'warning';
 
-				break;
+                break;
 
-			case 'error':
-			case 'failure':
-				$class = 'important';
+            case 'error':
+            case 'failure':
+                $class = 'important';
 
-				break;
+                break;
 
-			default:
-				throw new \InvalidArgumentException('Unknown status: ' . $status);
-		}
+            default:
+                throw new \InvalidArgumentException('Unknown status: ' . $status);
+        }
 
-		return '<span class="badge rounded-pill text-bg-' . $class . '">' . $this->getIssueMergeStatus($status) . '</span>';
-	}
+        return '<span class="badge rounded-pill text-bg-' . $class . '">' . $this->getIssueMergeStatus($status) . '</span>';
+    }
 
-	/**
-	 * Get HTML for an issue link.
-	 *
-	 * @param   integer  $number  Issue number.
-	 * @param   boolean  $closed  Issue closed status.
-	 * @param   string   $title   Issue title.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function renderIssueLink($number, $closed, $title = ''): string
-	{
-		$title = $title ?: ' #' . $number;
-		$href  = $this->app->get('uri.base.path') . 'tracker/' . $this->app->getProject()->alias . '/' . $number;
+    /**
+     * Get HTML for an issue link.
+     *
+     * @param   integer  $number  Issue number.
+     * @param   boolean  $closed  Issue closed status.
+     * @param   string   $title   Issue title.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    public function renderIssueLink($number, $closed, $title = ''): string
+    {
+        $title = $title ?: ' #' . $number;
+        $href  = $this->app->get('uri.base.path') . 'tracker/' . $this->app->getProject()->alias . '/' . $number;
 
-		$html = '<a href="' . $href . '" title="' . $title . '">';
-		$html .= $closed ? '<del># ' . $number . '</del>' : '# ' . $number;
-		$html .= '</a>';
+        $html = '<a href="' . $href . '" title="' . $title . '">';
+        $html .= $closed ? '<del># ' . $number . '</del>' : '# ' . $number;
+        $html .= '</a>';
 
-		return $html;
-	}
+        return $html;
+    }
 }

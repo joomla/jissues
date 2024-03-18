@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -9,7 +10,6 @@
 namespace App\Tracker\Table;
 
 use Joomla\Database\DatabaseDriver;
-
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
@@ -30,74 +30,69 @@ use JTracker\Database\AbstractDatabaseTable;
  */
 class ActivitiesTable extends AbstractDatabaseTable
 {
-	/**
-	 * Constructor
-	 *
-	 * @param   DatabaseDriver  $database  A database connector object.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(DatabaseDriver $database)
-	{
-		parent::__construct('#__activities', 'activities_id', $database);
-	}
+    /**
+     * Constructor
+     *
+     * @param   DatabaseDriver  $database  A database connector object.
+     *
+     * @since   1.0
+     */
+    public function __construct(DatabaseDriver $database)
+    {
+        parent::__construct('#__activities', 'activities_id', $database);
+    }
 
-	/**
-	 * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
-	 * they are safe to store in the database.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \InvalidArgumentException
-	 */
-	public function check()
-	{
-		$errors = [];
+    /**
+     * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
+     * they are safe to store in the database.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \InvalidArgumentException
+     */
+    public function check()
+    {
+        $errors = [];
 
-		if (trim($this->user) == '')
-		{
-			$errors[] = 'A user is required to be associated with an activity.';
-		}
+        if (trim($this->user) == '') {
+            $errors[] = 'A user is required to be associated with an activity.';
+        }
 
-		if (trim($this->event) == '')
-		{
-			$errors[] = 'An event is required.';
-		}
+        if (trim($this->event) == '') {
+            $errors[] = 'An event is required.';
+        }
 
-		if ($errors)
-		{
-			throw new \InvalidArgumentException(implode("\n", $errors));
-		}
+        if ($errors) {
+            throw new \InvalidArgumentException(implode("\n", $errors));
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Method to store a row in the database from the AbstractDatabaseTable instance properties.
-	 *
-	 * If a primary key value is set the row with that primary key value will be
-	 * updated with the instance property values.  If no primary key value is set
-	 * a new row will be inserted into the database with the properties from the
-	 * AbstractDatabaseTable instance.
-	 *
-	 * @param   boolean  $updateNulls  True to update fields even if they are null.
-	 *
-	 * @return  ActivitiesTable
-	 *
-	 * @since   1.0
-	 */
-	public function store($updateNulls = false)
-	{
-		if (!$this->activities_id)
-		{
-			// New item
-			if (!$this->created_date)
-			{
-				$this->created_date = (new \DateTime)->format($this->db->getDateFormat());
-			}
-		}
+    /**
+     * Method to store a row in the database from the AbstractDatabaseTable instance properties.
+     *
+     * If a primary key value is set the row with that primary key value will be
+     * updated with the instance property values.  If no primary key value is set
+     * a new row will be inserted into the database with the properties from the
+     * AbstractDatabaseTable instance.
+     *
+     * @param   boolean  $updateNulls  True to update fields even if they are null.
+     *
+     * @return  ActivitiesTable
+     *
+     * @since   1.0
+     */
+    public function store($updateNulls = false)
+    {
+        if (!$this->activities_id) {
+            // New item
+            if (!$this->created_date) {
+                $this->created_date = (new \DateTime())->format($this->db->getDateFormat());
+            }
+        }
 
-		return parent::store($updateNulls);
-	}
+        return parent::store($updateNulls);
+    }
 }

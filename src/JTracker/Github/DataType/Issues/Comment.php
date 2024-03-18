@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Framework GitHub Package
  *
@@ -15,20 +16,20 @@ namespace JTracker\Github\DataType\Issues;
  */
 class Comment
 {
-	public $id = 0;
+    public $id = 0;
 
-	public $url = '';
+    public $url = '';
 
-	public $html_url = '';
+    public $html_url = '';
 
-	public $body = '';
+    public $body = '';
 
-	/**
-	 * @var null @todo User object class
-	 */
-	public $user;
+    /**
+     * @var null @todo User object class
+     */
+    public $user;
 
-	public $created_at = '';
+    public $created_at = '';
 
-	public $updated_at = '';
+    public $updated_at = '';
 }

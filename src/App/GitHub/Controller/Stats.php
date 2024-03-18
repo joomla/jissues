@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's GitHub Application
  *
@@ -10,9 +11,7 @@ namespace App\GitHub\Controller;
 
 use App\GitHub\View\Stats\StatsHtmlView;
 use App\Projects\Model\ProjectModel;
-
 use Joomla\Github\Github;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -22,47 +21,45 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Stats extends AbstractTrackerController
 {
-	/**
-	 * View object
-	 *
-	 * @var    StatsHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
+    /**
+     * View object
+     *
+     * @var    StatsHtmlView
+     * @since  1.0
+     */
+    protected $view;
 
-	/**
-	 * Initialize the controller.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function initialize()
-	{
-		parent::initialize();
+    /**
+     * Initialize the controller.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function initialize()
+    {
+        parent::initialize();
 
-		$alias = $this->getContainer()->get('app')->input->get('project_alias');
+        $alias = $this->getContainer()->get('app')->input->get('project_alias');
 
-		if ($alias)
-		{
-			$project = (new ProjectModel($this->getContainer()->get('db')))
-				->getByAlias($alias);
-		}
-		else
-		{
-			$project = $this->getContainer()->get('app')->getProject();
-		}
+        if ($alias) {
+            $project = (new ProjectModel($this->getContainer()->get('db')))
+                ->getByAlias($alias);
+        } else {
+            $project = $this->getContainer()->get('app')->getProject();
+        }
 
-		$data = (new Github)->repositories->statistics->getListContributors(
-			$project->gh_user, $project->gh_project
-		);
+        $data = (new Github())->repositories->statistics->getListContributors(
+            $project->gh_user,
+            $project->gh_project
+        );
 
-		$data = array_reverse($data);
+        $data = array_reverse($data);
 
-		$this->view->setProject($project);
-		$this->view->setContributors($data);
+        $this->view->setProject($project);
+        $this->view->setContributors($data);
 
-		return $this;
-	}
+        return $this;
+    }
 }

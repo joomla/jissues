@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Users Application
  *
@@ -20,51 +21,50 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class User extends AbstractTrackerController
 {
-	/**
-	 * View object
-	 *
-	 * @var    UserHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
+    /**
+     * View object
+     *
+     * @var    UserHtmlView
+     * @since  1.0
+     */
+    protected $view;
 
-	/**
-	 * Model object
-	 *
-	 * @var    UserModel
-	 * @since  1.0
-	 */
-	protected $model;
+    /**
+     * Model object
+     *
+     * @var    UserModel
+     * @since  1.0
+     */
+    protected $model;
 
-	/**
-	 * Initialize the controller.
-	 *
-	 * This will set up default model and view classes.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function initialize()
-	{
-		parent::initialize();
+    /**
+     * Initialize the controller.
+     *
+     * This will set up default model and view classes.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function initialize()
+    {
+        parent::initialize();
 
-		/** @var Application $app */
-		$app = $this->getContainer()->get('app');
+        /** @var Application $app */
+        $app = $this->getContainer()->get('app');
 
-		// If no ID is given, use the ID of the current user.
-		$id = $app->getUser()->id;
+        // If no ID is given, use the ID of the current user.
+        $id = $app->getUser()->id;
 
-		if (!$id)
-		{
-			throw new \UnexpectedValueException('Not authenticated.');
-		}
+        if (!$id) {
+            throw new \UnexpectedValueException('Not authenticated.');
+        }
 
-		$this->view->id = (int) $id;
+        $this->view->id = (int) $id;
 
-		$this->model->setProject($app->getProject());
+        $this->model->setProject($app->getProject());
 
-		return $this;
-	}
+        return $this;
+    }
 }

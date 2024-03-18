@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla! Tracker application.
  *
@@ -23,117 +24,110 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class Docu extends TrackerCommand
 {
-	/**
-	 * Joomla! Github object
-	 *
-	 * @var    \Joomla\Github\Github
-	 * @since  1.0
-	 */
-	protected $github;
+    /**
+     * Joomla! Github object
+     *
+     * @var    \Joomla\Github\Github
+     * @since  1.0
+     */
+    protected $github;
 
-	/**
-	 * Configure the command.
-	 *
-	 * @return  void
-	 *
-	 * @since   2.0.0
-	 */
-	protected function configure(): void
-	{
-		$this->setName('make:docu');
-		$this->setDescription('Compile documentation using GitHub Flavored Markdown.');
-		$this->addOption('noprogress', null, InputOption::VALUE_NONE, "Don't use a progress bar.");
-	}
+    /**
+     * Configure the command.
+     *
+     * @return  void
+     *
+     * @since   2.0.0
+     */
+    protected function configure(): void
+    {
+        $this->setName('make:docu');
+        $this->setDescription('Compile documentation using GitHub Flavored Markdown.');
+        $this->addOption('noprogress', null, InputOption::VALUE_NONE, "Don't use a progress bar.");
+    }
 
-	/**
-	 * Execute the command.
-	 *
-	 * @param   InputInterface   $input   The input to inject into the command.
-	 * @param   OutputInterface  $output  The output to inject into the command.
-	 *
-	 * @return  integer
-	 *
-	 * @throws  \RuntimeException
-	 * @throws  \UnexpectedValueException
-	 * @since   1.0
-	 */
-	protected function doExecute(InputInterface $input, OutputInterface $output): int
-	{
-		$ioStyle = new SymfonyStyle($input, $output);
-		$ioStyle->title('Make Documentation');
+    /**
+     * Execute the command.
+     *
+     * @param   InputInterface   $input   The input to inject into the command.
+     * @param   OutputInterface  $output  The output to inject into the command.
+     *
+     * @return  integer
+     *
+     * @throws  \RuntimeException
+     * @throws  \UnexpectedValueException
+     * @since   1.0
+     */
+    protected function doExecute(InputInterface $input, OutputInterface $output): int
+    {
+        $ioStyle = new SymfonyStyle($input, $output);
+        $ioStyle->title('Make Documentation');
 
-		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
+        $this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
 
-		if ($input->getOption('noprogress'))
-		{
-			$this->usePBar = false;
-		}
+        if ($input->getOption('noprogress')) {
+            $this->usePBar = false;
+        }
 
-		$this->github = $this->getContainer()->get('gitHub');
+        $this->github = $this->getContainer()->get('gitHub');
 
-		$this->displayGitHubRateLimit($ioStyle);
+        $this->displayGitHubRateLimit($ioStyle);
 
-		/** @var \Joomla\Database\DatabaseDriver $db */
-		$db = $this->getContainer()->get('db');
+        /** @var \Joomla\Database\DatabaseDriver $db */
+        $db = $this->getContainer()->get('db');
 
-		$docuBase   = JPATH_ROOT . '/Documentation';
+        $docuBase   = JPATH_ROOT . '/Documentation';
 
-		/** @var  \RecursiveDirectoryIterator $it */
-		$it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($docuBase, \FilesystemIterator::SKIP_DOTS));
+        /** @var  \RecursiveDirectoryIterator $it */
+        $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($docuBase, \FilesystemIterator::SKIP_DOTS));
 
-		$ioStyle->text(sprintf('Compiling documentation in: %s', $docuBase));
-		$ioStyle->newLine();
+        $ioStyle->text(sprintf('Compiling documentation in: %s', $docuBase));
+        $ioStyle->newLine();
 
-		while ($it->valid())
-		{
-			if ($it->isDir())
-			{
-				$it->next();
+        while ($it->valid()) {
+            if ($it->isDir()) {
+                $it->next();
 
-				continue;
-			}
+                continue;
+            }
 
-			$file = new \stdClass;
+            $file = new \stdClass();
 
-			$file->filename = $it->getFilename();
+            $file->filename = $it->getFilename();
 
-			$path = $it->getSubPath();
-			$page = substr($it->getFilename(), 0, strrpos($it->getFilename(), '.'));
+            $path = $it->getSubPath();
+            $page = substr($it->getFilename(), 0, strrpos($it->getFilename(), '.'));
 
-			if ($output->isVeryVerbose())
-			{
-				$ioStyle->text(sprintf('Compiling: %s', $page));
-			}
+            if ($output->isVeryVerbose()) {
+                $ioStyle->text(sprintf('Compiling: %s', $page));
+            }
 
-			$table = new ArticlesTable($db);
+            $table = new ArticlesTable($db);
 
-			$table->{$table->getKeyName()} = null;
+            $table->{$table->getKeyName()} = null;
 
-			try
-			{
-				$table->load(['alias' => $page, 'path' => $path]);
-			}
-			catch (\RuntimeException $e)
-			{
-				// New item
-			}
+            try {
+                $table->load(['alias' => $page, 'path' => $path]);
+            } catch (\RuntimeException $e) {
+                // New item
+            }
 
-			$table->is_file = '1';
-			$table->path    = $it->getSubPath();
-			$table->alias   = $page;
-			$table->text_md = file_get_contents($it->key());
-			$table->text    = $this->github->markdown->render($table->text_md);
+            $table->is_file = '1';
+            $table->path    = $it->getSubPath();
+            $table->alias   = $page;
+            $table->text_md = file_get_contents($it->key());
+            $table->text    = $this->github->markdown->render($table->text_md);
 
-			$table->store();
+            $table->store();
 
-			$ioStyle->text('.');
+            $ioStyle->text('.');
 
-			$it->next();
-		}
+            $it->next();
+        }
 
-		$ioStyle->newLine();
-		$ioStyle->success('Finished.');
+        $ioStyle->newLine();
+        $ioStyle->success('Finished.');
 
-		return Command::SUCCESS;
-	}
+        return Command::SUCCESS;
+    }
 }

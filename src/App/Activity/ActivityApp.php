@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Activity Application
  *
@@ -19,45 +20,43 @@ use JTracker\Application\AppInterface;
  */
 class ActivityApp implements AppInterface
 {
-	/**
-	 * Loads services for the component into the application's DI Container
-	 *
-	 * @param   Container  $container  DI Container to load services into
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function loadServices(Container $container)
-	{
-		$this->registerRoutes($container->get('router'));
-	}
+    /**
+     * Loads services for the component into the application's DI Container
+     *
+     * @param   Container  $container  DI Container to load services into
+     *
+     * @return  void
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function loadServices(Container $container)
+    {
+        $this->registerRoutes($container->get('router'));
+    }
 
-	/**
-	 * Registers the routes for the app
-	 *
-	 * @param   Router  $router  The application router
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	private function registerRoutes(Router $router)
-	{
-		// Register the component routes
-		$maps = json_decode(file_get_contents(__DIR__ . '/routes.json'), true);
+    /**
+     * Registers the routes for the app
+     *
+     * @param   Router  $router  The application router
+     *
+     * @return  void
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    private function registerRoutes(Router $router)
+    {
+        // Register the component routes
+        $maps = json_decode(file_get_contents(__DIR__ . '/routes.json'), true);
 
-		if (!$maps)
-		{
-			throw new \RuntimeException('Invalid router file for the Activity app: ' . __DIR__ . '/routes.json', 500);
-		}
+        if (!$maps) {
+            throw new \RuntimeException('Invalid router file for the Activity app: ' . __DIR__ . '/routes.json', 500);
+        }
 
-		foreach ($maps as $patttern => $controller)
-		{
-			// TODO - Routes should be identified for proper methods
-			$router->all($patttern, $controller);
-		}
-	}
+        foreach ($maps as $patttern => $controller) {
+            // TODO - Routes should be identified for proper methods
+            $router->all($patttern, $controller);
+        }
+    }
 }

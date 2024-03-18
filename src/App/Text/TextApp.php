@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Text Application
  *
@@ -30,191 +31,179 @@ use JTracker\View\BaseHtmlView;
  */
 class TextApp implements AppInterface
 {
-	/**
-	 * Loads services for the component into the application's DI Container
-	 *
-	 * @param   Container  $container  DI Container to load services into
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function loadServices(Container $container)
-	{
-		$this->registerRoutes($container->get('router'));
-		$this->registerServices($container);
-	}
+    /**
+     * Loads services for the component into the application's DI Container
+     *
+     * @param   Container  $container  DI Container to load services into
+     *
+     * @return  void
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function loadServices(Container $container)
+    {
+        $this->registerRoutes($container->get('router'));
+        $this->registerServices($container);
+    }
 
-	/**
-	 * Registers the routes for the app
-	 *
-	 * @param   Router  $router  The application router
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	private function registerRoutes(Router $router)
-	{
-		// Register the component routes
-		$maps = json_decode(file_get_contents(__DIR__ . '/routes.json'), true);
+    /**
+     * Registers the routes for the app
+     *
+     * @param   Router  $router  The application router
+     *
+     * @return  void
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    private function registerRoutes(Router $router)
+    {
+        // Register the component routes
+        $maps = json_decode(file_get_contents(__DIR__ . '/routes.json'), true);
 
-		if (!$maps)
-		{
-			throw new \RuntimeException('Invalid router file for the Text app: ' . __DIR__ . '/routes.json', 500);
-		}
+        if (!$maps) {
+            throw new \RuntimeException('Invalid router file for the Text app: ' . __DIR__ . '/routes.json', 500);
+        }
 
-		foreach ($maps as $pattern => $route)
-		{
-			$methods    = $route['methods'] ?? [];
-			$controller = $route['controller'];
-			$rules      = $route['rules'] ?? [];
-			$defaults   = $route['defaults'] ?? [];
+        foreach ($maps as $pattern => $route) {
+            $methods    = $route['methods'] ?? [];
+            $controller = $route['controller'];
+            $rules      = $route['rules'] ?? [];
+            $defaults   = $route['defaults'] ?? [];
 
-			$router->addRoute(new Route($methods, $pattern, $controller, $rules, $defaults));
-		}
-	}
+            $router->addRoute(new Route($methods, $pattern, $controller, $rules, $defaults));
+        }
+    }
 
-	/**
-	 * Registers the services for the app
-	 *
-	 * @param   Container  $container  DI Container to load services into
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	private function registerServices(Container $container)
-	{
-		$container->share(
-			ListArticlesController::class,
-			function (Container $container)
-			{
-				return new ListArticlesController(
-					$container->get(ArticlesModel::class),
-					$container->get('articles.list.view')
-				);
-			},
-			true
-		);
+    /**
+     * Registers the services for the app
+     *
+     * @param   Container  $container  DI Container to load services into
+     *
+     * @return  void
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    private function registerServices(Container $container)
+    {
+        $container->share(
+            ListArticlesController::class,
+            function (Container $container) {
+                return new ListArticlesController(
+                    $container->get(ArticlesModel::class),
+                    $container->get('articles.list.view')
+                );
+            },
+            true
+        );
 
-		$container->share(
-			ViewArticleController::class,
-			function (Container $container)
-			{
-				return new ViewArticleController(
-					$container->get(ArticlesModel::class),
-					$container->get('article.show.view')
-				);
-			},
-			true
-		);
+        $container->share(
+            ViewArticleController::class,
+            function (Container $container) {
+                return new ViewArticleController(
+                    $container->get(ArticlesModel::class),
+                    $container->get('article.show.view')
+                );
+            },
+            true
+        );
 
-		$container->share(
-			CreateArticleController::class,
-			function (Container $container)
-			{
-				return new CreateArticleController(
-					$container->get('article.edit.view'),
-					$container->get('db')
-				);
-			},
-			true
-		);
+        $container->share(
+            CreateArticleController::class,
+            function (Container $container) {
+                return new CreateArticleController(
+                    $container->get('article.edit.view'),
+                    $container->get('db')
+                );
+            },
+            true
+        );
 
-		$container->share(
-			DeleteArticleController::class,
-			function (Container $container)
-			{
-				return new DeleteArticleController(
-					$container->get(ArticlesModel::class)
-				);
-			},
-			true
-		);
+        $container->share(
+            DeleteArticleController::class,
+            function (Container $container) {
+                return new DeleteArticleController(
+                    $container->get(ArticlesModel::class)
+                );
+            },
+            true
+        );
 
-		$container->share(
-			EditArticleController::class,
-			function (Container $container)
-			{
-				return new EditArticleController(
-					$container->get(ArticlesModel::class),
-					$container->get('article.edit.view')
-				);
-			},
-			true
-		);
+        $container->share(
+            EditArticleController::class,
+            function (Container $container) {
+                return new EditArticleController(
+                    $container->get(ArticlesModel::class),
+                    $container->get('article.edit.view')
+                );
+            },
+            true
+        );
 
-		$container->share(
-			SaveArticleController::class,
-			function (Container $container)
-			{
-				return new SaveArticleController(
-					$container->get(ArticlesModel::class),
-					$container->get(Github::class)
-				);
-			},
-			true
-		);
+        $container->share(
+            SaveArticleController::class,
+            function (Container $container) {
+                return new SaveArticleController(
+                    $container->get(ArticlesModel::class),
+                    $container->get(Github::class)
+                );
+            },
+            true
+        );
 
-		$container->share(
-			ArticlesModel::class,
-			function (Container $container)
-			{
-				return new ArticlesModel($container->get('db'));
-			},
-			true
-		);
+        $container->share(
+            ArticlesModel::class,
+            function (Container $container) {
+                return new ArticlesModel($container->get('db'));
+            },
+            true
+        );
 
-		$container->share(
-			'article.edit.view',
-			function (Container $container)
-			{
-				$view = new BaseHtmlView(
-					$container->get(ArticlesModel::class),
-					$container->get(RendererInterface::class)
-				);
+        $container->share(
+            'article.edit.view',
+            function (Container $container) {
+                $view = new BaseHtmlView(
+                    $container->get(ArticlesModel::class),
+                    $container->get(RendererInterface::class)
+                );
 
-				$view->setLayout('text/article.edit.twig');
+                $view->setLayout('text/article.edit.twig');
 
-				return $view;
-			},
-			true
-		);
+                return $view;
+            },
+            true
+        );
 
-		$container->share(
-			'articles.list.view',
-			function (Container $container)
-			{
-				$view = new BaseHtmlView(
-					$container->get(ArticlesModel::class),
-					$container->get(RendererInterface::class)
-				);
+        $container->share(
+            'articles.list.view',
+            function (Container $container) {
+                $view = new BaseHtmlView(
+                    $container->get(ArticlesModel::class),
+                    $container->get(RendererInterface::class)
+                );
 
-				$view->setLayout('text/articles.index.twig');
+                $view->setLayout('text/articles.index.twig');
 
-				return $view;
-			},
-			true
-		);
+                return $view;
+            },
+            true
+        );
 
-		$container->share(
-			'article.show.view',
-			function (Container $container)
-			{
-				$view = new BaseHtmlView(
-					$container->get(ArticlesModel::class),
-					$container->get(RendererInterface::class)
-				);
+        $container->share(
+            'article.show.view',
+            function (Container $container) {
+                $view = new BaseHtmlView(
+                    $container->get(ArticlesModel::class),
+                    $container->get(RendererInterface::class)
+                );
 
-				$view->setLayout('text/article.show.twig');
+                $view->setLayout('text/article.show.twig');
 
-				return $view;
-			},
-			true
-		);
-	}
+                return $view;
+            },
+            true
+        );
+    }
 }

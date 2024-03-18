@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla! Tracker application.
  *
@@ -21,51 +22,49 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class Allcache extends TrackerCommand
 {
-	/**
-	 * Configure the command.
-	 *
-	 * @return  void
-	 *
-	 * @since   2.0.0
-	 */
-	protected function configure(): void
-	{
-		$this->setName('clear:allcache');
-		$this->setDescription('Clear all cache stores.');
-	}
+    /**
+     * Configure the command.
+     *
+     * @return  void
+     *
+     * @since   2.0.0
+     */
+    protected function configure(): void
+    {
+        $this->setName('clear:allcache');
+        $this->setDescription('Clear all cache stores.');
+    }
 
-	/**
-	 * Execute the command.
-	 *
-	 * @param   InputInterface   $input   The input to inject into the command.
-	 * @param   OutputInterface  $output  The output to inject into the command.
-	 *
-	 * @return  integer
-	 *
-	 * @since   1.0
-	 */
-	protected function doExecute(InputInterface $input, OutputInterface $output): int
-	{
-		$ioStyle = new SymfonyStyle($input, $output);
-		$ioStyle->title('Clearing All Cache Stores');
+    /**
+     * Execute the command.
+     *
+     * @param   InputInterface   $input   The input to inject into the command.
+     * @param   OutputInterface  $output  The output to inject into the command.
+     *
+     * @return  integer
+     *
+     * @since   1.0
+     */
+    protected function doExecute(InputInterface $input, OutputInterface $output): int
+    {
+        $ioStyle = new SymfonyStyle($input, $output);
+        $ioStyle->title('Clearing All Cache Stores');
 
-		/** @var TrackerCommand[] $cacheCommands */
-		$cacheCommands = $this->getApplication()->getAllCommands('cache');
+        /** @var TrackerCommand[] $cacheCommands */
+        $cacheCommands = $this->getApplication()->getAllCommands('cache');
 
-		foreach ($cacheCommands as $command)
-		{
-			// Skip the allcache commands but run any other cache ones.
-			if (get_class($command) === self::class)
-			{
-				continue;
-			}
+        foreach ($cacheCommands as $command) {
+            // Skip the allcache commands but run any other cache ones.
+            if (\get_class($command) === self::class) {
+                continue;
+            }
 
-			$command->execute($input, $output);
-		}
+            $command->execute($input, $output);
+        }
 
-		$ioStyle->newLine();
-		$ioStyle->success('All cache stores have been cleared.');
+        $ioStyle->newLine();
+        $ioStyle->success('All cache stores have been cleared.');
 
-		return Command::SUCCESS;
-	}
+        return Command::SUCCESS;
+    }
 }

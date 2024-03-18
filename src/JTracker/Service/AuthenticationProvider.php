@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Service Package
  *
@@ -27,71 +28,67 @@ use JTracker\Authentication\Strategy\GitHubAuthenticationStrategy;
  */
 class AuthenticationProvider implements ServiceProviderInterface
 {
-	/**
-	 * Registers the service provider with a DI container.
-	 *
-	 * @param   Container  $container  The DI container.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function register(Container $container)
-	{
-		$container->alias('authentication', Authentication::class)
-			->share(
-				Authentication::class,
-				function (Container $container)
-				{
-					$authentication = new Authentication;
-					$authentication->addStrategy('github', $container->get(GitHubAuthenticationStrategy::class));
+    /**
+     * Registers the service provider with a DI container.
+     *
+     * @param   Container  $container  The DI container.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    public function register(Container $container)
+    {
+        $container->alias('authentication', Authentication::class)
+            ->share(
+                Authentication::class,
+                function (Container $container) {
+                    $authentication = new Authentication();
+                    $authentication->addStrategy('github', $container->get(GitHubAuthenticationStrategy::class));
 
-					return $authentication;
-				},
-				true
-			);
+                    return $authentication;
+                },
+                true
+            );
 
-		$container->share(
-			GitHubLoginHelper::class,
-			function (Container $container)
-			{
-				/** @var Registry $config */
-				$config = $container->get('config');
+        $container->share(
+            GitHubLoginHelper::class,
+            function (Container $container) {
+                /** @var Registry $config */
+                $config = $container->get('config');
 
-				// Single account
-				$clientId     = $config->get('github.client_id');
-				$clientSecret = $config->get('github.client_secret');
+                // Single account
+                $clientId     = $config->get('github.client_id');
+                $clientSecret = $config->get('github.client_secret');
 
-				// Multiple accounts
-				if (!$clientId)
-				{
-					$githubAccounts = $config->get('github.accounts');
+                // Multiple accounts
+                if (!$clientId) {
+                    $githubAccounts = $config->get('github.accounts');
 
-					// Use credentials from the first account
-					$clientId     = $githubAccounts[0]->client_id ?? '';
-					$clientSecret = $githubAccounts[0]->client_secret ?? '';
-				}
+                    // Use credentials from the first account
+                    $clientId     = $githubAccounts[0]->client_id ?? '';
+                    $clientSecret = $githubAccounts[0]->client_secret ?? '';
+                }
 
-				return new GitHubLoginHelper(
-					$container->get(AbstractWebApplication::class),
-					$container->get(DatabaseDriver::class),
-					$container->get(Github::class),
-					$container->get(Http::class),
-					$clientId,
-					$clientSecret,
-					$config->get('github.auth_scope', 'public_repo,read:user')
-				);
-			},
-			true
-		);
+                return new GitHubLoginHelper(
+                    $container->get(AbstractWebApplication::class),
+                    $container->get(DatabaseDriver::class),
+                    $container->get(Github::class),
+                    $container->get(Http::class),
+                    $clientId,
+                    $clientSecret,
+                    $config->get('github.auth_scope', 'public_repo,read:user')
+                );
+            },
+            true
+        );
 
-		$container->share(
-			GitHubAuthenticationStrategy::class,
-			function (Container $container)
-			{
-				return new GitHubAuthenticationStrategy($container->get(GitHubLoginHelper::class), $container->get(Input::class));
-			},
-			true
-		);
-	}
+        $container->share(
+            GitHubAuthenticationStrategy::class,
+            function (Container $container) {
+                return new GitHubAuthenticationStrategy($container->get(GitHubLoginHelper::class), $container->get(Input::class));
+            },
+            true
+        );
+    }
 }

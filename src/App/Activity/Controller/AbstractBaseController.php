@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Activity Application
  *
@@ -18,33 +19,33 @@ use JTracker\Controller\AbstractTrackerController;
  */
 abstract class AbstractBaseController extends AbstractTrackerController
 {
-	/**
-	 * View object
-	 *
-	 * @var    DefaultHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
+    /**
+     * View object
+     *
+     * @var    DefaultHtmlView
+     * @since  1.0
+     */
+    protected $view;
 
-	/**
-	 * Initialize the controller.
-	 *
-	 * @return  $this  Method supports chaining
-	 *
-	 * @since   1.0
-	 */
-	public function initialize()
-	{
-		parent::initialize();
+    /**
+     * Initialize the controller.
+     *
+     * @return  $this  Method supports chaining
+     *
+     * @since   1.0
+     */
+    public function initialize()
+    {
+        parent::initialize();
 
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
 
-		$application->getUser()->authorize('view');
+        $application->getUser()->authorize('view');
 
-		$this->model->setProject($application->getProject());
-		$this->view->setProject($application->getProject());
+        $this->model->setProject($application->getProject());
+        $this->view->setProject($application->getProject());
 
-		return $this;
-	}
+        return $this;
+    }
 }

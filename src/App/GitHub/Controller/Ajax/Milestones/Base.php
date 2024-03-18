@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's GitHub Application
  *
@@ -18,60 +19,59 @@ use JTracker\Github\GithubFactory;
  */
 class Base extends AbstractAjaxController
 {
-	/**
-	 * Get a list of milestones for a project.
-	 *
-	 * @param   \App\Projects\TrackerProject  $project  The project.
-	 *
-	 * @return  array
-	 *
-	 * @since   1.0
-	 */
-	protected function getList($project)
-	{
-		$gitHub = GithubFactory::getInstance($this->getContainer()->get('app'));
+    /**
+     * Get a list of milestones for a project.
+     *
+     * @param   \App\Projects\TrackerProject  $project  The project.
+     *
+     * @return  array
+     *
+     * @since   1.0
+     */
+    protected function getList($project)
+    {
+        $gitHub = GithubFactory::getInstance($this->getContainer()->get('app'));
 
-		$data = array_merge(
-			$gitHub->issues->milestones->getList($project->gh_user, $project->gh_project),
-			$gitHub->issues->milestones->getList($project->gh_user, $project->gh_project, 'closed')
-		);
+        $data = array_merge(
+            $gitHub->issues->milestones->getList($project->gh_user, $project->gh_project),
+            $gitHub->issues->milestones->getList($project->gh_user, $project->gh_project, 'closed')
+        );
 
-		$milestones = [];
+        $milestones = [];
 
-		foreach ($data as $item)
-		{
-			// This is to keep request data short..
+        foreach ($data as $item) {
+            // This is to keep request data short..
 
-			$milestone = new \stdClass;
+            $milestone = new \stdClass();
 
-			$milestone->number      = $item->number;
-			$milestone->title       = $item->title;
-			$milestone->state       = $item->state;
-			$milestone->description = $item->description;
-			$milestone->due_on      = $item->due_on;
+            $milestone->number      = $item->number;
+            $milestone->title       = $item->title;
+            $milestone->state       = $item->state;
+            $milestone->description = $item->description;
+            $milestone->due_on      = $item->due_on;
 
-			$milestones[] = $milestone;
-		}
+            $milestones[] = $milestone;
+        }
 
-		// Sort milestones by their number
-		usort(
-			$milestones, function ($a, $b)
-			{
-				return $a->number > $b->number;
-			}
-		);
+        // Sort milestones by their number
+        usort(
+            $milestones,
+            function ($a, $b) {
+                return $a->number > $b->number;
+            }
+        );
 
-		return $milestones;
-	}
+        return $milestones;
+    }
 
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function prepareResponse()
-	{
-	}
+    /**
+     * Prepare the response.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function prepareResponse()
+    {
+    }
 }

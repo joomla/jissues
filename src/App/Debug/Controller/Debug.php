@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Debug Application
  *
@@ -17,17 +18,17 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Debug extends AbstractTrackerController
 {
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		$this->getContainer()->get('app')->getUser()->authorize('admin');
+    /**
+     * Execute the controller.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    public function execute()
+    {
+        $this->getContainer()->get('app')->getUser()->authorize('admin');
 
-		return parent::execute();
-	}
+        return parent::execute();
+    }
 }

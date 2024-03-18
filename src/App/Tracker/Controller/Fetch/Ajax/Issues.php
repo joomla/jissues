@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Model Package
  *
@@ -17,35 +18,35 @@ use JTracker\Controller\AbstractAjaxController;
  */
 class Issues extends AbstractAjaxController
 {
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function prepareResponse()
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
+    /**
+     * Prepare the response.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function prepareResponse()
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
 
-		/** @var \Joomla\Database\DatabaseDriver $db */
-		$db = $this->getContainer()->get('db');
+        /** @var \Joomla\Database\DatabaseDriver $db */
+        $db = $this->getContainer()->get('db');
 
-		$issueNumber = $application->input->getInt('q');
+        $issueNumber = $application->input->getInt('q');
 
-		if ($issueNumber)
-		{
-			$this->response->data = $db
-				->setQuery(
-					$db->getQuery(true)
-						->select($db->quoteName(['i.issue_number', 'i.title']))
-						->from($db->quoteName('#__issues', 'i'))
-						->where($db->quoteName('i.project_id') . ' = ' . (int) $application->getProject()->project_id)
-						->where($db->quoteName('i.issue_number') . " LIKE '%" . (int) $issueNumber . "%'"),
-					0, 10
-				)
-				->loadAssocList();
-		}
-	}
+        if ($issueNumber) {
+            $this->response->data = $db
+                ->setQuery(
+                    $db->getQuery(true)
+                        ->select($db->quoteName(['i.issue_number', 'i.title']))
+                        ->from($db->quoteName('#__issues', 'i'))
+                        ->where($db->quoteName('i.project_id') . ' = ' . (int) $application->getProject()->project_id)
+                        ->where($db->quoteName('i.issue_number') . " LIKE '%" . (int) $issueNumber . "%'"),
+                    0,
+                    10
+                )
+                ->loadAssocList();
+        }
+    }
 }

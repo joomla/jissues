@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Support Application
  *
@@ -20,19 +21,19 @@ use Laminas\Diactoros\Response\TextResponse;
  */
 class WrongCmsController extends AbstractController
 {
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		$this->getApplication()->setResponse(
-			new TextResponse("This isn't the CMS you're looking for.", 404)
-		);
+    /**
+     * Execute the controller.
+     *
+     * @return  boolean
+     *
+     * @since   1.0
+     */
+    public function execute()
+    {
+        $this->getApplication()->setResponse(
+            new TextResponse("This isn't the CMS you're looking for.", 404)
+        );
 
-		return true;
-	}
+        return true;
+    }
 }

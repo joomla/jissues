@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Text Application
  *
@@ -22,64 +23,64 @@ use Laminas\Diactoros\Response\RedirectResponse;
  */
 class SaveArticleController extends AbstractController
 {
-	/**
-	 * GitHub API connector
-	 *
-	 * @var    Github
-	 * @since  1.0
-	 */
-	private $github;
+    /**
+     * GitHub API connector
+     *
+     * @var    Github
+     * @since  1.0
+     */
+    private $github;
 
-	/**
-	 * The articles model
-	 *
-	 * @var    ArticlesModel
-	 * @since  1.0
-	 */
-	private $model;
+    /**
+     * The articles model
+     *
+     * @var    ArticlesModel
+     * @since  1.0
+     */
+    private $model;
 
-	/**
-	 * Controller constructor.
-	 *
-	 * @param   ArticlesModel  $model   The articles model
-	 * @param   Github         $github  GitHub API connector
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(ArticlesModel $model, Github $github)
-	{
-		$this->model  = $model;
-		$this->github = $github;
-	}
+    /**
+     * Controller constructor.
+     *
+     * @param   ArticlesModel  $model   The articles model
+     * @param   Github         $github  GitHub API connector
+     *
+     * @since   1.0
+     */
+    public function __construct(ArticlesModel $model, Github $github)
+    {
+        $this->model  = $model;
+        $this->github = $github;
+    }
 
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		$this->getApplication()->getUser()->authorize('admin');
+    /**
+     * Execute the controller.
+     *
+     * @return  boolean
+     *
+     * @since   1.0
+     */
+    public function execute()
+    {
+        $this->getApplication()->getUser()->authorize('admin');
 
-		$data = [
-			'article_id' => $this->getInput()->getUint('id'),
-			'title'      => $this->getInput()->getString('title'),
-			'alias'      => $this->getInput()->getString('alias'),
-			'text_md'    => $this->getInput()->get('text_md', null, 'raw'),
-		];
+        $data = [
+            'article_id' => $this->getInput()->getUint('id'),
+            'title'      => $this->getInput()->getString('title'),
+            'alias'      => $this->getInput()->getString('alias'),
+            'text_md'    => $this->getInput()->get('text_md', null, 'raw'),
+        ];
 
-		$data['text'] = $this->github->markdown->render($data['text_md']);
+        $data['text'] = $this->github->markdown->render($data['text_md']);
 
-		$this->model->save($data);
+        $this->model->save($data);
 
-		$this->getApplication()->enqueueMessage('The article has been saved.', 'success');
+        $this->getApplication()->enqueueMessage('The article has been saved.', 'success');
 
-		$this->getApplication()->setResponse(
-			new RedirectResponse($this->getApplication()->get('uri.base.path') . 'articles')
-		);
+        $this->getApplication()->setResponse(
+            new RedirectResponse($this->getApplication()->get('uri.base.path') . 'articles')
+        );
 
-		return true;
-	}
+        return true;
+    }
 }

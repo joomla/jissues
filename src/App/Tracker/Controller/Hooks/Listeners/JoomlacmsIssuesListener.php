@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -11,7 +12,6 @@ namespace App\Tracker\Controller\Hooks\Listeners;
 use Joomla\Event\Event;
 use Joomla\Event\SubscriberInterface;
 use Joomla\Github\Github;
-
 use Monolog\Logger;
 
 /**
@@ -21,143 +21,135 @@ use Monolog\Logger;
  */
 class JoomlacmsIssuesListener extends AbstractListener implements SubscriberInterface
 {
-	/**
-	 * Returns an array of events this subscriber will listen to.
-	 *
-	 * @return  array
-	 *
-	 * @since   1.0
-	 */
-	public static function getSubscribedEvents(): array
-	{
-		return [
-			'onIssueAfterCreate' => 'onIssueAfterCreate',
-			'onIssueAfterUpdate' => 'onIssueAfterUpdate',
-		];
-	}
+    /**
+     * Returns an array of events this subscriber will listen to.
+     *
+     * @return  array
+     *
+     * @since   1.0
+     */
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            'onIssueAfterCreate' => 'onIssueAfterCreate',
+            'onIssueAfterUpdate' => 'onIssueAfterUpdate',
+        ];
+    }
 
-	/**
-	 * Event for after issues are created in the application
-	 *
-	 * @param   Event  $event  Event object
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function onIssueAfterCreate(Event $event)
-	{
-		// Pull the arguments array
-		$arguments = $event->getArguments();
+    /**
+     * Event for after issues are created in the application
+     *
+     * @param   Event  $event  Event object
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    public function onIssueAfterCreate(Event $event)
+    {
+        // Pull the arguments array
+        $arguments = $event->getArguments();
 
-		$this->checkIssueLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+        $this->checkIssueLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
-		// Only perform these events if this is a new issue, action will be 'opened'
-		if ($arguments['action'] === 'opened')
-		{
-			// Add a "no code" label
-			$this->checkNoCodelabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
-		}
-	}
+        // Only perform these events if this is a new issue, action will be 'opened'
+        if ($arguments['action'] === 'opened') {
+            // Add a "no code" label
+            $this->checkNoCodelabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+        }
+    }
 
-	/**
-	 * Event for after issues are created in the application
-	 *
-	 * @param   Event  $event  Event object
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function onIssueAfterUpdate(Event $event)
-	{
-		// Pull the arguments array
-		$arguments = $event->getArguments();
+    /**
+     * Event for after issues are created in the application
+     *
+     * @param   Event  $event  Event object
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    public function onIssueAfterUpdate(Event $event)
+    {
+        // Pull the arguments array
+        $arguments = $event->getArguments();
 
-		$this->checkIssueLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+        $this->checkIssueLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
-		/*
-		 * Only perform these events if this is a new issue, action will be 'opened'
-		 * Generally this isn't necessary, however if the initial create webhook fails and someone redelivers the webhook from GitHub,
-		 * then this will allow the correct actions to be taken
-		 */
-		if ($arguments['action'] === 'opened')
-		{
-			// Add a "no code" label
-			$this->checkNoCodelabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
-		}
-	}
+        /*
+         * Only perform these events if this is a new issue, action will be 'opened'
+         * Generally this isn't necessary, however if the initial create webhook fails and someone redelivers the webhook from GitHub,
+         * then this will allow the correct actions to be taken
+         */
+        if ($arguments['action'] === 'opened') {
+            // Add a "no code" label
+            $this->checkNoCodelabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+        }
+    }
 
-	/**
-	 * Adds a "No Code Attached Yet" label
-	 *
-	 * @param   object  $hookData  Hook data payload
-	 * @param   Github  $github    Github object
-	 * @param   Logger  $logger    Logger object
-	 * @param   object  $project   Object containing project data
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function checkNoCodelabel($hookData, Github $github, Logger $logger, $project)
-	{
-		// Set some data
-		$label      = 'No Code Attached Yet';
-		$labels     = [];
-		$labelIsSet = $this->checkLabel($hookData, $github, $logger, $project, $label);
+    /**
+     * Adds a "No Code Attached Yet" label
+     *
+     * @param   object  $hookData  Hook data payload
+     * @param   Github  $github    Github object
+     * @param   Logger  $logger    Logger object
+     * @param   object  $project   Object containing project data
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function checkNoCodelabel($hookData, Github $github, Logger $logger, $project)
+    {
+        // Set some data
+        $label      = 'No Code Attached Yet';
+        $labels     = [];
+        $labelIsSet = $this->checkLabel($hookData, $github, $logger, $project, $label);
 
-		if ($labelIsSet === false)
-		{
-			// Add the label as it isn't already set
-			$labels[] = $label;
-			$this->addLabels($hookData, $github, $logger, $project, $labels);
-		}
-	}
+        if ($labelIsSet === false) {
+            // Add the label as it isn't already set
+            $labels[] = $label;
+            $this->addLabels($hookData, $github, $logger, $project, $labels);
+        }
+    }
 
-	/**
-	 * Checks for issue label rules
-	 *
-	 * @param   object  $hookData  Hook data payload
-	 * @param   Github  $github    Github object
-	 * @param   Logger  $logger    Logger object
-	 * @param   object  $project   Object containing project data
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function checkIssueLabels($hookData, Github $github, Logger $logger, $project)
-	{
-		// Set some data
-		$rfcLabel     = 'RFC';
-		$addLabels    = [];
-		$removeLabels = [];
+    /**
+     * Checks for issue label rules
+     *
+     * @param   object  $hookData  Hook data payload
+     * @param   Github  $github    Github object
+     * @param   Logger  $logger    Logger object
+     * @param   object  $project   Object containing project data
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function checkIssueLabels($hookData, Github $github, Logger $logger, $project)
+    {
+        // Set some data
+        $rfcLabel     = 'RFC';
+        $addLabels    = [];
+        $removeLabels = [];
 
-		$rfcIssue    = strpos($hookData->issue->title, '[RFC]') !== false;
-		$rfcLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $rfcLabel);
+        $rfcIssue    = strpos($hookData->issue->title, '[RFC]') !== false;
+        $rfcLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $rfcLabel);
 
-		// Add the label if we have a RFC issue
-		if ($rfcIssue && !$rfcLabelSet)
-		{
-			$addLabels[] = $rfcLabel;
-		}
-		// Remove the label if we don't have a RFC issue
-		elseif (!$rfcIssue && $rfcLabelSet)
-		{
-			$removeLabels[] = $rfcLabel;
-		}
+        // Add the label if we have a RFC issue
+        if ($rfcIssue && !$rfcLabelSet) {
+            $addLabels[] = $rfcLabel;
+        } elseif (!$rfcIssue && $rfcLabelSet) {
+            // Remove the label if we don't have a RFC issue
+            $removeLabels[] = $rfcLabel;
+        }
 
-		// Add the labels if we need
-		if (!empty($addLabels))
-		{
-			$this->addLabels($hookData, $github, $logger, $project, $addLabels);
-		}
+        // Add the labels if we need
+        if (!empty($addLabels)) {
+            $this->addLabels($hookData, $github, $logger, $project, $addLabels);
+        }
 
-		// Remove the labels if we need
-		if (!empty($removeLabels))
-		{
-			$this->removeLabels($hookData, $github, $logger, $project, $removeLabels);
-		}
-	}
+        // Remove the labels if we need
+        if (!empty($removeLabels)) {
+            $this->removeLabels($hookData, $github, $logger, $project, $removeLabels);
+        }
+    }
 }

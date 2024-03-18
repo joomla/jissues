@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla! Tracker application.
  *
@@ -22,46 +23,43 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class Cache extends TrackerCommand
 {
-	/**
-	 * Configure the command.
-	 *
-	 * @return  void
-	 *
-	 * @since   2.0.0
-	 */
-	protected function configure(): void
-	{
-		$this->setName('clear:cache');
-		$this->setDescription('Clear the application cache.');
-	}
+    /**
+     * Configure the command.
+     *
+     * @return  void
+     *
+     * @since   2.0.0
+     */
+    protected function configure(): void
+    {
+        $this->setName('clear:cache');
+        $this->setDescription('Clear the application cache.');
+    }
 
-	/**
-	 * Execute the command.
-	 *
-	 * @param   InputInterface   $input   The input to inject into the command.
-	 * @param   OutputInterface  $output  The output to inject into the command.
-	 *
-	 * @return  integer
-	 *
-	 * @since   1.0
-	 */
-	protected function doExecute(InputInterface $input, OutputInterface $output): int
-	{
-		$ioStyle = new SymfonyStyle($input, $output);
-		$ioStyle->title('Clear Application Cache');
+    /**
+     * Execute the command.
+     *
+     * @param   InputInterface   $input   The input to inject into the command.
+     * @param   OutputInterface  $output  The output to inject into the command.
+     *
+     * @return  integer
+     *
+     * @since   1.0
+     */
+    protected function doExecute(InputInterface $input, OutputInterface $output): int
+    {
+        $ioStyle = new SymfonyStyle($input, $output);
+        $ioStyle->title('Clear Application Cache');
 
-		/** @var CacheItemPoolInterface $cache */
-		$cache = $this->getContainer()->get('cache');
+        /** @var CacheItemPoolInterface $cache */
+        $cache = $this->getContainer()->get('cache');
 
-		if ($cache->clear())
-		{
-			$ioStyle->success('The application cache has been cleared.');
-		}
-		else
-		{
-			$ioStyle->error('There was an error clearing the application cache.');
-		}
+        if ($cache->clear()) {
+            $ioStyle->success('The application cache has been cleared.');
+        } else {
+            $ioStyle->error('There was an error clearing the application cache.');
+        }
 
-		return Command::SUCCESS;
-	}
+        return Command::SUCCESS;
+    }
 }

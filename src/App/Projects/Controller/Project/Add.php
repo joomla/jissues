@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Projects Application
  *
@@ -17,33 +18,33 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Add extends AbstractTrackerController
 {
-	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'project';
+    /**
+     * The default view for the component
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultView = 'project';
 
-	/**
-	 * The default layout for the app.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultLayout = 'edit';
+    /**
+     * The default layout for the app.
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultLayout = 'edit';
 
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		$this->getContainer()->get('app')->getUser()->authorize('admin');
+    /**
+     * Execute the controller.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    public function execute()
+    {
+        $this->getContainer()->get('app')->getUser()->authorize('admin');
 
-		return parent::execute();
-	}
+        return parent::execute();
+    }
 }

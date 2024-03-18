@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -18,50 +19,47 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Random extends AbstractTrackerController
 {
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function execute()
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
-		$session     = $application->getSession();
-		$project     = $application->getProject();
+    /**
+     * Execute the controller.
+     *
+     * @return  string  The rendered view.
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function execute()
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
+        $session     = $application->getSession();
+        $project     = $application->getProject();
 
-		$application->getUser()->authorize('view');
+        $application->getUser()->authorize('view');
 
-		// Don't cache this response, ever
-		$application->allowCache(false);
+        // Don't cache this response, ever
+        $application->allowCache(false);
 
-		try
-		{
-			$randomNumber = (new IssueModel($this->getContainer()->get('db')))
-				->setProject($project)
-				->getRandomNumber($session->get('tracker.previous_random.' . $project->project_id, 0));
+        try {
+            $randomNumber = (new IssueModel($this->getContainer()->get('db')))
+                ->setProject($project)
+                ->getRandomNumber($session->get('tracker.previous_random.' . $project->project_id, 0));
 
-			$session->set('tracker.previous_random.' . $project->project_id, $randomNumber);
+            $session->set('tracker.previous_random.' . $project->project_id, $randomNumber);
 
-			$application->redirect(
-				$application->get('uri.base.path')
-				. '/tracker/' . $application->input->get('project_alias') . '/' . $randomNumber
-			);
-		}
-		catch (\Exception $e)
-		{
-			$application->enqueueMessage($e->getMessage(), 'error');
+            $application->redirect(
+                $application->get('uri.base.path')
+                . '/tracker/' . $application->input->get('project_alias') . '/' . $randomNumber
+            );
+        } catch (\Exception $e) {
+            $application->enqueueMessage($e->getMessage(), 'error');
 
-			$application->redirect(
-				$application->get('uri.base.path')
-				. 'tracker/' . $application->input->get('project_alias')
-			);
-		}
+            $application->redirect(
+                $application->get('uri.base.path')
+                . 'tracker/' . $application->input->get('project_alias')
+            );
+        }
 
-		// To silence PHPCS expecting a return
-		return '';
-	}
+        // To silence PHPCS expecting a return
+        return '';
+    }
 }

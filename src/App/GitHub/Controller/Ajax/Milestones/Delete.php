@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's GitHub Application
  *
@@ -17,38 +18,35 @@ use JTracker\Github\GithubFactory;
  */
 class Delete extends Base
 {
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function prepareResponse()
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
+    /**
+     * Prepare the response.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function prepareResponse()
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
 
-		$application->getUser()->authorize('manage');
+        $application->getUser()->authorize('manage');
 
-		$milestoneId = $application->input->getUint('milestone_id');
+        $milestoneId = $application->input->getUint('milestone_id');
 
-		$project = $application->getProject();
+        $project = $application->getProject();
 
-		// Look if we have a bot user configured.
-		if ($project->getGh_Editbot_User() && $project->getGh_Editbot_Pass())
-		{
-			$gitHub = GithubFactory::getInstance($application, true, $project->getGh_Editbot_User(), $project->getGh_Editbot_Pass());
-		}
-		else
-		{
-			$gitHub = GithubFactory::getInstance($application);
-		}
+        // Look if we have a bot user configured.
+        if ($project->getGh_Editbot_User() && $project->getGh_Editbot_Pass()) {
+            $gitHub = GithubFactory::getInstance($application, true, $project->getGh_Editbot_User(), $project->getGh_Editbot_Pass());
+        } else {
+            $gitHub = GithubFactory::getInstance($application);
+        }
 
-		// Delete the milestone
-		$gitHub->issues->milestones->delete($project->gh_user, $project->gh_project, $milestoneId);
+        // Delete the milestone
+        $gitHub->issues->milestones->delete($project->gh_user, $project->gh_project, $milestoneId);
 
-		// Get the current milestones list.
-		$this->response->data = $this->getList($project);
-	}
+        // Get the current milestones list.
+        $this->response->data = $this->getList($project);
+    }
 }

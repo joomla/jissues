@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker
  *
@@ -18,148 +19,148 @@ use PHPUnit\Framework\TestCase;
  */
 class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends TestCase
 {
-	/**
-	 * @var    JoomlaCmsPullsListenerMock
-	 * @since  1.0
-	 */
-	protected $object;
+    /**
+     * @var    JoomlaCmsPullsListenerMock
+     * @since  1.0
+     */
+    protected $object;
 
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 *
-	 * @since  1.0
-	 * @return void
-	 */
-	protected function setUp(): void
-	{
-		$this->object = new JoomlaCmsPullsListenerMock;
-	}
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     *
+     * @since  1.0
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        $this->object = new JoomlaCmsPullsListenerMock();
+    }
 
-	/**
-	 * Test method
-	 *
-	 * @return void
-	 */
-	public function testDirectories(): void
-	{
-		$files = [
-			'administrator/'                                            => ['23'],
-			'administrator/components/'                                 => ['23'],
-			'administrator/components/com_admin/sql/updates'            => ['10', '23', '42'],
-			'administrator/components/com_admin/sql/updates/postgresql' => ['2', '10', '23', '42'],
-			'administrator/components/com_admin/sql/updates/sqlazure'   => ['3', '10', '23', '42'],
-			'administrator/components/com_associations'                 => ['23', '72'],
-			'administrator/components/com_media'                        => ['23', '35'],
-			'administrator/components/com_media/resources/scripts'      => ['23', '35', '76'],
-			'administrator/components/com_media/resources/styles'       => ['23', '35', '76'],
-			'administrator/components/com_media/package-lock.json'      => ['23', '35', '76'],
-			'administrator/components/com_media/package.json'           => ['23', '35', '76'],
-			'administrator/components/com_media/webpack.config.js'      => ['1', '23', '35', '76'],
-			'administrator/components/com_tags'                         => ['16', '23'],
-			'administrator/language'                                    => ['23', '27'],
-			'administrator/modules/'                                    => ['13', '23'],
-			'administrator/templates/'                                  => ['23', '31'],
-			'administrator/templates/atum/scss/template.scss'           => ['23', '31', '76'],
-			'build/'                                                    => ['36'],
-			'build/media_source'                                        => ['36', '76'],
-			'build.js'                                                  => ['1', '76'],
-			'build.xml'                                                 => ['36'],
-			'cli/'                                                      => ['18'],
-			'components/'                                               => ['24'],
-			'components/com_media'                                      => ['24', '35'],
-			'components/com_tags'                                       => ['16', '24'],
-			'composer.json'                                             => ['4', '73'],
-			'composer.lock'                                             => ['4', '73'],
-			'installation/'                                             => ['25'],
-			'installation/language'                                     => ['25', '27'],
-			'installation/sql'                                          => ['10', '25'],
-			'installation/sql/postgresql'                               => ['2', '10', '25'],
-			'installation/sql/sqlazure'                                 => ['3', '10', '25'],
-			'layouts/'                                                  => ['15'],
-			'language'                                                  => ['27'],
-			'libraries/'                                                => ['12'],
-			'libraries/fof/'                                            => ['4', '12'],
-			'libraries/joomla/database/query/postgresql.php'            => ['2', '12'],
-			'libraries/joomla/database/driver/sqlsrv.php'               => ['3', '12'],
-			'libraries/idna_convert/'                                   => ['4', '12'],
-			'libraries/phpass/'                                         => ['4', '12'],
-			'libraries/phputf8/'                                        => ['4', '12'],
-			'libraries/simplepie/'                                      => ['4', '12'],
-			'libraries/vendor/'                                         => ['4', '12', '73'],
-			'media/editors/codemirror'                                  => ['4'],
-			'media/editors/tinymce'                                     => ['4'],
-			'media/system/js/fields/calendar-locales/el.js'             => ['1', '27'],
-			'modules/'                                                  => ['13', '24'],
-			'package-lock.json'                                         => ['76'],
-			'package.json'                                              => ['76'],
-			'phpunit.xml.dist'                                          => ['14'],
-			'plugins/'                                                  => ['24', '28'],
-			'README.md'                                                 => ['36'],
-			'README.txt'                                                => ['36'],
-			'templates/'                                                => ['24', '30'],
-			'test.js'                                                   => ['1'],
-			'tests'                                                     => ['14'],
-			'travisci-phpunit.xml'                                      => ['14'],
-			'.travis.yml'                                               => ['14'],
-			'.github/'                                                  => ['36'],
-			'.gitignore'                                                => ['36'],
-			'.appveyor.yml'                                             => ['14'],
-			'.drone.yml'                                                => ['14'],
-			'.php_cs'                                                   => ['36'],
-			'appveyor-phpunit.xml'                                      => ['14'],
-			'Gemfile'                                                   => ['36'],
-			'grunt-settings.yaml'                                       => ['36'],
-			'grunt-readme.md'                                           => ['36'],
-			'Gruntfile.js'                                              => ['1', '36'],
-			'karma.conf.js'                                             => ['1', '14'],
-			'scss-lint-report.xml'                                      => ['36'],
-			'sccs-lint.yml'                                             => ['36'],
-		];
+    /**
+     * Test method
+     *
+     * @return void
+     */
+    public function testDirectories(): void
+    {
+        $files = [
+            'administrator/'                                            => ['23'],
+            'administrator/components/'                                 => ['23'],
+            'administrator/components/com_admin/sql/updates'            => ['10', '23', '42'],
+            'administrator/components/com_admin/sql/updates/postgresql' => ['2', '10', '23', '42'],
+            'administrator/components/com_admin/sql/updates/sqlazure'   => ['3', '10', '23', '42'],
+            'administrator/components/com_associations'                 => ['23', '72'],
+            'administrator/components/com_media'                        => ['23', '35'],
+            'administrator/components/com_media/resources/scripts'      => ['23', '35', '76'],
+            'administrator/components/com_media/resources/styles'       => ['23', '35', '76'],
+            'administrator/components/com_media/package-lock.json'      => ['23', '35', '76'],
+            'administrator/components/com_media/package.json'           => ['23', '35', '76'],
+            'administrator/components/com_media/webpack.config.js'      => ['1', '23', '35', '76'],
+            'administrator/components/com_tags'                         => ['16', '23'],
+            'administrator/language'                                    => ['23', '27'],
+            'administrator/modules/'                                    => ['13', '23'],
+            'administrator/templates/'                                  => ['23', '31'],
+            'administrator/templates/atum/scss/template.scss'           => ['23', '31', '76'],
+            'build/'                                                    => ['36'],
+            'build/media_source'                                        => ['36', '76'],
+            'build.js'                                                  => ['1', '76'],
+            'build.xml'                                                 => ['36'],
+            'cli/'                                                      => ['18'],
+            'components/'                                               => ['24'],
+            'components/com_media'                                      => ['24', '35'],
+            'components/com_tags'                                       => ['16', '24'],
+            'composer.json'                                             => ['4', '73'],
+            'composer.lock'                                             => ['4', '73'],
+            'installation/'                                             => ['25'],
+            'installation/language'                                     => ['25', '27'],
+            'installation/sql'                                          => ['10', '25'],
+            'installation/sql/postgresql'                               => ['2', '10', '25'],
+            'installation/sql/sqlazure'                                 => ['3', '10', '25'],
+            'layouts/'                                                  => ['15'],
+            'language'                                                  => ['27'],
+            'libraries/'                                                => ['12'],
+            'libraries/fof/'                                            => ['4', '12'],
+            'libraries/joomla/database/query/postgresql.php'            => ['2', '12'],
+            'libraries/joomla/database/driver/sqlsrv.php'               => ['3', '12'],
+            'libraries/idna_convert/'                                   => ['4', '12'],
+            'libraries/phpass/'                                         => ['4', '12'],
+            'libraries/phputf8/'                                        => ['4', '12'],
+            'libraries/simplepie/'                                      => ['4', '12'],
+            'libraries/vendor/'                                         => ['4', '12', '73'],
+            'media/editors/codemirror'                                  => ['4'],
+            'media/editors/tinymce'                                     => ['4'],
+            'media/system/js/fields/calendar-locales/el.js'             => ['1', '27'],
+            'modules/'                                                  => ['13', '24'],
+            'package-lock.json'                                         => ['76'],
+            'package.json'                                              => ['76'],
+            'phpunit.xml.dist'                                          => ['14'],
+            'plugins/'                                                  => ['24', '28'],
+            'README.md'                                                 => ['36'],
+            'README.txt'                                                => ['36'],
+            'templates/'                                                => ['24', '30'],
+            'test.js'                                                   => ['1'],
+            'tests'                                                     => ['14'],
+            'travisci-phpunit.xml'                                      => ['14'],
+            '.travis.yml'                                               => ['14'],
+            '.github/'                                                  => ['36'],
+            '.gitignore'                                                => ['36'],
+            '.appveyor.yml'                                             => ['14'],
+            '.drone.yml'                                                => ['14'],
+            '.php_cs'                                                   => ['36'],
+            'appveyor-phpunit.xml'                                      => ['14'],
+            'Gemfile'                                                   => ['36'],
+            'grunt-settings.yaml'                                       => ['36'],
+            'grunt-readme.md'                                           => ['36'],
+            'Gruntfile.js'                                              => ['1', '36'],
+            'karma.conf.js'                                             => ['1', '14'],
+            'scss-lint-report.xml'                                      => ['36'],
+            'sccs-lint.yml'                                             => ['36'],
+        ];
 
-		$f = new \stdClass;
+        $f = new \stdClass();
 
-		foreach ($files as $file => $catIds)
-		{
-			$f->filename = $file;
+        foreach ($files as $file => $catIds) {
+            $f->filename = $file;
 
-			$this->assertThat(
-				$this->object->testCheckFilesAndAssignCategory([$f]),
-				$this->equalTo($catIds),
-				'Check failed for: ' . $file
-			);
-		}
-	}
+            $this->assertThat(
+                $this->object->testCheckFilesAndAssignCategory([$f]),
+                $this->equalTo($catIds),
+                'Check failed for: ' . $file
+            );
+        }
+    }
 
-	/**
-	 * Test method
-	 *
-	 * @return void
-	 */
-	public function testCheckInstallFolderAndJs(): void
-	{
-		$files = json_decode('[
+    /**
+     * Test method
+     *
+     * @return void
+     */
+    public function testCheckInstallFolderAndJs(): void
+    {
+        $files = json_decode(
+            '[
 			{ "filename" : "installation/" },
 			{ "filename" : "test.js" }
 		]'
-		);
+        );
 
-		$this->assertThat(
-			$this->object->testCheckFilesAndAssignCategory($files),
-			$this->equalTo(['25', '1'])
-		);
-	}
+        $this->assertThat(
+            $this->object->testCheckFilesAndAssignCategory($files),
+            $this->equalTo(['25', '1'])
+        );
+    }
 
-	/**
-	 * Test method
-	 *
-	 * @return void
-	 */
-	public function testEmpty(): void
-	{
-		$this->assertThat(
-			$this->object->testCheckFilesAndAssignCategory([]),
-			$this->equalTo([])
-		);
-	}
+    /**
+     * Test method
+     *
+     * @return void
+     */
+    public function testEmpty(): void
+    {
+        $this->assertThat(
+            $this->object->testCheckFilesAndAssignCategory([]),
+            $this->equalTo([])
+        );
+    }
 }

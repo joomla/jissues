@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -18,81 +19,75 @@ use JTracker\Upload\File;
  */
 class Put extends AbstractAjaxController
 {
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 */
-	protected function prepareResponse()
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
+    /**
+     * Prepare the response.
+     *
+     * @return  mixed
+     *
+     * @since   1.0
+     */
+    protected function prepareResponse()
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
 
-		$files = $application->input->files->get('files');
+        $files = $application->input->files->get('files');
 
-		if (!empty($files))
-		{
-			$file = new File($application);
+        if (!empty($files)) {
+            $file = new File($application);
 
-			// Prepare response data
-			$host     = $application->get('uri')->base->host;
-			$destName = md5(time() . $file->getName()) . '.' . $file->getExtension();
-			$destDir  = $application->getProject()->project_id;
-			$fullPath = $host . '/' . $application->get('system.upload_dir') . '/' . $destDir . '/' . $destName;
+            // Prepare response data
+            $host     = $application->get('uri')->base->host;
+            $destName = md5(time() . $file->getName()) . '.' . $file->getExtension();
+            $destDir  = $application->getProject()->project_id;
+            $fullPath = $host . '/' . $application->get('system.upload_dir') . '/' . $destDir . '/' . $destName;
 
-			$isImage = (strpos($file->getMimetype(), 'image') !== false);
+            $isImage = (strpos($file->getMimetype(), 'image') !== false);
 
-			$alt = $isImage
-				? 'screen shot ' . date('Y-m-d') . ' at ' . date('H i s')
-				: trim($file->getName()) . '.' . $file->getExtension();
+            $alt = $isImage
+                ? 'screen shot ' . date('Y-m-d') . ' at ' . date('H i s')
+                : trim($file->getName()) . '.' . $file->getExtension();
 
-			$data = [
-				[
-					'url'          => $fullPath,
-					'thumbnailUrl' => $fullPath,
-					'name'         => $file->getName(),
-					'type'         => $file->getMimetype(),
-					'size'         => $file->getSize(),
-					'alt'          => $alt,
-					'isImage'      => $isImage,
-					'deleteUrl'    => '/upload/delete/?file=' . $destName,
-					'deleteType'   => 'POST',
-					'editorId'     => $application->input->get('editorId'),
-				],
-			];
+            $data = [
+                [
+                    'url'          => $fullPath,
+                    'thumbnailUrl' => $fullPath,
+                    'name'         => $file->getName(),
+                    'type'         => $file->getMimetype(),
+                    'size'         => $file->getSize(),
+                    'alt'          => $alt,
+                    'isImage'      => $isImage,
+                    'deleteUrl'    => '/upload/delete/?file=' . $destName,
+                    'deleteType'   => 'POST',
+                    'editorId'     => $application->input->get('editorId'),
+                ],
+            ];
 
-			// Do not pass the thumbnail if not an image
-			if (!$isImage)
-			{
-				unset($data[0]['thumbnailUrl']);
-			}
+            // Do not pass the thumbnail if not an image
+            if (!$isImage) {
+                unset($data[0]['thumbnailUrl']);
+            }
 
-			// Try to upload file
-			try
-			{
-				$file->upload($destName);
-			}
-			catch (\Exception $e)
-			{
-				$application->getLogger()->error('Failed uploading file', ['file' => json_encode($file), 'exception' => $e]);
+            // Try to upload file
+            try {
+                $file->upload($destName);
+            } catch (\Exception $e) {
+                $application->getLogger()->error('Failed uploading file', ['file' => json_encode($file), 'exception' => $e]);
 
-				$errors = [];
+                $errors = [];
 
-				foreach ($file->getErrors() as $error)
-				{
-					$errors[] = $error;
-				}
+                foreach ($file->getErrors() as $error) {
+                    $errors[] = $error;
+                }
 
-				$data = [
-					[
-						'error' => $errors,
-					],
-				];
-			}
+                $data = [
+                    [
+                        'error' => $errors,
+                    ],
+                ];
+            }
 
-			$this->response->files = $data;
-		}
-	}
+            $this->response->files = $data;
+        }
+    }
 }

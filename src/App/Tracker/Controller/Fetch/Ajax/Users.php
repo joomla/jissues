@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Model Package
  *
@@ -17,34 +18,34 @@ use JTracker\Controller\AbstractAjaxController;
  */
 class Users extends AbstractAjaxController
 {
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function prepareResponse()
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
+    /**
+     * Prepare the response.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function prepareResponse()
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
 
-		/** @var \Joomla\Database\DatabaseDriver $db */
-		$db = $this->getContainer()->get('db');
+        /** @var \Joomla\Database\DatabaseDriver $db */
+        $db = $this->getContainer()->get('db');
 
-		$username = $application->input->getCmd('q');
+        $username = $application->input->getCmd('q');
 
-		if ($username)
-		{
-			$this->response->data = $db
-				->setQuery(
-					$db->getQuery(true)
-						->select($db->quoteName(['username', 'name']))
-						->from($db->quoteName('#__users'))
-						->where($db->quoteName('username') . " LIKE '%" . $username . "%'"),
-					0, 10
-				)
-				->loadAssocList();
-		}
-	}
+        if ($username) {
+            $this->response->data = $db
+                ->setQuery(
+                    $db->getQuery(true)
+                        ->select($db->quoteName(['username', 'name']))
+                        ->from($db->quoteName('#__users'))
+                        ->where($db->quoteName('username') . " LIKE '%" . $username . "%'"),
+                    0,
+                    10
+                )
+                ->loadAssocList();
+        }
+    }
 }

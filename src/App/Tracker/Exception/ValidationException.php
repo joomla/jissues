@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -15,37 +16,37 @@ namespace App\Tracker\Exception;
  */
 class ValidationException extends \Exception
 {
-	/**
-	 * Errors array
-	 *
-	 * @var    array|string
-	 * @since  1.0
-	 */
-	protected $errors = [];
+    /**
+     * Errors array
+     *
+     * @var    array|string
+     * @since  1.0
+     */
+    protected $errors = [];
 
-	/**
-	 * Constructor.
-	 *
-	 * @param   array|string  $errors  The errors encountered during validation.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct($errors)
-	{
-		$this->errors = $errors;
+    /**
+     * Constructor.
+     *
+     * @param   array|string  $errors  The errors encountered during validation.
+     *
+     * @since   1.0
+     */
+    public function __construct($errors)
+    {
+        $this->errors = $errors;
 
-		parent::__construct('Validation failure', 3);
-	}
+        parent::__construct('Validation failure', 3);
+    }
 
-	/**
-	 * Get validation errors.
-	 *
-	 * @return  array|string
-	 *
-	 * @since   1.0
-	 */
-	public function getErrors()
-	{
-		return $this->errors;
-	}
+    /**
+     * Get validation errors.
+     *
+     * @return  array|string
+     *
+     * @since   1.0
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
 }

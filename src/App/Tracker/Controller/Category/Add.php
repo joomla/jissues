@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -18,47 +19,47 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Add extends AbstractTrackerController
 {
-	/**
-	 * The default view for the component.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'category';
+    /**
+     * The default view for the component.
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultView = 'category';
 
-	/**
-	 * The default layout for the component.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultLayout = 'add';
+    /**
+     * The default layout for the component.
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultLayout = 'add';
 
-	/**
-	 * View object
-	 *
-	 * @var    CategoryHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
+    /**
+     * View object
+     *
+     * @var    CategoryHtmlView
+     * @since  1.0
+     */
+    protected $view;
 
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
-		$application->getUser()->authorize('manage');
-		$this->view->setProject($application->getProject());
+    /**
+     * Execute the controller.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    public function execute()
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
+        $application->getUser()->authorize('manage');
+        $this->view->setProject($application->getProject());
 
-		$item = new \stdClass;
-		$this->view->setItem($item);
+        $item = new \stdClass();
+        $this->view->setItem($item);
 
-		return parent::execute();
-	}
+        return parent::execute();
+    }
 }

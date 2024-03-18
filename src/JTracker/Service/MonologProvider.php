@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Service Package
  *
@@ -22,109 +23,103 @@ use Monolog\Processor\WebProcessor;
  */
 class MonologProvider implements ServiceProviderInterface
 {
-	/**
-	 * Registers the service provider with a DI container.
-	 *
-	 * @param   Container  $container  The DI container.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function register(Container $container)
-	{
-		// Register the PSR-3 processor
-		$container->share(
-			'monolog.processor.psr3',
-			function ()
-			{
-				return new PsrLogMessageProcessor;
-			},
-			true
-		);
+    /**
+     * Registers the service provider with a DI container.
+     *
+     * @param   Container  $container  The DI container.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    public function register(Container $container)
+    {
+        // Register the PSR-3 processor
+        $container->share(
+            'monolog.processor.psr3',
+            function () {
+                return new PsrLogMessageProcessor();
+            },
+            true
+        );
 
-		// Register the web processor
-		$container->share(
-			'monolog.processor.web',
-			function ()
-			{
-				return new WebProcessor;
-			},
-			true
-		);
+        // Register the web processor
+        $container->share(
+            'monolog.processor.web',
+            function () {
+                return new WebProcessor();
+            },
+            true
+        );
 
-		// Register the main application handler
-		$container->share(
-			'monolog.handler.application',
-			function (Container $container)
-			{
-				/** @var \Joomla\Registry\Registry $config */
-				$config = $container->get('config');
+        // Register the main application handler
+        $container->share(
+            'monolog.handler.application',
+            function (Container $container) {
+                /** @var \Joomla\Registry\Registry $config */
+                $config = $container->get('config');
 
-				$level = strtoupper($config->get('log.levels.application', $config->get('log.level', 'error')));
+                $level = strtoupper($config->get('log.levels.application', $config->get('log.level', 'error')));
 
-				return new StreamHandler(
-					$config->get('debug.log-path', JPATH_ROOT . '/logs') . '/app.log',
-					\constant('\\Monolog\\Logger::' . $level)
-				);
-			},
-			true
-		);
+                return new StreamHandler(
+                    $config->get('debug.log-path', JPATH_ROOT . '/logs') . '/app.log',
+                    \constant('\\Monolog\\Logger::' . $level)
+                );
+            },
+            true
+        );
 
-		// Register the database handler
-		$container->share(
-			'monolog.handler.database',
-			function (Container $container)
-			{
-				/** @var \Joomla\Registry\Registry $config */
-				$config = $container->get('config');
+        // Register the database handler
+        $container->share(
+            'monolog.handler.database',
+            function (Container $container) {
+                /** @var \Joomla\Registry\Registry $config */
+                $config = $container->get('config');
 
-				// If database debugging is enabled then force the logger's error level to DEBUG, otherwise use the level defined in the app config
-				$level = strtoupper($config->get('debug.database', false) ? 'debug' : $config->get('log.levels.database', $config->get('log.level', 'error')));
+                // If database debugging is enabled then force the logger's error level to DEBUG, otherwise use the level defined in the app config
+                $level = strtoupper($config->get('debug.database', false) ? 'debug' : $config->get('log.levels.database', $config->get('log.level', 'error')));
 
-				return new StreamHandler(
-					$config->get('debug.log-path', JPATH_ROOT . '/logs') . '/database.log',
-					\constant('\\Monolog\\Logger::' . $level)
-				);
-			},
-			true
-		);
+                return new StreamHandler(
+                    $config->get('debug.log-path', JPATH_ROOT . '/logs') . '/database.log',
+                    \constant('\\Monolog\\Logger::' . $level)
+                );
+            },
+            true
+        );
 
-		// Register the application Logger
-		$container->share(
-			'monolog.logger.application',
-			function (Container $container)
-			{
-				return new Logger(
-					'JTracker',
-					[
-						$container->get('monolog.handler.application'),
-					],
-					[
-						$container->get('monolog.processor.web'),
-					]
-				);
-			},
-			true
-		);
+        // Register the application Logger
+        $container->share(
+            'monolog.logger.application',
+            function (Container $container) {
+                return new Logger(
+                    'JTracker',
+                    [
+                        $container->get('monolog.handler.application'),
+                    ],
+                    [
+                        $container->get('monolog.processor.web'),
+                    ]
+                );
+            },
+            true
+        );
 
-		// Register the database Logger
-		$container->share(
-			'monolog.logger.database',
-			function (Container $container)
-			{
-				return new Logger(
-					'JTracker',
-					[
-						$container->get('monolog.handler.database'),
-					],
-					[
-						$container->get('monolog.processor.psr3'),
-						$container->get('monolog.processor.web'),
-					]
-				);
-			},
-			true
-		);
-	}
+        // Register the database Logger
+        $container->share(
+            'monolog.logger.database',
+            function (Container $container) {
+                return new Logger(
+                    'JTracker',
+                    [
+                        $container->get('monolog.handler.database'),
+                    ],
+                    [
+                        $container->get('monolog.processor.psr3'),
+                        $container->get('monolog.processor.web'),
+                    ]
+                );
+            },
+            true
+        );
+    }
 }

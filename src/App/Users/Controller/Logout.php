@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Users Application
  *
@@ -18,27 +19,27 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Logout extends AbstractTrackerController
 {
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		/** @var Application $application */
-		$application = $this->getContainer()->get('app');
+    /**
+     * Execute the controller.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    public function execute()
+    {
+        /** @var Application $application */
+        $application = $this->getContainer()->get('app');
 
-		// Invalidate the session
-		$application->getSession()->invalidate();
+        // Invalidate the session
+        $application->getSession()->invalidate();
 
-		$application
-			// Logout the user.
-			->setUser(null)
-			// Delete the "remember me" cookie
-			->setRememberMe(false)
-			// Redirect to the "home" page
-			->redirect(' ');
-	}
+        $application
+            // Logout the user.
+            ->setUser(null)
+            // Delete the "remember me" cookie
+            ->setRememberMe(false)
+            // Redirect to the "home" page
+            ->redirect(' ');
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Model Package
  *
@@ -24,73 +25,70 @@ use Psr\Log\NullLogger;
  */
 class Github extends JGitHub implements LoggerAwareInterface
 {
-	/**
-	 * Logger
-	 *
-	 * @var    LoggerInterface
-	 * @since  1.0
-	 */
-	protected $logger;
+    /**
+     * Logger
+     *
+     * @var    LoggerInterface
+     * @since  1.0
+     */
+    protected $logger;
 
-	/**
-	 * Magic method to lazily create API objects
-	 *
-	 * @param   string  $name  Name of property to retrieve
-	 *
-	 * @return  GithubObject  GitHub API object (gists, issues, pulls, etc).
-	 *
-	 * @since   1.0
-	 * @throws  \InvalidArgumentException If $name is not a valid sub class.
-	 */
-	public function __get($name)
-	{
-		$class = 'JTracker\\Github\\Package\\' . ucfirst($name);
+    /**
+     * Magic method to lazily create API objects
+     *
+     * @param   string  $name  Name of property to retrieve
+     *
+     * @return  GithubObject  GitHub API object (gists, issues, pulls, etc).
+     *
+     * @since   1.0
+     * @throws  \InvalidArgumentException If $name is not a valid sub class.
+     */
+    public function __get($name)
+    {
+        $class = 'JTracker\\Github\\Package\\' . ucfirst($name);
 
-		if (class_exists($class))
-		{
-			if (isset($this->$name) === false)
-			{
-				$this->$name = new $class($this->options, $this->client);
+        if (class_exists($class)) {
+            if (isset($this->$name) === false) {
+                $this->$name = new $class($this->options, $this->client);
 
-				// Inject the logger
-				$this->$name->setLogger($this->getLogger());
-			}
+                // Inject the logger
+                $this->$name->setLogger($this->getLogger());
+            }
 
-			return $this->$name;
-		}
+            return $this->$name;
+        }
 
-		return parent::__get($name);
-	}
+        return parent::__get($name);
+    }
 
-	/**
-	 * Get the logger.
-	 *
-	 * @return  LoggerInterface
-	 *
-	 * @since   1.0
-	 */
-	public function getLogger()
-	{
-		// If a logger hasn't been set, use NullLogger
-		if (!($this->logger instanceof LoggerInterface))
-		{
-			$this->logger = new NullLogger;
-		}
+    /**
+     * Get the logger.
+     *
+     * @return  LoggerInterface
+     *
+     * @since   1.0
+     */
+    public function getLogger()
+    {
+        // If a logger hasn't been set, use NullLogger
+        if (!($this->logger instanceof LoggerInterface)) {
+            $this->logger = new NullLogger();
+        }
 
-		return $this->logger;
-	}
+        return $this->logger;
+    }
 
-	/**
-	 * Sets a logger.
-	 *
-	 * @param   LoggerInterface  $logger  The logger object.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function setLogger(LoggerInterface $logger): void
-	{
-		$this->logger = $logger;
-	}
+    /**
+     * Sets a logger.
+     *
+     * @param   LoggerInterface  $logger  The logger object.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    public function setLogger(LoggerInterface $logger): void
+    {
+        $this->logger = $logger;
+    }
 }

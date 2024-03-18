@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Projects Application
  *
@@ -17,66 +18,65 @@ use JTracker\View\AbstractTrackerHtmlView;
  */
 class ProjectHtmlView extends AbstractTrackerHtmlView
 {
-	/**
-	 * The model object.
-	 *
-	 * @var    \App\Projects\Model\ProjectModel
-	 * @since  1.0
-	 */
-	protected $model;
+    /**
+     * The model object.
+     *
+     * @var    \App\Projects\Model\ProjectModel
+     * @since  1.0
+     */
+    protected $model;
 
-	/**
-	 * Project alias
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $alias = '';
+    /**
+     * Project alias
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $alias = '';
 
-	/**
-	 * Method to render the view.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 */
-	public function render()
-	{
-		$this->addData('project', $this->model->getByAlias($this->getAlias()));
+    /**
+     * Method to render the view.
+     *
+     * @return  string  The rendered view.
+     *
+     * @since   1.0
+     */
+    public function render()
+    {
+        $this->addData('project', $this->model->getByAlias($this->getAlias()));
 
-		return parent::render();
-	}
+        return parent::render();
+    }
 
-	/**
-	 * Get the alias.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function getAlias()
-	{
-		if ($this->alias == '')
-		{
-			// New record.
-		}
+    /**
+     * Get the alias.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    public function getAlias()
+    {
+        if ($this->alias == '') {
+            // New record.
+        }
 
-		return $this->alias;
-	}
+        return $this->alias;
+    }
 
-	/**
-	 * Set the alias.
-	 *
-	 * @param   string  $alias  The alias.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setAlias($alias)
-	{
-		$this->alias = $alias;
+    /**
+     * Set the alias.
+     *
+     * @param   string  $alias  The alias.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     */
+    public function setAlias($alias)
+    {
+        $this->alias = $alias;
 
-		return $this;
-	}
+        return $this;
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's GitHub Application
  *
@@ -17,38 +18,36 @@ use JTracker\Controller\AbstractAjaxController;
  */
 class Preview extends AbstractAjaxController
 {
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \Exception
-	 */
-	protected function prepareResponse()
-	{
-		// Only registered users are able to use the preview using their credentials.
-		if (!$this->getContainer()->get('app')->getUser()->id)
-		{
-			throw new \Exception('not auth..');
-		}
+    /**
+     * Prepare the response.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     * @throws  \Exception
+     */
+    protected function prepareResponse()
+    {
+        // Only registered users are able to use the preview using their credentials.
+        if (!$this->getContainer()->get('app')->getUser()->id) {
+            throw new \Exception('not auth..');
+        }
 
-		$text = $this->getContainer()->get('app')->input->get('text', '', 'raw');
+        $text = $this->getContainer()->get('app')->input->get('text', '', 'raw');
 
-		if (!$text)
-		{
-			throw new \Exception('Nothing to preview...');
-		}
+        if (!$text) {
+            throw new \Exception('Nothing to preview...');
+        }
 
-		$project = $this->getContainer()->get('app')->getProject();
+        $project = $this->getContainer()->get('app')->getProject();
 
-		/** @var \Joomla\Github\Github $github */
-		$github = $this->getContainer()->get('gitHub');
+        /** @var \Joomla\Github\Github $github */
+        $github = $this->getContainer()->get('gitHub');
 
-		$this->response->data = $github->markdown->render(
-			$text,
-			'gfm',
-			$project->gh_user . '/' . $project->gh_project
-		);
-	}
+        $this->response->data = $github->markdown->render(
+            $text,
+            'gfm',
+            $project->gh_user . '/' . $project->gh_project
+        );
+    }
 }

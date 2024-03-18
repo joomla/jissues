@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Groups Application
  *
@@ -11,7 +12,6 @@ namespace App\Groups\Controller\Group;
 use App\Groups\Model\GroupModel;
 use App\Groups\Table\GroupsTable;
 use App\Groups\View\Group\GroupHtmlView;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -21,65 +21,65 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Delete extends AbstractTrackerController
 {
-	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'groups';
+    /**
+     * The default view for the component
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultView = 'groups';
 
-	/**
-	 * Model object
-	 *
-	 * @var    GroupModel
-	 * @since  1.0
-	 */
-	protected $model;
+    /**
+     * Model object
+     *
+     * @var    GroupModel
+     * @since  1.0
+     */
+    protected $model;
 
-	/**
-	 * View object
-	 *
-	 * @var    GroupHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
+    /**
+     * View object
+     *
+     * @var    GroupHtmlView
+     * @since  1.0
+     */
+    protected $view;
 
-	/**
-	 * Initialize the controller.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function initialize()
-	{
-		parent::initialize();
+    /**
+     * Initialize the controller.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function initialize()
+    {
+        parent::initialize();
 
-		$this->getContainer()->get('app')->getUser()->authorize('manage');
+        $this->getContainer()->get('app')->getUser()->authorize('manage');
 
-		$this->model->setProject($this->getContainer()->get('app')->getProject());
-		$this->view->setProject($this->getContainer()->get('app')->getProject());
+        $this->model->setProject($this->getContainer()->get('app')->getProject());
+        $this->view->setProject($this->getContainer()->get('app')->getProject());
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		(new GroupsTable($this->getContainer()->get('db')))
-			->load($this->getContainer()->get('app')->input->getInt('group_id'))
-			->delete();
+    /**
+     * Execute the controller.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    public function execute()
+    {
+        (new GroupsTable($this->getContainer()->get('db')))
+            ->load($this->getContainer()->get('app')->input->getInt('group_id'))
+            ->delete();
 
-		$this->getContainer()->get('app')->enqueueMessage('The group has been deleted.', 'success');
+        $this->getContainer()->get('app')->enqueueMessage('The group has been deleted.', 'success');
 
-		return parent::execute();
-	}
+        return parent::execute();
+    }
 }

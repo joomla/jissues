@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -20,20 +21,20 @@ use App\Tracker\Controller\DefaultController;
  */
 class Listing extends DefaultController
 {
-	/**
-	 * Initialize the controller.
-	 *
-	 * @return  $this  Method supports chaining
-	 *
-	 * @since   1.0
-	 */
-	public function initialize()
-	{
-		// Reload the project.
-		$this->getContainer()->get('app')->getProject(true);
+    /**
+     * Initialize the controller.
+     *
+     * @return  $this  Method supports chaining
+     *
+     * @since   1.0
+     */
+    public function initialize()
+    {
+        // Reload the project.
+        $this->getContainer()->get('app')->getProject(true);
 
-		parent::initialize();
+        parent::initialize();
 
-		return $this;
-	}
+        return $this;
+    }
 }

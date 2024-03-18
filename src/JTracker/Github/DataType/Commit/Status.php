@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Framework GitHub Package
  *
@@ -15,11 +16,11 @@ namespace JTracker\Github\DataType\Commit;
  */
 class Status
 {
-	public $state = '';
+    public $state = '';
 
-	public $targetUrl = '';
+    public $targetUrl = '';
 
-	public $description = '';
+    public $description = '';
 
-	public $context = '';
+    public $context = '';
 }

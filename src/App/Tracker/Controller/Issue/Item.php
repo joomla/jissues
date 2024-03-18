@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -19,73 +20,71 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Item extends AbstractTrackerController
 {
-	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'issue';
+    /**
+     * The default view for the component
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultView = 'issue';
 
-	/**
-	 * View object
-	 *
-	 * @var    IssueHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
+    /**
+     * View object
+     *
+     * @var    IssueHtmlView
+     * @since  1.0
+     */
+    protected $view;
 
-	/**
-	 * Model object
-	 *
-	 * @var    IssueModel
-	 * @since  1.0
-	 */
-	protected $model;
+    /**
+     * Model object
+     *
+     * @var    IssueModel
+     * @since  1.0
+     */
+    protected $model;
 
-	/**
-	 * Initialize the controller.
-	 *
-	 * This will set up default model and view classes.
-	 *
-	 * @return  $this  Method supports chaining
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function initialize()
-	{
-		parent::initialize();
+    /**
+     * Initialize the controller.
+     *
+     * This will set up default model and view classes.
+     *
+     * @return  $this  Method supports chaining
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function initialize()
+    {
+        parent::initialize();
 
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
-		$project     = $application->getProject();
-		$user        = $application->getUser();
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
+        $project     = $application->getProject();
+        $user        = $application->getUser();
 
-		$user->authorize('view');
+        $user->authorize('view');
 
-		$this->model->setProject($project);
+        $this->model->setProject($project);
 
-		$item = $this->model->getItem($application->input->getUint('id'));
+        $item = $this->model->getItem($application->input->getUint('id'));
 
-		$sha = false;
+        $sha = false;
 
-		if (!empty($item->commits))
-		{
-			$commits    = json_decode($item->commits);
-			$lastCommit = end($commits);
+        if (!empty($item->commits)) {
+            $commits    = json_decode($item->commits);
+            $lastCommit = end($commits);
 
-			if ($lastCommit)
-			{
-				$sha = $lastCommit->sha;
-			}
-		}
+            if ($lastCommit) {
+                $sha = $lastCommit->sha;
+            }
+        }
 
-		$item->userTest = $this->model->getUserTest($item->id, $user->username, $sha);
-		$this->view->setItem($item);
-		$this->view->setEditOwn($user->canEditOwn($item->opened_by));
-		$this->view->setProject($project);
+        $item->userTest = $this->model->getUserTest($item->id, $user->username, $sha);
+        $this->view->setItem($item);
+        $this->view->setEditOwn($user->canEditOwn($item->opened_by));
+        $this->view->setProject($project);
 
-		return $this;
-	}
+        return $this;
+    }
 }

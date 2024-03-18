@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker View Package
  *
@@ -19,26 +20,26 @@ use Joomla\View\HtmlView;
  */
 class BaseHtmlView extends HtmlView
 {
-	/**
-	 * The renderer object
-	 *
-	 * @var    StatefulModelInterface
-	 * @since  2.0.0
-	 */
-	protected $model;
+    /**
+     * The renderer object
+     *
+     * @var    StatefulModelInterface
+     * @since  2.0.0
+     */
+    protected $model;
 
-	/**
-	 * Method to instantiate the view.
-	 *
-	 * @param   StatefulModelInterface  $model     The model object.
-	 * @param   RendererInterface       $renderer  The renderer object.
-	 *
-	 * @since   2.0.0
-	 */
-	public function __construct(StatefulModelInterface $model, RendererInterface $renderer)
-	{
-		parent::__construct($renderer);
+    /**
+     * Method to instantiate the view.
+     *
+     * @param   StatefulModelInterface  $model     The model object.
+     * @param   RendererInterface       $renderer  The renderer object.
+     *
+     * @since   2.0.0
+     */
+    public function __construct(StatefulModelInterface $model, RendererInterface $renderer)
+    {
+        parent::__construct($renderer);
 
-		$this->model = $model;
-	}
+        $this->model = $model;
+    }
 }

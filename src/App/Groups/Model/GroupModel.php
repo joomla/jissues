@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Groups Application
  *
@@ -9,9 +10,7 @@
 namespace App\Groups\Model;
 
 use App\Groups\Table\GroupsTable;
-
 use Joomla\Database\DatabaseQuery;
-
 use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
@@ -21,60 +20,59 @@ use JTracker\Model\AbstractTrackerDatabaseModel;
  */
 class GroupModel extends AbstractTrackerDatabaseModel
 {
-	/**
-	 * The group ID
-	 *
-	 * @var    integer
-	 * @since  1.0
-	 */
-	protected $group_id = 0;
+    /**
+     * The group ID
+     *
+     * @var    integer
+     * @since  1.0
+     */
+    protected $group_id = 0;
 
-	/**
-	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
-	 *
-	 * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
-	 *
-	 * @since   1.0
-	 */
-	public function getItem()
-	{
-		$table = new GroupsTable($this->getDb());
+    /**
+     * Method to get a DatabaseQuery object for retrieving the data set from a database.
+     *
+     * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
+     *
+     * @since   1.0
+     */
+    public function getItem()
+    {
+        $table = new GroupsTable($this->getDb());
 
-		$groupId = $this->getGroupId();
+        $groupId = $this->getGroupId();
 
-		return $groupId ? $table->load($groupId)->getIterator() : $table->getIterator();
-	}
+        return $groupId ? $table->load($groupId)->getIterator() : $table->getIterator();
+    }
 
-	/**
-	 * Get the group id.
-	 *
-	 * @return  integer
-	 *
-	 * @since   1.0
-	 */
-	public function getGroupId()
-	{
-		if ($this->group_id == 0)
-		{
-			// A new item.
-		}
+    /**
+     * Get the group id.
+     *
+     * @return  integer
+     *
+     * @since   1.0
+     */
+    public function getGroupId()
+    {
+        if ($this->group_id == 0) {
+            // A new item.
+        }
 
-		return $this->group_id;
-	}
+        return $this->group_id;
+    }
 
-	/**
-	 * Set the group id.
-	 *
-	 * @param   integer  $group_id  The group id.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setGroupId($group_id)
-	{
-		$this->group_id = $group_id;
+    /**
+     * Set the group id.
+     *
+     * @param   integer  $group_id  The group id.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     */
+    public function setGroupId($group_id)
+    {
+        $this->group_id = $group_id;
 
-		return $this;
-	}
+        return $this;
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Users Application
  *
@@ -9,7 +10,6 @@
 namespace App\Users\View\User;
 
 use App\Users\Model\UserModel;
-
 use JTracker\View\AbstractTrackerHtmlView;
 
 /**
@@ -19,36 +19,36 @@ use JTracker\View\AbstractTrackerHtmlView;
  */
 class UserHtmlView extends AbstractTrackerHtmlView
 {
-	/**
-	 * The model object.
-	 *
-	 * @var    UserModel
-	 * @since  1.0
-	 */
-	protected $model;
+    /**
+     * The model object.
+     *
+     * @var    UserModel
+     * @since  1.0
+     */
+    protected $model;
 
-	/**
-	 * Item ID
-	 *
-	 * @var    integer
-	 * @since  1.0
-	 */
-	public $id = 0;
+    /**
+     * Item ID
+     *
+     * @var    integer
+     * @since  1.0
+     */
+    public $id = 0;
 
-	/**
-	 * Method to render the view.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 */
-	public function render()
-	{
-		$item = $this->model->getItem($this->id);
+    /**
+     * Method to render the view.
+     *
+     * @return  string  The rendered view.
+     *
+     * @since   1.0
+     */
+    public function render()
+    {
+        $item = $this->model->getItem($this->id);
 
-		$this->addData('item', $item)
-			->addData('tz_offset', (new \DateTimeZone($item->params->get('timezone', 'UTC')))->getOffset(new \DateTime) / 3600);
+        $this->addData('item', $item)
+            ->addData('tz_offset', (new \DateTimeZone($item->params->get('timezone', 'UTC')))->getOffset(new \DateTime()) / 3600);
 
-		return parent::render();
-	}
+        return parent::render();
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla! Tracker Package.
  *
@@ -20,79 +21,79 @@ use PHPUnit\Framework\TestCase;
  */
 class GitHubUserTest extends TestCase
 {
-	/**
-	 * @var    GitHubUser
-	 * @since  1.0
-	 */
-	protected $object;
+    /**
+     * @var    GitHubUser
+     * @since  1.0
+     */
+    protected $object;
 
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 *
-	 * @since  1.0
-	 * @return void
-	 */
-	protected function setUp(): void
-	{
-		// Mock the base database driver without calling the original constructor
-		$driver = $this->createMock(DatabaseDriver::class);
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     *
+     * @since  1.0
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        // Mock the base database driver without calling the original constructor
+        $driver = $this->createMock(DatabaseDriver::class);
 
-		// Mock the project object
-		$project = $this->getMockBuilder(TrackerProject::class)
-			->setConstructorArgs([$driver])
-			->getMock();
+        // Mock the project object
+        $project = $this->getMockBuilder(TrackerProject::class)
+            ->setConstructorArgs([$driver])
+            ->getMock();
 
-		$this->object = new GitHubUser($project, $driver);
-	}
+        $this->object = new GitHubUser($project, $driver);
+    }
 
-	/**
-	 * Test loadGitHubData.
-	 *
-	 * @since  1.0
-	 * @return void
-	 */
-	public function testLoadGitHubData(): void
-	{
-		$ghData = new \stdClass;
+    /**
+     * Test loadGitHubData.
+     *
+     * @since  1.0
+     * @return void
+     */
+    public function testLoadGitHubData(): void
+    {
+        $ghData = new \stdClass();
 
-		$ghData->login      = 'elkuku';
-		$ghData->avatar_url = 'http://my_avatar.png';
-		$ghData->name       = 'elkuku';
-		$ghData->email      = 'email@example.com';
+        $ghData->login      = 'elkuku';
+        $ghData->avatar_url = 'http://my_avatar.png';
+        $ghData->name       = 'elkuku';
+        $ghData->email      = 'email@example.com';
 
-		$this->object->loadGitHubData($ghData);
+        $this->object->loadGitHubData($ghData);
 
-		$this->assertThat(
-			$this->object->username,
-			$this->equalTo('elkuku')
-		);
+        $this->assertThat(
+            $this->object->username,
+            $this->equalTo('elkuku')
+        );
 
-		$this->assertThat(
-			$this->object->name,
-			$this->equalTo('elkuku')
-		);
+        $this->assertThat(
+            $this->object->name,
+            $this->equalTo('elkuku')
+        );
 
-		$this->assertThat(
-			$this->object->email,
-			$this->equalTo('email@example.com')
-		);
-	}
+        $this->assertThat(
+            $this->object->email,
+            $this->equalTo('email@example.com')
+        );
+    }
 
-	/**
-	 * Test loadGitHubData.
-	 *
-	 * @since  1.0
-	 * @return void
-	 */
-	public function testLoadGitHubDataFailure(): void
-	{
-		$this->expectException(\RuntimeException::class);
+    /**
+     * Test loadGitHubData.
+     *
+     * @since  1.0
+     * @return void
+     */
+    public function testLoadGitHubDataFailure(): void
+    {
+        $this->expectException(\RuntimeException::class);
 
-		$ghData = new \stdClass;
+        $ghData = new \stdClass();
 
-		// Missing login !
+        // Missing login !
 
-		$this->object->loadGitHubData($ghData);
-	}
+        $this->object->loadGitHubData($ghData);
+    }
 }

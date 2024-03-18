@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla! Tracker application.
  *
@@ -23,53 +24,52 @@ use Psr\Log\LoggerInterface;
  */
 class ConsoleKernel extends AbstractKernel
 {
-	/**
-	 * Run the kernel
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function run(): void
-	{
-		$this->boot();
+    /**
+     * Run the kernel
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    public function run(): void
+    {
+        $this->boot();
 
-		if (!$this->getContainer()->has(AbstractApplication::class))
-		{
-			throw new \RuntimeException('The application has not been registered with the container.');
-		}
+        if (!$this->getContainer()->has(AbstractApplication::class)) {
+            throw new \RuntimeException('The application has not been registered with the container.');
+        }
 
-		$this->getContainer()->get(AbstractApplication::class)->execute();
-	}
+        $this->getContainer()->get(AbstractApplication::class)->execute();
+    }
 
-	/**
-	 * Build the service container
-	 *
-	 * @return  Container
-	 *
-	 * @since   1.0
-	 */
-	protected function buildContainer(): Container
-	{
-		$container = parent::buildContainer();
+    /**
+     * Build the service container
+     *
+     * @return  Container
+     *
+     * @since   1.0
+     */
+    protected function buildContainer(): Container
+    {
+        $container = parent::buildContainer();
 
-		$container->registerServiceProvider(new CliApplicationProvider)
-			->registerServiceProvider(new LoggerProvider);
+        $container->registerServiceProvider(new CliApplicationProvider())
+            ->registerServiceProvider(new LoggerProvider());
 
-		// Create the application aliases for the common 'app' key and base application class
-		$container->alias(AbstractApplication::class, ConsoleApplication::class)
-			->alias('app', ConsoleApplication::class);
+        // Create the application aliases for the common 'app' key and base application class
+        $container->alias(AbstractApplication::class, ConsoleApplication::class)
+            ->alias('app', ConsoleApplication::class);
 
-		// Create the logger aliases for the common 'monolog' key, the Monolog Logger class, and the PSR-3 interface
-		$container->alias('monolog', 'monolog.logger.cli')
-			->alias('logger', 'monolog.logger.cli')
-			->alias(Logger::class, 'monolog.logger.cli')
-			->alias(LoggerInterface::class, 'monolog.logger.cli');
+        // Create the logger aliases for the common 'monolog' key, the Monolog Logger class, and the PSR-3 interface
+        $container->alias('monolog', 'monolog.logger.cli')
+            ->alias('logger', 'monolog.logger.cli')
+            ->alias(Logger::class, 'monolog.logger.cli')
+            ->alias(LoggerInterface::class, 'monolog.logger.cli');
 
-		// Set error reporting based on config
-		$errorReporting = (int) $container->get('config')->get('system.error_reporting', 0);
-		error_reporting($errorReporting);
+        // Set error reporting based on config
+        $errorReporting = (int) $container->get('config')->get('system.error_reporting', 0);
+        error_reporting($errorReporting);
 
-		return $container;
-	}
+        return $container;
+    }
 }

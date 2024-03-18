@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Framework GitHub Package
  *
@@ -15,13 +16,13 @@ namespace JTracker\Github\DataType\Commit;
  */
 class CombinedStatus
 {
-	/**
-	 * @var string
-	 */
-	public $state = '';
+    /**
+     * @var string
+     */
+    public $state = '';
 
-	/**
-	 * @var Status[]
-	 */
-	public $statuses = [];
+    /**
+     * @var Status[]
+     */
+    public $statuses = [];
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker
  *
@@ -21,31 +22,31 @@ use Psr\Log\LoggerInterface;
  */
 class WebKernel extends AbstractKernel
 {
-	/**
-	 * Build the service container
-	 *
-	 * @return  Container
-	 *
-	 * @since   1.0
-	 */
-	protected function buildContainer(): Container
-	{
-		$container = parent::buildContainer();
+    /**
+     * Build the service container
+     *
+     * @return  Container
+     *
+     * @since   1.0
+     */
+    protected function buildContainer(): Container
+    {
+        $container = parent::buildContainer();
 
-		// Create the application aliases for the common 'app' key and base application class
-		$container->alias(AbstractApplication::class, Application::class)
-			->alias('app', Application::class);
+        // Create the application aliases for the common 'app' key and base application class
+        $container->alias(AbstractApplication::class, Application::class)
+            ->alias('app', Application::class);
 
-		// Create the logger aliases for the common 'monolog' key, the Monolog Logger class, and the PSR-3 interface
-		$container->alias('monolog', 'monolog.logger.application')
-			->alias('logger', 'monolog.logger.application')
-			->alias(Logger::class, 'monolog.logger.application')
-			->alias(LoggerInterface::class, 'monolog.logger.application');
+        // Create the logger aliases for the common 'monolog' key, the Monolog Logger class, and the PSR-3 interface
+        $container->alias('monolog', 'monolog.logger.application')
+            ->alias('logger', 'monolog.logger.application')
+            ->alias(Logger::class, 'monolog.logger.application')
+            ->alias(LoggerInterface::class, 'monolog.logger.application');
 
-		// Set error reporting based on config
-		$errorReporting = (int) $container->get('config')->get('system.error_reporting', 0);
-		error_reporting($errorReporting);
+        // Set error reporting based on config
+        $errorReporting = (int) $container->get('config')->get('system.error_reporting', 0);
+        error_reporting($errorReporting);
 
-		return $container;
-	}
+        return $container;
+    }
 }

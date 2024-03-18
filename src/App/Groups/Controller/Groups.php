@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Groups Application
  *
@@ -10,7 +11,6 @@ namespace App\Groups\Controller;
 
 use App\Groups\Model\GroupsModel;
 use App\Groups\View\Groups\GroupsHtmlView;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -20,39 +20,39 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Groups extends AbstractTrackerController
 {
-	/**
-	 * Model object
-	 *
-	 * @var    GroupsModel
-	 * @since  1.0
-	 */
-	protected $model;
+    /**
+     * Model object
+     *
+     * @var    GroupsModel
+     * @since  1.0
+     */
+    protected $model;
 
-	/**
-	 * View object
-	 *
-	 * @var    GroupsHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
+    /**
+     * View object
+     *
+     * @var    GroupsHtmlView
+     * @since  1.0
+     */
+    protected $view;
 
-	/**
-	 * Initialize the controller.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function initialize()
-	{
-		parent::initialize();
+    /**
+     * Initialize the controller.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function initialize()
+    {
+        parent::initialize();
 
-		$this->getContainer()->get('app')->getUser()->authorize('manage');
+        $this->getContainer()->get('app')->getUser()->authorize('manage');
 
-		$this->model->setProject($this->getContainer()->get('app')->getProject());
-		$this->view->setProject($this->getContainer()->get('app')->getProject());
+        $this->model->setProject($this->getContainer()->get('app')->getProject());
+        $this->view->setProject($this->getContainer()->get('app')->getProject());
 
-		return $this;
-	}
+        return $this;
+    }
 }

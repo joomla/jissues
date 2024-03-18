@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Framework GitHub Package
  *
@@ -15,16 +16,16 @@ namespace JTracker\Github\DataType\JTracker\Issues;
  */
 class Comment extends \JTracker\Github\DataType\Issues\Comment
 {
-	public $comment_id = 0;
+    public $comment_id = 0;
 
-	public $text = '';
+    public $text = '';
 
-	public $text_raw = '';
+    public $text_raw = '';
 
-	/**
-	 * @var string  username
-	 */
-	public $opened_by = '';
+    /**
+     * @var string  username
+     */
+    public $opened_by = '';
 
-	public $activities_id = 0;
+    public $activities_id = 0;
 }

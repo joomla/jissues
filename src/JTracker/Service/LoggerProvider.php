@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Service Package
  *
@@ -22,53 +23,47 @@ use Psr\Log\NullLogger;
  */
 class LoggerProvider implements ServiceProviderInterface
 {
-	/**
-	 * Registers the service provider with a DI container.
-	 *
-	 * @param   Container  $container  The DI container.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function register(Container $container)
-	{
-		$container->share(
-			'monolog.logger.cli',
-			function (Container $container)
-			{
-				/** @var ConsoleApplication $app */
-				$app = $container->get(ConsoleApplication::class);
+    /**
+     * Registers the service provider with a DI container.
+     *
+     * @param   Container  $container  The DI container.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function register(Container $container)
+    {
+        $container->share(
+            'monolog.logger.cli',
+            function (Container $container) {
+                /** @var ConsoleApplication $app */
+                $app = $container->get(ConsoleApplication::class);
 
-				// Instantiate the object
-				$logger = new Logger('JTracker');
+                // Instantiate the object
+                $logger = new Logger('JTracker');
 
-				if ($file = $app->getConsoleInput()->getOption('log'))
-				{
-					// Log to a file
-					$logger->pushHandler(
-						new StreamHandler(
-							$container->get('debugger')->getLogPath('root') . '/' . $file,
-							Logger::INFO
-						)
-					);
-				}
-				elseif ($app->getConsoleInput()->getOption('quiet'))
-				{
-					// Log to screen
-					$logger->pushHandler(
-						new StreamHandler('php://stdout')
-					);
-				}
-				else
-				{
-					$logger = new NullLogger;
-				}
+                if ($file = $app->getConsoleInput()->getOption('log')) {
+                    // Log to a file
+                    $logger->pushHandler(
+                        new StreamHandler(
+                            $container->get('debugger')->getLogPath('root') . '/' . $file,
+                            Logger::INFO
+                        )
+                    );
+                } elseif ($app->getConsoleInput()->getOption('quiet')) {
+                    // Log to screen
+                    $logger->pushHandler(
+                        new StreamHandler('php://stdout')
+                    );
+                } else {
+                    $logger = new NullLogger();
+                }
 
-				return $logger;
-			},
-			true
-		);
-	}
+                return $logger;
+            },
+            true
+        );
+    }
 }

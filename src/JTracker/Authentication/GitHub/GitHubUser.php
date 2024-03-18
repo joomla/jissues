@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Authentication Package
  *
@@ -17,49 +18,46 @@ use JTracker\Authentication\User;
  */
 class GitHubUser extends User
 {
-	/**
-	 * Avatar url.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	public $avatar_url;
+    /**
+     * Avatar url.
+     *
+     * @var    string
+     * @since  1.0
+     */
+    public $avatar_url;
 
-	/**
-	 * Avatar name.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	public $avatar;
+    /**
+     * Avatar name.
+     *
+     * @var    string
+     * @since  1.0
+     */
+    public $avatar;
 
-	/**
-	 * Load user data from GitHub.
-	 *
-	 * @param   \stdClass  $data  A JSON string from GitHub containing user data.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function loadGitHubData(\stdClass $data)
-	{
-		if (!isset($data->login))
-		{
-			throw new \RuntimeException('Missing login');
-		}
+    /**
+     * Load user data from GitHub.
+     *
+     * @param   \stdClass  $data  A JSON string from GitHub containing user data.
+     *
+     * @return  $this
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function loadGitHubData(\stdClass $data)
+    {
+        if (!isset($data->login)) {
+            throw new \RuntimeException('Missing login');
+        }
 
-		foreach ($data as $k => $v)
-		{
-			if (property_exists($this, $k) && \in_array($k, ['id']) == false)
-			{
-				$this->$k = $v;
-			}
-		}
+        foreach ($data as $k => $v) {
+            if (property_exists($this, $k) && \in_array($k, ['id']) == false) {
+                $this->$k = $v;
+            }
+        }
 
-		$this->username = $data->login;
+        $this->username = $data->login;
 
-		return $this;
-	}
+        return $this;
+    }
 }

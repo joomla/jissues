@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Framework Github Package
  *
@@ -21,50 +22,49 @@ use Psr\Log\LoggerAwareTrait;
  */
 abstract class GithubObject extends JGithubObject implements LoggerAwareInterface
 {
-	use LoggerAwareTrait;
+    use LoggerAwareTrait;
 
-	/**
-	 * @var    integer
-	 * @since  1.0
-	 */
-	protected $rateLimitRemaining = 0;
+    /**
+     * @var    integer
+     * @since  1.0
+     */
+    protected $rateLimitRemaining = 0;
 
-	/**
-	 * Process the response and decode it.
-	 *
-	 * @param   Response  $response      The response.
-	 * @param   integer   $expectedCode  The expected "good" code.
-	 * @param   boolean   $jsonDecode    Should the response be JSON decoded ?
-	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 * @throws  GithubException
-	 */
-	protected function processResponse(Response $response, $expectedCode = 200, $jsonDecode = true)
-	{
-		// Validate the response code.
-		if ($response->code != $expectedCode)
-		{
-			throw new GithubException($response);
-		}
+    /**
+     * Process the response and decode it.
+     *
+     * @param   Response  $response      The response.
+     * @param   integer   $expectedCode  The expected "good" code.
+     * @param   boolean   $jsonDecode    Should the response be JSON decoded ?
+     *
+     * @return  mixed
+     *
+     * @since   1.0
+     * @throws  GithubException
+     */
+    protected function processResponse(Response $response, $expectedCode = 200, $jsonDecode = true)
+    {
+        // Validate the response code.
+        if ($response->code != $expectedCode) {
+            throw new GithubException($response);
+        }
 
-		$this->rateLimitRemaining = (isset($response->headers['X-RateLimit-Remaining']))
-			? $response->headers['X-RateLimit-Remaining']
-			: 0;
+        $this->rateLimitRemaining = (isset($response->headers['X-RateLimit-Remaining']))
+            ? $response->headers['X-RateLimit-Remaining']
+            : 0;
 
-		return $jsonDecode ? json_decode($response->body) : $response->body;
-	}
+        return $jsonDecode ? json_decode($response->body) : $response->body;
+    }
 
-	/**
-	 * Get the number of remaining requests.
-	 *
-	 * @return integer
-	 *
-	 * @since   1.0
-	 */
-	public function getRateLimitRemaining()
-	{
-		return $this->rateLimitRemaining;
-	}
+    /**
+     * Get the number of remaining requests.
+     *
+     * @return integer
+     *
+     * @since   1.0
+     */
+    public function getRateLimitRemaining()
+    {
+        return $this->rateLimitRemaining;
+    }
 }

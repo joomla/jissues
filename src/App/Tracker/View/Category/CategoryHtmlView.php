@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -19,73 +20,72 @@ use JTracker\View\AbstractTrackerHtmlView;
  */
 class CategoryHtmlView extends AbstractTrackerHtmlView
 {
-	/**
-	 * Redefine the model so the correct type hinting is available.
-	 *
-	 * @var     CategoryModel
-	 * @since   1.0
-	 */
-	protected $model;
+    /**
+     * Redefine the model so the correct type hinting is available.
+     *
+     * @var     CategoryModel
+     * @since   1.0
+     */
+    protected $model;
 
-	/**
-	 * Item object
-	 *
-	 * @var CategoryTable
-	 *
-	 * @since 1.0
-	 */
-	protected $item;
+    /**
+     * Item object
+     *
+     * @var CategoryTable
+     *
+     * @since 1.0
+     */
+    protected $item;
 
-	/**
-	 * Set the item
-	 *
-	 * @param   CategoryTable  $item  The item to set
-	 *
-	 * @return  $this    Method allows chaining
-	 *
-	 * @since  1.0
-	 */
-	public function setItem($item)
-	{
-		$this->item = $item;
+    /**
+     * Set the item
+     *
+     * @param   CategoryTable  $item  The item to set
+     *
+     * @return  $this    Method allows chaining
+     *
+     * @since  1.0
+     */
+    public function setItem($item)
+    {
+        $this->item = $item;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get the item
-	 *
-	 * @throws \RuntimeException
-	 *
-	 * @return CategoryTable
-	 *
-	 * @since  1.0
-	 */
-	public function getItem()
-	{
-		if ($this->item === null)
-		{
-			throw new \RuntimeException('Item not set.');
-		}
+    /**
+     * Get the item
+     *
+     * @throws \RuntimeException
+     *
+     * @return CategoryTable
+     *
+     * @since  1.0
+     */
+    public function getItem()
+    {
+        if ($this->item === null) {
+            throw new \RuntimeException('Item not set.');
+        }
 
-		return $this->item;
-	}
+        return $this->item;
+    }
 
-	/**
-	 * Method to render the view.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @throws  \RuntimeException
-	 *
-	 * @since  1.0
-	 */
-	public function render()
-	{
-		// Set the vars to the template.
-		$this->addData('project', $this->getProject());
-		$this->addData('item', $this->getItem());
+    /**
+     * Method to render the view.
+     *
+     * @return  string  The rendered view.
+     *
+     * @throws  \RuntimeException
+     *
+     * @since  1.0
+     */
+    public function render()
+    {
+        // Set the vars to the template.
+        $this->addData('project', $this->getProject());
+        $this->addData('item', $this->getItem());
 
-		return parent::render();
-	}
+        return parent::render();
+    }
 }

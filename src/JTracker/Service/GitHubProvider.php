@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Service Package
  *
@@ -21,28 +22,27 @@ use JTracker\Github\GithubFactory;
  */
 class GitHubProvider implements ServiceProviderInterface
 {
-	/**
-	 * Registers the service provider with a DI container.
-	 *
-	 * @param   Container  $container  The DI container.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function register(Container $container)
-	{
-		$container->alias('gitHub', Github::class)
-			->alias(BaseGithub::class, Github::class)
-			->share(
-				Github::class,
-				function (Container $container)
-				{
-					// Call the Github factory's getInstance method and inject the application; it handles the rest of the configuration
-					return GithubFactory::getInstance($container->get('app'));
-				},
-				true
-			);
-	}
+    /**
+     * Registers the service provider with a DI container.
+     *
+     * @param   Container  $container  The DI container.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function register(Container $container)
+    {
+        $container->alias('gitHub', Github::class)
+            ->alias(BaseGithub::class, Github::class)
+            ->share(
+                Github::class,
+                function (Container $container) {
+                    // Call the Github factory's getInstance method and inject the application; it handles the rest of the configuration
+                    return GithubFactory::getInstance($container->get('app'));
+                },
+                true
+            );
+    }
 }

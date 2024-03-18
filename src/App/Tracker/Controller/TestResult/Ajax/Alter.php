@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -21,103 +22,103 @@ use JTracker\Github\GithubFactory;
  */
 class Alter extends AbstractAjaxController
 {
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \Exception
-	 */
-	protected function prepareResponse()
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
-		$user        = $application->getUser();
-		$project     = $application->getProject();
+    /**
+     * Prepare the response.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     * @throws  \Exception
+     */
+    protected function prepareResponse()
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
+        $user        = $application->getUser();
+        $project     = $application->getProject();
 
-		if (!$user->check('edit'))
-		{
-			throw new \Exception('You are not allowed to alter this item.');
-		}
+        if (!$user->check('edit')) {
+            throw new \Exception('You are not allowed to alter this item.');
+        }
 
-		$issueId  = $application->input->getUint('issueId');
+        $issueId  = $application->input->getUint('issueId');
 
-		if (!$issueId)
-		{
-			throw new \Exception('No issue ID received.');
-		}
+        if (!$issueId) {
+            throw new \Exception('No issue ID received.');
+        }
 
-		$this->setDispatcher($application->getDispatcher());
-		$this->addEventListener('tests');
-		$this->setProjectGitHubBot($project);
+        $this->setDispatcher($application->getDispatcher());
+        $this->addEventListener('tests');
+        $this->setProjectGitHubBot($project);
 
-		$data   = new \stdClass;
-		$result = new \stdClass;
+        $data   = new \stdClass();
+        $result = new \stdClass();
 
-		$result->user  = $application->input->getUsername('user');
-		$result->value = $application->input->getUint('result');
-		$sha           = $application->input->getCmd('sha');
+        $result->user  = $application->input->getUsername('user');
+        $result->value = $application->input->getUint('result');
+        $sha           = $application->input->getCmd('sha');
 
-		if (!$sha)
-		{
-			throw new \Exception('Missing commit SHA.');
-		}
+        if (!$sha) {
+            throw new \Exception('Missing commit SHA.');
+        }
 
-		$issueModel = new IssueModel($this->getContainer()->get('db'));
+        $issueModel = new IssueModel($this->getContainer()->get('db'));
 
-		$data->testResults = $issueModel->saveTest($issueId, $result->user, $result->value, $sha);
+        $data->testResults = $issueModel->saveTest($issueId, $result->user, $result->value, $sha);
 
-		$issueNumber = $issueModel->getIssueNumberById($issueId);
+        $issueNumber = $issueModel->getIssueNumberById($issueId);
 
-		$event = (new ActivityModel($this->getContainer()->get('db')))
-			->addActivityEvent(
-				'alter_testresult', 'now', $user->username,
-				$project->project_id, $issueNumber, null,
-				json_encode($result)
-			);
+        $event = (new ActivityModel($this->getContainer()->get('db')))
+            ->addActivityEvent(
+                'alter_testresult',
+                'now',
+                $user->username,
+                $project->project_id,
+                $issueNumber,
+                null,
+                json_encode($result)
+            );
 
-		$this->triggerEvent('onTestAfterSubmit', ['issueNumber' => $issueNumber, 'data' => $data->testResults]);
+        $this->triggerEvent('onTestAfterSubmit', ['issueNumber' => $issueNumber, 'data' => $data->testResults]);
 
-		$data->event = new \stdClass;
+        $data->event = new \stdClass();
 
-		foreach ($event as $k => $v)
-		{
-			$data->event->$k = $v;
-		}
+        foreach ($event as $k => $v) {
+            $data->event->$k = $v;
+        }
 
-		$data->event->text = json_decode($data->event->text);
+        $data->event->text = json_decode($data->event->text);
 
-		$this->response->data = json_encode($data);
+        $this->response->data = json_encode($data);
 
-		$this->response->message = 'Test successfully added';
-	}
+        $this->response->message = 'Test successfully added';
+    }
 
-	/**
-	 * Set the GitHub object with the credentials from the project or,
-	 * if not found, with those from the configuration file.
-	 *
-	 * @param   TrackerProject  $project  The Project object.
-	 *
-	 * @since   1.0
-	 * @return $this
-	 */
-	protected function setProjectGitHubBot(TrackerProject $project)
-	{
-		// If there is a bot defined for the project, prefer it over the config credentials.
-		if ($project->gh_editbot_user && $project->gh_editbot_pass)
-		{
-			$this->github = GithubFactory::getInstance(
-				$this->getContainer()->get('app'), true, $project->gh_editbot_user, $project->gh_editbot_pass
-			);
-		}
-		else
-		{
-			$this->github = GithubFactory::getInstance(
-				$this->getContainer()->get('app')
-			);
-		}
+    /**
+     * Set the GitHub object with the credentials from the project or,
+     * if not found, with those from the configuration file.
+     *
+     * @param   TrackerProject  $project  The Project object.
+     *
+     * @since   1.0
+     * @return $this
+     */
+    protected function setProjectGitHubBot(TrackerProject $project)
+    {
+        // If there is a bot defined for the project, prefer it over the config credentials.
+        if ($project->gh_editbot_user && $project->gh_editbot_pass) {
+            $this->github = GithubFactory::getInstance(
+                $this->getContainer()->get('app'),
+                true,
+                $project->gh_editbot_user,
+                $project->gh_editbot_pass
+            );
+        } else {
+            $this->github = GithubFactory::getInstance(
+                $this->getContainer()->get('app')
+            );
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 }

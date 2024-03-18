@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Controller Package
  *
@@ -15,33 +16,33 @@ namespace JTracker\Controller;
  */
 interface TrackerControllerInterface
 {
-	/**
-	 * Initialize the controller.
-	 *
-	 * @return  $this  Method allows chiaining
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function initialize();
+    /**
+     * Initialize the controller.
+     *
+     * @return  $this  Method allows chiaining
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function initialize();
 
-	/**
-	 * Execute the controller.
-	 *
-	 * This is a generic method to execute and render a view and is not suitable for tasks.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function execute();
+    /**
+     * Execute the controller.
+     *
+     * This is a generic method to execute and render a view and is not suitable for tasks.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    public function execute();
 
-	/**
-	 * Returns the current app
-	 *
-	 * @return  string  The app being executed.
-	 *
-	 * @since   1.0
-	 */
-	public function getApp();
+    /**
+     * Returns the current app
+     *
+     * @return  string  The app being executed.
+     *
+     * @since   1.0
+     */
+    public function getApp();
 }

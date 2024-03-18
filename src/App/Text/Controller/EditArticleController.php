@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Text Application
  *
@@ -22,62 +23,62 @@ use Laminas\Diactoros\Response\HtmlResponse;
  */
 class EditArticleController extends AbstractController
 {
-	/**
-	 * The articles model
-	 *
-	 * @var    ArticlesModel
-	 * @since  1.0
-	 */
-	private $model;
+    /**
+     * The articles model
+     *
+     * @var    ArticlesModel
+     * @since  1.0
+     */
+    private $model;
 
-	/**
-	 * The edit article HTML view
-	 *
-	 * @var    BaseHtmlView
-	 * @since  1.0
-	 */
-	private $view;
+    /**
+     * The edit article HTML view
+     *
+     * @var    BaseHtmlView
+     * @since  1.0
+     */
+    private $view;
 
-	/**
-	 * Controller constructor.
-	 *
-	 * @param   ArticlesModel  $model  The articles model
-	 * @param   BaseHtmlView   $view   The articles HTML view
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(ArticlesModel $model, BaseHtmlView $view)
-	{
-		$this->model = $model;
-		$this->view  = $view;
-	}
+    /**
+     * Controller constructor.
+     *
+     * @param   ArticlesModel  $model  The articles model
+     * @param   BaseHtmlView   $view   The articles HTML view
+     *
+     * @since   1.0
+     */
+    public function __construct(ArticlesModel $model, BaseHtmlView $view)
+    {
+        $this->model = $model;
+        $this->view  = $view;
+    }
 
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		$this->getApplication()->getUser()->authorize('admin');
+    /**
+     * Execute the controller.
+     *
+     * @return  boolean
+     *
+     * @since   1.0
+     */
+    public function execute()
+    {
+        $this->getApplication()->getUser()->authorize('admin');
 
-		// Set view variables required in the template
-		$this->view->addData('view', 'article')
-			->addData('layout', 'edit')
-			->addData('app', 'text');
+        // Set view variables required in the template
+        $this->view->addData('view', 'article')
+            ->addData('layout', 'edit')
+            ->addData('app', 'text');
 
-		// Push an empty table object into the view
-		// TODO - Twig doesn't use __get to read properties
-		$this->view->addData('item', $this->model->findById($this->getInput()->getUint('id'))->getIterator());
+        // Push an empty table object into the view
+        // TODO - Twig doesn't use __get to read properties
+        $this->view->addData('item', $this->model->findById($this->getInput()->getUint('id'))->getIterator());
 
-		$this->getApplication()->setResponse(
-			new HtmlResponse(
-				$this->view->render()
-			)
-		);
+        $this->getApplication()->setResponse(
+            new HtmlResponse(
+                $this->view->render()
+            )
+        );
 
-		return true;
-	}
+        return true;
+    }
 }

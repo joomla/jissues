@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Projects Application
  *
@@ -10,7 +11,6 @@ namespace App\Projects\Controller\Project;
 
 use App\Projects\Model\ProjectsModel;
 use App\Projects\Table\ProjectsTable;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -20,60 +20,60 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Save extends AbstractTrackerController
 {
-	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'projects';
+    /**
+     * The default view for the component
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultView = 'projects';
 
-	/**
-	 * Model object
-	 *
-	 * @var    ProjectsModel
-	 * @since  1.0
-	 */
-	protected $model;
+    /**
+     * Model object
+     *
+     * @var    ProjectsModel
+     * @since  1.0
+     */
+    protected $model;
 
-	/**
-	 * Initialize the controller.
-	 *
-	 * This will set up default model and view classes.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function initialize()
-	{
-		parent::initialize();
+    /**
+     * Initialize the controller.
+     *
+     * This will set up default model and view classes.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function initialize()
+    {
+        parent::initialize();
 
-		$this->model->setUser($this ->getContainer()->get('app')->getUser());
+        $this->model->setUser($this ->getContainer()->get('app')->getUser());
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		$app = $this->getContainer()->get('app');
+    /**
+     * Execute the controller.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    public function execute()
+    {
+        $app = $this->getContainer()->get('app');
 
-		$app->getUser()->authorize('admin');
+        $app->getUser()->authorize('admin');
 
-		(new ProjectsTable($this->getContainer()->get('db')))
-			->save($app->input->get('project', [], 'array'));
+        (new ProjectsTable($this->getContainer()->get('db')))
+            ->save($app->input->get('project', [], 'array'));
 
-		// Reload the project.
-		$app->getProject(true);
+        // Reload the project.
+        $app->getProject(true);
 
-		return parent::execute();
-	}
+        return parent::execute();
+    }
 }

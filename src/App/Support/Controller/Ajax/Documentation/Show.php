@@ -19,39 +19,36 @@ use JTracker\Controller\AbstractAjaxController;
  */
 class Show extends AbstractAjaxController
 {
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function prepareResponse()
-	{
-		ob_start();
+    /**
+     * Prepare the response.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function prepareResponse()
+    {
+        ob_start();
 
-		/** @var $input \Joomla\Input\Input */
-		$input = $this->getContainer()->get('app')->input;
+        /** @var $input \Joomla\Input\Input */
+        $input = $this->getContainer()->get('app')->input;
 
-		$page = $input->get('page');
-		$path = $input->getPath('path');
+        $page = $input->get('page');
+        $path = $input->getPath('path');
 
-		$base = $this->getContainer()->get('app')->get('uri')->base->path;
+        $base = $this->getContainer()->get('app')->get('uri')->base->path;
 
-		$this->response->editLink  = 'https://github.com/joomla/jissues/edit/master/Documentation/' . ($path ? $path . '/' : '') . $page . '.md';
-		$this->response->permaLink = $base . 'documentation/view/?page=' . $page . ($path ? '&path=' . $path : '');
+        $this->response->editLink  = 'https://github.com/joomla/jissues/edit/master/Documentation/' . ($path ? $path . '/' : '') . $page . '.md';
+        $this->response->permaLink = $base . 'documentation/view/?page=' . $page . ($path ? '&path=' . $path : '');
 
-		$data = (new DefaultModel($this->getContainer()->get('db')))->getItem($page, $path)->text;
+        $data = (new DefaultModel($this->getContainer()->get('db')))->getItem($page, $path)->text;
 
-		$err = ob_get_clean();
+        $err = ob_get_clean();
 
-		if ($err)
-		{
-			$this->response->error = $err;
-		}
-		else
-		{
-			$this->response->data = $data;
-		}
-	}
+        if ($err) {
+            $this->response->error = $err;
+        } else {
+            $this->response->data = $data;
+        }
+    }
 }

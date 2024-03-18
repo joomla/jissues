@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -9,7 +10,6 @@
 namespace App\Tracker\Controller\Issue\Ajax;
 
 use App\Tracker\Model\IssueModel;
-
 use JTracker\Controller\AbstractAjaxController;
 
 /**
@@ -19,46 +19,42 @@ use JTracker\Controller\AbstractAjaxController;
  */
 class Info extends AbstractAjaxController
 {
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function prepareResponse()
-	{
-		$id = $this->getContainer()->get('app')->input->getUint('id');
+    /**
+     * Prepare the response.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    protected function prepareResponse()
+    {
+        $id = $this->getContainer()->get('app')->input->getUint('id');
 
-		if (!$id)
-		{
-			throw new \RuntimeException('No id received.');
-		}
+        if (!$id) {
+            throw new \RuntimeException('No id received.');
+        }
 
-		$item = (new IssueModel($this->getContainer()->get('db')))->getItem($id);
+        $item = (new IssueModel($this->getContainer()->get('db')))->getItem($id);
 
-		$issue = new \stdClass;
+        $issue = new \stdClass();
 
-		// @todo add more info...
-		$issue->comment_count = 0;
-		$issue->opened_by     = $item->opened_by ? : 'n/a';
+        // @todo add more info...
+        $issue->comment_count = 0;
+        $issue->opened_by     = $item->opened_by ?: 'n/a';
 
-		foreach ($item->activities as $activity)
-		{
-			switch ($activity->event)
-			{
-				case 'comment':
-					$issue->comment_count++;
+        foreach ($item->activities as $activity) {
+            switch ($activity->event) {
+                case 'comment':
+                    $issue->comment_count++;
 
-					break;
+                    break;
 
-				default :
+                default:
+                    break;
+            }
+        }
 
-					break;
-			}
-		}
-
-		$this->response->data = $issue;
-	}
+        $this->response->data = $issue;
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Projects Application
  *
@@ -9,7 +10,6 @@
 namespace App\Projects\Controller;
 
 use App\Projects\View\Project\ProjectHtmlView;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -19,33 +19,33 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Project extends AbstractTrackerController
 {
-	/**
-	 * View object
-	 *
-	 * @var    ProjectHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
+    /**
+     * View object
+     *
+     * @var    ProjectHtmlView
+     * @since  1.0
+     */
+    protected $view;
 
-	/**
-	 * Initialize the controller.
-	 *
-	 * This will set up default model and view classes.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function initialize()
-	{
-		// Reload the project.
-		$this->getContainer()->get('app')->getProject(true);
+    /**
+     * Initialize the controller.
+     *
+     * This will set up default model and view classes.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function initialize()
+    {
+        // Reload the project.
+        $this->getContainer()->get('app')->getProject(true);
 
-		parent::initialize();
+        parent::initialize();
 
-		$this->view->setAlias($this->getContainer()->get('app')->input->get('project_alias'));
+        $this->view->setAlias($this->getContainer()->get('app')->input->get('project_alias'));
 
-		return $this;
-	}
+        return $this;
+    }
 }

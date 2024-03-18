@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -19,55 +20,52 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Refresh extends AbstractTrackerController
 {
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 * @throws  \UnexpectedValueException
-	 */
-	public function execute()
-	{
-		/** @var \JTracker\Application\Application $app */
-		$app = $this->getContainer()->get('app');
+    /**
+     * Execute the controller.
+     *
+     * @return  string  The rendered view.
+     *
+     * @since   1.0
+     * @throws  \UnexpectedValueException
+     */
+    public function execute()
+    {
+        /** @var \JTracker\Application\Application $app */
+        $app = $this->getContainer()->get('app');
 
-		$id = $app->getUser()->id;
+        $id = $app->getUser()->id;
 
-		if (!$id)
-		{
-			throw new \UnexpectedValueException('Not authenticated.');
-		}
+        if (!$id) {
+            throw new \UnexpectedValueException('Not authenticated.');
+        }
 
-		/** @var \Joomla\Github\Github $github */
-		$gitHub = $this->getContainer()->get('gitHub');
+        /** @var \Joomla\Github\Github $github */
+        $gitHub = $this->getContainer()->get('gitHub');
 
-		$gitHubUser = $gitHub->users->getAuthenticatedUser();
+        $gitHubUser = $gitHub->users->getAuthenticatedUser();
 
-		$user = (new GitHubUser($app->getProject(), $this->getContainer()->get('db')))
-			->loadGitHubData($gitHubUser);
+        $user = (new GitHubUser($app->getProject(), $this->getContainer()->get('db')))
+            ->loadGitHubData($gitHubUser);
 
-		$user->loadByUserName($user->username);
+        $user->loadByUserName($user->username);
 
-		try
-		{
-			// Refresh the user data
-			/** @var GitHubLoginHelper $loginHelper */
-			$loginHelper = $this->getContainer()->get(GitHubLoginHelper::class);
+        try {
+            // Refresh the user data
+            /** @var GitHubLoginHelper $loginHelper */
+            $loginHelper = $this->getContainer()->get(GitHubLoginHelper::class);
 
-			$loginHelper->refreshUser($user);
+            $loginHelper->refreshUser($user);
 
-			$app->enqueueMessage('The profile has been refreshed.', 'success');
-		}
-		catch (\Exception $exception)
-		{
-			$app->enqueueMessage(
-				sprintf('An error has occurred during user refresh: %s', $exception->getMessage()), 'error'
-			);
-		}
+            $app->enqueueMessage('The profile has been refreshed.', 'success');
+        } catch (\Exception $exception) {
+            $app->enqueueMessage(
+                sprintf('An error has occurred during user refresh: %s', $exception->getMessage()),
+                'error'
+            );
+        }
 
-		$app->redirect($app->get('uri.base.path') . 'account');
+        $app->redirect($app->get('uri.base.path') . 'account');
 
-		return parent::execute();
-	}
+        return parent::execute();
+    }
 }

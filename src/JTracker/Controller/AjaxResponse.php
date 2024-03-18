@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Controller Package
  *
@@ -15,37 +16,37 @@ namespace JTracker\Controller;
  */
 class AjaxResponse
 {
-	/**
-	 * Data object.
-	 *
-	 * @var    \stdClass
-	 * @since  1.0
-	 */
-	public $data;
+    /**
+     * Data object.
+     *
+     * @var    \stdClass
+     * @since  1.0
+     */
+    public $data;
 
-	/**
-	 * Error message.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	public $error = '';
+    /**
+     * Error message.
+     *
+     * @var    string
+     * @since  1.0
+     */
+    public $error = '';
 
-	/**
-	 * Message string.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	public $message = '';
+    /**
+     * Message string.
+     *
+     * @var    string
+     * @since  1.0
+     */
+    public $message = '';
 
-	/**
-	 * Constructor
-	 *
-	 * @since  1.0
-	 */
-	public function __construct()
-	{
-		$this->data = new \stdClass;
-	}
+    /**
+     * Constructor
+     *
+     * @since  1.0
+     */
+    public function __construct()
+    {
+        $this->data = new \stdClass();
+    }
 }

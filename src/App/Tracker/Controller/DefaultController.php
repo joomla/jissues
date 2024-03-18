@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -19,263 +20,258 @@ use JTracker\Controller\AbstractTrackerListController;
  */
 class DefaultController extends AbstractTrackerListController
 {
-	/**
-	 * View object
-	 *
-	 * @var    IssuesHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
-
-	/**
-	 * The default view for the app
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'issues';
-
-	/**
-	 * Initialize the controller.
-	 *
-	 * @return  $this  Method supports chaining
-	 *
-	 * @since   1.0
-	 */
-	public function initialize()
-	{
-		parent::initialize();
-
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
-
-		$application->getUser()->authorize('view');
-
-		$this->model->setProject($application->getProject());
-		$this->view->setProject($application->getProject());
-
-		$this->setModelState();
-
-		return $this;
-	}
-
-	/**
-	 * Setting model state that will be used for filtering.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	private function setModelState()
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
-
-		$state = $this->model->getState();
-
-		$projectId = $application->getProject()->project_id;
-
-		// Set up filters
-		$sort       = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 'issue', 'word');
-		$direction  = $application->getUserStateFromRequest('project_' . $projectId . '.filter.direction', 'direction', 'desc', 'word');
-
-		if (is_numeric($sort))
-		{
-			switch ($sort)
-			{
-				case 1:
-					$state->set('list.ordering', 'a.issue_number');
-					$state->set('list.direction', 'ASC');
+    /**
+     * View object
+     *
+     * @var    IssuesHtmlView
+     * @since  1.0
+     */
+    protected $view;
+
+    /**
+     * The default view for the app
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultView = 'issues';
+
+    /**
+     * Initialize the controller.
+     *
+     * @return  $this  Method supports chaining
+     *
+     * @since   1.0
+     */
+    public function initialize()
+    {
+        parent::initialize();
+
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
+
+        $application->getUser()->authorize('view');
+
+        $this->model->setProject($application->getProject());
+        $this->view->setProject($application->getProject());
+
+        $this->setModelState();
 
-					break;
+        return $this;
+    }
 
-				case 2:
-					$state->set('list.ordering', 'a.modified_date');
-					$state->set('list.direction', 'DESC');
+    /**
+     * Setting model state that will be used for filtering.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    private function setModelState()
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
 
-					break;
+        $state = $this->model->getState();
 
-				case 3:
-					$state->set('list.ordering', 'a.modified_date');
-					$state->set('list.direction', 'ASC');
+        $projectId = $application->getProject()->project_id;
 
-					break;
+        // Set up filters
+        $sort       = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 'issue', 'word');
+        $direction  = $application->getUserStateFromRequest('project_' . $projectId . '.filter.direction', 'direction', 'desc', 'word');
 
-				default:
-					$state->set('list.ordering', 'a.issue_number');
-					$state->set('list.direction', 'DESC');
-			}
-		}
-		// Update the sort filters from the GET request
-		else
-		{
-			switch (strtolower($sort))
-			{
-				case 'updated':
-					$state->set('list.ordering', 'a.modified_date');
-					$sort = $sort + 2;
+        if (is_numeric($sort)) {
+            switch ($sort) {
+                case 1:
+                    $state->set('list.ordering', 'a.issue_number');
+                    $state->set('list.direction', 'ASC');
 
-					break;
+                    break;
 
-				default:
-					$sort = 0;
-			}
+                case 2:
+                    $state->set('list.ordering', 'a.modified_date');
+                    $state->set('list.direction', 'DESC');
 
-			switch (strtoupper($direction))
-			{
-				case 'ASC':
-					$state->set('list.direction', 'ASC');
-					$sort++;
+                    break;
 
-					break;
+                case 3:
+                    $state->set('list.ordering', 'a.modified_date');
+                    $state->set('list.direction', 'ASC');
 
-				default:
-					$state->set('list.direction', 'DESC');
-			}
-		}
+                    break;
 
-		$state->set('filter.sort', $sort);
+                default:
+                    $state->set('list.ordering', 'a.issue_number');
+                    $state->set('list.direction', 'DESC');
+            }
+        } else {
+            // Update the sort filters from the GET request
+            switch (strtolower($sort)) {
+                case 'updated':
+                    $state->set('list.ordering', 'a.modified_date');
+                    $sort = $sort + 2;
 
-		$priority = $application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'priority', 0, 'cmd');
+                    break;
 
-		// Update the priority filter from the GET request
-		switch (strtolower($priority))
-		{
-			case 'critical':
-				$priority = 1;
+                default:
+                    $sort = 0;
+            }
 
-				break;
+            switch (strtoupper($direction)) {
+                case 'ASC':
+                    $state->set('list.direction', 'ASC');
+                    $sort++;
 
-			case 'urgent':
-				$priority = 2;
+                    break;
 
-				break;
+                default:
+                    $state->set('list.direction', 'DESC');
+            }
+        }
 
-			case 'medium':
-				$priority = 3;
+        $state->set('filter.sort', $sort);
 
-				break;
+        $priority = $application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'priority', 0, 'cmd');
 
-			case 'low':
-				$priority = 4;
+        // Update the priority filter from the GET request
+        switch (strtolower($priority)) {
+            case 'critical':
+                $priority = 1;
 
-				break;
+                break;
 
-			case 'very-low':
-				$priority = 5;
+            case 'urgent':
+                $priority = 2;
 
-				break;
-		}
+                break;
 
-		$state->set('filter.priority', $priority);
+            case 'medium':
+                $priority = 3;
 
-		$issuesState = $application->getUserStateFromRequest('project_' . $projectId . '.filter.state', 'state', 'open', 'word');
+                break;
 
-		// Update the state filter from the GET request
-		switch (strtolower($issuesState))
-		{
-			case 'open':
-				$issuesState = 0;
+            case 'low':
+                $priority = 4;
 
-				break;
+                break;
 
-			case 'closed':
-				$issuesState = 1;
+            case 'very-low':
+                $priority = 5;
 
-				break;
+                break;
+        }
 
-			case 'all':
-				$issuesState = 2;
+        $state->set('filter.priority', $priority);
 
-				break;
-		}
+        $issuesState = $application->getUserStateFromRequest('project_' . $projectId . '.filter.state', 'state', 'open', 'word');
 
-		$state->set('filter.state', $issuesState);
+        // Update the state filter from the GET request
+        switch (strtolower($issuesState)) {
+            case 'open':
+                $issuesState = 0;
 
-		$state->set('filter.status',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'status', 0, 'uint')
-		);
+                break;
 
-		$state->set('filter.search',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.search', 'search', '', 'string')
-		);
+            case 'closed':
+                $issuesState = 1;
 
-		$user = $application->getUserStateFromRequest('project_' . $projectId . '.filter.user', 'user', 0, 'word');
+                break;
 
-		// Update the user filter from the GET request
-		switch ((string) $user)
-		{
-			case 'created':
-				$user = 1;
+            case 'all':
+                $issuesState = 2;
 
-				break;
+                break;
+        }
 
-			case 'participated':
-				$user = 2;
+        $state->set('filter.state', $issuesState);
 
-				break;
-		}
+        $state->set(
+            'filter.status',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'status', 0, 'uint')
+        );
 
-		$state->set('filter.user', $user);
+        $state->set(
+            'filter.search',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.search', 'search', '', 'string')
+        );
 
-		$state->set('filter.created_by',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.created_by', 'created_by', '', 'string')
-		);
+        $user = $application->getUserStateFromRequest('project_' . $projectId . '.filter.user', 'user', 0, 'word');
 
-		$categoryAlias = $application->input->get->get('category', '', 'cmd');
+        // Update the user filter from the GET request
+        switch ((string) $user) {
+            case 'created':
+                $user = 1;
 
-		// Update the category filter from the GET request
-		if ($categoryAlias != '' && (!is_numeric($categoryAlias)))
-		{
-			$categoryId = 0;
+                break;
 
-			$category = (new CategoryModel($this->getContainer()->get('db')))
-				->setProject($application->getProject())->getByAlias($categoryAlias);
+            case 'participated':
+                $user = 2;
 
-			if ($category)
-			{
-				$categoryId = $category->id;
-			}
-		}
-		else
-		{
-			$categoryId = $application->getUserStateFromRequest('project_' . $projectId . '.filter.category', 'category', 0, 'int');
-		}
+                break;
+        }
 
-		$state->set('filter.category', (int) $categoryId);
+        $state->set('filter.user', $user);
 
-		$state->set('filter.label', $application->getUserStateFromRequest('project_' . $projectId . '.filter.label', 'label', 0, 'uint'));
+        $state->set(
+            'filter.created_by',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.created_by', 'created_by', '', 'string')
+        );
 
-		$state->set('stools-active',
-			$application->input->get('stools-active', 0, 'uint')
-		);
+        $categoryAlias = $application->input->get->get('category', '', 'cmd');
 
-		if ($application->getUser()->username)
-		{
-			$state->set('username', $application->getUser()->username);
-		}
+        // Update the category filter from the GET request
+        if ($categoryAlias != '' && (!is_numeric($categoryAlias))) {
+            $categoryId = 0;
 
-		// Update the page from the GET request
-		$state->set('page',
-			$application->getUserStateFromRequest('project_' . $projectId . '.page', 'page', 1, 'uint')
-		);
+            $category = (new CategoryModel($this->getContainer()->get('db')))
+                ->setProject($application->getProject())->getByAlias($categoryAlias);
 
-		$state->set('filter.tests',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.tests', 'tests', 0, 'uint')
-		);
+            if ($category) {
+                $categoryId = $category->id;
+            }
+        } else {
+            $categoryId = $application->getUserStateFromRequest('project_' . $projectId . '.filter.category', 'category', 0, 'int');
+        }
 
-		$state->set('filter.easytest',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.easytest', 'easytest', 2, 'uint')
-		);
+        $state->set('filter.category', (int) $categoryId);
 
-		$state->set('filter.type',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.type', 'type', 0, 'uint')
-		);
+        $state->set('filter.label', $application->getUserStateFromRequest('project_' . $projectId . '.filter.label', 'label', 0, 'uint'));
 
-		$state->set('filter.milestone',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.milestone', 'milestone', 0, 'int')
-		);
+        $state->set(
+            'stools-active',
+            $application->input->get('stools-active', 0, 'uint')
+        );
 
-		$this->model->setState($state);
-	}
+        if ($application->getUser()->username) {
+            $state->set('username', $application->getUser()->username);
+        }
+
+        // Update the page from the GET request
+        $state->set(
+            'page',
+            $application->getUserStateFromRequest('project_' . $projectId . '.page', 'page', 1, 'uint')
+        );
+
+        $state->set(
+            'filter.tests',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.tests', 'tests', 0, 'uint')
+        );
+
+        $state->set(
+            'filter.easytest',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.easytest', 'easytest', 2, 'uint')
+        );
+
+        $state->set(
+            'filter.type',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.type', 'type', 0, 'uint')
+        );
+
+        $state->set(
+            'filter.milestone',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.milestone', 'milestone', 0, 'int')
+        );
+
+        $this->model->setState($state);
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -18,44 +19,40 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Save extends AbstractTrackerController
 {
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 * @throws  \UnexpectedValueException
-	 */
-	public function execute()
-	{
-		/** @var \JTracker\Application\Application $app */
-		$app = $this->getContainer()->get('app');
+    /**
+     * Execute the controller.
+     *
+     * @return  string  The rendered view.
+     *
+     * @since   1.0
+     * @throws  \UnexpectedValueException
+     */
+    public function execute()
+    {
+        /** @var \JTracker\Application\Application $app */
+        $app = $this->getContainer()->get('app');
 
-		$id = $app->getUser()->id;
+        $id = $app->getUser()->id;
 
-		if (!$id)
-		{
-			throw new \UnexpectedValueException('Not authenticated.');
-		}
+        if (!$id) {
+            throw new \UnexpectedValueException('Not authenticated.');
+        }
 
-		$src       = $app->input->get('item', [], 'array');
-		$src['id'] = $id;
+        $src       = $app->input->get('item', [], 'array');
+        $src['id'] = $id;
 
-		try
-		{
-			// Save the record.
-			(new UserModel($this->getContainer()->get('db')))->save($src);
+        try {
+            // Save the record.
+            (new UserModel($this->getContainer()->get('db')))->save($src);
 
-			$app->enqueueMessage('The changes have been saved.', 'success');
-		}
-		catch (\Exception $e)
-		{
-			$app->enqueueMessage($e->getMessage(), 'error');
-		}
+            $app->enqueueMessage('The changes have been saved.', 'success');
+        } catch (\Exception $e) {
+            $app->enqueueMessage($e->getMessage(), 'error');
+        }
 
-		$app->redirect($app->get('uri.base.path') . 'account/edit');
+        $app->redirect($app->get('uri.base.path') . 'account/edit');
 
-		// To silence PHPCS expecting a return
-		return '';
-	}
+        // To silence PHPCS expecting a return
+        return '';
+    }
 }

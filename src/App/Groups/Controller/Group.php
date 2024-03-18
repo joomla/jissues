@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Groups Application
  *
@@ -10,7 +11,6 @@ namespace App\Groups\Controller;
 
 use App\Groups\Model\GroupModel;
 use App\Groups\View\Group\GroupHtmlView;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -20,51 +20,51 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Group extends AbstractTrackerController
 {
-	/**
-	 * The default layout for the app
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultLayout = 'edit';
+    /**
+     * The default layout for the app
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultLayout = 'edit';
 
-	/**
-	 * Model object
-	 *
-	 * @var    GroupModel
-	 * @since  1.0
-	 */
-	protected $model;
+    /**
+     * Model object
+     *
+     * @var    GroupModel
+     * @since  1.0
+     */
+    protected $model;
 
-	/**
-	 * View object
-	 *
-	 * @var    GroupHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
+    /**
+     * View object
+     *
+     * @var    GroupHtmlView
+     * @since  1.0
+     */
+    protected $view;
 
-	/**
-	 * Initialize the controller.
-	 *
-	 * This will set up default model and view classes.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function initialize()
-	{
-		parent::initialize();
+    /**
+     * Initialize the controller.
+     *
+     * This will set up default model and view classes.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function initialize()
+    {
+        parent::initialize();
 
-		$this->getContainer()->get('app')->getUser()->authorize('manage');
+        $this->getContainer()->get('app')->getUser()->authorize('manage');
 
-		$this->model->setProject($this->getContainer()->get('app')->getProject());
-		$this->model->setGroupId($this->getContainer()->get('app')->input->getInt('group_id'));
+        $this->model->setProject($this->getContainer()->get('app')->getProject());
+        $this->model->setGroupId($this->getContainer()->get('app')->input->getInt('group_id'));
 
-		$this->view->setProject($this->getContainer()->get('app')->getProject());
+        $this->view->setProject($this->getContainer()->get('app')->getProject());
 
-		return $this;
-	}
+        return $this;
+    }
 }

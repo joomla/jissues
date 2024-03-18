@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker
  *
@@ -17,14 +18,14 @@ use Joomla\DI\Container;
  */
 interface AppInterface
 {
-	/**
-	 * Loads services for the component into the application's DI Container
-	 *
-	 * @param   Container  $container  DI Container to load services into
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function loadServices(Container $container);
+    /**
+     * Loads services for the component into the application's DI Container
+     *
+     * @param   Container  $container  DI Container to load services into
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    public function loadServices(Container $container);
 }

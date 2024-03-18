@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -9,7 +10,6 @@
 namespace App\Tracker\Controller\Issue\Ajax;
 
 use App\Tracker\Model\IssueModel;
-
 use Joomla\Input\Input;
 use JTracker\Controller\AbstractAjaxController;
 
@@ -20,46 +20,43 @@ use JTracker\Controller\AbstractAjaxController;
  */
 class Vote extends AbstractAjaxController
 {
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 * @throws  \Exception
-	 */
-	protected function prepareResponse()
-	{
-		// Verify the user has permissions to perform this action
-		if (!$this->getContainer()->get('app')->getUser()->authorize('view'))
-		{
-			throw new \Exception('Anonymous votes are not allowed.');
-		}
+    /**
+     * Prepare the response.
+     *
+     * @return  mixed
+     *
+     * @since   1.0
+     * @throws  \Exception
+     */
+    protected function prepareResponse()
+    {
+        // Verify the user has permissions to perform this action
+        if (!$this->getContainer()->get('app')->getUser()->authorize('view')) {
+            throw new \Exception('Anonymous votes are not allowed.');
+        }
 
-		/** @var Input $input */
-		$input = $this->getContainer()->get('app')->input;
+        /** @var Input $input */
+        $input = $this->getContainer()->get('app')->input;
 
-		$issue       = $input->getUint('issueId');
-		$experienced = $input->getInt('experienced');
-		$importance  = $input->getInt('importance');
-		$userID      = $this->getContainer()->get('app')->getUser()->id;
+        $issue       = $input->getUint('issueId');
+        $experienced = $input->getInt('experienced');
+        $importance  = $input->getInt('importance');
+        $userID      = $this->getContainer()->get('app')->getUser()->id;
 
-		if (!$issue)
-		{
-			throw new \Exception('No issue ID received.');
-		}
+        if (!$issue) {
+            throw new \Exception('No issue ID received.');
+        }
 
-		if (!$importance)
-		{
-			throw new \Exception('Issue importance not received');
-		}
+        if (!$importance) {
+            throw new \Exception('Issue importance not received');
+        }
 
-		$data = (new IssueModel($this->getContainer()->get('db')))->vote($issue, $experienced, $importance, $userID);
+        $data = (new IssueModel($this->getContainer()->get('db')))->vote($issue, $experienced, $importance, $userID);
 
-		// Add the new score
-		$data->importanceScore = $data->score / $data->votes;
+        // Add the new score
+        $data->importanceScore = $data->score / $data->votes;
 
-		$this->response->data    = $data;
-		$this->response->message = 'Vote successfully added';
-	}
+        $this->response->data    = $data;
+        $this->response->message = 'Vote successfully added';
+    }
 }

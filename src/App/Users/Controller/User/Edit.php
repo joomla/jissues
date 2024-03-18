@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Users Application
  *
@@ -19,66 +20,65 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Edit extends AbstractTrackerController
 {
-	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'user';
+    /**
+     * The default view for the component
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultView = 'user';
 
-	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultLayout = 'edit';
+    /**
+     * The default view for the component
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultLayout = 'edit';
 
-	/**
-	 * View object
-	 *
-	 * @var    UserHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
+    /**
+     * View object
+     *
+     * @var    UserHtmlView
+     * @since  1.0
+     */
+    protected $view;
 
-	/**
-	 * Model object
-	 *
-	 * @var    UserModel
-	 * @since  1.0
-	 */
-	protected $model;
+    /**
+     * Model object
+     *
+     * @var    UserModel
+     * @since  1.0
+     */
+    protected $model;
 
-	/**
-	 * Initialize the controller.
-	 *
-	 * This will set up default model and view classes.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \UnexpectedValueException
-	 */
-	public function initialize()
-	{
-		parent::initialize();
+    /**
+     * Initialize the controller.
+     *
+     * This will set up default model and view classes.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \UnexpectedValueException
+     */
+    public function initialize()
+    {
+        parent::initialize();
 
-		/** @var \JTracker\Application\Application $app */
-		$app = $this->getContainer()->get('app');
+        /** @var \JTracker\Application\Application $app */
+        $app = $this->getContainer()->get('app');
 
-		$id = $app->getUser()->id;
+        $id = $app->getUser()->id;
 
-		if (!$id)
-		{
-			throw new \UnexpectedValueException('Not authenticated.');
-		}
+        if (!$id) {
+            throw new \UnexpectedValueException('Not authenticated.');
+        }
 
-		$this->view->id = $id;
+        $this->view->id = $id;
 
-		$this->model->setProject($app->getProject());
+        $this->model->setProject($app->getProject());
 
-		return $this;
-	}
+        return $this;
+    }
 }

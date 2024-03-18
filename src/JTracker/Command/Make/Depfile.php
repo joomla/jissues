@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla! Tracker application.
  *
@@ -24,198 +25,186 @@ use Twig\Loader\FilesystemLoader;
  */
 class Depfile extends TrackerCommand
 {
-	/**
-	 * Product object.
-	 *
-	 * @var    object
-	 * @since  1.0
-	 */
-	public $product;
+    /**
+     * Product object.
+     *
+     * @var    object
+     * @since  1.0
+     */
+    public $product;
 
-	/**
-	 * Dependencies.
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	public $dependencies = [];
+    /**
+     * Dependencies.
+     *
+     * @var    array
+     * @since  1.0
+     */
+    public $dependencies = [];
 
-	/**
-	 * Configure the command.
-	 *
-	 * @return  void
-	 *
-	 * @since   2.0.0
-	 */
-	protected function configure(): void
-	{
-		$this->setName('make:depfile');
-		$this->setDescription('Create and update a dependency file.');
-		$this->addOption('file', 'f', InputOption::VALUE_REQUIRED, 'Write output to a file.');
-	}
+    /**
+     * Configure the command.
+     *
+     * @return  void
+     *
+     * @since   2.0.0
+     */
+    protected function configure(): void
+    {
+        $this->setName('make:depfile');
+        $this->setDescription('Create and update a dependency file.');
+        $this->addOption('file', 'f', InputOption::VALUE_REQUIRED, 'Write output to a file.');
+    }
 
-	/**
-	 * Execute the command.
-	 *
-	 * @param   InputInterface   $input   The input to inject into the command.
-	 * @param   OutputInterface  $output  The output to inject into the command.
-	 *
-	 * @return  integer
-	 *
-	 * @throws  \RuntimeException
-	 * @throws  \UnexpectedValueException
-	 * @since   1.0
-	 */
-	protected function doExecute(InputInterface $input, OutputInterface $output): int
-	{
-		$ioStyle = new SymfonyStyle($input, $output);
+    /**
+     * Execute the command.
+     *
+     * @param   InputInterface   $input   The input to inject into the command.
+     * @param   OutputInterface  $output  The output to inject into the command.
+     *
+     * @return  integer
+     *
+     * @throws  \RuntimeException
+     * @throws  \UnexpectedValueException
+     * @since   1.0
+     */
+    protected function doExecute(InputInterface $input, OutputInterface $output): int
+    {
+        $ioStyle = new SymfonyStyle($input, $output);
 
-		$packages = [];
-		$defined  = [];
+        $packages = [];
+        $defined  = [];
 
-		$defined['composer'] = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
-		$defined['npm']      = json_decode(file_get_contents(JPATH_ROOT . '/package.json'));
-		$defined['credits']  = json_decode(file_get_contents(JPATH_ROOT . '/credits.json'));
+        $defined['composer'] = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
+        $defined['npm']      = json_decode(file_get_contents(JPATH_ROOT . '/package.json'));
+        $defined['credits']  = json_decode(file_get_contents(JPATH_ROOT . '/credits.json'));
 
-		$installedComposer = json_decode(file_get_contents(JPATH_ROOT . '/vendor/composer/installed.json'));
-		$installedNpm      = json_decode(file_get_contents(JPATH_ROOT . '/package-lock.json'));
+        $installedComposer = json_decode(file_get_contents(JPATH_ROOT . '/vendor/composer/installed.json'));
+        $installedNpm      = json_decode(file_get_contents(JPATH_ROOT . '/package-lock.json'));
 
-		$this->product = $defined['composer'];
+        $this->product = $defined['composer'];
 
-		foreach ($installedComposer as $entry)
-		{
-			$package = new \stdClass;
+        foreach ($installedComposer as $entry) {
+            $package = new \stdClass();
 
-			$package->name        = $entry->name;
-			$package->description = $entry->description ?? '';
-			$package->version     = $entry->version;
-			$package->sourceURL   = $entry->source->url;
-			$package->sourceRef   = $entry->source->reference ?? '';
+            $package->name        = $entry->name;
+            $package->description = $entry->description ?? '';
+            $package->version     = $entry->version;
+            $package->sourceURL   = $entry->source->url;
+            $package->sourceRef   = $entry->source->reference ?? '';
 
-			$packages['composer'][$entry->name] = $package;
-		}
+            $packages['composer'][$entry->name] = $package;
+        }
 
-		foreach ($installedNpm->dependencies as $packageName => $packageData)
-		{
-			if (!isset($defined['npm']->dependencies->$packageName))
-			{
-				continue;
-			}
+        foreach ($installedNpm->dependencies as $packageName => $packageData) {
+            if (!isset($defined['npm']->dependencies->$packageName)) {
+                continue;
+            }
 
-			$package = new \stdClass;
+            $package = new \stdClass();
 
-			$package->name        = $packageName;
-			$package->description = '';
-			$package->version     = $packageData->version;
-			$package->sourceURL   = '';
+            $package->name        = $packageName;
+            $package->description = '';
+            $package->version     = $packageData->version;
+            $package->sourceURL   = '';
 
-			$packages['npm'][$packageName] = $package;
-		}
+            $packages['npm'][$packageName] = $package;
+        }
 
-		$this->dependencies = $this->getSorted($defined, $packages);
+        $this->dependencies = $this->getSorted($defined, $packages);
 
-		$twig = new Environment(new FilesystemLoader(__DIR__ . '/tpl'));
+        $twig = new Environment(new FilesystemLoader(__DIR__ . '/tpl'));
 
-		$twig->setCache(false);
+        $twig->setCache(false);
 
-		$contents = $twig->render(
-			'dependencies.twig',
-			['dependencies' => $this->dependencies, 'product' => $this->product]
-		);
+        $contents = $twig->render(
+            'dependencies.twig',
+            ['dependencies' => $this->dependencies, 'product' => $this->product]
+        );
 
-		$fileName = $input->getOption('file');
+        $fileName = $input->getOption('file');
 
-		if ($fileName)
-		{
-			$ioStyle->text(sprintf('Writing contents to: %s', $fileName));
+        if ($fileName) {
+            $ioStyle->text(sprintf('Writing contents to: %s', $fileName));
 
-			file_put_contents($fileName, $contents);
-		}
-		else
-		{
-			$ioStyle->text($contents);
-		}
+            file_put_contents($fileName, $contents);
+        } else {
+            $ioStyle->text($contents);
+        }
 
-		$ioStyle->newLine();
-		$ioStyle->success('Finished.');
+        $ioStyle->newLine();
+        $ioStyle->success('Finished.');
 
-		return Command::SUCCESS;
-	}
+        return Command::SUCCESS;
+    }
 
-	/**
-	 * Generate HTML output.
-	 *
-	 * @param   array  $defined   List of defined packages
-	 * @param   array  $packages  List of installed packages
-	 *
-	 * @return  string  HTML output
-	 *
-	 * @since   1.0
-	 */
-	private function getSorted(array $defined, array $packages)
-	{
-		$sorted = [];
+    /**
+     * Generate HTML output.
+     *
+     * @param   array  $defined   List of defined packages
+     * @param   array  $packages  List of installed packages
+     *
+     * @return  string  HTML output
+     *
+     * @since   1.0
+     */
+    private function getSorted(array $defined, array $packages)
+    {
+        $sorted = [];
 
-		foreach (['require' => 'php', 'require-dev' => 'php-dev'] as $sub => $section)
-		{
-			$items = [];
+        foreach (['require' => 'php', 'require-dev' => 'php-dev'] as $sub => $section) {
+            $items = [];
 
-			foreach ($defined['composer']->$sub as $packageName => $version)
-			{
-				if ($packageName == 'php')
-				{
-					$o          = new \stdClass;
-					$o->version = $version;
+            foreach ($defined['composer']->$sub as $packageName => $version) {
+                if ($packageName == 'php') {
+                    $o          = new \stdClass();
+                    $o->version = $version;
 
-					$sorted['php-version'] = $o;
-					$sorted['php-version'] = $version;
+                    $sorted['php-version'] = $o;
+                    $sorted['php-version'] = $version;
 
-					continue;
-				}
+                    continue;
+                }
 
-				$item              = new \stdClass;
-				$item->packageName = $packageName;
-				$item->version     = $version;
-				$item->installed   = '';
-				$item->description = '';
-				$item->sourceRef   = '';
-				$item->sourceURL   = '';
+                $item              = new \stdClass();
+                $item->packageName = $packageName;
+                $item->version     = $version;
+                $item->installed   = '';
+                $item->description = '';
+                $item->sourceRef   = '';
+                $item->sourceURL   = '';
 
-				if (isset($packages['composer'][$packageName]))
-				{
-					$item->description = $packages['composer'][$packageName]->description;
-					$item->installed   = $packages['composer'][$packageName]->version;
-					$item->sourceURL   = $packages['composer'][$packageName]->sourceURL;
+                if (isset($packages['composer'][$packageName])) {
+                    $item->description = $packages['composer'][$packageName]->description;
+                    $item->installed   = $packages['composer'][$packageName]->version;
+                    $item->sourceURL   = $packages['composer'][$packageName]->sourceURL;
 
-					if ($packages['composer'][$packageName]->version == 'dev-master')
-					{
-						$item->sourceRef = $packages['composer'][$packageName]->sourceRef;
-					}
-				}
+                    if ($packages['composer'][$packageName]->version == 'dev-master') {
+                        $item->sourceRef = $packages['composer'][$packageName]->sourceRef;
+                    }
+                }
 
-				$items[] = $item;
-			}
+                $items[] = $item;
+            }
 
-			$sorted[$section] = $items;
-		}
+            $sorted[$section] = $items;
+        }
 
-		foreach ($defined['npm']->dependencies as $packageName => $version)
-		{
-			$installed = $packages['npm'][$packageName];
+        foreach ($defined['npm']->dependencies as $packageName => $version) {
+            $installed = $packages['npm'][$packageName];
 
-			$item = new \stdClass;
+            $item = new \stdClass();
 
-			$item->packageName = $packageName;
-			$item->version     = $version;
-			$item->installed   = $installed->version;
-			$item->description = $installed->description ?: '';
-			$item->sourceURL   = $installed->sourceURL ?: '';
+            $item->packageName = $packageName;
+            $item->version     = $version;
+            $item->installed   = $installed->version;
+            $item->description = $installed->description ?: '';
+            $item->sourceURL   = $installed->sourceURL ?: '';
 
-			$sorted['javascript'][] = $item;
-		}
+            $sorted['javascript'][] = $item;
+        }
 
-		$sorted['credits'] = $defined['credits'];
+        $sorted['credits'] = $defined['credits'];
 
-		return $sorted;
-	}
+        return $sorted;
+    }
 }

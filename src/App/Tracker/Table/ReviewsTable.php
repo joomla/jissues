@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -9,7 +10,6 @@
 namespace App\Tracker\Table;
 
 use Joomla\Database\DatabaseDriver;
-
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
@@ -28,35 +28,35 @@ use JTracker\Database\AbstractDatabaseTable;
  */
 class ReviewsTable extends AbstractDatabaseTable
 {
-	/**
-	 * Review approved state
-	 */
-	const APPROVED_STATE = 1;
+    /**
+     * Review approved state
+     */
+    public const APPROVED_STATE = 1;
 
-	/**
-	 * Review changes required state
-	 */
-	const CHANGES_REQUIRED_STATE = 2;
+    /**
+     * Review changes required state
+     */
+    public const CHANGES_REQUIRED_STATE = 2;
 
-	/**
-	 * Review dismissed state
-	 */
-	const DISMISSED_STATE = 3;
+    /**
+     * Review dismissed state
+     */
+    public const DISMISSED_STATE = 3;
 
-	/**
-	 * Review with comment without explicit approval state
-	 */
-	const COMMENTED = 4;
+    /**
+     * Review with comment without explicit approval state
+     */
+    public const COMMENTED = 4;
 
-	/**
-	 * Constructor
-	 *
-	 * @param   DatabaseDriver  $database  A database connector object.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(DatabaseDriver $database)
-	{
-		parent::__construct('#__issue_reviews', 'id', $database);
-	}
+    /**
+     * Constructor
+     *
+     * @param   DatabaseDriver  $database  A database connector object.
+     *
+     * @since   1.0
+     */
+    public function __construct(DatabaseDriver $database)
+    {
+        parent::__construct('#__issue_reviews', 'id', $database);
+    }
 }

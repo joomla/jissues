@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -17,31 +18,27 @@ use JTracker\Controller\AbstractAjaxController;
  */
 class Delete extends AbstractAjaxController
 {
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function prepareResponse()
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
+    /**
+     * Prepare the response.
+     *
+     * @return  mixed
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    protected function prepareResponse()
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
 
-		$file = $application->input->getCmd('file');
+        $file = $application->input->getCmd('file');
 
-		if (!empty($file))
-		{
-			try
-			{
-				unlink(JPATH_THEMES . '/' . $application->get('system.upload_dir') . '/' . $application->getProject()->project_id . '/' . $file);
-			}
-			catch (\Exception $e)
-			{
-				throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
-			}
-		}
-	}
+        if (!empty($file)) {
+            try {
+                unlink(JPATH_THEMES . '/' . $application->get('system.upload_dir') . '/' . $application->getProject()->project_id . '/' . $file);
+            } catch (\Exception $e) {
+                throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+            }
+        }
+    }
 }

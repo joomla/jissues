@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Text Application
  *
@@ -24,69 +25,69 @@ use Laminas\Diactoros\Response\HtmlResponse;
  */
 class ListArticlesController extends AbstractController
 {
-	use HasLists;
+    use HasLists;
 
-	/**
-	 * The articles model
-	 *
-	 * @var    ArticlesModel
-	 * @since  1.0
-	 */
-	private $model;
+    /**
+     * The articles model
+     *
+     * @var    ArticlesModel
+     * @since  1.0
+     */
+    private $model;
 
-	/**
-	 * The articles HTML view
-	 *
-	 * @var    BaseHtmlView
-	 * @since  1.0
-	 */
-	private $view;
+    /**
+     * The articles HTML view
+     *
+     * @var    BaseHtmlView
+     * @since  1.0
+     */
+    private $view;
 
-	/**
-	 * Controller constructor.
-	 *
-	 * @param   ArticlesModel  $model  The articles model
-	 * @param   BaseHtmlView   $view   The articles HTML view
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(ArticlesModel $model, BaseHtmlView $view)
-	{
-		$this->model = $model;
-		$this->view  = $view;
-	}
+    /**
+     * Controller constructor.
+     *
+     * @param   ArticlesModel  $model  The articles model
+     * @param   BaseHtmlView   $view   The articles HTML view
+     *
+     * @since   1.0
+     */
+    public function __construct(ArticlesModel $model, BaseHtmlView $view)
+    {
+        $this->model = $model;
+        $this->view  = $view;
+    }
 
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		$this->getApplication()->getUser()->authorize('admin');
+    /**
+     * Execute the controller.
+     *
+     * @return  boolean
+     *
+     * @since   1.0
+     */
+    public function execute()
+    {
+        $this->getApplication()->getUser()->authorize('admin');
 
-		// Initialise the state of the model before setting the paginated data
-		$state = new Registry;
-		$this->model->setState($state);
+        // Initialise the state of the model before setting the paginated data
+        $state = new Registry();
+        $this->model->setState($state);
 
-		$this->configurePaginationState($this->getApplication(), $this->model);
+        $this->configurePaginationState($this->getApplication(), $this->model);
 
-		// Set view variables required in the template
-		$this->view->addData('view', 'articles')
-			->addData('layout', 'index')
-			->addData('app', 'text');
+        // Set view variables required in the template
+        $this->view->addData('view', 'articles')
+            ->addData('layout', 'index')
+            ->addData('app', 'text');
 
-		// Push articles into view
-		$this->view->addData('items', $this->model->getItems());
+        // Push articles into view
+        $this->view->addData('items', $this->model->getItems());
 
-		$this->getApplication()->setResponse(
-			new HtmlResponse(
-				$this->view->render()
-			)
-		);
+        $this->getApplication()->setResponse(
+            new HtmlResponse(
+                $this->view->render()
+            )
+        );
 
-		return true;
-	}
+        return true;
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -18,43 +19,45 @@ use JTracker\Helper\GitHubHelper;
  */
 class Submit extends AbstractAjaxController
 {
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 * @throws  \Exception
-	 */
-	protected function prepareResponse()
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
+    /**
+     * Prepare the response.
+     *
+     * @return  mixed
+     *
+     * @since   1.0
+     * @throws  \Exception
+     */
+    protected function prepareResponse()
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
 
-		$application->getUser()->authorize('create');
+        $application->getUser()->authorize('create');
 
-		$comment     = $application->input->get('text', '', 'raw');
-		$issueNumber = $application->input->getInt('issue_number');
-		$project     = $application->getProject();
+        $comment     = $application->input->get('text', '', 'raw');
+        $issueNumber = $application->input->getInt('issue_number');
+        $project     = $application->getProject();
 
-		if (!$issueNumber)
-		{
-			throw new \Exception('No issue number received.');
-		}
+        if (!$issueNumber) {
+            throw new \Exception('No issue number received.');
+        }
 
-		if (!$comment)
-		{
-			throw new \Exception('You should write a comment first...');
-		}
+        if (!$comment) {
+            throw new \Exception('You should write a comment first...');
+        }
 
-		$gitHubHelper = new GitHubHelper($this->getContainer()->get('gitHub'));
+        $gitHubHelper = new GitHubHelper($this->getContainer()->get('gitHub'));
 
-		$comment .= $gitHubHelper->getApplicationComment($application, $project, $issueNumber);
+        $comment .= $gitHubHelper->getApplicationComment($application, $project, $issueNumber);
 
-		$this->response->data = $gitHubHelper->addComment(
-			$project, $issueNumber, $comment, $application->getUser()->username, $this->getContainer()->get('db')
-		);
+        $this->response->data = $gitHubHelper->addComment(
+            $project,
+            $issueNumber,
+            $comment,
+            $application->getUser()->username,
+            $this->getContainer()->get('db')
+        );
 
-		$this->response->message = 'Your comment has been submitted';
-	}
+        $this->response->message = 'Your comment has been submitted';
+    }
 }

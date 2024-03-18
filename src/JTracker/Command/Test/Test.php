@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla! Tracker application.
  *
@@ -17,25 +18,25 @@ use JTracker\Command\TrackerCommand;
  */
 abstract class Test extends TrackerCommand
 {
-	/**
-	 * Should the command exit or return the status.
-	 *
-	 * @var    boolean
-	 * @since  1.0
-	 */
-	protected $exit = true;
+    /**
+     * Should the command exit or return the status.
+     *
+     * @var    boolean
+     * @since  1.0
+     */
+    protected $exit = true;
 
-	/**
-	 * Set the exit behavior.
-	 *
-	 * @param   boolean  $value  Exit behavior. True to exit, false to return the status.
-	 *
-	 * @return  $this
-	 */
-	public function setExit($value)
-	{
-		$this->exit = (boolean) $value;
+    /**
+     * Set the exit behavior.
+     *
+     * @param   boolean  $value  Exit behavior. True to exit, false to return the status.
+     *
+     * @return  $this
+     */
+    public function setExit($value)
+    {
+        $this->exit = (bool) $value;
 
-		return $this;
-	}
+        return $this;
+    }
 }

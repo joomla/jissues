@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Users Application
  *
@@ -13,7 +14,6 @@ use Joomla\Github\Github;
 use Joomla\Http\Http;
 use Joomla\Http\HttpFactory;
 use Joomla\Registry\Registry;
-
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
@@ -26,85 +26,82 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Login extends AbstractTrackerController
 {
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 * @throws  AuthenticationException
-	 */
-	public function execute()
-	{
-		/** @var \JTracker\Application\Application $app */
-		$app = $this->getContainer()->get('app');
+    /**
+     * Execute the controller.
+     *
+     * @return  string  The rendered view.
+     *
+     * @since   1.0
+     * @throws  AuthenticationException
+     */
+    public function execute()
+    {
+        /** @var \JTracker\Application\Application $app */
+        $app = $this->getContainer()->get('app');
 
-		$user = $app->getUser();
+        $user = $app->getUser();
 
-		if ($user->id)
-		{
-			// The user is already logged in.
-			$app->redirect('');
-		}
+        if ($user->id) {
+            // The user is already logged in.
+            $app->redirect('');
+        }
 
-		/** @var Authentication $authentication */
-		$authentication = $this->getContainer()->get('authentication');
+        /** @var Authentication $authentication */
+        $authentication = $this->getContainer()->get('authentication');
 
-		$accessToken = $authentication->authenticate();
+        $accessToken = $authentication->authenticate();
 
-		// If the access token is a boolean false, we've failed miserably
-		if ($accessToken === false)
-		{
-			// GitHub reported an error.
-			throw new AuthenticationException($user, 'login');
-		}
+        // If the access token is a boolean false, we've failed miserably
+        if ($accessToken === false) {
+            // GitHub reported an error.
+            throw new AuthenticationException($user, 'login');
+        }
 
-		// Do login
-		$app->getSession()->migrate();
+        // Do login
+        $app->getSession()->migrate();
 
-		// Store the token into the session
-		$app->getSession()->set('gh_oauth_access_token', $accessToken);
+        // Store the token into the session
+        $app->getSession()->set('gh_oauth_access_token', $accessToken);
 
-		// Get the current logged in GitHub user
-		$options = new Registry;
-		$options->set('gh.token', $accessToken);
+        // Get the current logged in GitHub user
+        $options = new Registry();
+        $options->set('gh.token', $accessToken);
 
-		// GitHub API works best with cURL
-		$transport = (new HttpFactory)->getAvailableDriver($options, ['curl']);
+        // GitHub API works best with cURL
+        $transport = (new HttpFactory())->getAvailableDriver($options, ['curl']);
 
-		if ($transport === false)
-		{
-			throw new \DomainException('No transports available (please install php-curl)');
-		}
+        if ($transport === false) {
+            throw new \DomainException('No transports available (please install php-curl)');
+        }
 
-		$gitHubUser = (new Github($options, new Http($options, $transport)))->users->getAuthenticatedUser();
+        $gitHubUser = (new Github($options, new Http($options, $transport)))->users->getAuthenticatedUser();
 
-		$user = new GitHubUser($app->getProject(), $this->getContainer()->get('db'));
-		$user->loadGitHubData($gitHubUser)
-			->loadByUserName($user->username);
+        $user = new GitHubUser($app->getProject(), $this->getContainer()->get('db'));
+        $user->loadGitHubData($gitHubUser)
+            ->loadByUserName($user->username);
 
-		/** @var GitHubLoginHelper $loginHelper */
-		$loginHelper = $this->getContainer()->get(GitHubLoginHelper::class);
+        /** @var GitHubLoginHelper $loginHelper */
+        $loginHelper = $this->getContainer()->get(GitHubLoginHelper::class);
 
-		// Save the avatar
-		$loginHelper->saveAvatar($user->username);
+        // Save the avatar
+        $loginHelper->saveAvatar($user->username);
 
-		// Set the last visit time
-		$loginHelper->setLastVisitTime($user->id);
+        // Set the last visit time
+        $loginHelper->setLastVisitTime($user->id);
 
-		// User login
-		$app->setUser($user);
+        // User login
+        $app->setUser($user);
 
-		$redirect = $app->input->getBase64('usr_redirect');
+        $redirect = $app->input->getBase64('usr_redirect');
 
-		$redirect = $redirect ? base64_decode($redirect) : '';
+        $redirect = $redirect ? base64_decode($redirect) : '';
 
-		// Set a "remember me" cookie.
-		$app->setRememberMe(true);
+        // Set a "remember me" cookie.
+        $app->setRememberMe(true);
 
-		$app->redirect($redirect);
+        $app->redirect($redirect);
 
-		// To silence PHPCS expecting a return
-		return '';
-	}
+        // To silence PHPCS expecting a return
+        return '';
+    }
 }

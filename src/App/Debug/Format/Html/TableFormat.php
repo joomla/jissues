@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Debug Application
  *
@@ -15,93 +16,84 @@ namespace App\Debug\Format\Html;
  */
 class TableFormat
 {
-	/**
-	 * Convert an array to a HTML table.
-	 *
-	 * @param   array  $array  The array to generate the table from.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function fromArray($array)
-	{
-		if (! $array)
-		{
-			return '';
-		}
+    /**
+     * Convert an array to a HTML table.
+     *
+     * @param   array  $array  The array to generate the table from.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    public function fromArray($array)
+    {
+        if (! $array) {
+            return '';
+        }
 
-		$html = '<table class="table table-striped dbgQueryTable"><tr>';
+        $html = '<table class="table table-striped dbgQueryTable"><tr>';
 
-		foreach (array_keys($array[0]) as $k)
-		{
-			$html .= '<th>' . htmlspecialchars($k) . '</th>';
-		}
+        foreach (array_keys($array[0]) as $k) {
+            $html .= '<th>' . htmlspecialchars($k) . '</th>';
+        }
 
-		$html .= '</tr>';
+        $html .= '</tr>';
 
-		foreach ($array as $tr)
-		{
-			$html .= '<tr>';
+        foreach ($array as $tr) {
+            $html .= '<tr>';
 
-			foreach ($tr as $td)
-			{
-				$html .= '<td>' . ($td === null ? 'NULL' : htmlspecialchars($td)) . '</td>';
-			}
+            foreach ($tr as $td) {
+                $html .= '<td>' . ($td === null ? 'NULL' : htmlspecialchars($td)) . '</td>';
+            }
 
-			$html .= '</tr>';
-		}
+            $html .= '</tr>';
+        }
 
-		$html .= '</table>';
+        $html .= '</table>';
 
-		return $html;
-	}
+        return $html;
+    }
 
-	/**
-	 * Convert a stack trace to a HTML table.
-	 *
-	 * @param   array  $trace  The stack trace.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function fromTrace(array $trace)
-	{
-		$linkFormat = new LinkFormat;
+    /**
+     * Convert a stack trace to a HTML table.
+     *
+     * @param   array  $trace  The stack trace.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    public function fromTrace(array $trace)
+    {
+        $linkFormat = new LinkFormat();
 
-		$html = [];
+        $html = [];
 
-		$html[] = '<table class="table table-hover table-condensed">';
+        $html[] = '<table class="table table-hover table-condensed">';
 
-		foreach ($trace as $entry)
-		{
-			$html[] = '<tr>';
-			$html[] = '<td>';
+        foreach ($trace as $entry) {
+            $html[] = '<tr>';
+            $html[] = '<td>';
 
-			if (isset($entry['file']))
-			{
-				$html[] = $linkFormat->formatLink($entry['file'], $entry['line']);
-			}
+            if (isset($entry['file'])) {
+                $html[] = $linkFormat->formatLink($entry['file'], $entry['line']);
+            }
 
-			$html[] = '</td>';
-			$html[] = '<td>';
+            $html[] = '</td>';
+            $html[] = '<td>';
 
-			if (isset($entry['class']))
-			{
-				$html[] = $entry['class'] . $entry['type'] . $entry['function'] . '()';
-			}
-			elseif (isset($entry['function']))
-			{
-				$html[] = $entry['function'] . '()';
-			}
+            if (isset($entry['class'])) {
+                $html[] = $entry['class'] . $entry['type'] . $entry['function'] . '()';
+            } elseif (isset($entry['function'])) {
+                $html[] = $entry['function'] . '()';
+            }
 
-			$html[] = '</td>';
-			$html[] = '</tr>';
-		}
+            $html[] = '</td>';
+            $html[] = '</tr>';
+        }
 
-		$html[] = '</table>';
+        $html[] = '</table>';
 
-		return implode("\n", $html);
-	}
+        return implode("\n", $html);
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla! Tracker application.
  *
@@ -20,294 +21,289 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class Pulls extends Update
 {
-	/**
-	 * Array containing the pull requests being processed
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $pulls = [];
+    /**
+     * Array containing the pull requests being processed
+     *
+     * @var    array
+     * @since  1.0
+     */
+    protected $pulls = [];
 
-	/**
-	 * Configure the command.
-	 *
-	 * @return  void
-	 *
-	 * @since   2.0.0
-	 */
-	protected function configure(): void
-	{
-		$this->setName('update:pulls');
-		$this->setDescription('Updates selected information for pull requests on GitHub for a specified project.');
+    /**
+     * Configure the command.
+     *
+     * @return  void
+     *
+     * @since   2.0.0
+     */
+    protected function configure(): void
+    {
+        $this->setName('update:pulls');
+        $this->setDescription('Updates selected information for pull requests on GitHub for a specified project.');
 
-		$this->addProjectOption();
-	}
+        $this->addProjectOption();
+    }
 
-	/**
-	 * Execute the command.
-	 *
-	 * @param   InputInterface   $input   The input to inject into the command.
-	 * @param   OutputInterface  $output  The output to inject into the command.
-	 *
-	 * @return  integer
-	 *
-	 * @since   1.0
-	 */
-	protected function doExecute(InputInterface $input, OutputInterface $output): int
-	{
-		$ioStyle = new SymfonyStyle($input, $output);
-		$ioStyle->title('Update Pull Requests');
+    /**
+     * Execute the command.
+     *
+     * @param   InputInterface   $input   The input to inject into the command.
+     * @param   OutputInterface  $output  The output to inject into the command.
+     *
+     * @return  integer
+     *
+     * @since   1.0
+     */
+    protected function doExecute(InputInterface $input, OutputInterface $output): int
+    {
+        $ioStyle = new SymfonyStyle($input, $output);
+        $ioStyle->title('Update Pull Requests');
 
-		$this->logOut('Start Updating Project');
+        $this->logOut('Start Updating Project');
 
-		$this->selectProject($input, $ioStyle);
+        $this->selectProject($input, $ioStyle);
 
-		$this->getApplication()->input->set('project', $this->project->project_id);
+        $this->getApplication()->input->set('project', $this->project->project_id);
 
-		$this->setupGitHub()
-			->displayGitHubRateLimit($ioStyle)
-			->out(
-				sprintf(
-					'Updating pull requests for project: %s/%s',
-					$this->project->gh_user,
-					$this->project->gh_project
-				)
-			)
-			->fetchPulls($ioStyle)
-			->labelPulls()
-			->updatePullStatus()
-			->closePulls()
-			->out()
-			->logOut('Finished.');
+        $this->setupGitHub()
+            ->displayGitHubRateLimit($ioStyle)
+            ->out(
+                sprintf(
+                    'Updating pull requests for project: %s/%s',
+                    $this->project->gh_user,
+                    $this->project->gh_project
+                )
+            )
+            ->fetchPulls($ioStyle)
+            ->labelPulls()
+            ->updatePullStatus()
+            ->closePulls()
+            ->out()
+            ->logOut('Finished.');
 
-		return Command::SUCCESS;
-	}
+        return Command::SUCCESS;
+    }
 
-	/**
-	 * Closes pull requests meeting specific criteria
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	protected function closePulls()
-	{
-		// Only process for joomla/joomla-cms
-		if ($this->project->gh_user == 'joomla' && $this->project->gh_project == 'joomla-cms')
-		{
-			$message = 'Thank you for your pull request. Joomla! 3 is in security only mode and no longer accepts pull requests. Please target your PR against Joomla! 4.';
+    /**
+     * Closes pull requests meeting specific criteria
+     *
+     * @return  $this
+     *
+     * @since   1.0
+     */
+    protected function closePulls()
+    {
+        // Only process for joomla/joomla-cms
+        if ($this->project->gh_user == 'joomla' && $this->project->gh_project == 'joomla-cms') {
+            $message = 'Thank you for your pull request. Joomla! 3 is in security only mode and no longer accepts pull requests. Please target your PR against Joomla! 4.';
 
-			foreach ($this->pulls as $pull)
-			{
-				if ($pull->base->ref == '3.10-dev')
-				{
-					// We have to do this in two requests; first add our closing comment then close the item
-					$this->github->issues->comments->create(
-						$this->project->gh_user, $this->project->gh_project, $pull->number, $message
-					);
+            foreach ($this->pulls as $pull) {
+                if ($pull->base->ref == '3.10-dev') {
+                    // We have to do this in two requests; first add our closing comment then close the item
+                    $this->github->issues->comments->create(
+                        $this->project->gh_user,
+                        $this->project->gh_project,
+                        $pull->number,
+                        $message
+                    );
 
-					$this->github->pulls->edit(
-						$this->project->gh_user, $this->project->gh_project, $pull->number, null, null, 'closed'
-					);
+                    $this->github->pulls->edit(
+                        $this->project->gh_user,
+                        $this->project->gh_project,
+                        $pull->number,
+                        null,
+                        null,
+                        'closed'
+                    );
 
-					$this->out(
-						sprintf(
-							'GitHub item %s/%s #%d has been closed because it is a pull targeting Joomla! 3.10.',
-							$this->project->gh_user,
-							$this->project->gh_project,
-							$pull->number
-						)
-					);
-				}
-			}
-		}
-		else
-		{
-			$this->out(
-				sprintf(
-					'The %s/%s project is not supported by this command at this time.',
-					$this->project->gh_user,
-					$this->project->gh_project
-				)
-			);
-		}
+                    $this->out(
+                        sprintf(
+                            'GitHub item %s/%s #%d has been closed because it is a pull targeting Joomla! 3.10.',
+                            $this->project->gh_user,
+                            $this->project->gh_project,
+                            $pull->number
+                        )
+                    );
+                }
+            }
+        } else {
+            $this->out(
+                sprintf(
+                    'The %s/%s project is not supported by this command at this time.',
+                    $this->project->gh_user,
+                    $this->project->gh_project
+                )
+            );
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Retrieves pull requests
-	 *
-	 * @param   SymfonyStyle  $io  The output decorator
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	protected function fetchPulls(SymfonyStyle $io)
-	{
-		$io->text('Retrieving <b>open</b> pull requests from GitHub...');
+    /**
+     * Retrieves pull requests
+     *
+     * @param   SymfonyStyle  $io  The output decorator
+     *
+     * @return  $this
+     *
+     * @since   1.0
+     */
+    protected function fetchPulls(SymfonyStyle $io)
+    {
+        $io->text('Retrieving <b>open</b> pull requests from GitHub...');
 
-		if ($io->isVeryVerbose())
-		{
-			$io->text('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
-		}
+        if ($io->isVeryVerbose()) {
+            $io->text('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
+        }
 
-		$pulls = [];
-		$page  = 0;
+        $pulls = [];
+        $page  = 0;
 
-		do
-		{
-			$page++;
-			$pulls_more = $this->github->pulls->getList(
-				// Owner
-				$this->project->gh_user,
-				// Repository
-				$this->project->gh_project,
-				// State
-				'open',
-				// Page
-				$page,
-				// Count
-				100
-			);
+        do {
+            $page++;
+            $pulls_more = $this->github->pulls->getList(
+                // Owner
+                $this->project->gh_user,
+                // Repository
+                $this->project->gh_project,
+                // State
+                'open',
+                // Page
+                $page,
+                // Count
+                100
+            );
 
-			$count = \is_array($pulls_more) ? \count($pulls_more) : 0;
+            $count = \is_array($pulls_more) ? \count($pulls_more) : 0;
 
-			if ($count)
-			{
-				$pulls = array_merge($pulls, $pulls_more);
+            if ($count) {
+                $pulls = array_merge($pulls, $pulls_more);
 
-				$io->text('(' . $count . ')', false);
-			}
-		}
-		while ($count);
+                $io->text('(' . $count . ')', false);
+            }
+        } while ($count);
 
-		$this->pulls = $pulls;
+        $this->pulls = $pulls;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Label pull requests
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	protected function labelPulls()
-	{
-		// Only process for joomla/joomla-cms
-		if ($this->project->gh_user == 'joomla' && $this->project->gh_project == 'joomla-cms')
-		{
-			foreach ($this->pulls as $pull)
-			{
-				// Extract some data
-				$pullID     = $pull->number;
-				$issueLabel = 'PR-' . $pull->base->ref;
-				$labelSet   = false;
+    /**
+     * Label pull requests
+     *
+     * @return  $this
+     *
+     * @since   1.0
+     */
+    protected function labelPulls()
+    {
+        // Only process for joomla/joomla-cms
+        if ($this->project->gh_user == 'joomla' && $this->project->gh_project == 'joomla-cms') {
+            foreach ($this->pulls as $pull) {
+                // Extract some data
+                $pullID     = $pull->number;
+                $issueLabel = 'PR-' . $pull->base->ref;
+                $labelSet   = false;
 
-				// Get the labels for the pull's issue
-				$labels = $this->github->issues->labels->getListByIssue($this->project->gh_user, $this->project->gh_project, $pullID);
+                // Get the labels for the pull's issue
+                $labels = $this->github->issues->labels->getListByIssue($this->project->gh_user, $this->project->gh_project, $pullID);
 
-				// Check if the PR- label present
-				foreach ($labels as $label)
-				{
-					if ($label->name == $issueLabel)
-					{
-						$this->out(
-							sprintf(
-								'GitHub item %s/%s #%d already has the %s label.',
-								$this->project->gh_user,
-								$this->project->gh_project,
-								$pullID,
-								$issueLabel
-							)
-						);
-						$labelSet = true;
+                // Check if the PR- label present
+                foreach ($labels as $label) {
+                    if ($label->name == $issueLabel) {
+                        $this->out(
+                            sprintf(
+                                'GitHub item %s/%s #%d already has the %s label.',
+                                $this->project->gh_user,
+                                $this->project->gh_project,
+                                $pullID,
+                                $issueLabel
+                            )
+                        );
+                        $labelSet = true;
 
-						continue;
-					}
-				}
+                        continue;
+                    }
+                }
 
-				// Add the label if we need to
-				if (!$labelSet)
-				{
-					// Post the new label on the object
-					$this->out(
-						sprintf(
-							'Adding %s label to %s/%s #%d',
-							$issueLabel,
-							$this->project->gh_user,
-							$this->project->gh_project,
-							$pullID
-						)
-					);
+                // Add the label if we need to
+                if (!$labelSet) {
+                    // Post the new label on the object
+                    $this->out(
+                        sprintf(
+                            'Adding %s label to %s/%s #%d',
+                            $issueLabel,
+                            $this->project->gh_user,
+                            $this->project->gh_project,
+                            $pullID
+                        )
+                    );
 
-					$this->github->issues->labels->add(
-						$this->project->gh_user, $this->project->gh_project, $pullID, [$issueLabel]
-					);
-				}
-			}
-		}
-		else
-		{
-			$this->out(
-				sprintf(
-					'The %s/%s project is not supported by this command at this time.',
-					$this->project->gh_user,
-					$this->project->gh_project
-				)
-			);
-		}
+                    $this->github->issues->labels->add(
+                        $this->project->gh_user,
+                        $this->project->gh_project,
+                        $pullID,
+                        [$issueLabel]
+                    );
+                }
+            }
+        } else {
+            $this->out(
+                sprintf(
+                    'The %s/%s project is not supported by this command at this time.',
+                    $this->project->gh_user,
+                    $this->project->gh_project
+                )
+            );
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Updates the status of a pull request if needed
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	protected function updatePullStatus()
-	{
-		// Only process for joomla/joomla-cms
-		if ($this->project->gh_user == 'joomla' && $this->project->gh_project == 'joomla-cms')
-		{
-			$message = 'This pull request is targeted at the master branch.  Pull requests should no longer be merged to master.';
+    /**
+     * Updates the status of a pull request if needed
+     *
+     * @return  $this
+     *
+     * @since   1.0
+     */
+    protected function updatePullStatus()
+    {
+        // Only process for joomla/joomla-cms
+        if ($this->project->gh_user == 'joomla' && $this->project->gh_project == 'joomla-cms') {
+            $message = 'This pull request is targeted at the master branch.  Pull requests should no longer be merged to master.';
 
-			foreach ($this->pulls as $pull)
-			{
-				if ($pull->base->ref == 'master')
-				{
-					$this->github->repositories->statuses->create(
-						$this->project->gh_user, $this->project->gh_project, $pull->head->sha, 'error', null, $message
-					);
+            foreach ($this->pulls as $pull) {
+                if ($pull->base->ref == 'master') {
+                    $this->github->repositories->statuses->create(
+                        $this->project->gh_user,
+                        $this->project->gh_project,
+                        $pull->head->sha,
+                        'error',
+                        null,
+                        $message
+                    );
 
-					$this->out(
-						sprintf(
-							'GitHub item %s/%s #%d has had its merge status set to "error".',
-							$this->project->gh_user,
-							$this->project->gh_project,
-							$pull->number
-						)
-					);
-				}
-			}
-		}
-		else
-		{
-			$this->out(
-				sprintf(
-					'The %s/%s project is not supported by this command at this time.',
-					$this->project->gh_user,
-					$this->project->gh_project
-				)
-			);
-		}
+                    $this->out(
+                        sprintf(
+                            'GitHub item %s/%s #%d has had its merge status set to "error".',
+                            $this->project->gh_user,
+                            $this->project->gh_project,
+                            $pull->number
+                        )
+                    );
+                }
+            }
+        } else {
+            $this->out(
+                sprintf(
+                    'The %s/%s project is not supported by this command at this time.',
+                    $this->project->gh_user,
+                    $this->project->gh_project
+                )
+            );
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 }

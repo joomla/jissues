@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's GitHub Application
  *
@@ -17,56 +18,64 @@ use JTracker\Github\GithubFactory;
  */
 class Save extends Base
 {
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function prepareResponse()
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
+    /**
+     * Prepare the response.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function prepareResponse()
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
 
-		$application->getUser()->authorize('manage');
+        $application->getUser()->authorize('manage');
 
-		$number      = $application->input->getUint('number');
-		$title       = $application->input->getString('title');
-		$state       = $application->input->getCmd('state');
-		$description = $application->input->getString('description');
-		$due_on      = $application->input->getString('due_on') ? : null;
+        $number      = $application->input->getUint('number');
+        $title       = $application->input->getString('title');
+        $state       = $application->input->getCmd('state');
+        $description = $application->input->getString('description');
+        $due_on      = $application->input->getString('due_on') ?: null;
 
-		$project = $application->getProject();
+        $project = $application->getProject();
 
-		// Look if we have a bot user configured.
-		if ($project->getGh_Editbot_User() && $project->getGh_Editbot_Pass())
-		{
-			$gitHub = GithubFactory::getInstance(
-				$application, true, $project->getGh_Editbot_User(), $project->getGh_Editbot_Pass()
-			);
-		}
-		else
-		{
-			$gitHub = GithubFactory::getInstance($application);
-		}
+        // Look if we have a bot user configured.
+        if ($project->getGh_Editbot_User() && $project->getGh_Editbot_Pass()) {
+            $gitHub = GithubFactory::getInstance(
+                $application,
+                true,
+                $project->getGh_Editbot_User(),
+                $project->getGh_Editbot_Pass()
+            );
+        } else {
+            $gitHub = GithubFactory::getInstance($application);
+        }
 
-		if ($number)
-		{
-			// Update milestone
-			$gitHub->issues->milestones->edit(
-				$project->gh_user, $project->gh_project, $number, $title, $state, $description, $due_on
-			);
-		}
-		else
-		{
-			// Create the milestone.
-			$gitHub->issues->milestones->create(
-				$project->gh_user, $project->gh_project, $title, $state, $description, $due_on
-			);
-		}
+        if ($number) {
+            // Update milestone
+            $gitHub->issues->milestones->edit(
+                $project->gh_user,
+                $project->gh_project,
+                $number,
+                $title,
+                $state,
+                $description,
+                $due_on
+            );
+        } else {
+            // Create the milestone.
+            $gitHub->issues->milestones->create(
+                $project->gh_user,
+                $project->gh_project,
+                $title,
+                $state,
+                $description,
+                $due_on
+            );
+        }
 
-		// Get the current milestones list.
-		$this->response->data = $this->getList($project);
-	}
+        // Get the current milestones list.
+        $this->response->data = $this->getList($project);
+    }
 }

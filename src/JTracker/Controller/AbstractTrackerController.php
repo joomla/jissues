@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Controller Package
  *
@@ -27,310 +28,301 @@ use JTracker\View\AbstractTrackerHtmlView;
  */
 abstract class AbstractTrackerController implements TrackerControllerInterface, ContainerAwareInterface, DispatcherAwareInterface
 {
-	use ContainerAwareTrait, DispatcherAwareTrait;
+    use ContainerAwareTrait;
+    use DispatcherAwareTrait;
 
-	/**
-	 * The default view for the app
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = '';
+    /**
+     * The default view for the app
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultView = '';
 
-	/**
-	 * The default layout for the app
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultLayout = 'index';
+    /**
+     * The default layout for the app
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultLayout = 'index';
 
-	/**
-	 * The app being executed.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $app;
+    /**
+     * The app being executed.
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $app;
 
-	/**
-	 * View object
-	 *
-	 * @var    \JTracker\View\BaseHtmlView;
-	 * @since  1.0
-	 */
-	protected $view;
+    /**
+     * View object
+     *
+     * @var    \JTracker\View\BaseHtmlView;
+     * @since  1.0
+     */
+    protected $view;
 
-	/**
-	 * Model object
-	 *
-	 * @var    \Joomla\Model\StatefulModelInterface
-	 * @since  1.0
-	 */
-	protected $model;
+    /**
+     * Model object
+     *
+     * @var    \Joomla\Model\StatefulModelInterface
+     * @since  1.0
+     */
+    protected $model;
 
-	/**
-	 * Flag if the event listener is set for a hook
-	 *
-	 * @var    boolean
-	 * @since  1.0
-	 */
-	protected $listenerSet = false;
+    /**
+     * Flag if the event listener is set for a hook
+     *
+     * @var    boolean
+     * @since  1.0
+     */
+    protected $listenerSet = false;
 
-	/**
-	 * The GitHub object.
-	 *
-	 * @var GitHub
-	 * @since  1.0
-	 */
-	protected $github;
+    /**
+     * The GitHub object.
+     *
+     * @var GitHub
+     * @since  1.0
+     */
+    protected $github;
 
-	/**
-	 * Constructor.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct()
-	{
-		// Detect the App name
-		if (empty($this->app))
-		{
-			// Get the fully qualified class name for the current object
-			$fqcn = (\get_class($this));
+    /**
+     * Constructor.
+     *
+     * @since   1.0
+     */
+    public function __construct()
+    {
+        // Detect the App name
+        if (empty($this->app)) {
+            // Get the fully qualified class name for the current object
+            $fqcn = (\get_class($this));
 
-			// Strip the base app namespace off
-			$className = str_replace('App\\', '', $fqcn);
+            // Strip the base app namespace off
+            $className = str_replace('App\\', '', $fqcn);
 
-			// Explode the remaining name into an array
-			$classArray = explode('\\', $className);
+            // Explode the remaining name into an array
+            $classArray = explode('\\', $className);
 
-			// Set the app as the first object in this array
-			$this->app = $classArray[0];
-		}
-	}
+            // Set the app as the first object in this array
+            $this->app = $classArray[0];
+        }
+    }
 
-	/**
-	 * Initialize the controller.
-	 *
-	 * This will set up default model and view classes.
-	 *
-	 * @return  $this  Method allows chiaining
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function initialize()
-	{
-		// Get the input
-		/** @var Input $input */
-		$input = $this->getContainer()->get('app')->input;
+    /**
+     * Initialize the controller.
+     *
+     * This will set up default model and view classes.
+     *
+     * @return  $this  Method allows chiaining
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function initialize()
+    {
+        // Get the input
+        /** @var Input $input */
+        $input = $this->getContainer()->get('app')->input;
 
-		// Get some data from the request
-		$viewName   = $input->getWord('view', $this->defaultView);
-		$viewFormat = $input->getWord('format', 'html');
-		$layoutName = $input->getCmd('layout', $this->defaultLayout);
+        // Get some data from the request
+        $viewName   = $input->getWord('view', $this->defaultView);
+        $viewFormat = $input->getWord('format', 'html');
+        $layoutName = $input->getCmd('layout', $this->defaultLayout);
 
-		if (!$viewName)
-		{
-			$parts    = explode('\\', \get_class($this));
-			$viewName = strtolower($parts[\count($parts) - 1]);
-		}
+        if (!$viewName) {
+            $parts    = explode('\\', \get_class($this));
+            $viewName = strtolower($parts[\count($parts) - 1]);
+        }
 
-		$base = '\\App\\' . $this->app;
+        $base = '\\App\\' . $this->app;
 
-		$viewClass  = $base . '\\View\\' . ucfirst($viewName) . '\\' . ucfirst($viewName) . ucfirst($viewFormat) . 'View';
-		$modelClass = $base . '\\Model\\' . ucfirst($viewName) . 'Model';
+        $viewClass  = $base . '\\View\\' . ucfirst($viewName) . '\\' . ucfirst($viewName) . ucfirst($viewFormat) . 'View';
+        $modelClass = $base . '\\Model\\' . ucfirst($viewName) . 'Model';
 
-		// If a model doesn't exist for our view, revert to the default model
-		if (!class_exists($modelClass))
-		{
-			$modelClass = $base . '\\Model\\DefaultModel';
+        // If a model doesn't exist for our view, revert to the default model
+        if (!class_exists($modelClass)) {
+            $modelClass = $base . '\\Model\\DefaultModel';
 
-			// If there still isn't a class, panic.
-			if (!class_exists($modelClass))
-			{
-				throw new \RuntimeException(
-					sprintf(
-						'No model found for view %s or a default model for %s', $viewName, $this->app
-					)
-				);
-			}
-		}
+            // If there still isn't a class, panic.
+            if (!class_exists($modelClass)) {
+                throw new \RuntimeException(
+                    sprintf(
+                        'No model found for view %s or a default model for %s',
+                        $viewName,
+                        $this->app
+                    )
+                );
+            }
+        }
 
-		// If there isn't a specific view class for this view, see if the app has a default for this format
-		if (!class_exists($viewClass))
-		{
-			$viewClass = $base . '\\View\\Default' . ucfirst($viewFormat) . 'View';
+        // If there isn't a specific view class for this view, see if the app has a default for this format
+        if (!class_exists($viewClass)) {
+            $viewClass = $base . '\\View\\Default' . ucfirst($viewFormat) . 'View';
 
-			// Make sure the view class exists, otherwise revert to the default
-			if (!class_exists($viewClass))
-			{
-				$viewClass = '\\JTracker\\View\\TrackerDefaultView';
-			}
-		}
+            // Make sure the view class exists, otherwise revert to the default
+            if (!class_exists($viewClass)) {
+                $viewClass = '\\JTracker\\View\\TrackerDefaultView';
+            }
+        }
 
-		$this->model = new $modelClass($this->getContainer()->get('db'));
+        $this->model = new $modelClass($this->getContainer()->get('db'));
 
-		// Create the view
-		/** @var AbstractTrackerHtmlView $view */
-		$this->view = new $viewClass(
-			$this->model,
-			$this->fetchRenderer($viewName, $layoutName)
-		);
+        // Create the view
+        /** @var AbstractTrackerHtmlView $view */
+        $this->view = new $viewClass(
+            $this->model,
+            $this->fetchRenderer($viewName, $layoutName)
+        );
 
-		$this->view->setLayout($viewName . '.' . $layoutName . '.twig');
+        $this->view->setLayout($viewName . '.' . $layoutName . '.twig');
 
-		$this->getContainer()->get('app')->mark('Model: ' . $modelClass);
-		$this->getContainer()->get('app')->mark('View: ' . $viewClass);
-		$this->getContainer()->get('app')->mark('Layout: ' . $layoutName);
+        $this->getContainer()->get('app')->mark('Model: ' . $modelClass);
+        $this->getContainer()->get('app')->mark('View: ' . $viewClass);
+        $this->getContainer()->get('app')->mark('Layout: ' . $layoutName);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Execute the controller.
-	 *
-	 * This is a generic method to execute and render a view and is not suitable for tasks.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		// Render our view.
-		$contents = $this->view->render();
+    /**
+     * Execute the controller.
+     *
+     * This is a generic method to execute and render a view and is not suitable for tasks.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    public function execute()
+    {
+        // Render our view.
+        $contents = $this->view->render();
 
-		$this->getContainer()->get('app')->mark('View rendered: ' . $this->view->getLayout());
+        $this->getContainer()->get('app')->mark('View rendered: ' . $this->view->getLayout());
 
-		return $contents;
-	}
+        return $contents;
+    }
 
-	/**
-	 * Returns the current app
-	 *
-	 * @return  string  The app being executed.
-	 *
-	 * @since   1.0
-	 */
-	public function getApp()
-	{
-		return $this->app;
-	}
+    /**
+     * Returns the current app
+     *
+     * @return  string  The app being executed.
+     *
+     * @since   1.0
+     */
+    public function getApp()
+    {
+        return $this->app;
+    }
 
-	/**
-	 * Get a renderer object.
-	 *
-	 * @param   string  $view    The view to render
-	 * @param   string  $layout  The layout in the view
-	 *
-	 * @return  RendererInterface
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function fetchRenderer($view, $layout)
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
+    /**
+     * Get a renderer object.
+     *
+     * @param   string  $view    The view to render
+     * @param   string  $layout  The layout in the view
+     *
+     * @return  RendererInterface
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    protected function fetchRenderer($view, $layout)
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
 
-		$rendererName = $application->get('renderer.type');
+        $rendererName = $application->get('renderer.type');
 
-		// The renderer should exist in the container
-		if (!$this->getContainer()->exists("renderer.$rendererName"))
-		{
-			throw new \RuntimeException('Unsupported renderer: ' . $rendererName);
-		}
+        // The renderer should exist in the container
+        if (!$this->getContainer()->exists("renderer.$rendererName")) {
+            throw new \RuntimeException('Unsupported renderer: ' . $rendererName);
+        }
 
-		/** @var RendererInterface $renderer */
-		$renderer = $this->getContainer()->get("renderer.$rendererName");
+        /** @var RendererInterface $renderer */
+        $renderer = $this->getContainer()->get("renderer.$rendererName");
 
-		// Add the app path if it exists
-		$path = JPATH_TEMPLATES . '/' . strtolower($this->app);
+        // Add the app path if it exists
+        $path = JPATH_TEMPLATES . '/' . strtolower($this->app);
 
-		if ($renderer instanceof AddTemplateFolderInterface && is_dir($path))
-		{
-			$renderer->addFolder($path);
-		}
+        if ($renderer instanceof AddTemplateFolderInterface && is_dir($path)) {
+            $renderer->addFolder($path);
+        }
 
-		$renderer
-			->set('view', $view)
-			->set('layout', $layout)
-			->set('app', strtolower($this->getApp()));
+        $renderer
+            ->set('view', $view)
+            ->set('layout', $layout)
+            ->set('app', strtolower($this->getApp()));
 
-		return $renderer;
-	}
+        return $renderer;
+    }
 
-	/**
-	 * Registers the event listener for the current project.
-	 *
-	 * @param   string  $type  The event listener type.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	protected function addEventListener($type)
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('JTracker\\Application\\Application');
+    /**
+     * Registers the event listener for the current project.
+     *
+     * @param   string  $type  The event listener type.
+     *
+     * @return  $this
+     *
+     * @since   1.0
+     */
+    protected function addEventListener($type)
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('JTracker\\Application\\Application');
 
-		/*
-		 * Add the event listener if it exists.  Listeners are named in the format of <project><type>Listener in the Hooks\Listeners namespace.
-		 * For example, the listener for a joomla-cms pull activity would be JoomlacmsPullsListener
-		 */
-		$baseClass = ucfirst(str_replace('-', '', $application->getProject()->gh_project)) . ucfirst($type) . 'Listener';
-		$fullClass = 'App\\Tracker\\Controller\\Hooks\\Listeners\\' . $baseClass;
+        /*
+         * Add the event listener if it exists.  Listeners are named in the format of <project><type>Listener in the Hooks\Listeners namespace.
+         * For example, the listener for a joomla-cms pull activity would be JoomlacmsPullsListener
+         */
+        $baseClass = ucfirst(str_replace('-', '', $application->getProject()->gh_project)) . ucfirst($type) . 'Listener';
+        $fullClass = 'App\\Tracker\\Controller\\Hooks\\Listeners\\' . $baseClass;
 
-		if (class_exists($fullClass))
-		{
-			$listener = new $fullClass;
-			$listener->setContainer($this->getContainer());
-			$this->dispatcher->addSubscriber($listener);
-			$this->listenerSet = true;
-		}
+        if (class_exists($fullClass)) {
+            $listener = new $fullClass();
+            $listener->setContainer($this->getContainer());
+            $this->dispatcher->addSubscriber($listener);
+            $this->listenerSet = true;
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Triggers an event if a listener is set.
-	 *
-	 * @param   string  $eventName  Name of the event to trigger.
-	 * @param   array   $arguments  Associative array of arguments for the event.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function triggerEvent($eventName, array $arguments)
-	{
-		if (!$this->listenerSet)
-		{
-			return;
-		}
+    /**
+     * Triggers an event if a listener is set.
+     *
+     * @param   string  $eventName  Name of the event to trigger.
+     * @param   array   $arguments  Associative array of arguments for the event.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function triggerEvent($eventName, array $arguments)
+    {
+        if (!$this->listenerSet) {
+            return;
+        }
 
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
 
-		// Create the event with default arguments.
-		$event = (new Event($eventName))
-			->addArgument('github', ($this->github ?: GithubFactory::getInstance($application)))
-			->addArgument('project', $application->getProject());
+        // Create the event with default arguments.
+        $event = (new Event($eventName))
+            ->addArgument('github', ($this->github ?: GithubFactory::getInstance($application)))
+            ->addArgument('project', $application->getProject());
 
-		// Add event arguments passed as parameters.
-		foreach ($arguments as $name => $value)
-		{
-			$event->addArgument($name, $value);
-		}
+        // Add event arguments passed as parameters.
+        foreach ($arguments as $name => $value) {
+            $event->addArgument($name, $value);
+        }
 
-		// Add the logger if the event doesn't already have it
-		if (!$event->hasArgument('logger'))
-		{
-			$event->addArgument('logger', $application->getLogger());
-		}
+        // Add the logger if the event doesn't already have it
+        if (!$event->hasArgument('logger')) {
+            $event->addArgument('logger', $application->getLogger());
+        }
 
-		// Trigger the event.
-		$this->getDispatcher()->dispatch($eventName, $event);
-	}
+        // Trigger the event.
+        $this->getDispatcher()->dispatch($eventName, $event);
+    }
 }

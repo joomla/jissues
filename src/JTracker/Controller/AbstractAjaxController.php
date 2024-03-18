@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Controller Package
  *
@@ -17,93 +18,88 @@ use Joomla\Application\WebApplicationInterface;
  */
 abstract class AbstractAjaxController extends AbstractTrackerController
 {
-	/**
-	 * AjaxResponse object.
-	 *
-	 * @var    AjaxResponse
-	 * @since  1.0
-	 */
-	protected $response;
+    /**
+     * AjaxResponse object.
+     *
+     * @var    AjaxResponse
+     * @since  1.0
+     */
+    protected $response;
 
-	/**
-	 * Constructor.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct()
-	{
-		parent::__construct();
+    /**
+     * Constructor.
+     *
+     * @since   1.0
+     */
+    public function __construct()
+    {
+        parent::__construct();
 
-		$this->response = new AjaxResponse;
-	}
+        $this->response = new AjaxResponse();
+    }
 
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  string  JSON response
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function execute()
-	{
-		ob_start();
+    /**
+     * Execute the controller.
+     *
+     * @return  string  JSON response
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function execute()
+    {
+        ob_start();
 
-		try
-		{
-			$this->prepareResponse();
-		}
-		catch (\Exception $e)
-		{
-			// Log the error
-			$this->getContainer()->get('app')->getLogger()->critical(
-				sprintf(
-					'Exception of type %1$s thrown',
-					\get_class($e)
-				),
-				['exception' => $e]
-			);
+        try {
+            $this->prepareResponse();
+        } catch (\Exception $e) {
+            // Log the error
+            $this->getContainer()->get('app')->getLogger()->critical(
+                sprintf(
+                    'Exception of type %1$s thrown',
+                    \get_class($e)
+                ),
+                ['exception' => $e]
+            );
 
-			$this->response->error = $e->getMessage();
-		}
+            $this->response->error = $e->getMessage();
+        }
 
-		$errors = ob_get_clean();
+        $errors = ob_get_clean();
 
-		if ($errors)
-		{
-			$this->response->error .= $errors;
-		}
+        if ($errors) {
+            $this->response->error .= $errors;
+        }
 
-		$this->getContainer()->get('app')->mimeType = 'application/json';
+        $this->getContainer()->get('app')->mimeType = 'application/json';
 
-		return json_encode($this->response);
-	}
+        return json_encode($this->response);
+    }
 
-	/**
-	 * Allows setting the status header into the application
-	 *
-	 * @param   int  $code  The status code to set into the application
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function setStatusCode($code = 200)
-	{
-		$app = $this->getContainer()->get('app');
+    /**
+     * Allows setting the status header into the application
+     *
+     * @param   int  $code  The status code to set into the application
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function setStatusCode($code = 200)
+    {
+        $app = $this->getContainer()->get('app');
 
-		if ($app instanceof WebApplicationInterface)
-		{
-			$app->setHeader('Status', (int) $code);
-		}
-	}
+        if ($app instanceof WebApplicationInterface) {
+            $app->setHeader('Status', (int) $code);
+        }
+    }
 
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	abstract protected function prepareResponse();
+    /**
+     * Prepare the response.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    abstract protected function prepareResponse();
 }

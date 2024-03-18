@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Support Application
  *
@@ -17,31 +18,30 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Documentation extends AbstractTrackerController
 {
-	/**
-	 * Initialize the controller.
-	 *
-	 * @return  $this  Method supports chaining
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function initialize()
-	{
-		parent::initialize();
+    /**
+     * Initialize the controller.
+     *
+     * @return  $this  Method supports chaining
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function initialize()
+    {
+        parent::initialize();
 
-		/** @var $input \Joomla\Input\Input */
-		$input = $this->getContainer()->get('app')->input;
+        /** @var $input \Joomla\Input\Input */
+        $input = $this->getContainer()->get('app')->input;
 
-		$path = $input->getPath('path');
-		$page = $input->getCmd('page');
+        $path = $input->getPath('path');
+        $page = $input->getCmd('page');
 
-		if ($page)
-		{
-			$fullPath = 'page=' . $page . ($path ? '&path=' . $path : '');
+        if ($page) {
+            $fullPath = 'page=' . $page . ($path ? '&path=' . $path : '');
 
-			$this->view->addData('fullPath', $fullPath);
-		}
+            $this->view->addData('fullPath', $fullPath);
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 }

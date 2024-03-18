@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Projects Application
  *
@@ -15,45 +16,44 @@ namespace App\Projects;
  */
 trait ProjectAwareTrait
 {
-	/**
-	 * Project object
-	 *
-	 * @var    TrackerProject
-	 * @since  1.0
-	 */
-	private $project;
+    /**
+     * Project object
+     *
+     * @var    TrackerProject
+     * @since  1.0
+     */
+    private $project;
 
-	/**
-	 * Get the project.
-	 *
-	 * @return  TrackerProject
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function getProject()
-	{
-		if ($this->project)
-		{
-			return $this->project;
-		}
+    /**
+     * Get the project.
+     *
+     * @return  TrackerProject
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function getProject()
+    {
+        if ($this->project) {
+            return $this->project;
+        }
 
-		throw new \UnexpectedValueException('Project not set in ' . __CLASS__);
-	}
+        throw new \UnexpectedValueException('Project not set in ' . __CLASS__);
+    }
 
-	/**
-	 * Set the project.
-	 *
-	 * @param   TrackerProject  $project  The project.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	public function setProject(TrackerProject $project)
-	{
-		$this->project = $project;
+    /**
+     * Set the project.
+     *
+     * @param   TrackerProject  $project  The project.
+     *
+     * @return  $this
+     *
+     * @since   1.0
+     */
+    public function setProject(TrackerProject $project)
+    {
+        $this->project = $project;
 
-		return $this;
-	}
+        return $this;
+    }
 }

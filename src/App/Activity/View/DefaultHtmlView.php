@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Activity Application
  *
@@ -17,19 +18,19 @@ use JTracker\View\AbstractTrackerHtmlView;
  */
 class DefaultHtmlView extends AbstractTrackerHtmlView
 {
-	/**
-	 * Method to render the view.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function render()
-	{
-		// Set the vars to the template.
-		$this->addData('project', $this->getProject());
+    /**
+     * Method to render the view.
+     *
+     * @return  string  The rendered view.
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function render()
+    {
+        // Set the vars to the template.
+        $this->addData('project', $this->getProject());
 
-		return parent::render();
-	}
+        return parent::render();
+    }
 }

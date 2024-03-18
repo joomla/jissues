@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Support Application
  *
@@ -18,63 +19,62 @@ use Joomla\Model\StatefulModelTrait;
  */
 class IconsModel implements StatefulModelInterface
 {
-	use StatefulModelTrait;
+    use StatefulModelTrait;
 
-	/**
-	 * Get the list of icons in the Joomla template.
-	 *
-	 * @return  string[]
-	 *
-	 * @since   1.0
-	 */
-	public function getJoomlaIcons(): array
-	{
+    /**
+     * Get the list of icons in the Joomla template.
+     *
+     * @return  string[]
+     *
+     * @since   1.0
+     */
+    public function getJoomlaIcons(): array
+    {
         // TODO: This parses the icons names correctly - but doesn't associate the far/fas/fab class too.
         //       it wouldn't be ideal but for this script to work we might need to
-		return $this->parseCssFileForIcons(JPATH_THEMES . '/media/css/fontawesome.min.css', '/.(fa-[a-z\-]+:before)/');
-	}
+        return $this->parseCssFileForIcons(JPATH_THEMES . '/media/css/fontawesome.min.css', '/.(fa-[a-z\-]+:before)/');
+    }
 
-	/**
-	 * Get the list of icons from the Octicons set.
-	 *
-	 * @return  string[]
-	 *
-	 * @since   1.0
-	 */
-	public function getOcticons(): array
-	{
-		return $this->parseCssFileForIcons(JPATH_THEMES . '/media/css/vendor/octicons.css', '/.(octicon-[a-z0-9\-]+:before)/');
-	}
+    /**
+     * Get the list of icons from the Octicons set.
+     *
+     * @return  string[]
+     *
+     * @since   1.0
+     */
+    public function getOcticons(): array
+    {
+        return $this->parseCssFileForIcons(JPATH_THEMES . '/media/css/vendor/octicons.css', '/.(octicon-[a-z0-9\-]+:before)/');
+    }
 
-	/**
-	 * Parses a CSS file and extracts all icon classes matching a pattern.
-	 *
-	 * @param   string  $file     The CSS file to parse
-	 * @param   string  $pattern  The regex to use for matching icons
-	 *
-	 * @return  string[]
-	 *
-	 * @since   1.0
-	 */
-	public function parseCssFileForIcons(string $file, string $pattern): array
-	{
-		$file = file_get_contents($file);
+    /**
+     * Parses a CSS file and extracts all icon classes matching a pattern.
+     *
+     * @param   string  $file     The CSS file to parse
+     * @param   string  $pattern  The regex to use for matching icons
+     *
+     * @return  string[]
+     *
+     * @since   1.0
+     */
+    public function parseCssFileForIcons(string $file, string $pattern): array
+    {
+        $file = file_get_contents($file);
 
-		preg_match_all($pattern, $file, $matches);
+        preg_match_all($pattern, $file, $matches);
 
-		$icons = $matches[1];
+        $icons = $matches[1];
 
-		array_walk(
-			$icons,
-			static function (string &$selector): void
-			{
-				$selector = str_replace(':before', '', $selector);
-			}
-		);
+        array_walk(
+            $icons,
+            static function (string &$selector): void {
+                $selector = str_replace(':before', '', $selector);
+            }
+        );
 
-		$icons = array_unique($icons);
-		sort($icons);
+        $icons = array_unique($icons);
+        sort($icons);
 
-		return $icons;
-	}
+        return $icons;
+    }
 }

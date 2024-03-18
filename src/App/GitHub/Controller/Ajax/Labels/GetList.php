@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's GitHub Application
  *
@@ -17,22 +18,22 @@ use JTracker\Controller\AbstractAjaxController;
  */
 class GetList extends AbstractAjaxController
 {
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function prepareResponse()
-	{
-		$this->getContainer()->get('app')->getUser()->authorize('manage');
+    /**
+     * Prepare the response.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function prepareResponse()
+    {
+        $this->getContainer()->get('app')->getUser()->authorize('manage');
 
-		$project = $this->getContainer()->get('app')->getProject();
+        $project = $this->getContainer()->get('app')->getProject();
 
-		/** @var \Joomla\Github\Github $github */
-		$github = $this->getContainer()->get('gitHub');
+        /** @var \Joomla\Github\Github $github */
+        $github = $this->getContainer()->get('gitHub');
 
-		$this->response->data = $github->issues->labels->getList($project->gh_user, $project->gh_project);
-	}
+        $this->response->data = $github->issues->labels->getList($project->gh_user, $project->gh_project);
+    }
 }

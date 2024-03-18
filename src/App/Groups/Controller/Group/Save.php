@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Groups Application
  *
@@ -10,7 +11,6 @@ namespace App\Groups\Controller\Group;
 
 use App\Groups\Model\GroupModel;
 use App\Groups\Table\GroupsTable;
-
 use App\Groups\View\Group\GroupHtmlView;
 use JTracker\Controller\AbstractTrackerController;
 
@@ -21,63 +21,63 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Save extends AbstractTrackerController
 {
-	/**
-	 * The default view for the app.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'groups';
+    /**
+     * The default view for the app.
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultView = 'groups';
 
-	/**
-	 * Model object
-	 *
-	 * @var    GroupModel
-	 * @since  1.0
-	 */
-	protected $model;
+    /**
+     * Model object
+     *
+     * @var    GroupModel
+     * @since  1.0
+     */
+    protected $model;
 
-	/**
-	 * View object
-	 *
-	 * @var    GroupHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
+    /**
+     * View object
+     *
+     * @var    GroupHtmlView
+     * @since  1.0
+     */
+    protected $view;
 
-	/**
-	 * Initialize the controller.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function initialize()
-	{
-		parent::initialize();
+    /**
+     * Initialize the controller.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     */
+    public function initialize()
+    {
+        parent::initialize();
 
-		$this->getContainer()->get('app')->getUser()->authorize('manage');
+        $this->getContainer()->get('app')->getUser()->authorize('manage');
 
-		$this->model->setProject($this->getContainer()->get('app')->getProject());
-		$this->view->setProject($this->getContainer()->get('app')->getProject());
+        $this->model->setProject($this->getContainer()->get('app')->getProject());
+        $this->view->setProject($this->getContainer()->get('app')->getProject());
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		$group = $this->getContainer()->get('app')->input->get('group', [], 'array');
+    /**
+     * Execute the controller.
+     *
+     * @return  string  The rendered view.
+     *
+     * @since   1.0
+     */
+    public function execute()
+    {
+        $group = $this->getContainer()->get('app')->input->get('group', [], 'array');
 
-		(new GroupsTable($this->getContainer()->get('db')))
-			->save($group);
+        (new GroupsTable($this->getContainer()->get('db')))
+            ->save($group);
 
-		return parent::execute();
-	}
+        return parent::execute();
+    }
 }

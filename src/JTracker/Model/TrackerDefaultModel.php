@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Model Package
  *
@@ -18,5 +19,5 @@ use Joomla\Model\StatefulModelTrait;
  */
 class TrackerDefaultModel implements StatefulModelInterface
 {
-	use StatefulModelTrait;
+    use StatefulModelTrait;
 }

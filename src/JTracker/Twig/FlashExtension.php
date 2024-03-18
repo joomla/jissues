@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Twig Package
  *
@@ -19,15 +20,15 @@ use Twig\TwigFunction;
  */
 class FlashExtension extends AbstractExtension
 {
-	/**
-	 * Returns a list of functions to add to the existing list.
-	 *
-	 * @return  TwigFunction[]  An array of functions.
-	 */
-	public function getFunctions()
-	{
-		return [
-			new TwigFunction('flash_messages', [FlashMessageRetriever::class, 'getMessages']),
-		];
-	}
+    /**
+     * Returns a list of functions to add to the existing list.
+     *
+     * @return  TwigFunction[]  An array of functions.
+     */
+    public function getFunctions()
+    {
+        return [
+            new TwigFunction('flash_messages', [FlashMessageRetriever::class, 'getMessages']),
+        ];
+    }
 }

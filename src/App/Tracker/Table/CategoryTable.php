@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -24,61 +25,55 @@ use JTracker\Database\AbstractDatabaseTable;
  */
 class CategoryTable extends AbstractDatabaseTable
 {
-	/**
-	 * Constructor
-	 *
-	 * @param   DatabaseDriver  $database  A database connector object.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(DatabaseDriver $database)
-	{
-		parent::__construct('#__issues_categories', 'id', $database);
-	}
+    /**
+     * Constructor
+     *
+     * @param   DatabaseDriver  $database  A database connector object.
+     *
+     * @since   1.0
+     */
+    public function __construct(DatabaseDriver $database)
+    {
+        parent::__construct('#__issues_categories', 'id', $database);
+    }
 
-	/**
-	 * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
-	 * they are safe to store in the database.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \InvalidArgumentException
-	 */
-	public function check()
-	{
-		$errors = [];
+    /**
+     * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
+     * they are safe to store in the database.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \InvalidArgumentException
+     */
+    public function check()
+    {
+        $errors = [];
 
-		if (trim($this->title) == '')
-		{
-			$errors[] = 'A name is required for the category.';
-		}
+        if (trim($this->title) == '') {
+            $errors[] = 'A name is required for the category.';
+        }
 
-		if (\strlen($this->title) > 150)
-		{
-			$errors[] = 'The length of the name can not exceed 150 characters.';
-		}
+        if (\strlen($this->title) > 150) {
+            $errors[] = 'The length of the name can not exceed 150 characters.';
+        }
 
-		if (trim($this->alias) == '')
-		{
-			$errors[] = 'An alias is required for the category.';
-		}
+        if (trim($this->alias) == '') {
+            $errors[] = 'An alias is required for the category.';
+        }
 
-		if (\strlen($this->alias) > 150)
-		{
-			$errors[] = 'The length of the alias can not exceed 150 characters.';
-		}
+        if (\strlen($this->alias) > 150) {
+            $errors[] = 'The length of the alias can not exceed 150 characters.';
+        }
 
-		if (\strlen($this->color) != 6)
-		{
-			$errors[] = 'Colour should be the hex value.';
-		}
+        if (\strlen($this->color) != 6) {
+            $errors[] = 'Colour should be the hex value.';
+        }
 
-		if ($errors)
-		{
-			throw new \InvalidArgumentException(implode("\n", $errors));
-		}
+        if ($errors) {
+            throw new \InvalidArgumentException(implode("\n", $errors));
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 }

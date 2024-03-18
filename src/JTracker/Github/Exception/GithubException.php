@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Framework Github Package
  *
@@ -18,20 +19,20 @@ use Joomla\Http\Response;
  */
 class GithubException extends UnexpectedResponseException
 {
-	/**
-	 * Constructor.
-	 *
-	 * @param   Response  $response  The response object.
-	 *
-	 * @since  1.0
-	 */
-	public function __construct(Response $response)
-	{
-		$error = (string) $response->body;
-		$code  = $response->getStatusCode();
+    /**
+     * Constructor.
+     *
+     * @param   Response  $response  The response object.
+     *
+     * @since  1.0
+     */
+    public function __construct(Response $response)
+    {
+        $error = (string) $response->body;
+        $code  = $response->getStatusCode();
 
-		$message = $error->message ?? 'Invalid response received from GitHub.';
+        $message = $error->message ?? 'Invalid response received from GitHub.';
 
-		parent::__construct($response, $message, $code);
-	}
+        parent::__construct($response, $message, $code);
+    }
 }

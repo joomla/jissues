@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker View Package
  *
@@ -19,52 +20,51 @@ use Symfony\Component\Asset\Context\ContextInterface;
  */
 class ApplicationContext implements ContextInterface
 {
-	/**
-	 * Application object
-	 *
-	 * @var    AbstractApplication
-	 * @since  1.0
-	 */
-	private $app;
+    /**
+     * Application object
+     *
+     * @var    AbstractApplication
+     * @since  1.0
+     */
+    private $app;
 
-	/**
-	 * Constructor
-	 *
-	 * @param   AbstractApplication  $app  The application object
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(AbstractApplication $app)
-	{
-		$this->app = $app;
-	}
+    /**
+     * Constructor
+     *
+     * @param   AbstractApplication  $app  The application object
+     *
+     * @since   1.0
+     */
+    public function __construct(AbstractApplication $app)
+    {
+        $this->app = $app;
+    }
 
-	/**
-	 * Gets the base path.
-	 *
-	 * @return  string  The base path
-	 *
-	 * @since   1.0
-	 */
-	public function getBasePath(): string
-	{
-		return rtrim($this->app->get('uri.base.path'), '/');
-	}
+    /**
+     * Gets the base path.
+     *
+     * @return  string  The base path
+     *
+     * @since   1.0
+     */
+    public function getBasePath(): string
+    {
+        return rtrim($this->app->get('uri.base.path'), '/');
+    }
 
-	/**
-	 * Checks whether the request is secure or not.
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.0
-	 */
-	public function isSecure(): bool
-	{
-		if ($this->app instanceof AbstractWebApplication)
-		{
-			return $this->app->isSslConnection();
-		}
+    /**
+     * Checks whether the request is secure or not.
+     *
+     * @return  boolean
+     *
+     * @since   1.0
+     */
+    public function isSecure(): bool
+    {
+        if ($this->app instanceof AbstractWebApplication) {
+            return $this->app->isSslConnection();
+        }
 
-		return false;
-	}
+        return false;
+    }
 }

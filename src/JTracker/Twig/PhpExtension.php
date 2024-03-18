@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Twig Package
  *
@@ -19,33 +20,33 @@ use Twig\TwigFunction;
  */
 class PhpExtension extends AbstractExtension
 {
-	/**
-	 * Returns a list of filters to add to the existing list.
-	 *
-	 * @return  TwigFilter[]  An array of filters
-	 *
-	 * @since   1.0
-	 */
-	public function getFilters()
-	{
-		return [
-			new TwigFilter('basename', 'basename'),
-			new TwigFilter('get_class', 'get_class'),
-			new TwigFilter('json_decode', 'json_decode'),
-		];
-	}
+    /**
+     * Returns a list of filters to add to the existing list.
+     *
+     * @return  TwigFilter[]  An array of filters
+     *
+     * @since   1.0
+     */
+    public function getFilters()
+    {
+        return [
+            new TwigFilter('basename', 'basename'),
+            new TwigFilter('get_class', 'get_class'),
+            new TwigFilter('json_decode', 'json_decode'),
+        ];
+    }
 
-	/**
-	 * Returns a list of functions to add to the existing list.
-	 *
-	 * @return  TwigFunction[]  An array of functions.
-	 *
-	 * @since   1.0
-	 */
-	public function getFunctions()
-	{
-		return [
-			new TwigFunction('sprintf', 'sprintf'),
-		];
-	}
+    /**
+     * Returns a list of functions to add to the existing list.
+     *
+     * @return  TwigFunction[]  An array of functions.
+     *
+     * @since   1.0
+     */
+    public function getFunctions()
+    {
+        return [
+            new TwigFunction('sprintf', 'sprintf'),
+        ];
+    }
 }

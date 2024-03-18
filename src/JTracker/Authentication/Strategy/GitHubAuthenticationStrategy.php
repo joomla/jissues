@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Authentication Package
  *
@@ -20,104 +21,99 @@ use JTracker\Authentication\GitHub\GitHubLoginHelper;
  */
 class GitHubAuthenticationStrategy implements AuthenticationStrategyInterface
 {
-	/**
-	 * Constant identifying a GitHub authentication error
-	 *
-	 * @var    integer
-	 * @since  1.0
-	 */
-	public const AUTHENTICATION_ERROR = 6;
+    /**
+     * Constant identifying a GitHub authentication error
+     *
+     * @var    integer
+     * @since  1.0
+     */
+    public const AUTHENTICATION_ERROR = 6;
 
-	/**
-	 * The Input object
-	 *
-	 * @var    Input
-	 * @since  1.0
-	 */
-	private $input;
+    /**
+     * The Input object
+     *
+     * @var    Input
+     * @since  1.0
+     */
+    private $input;
 
-	/**
-	 * GitHub login helper
-	 *
-	 * @var    GitHubLoginHelper
-	 * @since  1.0
-	 */
-	private $loginHelper;
+    /**
+     * GitHub login helper
+     *
+     * @var    GitHubLoginHelper
+     * @since  1.0
+     */
+    private $loginHelper;
 
-	/**
-	 * The last authentication status.
-	 *
-	 * @var    integer
-	 * @since  1.0
-	 */
-	private $status;
+    /**
+     * The last authentication status.
+     *
+     * @var    integer
+     * @since  1.0
+     */
+    private $status;
 
-	/**
-	 * Strategy Constructor
-	 *
-	 * @param   GitHubLoginHelper  $loginHelper  GitHub login helper.
-	 * @param   Input              $input        The input object from which to read data.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(GitHubLoginHelper $loginHelper, Input $input)
-	{
-		$this->input       = $input;
-		$this->loginHelper = $loginHelper;
-	}
+    /**
+     * Strategy Constructor
+     *
+     * @param   GitHubLoginHelper  $loginHelper  GitHub login helper.
+     * @param   Input              $input        The input object from which to read data.
+     *
+     * @since   1.0
+     */
+    public function __construct(GitHubLoginHelper $loginHelper, Input $input)
+    {
+        $this->input       = $input;
+        $this->loginHelper = $loginHelper;
+    }
 
-	/**
-	 * Attempt to authenticate the GitHub OAuth response.
-	 *
-	 * @return  string|boolean  A string containing the GitHub access token if successful, false otherwise.
-	 *
-	 * @since   1.0
-	 */
-	public function authenticate()
-	{
-		$error = $this->input->get('error');
+    /**
+     * Attempt to authenticate the GitHub OAuth response.
+     *
+     * @return  string|boolean  A string containing the GitHub access token if successful, false otherwise.
+     *
+     * @since   1.0
+     */
+    public function authenticate()
+    {
+        $error = $this->input->get('error');
 
-		if ($error)
-		{
-			$this->status = self::AUTHENTICATION_ERROR;
+        if ($error) {
+            $this->status = self::AUTHENTICATION_ERROR;
 
-			return false;
-		}
+            return false;
+        }
 
-		$code = $this->input->get('code');
+        $code = $this->input->get('code');
 
-		if (!$code)
-		{
-			$this->status = self::AUTHENTICATION_ERROR;
+        if (!$code) {
+            $this->status = self::AUTHENTICATION_ERROR;
 
-			return false;
-		}
+            return false;
+        }
 
-		try
-		{
-			$accessToken = $this->loginHelper->requestToken($code);
+        try {
+            $accessToken = $this->loginHelper->requestToken($code);
 
-			$this->status = Authentication::SUCCESS;
+            $this->status = Authentication::SUCCESS;
 
-			return $accessToken;
-		}
-		catch (\Exception $exception)
-		{
-			$this->status = self::AUTHENTICATION_ERROR;
+            return $accessToken;
+        } catch (\Exception $exception) {
+            $this->status = self::AUTHENTICATION_ERROR;
 
-			return false;
-		}
-	}
+            return false;
+        }
+    }
 
-	/**
-	 * Get the status of the last authentication attempt.
-	 *
-	 * @return  integer  Authentication class constant result.
-	 *
-	 * @since   1.0
-	 */
-	public function getResult()
-	{
-		return $this->status;
-	}
+    /**
+     * Get the status of the last authentication attempt.
+     *
+     * @return  integer  Authentication class constant result.
+     *
+     * @since   1.0
+     */
+    public function getResult()
+    {
+        return $this->status;
+    }
 }

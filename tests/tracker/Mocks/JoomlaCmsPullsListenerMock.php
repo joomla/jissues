@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker
  *
@@ -17,15 +18,15 @@ use App\Tracker\Controller\Hooks\Listeners\JoomlacmsPullsListener;
  */
 class JoomlaCmsPullsListenerMock extends JoomlacmsPullsListener
 {
-	/**
-	 * Method to expose an underlying protected method
-	 *
-	 * @param   array  $files  Files array
-	 *
-	 * @return array
-	 */
-	public function testCheckFilesAndAssignCategory(array $files)
-	{
-		return $this->checkFilesAndAssignCategory($files);
-	}
+    /**
+     * Method to expose an underlying protected method
+     *
+     * @param   array  $files  Files array
+     *
+     * @return array
+     */
+    public function testCheckFilesAndAssignCategory(array $files)
+    {
+        return $this->checkFilesAndAssignCategory($files);
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's GitHub Application
  *
@@ -18,38 +19,35 @@ use JTracker\Github\GithubFactory;
  */
 class Delete extends AbstractAjaxController
 {
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function prepareResponse()
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
+    /**
+     * Prepare the response.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function prepareResponse()
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
 
-		$application->getUser()->authorize('manage');
+        $application->getUser()->authorize('manage');
 
-		$name = $application->input->getCmd('name');
+        $name = $application->input->getCmd('name');
 
-		$project = $application->getProject();
+        $project = $application->getProject();
 
-		// Look if we have a bot user configured.
-		if ($project->getGh_Editbot_User() && $project->getGh_Editbot_Pass())
-		{
-			$gitHub = GithubFactory::getInstance($application, true, $project->getGh_Editbot_User(), $project->getGh_Editbot_Pass());
-		}
-		else
-		{
-			$gitHub = GithubFactory::getInstance($application);
-		}
+        // Look if we have a bot user configured.
+        if ($project->getGh_Editbot_User() && $project->getGh_Editbot_Pass()) {
+            $gitHub = GithubFactory::getInstance($application, true, $project->getGh_Editbot_User(), $project->getGh_Editbot_Pass());
+        } else {
+            $gitHub = GithubFactory::getInstance($application);
+        }
 
-		// Delete the label
-		$gitHub->issues->labels->delete($project->gh_user, $project->gh_project, $name);
+        // Delete the label
+        $gitHub->issues->labels->delete($project->gh_user, $project->gh_project, $name);
 
-		// Get the current labels list.
-		$this->response->data = $gitHub->issues->labels->getList($project->gh_user, $project->gh_project);
-	}
+        // Get the current labels list.
+        $this->response->data = $gitHub->issues->labels->getList($project->gh_user, $project->gh_project);
+    }
 }

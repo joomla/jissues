@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Service Package
  *
@@ -24,59 +25,55 @@ use Symfony\Component\Cache\Exception\InvalidArgumentException;
  */
 class CacheProvider implements ServiceProviderInterface
 {
-	/**
-	 * Registers the service provider with a DI container.
-	 *
-	 * @param   Container  $container  The DI container.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function register(Container $container)
-	{
-		$container->alias('cache', CacheItemPoolInterface::class)
-			->alias(AdapterInterface::class, CacheItemPoolInterface::class)
-			->share(
-				CacheItemPoolInterface::class,
-				function (Container $container)
-				{
-					/** @var \Joomla\Registry\Registry $config */
-					$config = $container->get('config');
+    /**
+     * Registers the service provider with a DI container.
+     *
+     * @param   Container  $container  The DI container.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    public function register(Container $container)
+    {
+        $container->alias('cache', CacheItemPoolInterface::class)
+            ->alias(AdapterInterface::class, CacheItemPoolInterface::class)
+            ->share(
+                CacheItemPoolInterface::class,
+                function (Container $container) {
+                    /** @var \Joomla\Registry\Registry $config */
+                    $config = $container->get('config');
 
-					// If caching isn't enabled then just return a void cache
-					if (!$config->get('cache.enabled', false))
-					{
-						return new NullAdapter;
-					}
+                    // If caching isn't enabled then just return a void cache
+                    if (!$config->get('cache.enabled', false)) {
+                        return new NullAdapter();
+                    }
 
-					$adapter   = $config->get('cache.adapter', 'file');
-					$lifetime  = $config->get('cache.lifetime', 900);
-					$namespace = $config->get('cache.namespace', 'jissues');
+                    $adapter   = $config->get('cache.adapter', 'file');
+                    $lifetime  = $config->get('cache.lifetime', 900);
+                    $namespace = $config->get('cache.namespace', 'jissues');
 
-					switch ($adapter)
-					{
-						case 'file':
-							$path = $config->get('cache.file.path', JPATH_ROOT . '/cache/pool');
+                    switch ($adapter) {
+                        case 'file':
+                            $path = $config->get('cache.file.path', JPATH_ROOT . '/cache/pool');
 
-							// If no path is given, fall back to the system's temporary directory
-							if (empty($path))
-							{
-								$path = sys_get_temp_dir();
-							}
+                            // If no path is given, fall back to the system's temporary directory
+                            if (empty($path)) {
+                                $path = sys_get_temp_dir();
+                            }
 
-							return new FilesystemAdapter($namespace, $lifetime, $path);
+                            return new FilesystemAdapter($namespace, $lifetime, $path);
 
-						case 'none':
-							return new NullAdapter;
+                        case 'none':
+                            return new NullAdapter();
 
-						case 'runtime':
-							return new ArrayAdapter($lifetime);
-					}
+                        case 'runtime':
+                            return new ArrayAdapter($lifetime);
+                    }
 
-					throw new InvalidArgumentException(sprintf('The "%s" cache adapter is not supported.', $adapter));
-				},
-				true
-			);
-	}
+                    throw new InvalidArgumentException(sprintf('The "%s" cache adapter is not supported.', $adapter));
+                },
+                true
+            );
+    }
 }

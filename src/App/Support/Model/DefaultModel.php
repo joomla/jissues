@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Support Application
  *
@@ -18,19 +19,19 @@ use JTracker\Model\AbstractTrackerDatabaseModel;
  */
 class DefaultModel extends AbstractTrackerDatabaseModel
 {
-	/**
-	 * Get an item.
-	 *
-	 * @param   string  $alias  The item alias.
-	 * @param   string  $path   The path to the item.
-	 *
-	 * @return  ArticlesTable
-	 *
-	 * @since   1.0
-	 */
-	public function getItem($alias, $path = '')
-	{
-		return (new ArticlesTable($this->db))
-			->load(['alias' => $alias, 'path' => $path, 'is_file' => 1]);
-	}
+    /**
+     * Get an item.
+     *
+     * @param   string  $alias  The item alias.
+     * @param   string  $path   The path to the item.
+     *
+     * @return  ArticlesTable
+     *
+     * @since   1.0
+     */
+    public function getItem($alias, $path = '')
+    {
+        return (new ArticlesTable($this->db))
+            ->load(['alias' => $alias, 'path' => $path, 'is_file' => 1]);
+    }
 }

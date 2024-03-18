@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Users Application
  *
@@ -17,42 +18,41 @@ use JTracker\Controller\AbstractAjaxController;
  */
 class Listing extends AbstractAjaxController
 {
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function prepareResponse()
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
+    /**
+     * Prepare the response.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function prepareResponse()
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
 
-		$application->getUser()->authorize('manage');
+        $application->getUser()->authorize('manage');
 
-		$groupId = $application->input->getInt('group_id');
+        $groupId = $application->input->getInt('group_id');
 
-		$users = [];
+        $users = [];
 
-		if ($groupId)
-		{
-			$db = $this->getContainer()->get('db');
+        if ($groupId) {
+            $db = $this->getContainer()->get('db');
 
-			$query = $db->getQuery(true)
-				->select($db->quoteName(['u.id', 'u.username']))
-				->from($db->quoteName('#__users', 'u'))
-				->where($db->quoteName('m.group_id') . ' = ' . (int) $groupId)
-				->leftJoin(
-					$db->quoteName('#__user_accessgroup_map', 'm')
-					. ' ON ' . $db->quoteName('m.user_id')
-					. ' = ' . $db->quoteName('u.id')
-				);
+            $query = $db->getQuery(true)
+                ->select($db->quoteName(['u.id', 'u.username']))
+                ->from($db->quoteName('#__users', 'u'))
+                ->where($db->quoteName('m.group_id') . ' = ' . (int) $groupId)
+                ->leftJoin(
+                    $db->quoteName('#__user_accessgroup_map', 'm')
+                    . ' ON ' . $db->quoteName('m.user_id')
+                    . ' = ' . $db->quoteName('u.id')
+                );
 
-			$users = $db->setQuery($query)
-				->loadAssocList();
-		}
+            $users = $db->setQuery($query)
+                ->loadAssocList();
+        }
 
-		$this->response->data->options = $users ? : [];
-	}
+        $this->response->data->options = $users ?: [];
+    }
 }

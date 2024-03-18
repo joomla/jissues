@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -9,7 +10,6 @@
 namespace App\Tracker\View\Issues;
 
 use App\Tracker\Model\IssuesModel;
-
 use JTracker\View\AbstractTrackerHtmlView;
 
 /**
@@ -19,32 +19,32 @@ use JTracker\View\AbstractTrackerHtmlView;
  */
 class IssuesHtmlView extends AbstractTrackerHtmlView
 {
-	/**
-	 * Redefine the model so the correct type hinting is available.
-	 *
-	 * @var     IssuesModel
-	 * @since   1.0
-	 */
-	protected $model;
+    /**
+     * Redefine the model so the correct type hinting is available.
+     *
+     * @var     IssuesModel
+     * @since   1.0
+     */
+    protected $model;
 
-	/**
-	 * Method to render the view.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function render()
-	{
-		// Set the vars to the template.
-		$this->setData(
-			[
-				'state'   => $this->model->getState(),
-				'project' => $this->getProject(),
-			]
-		);
+    /**
+     * Method to render the view.
+     *
+     * @return  string  The rendered view.
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function render()
+    {
+        // Set the vars to the template.
+        $this->setData(
+            [
+                'state'   => $this->model->getState(),
+                'project' => $this->getProject(),
+            ]
+        );
 
-		return parent::render();
-	}
+        return parent::render();
+    }
 }

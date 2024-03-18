@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla! Tracker application.
  *
@@ -21,147 +22,144 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class Dbcomments extends TrackerCommand
 {
-	/**
-	 * Configure the command.
-	 *
-	 * @return  void
-	 *
-	 * @since   2.0.0
-	 */
-	protected function configure(): void
-	{
-		$this->setName('make:dbcomments');
-		$this->setDescription('Generate class doc blocks for Table classes.');
-	}
+    /**
+     * Configure the command.
+     *
+     * @return  void
+     *
+     * @since   2.0.0
+     */
+    protected function configure(): void
+    {
+        $this->setName('make:dbcomments');
+        $this->setDescription('Generate class doc blocks for Table classes.');
+    }
 
-	/**
-	 * Execute the command.
-	 *
-	 * @param   InputInterface   $input   The input to inject into the command.
-	 * @param   OutputInterface  $output  The output to inject into the command.
-	 *
-	 * @return  integer
-	 *
-	 * @throws  \RuntimeException
-	 * @throws  \UnexpectedValueException
-	 * @since   1.0
-	 */
-	protected function doExecute(InputInterface $input, OutputInterface $output): int
-	{
-		$ioStyle = new SymfonyStyle($input, $output);
-		$ioStyle->title('Make Table Comments');
+    /**
+     * Execute the command.
+     *
+     * @param   InputInterface   $input   The input to inject into the command.
+     * @param   OutputInterface  $output  The output to inject into the command.
+     *
+     * @return  integer
+     *
+     * @throws  \RuntimeException
+     * @throws  \UnexpectedValueException
+     * @since   1.0
+     */
+    protected function doExecute(InputInterface $input, OutputInterface $output): int
+    {
+        $ioStyle = new SymfonyStyle($input, $output);
+        $ioStyle->title('Make Table Comments');
 
-		/** @var \Joomla\Database\DatabaseDriver $db */
-		$db = $this->getContainer()->get('db');
+        /** @var \Joomla\Database\DatabaseDriver $db */
+        $db = $this->getContainer()->get('db');
 
-		$tables = $db->getTableList();
+        $tables = $db->getTableList();
 
-		$comms = [];
+        $comms = [];
 
-		foreach ($tables as $table)
-		{
-			$fields = $db->getTableColumns($table, false);
+        foreach ($tables as $table) {
+            $fields = $db->getTableColumns($table, false);
 
-			$lines = [];
+            $lines = [];
 
-			foreach ($fields as $field)
-			{
-				$com = new \stdClass;
+            foreach ($fields as $field) {
+                $com = new \stdClass();
 
-				$com->type    = $this->getType($field->Type);
-				$com->name    = '$' . $field->Field;
-				$com->comment = $field->Comment ? $field->Comment : $field->Field;
+                $com->type    = $this->getType($field->Type);
+                $com->name    = '$' . $field->Field;
+                $com->comment = $field->Comment ? $field->Comment : $field->Field;
 
-				$lines[] = $com;
-			}
+                $lines[] = $com;
+            }
 
-			$comms[$table] = $lines;
-		}
+            $comms[$table] = $lines;
+        }
 
-		foreach ($comms as $table => $com)
-		{
-			$this->out(' * ' . $table);
+        foreach ($comms as $table => $com) {
+            $this->out(' * ' . $table);
 
-			$maxVals = $this->getMaxVals($com);
+            $maxVals = $this->getMaxVals($com);
 
-			foreach ($com as $line)
-			{
-				$l = '';
-				$l .= ' * @property';
-				$l .= '   ' . $line->type;
-				$l .= str_repeat(' ', $maxVals->maxType - \strlen($line->type));
-				$l .= '  ' . $line->name;
-				$l .= str_repeat(' ', $maxVals->maxName - \strlen($line->name));
-				$l .= '  ' . $line->comment;
+            foreach ($com as $line) {
+                $l = '';
+                $l .= ' * @property';
+                $l .= '   ' . $line->type;
+                $l .= str_repeat(' ', $maxVals->maxType - \strlen($line->type));
+                $l .= '  ' . $line->name;
+                $l .= str_repeat(' ', $maxVals->maxName - \strlen($line->name));
+                $l .= '  ' . $line->comment;
 
-				$ioStyle->text($l);
-			}
+                $ioStyle->text($l);
+            }
 
-			$ioStyle->newLine();
-		}
+            $ioStyle->newLine();
+        }
 
-		$ioStyle->newLine();
-		$ioStyle->success('Finished.');
+        $ioStyle->newLine();
+        $ioStyle->success('Finished.');
 
-		return Command::SUCCESS;
-	}
+        return Command::SUCCESS;
+    }
 
-	/**
-	 * Get the maximum values to align doc comments.
-	 *
-	 * @param   array  $lines  The doc comment.
-	 *
-	 * @return  \stdClass
-	 *
-	 * @since   1.0
-	 */
-	private function getMaxVals(array $lines)
-	{
-		$mType = 0;
-		$mName = 0;
+    /**
+     * Get the maximum values to align doc comments.
+     *
+     * @param   array  $lines  The doc comment.
+     *
+     * @return  \stdClass
+     *
+     * @since   1.0
+     */
+    private function getMaxVals(array $lines)
+    {
+        $mType = 0;
+        $mName = 0;
 
-		foreach ($lines as $line)
-		{
-			$len   = \strlen($line->type);
-			$mType = $len > $mType ? $len : $mType;
+        foreach ($lines as $line) {
+            $len   = \strlen($line->type);
+            $mType = $len > $mType ? $len : $mType;
 
-			$len   = \strlen($line->name);
-			$mName = $len > $mName ? $len : $mName;
-		}
+            $len   = \strlen($line->name);
+            $mName = $len > $mName ? $len : $mName;
+        }
 
-		$v = new \stdClass;
+        $v = new \stdClass();
 
-		$v->maxType = $mType;
-		$v->maxName = $mName;
+        $v->maxType = $mType;
+        $v->maxName = $mName;
 
-		return $v;
-	}
+        return $v;
+    }
 
-	/**
-	 * Get a PHP data type from a SQL data type.
-	 *
-	 * @param   string  $type  The SQL data type.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	private function getType($type)
-	{
-		if (strpos($type, 'int') === 0
-			|| strpos($type, 'tinyint') === 0)
-		{
-			return 'integer';
-		}
+    /**
+     * Get a PHP data type from a SQL data type.
+     *
+     * @param   string  $type  The SQL data type.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    private function getType($type)
+    {
+        if (
+            strpos($type, 'int') === 0
+            || strpos($type, 'tinyint') === 0
+        ) {
+            return 'integer';
+        }
 
-		if (strpos($type, 'varchar') === 0
-			|| strpos($type, 'text') === 0
-			|| strpos($type, 'mediumtext') === 0
-			|| strpos($type, 'datetime') === 0)
-		{
-			return 'string';
-		}
+        if (
+            strpos($type, 'varchar') === 0
+            || strpos($type, 'text') === 0
+            || strpos($type, 'mediumtext') === 0
+            || strpos($type, 'datetime') === 0
+        ) {
+            return 'string';
+        }
 
-		return $type;
-	}
+        return $type;
+    }
 }

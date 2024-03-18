@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla! Tracker application.
  *
@@ -19,38 +20,38 @@ use Symfony\Component\Console\Input\InputOption;
  */
 abstract class Update extends TrackerCommand
 {
-	/**
-	 * Joomla! Github object
-	 *
-	 * @var    Github
-	 * @since  1.0
-	 */
-	protected $github;
+    /**
+     * Joomla! Github object
+     *
+     * @var    Github
+     * @since  1.0
+     */
+    protected $github;
 
-	/**
-	 * Common Option for project filtering.
-	 *
-	 * @return  void
-	 *
-	 * @since   2.0.0
-	 */
-	protected function addProjectOption(): void
-	{
-		$this->addOption('project', 'p', InputOption::VALUE_REQUIRED, 'Process the project with the given ID.');
-	}
+    /**
+     * Common Option for project filtering.
+     *
+     * @return  void
+     *
+     * @since   2.0.0
+     */
+    protected function addProjectOption(): void
+    {
+        $this->addOption('project', 'p', InputOption::VALUE_REQUIRED, 'Process the project with the given ID.');
+    }
 
-	/**
-	 * Setup the Github object.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function setupGitHub()
-	{
-		$this->github = $this->getContainer()->get('gitHub');
+    /**
+     * Setup the Github object.
+     *
+     * @return  $this
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    protected function setupGitHub()
+    {
+        $this->github = $this->getContainer()->get('gitHub');
 
-		return $this;
-	}
+        return $this;
+    }
 }

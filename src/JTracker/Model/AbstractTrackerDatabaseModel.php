@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Model Package
  *
@@ -9,13 +10,11 @@
 namespace JTracker\Model;
 
 use App\Projects\ProjectAwareTrait;
-
 use Joomla\Database\DatabaseDriver;
 use Joomla\Model\DatabaseModelInterface;
 use Joomla\Model\DatabaseModelTrait;
 use Joomla\Model\StatefulModelInterface;
 use Joomla\Model\StatefulModelTrait;
-
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
@@ -25,123 +24,120 @@ use JTracker\Database\AbstractDatabaseTable;
  */
 abstract class AbstractTrackerDatabaseModel implements DatabaseModelInterface, StatefulModelInterface
 {
-	use ProjectAwareTrait, DatabaseModelTrait, StatefulModelTrait;
+    use ProjectAwareTrait;
+    use DatabaseModelTrait;
+    use StatefulModelTrait;
 
-	/**
-	 * The model (base) name
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $name;
+    /**
+     * The model (base) name
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $name;
 
-	/**
-	 * The URL option for the component.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $option;
+    /**
+     * The URL option for the component.
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $option;
 
-	/**
-	 * Table instance
-	 *
-	 * @var    AbstractDatabaseTable
-	 * @since  1.0
-	 */
-	protected $table;
+    /**
+     * Table instance
+     *
+     * @var    AbstractDatabaseTable
+     * @since  1.0
+     */
+    protected $table;
 
-	/**
-	 * Instantiate the model.
-	 *
-	 * @param   DatabaseDriver  $database  The database adapter.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(DatabaseDriver $database)
-	{
-		$this->setDb($database);
+    /**
+     * Instantiate the model.
+     *
+     * @param   DatabaseDriver  $database  The database adapter.
+     *
+     * @since   1.0
+     */
+    public function __construct(DatabaseDriver $database)
+    {
+        $this->setDb($database);
 
-		// Guess the option from the class name (Option)Model(View).
-		if (empty($this->option))
-		{
-			// Get the fully qualified class name for the current object
-			$fqcn = (\get_class($this));
+        // Guess the option from the class name (Option)Model(View).
+        if (empty($this->option)) {
+            // Get the fully qualified class name for the current object
+            $fqcn = (\get_class($this));
 
-			// Strip the base component namespace off
-			$className = str_replace('App\\', '', $fqcn);
+            // Strip the base component namespace off
+            $className = str_replace('App\\', '', $fqcn);
 
-			// Explode the remaining name into an array
-			$classArray = explode('\\', $className);
+            // Explode the remaining name into an array
+            $classArray = explode('\\', $className);
 
-			// Set the option as the first object in this array
-			$this->option = $classArray[0];
-		}
+            // Set the option as the first object in this array
+            $this->option = $classArray[0];
+        }
 
-		// Set the view name
-		if (empty($this->name))
-		{
-			$this->getName();
-		}
-	}
+        // Set the view name
+        if (empty($this->name)) {
+            $this->getName();
+        }
+    }
 
-	/**
-	 * Method to get the model name
-	 *
-	 * The model name. By default parsed using the class name or it can be set
-	 * by passing a $config['name'] in the class constructor
-	 *
-	 * @return  string  The name of the model
-	 *
-	 * @since   1.0
-	 */
-	public function getName()
-	{
-		if (empty($this->name))
-		{
-			// Get the fully qualified class name for the current object
-			$fqcn = (\get_class($this));
+    /**
+     * Method to get the model name
+     *
+     * The model name. By default parsed using the class name or it can be set
+     * by passing a $config['name'] in the class constructor
+     *
+     * @return  string  The name of the model
+     *
+     * @since   1.0
+     */
+    public function getName()
+    {
+        if (empty($this->name)) {
+            // Get the fully qualified class name for the current object
+            $fqcn = (\get_class($this));
 
-			// Explode the name into an array
-			$classArray = explode('\\', $fqcn);
+            // Explode the name into an array
+            $classArray = explode('\\', $fqcn);
 
-			// Get the last element from the array
-			$class = array_pop($classArray);
+            // Get the last element from the array
+            $class = array_pop($classArray);
 
-			// Remove Model from the name and store it
-			$this->name = str_replace('Model', '', $class);
-		}
+            // Remove Model from the name and store it
+            $this->name = str_replace('Model', '', $class);
+        }
 
-		return $this->name;
-	}
+        return $this->name;
+    }
 
-	/**
-	 * Method to get a table object, load it if necessary.
-	 *
-	 * @param   string  $name    The table name. Optional.
-	 * @param   string  $prefix  The class prefix. Optional.
-	 *
-	 * @return  AbstractDatabaseTable  A Table object
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function getTable($name = '', $prefix = 'Table')
-	{
-		if (empty($name))
-		{
-			$name = $this->getName();
-		}
+    /**
+     * Method to get a table object, load it if necessary.
+     *
+     * @param   string  $name    The table name. Optional.
+     * @param   string  $prefix  The class prefix. Optional.
+     *
+     * @return  AbstractDatabaseTable  A Table object
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function getTable($name = '', $prefix = 'Table')
+    {
+        if (empty($name)) {
+            $name = $this->getName();
+        }
 
-		$class = $prefix . ucfirst($name);
+        $class = $prefix . ucfirst($name);
 
-		if (!class_exists($class) && !($class instanceof AbstractDatabaseTable))
-		{
-			throw new \RuntimeException(sprintf('Table class %s not found or is not an instance of AbstractDatabaseTable', $class));
-		}
+        if (!class_exists($class) && !($class instanceof AbstractDatabaseTable)) {
+            throw new \RuntimeException(sprintf('Table class %s not found or is not an instance of AbstractDatabaseTable', $class));
+        }
 
-		$this->table = new $class($this->getDb());
+        $this->table = new $class($this->getDb());
 
-		return $this->table;
-	}
+        return $this->table;
+    }
 }

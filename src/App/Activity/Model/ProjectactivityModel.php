@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Activity Application
  *
@@ -17,86 +18,82 @@ use JTracker\Model\AbstractTrackerDatabaseModel;
  */
 class ProjectactivityModel extends AbstractTrackerDatabaseModel
 {
-	/**
-	 * Get the count of open, closed, and fixed issues for a period of time
-	 *
-	 * @return  object[]
-	 *
-	 * @since   1.0
-	 */
-	public function getIssueCounts()
-	{
-		// Create a new query object.
-		$db    = $this->getDb();
-		$query = $db->getQuery(true);
+    /**
+     * Get the count of open, closed, and fixed issues for a period of time
+     *
+     * @return  object[]
+     *
+     * @since   1.0
+     */
+    public function getIssueCounts()
+    {
+        // Create a new query object.
+        $db    = $this->getDb();
+        $query = $db->getQuery(true);
 
-		$periodList = [1 => 7, 2 => 30, 3 => 90];
-		$period     = $this->state->get('list.period', 1);
+        $periodList = [1 => 7, 2 => 30, 3 => 90];
+        $period     = $this->state->get('list.period', 1);
 
-		if (!\in_array($period, array_keys($periodList)))
-		{
-			$period = 1;
-		}
+        if (!\in_array($period, array_keys($periodList))) {
+            $period = 1;
+        }
 
-		$periodValue = $periodList[$period];
+        $periodValue = $periodList[$period];
 
-		// Get 12 columns
-		for ($i = 4; $i > 0; $i--)
-		{
-			$startDay = ($i * $periodValue) - 1;
-			$endDay   = ($i - 1) * $periodValue;
-			$query->select(
-				'SUM(CASE WHEN (DATE(i.closed_date) BETWEEN '
-				. 'Date(DATE_ADD(now(), INTERVAL -' . $startDay . ' DAY)) '
-				. ' AND Date(DATE_ADD(now(), INTERVAL -' . $endDay . ' DAY))) AND i.status = 5 THEN 1 ELSE 0 END)'
-				. ' AS fixed' . $i
-			);
-		}
+        // Get 12 columns
+        for ($i = 4; $i > 0; $i--) {
+            $startDay = ($i * $periodValue) - 1;
+            $endDay   = ($i - 1) * $periodValue;
+            $query->select(
+                'SUM(CASE WHEN (DATE(i.closed_date) BETWEEN '
+                . 'Date(DATE_ADD(now(), INTERVAL -' . $startDay . ' DAY)) '
+                . ' AND Date(DATE_ADD(now(), INTERVAL -' . $endDay . ' DAY))) AND i.status = 5 THEN 1 ELSE 0 END)'
+                . ' AS fixed' . $i
+            );
+        }
 
-		for ($i = 4; $i > 0; $i--)
-		{
-			$startDay = ($i * $periodValue) - 1;
-			$endDay   = ($i - 1) * $periodValue;
-			$query->select(
-				'SUM(CASE WHEN (DATE(i.closed_date) BETWEEN '
-				. 'Date(DATE_ADD(now(), INTERVAL -' . $startDay . ' DAY)) '
-				. ' AND Date(DATE_ADD(now(), INTERVAL -' . $endDay . ' DAY))) AND s.closed = 1 THEN 1 ELSE 0 END)'
-				. ' AS closed' . $i
-			);
-		}
+        for ($i = 4; $i > 0; $i--) {
+            $startDay = ($i * $periodValue) - 1;
+            $endDay   = ($i - 1) * $periodValue;
+            $query->select(
+                'SUM(CASE WHEN (DATE(i.closed_date) BETWEEN '
+                . 'Date(DATE_ADD(now(), INTERVAL -' . $startDay . ' DAY)) '
+                . ' AND Date(DATE_ADD(now(), INTERVAL -' . $endDay . ' DAY))) AND s.closed = 1 THEN 1 ELSE 0 END)'
+                . ' AS closed' . $i
+            );
+        }
 
-		$query->select('DATE(NOW()) AS end_date')
-			->from($db->quoteName('#__issues') . ' AS i')
-			->join('LEFT', '#__status AS s ON i.status = s.id')
-			->where('i.project_id = ' . (int) $this->getProject()->project_id)
-			->where('date(i.closed_date) > Date(DATE_ADD(now(), INTERVAL -' . ($periodValue * 4) . ' DAY))')
-			->where('s.closed = 1');
+        $query->select('DATE(NOW()) AS end_date')
+            ->from($db->quoteName('#__issues') . ' AS i')
+            ->join('LEFT', '#__status AS s ON i.status = s.id')
+            ->where('i.project_id = ' . (int) $this->getProject()->project_id)
+            ->where('date(i.closed_date) > Date(DATE_ADD(now(), INTERVAL -' . ($periodValue * 4) . ' DAY))')
+            ->where('s.closed = 1');
 
-		$db->setQuery($query, $this->state->get('list.start'), $this->state->get('list.limit'));
-		$closedIssues = $db->loadObject();
+        $db->setQuery($query, $this->state->get('list.start'), $this->state->get('list.limit'));
+        $closedIssues = $db->loadObject();
 
-		$query = $db->getQuery(true);
+        $query = $db->getQuery(true);
 
-		for ($i = 4; $i > 0; $i--)
-		{
-			$startDay = ($i * $periodValue) - 1;
-			$endDay   = ($i - 1) * $periodValue;
-			$query->select(
-				'SUM(CASE WHEN DATE(i.opened_date) BETWEEN '
-				. 'Date(DATE_ADD(now(), INTERVAL -' . $startDay . ' DAY)) '
-				. ' AND Date(DATE_ADD(now(), INTERVAL -' . $endDay . ' DAY)) THEN 1 ELSE 0 END)'
-				. ' AS opened' . $i
-			);
-		}
+        for ($i = 4; $i > 0; $i--) {
+            $startDay = ($i * $periodValue) - 1;
+            $endDay   = ($i - 1) * $periodValue;
+            $query->select(
+                'SUM(CASE WHEN DATE(i.opened_date) BETWEEN '
+                . 'Date(DATE_ADD(now(), INTERVAL -' . $startDay . ' DAY)) '
+                . ' AND Date(DATE_ADD(now(), INTERVAL -' . $endDay . ' DAY)) THEN 1 ELSE 0 END)'
+                . ' AS opened' . $i
+            );
+        }
 
-		$query->select('DATE(NOW()) AS end_date')
-			->from($db->quoteName('#__issues') . ' AS i')
-			->where('i.project_id = ' . (int) $this->getProject()->project_id)
-			->where('date(i.opened_date) > Date(DATE_ADD(now(), INTERVAL -' . ($periodValue * 4) . ' DAY))');
+        $query->select('DATE(NOW()) AS end_date')
+            ->from($db->quoteName('#__issues') . ' AS i')
+            ->where('i.project_id = ' . (int) $this->getProject()->project_id)
+            ->where('date(i.opened_date) > Date(DATE_ADD(now(), INTERVAL -' . ($periodValue * 4) . ' DAY))');
 
-		$db->setQuery($query, $this->state->get('list.start'), $this->state->get('list.limit'));
-		$openedIssues = $db->loadObject();
+        $db->setQuery($query, $this->state->get('list.start'), $this->state->get('list.limit'));
+        $openedIssues = $db->loadObject();
 
-		return [$openedIssues, $closedIssues];
-	}
+        return [$openedIssues, $closedIssues];
+    }
 }

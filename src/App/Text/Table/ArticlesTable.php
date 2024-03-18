@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Text Application
  *
@@ -28,79 +29,72 @@ use JTracker\Database\AbstractDatabaseTable;
  */
 class ArticlesTable extends AbstractDatabaseTable
 {
-	/**
-	 * Constructor
-	 *
-	 * @param   DatabaseDriver  $db  A database connector object
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(DatabaseDriver $db)
-	{
-		parent::__construct('#__articles', 'article_id', $db);
-	}
+    /**
+     * Constructor
+     *
+     * @param   DatabaseDriver  $db  A database connector object
+     *
+     * @since   1.0
+     */
+    public function __construct(DatabaseDriver $db)
+    {
+        parent::__construct('#__articles', 'article_id', $db);
+    }
 
-	/**
-	 * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
-	 * they are safe to store in the database.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \InvalidArgumentException
-	 */
-	public function check()
-	{
-		$errors = [];
+    /**
+     * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
+     * they are safe to store in the database.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \InvalidArgumentException
+     */
+    public function check()
+    {
+        $errors = [];
 
-		if (trim($this->alias) === '')
-		{
-			if (trim($this->title))
-			{
-				$this->alias = trim($this->title);
-			}
-			else
-			{
-				$errors[] = 'An alias or a title is required.';
-			}
-		}
+        if (trim($this->alias) === '') {
+            if (trim($this->title)) {
+                $this->alias = trim($this->title);
+            } else {
+                $errors[] = 'An alias or a title is required.';
+            }
+        }
 
-		if (trim($this->text_md) === '')
-		{
-			$errors[] = 'Some text is required.';
-		}
+        if (trim($this->text_md) === '') {
+            $errors[] = 'Some text is required.';
+        }
 
-		$this->alias = OutputFilter::stringUrlUnicodeSlug($this->alias);
+        $this->alias = OutputFilter::stringUrlUnicodeSlug($this->alias);
 
-		if ($errors)
-		{
-			throw new \InvalidArgumentException(implode("\n", $errors));
-		}
+        if ($errors) {
+            throw new \InvalidArgumentException(implode("\n", $errors));
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Method to store a row in the database from the AbstractDatabaseTable instance properties.
-	 * If a primary key value is set the row with that primary key value will be
-	 * updated with the instance property values.  If no primary key value is set
-	 * a new row will be inserted into the database with the properties from the
-	 * AbstractDatabaseTable instance.
-	 *
-	 * @param   boolean  $updateNulls  True to update fields even if they are null.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function store($updateNulls = false)
-	{
-		if (!$this->created_date || $this->created_date === $this->db->getNullDate())
-		{
-			// New item
-			$this->created_date = (new \DateTime('now', new \DateTimeZone('UTC')))->format($this->db->getDateFormat());
-		}
+    /**
+     * Method to store a row in the database from the AbstractDatabaseTable instance properties.
+     * If a primary key value is set the row with that primary key value will be
+     * updated with the instance property values.  If no primary key value is set
+     * a new row will be inserted into the database with the properties from the
+     * AbstractDatabaseTable instance.
+     *
+     * @param   boolean  $updateNulls  True to update fields even if they are null.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     */
+    public function store($updateNulls = false)
+    {
+        if (!$this->created_date || $this->created_date === $this->db->getNullDate()) {
+            // New item
+            $this->created_date = (new \DateTime('now', new \DateTimeZone('UTC')))->format($this->db->getDateFormat());
+        }
 
-		return parent::store($updateNulls);
-	}
+        return parent::store($updateNulls);
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Service Package
  *
@@ -21,40 +22,38 @@ use Psr\Http\Client\ClientInterface;
  */
 class HttpProvider implements ServiceProviderInterface
 {
-	/**
-	 * Registers the service provider with a DI container.
-	 *
-	 * @param   Container  $container  The DI container.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function register(Container $container)
-	{
-		$container->alias('http', Http::class)
-			->alias(ClientInterface::class, Http::class)
-			->share(
-				Http::class,
-				function (Container $container)
-				{
-					/** @var HttpFactory $factory */
-					$factory = $container->get('http.factory');
+    /**
+     * Registers the service provider with a DI container.
+     *
+     * @param   Container  $container  The DI container.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function register(Container $container)
+    {
+        $container->alias('http', Http::class)
+            ->alias(ClientInterface::class, Http::class)
+            ->share(
+                Http::class,
+                function (Container $container) {
+                    /** @var HttpFactory $factory */
+                    $factory = $container->get('http.factory');
 
-					return $factory->getHttp();
-				},
-				true
-			);
+                    return $factory->getHttp();
+                },
+                true
+            );
 
-		$container->alias('http.factory', HttpFactory::class)
-			->share(
-				HttpFactory::class,
-				function (Container $container)
-				{
-					return new HttpFactory;
-				},
-				true
-			);
-	}
+        $container->alias('http.factory', HttpFactory::class)
+            ->share(
+                HttpFactory::class,
+                function (Container $container) {
+                    return new HttpFactory();
+                },
+                true
+            );
+    }
 }

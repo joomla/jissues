@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Projects Application
  *
@@ -9,9 +10,7 @@
 namespace App\Projects\Table;
 
 use App\Groups\Table\GroupsTable;
-
 use Joomla\Database\DatabaseDriver;
-
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
@@ -31,125 +30,120 @@ use JTracker\Database\AbstractDatabaseTable;
  */
 class ProjectsTable extends AbstractDatabaseTable
 {
-	/**
-	 * Constructor
-	 *
-	 * @param   DatabaseDriver  $db  A database connector object
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(DatabaseDriver $db)
-	{
-		parent::__construct('#__tracker_projects', 'project_id', $db);
-	}
+    /**
+     * Constructor
+     *
+     * @param   DatabaseDriver  $db  A database connector object
+     *
+     * @since   1.0
+     */
+    public function __construct(DatabaseDriver $db)
+    {
+        parent::__construct('#__tracker_projects', 'project_id', $db);
+    }
 
-	/**
-	 * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
-	 * they are safe to store in the database.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \UnexpectedValueException
-	 */
-	public function check()
-	{
-		if (!$this->title)
-		{
-			throw new \UnexpectedValueException('A title is required');
-		}
+    /**
+     * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
+     * they are safe to store in the database.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \UnexpectedValueException
+     */
+    public function check()
+    {
+        if (!$this->title) {
+            throw new \UnexpectedValueException('A title is required');
+        }
 
-		if (!$this->short_title)
-		{
-			throw new \UnexpectedValueException('A short title is required');
-		}
+        if (!$this->short_title) {
+            throw new \UnexpectedValueException('A short title is required');
+        }
 
-		if (!$this->alias)
-		{
-			$this->alias = $this->title;
-		}
+        if (!$this->alias) {
+            $this->alias = $this->title;
+        }
 
-		$this->alias = $this->stringURLSafe($this->alias);
+        $this->alias = $this->stringURLSafe($this->alias);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * This method processes a string and replaces all accented UTF-8 characters by unaccented
-	 * ASCII-7 "equivalents", whitespaces are replaced by hyphens and the string is lowercase.
-	 *
-	 * @param   string  $string  String to process
-	 *
-	 * @return  string  Processed string
-	 *
-	 * @since   1.0
-	 */
-	public static function stringURLSafe($string)
-	{
-		// Remove any '-' from the string since they will be used as concatenators
-		$str = str_replace('-', ' ', $string);
+    /**
+     * This method processes a string and replaces all accented UTF-8 characters by unaccented
+     * ASCII-7 "equivalents", whitespaces are replaced by hyphens and the string is lowercase.
+     *
+     * @param   string  $string  String to process
+     *
+     * @return  string  Processed string
+     *
+     * @since   1.0
+     */
+    public static function stringURLSafe($string)
+    {
+        // Remove any '-' from the string since they will be used as concatenators
+        $str = str_replace('-', ' ', $string);
 
-		// $lang = Language::getInstance();
-		// $str = $lang->transliterate($str);
+        // $lang = Language::getInstance();
+        // $str = $lang->transliterate($str);
 
-		// Trim white spaces at beginning and end of alias and make lowercase
-		$str = trim(strtolower($str));
+        // Trim white spaces at beginning and end of alias and make lowercase
+        $str = trim(strtolower($str));
 
-		// Remove any duplicate whitespace, and ensure all characters are alphanumeric
-		$str = preg_replace('/(\s|[^A-Za-z0-9\-])+/', '-', $str);
+        // Remove any duplicate whitespace, and ensure all characters are alphanumeric
+        $str = preg_replace('/(\s|[^A-Za-z0-9\-])+/', '-', $str);
 
-		// Trim dashes at beginning and end of alias
-		$str = trim($str, '-');
+        // Trim dashes at beginning and end of alias
+        $str = trim($str, '-');
 
-		return $str;
-	}
+        return $str;
+    }
 
-	/**
-	 * Method to store a row in the database from the AbstractDatabaseTable instance properties.
-	 * If a primary key value is set the row with that primary key value will be
-	 * updated with the instance property values.  If no primary key value is set
-	 * a new row will be inserted into the database with the properties from the
-	 * AbstractDatabaseTable instance.
-	 *
-	 * @param   boolean  $updateNulls  True to update fields even if they are null.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function store($updateNulls = false)
-	{
-		$oldId = $this->{$this->getKeyName()};
+    /**
+     * Method to store a row in the database from the AbstractDatabaseTable instance properties.
+     * If a primary key value is set the row with that primary key value will be
+     * updated with the instance property values.  If no primary key value is set
+     * a new row will be inserted into the database with the properties from the
+     * AbstractDatabaseTable instance.
+     *
+     * @param   boolean  $updateNulls  True to update fields even if they are null.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     */
+    public function store($updateNulls = false)
+    {
+        $oldId = $this->{$this->getKeyName()};
 
-		parent::store($updateNulls);
+        parent::store($updateNulls);
 
-		if (!$oldId)
-		{
-			// New item - Create default access groups.
-			$newId = $this->{$this->getKeyName()};
+        if (!$oldId) {
+            // New item - Create default access groups.
+            $newId = $this->{$this->getKeyName()};
 
-			if ($newId)
-			{
-				$data               = [];
-				$data['project_id'] = $newId;
-				$data['title']      = 'Public';
-				$data['can_view']   = 1;
-				$data['can_create'] = 0;
-				$data['can_edit']   = 0;
-				$data['can_manage'] = 0;
-				$data['system']     = 1;
+            if ($newId) {
+                $data               = [];
+                $data['project_id'] = $newId;
+                $data['title']      = 'Public';
+                $data['can_view']   = 1;
+                $data['can_create'] = 0;
+                $data['can_edit']   = 0;
+                $data['can_manage'] = 0;
+                $data['system']     = 1;
 
-				(new GroupsTable($this->db))
-					->save($data);
+                (new GroupsTable($this->db))
+                    ->save($data);
 
-				$data['title']      = 'User';
-				$data['can_create'] = 1;
+                $data['title']      = 'User';
+                $data['can_create'] = 1;
 
-				(new GroupsTable($this->db))
-					->save($data);
-			}
-		}
+                (new GroupsTable($this->db))
+                    ->save($data);
+            }
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 }

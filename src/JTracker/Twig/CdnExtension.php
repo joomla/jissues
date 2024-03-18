@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Twig Package
  *
@@ -19,16 +20,16 @@ use Twig\TwigFunction;
  */
 class CdnExtension extends AbstractExtension
 {
-	/**
-	 * Returns a list of functions to add to the existing list.
-	 *
-	 * @return  TwigFunction[]  An array of functions.
-	 */
-	public function getFunctions()
-	{
-		return [
-			new TwigFunction('cdn_footer', [CdnRenderer::class, 'getCdnFooter'], ['is_safe' => ['html']]),
-			new TwigFunction('cdn_menu', [CdnRenderer::class, 'getCdnMenu'], ['is_safe' => ['html']]),
-		];
-	}
+    /**
+     * Returns a list of functions to add to the existing list.
+     *
+     * @return  TwigFunction[]  An array of functions.
+     */
+    public function getFunctions()
+    {
+        return [
+            new TwigFunction('cdn_footer', [CdnRenderer::class, 'getCdnFooter'], ['is_safe' => ['html']]),
+            new TwigFunction('cdn_menu', [CdnRenderer::class, 'getCdnMenu'], ['is_safe' => ['html']]),
+        ];
+    }
 }

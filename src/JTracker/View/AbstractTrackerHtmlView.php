@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker View Package
  *
@@ -17,13 +18,13 @@ use App\Projects\ProjectAwareTrait;
  */
 abstract class AbstractTrackerHtmlView extends BaseHtmlView
 {
-	use ProjectAwareTrait;
+    use ProjectAwareTrait;
 
-	/**
-	 * The view layout.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $layout = 'index';
+    /**
+     * The view layout.
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $layout = 'index';
 }

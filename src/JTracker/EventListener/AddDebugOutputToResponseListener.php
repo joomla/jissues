@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker
  *
@@ -20,45 +21,44 @@ use Laminas\Diactoros\Response\HtmlResponse;
  */
 final class AddDebugOutputToResponseListener
 {
-	/**
-	 * Application debugger
-	 *
-	 * @var    TrackerDebugger
-	 * @since  1.0
-	 */
-	private $debugger;
+    /**
+     * Application debugger
+     *
+     * @var    TrackerDebugger
+     * @since  1.0
+     */
+    private $debugger;
 
-	/**
-	 * Event listener constructor.
-	 *
-	 * @param   TrackerDebugger  $debugger  Application debugger
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(TrackerDebugger $debugger)
-	{
-		$this->debugger = $debugger;
-	}
+    /**
+     * Event listener constructor.
+     *
+     * @param   TrackerDebugger  $debugger  Application debugger
+     *
+     * @since   1.0
+     */
+    public function __construct(TrackerDebugger $debugger)
+    {
+        $this->debugger = $debugger;
+    }
 
-	/**
-	 * Adds the debug output to the response.
-	 *
-	 * @param   ApplicationEvent  $event  Event object
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function __invoke(ApplicationEvent $event): void
-	{
-		/** @var WebApplicationInterface $app */
-		$app = $event->getApplication();
+    /**
+     * Adds the debug output to the response.
+     *
+     * @param   ApplicationEvent  $event  Event object
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    public function __invoke(ApplicationEvent $event): void
+    {
+        /** @var WebApplicationInterface $app */
+        $app = $event->getApplication();
 
-		if ($app->getResponse() instanceof HtmlResponse || $app->mimeType === 'text/html')
-		{
-			$app->setBody(
-				str_replace('%%%DEBUG%%%', JDEBUG ? $this->debugger->getOutput() : '', $app->getBody())
-			);
-		}
-	}
+        if ($app->getResponse() instanceof HtmlResponse || $app->mimeType === 'text/html') {
+            $app->setBody(
+                str_replace('%%%DEBUG%%%', JDEBUG ? $this->debugger->getOutput() : '', $app->getBody())
+            );
+        }
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Framework GitHub Package
  *
@@ -15,15 +16,15 @@ namespace JTracker\Github\DataType;
  */
 class Commit
 {
-	public $sha = '';
+    public $sha = '';
 
-	public $author_name = '';
+    public $author_name = '';
 
-	public $author_date = '';
+    public $author_date = '';
 
-	public $committer_name = '';
+    public $committer_name = '';
 
-	public $committer_date = '';
+    public $committer_date = '';
 
-	public $message = '';
+    public $message = '';
 }

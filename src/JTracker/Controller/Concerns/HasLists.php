@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Controller Package
  *
@@ -20,30 +21,30 @@ use JTracker\Pagination\TrackerPagination;
  */
 trait HasLists
 {
-	/**
-	 * Configure the pagination state for a listful model
-	 *
-	 * @param   Application            $app    The application to read the request state from
-	 * @param   ListfulModelInterface  $model  The model to set the state on
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function configurePaginationState(Application $app, ListfulModelInterface $model): void
-	{
-		$limit = $app->getUserStateFromRequest('list.limit', 'list_limit', 20, 'uint');
-		$page  = $app->getInput()->getUint('page');
+    /**
+     * Configure the pagination state for a listful model
+     *
+     * @param   Application            $app    The application to read the request state from
+     * @param   ListfulModelInterface  $model  The model to set the state on
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function configurePaginationState(Application $app, ListfulModelInterface $model): void
+    {
+        $limit = $app->getUserStateFromRequest('list.limit', 'list_limit', 20, 'uint');
+        $page  = $app->getInput()->getUint('page');
 
-		$value      = $page ? ($page - 1) * $limit : 0;
-		$limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
+        $value      = $page ? ($page - 1) * $limit : 0;
+        $limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
 
-		$state = $model->getState();
-		$state->set('list.start', $limitStart);
-		$state->set('list.limit', $limit);
+        $state = $model->getState();
+        $state->set('list.start', $limitStart);
+        $state->set('list.limit', $limit);
 
-		$model->setPagination(
-			new TrackerPagination(new Uri($app->get('uri.request')))
-		);
-	}
+        $model->setPagination(
+            new TrackerPagination(new Uri($app->get('uri.request')))
+        );
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -20,99 +21,93 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Edit extends AbstractTrackerController
 {
-	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'issue';
+    /**
+     * The default view for the component
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultView = 'issue';
 
-	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultLayout = 'edit';
+    /**
+     * The default view for the component
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultLayout = 'edit';
 
-	/**
-	 * View object
-	 *
-	 * @var    IssueHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
+    /**
+     * View object
+     *
+     * @var    IssueHtmlView
+     * @since  1.0
+     */
+    protected $view;
 
-	/**
-	 * Model object
-	 *
-	 * @var    IssueModel
-	 * @since  1.0
-	 */
-	protected $model;
+    /**
+     * Model object
+     *
+     * @var    IssueModel
+     * @since  1.0
+     */
+    protected $model;
 
-	/**
-	 * Initialize the controller.
-	 *
-	 * This will set up default model and view classes.
-	 *
-	 * @throws \Exception
-	 * @throws AuthenticationException
-	 *
-	 * @return  $this  Method supports chaining
-	 *
-	 * @since   1.0
-	 */
-	public function initialize()
-	{
-		parent::initialize();
+    /**
+     * Initialize the controller.
+     *
+     * This will set up default model and view classes.
+     *
+     * @throws \Exception
+     * @throws AuthenticationException
+     *
+     * @return  $this  Method supports chaining
+     *
+     * @since   1.0
+     */
+    public function initialize()
+    {
+        parent::initialize();
 
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
-		$project     = $application->getProject();
-		$user        = $application->getUser();
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
+        $project     = $application->getProject();
+        $user        = $application->getUser();
 
-		$this->model->setProject($project);
+        $this->model->setProject($project);
 
-		$item = $this->model->getItem($application->input->getUint('id'));
+        $item = $this->model->getItem($application->input->getUint('id'));
 
-		$sha = false;
+        $sha = false;
 
-		if ($item->commits)
-		{
-			$commits    = json_decode($item->commits);
-			$lastCommit = end($commits);
-			$sha        = $lastCommit->sha;
-		}
+        if ($item->commits) {
+            $commits    = json_decode($item->commits);
+            $lastCommit = end($commits);
+            $sha        = $lastCommit->sha;
+        }
 
-		$item->userTest = $this->model->getUserTest($item->id, $user->username, $sha);
+        $item->userTest = $this->model->getUserTest($item->id, $user->username, $sha);
 
-		$item->categoryids = [];
+        $item->categoryids = [];
 
-		foreach ($item->categories as $category)
-		{
-			$item->categoryids[] = $category->id;
-		}
+        foreach ($item->categories as $category) {
+            $item->categoryids[] = $category->id;
+        }
 
-		try
-		{
-			// Check if the user has full "edit" permission
-			$user->authorize('edit');
-		}
-		catch (AuthenticationException $e)
-		{
-			// Check if the user has "edit own" permission
-			if ($user->canEditOwn($item->opened_by) === false)
-			{
-				throw $e;
-			}
-		}
+        try {
+            // Check if the user has full "edit" permission
+            $user->authorize('edit');
+        } catch (AuthenticationException $e) {
+            // Check if the user has "edit own" permission
+            if ($user->canEditOwn($item->opened_by) === false) {
+                throw $e;
+            }
+        }
 
-		$this->view
-			->setItem($item)
-			->setProject($project);
+        $this->view
+            ->setItem($item)
+            ->setProject($project);
 
-		return $this;
-	}
+        return $this;
+    }
 }

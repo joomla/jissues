@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Debug Application
  *
@@ -8,7 +9,7 @@
 
 namespace App\Debug\Handler;
 
-use \Whoops\Handler\Handler;
+use Whoops\Handler\Handler;
 
 /**
  * Catches the Whoops! and simply displays the message.
@@ -17,17 +18,17 @@ use \Whoops\Handler\Handler;
  */
 class ProductionHandler extends Handler
 {
-	/**
-	 * Handle the Whoops!
-	 *
-	 * @return  integer
-	 *
-	 * @since   1.0
-	 */
-	public function handle()
-	{
-		echo $this->getException()->getMessage();
+    /**
+     * Handle the Whoops!
+     *
+     * @return  integer
+     *
+     * @since   1.0
+     */
+    public function handle()
+    {
+        echo $this->getException()->getMessage();
 
-		return Handler::QUIT;
-	}
+        return Handler::QUIT;
+    }
 }

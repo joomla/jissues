@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Groups Application
  *
@@ -9,7 +10,6 @@
 namespace App\Groups\View\Groups;
 
 use App\Groups\Model\GroupsModel;
-
 use JTracker\View\AbstractTrackerHtmlView;
 
 /**
@@ -19,28 +19,28 @@ use JTracker\View\AbstractTrackerHtmlView;
  */
 class GroupsHtmlView extends AbstractTrackerHtmlView
 {
-	/**
-	 * Redefine the model so the correct type hinting is available.
-	 *
-	 * @var    GroupsModel
-	 * @since  1.0
-	 */
-	protected $model;
+    /**
+     * Redefine the model so the correct type hinting is available.
+     *
+     * @var    GroupsModel
+     * @since  1.0
+     */
+    protected $model;
 
-	/**
-	 * Method to render the view.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function render()
-	{
-		// Set the vars to the template.
-		$this->addData('items', $this->model->getItems());
-		$this->addData('project', $this->getProject());
+    /**
+     * Method to render the view.
+     *
+     * @return  string  The rendered view.
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function render()
+    {
+        // Set the vars to the template.
+        $this->addData('items', $this->model->getItems());
+        $this->addData('project', $this->getProject());
 
-		return parent::render();
-	}
+        return parent::render();
+    }
 }

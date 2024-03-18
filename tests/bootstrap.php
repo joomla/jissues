@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test runner bootstrap file for the Joomla Framework.
  *
@@ -21,9 +22,8 @@ ini_set('display_errors', 1);
 
 $composerPath = JPATH_ROOT . '/vendor/autoload.php';
 
-if (!file_exists($composerPath))
-{
-	throw new RuntimeException('Composer is not set up, please run "composer install".');
+if (!file_exists($composerPath)) {
+    throw new RuntimeException('Composer is not set up, please run "composer install".');
 }
 
 require JPATH_ROOT . '/vendor/autoload.php';

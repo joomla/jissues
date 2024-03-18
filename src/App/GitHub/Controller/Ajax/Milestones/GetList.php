@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's GitHub Application
  *
@@ -15,17 +16,17 @@ namespace App\GitHub\Controller\Ajax\Milestones;
  */
 class GetList extends Base
 {
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function prepareResponse()
-	{
-		$this->getContainer()->get('app')->getUser()->authorize('manage');
+    /**
+     * Prepare the response.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function prepareResponse()
+    {
+        $this->getContainer()->get('app')->getUser()->authorize('manage');
 
-		$this->response->data = $this->getList($this->getContainer()->get('app')->getProject());
-	}
+        $this->response->data = $this->getList($this->getContainer()->get('app')->getProject());
+    }
 }

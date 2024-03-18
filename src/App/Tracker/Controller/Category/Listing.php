@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Projects Application
  *
@@ -19,48 +20,48 @@ use JTracker\Controller\AbstractTrackerListController;
  */
 class Listing extends AbstractTrackerListController
 {
-	/**
-	 * View object
-	 *
-	 * @var   CategoriesHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
+    /**
+     * View object
+     *
+     * @var   CategoriesHtmlView
+     * @since  1.0
+     */
+    protected $view;
 
-	/**
-	 * The default view for the app
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'categories';
+    /**
+     * The default view for the app
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultView = 'categories';
 
-	/**
-	 * Model object
-	 *
-	 * @var    CategoriesModel
-	 * @since  1.0
-	 */
-	protected $model;
+    /**
+     * Model object
+     *
+     * @var    CategoriesModel
+     * @since  1.0
+     */
+    protected $model;
 
-	/**
-	 * Initialize the controller.
-	 *
-	 * @return  $this  Method supports chaining
-	 *
-	 * @since   1.0
-	 */
-	public function initialize()
-	{
-		parent::initialize();
+    /**
+     * Initialize the controller.
+     *
+     * @return  $this  Method supports chaining
+     *
+     * @since   1.0
+     */
+    public function initialize()
+    {
+        parent::initialize();
 
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
-		$application->getUser()->authorize('manage');
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
+        $application->getUser()->authorize('manage');
 
-		$this->model->setProject($this->getContainer()->get('app')->getProject(true));
-		$this->view->setProject($this->getContainer()->get('app')->getProject());
+        $this->model->setProject($this->getContainer()->get('app')->getProject(true));
+        $this->view->setProject($this->getContainer()->get('app')->getProject());
 
-		return $this;
-	}
+        return $this;
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Model Package
  *
@@ -23,187 +24,196 @@ use JTracker\Pagination\TrackerPagination;
  */
 class Listing extends AbstractAjaxController
 {
-	/**
-	 * Setting model state that will be used for filtering.
-	 *
-	 * @param   IssuesModel  $model  The issues model
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	private function setModelState(IssuesModel $model)
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
+    /**
+     * Setting model state that will be used for filtering.
+     *
+     * @param   IssuesModel  $model  The issues model
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    private function setModelState(IssuesModel $model)
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
 
-		$state = $model->getState();
+        $state = $model->getState();
 
-		$projectId = $application->getProject()->project_id;
+        $projectId = $application->getProject()->project_id;
 
-		// Set up pagination values
-		$limit = $application->getUserStateFromRequest('list.limit', 'limit', 20, 'int');
-		$page  = $application->getUserStateFromRequest('project_' . $projectId . '.page', 'page', 1, 'uint');
+        // Set up pagination values
+        $limit = $application->getUserStateFromRequest('list.limit', 'limit', 20, 'int');
+        $page  = $application->getUserStateFromRequest('project_' . $projectId . '.page', 'page', 1, 'uint');
 
-		$projectIdFromState = $application->getUserState('projectId', 0);
+        $projectIdFromState = $application->getUserState('projectId', 0);
 
-		// Reset page on project change
-		if ($projectId != $projectIdFromState)
-		{
-			$application->setUserState('projectId', $projectId);
-			$page = 1;
-		}
+        // Reset page on project change
+        if ($projectId != $projectIdFromState) {
+            $application->setUserState('projectId', $projectId);
+            $page = 1;
+        }
 
-		$value      = $page ? ($page - 1) * $limit : 0;
-		$limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
+        $value      = $page ? ($page - 1) * $limit : 0;
+        $limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
 
-		$state->set('list.start', $limitStart);
-		$state->set('list.limit', $limit);
+        $state->set('list.start', $limitStart);
+        $state->set('list.limit', $limit);
 
-		// Get sort and direction
-		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 0, 'uint');
+        // Get sort and direction
+        $sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 0, 'uint');
 
-		switch ($sort)
-		{
-			case 1:
-				$state->set('list.ordering', 'a.issue_number');
-				$state->set('list.direction', 'ASC');
+        switch ($sort) {
+            case 1:
+                $state->set('list.ordering', 'a.issue_number');
+                $state->set('list.direction', 'ASC');
 
-				break;
+                break;
 
-			case 2:
-				$state->set('list.ordering', 'a.modified_date');
-				$state->set('list.direction', 'DESC');
+            case 2:
+                $state->set('list.ordering', 'a.modified_date');
+                $state->set('list.direction', 'DESC');
 
-				break;
+                break;
 
-			case 3:
-				$state->set('list.ordering', 'a.modified_date');
-				$state->set('list.direction', 'ASC');
+            case 3:
+                $state->set('list.ordering', 'a.modified_date');
+                $state->set('list.direction', 'ASC');
 
-				break;
+                break;
 
-			default:
-				$state->set('list.ordering', 'a.issue_number');
-				$state->set('list.direction', 'DESC');
-		}
+            default:
+                $state->set('list.ordering', 'a.issue_number');
+                $state->set('list.direction', 'DESC');
+        }
 
-		$state->set('filter.sort', $sort);
+        $state->set('filter.sort', $sort);
 
-		$state->set('filter.priority',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'priority', 0, 'uint')
-		);
+        $state->set(
+            'filter.priority',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'priority', 0, 'uint')
+        );
 
-		$state->set('filter.state',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.state', 'state', 0, 'uint')
-		);
+        $state->set(
+            'filter.state',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.state', 'state', 0, 'uint')
+        );
 
-		$state->set('filter.status',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'status', 0, 'uint')
-		);
+        $state->set(
+            'filter.status',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'status', 0, 'uint')
+        );
 
-		$state->set('filter.search',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.search', 'search', '', 'string')
-		);
+        $state->set(
+            'filter.search',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.search', 'search', '', 'string')
+        );
 
-		$state->set('filter.user',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.user', 'user', 0, 'uint')
-		);
+        $state->set(
+            'filter.user',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.user', 'user', 0, 'uint')
+        );
 
-		$state->set('filter.created_by',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.created_by', 'created_by', '', 'string')
-		);
+        $state->set(
+            'filter.created_by',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.created_by', 'created_by', '', 'string')
+        );
 
-		$state->set('filter.category',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.category', 'category', 0, 'int')
-		);
+        $state->set(
+            'filter.category',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.category', 'category', 0, 'int')
+        );
 
-		$state->set('filter.label',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.label', 'label', 0, 'uint')
-		);
+        $state->set(
+            'filter.label',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.label', 'label', 0, 'uint')
+        );
 
-		$state->set('filter.tests',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.tests', 'tests', 0, 'uint')
-		);
+        $state->set(
+            'filter.tests',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.tests', 'tests', 0, 'uint')
+        );
 
-		$state->set('filter.easytest',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.easytest', 'easytest', 2, 'uint')
-		);
+        $state->set(
+            'filter.easytest',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.easytest', 'easytest', 2, 'uint')
+        );
 
-		$state->set('filter.type',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.type', 'type', 0, 'uint')
-		);
+        $state->set(
+            'filter.type',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.type', 'type', 0, 'uint')
+        );
 
-		$state->set('filter.milestone',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.milestone', 'milestone', 0, 'int')
-		);
+        $state->set(
+            'filter.milestone',
+            $application->getUserStateFromRequest('project_' . $projectId . '.filter.milestone', 'milestone', 0, 'int')
+        );
 
-		$state->set('stools-active',
-			$application->input->get('stools-active', 0, 'uint')
-		);
+        $state->set(
+            'stools-active',
+            $application->input->get('stools-active', 0, 'uint')
+        );
 
-		if ($application->getUser()->username)
-		{
-			$state->set('username', $application->getUser()->username);
-		}
+        if ($application->getUser()->username) {
+            $state->set('username', $application->getUser()->username);
+        }
 
-		$model->setState($state);
-	}
+        $model->setState($state);
+    }
 
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function prepareResponse()
-	{
-		// Load the application
-		$application = $this->getContainer()->get('app');
+    /**
+     * Prepare the response.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function prepareResponse()
+    {
+        // Load the application
+        $application = $this->getContainer()->get('app');
 
-		// Load the model
-		$model = new IssuesModel($this->getContainer()->get('db'), $application->input);
+        // Load the model
+        $model = new IssuesModel($this->getContainer()->get('db'), $application->input);
 
-		// Get allowed user for view;
-		$application->getUser()->authorize('view');
+        // Get allowed user for view;
+        $application->getUser()->authorize('view');
 
-		// Set Current project;
-		$model->setProject($application->getProject(true));
+        // Set Current project;
+        $model->setProject($application->getProject(true));
 
-		// Set model state
-		$this->setModelState($model);
+        // Set model state
+        $this->setModelState($model);
 
-		// Pagination
-		$model->setPagination(
-			new TrackerPagination(
-				new Uri($application->get('uri.request'))
-			)
-		);
+        // Pagination
+        $model->setPagination(
+            new TrackerPagination(
+                new Uri($application->get('uri.request'))
+            )
+        );
 
-		// Get list items
-		$listItems = $model->getAjaxItems();
+        // Get list items
+        $listItems = $model->getAjaxItems();
 
-		// Get total pages
-		$pagesTotal  = $model->getPagination()->getPagesTotal();
-		$currentPage = $model->getPagination()->getPageNo();
+        // Get total pages
+        $pagesTotal  = $model->getPagination()->getPagesTotal();
+        $currentPage = $model->getPagination()->getPageNo();
 
-		// Render the label html for each item
-		$renderer = new IssueExtension($this->getContainer()->get(Application::class));
+        // Render the label html for each item
+        $renderer = new IssueExtension($this->getContainer()->get(Application::class));
 
-		$issueModel = new IssueModel($this->getContainer()->get('db'));
+        $issueModel = new IssueModel($this->getContainer()->get('db'));
 
-		foreach ($listItems as $item)
-		{
-			$item->labelHtml     = $renderer->renderIssueLabels($item->labels);
-			$item->opened_date   = date('Y-m-d', strtotime($item->opened_date));
-			$item->modified_date = date('Y-m-d', strtotime($item->modified_date));
-			$item->closed_date   = date('Y-m-d', strtotime($item->closed_date));
-			$item->categories    = $issueModel->getCategories($item->id);
-		}
+        foreach ($listItems as $item) {
+            $item->labelHtml     = $renderer->renderIssueLabels($item->labels);
+            $item->opened_date   = date('Y-m-d', strtotime($item->opened_date));
+            $item->modified_date = date('Y-m-d', strtotime($item->modified_date));
+            $item->closed_date   = date('Y-m-d', strtotime($item->closed_date));
+            $item->categories    = $issueModel->getCategories($item->id);
+        }
 
-		// Prepare the response.
-		$items                = ['items' => $listItems, 'pagesTotal' => $pagesTotal, 'currentPage' => $currentPage];
-		$this->response->data = (object) $items;
-	}
+        // Prepare the response.
+        $items                = ['items' => $listItems, 'pagesTotal' => $pagesTotal, 'currentPage' => $currentPage];
+        $this->response->data = (object) $items;
+    }
 }

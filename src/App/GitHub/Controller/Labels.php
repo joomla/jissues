@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's GitHub Application
  *
@@ -17,22 +18,22 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Labels extends AbstractTrackerController
 {
-	/**
-	 * Initialize the controller.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function initialize()
-	{
-		parent::initialize();
+    /**
+     * Initialize the controller.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function initialize()
+    {
+        parent::initialize();
 
-		$this->getContainer()->get('app')->getUser()->authorize('manage');
+        $this->getContainer()->get('app')->getUser()->authorize('manage');
 
-		$this->view->addData('project', $this->getContainer()->get('app')->getProject());
+        $this->view->addData('project', $this->getContainer()->get('app')->getProject());
 
-		return $this;
-	}
+        return $this;
+    }
 }

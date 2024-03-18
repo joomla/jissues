@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Groups Application
  *
@@ -9,9 +10,7 @@
 namespace App\Groups\Model;
 
 use App\Groups\Table\GroupsTable;
-
 use Joomla\Database\DatabaseQuery;
-
 use JTracker\Model\AbstractTrackerListModel;
 
 /**
@@ -21,23 +20,23 @@ use JTracker\Model\AbstractTrackerListModel;
  */
 class GroupsModel extends AbstractTrackerListModel
 {
-	/**
-	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
-	 *
-	 * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
-	 *
-	 * @since   1.0
-	 */
-	protected function getListQuery()
-	{
-		$projectId = $this->getProject()->project_id;
+    /**
+     * Method to get a DatabaseQuery object for retrieving the data set from a database.
+     *
+     * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
+     *
+     * @since   1.0
+     */
+    protected function getListQuery()
+    {
+        $projectId = $this->getProject()->project_id;
 
-		$db    = $this->getDb();
-		$query = $db->getQuery(true)
-			->select('a.*')
-			->from($db->quoteName((new GroupsTable($db))->getTableName(), 'a'))
-			->where($db->quoteName('project_id') . ' = ' . (int) $projectId);
+        $db    = $this->getDb();
+        $query = $db->getQuery(true)
+            ->select('a.*')
+            ->from($db->quoteName((new GroupsTable($db))->getTableName(), 'a'))
+            ->where($db->quoteName('project_id') . ' = ' . (int) $projectId);
 
-		return $query;
-	}
+        return $query;
+    }
 }

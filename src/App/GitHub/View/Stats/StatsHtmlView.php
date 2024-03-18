@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's GitHub Application
  *
@@ -17,68 +18,67 @@ use JTracker\View\AbstractTrackerHtmlView;
  */
 class StatsHtmlView extends AbstractTrackerHtmlView
 {
-	/**
-	 * Config object.
-	 *
-	 * @var    \stdClass
-	 * @since  1.0
-	 */
-	protected $config;
+    /**
+     * Config object.
+     *
+     * @var    \stdClass
+     * @since  1.0
+     */
+    protected $config;
 
-	/**
-	 * Contributors data object for the view
-	 *
-	 * @var    object
-	 * @since  1.0
-	 */
-	protected $contributors;
+    /**
+     * Contributors data object for the view
+     *
+     * @var    object
+     * @since  1.0
+     */
+    protected $contributors;
 
-	/**
-	 * Method to render the view.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 */
-	public function render()
-	{
-		$this->addData('data', $this->getContributors())
-			->addData('project', $this->getProject());
+    /**
+     * Method to render the view.
+     *
+     * @return  string  The rendered view.
+     *
+     * @since   1.0
+     */
+    public function render()
+    {
+        $this->addData('data', $this->getContributors())
+            ->addData('project', $this->getProject());
 
-		return parent::render();
-	}
+        return parent::render();
+    }
 
-	/**
-	 * Get the data object.
-	 *
-	 * @return  object
-	 *
-	 * @since   1.0
-	 * @throws  \UnexpectedValueException
-	 */
-	public function getContributors()
-	{
-		if ($this->contributors === null)
-		{
-			throw new \UnexpectedValueException('Contributor data not set.');
-		}
+    /**
+     * Get the data object.
+     *
+     * @return  object
+     *
+     * @since   1.0
+     * @throws  \UnexpectedValueException
+     */
+    public function getContributors()
+    {
+        if ($this->contributors === null) {
+            throw new \UnexpectedValueException('Contributor data not set.');
+        }
 
-		return $this->contributors;
-	}
+        return $this->contributors;
+    }
 
-	/**
-	 * Set the data.
-	 *
-	 * @param   object  $data  The data object.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setContributors($data)
-	{
-		$this->contributors = $data;
+    /**
+     * Set the data.
+     *
+     * @param   object  $data  The data object.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     */
+    public function setContributors($data)
+    {
+        $this->contributors = $data;
 
-		return $this;
-	}
+        return $this;
+    }
 }

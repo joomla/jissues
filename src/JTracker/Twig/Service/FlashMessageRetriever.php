@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Twig Package
  *
@@ -17,39 +18,39 @@ use JTracker\Application\Application;
  */
 class FlashMessageRetriever
 {
-	/**
-	 * Web application
-	 *
-	 * @var    Application
-	 * @since  1.0
-	 */
-	private $app;
+    /**
+     * Web application
+     *
+     * @var    Application
+     * @since  1.0
+     */
+    private $app;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param   Application  $app  Web application
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(Application $app)
-	{
-		$this->app = $app;
-	}
+    /**
+     * Constructor.
+     *
+     * @param   Application  $app  Web application
+     *
+     * @since   1.0
+     */
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+    }
 
-	/**
-	 * Retrieve the flash messages from the message queue and clear it
-	 *
-	 * @return  array
-	 *
-	 * @since   1.0
-	 */
-	public function getMessages(): array
-	{
-		$messages = $this->app->getMessageQueue();
+    /**
+     * Retrieve the flash messages from the message queue and clear it
+     *
+     * @return  array
+     *
+     * @since   1.0
+     */
+    public function getMessages(): array
+    {
+        $messages = $this->app->getMessageQueue();
 
-		$this->app->clearMessageQueue();
+        $this->app->clearMessageQueue();
 
-		return $messages;
-	}
+        return $messages;
+    }
 }

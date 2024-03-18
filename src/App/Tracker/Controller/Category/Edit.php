@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Projects Application
  *
@@ -19,56 +20,56 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Edit extends AbstractTrackerController
 {
-	/**
-	 * The default view for the component.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'category';
+    /**
+     * The default view for the component.
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultView = 'category';
 
-	/**
-	 * The default layout for the component.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultLayout = 'edit';
+    /**
+     * The default layout for the component.
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultLayout = 'edit';
 
-	/**
-	 * View object
-	 *
-	 * @var    CategoryHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
+    /**
+     * View object
+     *
+     * @var    CategoryHtmlView
+     * @since  1.0
+     */
+    protected $view;
 
-	/**
-	 * Model object
-	 *
-	 * @var    CategoryModel
-	 * @since  1.0
-	 */
-	protected $model;
+    /**
+     * Model object
+     *
+     * @var    CategoryModel
+     * @since  1.0
+     */
+    protected $model;
 
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		/** @var \JTracker\Application\Application $application */
-		$application = $this->getContainer()->get('app');
-		$application->getUser()->authorize('manage');
+    /**
+     * Execute the controller.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    public function execute()
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
+        $application->getUser()->authorize('manage');
 
-		$item = $this->model->getItem($application->input->getUint('id'));
-		$this->view->setProject($application->getProject());
-		$this->model->setProject($application->getProject());
-		$this->view->setItem($item);
+        $item = $this->model->getItem($application->input->getUint('id'));
+        $this->view->setProject($application->getProject());
+        $this->model->setProject($application->getProject());
+        $this->view->setItem($item);
 
-		return parent::execute();
-	}
+        return parent::execute();
+    }
 }

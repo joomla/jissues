@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Projects Application
  *
@@ -9,7 +10,6 @@
 namespace App\Projects\Model;
 
 use Joomla\Database\DatabaseQuery;
-
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Model\AbstractTrackerListModel;
 
@@ -20,120 +20,114 @@ use JTracker\Model\AbstractTrackerListModel;
  */
 class ProjectsModel extends AbstractTrackerListModel
 {
-	/**
-	 * User object
-	 *
-	 * @var    GitHubUser
-	 * @since  1.0
-	 */
-	protected $user;
+    /**
+     * User object
+     *
+     * @var    GitHubUser
+     * @since  1.0
+     */
+    protected $user;
 
-	/**
-	 * Get a user object.
-	 *
-	 * @return  GitHubUser
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function getUser()
-	{
-		if ($this->user === null)
-		{
-			throw new \RuntimeException('User not set.');
-		}
+    /**
+     * Get a user object.
+     *
+     * @return  GitHubUser
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function getUser()
+    {
+        if ($this->user === null) {
+            throw new \RuntimeException('User not set.');
+        }
 
-		return $this->user;
-	}
+        return $this->user;
+    }
 
-	/**
-	 * Set the user object.
-	 *
-	 * @param   GitHubUser  $user  The user object.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setUser(GitHubUser $user)
-	{
-		$this->user = $user;
+    /**
+     * Set the user object.
+     *
+     * @param   GitHubUser  $user  The user object.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     */
+    public function setUser(GitHubUser $user)
+    {
+        $this->user = $user;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
-	 *
-	 * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
-	 *
-	 * @since   1.0
-	 */
-	protected function getListQuery()
-	{
-		$db = $this->getDb();
+    /**
+     * Method to get a DatabaseQuery object for retrieving the data set from a database.
+     *
+     * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
+     *
+     * @since   1.0
+     */
+    protected function getListQuery()
+    {
+        $db = $this->getDb();
 
-		$query = $db->getQuery(true);
+        $query = $db->getQuery(true);
 
-		$query->select('DISTINCT ' . $db->quoteName('p.project_id'));
-		$query->select($db->quoteName(['p.title', 'p.alias', 'p.gh_user', 'p.gh_project']));
+        $query->select('DISTINCT ' . $db->quoteName('p.project_id'));
+        $query->select($db->quoteName(['p.title', 'p.alias', 'p.gh_user', 'p.gh_project']));
 
-		$query->from($db->quoteName('#__tracker_projects', 'p'));
+        $query->from($db->quoteName('#__tracker_projects', 'p'));
 
-		if ($this->getUser()->isAdmin)
-		{
-			// No filters for admin users.
-			return $query;
-		}
+        if ($this->getUser()->isAdmin) {
+            // No filters for admin users.
+            return $query;
+        }
 
-		// Public
-		$query->leftJoin(
-			$db->quoteName('#__accessgroups', 'g')
-			. ' ON ' . $db->quoteName('g.project_id')
-			. ' = ' . $db->quoteName('p.project_id')
-		);
+        // Public
+        $query->leftJoin(
+            $db->quoteName('#__accessgroups', 'g')
+            . ' ON ' . $db->quoteName('g.project_id')
+            . ' = ' . $db->quoteName('p.project_id')
+        );
 
-		$query->where($db->quoteName('g.title') . ' = ' . $db->quote('Public'));
-		$query->where($db->quoteName('g.can_view') . ' = 1');
+        $query->where($db->quoteName('g.title') . ' = ' . $db->quote('Public'));
+        $query->where($db->quoteName('g.can_view') . ' = 1');
 
-		// By user
-		if ($this->getUser()->id)
-		{
-			$query->leftJoin(
-				$db->quoteName('#__accessgroups', 'g1')
-				. ' ON ' . $db->quoteName('g1.project_id')
-				. ' = ' . $db->quoteName('p.project_id')
-			);
+        // By user
+        if ($this->getUser()->id) {
+            $query->leftJoin(
+                $db->quoteName('#__accessgroups', 'g1')
+                . ' ON ' . $db->quoteName('g1.project_id')
+                . ' = ' . $db->quoteName('p.project_id')
+            );
 
-			$query->clear('where');
+            $query->clear('where');
 
-			$where = '';
+            $where = '';
 
-			$where .=
-				'('
-				. $db->quoteName('g.title') . ' = ' . $db->quote('Public')
-				. ' AND ' . $db->quoteName('g.can_view') . ' = 1'
-				. ') OR ('
-				. $db->quoteName('g1.title') . ' = ' . $db->quote('User')
-				. ' AND ' . $db->quoteName('g1.can_view') . ' = 1';
+            $where .=
+                '('
+                . $db->quoteName('g.title') . ' = ' . $db->quote('Public')
+                . ' AND ' . $db->quoteName('g.can_view') . ' = 1'
+                . ') OR ('
+                . $db->quoteName('g1.title') . ' = ' . $db->quote('User')
+                . ' AND ' . $db->quoteName('g1.can_view') . ' = 1';
 
-			$userGroups = $this->getUser()->getAccessGroups();
+            $userGroups = $this->getUser()->getAccessGroups();
 
-			if ($userGroups)
-			{
-				$where .= ') OR ('
-					. $db->quoteName('g.group_id') . ' IN (' . implode(',', $userGroups) . ')'
-					. ' AND ' . $db->quoteName('g.can_view') . ' = 1'
-					. ')';
-			}
-			else
-			{
-				$where .= ')';
-			}
+            if ($userGroups) {
+                $where .= ') OR ('
+                    . $db->quoteName('g.group_id') . ' IN (' . implode(',', $userGroups) . ')'
+                    . ' AND ' . $db->quoteName('g.can_view') . ' = 1'
+                    . ')';
+            } else {
+                $where .= ')';
+            }
 
-			$query->where($where);
-		}
+            $query->where($where);
+        }
 
-		return $query;
-	}
+        return $query;
+    }
 }

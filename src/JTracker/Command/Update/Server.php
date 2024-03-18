@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla! Tracker application.
  *
@@ -24,74 +25,71 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class Server extends Update
 {
-	/**
-	 * Configure the command.
-	 *
-	 * @return  void
-	 *
-	 * @since   2.0.0
-	 */
-	protected function configure(): void
-	{
-		$this->setName('update:server');
-		$this->setDescription('Updates the local installation to either a specified version or latest git HEAD for the active branch.');
-		$this->addOption('app_version', null, InputOption::VALUE_REQUIRED, 'An optional version number to update to.');
-	}
+    /**
+     * Configure the command.
+     *
+     * @return  void
+     *
+     * @since   2.0.0
+     */
+    protected function configure(): void
+    {
+        $this->setName('update:server');
+        $this->setDescription('Updates the local installation to either a specified version or latest git HEAD for the active branch.');
+        $this->addOption('app_version', null, InputOption::VALUE_REQUIRED, 'An optional version number to update to.');
+    }
 
-	/**
-	 * Execute the command.
-	 *
-	 * @param   InputInterface   $input   The input to inject into the command.
-	 * @param   OutputInterface  $output  The output to inject into the command.
-	 *
-	 * @return  integer
-	 *
-	 * @since   1.0
-	 */
-	protected function doExecute(InputInterface $input, OutputInterface $output): int
-	{
-		$ioStyle = new SymfonyStyle($input, $output);
-		$ioStyle->title('Update Server');
+    /**
+     * Execute the command.
+     *
+     * @param   InputInterface   $input   The input to inject into the command.
+     * @param   OutputInterface  $output  The output to inject into the command.
+     *
+     * @return  integer
+     *
+     * @since   1.0
+     */
+    protected function doExecute(InputInterface $input, OutputInterface $output): int
+    {
+        $ioStyle = new SymfonyStyle($input, $output);
+        $ioStyle->title('Update Server');
 
-		$this->logOut('Beginning git update');
+        $this->logOut('Beginning git update');
 
-		$version = $input->getOption('app_version');
+        $version = $input->getOption('app_version');
 
-		if ($version)
-		{
-			// Fetch from remote sources and checkout the specified version tag
-			$this->execCommand('cd ' . JPATH_ROOT . ' && git fetch && git checkout ' . $version . ' 2>&1');
+        if ($version) {
+            // Fetch from remote sources and checkout the specified version tag
+            $this->execCommand('cd ' . JPATH_ROOT . ' && git fetch && git checkout ' . $version . ' 2>&1');
 
-			$message = sprintf('Update to version %s successful', $version);
-		}
-		else
-		{
-			// Perform a git pull on the active branch
-			$this->execCommand('cd ' . JPATH_ROOT . ' && git pull 2>&1');
+            $message = sprintf('Update to version %s successful', $version);
+        } else {
+            // Perform a git pull on the active branch
+            $this->execCommand('cd ' . JPATH_ROOT . ' && git pull 2>&1');
 
-			$message = 'Git update Finished';
-		}
+            $message = 'Git update Finished';
+        }
 
-		// Update the Composer installation
-		$ioStyle->info('Installing current Composer dependencies and regenerating autoloader');
-		$this->execCommand('cd ' . JPATH_ROOT . ' && composer install --no-dev --optimize-autoloader 2>&1');
+        // Update the Composer installation
+        $ioStyle->info('Installing current Composer dependencies and regenerating autoloader');
+        $this->execCommand('cd ' . JPATH_ROOT . ' && composer install --no-dev --optimize-autoloader 2>&1');
 
-		// Execute the database migrations (if any) for this version
-		$migrateCommand = $this->getApplication()->getCommand(Migrate::COMMAND_NAME);
-		$migrateCommand->execute($input, $output);
+        // Execute the database migrations (if any) for this version
+        $migrateCommand = $this->getApplication()->getCommand(Migrate::COMMAND_NAME);
+        $migrateCommand->execute($input, $output);
 
-		// Flush the Twig cache
-		$twigCommand = $this->getApplication()->getCommand(Twig::COMMAND_NAME);
-		$twigCommand->execute($input, $output);
+        // Flush the Twig cache
+        $twigCommand = $this->getApplication()->getCommand(Twig::COMMAND_NAME);
+        $twigCommand->execute($input, $output);
 
-		$repoInfoCommand = $this->getApplication()->getCommand(Repoinfo::COMMAND_NAME);
-		$repoInfoCommand->execute($input, $output);
+        $repoInfoCommand = $this->getApplication()->getCommand(Repoinfo::COMMAND_NAME);
+        $repoInfoCommand->execute($input, $output);
 
-		$this->logOut($message);
-		$ioStyle->info($message);
+        $this->logOut($message);
+        $ioStyle->info($message);
 
-		$this->logOut('Update Finished');
+        $this->logOut('Update Finished');
 
-		return Command::SUCCESS;
-	}
+        return Command::SUCCESS;
+    }
 }

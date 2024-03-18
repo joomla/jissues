@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Activity Application
  *
@@ -9,7 +10,6 @@
 namespace App\Activity\Controller\Ajax;
 
 use App\Activity\Model\SnapshotModel;
-
 use JTracker\Controller\AbstractAjaxController;
 
 /**
@@ -21,86 +21,81 @@ use JTracker\Controller\AbstractAjaxController;
  */
 class ActivitySnapshot extends AbstractAjaxController
 {
-	/**
-	 * Initialize the controller.
-	 *
-	 * This will set up default model and view classes.
-	 *
-	 * @return  $this  Method allows chiaining
-	 *
-	 * @since   1.0
-	 */
-	public function initialize()
-	{
-		$application = $this->getContainer()->get('app');
+    /**
+     * Initialize the controller.
+     *
+     * This will set up default model and view classes.
+     *
+     * @return  $this  Method allows chiaining
+     *
+     * @since   1.0
+     */
+    public function initialize()
+    {
+        $application = $this->getContainer()->get('app');
 
-		// Setup the model to query our data
-		$this->model = new SnapshotModel($this->getContainer()->get('db'));
-		$this->model->setProject($application->getProject());
+        // Setup the model to query our data
+        $this->model = new SnapshotModel($this->getContainer()->get('db'));
+        $this->model->setProject($application->getProject());
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Prepare the response.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function prepareResponse()
-	{
-		$statusLabels = [
-			1  => 'New',
-			2  => 'Confirmed',
-			3  => 'Pending',
-			4  => 'Ready To Commit',
-			6  => 'Needs Review',
-			7  => 'Information Required',
-			14 => 'Discussion',
-		];
+    /**
+     * Prepare the response.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function prepareResponse()
+    {
+        $statusLabels = [
+            1  => 'New',
+            2  => 'Confirmed',
+            3  => 'Pending',
+            4  => 'Ready To Commit',
+            6  => 'Needs Review',
+            7  => 'Information Required',
+            14 => 'Discussion',
+        ];
 
-		$iterator = $this->model->getOpenIssues();
-		$counts   = [];
+        $iterator = $this->model->getOpenIssues();
+        $counts   = [];
 
-		foreach ($iterator as $item)
-		{
-			// Create the status' container if it hasn't already been
-			if (!isset($counts[$statusLabels[$item->status]]))
-			{
-				$counts[$statusLabels[$item->status]] = [0];
-			}
+        foreach ($iterator as $item) {
+            // Create the status' container if it hasn't already been
+            if (!isset($counts[$statusLabels[$item->status]])) {
+                $counts[$statusLabels[$item->status]] = [0];
+            }
 
-			$counts[$statusLabels[$item->status]][0]++;
-		}
+            $counts[$statusLabels[$item->status]][0]++;
+        }
 
-		$dataByStatus = array_values($counts);
-		$ticks        = array_keys($counts);
-		$labels       = [];
+        $dataByStatus = array_values($counts);
+        $ticks        = array_keys($counts);
+        $labels       = [];
 
-		foreach ($ticks as $type)
-		{
-			$object        = new \stdClass;
-			$object->label = $type;
-			$labels[]      = $object;
-		}
+        foreach ($ticks as $type) {
+            $object        = new \stdClass();
+            $object->label = $type;
+            $labels[]      = $object;
+        }
 
-		$data         = [];
-		$internalData = [];
+        $data         = [];
+        $internalData = [];
 
-		for ($i = 0; $i < \count($counts); $i++)
-		{
-			$internalData[] = 0;
-		}
+        for ($i = 0; $i < \count($counts); $i++) {
+            $internalData[] = 0;
+        }
 
-		foreach ($dataByStatus as $key => $dataForOneStatus)
-		{
-			$row       = $internalData;
-			$row[$key] = $dataForOneStatus[0];
-			$data[]    = $row;
-		}
+        foreach ($dataByStatus as $key => $dataForOneStatus) {
+            $row       = $internalData;
+            $row[$key] = $dataForOneStatus[0];
+            $data[]    = $row;
+        }
 
-		// Setup the response data
-		$this->response->data = [$data, $ticks, $labels];
-	}
+        // Setup the response data
+        $this->response->data = [$data, $ticks, $labels];
+    }
 }

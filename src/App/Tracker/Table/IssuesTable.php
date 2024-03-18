@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -12,7 +13,6 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
 use Joomla\Input\Input;
 use Joomla\Utilities\ArrayHelper;
-
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
@@ -52,255 +52,230 @@ use JTracker\Database\AbstractDatabaseTable;
  */
 class IssuesTable extends AbstractDatabaseTable
 {
-	/**
-	 * Container for an IssuesTable object to compare differences
-	 *
-	 * @var    IssuesTable
-	 * @since  1.0
-	 */
-	protected $oldObject;
+    /**
+     * Container for an IssuesTable object to compare differences
+     *
+     * @var    IssuesTable
+     * @since  1.0
+     */
+    protected $oldObject;
 
-	/**
-	 * Constructor
-	 *
-	 * @param   DatabaseDriver  $database  A database connector object.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(DatabaseDriver $database)
-	{
-		parent::__construct('#__issues', 'id', $database);
-	}
+    /**
+     * Constructor
+     *
+     * @param   DatabaseDriver  $database  A database connector object.
+     *
+     * @since   1.0
+     */
+    public function __construct(DatabaseDriver $database)
+    {
+        parent::__construct('#__issues', 'id', $database);
+    }
 
-	/**
-	 * Method to bind an associative array or object to the AbstractDatabaseTable instance.  This
-	 * method only binds properties that are publicly accessible and optionally
-	 * takes an array of properties to ignore when binding.
-	 *
-	 * @param   mixed  $src     An associative array or object to bind to the AbstractDatabaseTable instance.
-	 * @param   mixed  $ignore  An optional array or space separated list of properties to ignore while binding.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \InvalidArgumentException
-	 */
-	public function bind($src, $ignore = [])
-	{
-		if ($this->id)
-		{
-			$oldValues = [];
+    /**
+     * Method to bind an associative array or object to the AbstractDatabaseTable instance.  This
+     * method only binds properties that are publicly accessible and optionally
+     * takes an array of properties to ignore when binding.
+     *
+     * @param   mixed  $src     An associative array or object to bind to the AbstractDatabaseTable instance.
+     * @param   mixed  $ignore  An optional array or space separated list of properties to ignore while binding.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \InvalidArgumentException
+     */
+    public function bind($src, $ignore = [])
+    {
+        if ($this->id) {
+            $oldValues = [];
 
-			foreach ($this as $k => $v)
-			{
-				$oldValues[$k] = $v;
-			}
+            foreach ($this as $k => $v) {
+                $oldValues[$k] = $v;
+            }
 
-			// Store the old values to compute the differences later.
-			$this->oldObject = ArrayHelper::toObject($oldValues);
-		}
+            // Store the old values to compute the differences later.
+            $this->oldObject = ArrayHelper::toObject($oldValues);
+        }
 
-		if (\is_array($src))
-		{
-			return parent::bind($src, $ignore);
-		}
+        if (\is_array($src)) {
+            return parent::bind($src, $ignore);
+        }
 
-		if ($src instanceof Input)
-		{
-			$data     = new \stdClass;
-			$data->id = $src->get('id');
+        if ($src instanceof Input) {
+            $data     = new \stdClass();
+            $data->id = $src->get('id');
 
-			return parent::bind($data, $ignore);
-		}
+            return parent::bind($data, $ignore);
+        }
 
-		throw new \InvalidArgumentException(sprintf('%1$s can not bind to %2$s', __METHOD__, \gettype($src)));
-	}
+        throw new \InvalidArgumentException(sprintf('%1$s can not bind to %2$s', __METHOD__, \gettype($src)));
+    }
 
-	/**
-	 * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
-	 * they are safe to store in the database.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \InvalidArgumentException
-	 */
-	public function check()
-	{
-		$errors = [];
+    /**
+     * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
+     * they are safe to store in the database.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \InvalidArgumentException
+     */
+    public function check()
+    {
+        $errors = [];
 
-		$this->title = trim($this->title);
+        $this->title = trim($this->title);
 
-		if ($this->title == '')
-		{
-			$errors[] = 'A title is required.';
-		}
-		elseif (\strlen($this->title) > 255)
-		{
-			$errors[] = 'The title max length is 255 chars.';
-		}
+        if ($this->title == '') {
+            $errors[] = 'A title is required.';
+        } elseif (\strlen($this->title) > 255) {
+            $errors[] = 'The title max length is 255 chars.';
+        }
 
-		if (trim($this->build) == '')
-		{
-			$errors[] = 'A build is required.';
-		}
-		elseif (\strlen($this->build) > 40)
-		{
-			$errors[] = 'A build max length is 40 chars.';
-		}
+        if (trim($this->build) == '') {
+            $errors[] = 'A build is required.';
+        } elseif (\strlen($this->build) > 40) {
+            $errors[] = 'A build max length is 40 chars.';
+        }
 
-		// Normalize fields
-		if ($this->milestone_id === 0)
-		{
-			$this->milestone_id = null;
-		}
+        // Normalize fields
+        if ($this->milestone_id === 0) {
+            $this->milestone_id = null;
+        }
 
-		if ($this->rel_type === 0)
-		{
-			$this->rel_type = null;
-		}
+        if ($this->rel_type === 0) {
+            $this->rel_type = null;
+        }
 
-		if ($errors)
-		{
-			throw new \InvalidArgumentException(implode("\n", $errors));
-		}
+        if ($errors) {
+            throw new \InvalidArgumentException(implode("\n", $errors));
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Method to store a row in the database from the AbstractDatabaseTable instance properties.
-	 * If a primary key value is set the row with that primary key value will be
-	 * updated with the instance property values.  If no primary key value is set
-	 * a new row will be inserted into the database with the properties from the
-	 * AbstractDatabaseTable instance.
-	 *
-	 * @param   boolean  $updateNulls  True to update fields even if they are null.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function store($updateNulls = false)
-	{
-		$isNew = ($this->id < 1);
-		$date  = (new Date)->format($this->db->getDateFormat());
+    /**
+     * Method to store a row in the database from the AbstractDatabaseTable instance properties.
+     * If a primary key value is set the row with that primary key value will be
+     * updated with the instance property values.  If no primary key value is set
+     * a new row will be inserted into the database with the properties from the
+     * AbstractDatabaseTable instance.
+     *
+     * @param   boolean  $updateNulls  True to update fields even if they are null.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function store($updateNulls = false)
+    {
+        $isNew = ($this->id < 1);
+        $date  = (new Date())->format($this->db->getDateFormat());
 
-		if (!$isNew)
-		{
-			// Existing item
+        if (!$isNew) {
+            // Existing item
 
-			/*
-			 * This has been commented because we should get the modified_date *always* from GitHub
-			 * for projects managed there, otherwise the date should be provided.
-			 */
+            /*
+             * This has been commented because we should get the modified_date *always* from GitHub
+             * for projects managed there, otherwise the date should be provided.
+             */
 
-			// $this->modified_date = $date;
-		}
-		else
-		{
-			// New item
-			if (!(int) $this->opened_date)
-			{
-				$this->opened_date = $date;
-			}
-		}
+            // $this->modified_date = $date;
+        } else {
+            // New item
+            if (!(int) $this->opened_date) {
+                $this->opened_date = $date;
+            }
+        }
 
-		// Execute the parent store method
-		parent::store($updateNulls);
+        // Execute the parent store method
+        parent::store($updateNulls);
 
-		/*
-		 * Post-Save Actions
-		 */
+        /*
+         * Post-Save Actions
+         */
 
-		// Add a record to the activity table if a new item
-		if ($isNew)
-		{
-			$data                 = [];
-			$data['event']        = 'open';
-			$data['created_date'] = $this->opened_date;
-			$data['user']         = $this->opened_by;
-			$data['issue_number'] = (int) $this->issue_number;
-			$data['project_id']   = (int) $this->project_id;
+        // Add a record to the activity table if a new item
+        if ($isNew) {
+            $data                 = [];
+            $data['event']        = 'open';
+            $data['created_date'] = $this->opened_date;
+            $data['user']         = $this->opened_by;
+            $data['issue_number'] = (int) $this->issue_number;
+            $data['project_id']   = (int) $this->project_id;
 
-			(new ActivitiesTable($this->db))->save($data);
-		}
+            (new ActivitiesTable($this->db))->save($data);
+        }
 
-		if ($this->oldObject)
-		{
-			// Add a record to the activities table including the changes made to an item.
-			$this->processChanges();
-		}
+        if ($this->oldObject) {
+            // Add a record to the activities table including the changes made to an item.
+            $this->processChanges();
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Compute the changes.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	private function processChanges()
-	{
-		$changes = [];
+    /**
+     * Compute the changes.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     */
+    private function processChanges()
+    {
+        $changes = [];
 
-		foreach ($this as $fName => $field)
-		{
-			if (!$this->$fName && !$this->oldObject->$fName)
-			{
-				// Both values are "empty"
-				continue;
-			}
+        foreach ($this as $fName => $field) {
+            if (!$this->$fName && !$this->oldObject->$fName) {
+                // Both values are "empty"
+                continue;
+            }
 
-			if ($this->$fName != $this->oldObject->$fName)
-			{
-				$change = new \stdClass;
+            if ($this->$fName != $this->oldObject->$fName) {
+                $change = new \stdClass();
 
-				$change->name = $fName;
-				$change->old  = $this->oldObject->$fName;
-				$change->new  = $this->$fName;
+                $change->name = $fName;
+                $change->old  = $this->oldObject->$fName;
+                $change->new  = $this->$fName;
 
-				switch ($fName)
-				{
-					case 'modified_date' :
-					case 'modified_by' :
-						// Expected change ;)
-						break;
+                switch ($fName) {
+                    case 'modified_date':
+                    case 'modified_by':
+                        // Expected change ;)
+                        break;
 
-					case 'description' :
-					case 'commits' :
-					case 'pr_head_sha' :
-					case 'pr_head_user' :
-					case 'pr_head_ref' :
+                    case 'description':
+                    case 'commits':
+                    case 'pr_head_sha':
+                    case 'pr_head_user':
+                    case 'pr_head_ref':
+                        // Do nothing
 
-						// Do nothing
+                        break;
 
-						break;
+                    default:
+                        $changes[] = $change;
 
-					default :
-						$changes[] = $change;
+                        break;
+                }
+            }
+        }
 
-						break;
-				}
-			}
-		}
+        if ($changes) {
+            $data                 = [];
+            $data['event']        = 'change';
+            $data['created_date'] = $this->modified_date;
+            $data['user']         = $this->modified_by;
+            $data['issue_number'] = (int) $this->issue_number;
+            $data['project_id']   = (int) $this->project_id;
+            $data['text']         = json_encode($changes);
 
-		if ($changes)
-		{
-			$data                 = [];
-			$data['event']        = 'change';
-			$data['created_date'] = $this->modified_date;
-			$data['user']         = $this->modified_by;
-			$data['issue_number'] = (int) $this->issue_number;
-			$data['project_id']   = (int) $this->project_id;
-			$data['text']         = json_encode($changes);
+            (new ActivitiesTable($this->db))->save($data);
+        }
 
-			(new ActivitiesTable($this->db))->save($data);
-		}
-
-		return $this;
-	}
+        return $this;
+    }
 }

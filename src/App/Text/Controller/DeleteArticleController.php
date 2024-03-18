@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Text Application
  *
@@ -21,45 +22,45 @@ use Laminas\Diactoros\Response\RedirectResponse;
  */
 class DeleteArticleController extends AbstractController
 {
-	/**
-	 * The articles model
-	 *
-	 * @var    ArticlesModel
-	 * @since  1.0
-	 */
-	private $model;
+    /**
+     * The articles model
+     *
+     * @var    ArticlesModel
+     * @since  1.0
+     */
+    private $model;
 
-	/**
-	 * Controller constructor.
-	 *
-	 * @param   ArticlesModel  $model  The articles model
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(ArticlesModel $model)
-	{
-		$this->model = $model;
-	}
+    /**
+     * Controller constructor.
+     *
+     * @param   ArticlesModel  $model  The articles model
+     *
+     * @since   1.0
+     */
+    public function __construct(ArticlesModel $model)
+    {
+        $this->model = $model;
+    }
 
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		$this->getApplication()->getUser()->authorize('admin');
+    /**
+     * Execute the controller.
+     *
+     * @return  boolean
+     *
+     * @since   1.0
+     */
+    public function execute()
+    {
+        $this->getApplication()->getUser()->authorize('admin');
 
-		$this->model->delete($this->getInput()->getUint('id'));
+        $this->model->delete($this->getInput()->getUint('id'));
 
-		$this->getApplication()->enqueueMessage('The article has been deleted.', 'success');
+        $this->getApplication()->enqueueMessage('The article has been deleted.', 'success');
 
-		$this->getApplication()->setResponse(
-			new RedirectResponse($this->getApplication()->get('uri.base.path') . 'articles')
-		);
+        $this->getApplication()->setResponse(
+            new RedirectResponse($this->getApplication()->get('uri.base.path') . 'articles')
+        );
 
-		return true;
-	}
+        return true;
+    }
 }

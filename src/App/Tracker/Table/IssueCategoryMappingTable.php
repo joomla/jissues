@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
@@ -22,46 +23,43 @@ use JTracker\Database\AbstractDatabaseTable;
  */
 class IssueCategoryMappingTable extends AbstractDatabaseTable
 {
-	/**
-	 * Constructor
-	 *
-	 * @param   DatabaseDriver  $database  A database connector object.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(DatabaseDriver $database)
-	{
-		parent::__construct('#__issue_category_map', 'id', $database);
-	}
+    /**
+     * Constructor
+     *
+     * @param   DatabaseDriver  $database  A database connector object.
+     *
+     * @since   1.0
+     */
+    public function __construct(DatabaseDriver $database)
+    {
+        parent::__construct('#__issue_category_map', 'id', $database);
+    }
 
-	/**
-	 * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
-	 * they are safe to store in the database.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \InvalidArgumentException
-	 */
-	public function check()
-	{
-		$errors = [];
+    /**
+     * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
+     * they are safe to store in the database.
+     *
+     * @return  $this  Method allows chaining
+     *
+     * @since   1.0
+     * @throws  \InvalidArgumentException
+     */
+    public function check()
+    {
+        $errors = [];
 
-		if (trim($this->issue_id) == '')
-		{
-			$errors[] = 'Issue ID is needed';
-		}
+        if (trim($this->issue_id) == '') {
+            $errors[] = 'Issue ID is needed';
+        }
 
-		if (trim($this->category_id) == '')
-		{
-			$errors[] = 'Category ID is needed.';
-		}
+        if (trim($this->category_id) == '') {
+            $errors[] = 'Category ID is needed.';
+        }
 
-		if ($errors)
-		{
-			throw new \InvalidArgumentException(implode("\n", $errors));
-		}
+        if ($errors) {
+            throw new \InvalidArgumentException(implode("\n", $errors));
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 }

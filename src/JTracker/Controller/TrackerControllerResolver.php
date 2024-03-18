@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker Controller Package
  *
@@ -18,39 +19,36 @@ use Joomla\Router\ResolvedRoute;
  */
 class TrackerControllerResolver extends ContainerControllerResolver
 {
-	/**
-	 * Resolve the controller for a route
-	 *
-	 * @param   ResolvedRoute  $route  The route to resolve the controller for
-	 *
-	 * @return  callable
-	 *
-	 * @since   1.0
-	 * @throws  \InvalidArgumentException
-	 */
-	public function resolve(ResolvedRoute $route): callable
-	{
-		$controller = $route->getController();
+    /**
+     * Resolve the controller for a route
+     *
+     * @param   ResolvedRoute  $route  The route to resolve the controller for
+     *
+     * @return  callable
+     *
+     * @since   1.0
+     * @throws  \InvalidArgumentException
+     */
+    public function resolve(ResolvedRoute $route): callable
+    {
+        $controller = $route->getController();
 
-		// Try to resolve a class name if it implements the application's interface
-		if (\is_string($controller) && class_exists($controller) && \in_array(TrackerControllerInterface::class, class_implements($controller)))
-		{
-			try
-			{
-				return [$this->instantiateController($controller), 'execute'];
-			}
-			catch (\ArgumentCountError $error)
-			{
-				throw new \InvalidArgumentException(
-					sprintf(
-						'Controller `%s` has required constructor arguments, cannot instantiate the class', $controller
-					),
-					0,
-					$error
-				);
-			}
-		}
+        // Try to resolve a class name if it implements the application's interface
+        if (\is_string($controller) && class_exists($controller) && \in_array(TrackerControllerInterface::class, class_implements($controller))) {
+            try {
+                return [$this->instantiateController($controller), 'execute'];
+            } catch (\ArgumentCountError $error) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        'Controller `%s` has required constructor arguments, cannot instantiate the class',
+                        $controller
+                    ),
+                    0,
+                    $error
+                );
+            }
+        }
 
-		return parent::resolve($route);
-	}
+        return parent::resolve($route);
+    }
 }

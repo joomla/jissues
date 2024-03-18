@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Activity Application
  *
@@ -15,11 +16,11 @@ namespace App\Activity\Controller;
  */
 class ActivitySnapshotController extends AbstractBaseController
 {
-	/**
-	 * The default view for the app
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'snapshot';
+    /**
+     * The default view for the app
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $defaultView = 'snapshot';
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's Projects Application
  *
@@ -18,26 +19,26 @@ use JTracker\View\AbstractTrackerHtmlView;
  */
 class ProjectsHtmlView extends AbstractTrackerHtmlView
 {
-	/**
-	 * The model object.
-	 *
-	 * @var    ProjectsModel
-	 * @since  1.0
-	 */
-	protected $model;
+    /**
+     * The model object.
+     *
+     * @var    ProjectsModel
+     * @since  1.0
+     */
+    protected $model;
 
-	/**
-	 * Method to render the view.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function render()
-	{
-		$this->addData('projects', $this->model->getItems());
+    /**
+     * Method to render the view.
+     *
+     * @return  string  The rendered view.
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    public function render()
+    {
+        $this->addData('projects', $this->model->getItems());
 
-		return parent::render();
-	}
+        return parent::render();
+    }
 }
