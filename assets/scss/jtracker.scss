@@ -332,3 +332,9 @@ div.logMessage {
 ul.jqueryFileTree a {
   color: var(--bs-light-text-emphasis) !important;
 }
+
+@media (prefers-color-scheme: dark) {
+  ul.jqueryFileTree a:hover {
+    color: var(--bs-gray-900) !important;
+  }
+}
