@@ -553,16 +553,16 @@
         },
         {
             "name": "joomla/database",
-            "version": "3.0.0",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/database.git",
-                "reference": "d440247b1e07710f22d5e07650393fbd9364b01e"
+                "reference": "10745e7b8a3632551861f4da9c6a80a04031a3a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/database/zipball/d440247b1e07710f22d5e07650393fbd9364b01e",
-                "reference": "d440247b1e07710f22d5e07650393fbd9364b01e",
+                "url": "https://api.github.com/repos/joomla-framework/database/zipball/10745e7b8a3632551861f4da9c6a80a04031a3a3",
+                "reference": "10745e7b8a3632551861f4da9c6a80a04031a3a3",
                 "shasum": ""
             },
             "require": {
@@ -620,7 +620,7 @@
             ],
             "support": {
                 "issues": "https://github.com/joomla-framework/database/issues",
-                "source": "https://github.com/joomla-framework/database/tree/3.0.0"
+                "source": "https://github.com/joomla-framework/database/tree/3.4.0"
             },
             "funding": [
                 {
@@ -632,7 +632,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-10-06T17:19:23+00:00"
+            "time": "2025-03-30T14:43:37+00:00"
         },
         {
             "name": "joomla/date",
@@ -756,16 +756,16 @@
         },
         {
             "name": "joomla/event",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/event.git",
-                "reference": "b259ffdb574067ec74953693cb61a9690291920e"
+                "reference": "c1444f72764c395e34720f98386989f4bde8f4ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/event/zipball/b259ffdb574067ec74953693cb61a9690291920e",
-                "reference": "b259ffdb574067ec74953693cb61a9690291920e",
+                "url": "https://api.github.com/repos/joomla-framework/event/zipball/c1444f72764c395e34720f98386989f4bde8f4ac",
+                "reference": "c1444f72764c395e34720f98386989f4bde8f4ac",
                 "shasum": ""
             },
             "require": {
@@ -809,7 +809,7 @@
             ],
             "support": {
                 "issues": "https://github.com/joomla-framework/event/issues",
-                "source": "https://github.com/joomla-framework/event/tree/3.0.0"
+                "source": "https://github.com/joomla-framework/event/tree/3.0.1"
             },
             "funding": [
                 {
@@ -821,7 +821,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-10-06T19:19:02+00:00"
+            "time": "2024-08-16T06:22:30+00:00"
         },
         {
             "name": "joomla/filter",
@@ -2840,16 +2840,16 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v3.5.0",
+            "version": "v3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1"
+                "reference": "74c71c939a79f7d5bf3c1ce9f5ea37ba0114c6f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
-                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/74c71c939a79f7d5bf3c1ce9f5ea37ba0114c6f6",
+                "reference": "74c71c939a79f7d5bf3c1ce9f5ea37ba0114c6f6",
                 "shasum": ""
             },
             "require": {
@@ -2857,12 +2857,12 @@
             },
             "type": "library",
             "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/contracts",
+                    "name": "symfony/contracts"
+                },
                 "branch-alias": {
                     "dev-main": "3.5-dev"
-                },
-                "thanks": {
-                    "name": "symfony/contracts",
-                    "url": "https://github.com/symfony/contracts"
                 }
             },
             "autoload": {
@@ -2887,7 +2887,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.5.0"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.5.1"
             },
             "funding": [
                 {
@@ -2903,7 +2903,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T09:32:20+00:00"
+            "time": "2024-09-25T14:20:29+00:00"
         },
         {
             "name": "symfony/error-handler",
@@ -6949,7 +6949,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
@@ -6958,9 +6958,9 @@
         "ext-intl": "*",
         "ext-json": "*"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "platform-overrides": {
         "php": "8.1.24"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
