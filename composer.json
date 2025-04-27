@@ -49,7 +49,7 @@
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
         "phpunit/phpunit": "^9.6.11",
         "phpstan/extension-installer": "^1.2",
-        "phpstan/phpstan": "1.12.24",
+        "phpstan/phpstan": "1.12.25",
         "phpstan/phpstan-phpunit": "1.4.2",
         "phpstan/phpstan-deprecation-rules": "^1.1"
     },
