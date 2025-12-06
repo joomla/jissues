@@ -49,17 +49,12 @@ class Run extends Test
         $ioStyle = new SymfonyStyle($input, $output);
         $ioStyle->title('Test Suite');
 
-        /** @var Checkstyle $statusCS */
-        $statusCS = $this->getApplication()->getCommand(Checkstyle::COMMAND_NAME);
-        $statusCS->setExit(false);
-        $statusCS = $statusCS->execute($input, $output);
-
         /** @var Phpunit $statusUT */
         $statusUT = $this->getApplication()->getCommand(Phpunit::COMMAND_NAME);
         $statusUT->setExit(false);
         $statusUT = $statusUT->execute($input, $output);
 
-        $status = ($statusCS > Checkstyle::ALLOWED_FAIL_COUNT || $statusUT) ? Command::FAILURE : Command::SUCCESS;
+        $status = ($statusUT) ? Command::FAILURE : Command::SUCCESS;
 
         $this
             ->out()

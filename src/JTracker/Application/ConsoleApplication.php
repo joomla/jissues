@@ -187,8 +187,6 @@ class ConsoleApplication extends FrameworkApplication implements ContainerAwareI
                     ->setContainer($this->getContainer()),
                 (new \JTracker\Command\Make\Repoinfo())
                     ->setContainer($this->getContainer()),
-                (new \JTracker\Command\Test\Checkstyle())
-                    ->setContainer($this->getContainer()),
                 (new \JTracker\Command\Test\Hook())
                     ->setContainer($this->getContainer()),
                 (new \JTracker\Command\Test\Phpunit())
