@@ -133,7 +133,7 @@ abstract class AbstractTrackerDatabaseModel implements DatabaseModelInterface, S
         $class = $prefix . ucfirst($name);
 
         if (!class_exists($class) && !($class instanceof AbstractDatabaseTable)) {
-            throw new \RuntimeException(sprintf('Table class %s not found or is not an instance of AbstractDatabaseTable', $class));
+            throw new \RuntimeException(\sprintf('Table class %s not found or is not an instance of AbstractDatabaseTable', $class));
         }
 
         $this->table = new $class($this->getDb());

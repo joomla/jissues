@@ -54,7 +54,7 @@ abstract class Package extends GithubObject
 
             if (class_exists($class) === false) {
                 throw new \InvalidArgumentException(
-                    sprintf(
+                    \sprintf(
                         'Argument %1$s produced an invalid class name: %2$s in package %3$s',
                         $name,
                         $class,

@@ -121,7 +121,7 @@ class ConsoleApplication extends FrameworkApplication implements ContainerAwareI
         $outputStyle->newLine();
         $outputStyle->text(str_repeat('_', 40));
         $outputStyle->text(
-            sprintf(
+            \sprintf(
                 'Execution time: <b>%d sec.</b>',
                 time() - $this->get('execution.timestamp')
             )

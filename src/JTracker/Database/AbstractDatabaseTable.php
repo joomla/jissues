@@ -193,7 +193,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
     {
         // If the source value is not an array or object return false.
         if (!\is_object($src) && !\is_array($src)) {
-            throw new \InvalidArgumentException(sprintf('%s::bind(*%s*)', \get_class($this), \gettype($src)));
+            throw new \InvalidArgumentException(\sprintf('%s::bind(*%s*)', \get_class($this), \gettype($src)));
         }
 
         // If the source value is an object, get its accessible properties.
@@ -279,7 +279,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
                 // Add the search tuple to the query.
                 $query->where($this->db->quoteName($field) . ' = ' . $this->db->quote($value));
             } else {
-                throw new \UnexpectedValueException(sprintf('Missing field in database: %s &#160; %s.', \get_class($this), $field));
+                throw new \UnexpectedValueException(\sprintf('Missing field in database: %s &#160; %s.', \get_class($this), $field));
             }
         }
 
@@ -290,7 +290,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
         // Check that we have a result.
         if (empty($row)) {
             throw new \RuntimeException(
-                sprintf(
+                \sprintf(
                     '%1$s() can not bind keys "%2$s" for table %3$s due to an empty result set.',
                     __METHOD__,
                     http_build_query($keys),
@@ -500,7 +500,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
             $fields = $this->db->getTableColumns($this->tableName, false);
 
             if (empty($fields)) {
-                throw new \UnexpectedValueException(sprintf('No columns found for %s table', $this->tableName));
+                throw new \UnexpectedValueException(\sprintf('No columns found for %s table', $this->tableName));
             }
 
             static::$fieldsCache[$this->tableName] = $fields;

@@ -124,7 +124,7 @@ class Depfile extends TrackerCommand
         $fileName = $input->getOption('file');
 
         if ($fileName) {
-            $ioStyle->text(sprintf('Writing contents to: %s', $fileName));
+            $ioStyle->text(\sprintf('Writing contents to: %s', $fileName));
 
             file_put_contents($fileName, $contents);
         } else {

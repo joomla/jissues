@@ -165,7 +165,7 @@ class Issues extends Project
         $issues = [];
 
         foreach ($this->issueStates as $state) {
-            $io->write(sprintf('Retrieving <b>%s</b> items from GitHub...', $state));
+            $io->write(\sprintf('Retrieving <b>%s</b> items from GitHub...', $state));
 
             if ($io->isVerbose()) {
                 $io->write('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
@@ -224,7 +224,7 @@ class Issues extends Project
         );
 
         $this->logOut(
-            sprintf(
+            \sprintf(
                 'Retrieved <b>%d</b> items from GitHub.',
                 \count($issues)
             )
@@ -413,7 +413,7 @@ class Issues extends Project
             if (!$table->id) {
                 // Bad coder :( - @todo when does this happen ??
                 throw new \RuntimeException(
-                    sprintf(
+                    \sprintf(
                         'Invalid issue id for issue: %1$d in project id %2$s',
                         $ghIssue->number,
                         $this->project->project_id
@@ -458,7 +458,7 @@ class Issues extends Project
 
         // Output the final result
         $io->progressFinish();
-        $this->logOut(sprintf('<ok>%1$d added, %2$d updated.</ok>', $added, $updated));
+        $this->logOut(\sprintf('<ok>%1$d added, %2$d updated.</ok>', $added, $updated));
 
         return $this;
     }

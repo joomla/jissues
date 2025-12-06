@@ -108,7 +108,7 @@ class ErrorSubscriber implements SubscriberInterface, LoggerAwareInterface
             case $event->getError() instanceof MethodNotAllowedException:
                 // Log the error for reference
                 $this->logger->error(
-                    sprintf('Route `%s` not supported by method `%s`', $app->get('uri.route'), $app->input->getMethod()),
+                    \sprintf('Route `%s` not supported by method `%s`', $app->get('uri.route'), $app->input->getMethod()),
                     ['exception' => $event->getError()]
                 );
 
@@ -121,7 +121,7 @@ class ErrorSubscriber implements SubscriberInterface, LoggerAwareInterface
             case $event->getError() instanceof RouteNotFoundException:
                 // Log the error for reference
                 $this->logger->error(
-                    sprintf('Route `%s` not found', $app->get('uri.route')),
+                    \sprintf('Route `%s` not found', $app->get('uri.route')),
                     ['exception' => $event->getError()]
                 );
 
@@ -150,7 +150,7 @@ class ErrorSubscriber implements SubscriberInterface, LoggerAwareInterface
     private function logError(\Throwable $throwable): void
     {
         $this->logger->error(
-            sprintf('Uncaught Throwable of type %s caught.', \get_class($throwable)),
+            \sprintf('Uncaught Throwable of type %s caught.', \get_class($throwable)),
             ['exception' => $throwable]
         );
     }

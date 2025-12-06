@@ -135,7 +135,7 @@ class Composergraph extends TrackerCommand
 
         rename($path, $filePath);
 
-        return $this->out(sprintf('The file has been written to <fg=green>%s</fg=green>', realpath($filePath)));
+        return $this->out(\sprintf('The file has been written to <fg=green>%s</fg=green>', realpath($filePath)));
     }
 
     /**
@@ -151,7 +151,7 @@ class Composergraph extends TrackerCommand
     {
         if ($format) {
             $this->graph->setFormat($format);
-            $this->debugOut(sprintf('Format has been set to <b>%s</b>', $format));
+            $this->debugOut(\sprintf('Format has been set to <b>%s</b>', $format));
         }
 
         return $this;

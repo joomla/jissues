@@ -60,7 +60,7 @@ class Autocomplete extends TrackerCommand
             'type',
             't',
             InputOption::VALUE_REQUIRED,
-            sprintf('The type of auto complete file (currently supported: %s).', "'" . implode("' '", $this->knownTypes) . "'")
+            \sprintf('The type of auto complete file (currently supported: %s).', "'" . implode("' '", $this->knownTypes) . "'")
         );
 
         $this->addOption(
@@ -98,7 +98,7 @@ class Autocomplete extends TrackerCommand
 
         if ($type) {
             if (\in_array($type, $this->knownTypes) === false) {
-                throw new \InvalidArgumentException(sprintf('Invalid type supplied. Valid types are: %s', "'" . implode("' '", $this->knownTypes) . "'"));
+                throw new \InvalidArgumentException(\sprintf('Invalid type supplied. Valid types are: %s', "'" . implode("' '", $this->knownTypes) . "'"));
             }
 
             $command = 'make' . $type;

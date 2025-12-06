@@ -69,18 +69,18 @@ class Repoinfo extends TrackerCommand
         $sha    = trim($this->execCommand('cd ' . JPATH_ROOT . ' && git rev-parse --short HEAD 2>&1'));
 
         if (file_put_contents($path, $info . ' ' . $branch) === false) {
-            $this->logOut(sprintf('Can not write to path: %s', str_replace(JPATH_ROOT, 'J_ROOT', $path)));
+            $this->logOut(\sprintf('Can not write to path: %s', str_replace(JPATH_ROOT, 'J_ROOT', $path)));
 
             throw new \DomainException('Can not write to path: ' . $path);
         }
 
         if (file_put_contents($shaPath, $sha) === false) {
-            $this->logOut(sprintf('Can not write to path: %s', str_replace(JPATH_ROOT, 'J_ROOT', $shaPath)));
+            $this->logOut(\sprintf('Can not write to path: %s', str_replace(JPATH_ROOT, 'J_ROOT', $shaPath)));
 
             throw new \DomainException('Can not write to path: ' . $shaPath);
         }
 
-        $this->logOut(sprintf('Wrote repoinfo file to: %s', str_replace(JPATH_ROOT, 'J_ROOT', $path)));
+        $this->logOut(\sprintf('Wrote repoinfo file to: %s', str_replace(JPATH_ROOT, 'J_ROOT', $path)));
 
         $ioStyle->newLine();
         $ioStyle->success('Finished.');

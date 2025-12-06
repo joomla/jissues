@@ -109,7 +109,7 @@ class IssuesTable extends AbstractDatabaseTable
             return parent::bind($data, $ignore);
         }
 
-        throw new \InvalidArgumentException(sprintf('%1$s can not bind to %2$s', __METHOD__, \gettype($src)));
+        throw new \InvalidArgumentException(\sprintf('%1$s can not bind to %2$s', __METHOD__, \gettype($src)));
     }
 
     /**

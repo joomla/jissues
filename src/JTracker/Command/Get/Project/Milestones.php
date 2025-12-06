@@ -168,7 +168,7 @@ class Milestones extends Project
 
         return $this->out('ok')
             ->logOut(
-                sprintf(
+                \sprintf(
                     'Milestones: %1$d new, %2$d updated, %3$d deleted.',
                     $cntNew,
                     $cntUpdated,

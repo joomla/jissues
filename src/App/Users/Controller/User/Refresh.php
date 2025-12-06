@@ -59,7 +59,7 @@ class Refresh extends AbstractTrackerController
             $app->enqueueMessage('The profile has been refreshed.', 'success');
         } catch (\Exception $exception) {
             $app->enqueueMessage(
-                sprintf('An error has occurred during user refresh: %s', $exception->getMessage()),
+                \sprintf('An error has occurred during user refresh: %s', $exception->getMessage()),
                 'error'
             );
         }

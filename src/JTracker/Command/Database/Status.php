@@ -59,7 +59,7 @@ class Status extends TrackerCommand
             $ioStyle->success('Your database is up-to-date.');
         } else {
             $ioStyle->comment(
-                sprintf(
+                \sprintf(
                     'Your database is not up-to-date. You are missing %d migrations.',
                     $status['missingMigrations']
                 )
@@ -67,8 +67,8 @@ class Status extends TrackerCommand
             $ioStyle->newLine();
             $ioStyle->comment(
                 [
-                    sprintf('Current Version: %1$s', $status['currentVersion']),
-                    sprintf('Latest Version: %1$s', $status['latestVersion']),
+                    \sprintf('Current Version: %1$s', $status['currentVersion']),
+                    \sprintf('Latest Version: %1$s', $status['latestVersion']),
                 ]
             );
             $ioStyle->newLine(2);

@@ -143,7 +143,7 @@ class Html implements ContainerAwareInterface
             if ($count === 1) {
                 $title = 'One database query';
             } else {
-                $title = sprintf('%d database queries', $count);
+                $title = \sprintf('%d database queries', $count);
             }
 
             $html[] = '<li class="hasTooltip" title="' . $title . '">'
@@ -157,9 +157,9 @@ class Html implements ContainerAwareInterface
 
             $html[] = '<li class="hasTooltip" title="Profile">'
                 . '<a href="#dbgProfile"><span class="fas fa-bolt-lightning"></span> '
-                . sprintf('%s MB', $this->getBadge(number_format($profile->peak / 1000000, 2)))
+                . \sprintf('%s MB', $this->getBadge(number_format($profile->peak / 1000000, 2)))
                 . ' '
-                . sprintf('%s ms', $this->getBadge(number_format($profile->time * 1000)))
+                . \sprintf('%s ms', $this->getBadge(number_format($profile->time * 1000)))
                 . '</a></li>';
         }
 
@@ -246,7 +246,7 @@ class Html implements ContainerAwareInterface
         if (\count($dbLog) === 1) {
             $debug[] = 'One database query';
         } else {
-            $debug[] = sprintf('%d database queries', \count($dbLog));
+            $debug[] = \sprintf('%d database queries', \count($dbLog));
         }
 
         $prefix = $dbDebugger->getPrefix();
@@ -257,7 +257,7 @@ class Html implements ContainerAwareInterface
             $debug[] = '<pre class="dbQuery">' . $sqlFormat->highlightQuery($entry->sql, $prefix) . '</pre>';
 
             if (isset($entry->times) && \is_array($entry->times)) {
-                $debug[] = sprintf('Query Time: %.3f ms', ($entry->times[1] - $entry->times[0]) * 1000) . '<br />';
+                $debug[] = \sprintf('Query Time: %.3f ms', ($entry->times[1] - $entry->times[0]) * 1000) . '<br />';
             }
 
             // Tabs headers

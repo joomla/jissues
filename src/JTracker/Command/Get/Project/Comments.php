@@ -112,7 +112,7 @@ class Comments extends Project
         }
 
         $io->text(
-            sprintf(
+            \sprintf(
                 'Fetching comments for <b>%d</b> modified issues from GitHub...',
                 \count($this->changedIssueNumbers)
             )
@@ -124,7 +124,7 @@ class Comments extends Project
             $this->usePBar
                 ? $io->progressAdvance()
                 : $io->text(
-                    sprintf(
+                    \sprintf(
                         '#%d (%d/%d):',
                         $issueNumber,
                         $count,
@@ -192,7 +192,7 @@ class Comments extends Project
         $query = $db->getQuery(true);
 
         $io->text(
-            sprintf(
+            \sprintf(
                 'Processing comments for %d modified issues...',
                 \count($this->items)
             )
@@ -216,11 +216,11 @@ class Comments extends Project
         foreach ($this->items as $issueNumber => $comments) {
             if (!\count($comments)) {
                 $io->newLine();
-                $io->text(sprintf('No comments for issue # %d', $issueNumber));
+                $io->text(\sprintf('No comments for issue # %d', $issueNumber));
             } else {
                 $io->newLine();
                 $io->text(
-                    sprintf(
+                    \sprintf(
                         'Processing %1$d comments for issue # %2$d (%3$d/%4$d)',
                         \count($comments),
                         $issueNumber,
@@ -322,7 +322,7 @@ class Comments extends Project
 
         $io->newLine();
         $io->success('OK');
-        $this->logOut(sprintf('%1$d added, %2$d updated, %3$d deleted.', $adds, $updates, \count($toDelete)));
+        $this->logOut(\sprintf('%1$d added, %2$d updated, %3$d deleted.', $adds, $updates, \count($toDelete)));
 
         return $this;
     }

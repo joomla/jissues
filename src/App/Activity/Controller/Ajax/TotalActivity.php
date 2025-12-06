@@ -87,10 +87,10 @@ class TotalActivity extends AbstractAjaxController
 
         // For the best translations, some languages need the ability to move the activity type segment, so translate each string individually
         $titles = [
-            sprintf('All Points for Past Four %s', $periodText),
-            sprintf('Tracker Points for Past Four %s', $periodText),
-            sprintf('Test Points for Past Four %s', $periodText),
-            sprintf('Code Points for Past Four %s', $periodText),
+            \sprintf('All Points for Past Four %s', $periodText),
+            \sprintf('Tracker Points for Past Four %s', $periodText),
+            \sprintf('Test Points for Past Four %s', $periodText),
+            \sprintf('Code Points for Past Four %s', $periodText),
         ];
 
         $title = $titles[$activityType];
@@ -125,10 +125,10 @@ class TotalActivity extends AbstractAjaxController
         $label2 = new \stdClass();
 
         $types         = array_keys($points);
-        $label1->label = sprintf('%1$s Points', $types[0]);
+        $label1->label = \sprintf('%1$s Points', $types[0]);
 
         if ($activityType === 0) {
-            $label2->label = sprintf('%1$s Points', $types[1]);
+            $label2->label = \sprintf('%1$s Points', $types[1]);
             $data          = [$points[$types[0]], $points[$types[1]]];
             $labels        = [$label1, $label2];
         } else {

@@ -92,7 +92,7 @@ class DatabaseDebugger
                 if ($db->execute()) {
                     $explain = (new TableFormat())->fromArray($db->loadAssocList());
                 } else {
-                    $explain = sprintf('Failed EXPLAIN on query: %s', htmlspecialchars($query));
+                    $explain = \sprintf('Failed EXPLAIN on query: %s', htmlspecialchars($query));
                 }
             }
         }
@@ -118,7 +118,7 @@ class DatabaseDebugger
         $profile = '';
 
         if (\in_array($db->getName(), ['mysqli', 'mysql']) === false) {
-            return sprintf('%s database is not supported yet.', $db->getName());
+            return \sprintf('%s database is not supported yet.', $db->getName());
         }
 
         $dbVersion5037 = (strncmp($db->getName(), 'mysql', 5) == 0) && version_compare($db->getVersion(), '5.0.37', '>=');

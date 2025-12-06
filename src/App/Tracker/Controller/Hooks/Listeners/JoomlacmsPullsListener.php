@@ -602,7 +602,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
             $table->save(['status' => 3]);
         } catch (\InvalidArgumentException $e) {
             $logger->error(
-                sprintf(
+                \sprintf(
                     'Error setting the status to pending in local application for GitHub pull request %s/%s #%d',
                     $project->gh_user,
                     $project->gh_project,
@@ -612,7 +612,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
             );
         } catch (\RuntimeException $e) {
             $logger->error(
-                sprintf(
+                \sprintf(
                     'Error setting the status to pending in local application for GitHub pull request %s/%s #%d',
                     $project->gh_user,
                     $project->gh_project,
@@ -661,7 +661,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 
             // Post the new label on the object
             $logger->info(
-                sprintf(
+                \sprintf(
                     'Updated the title for GitHub pull request %s/%s #%d',
                     $project->gh_user,
                     $project->gh_project,
@@ -670,7 +670,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
             );
         } catch (InvalidResponseCodeException $e) {
             $logger->error(
-                sprintf(
+                \sprintf(
                     'Error updating the title for GitHub pull request %s/%s #%d',
                     $project->gh_user,
                     $project->gh_project,
@@ -683,7 +683,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
             return;
         } catch (\DomainException $e) {
             $logger->error(
-                sprintf(
+                \sprintf(
                     'Error updating the title for GitHub pull request %s/%s #%d',
                     $project->gh_user,
                     $project->gh_project,
@@ -702,7 +702,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
             $table->save($data);
         } catch (\Exception $e) {
             $logger->error(
-                sprintf(
+                \sprintf(
                     'Error updating the title for issue %s/%s #%d on the tracker',
                     $project->gh_user,
                     $project->gh_project,
@@ -740,7 +740,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
                     $this->addLabels($hookData, $github, $logger, $project, $addLabels);
                 }
 
-                $appNote = sprintf(
+                $appNote = \sprintf(
                     '<br />*This is an automated message from the <a href="%1$s">%2$s Application</a>.*',
                     'https://github.com/joomla/jissues',
                     'J!Tracker'
@@ -756,7 +756,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 
                 // Log the activity
                 $logger->info(
-                    sprintf(
+                    \sprintf(
                         'Added a no description comment to %s/%s #%d',
                         $project->gh_user,
                         $project->gh_project,
@@ -765,7 +765,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
                 );
             } catch (InvalidResponseCodeException $e) {
                 $logger->error(
-                    sprintf(
+                    \sprintf(
                         'Error posting comment to GitHub pull request %s/%s #%d',
                         $project->gh_user,
                         $project->gh_project,
@@ -775,7 +775,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
                 );
             } catch (\DomainException $e) {
                 $logger->error(
-                    sprintf(
+                    \sprintf(
                         'Error posting comment to GitHub pull request %s/%s #%d',
                         $project->gh_user,
                         $project->gh_project,

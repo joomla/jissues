@@ -62,7 +62,7 @@ class Server extends Update
             // Fetch from remote sources and checkout the specified version tag
             $this->execCommand('cd ' . JPATH_ROOT . ' && git fetch && git checkout ' . $version . ' 2>&1');
 
-            $message = sprintf('Update to version %s successful', $version);
+            $message = \sprintf('Update to version %s successful', $version);
         } else {
             // Perform a git pull on the active branch
             $this->execCommand('cd ' . JPATH_ROOT . ' && git pull 2>&1');

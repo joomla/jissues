@@ -173,7 +173,7 @@ class Migrations
 
         if ($queries === false) {
             throw new \RuntimeException(
-                sprintf(
+                \sprintf(
                     'Could not read data from the %s SQL file, please update the database manually.',
                     $sqlFile
                 )

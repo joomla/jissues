@@ -121,7 +121,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
             $alias = $this->db->loadResult();
         } catch (\RuntimeException $e) {
             $this->logger->error(
-                sprintf(
+                \sprintf(
                     'Error retrieving the project alias for GitHub repo %s in the database',
                     $this->hookData->repository->name
                 ),
@@ -134,7 +134,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
         // Make sure we have a valid project.
         if (!$alias) {
             $this->logger->error(
-                sprintf(
+                \sprintf(
                     'A project does not exist for the %s GitHub repo in the database, cannot add data for it.',
                     $this->hookData->repository->name
                 )
@@ -298,7 +298,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
             );
         } catch (InvalidResponseCodeException $exception) {
             $this->logger->error(
-                sprintf(
+                \sprintf(
                     'Error parsing comment %d with GH Markdown',
                     $this->hookData->comment->id
                 ),
@@ -308,7 +308,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
             return '';
         } catch (\DomainException $exception) {
             $this->logger->error(
-                sprintf(
+                \sprintf(
                     'Error parsing comment %d with GH Markdown',
                     $this->hookData->comment->id
                 ),
@@ -334,7 +334,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
             $githubLabels = $this->github->issues->get($this->project->gh_user, $this->project->gh_project, $issueId)->labels;
         } catch (InvalidResponseCodeException $exception) {
             $this->logger->error(
-                sprintf(
+                \sprintf(
                     'Error parsing the labels for GitHub issue %s/%s #%d',
                     $this->project->gh_user,
                     $this->project->gh_project,
@@ -346,7 +346,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
             return '';
         } catch (\DomainException $exception) {
             $this->logger->error(
-                sprintf(
+                \sprintf(
                     'Error parsing the labels for GitHub issue %s/%s #%d',
                     $this->project->gh_user,
                     $this->project->gh_project,
@@ -387,7 +387,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
                     $id = $table->label_id;
                 } catch (\RuntimeException $exception) {
                     $this->logger->error(
-                        sprintf(
+                        \sprintf(
                             'Error adding label %s for project %s/%s to the database',
                             $label->name,
                             $this->project->gh_user,

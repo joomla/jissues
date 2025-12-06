@@ -74,7 +74,7 @@ class Migrate extends TrackerCommand
                 ['exception' => $exception]
             );
 
-            $message = sprintf(
+            $message = \sprintf(
                 'Error migrating database: %s',
                 $exception->getMessage()
             );

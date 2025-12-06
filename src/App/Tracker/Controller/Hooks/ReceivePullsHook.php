@@ -150,7 +150,7 @@ class ReceivePullsHook extends AbstractHookController
                         ->setProject(new TrackerProject($this->db, $this->project))
                         ->add($data);
                 } catch (\Exception $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error adding GitHub pull request %s/%s #%d to the tracker',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -170,7 +170,7 @@ class ReceivePullsHook extends AbstractHookController
                 try {
                     $this->triggerEvent('onPullAfterCreate', ['table' => $table, 'action' => $action]);
                 } catch (\Exception $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error processing `onPullAfterCreate` event for issue number %d',
                         $this->data->number
                     );
@@ -195,7 +195,7 @@ class ReceivePullsHook extends AbstractHookController
                             $this->data->number
                         );
                     } catch (\RuntimeException $e) {
-                        $logMessage = sprintf(
+                        $logMessage = \sprintf(
                             'Error storing reopen activity to the database (Project ID: %1$d, Item #: %2$d)',
                             $this->project->project_id,
                             $this->data->number
@@ -219,7 +219,7 @@ class ReceivePullsHook extends AbstractHookController
                             $this->data->number
                         );
                     } catch (\RuntimeException $e) {
-                        $logMessage = sprintf(
+                        $logMessage = \sprintf(
                             'Error storing close activity to the database (Project ID: %1$d, Item #: %2$d)',
                             $this->project->project_id,
                             $this->data->number
@@ -243,7 +243,7 @@ class ReceivePullsHook extends AbstractHookController
                             $this->data->number
                         );
                     } catch (\RuntimeException $e) {
-                        $logMessage = sprintf(
+                        $logMessage = \sprintf(
                             'Error storing merge activity to the database (Project ID: %1$d, Item #: %2$d)',
                             $this->project->project_id,
                             $this->data->number
@@ -258,7 +258,7 @@ class ReceivePullsHook extends AbstractHookController
 
                 // Store was successful, update status
                 $this->logger->info(
-                    sprintf(
+                    \sprintf(
                         'Added GitHub pull request %s/%s #%d (Database ID #%d) to the tracker.',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -300,7 +300,7 @@ class ReceivePullsHook extends AbstractHookController
                 ]
             );
         } catch (\Exception $e) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error loading GitHub issue %s/%s #%d in the tracker',
                 $this->project->gh_user,
                 $this->project->gh_project,
@@ -379,7 +379,7 @@ class ReceivePullsHook extends AbstractHookController
                 try {
                     $model->save($data);
                 } catch (\Exception $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error updating GitHub pull request %s/%s #%d (Database ID #%d) to the tracker',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -399,7 +399,7 @@ class ReceivePullsHook extends AbstractHookController
                 try {
                     $this->triggerEvent('onPullAfterUpdate', ['table' => $table, 'action' => $action]);
                 } catch (\Exception $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error processing `onPullAfterUpdate` event for issue number %d',
                         $this->data->number
                     );
@@ -421,7 +421,7 @@ class ReceivePullsHook extends AbstractHookController
                             $this->data->number
                         );
                     } catch (\RuntimeException $e) {
-                        $logMessage = sprintf(
+                        $logMessage = \sprintf(
                             'Error storing reopen activity to the database (Project ID: %1$d, Item #: %2$d)',
                             $this->project->project_id,
                             $this->data->number
@@ -445,7 +445,7 @@ class ReceivePullsHook extends AbstractHookController
                             $this->data->number
                         );
                     } catch (\RuntimeException $e) {
-                        $logMessage = sprintf(
+                        $logMessage = \sprintf(
                             'Error storing synchronize activity to the database (Project ID: %1$d, Item #: %2$d)',
                             $this->project->project_id,
                             $this->data->number
@@ -469,7 +469,7 @@ class ReceivePullsHook extends AbstractHookController
                             $this->data->number
                         );
                     } catch (\RuntimeException $e) {
-                        $logMessage = sprintf(
+                        $logMessage = \sprintf(
                             'Error storing close activity to the database (Project ID: %1$d, Item #: %2$d)',
                             $this->project->project_id,
                             $this->data->number
@@ -493,7 +493,7 @@ class ReceivePullsHook extends AbstractHookController
                             $this->data->number
                         );
                     } catch (\RuntimeException $e) {
-                        $logMessage = sprintf(
+                        $logMessage = \sprintf(
                             'Error storing merge activity to the database (Project ID: %1$d, Item #: %2$d)',
                             $this->project->project_id,
                             $this->data->number
@@ -508,7 +508,7 @@ class ReceivePullsHook extends AbstractHookController
 
                 // Store was successful, update status
                 $this->logger->info(
-                    sprintf(
+                    \sprintf(
                         'Updated GitHub pull request %s/%s #%d (Database ID #%d) to the tracker.',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -561,7 +561,7 @@ class ReceivePullsHook extends AbstractHookController
                 try {
                     $model->save($data);
                 } catch (\Exception $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error updating labels for GitHub pull request %s/%s #%d (Database ID #%d) in the tracker',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -581,7 +581,7 @@ class ReceivePullsHook extends AbstractHookController
                 try {
                     $this->triggerEvent('onPullAfterUpdate', ['table' => $table, 'action' => $action]);
                 } catch (\Exception $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error processing `onPullAfterUpdate` event for issue number %d',
                         $this->data->number
                     );
@@ -602,7 +602,7 @@ class ReceivePullsHook extends AbstractHookController
                         $this->data->number
                     );
                 } catch (\RuntimeException $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error storing labeled activity to the database (Project ID: %1$d, Item #: %2$d)',
                         $this->project->project_id,
                         $this->data->number
@@ -616,7 +616,7 @@ class ReceivePullsHook extends AbstractHookController
 
                 // Store was successful, update status
                 $this->logger->info(
-                    sprintf(
+                    \sprintf(
                         'Updated labels for GitHub pull request %s/%s #%d (Database ID #%d) in the tracker.',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -710,7 +710,7 @@ class ReceivePullsHook extends AbstractHookController
         try {
             $model->save($data);
         } catch (\Exception $e) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error editing GitHub pull request %s/%s #%d (Database ID #%d) in the tracker',
                 $this->project->gh_user,
                 $this->project->gh_project,
@@ -730,7 +730,7 @@ class ReceivePullsHook extends AbstractHookController
         try {
             $this->triggerEvent('onPullAfterUpdate', ['table' => $table, 'action' => 'edited']);
         } catch (\Exception $e) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error processing `onPullAfterUpdate` event for issue number %d',
                 $this->data->number
             );
@@ -751,7 +751,7 @@ class ReceivePullsHook extends AbstractHookController
                 $this->data->number
             );
         } catch (\RuntimeException $e) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error storing edit activity to the database (Project ID: %1$d, Item #: %2$d)',
                 $this->project->project_id,
                 $this->data->number
@@ -765,7 +765,7 @@ class ReceivePullsHook extends AbstractHookController
 
         // Store was successful, update status
         $this->logger->info(
-            sprintf(
+            \sprintf(
                 'Edited GitHub pull request %s/%s #%d (Database ID #%d) in the tracker.',
                 $this->project->gh_user,
                 $this->project->gh_project,

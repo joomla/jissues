@@ -87,7 +87,7 @@ class Checkstyle extends Test
             ->out()
             ->out(
                 $numErrors > self::ALLOWED_FAIL_COUNT
-                ? sprintf('<error>Finished with %d errors</error>', $numErrors)
+                ? \sprintf('<error>Finished with %d errors</error>', $numErrors)
                 : '<ok>Success</ok>'
             );
 

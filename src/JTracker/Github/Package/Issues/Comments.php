@@ -72,7 +72,7 @@ class Comments extends Package
 
         if (\in_array($sort, ['created', 'updated']) == false) {
             throw new \UnexpectedValueException(
-                sprintf(
+                \sprintf(
                     '%1$s - sort field must be "created" or "updated"',
                     __METHOD__
                 )
@@ -81,7 +81,7 @@ class Comments extends Package
 
         if (\in_array($direction, ['asc', 'desc']) == false) {
             throw new \UnexpectedValueException(
-                sprintf(
+                \sprintf(
                     '%1$s - direction field must be "asc" or "desc"',
                     __METHOD__
                 )

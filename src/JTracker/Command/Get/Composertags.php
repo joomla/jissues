@@ -58,7 +58,7 @@ class Composertags extends Get
         $packages = json_decode(file_get_contents($path));
 
         if (!$packages) {
-            throw new \UnexpectedValueException(sprintf('Can not read the packages file at %s', $path));
+            throw new \UnexpectedValueException(\sprintf('Can not read the packages file at %s', $path));
         }
 
         $this->logOut('Start getting Composer tags.')
@@ -115,7 +115,7 @@ class Composertags extends Get
             }
 
             if (!$found) {
-                $io->text(sprintf('Installed: %s', $package->version));
+                $io->text(\sprintf('Installed: %s', $package->version));
             }
 
             $io->newLine();

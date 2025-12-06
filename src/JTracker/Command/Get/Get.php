@@ -105,7 +105,7 @@ abstract class Get extends TrackerCommand
         $minSwitch = 500;
         $minRemain = 10;
 
-        $this->debugOut(sprintf('Limit check: %1$d -- %2$d / %3$d', $remaining, $minSwitch, $minRemain));
+        $this->debugOut(\sprintf('Limit check: %1$d -- %2$d / %3$d', $remaining, $minSwitch, $minRemain));
 
         if ($remaining <= $minSwitch) {
             $this->switchGitHubAccount();
@@ -113,7 +113,7 @@ abstract class Get extends TrackerCommand
 
         if ($remaining <= $minRemain) {
             throw new \RuntimeException(
-                sprintf(
+                \sprintf(
                     'GitHub remaining rate limit (%1$d) dropped below the minimum (%2$d) for user %3$s.',
                     $remaining,
                     $minRemain,
@@ -152,7 +152,7 @@ abstract class Get extends TrackerCommand
         $this->github->setOption('api.username', $username);
         $this->github->setOption('api.password', $password);
 
-        $this->logOut(sprintf('Switched to bot account %s (%d)', $username, $this->botId));
+        $this->logOut(\sprintf('Switched to bot account %s (%d)', $username, $this->botId));
 
         return $this;
     }

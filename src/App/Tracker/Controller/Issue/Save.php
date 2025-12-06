@@ -144,7 +144,7 @@ class Save extends AbstractTrackerController
                 $data['modified_date'] = $gitHubResponse->updated_at;
             } catch (UnexpectedResponseException $exception) {
                 $application->getLogger()->error(
-                    sprintf(
+                    \sprintf(
                         'Error code %1$s received from GitHub when editing an issue with the following data:'
                         . ' GitHub User: %2$s; GitHub Repo: %3$s; Issue Number: %4$s; State: %5$s, Old state: %6$s',
                         $exception->getCode(),
@@ -464,12 +464,12 @@ class Save extends AbstractTrackerController
             if ($state != $oldState) {
                 $uri = $application->get('uri')->base->full;
 
-                $body = sprintf(
+                $body = \sprintf(
                     'Set to "%s" on behalf of @%s by %s at %s',
                     $state,
                     $application->getUser()->username,
-                    sprintf('The <a href="%s">%s</a>', 'https://github.com/joomla/jissues', 'JTracker Application'),
-                    sprintf(
+                    \sprintf('The <a href="%s">%s</a>', 'https://github.com/joomla/jissues', 'JTracker Application'),
+                    \sprintf(
                         '<a href="%s">%s</a>',
                         $uri . 'tracker/' . $project->alias . '/' . $issueNumber,
                         str_replace(['http://', 'https://'], '', $uri) . $project->alias . '/' . $issueNumber

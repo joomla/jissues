@@ -72,7 +72,7 @@ class ProjectActivity extends AbstractAjaxController
         ];
         $periodText  = $periodTitle[$periodType];
 
-        $title = sprintf('Issues Opened and Closed for Past Four %1$s', $periodText);
+        $title = \sprintf('Issues Opened and Closed for Past Four %1$s', $periodText);
 
         $ticks  = [];
         $counts = [];

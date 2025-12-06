@@ -222,7 +222,7 @@ class Submit extends AbstractTrackerController
             );
         } catch (UnexpectedResponseException $exception) {
             $this->getContainer()->get('app')->getLogger()->error(
-                sprintf(
+                \sprintf(
                     'Error code %1$s received from GitHub when creating an issue with the following data:'
                     . ' GitHub User: %2$s; GitHub Repo: %3$s; Title: %4$s; Body Text: %5$s',
                     $exception->getCode(),

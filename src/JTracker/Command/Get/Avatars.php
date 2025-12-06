@@ -103,7 +103,7 @@ class Avatars extends Get
         }
 
         $this->logOut(
-            sprintf(
+            \sprintf(
                 'Processing avatars for %d users.',
                 \count($usernames)
             )
@@ -124,7 +124,7 @@ class Avatars extends Get
 
             if (file_exists($base . '/' . $username . '.png')) {
                 if ($io->isVeryVerbose()) {
-                    $io->text(sprintf('User avatar already fetched for user %s', $username));
+                    $io->text(\sprintf('User avatar already fetched for user %s', $username));
                 }
 
                 $this->usePBar
@@ -135,7 +135,7 @@ class Avatars extends Get
             }
 
             if ($io->isVeryVerbose()) {
-                $io->text(sprintf('Fetching avatar for user: %s', $username));
+                $io->text(\sprintf('Fetching avatar for user: %s', $username));
             }
 
             try {
@@ -148,7 +148,7 @@ class Avatars extends Get
                 }
 
                 if ($io->isVeryVerbose()) {
-                    $io->text(sprintf('Copy default image for user: %s', $username));
+                    $io->text(\sprintf('Copy default image for user: %s', $username));
                 }
 
                 copy(
@@ -165,7 +165,7 @@ class Avatars extends Get
         $io->progressFinish();
 
         return $this->logOut(
-            sprintf(
+            \sprintf(
                 'Added %d new user avatars',
                 $adds
             )

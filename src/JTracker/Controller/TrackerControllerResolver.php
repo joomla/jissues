@@ -39,7 +39,7 @@ class TrackerControllerResolver extends ContainerControllerResolver
                 return [$this->instantiateController($controller), 'execute'];
             } catch (\ArgumentCountError $error) {
                 throw new \InvalidArgumentException(
-                    sprintf(
+                    \sprintf(
                         'Controller `%s` has required constructor arguments, cannot instantiate the class',
                         $controller
                     ),

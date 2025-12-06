@@ -113,7 +113,7 @@ class Events extends Project
         }
 
         $io->text(
-            sprintf(
+            \sprintf(
                 'Fetch events for <b>%d</b> issues from GitHub...',
                 \count($this->changedIssueNumbers)
             )
@@ -125,7 +125,7 @@ class Events extends Project
             $this->usePBar
                 ? $io->progressAdvance()
                 : $io->write(
-                    sprintf(
+                    \sprintf(
                         '%d/%d - # %d: ',
                         $count + 1,
                         \count($this->changedIssueNumbers),
@@ -204,7 +204,7 @@ class Events extends Project
         foreach ($this->items as $issueNumber => $events) {
             $this->usePBar
                 ? null
-                : $io->write(sprintf(' #%d (%d/%d)...', $issueNumber, $count + 1, \count($this->items)));
+                : $io->write(\sprintf(' #%d (%d/%d)...', $issueNumber, $count + 1, \count($this->items)));
 
             foreach ($events as $event) {
                 switch ($event->event) {
@@ -311,7 +311,7 @@ class Events extends Project
                         break;
 
                     default:
-                        $this->logOut(sprintf('ERROR: Unknown Event: %s', $event->event));
+                        $this->logOut(\sprintf('ERROR: Unknown Event: %s', $event->event));
 
                         break;
                 }
@@ -326,7 +326,7 @@ class Events extends Project
 
         $io->progressFinish();
         $io->success('OK');
-        $this->logOut(sprintf('Added %d new issue events to the database', $adds));
+        $this->logOut(\sprintf('Added %d new issue events to the database', $adds));
 
         return $this;
     }

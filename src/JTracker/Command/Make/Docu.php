@@ -81,7 +81,7 @@ class Docu extends TrackerCommand
         /** @var  \RecursiveDirectoryIterator $it */
         $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($docuBase, \FilesystemIterator::SKIP_DOTS));
 
-        $ioStyle->text(sprintf('Compiling documentation in: %s', $docuBase));
+        $ioStyle->text(\sprintf('Compiling documentation in: %s', $docuBase));
         $ioStyle->newLine();
 
         while ($it->valid()) {
@@ -99,7 +99,7 @@ class Docu extends TrackerCommand
             $page = substr($it->getFilename(), 0, strrpos($it->getFilename(), '.'));
 
             if ($output->isVeryVerbose()) {
-                $ioStyle->text(sprintf('Compiling: %s', $page));
+                $ioStyle->text(\sprintf('Compiling: %s', $page));
             }
 
             $table = new ArticlesTable($db);

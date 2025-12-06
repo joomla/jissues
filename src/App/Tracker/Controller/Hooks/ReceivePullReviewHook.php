@@ -78,7 +78,7 @@ class ReceivePullReviewHook extends AbstractHookController
         // If the item is already in the database, update it; else, insert it.
         if (!$this->checkIssueExists((int) $this->hookData->pull_request->number)) {
             $this->logger->warning(
-                sprintf(
+                \sprintf(
                     'GitHub issue %s/%s #%d is missing from the tracker - creating it from the pull request review hook.',
                     $this->project->gh_user,
                     $this->project->gh_project,
@@ -149,7 +149,7 @@ class ReceivePullReviewHook extends AbstractHookController
                 break;
 
             default:
-                $logMessage = sprintf(
+                $logMessage = \sprintf(
                     'Error parsing the review state for GitHub issue %s/%s #%d (review %d) in the tracker',
                     $this->project->gh_user,
                     $this->project->gh_project,
@@ -166,7 +166,7 @@ class ReceivePullReviewHook extends AbstractHookController
         try {
             $table->save($data);
         } catch (\Exception $e) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error adding GitHub review %s/%s #%d (review #%d) in the tracker',
                 $this->project->gh_user,
                 $this->project->gh_project,
@@ -183,7 +183,7 @@ class ReceivePullReviewHook extends AbstractHookController
         try {
             $this->triggerEvent('onIssueAfterGithubReview', ['table' => $table, 'action' => $this->hookData->action]);
         } catch (\Exception $e) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error processing `onIssueAfterGithubReview` event for issue number %d, review %d',
                 $this->hookData->pull_request->number,
                 $this->hookData->review->id
@@ -213,7 +213,7 @@ class ReceivePullReviewHook extends AbstractHookController
     protected function updateData()
     {
         if (!$this->checkReviewExists($this->hookData->review->id)) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error finding GitHub review %s/%s #%d (review %d) in the tracker. Creating it.',
                 $this->project->gh_user,
                 $this->project->gh_project,
@@ -234,7 +234,7 @@ class ReceivePullReviewHook extends AbstractHookController
                 ]
             );
         } catch (\Exception $e) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error loading GitHub review %s/%s #%d (review %d) in the tracker',
                 $this->project->gh_user,
                 $this->project->gh_project,
@@ -268,7 +268,7 @@ class ReceivePullReviewHook extends AbstractHookController
                 try {
                     $table->save($data);
                 } catch (\Exception $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error updating GitHub review %s/%s #%d (review #%d) in the tracker',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -307,7 +307,7 @@ class ReceivePullReviewHook extends AbstractHookController
                 try {
                     $table->save($data);
                 } catch (\Exception $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error updating GitHub review %s/%s #%d (review #%d) in the tracker',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -389,7 +389,7 @@ class ReceivePullReviewHook extends AbstractHookController
                 ->setProject(new TrackerProject($this->db, $this->project))
                 ->add($data);
         } catch (\Exception $e) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error adding GitHub issue %s/%s #%d to the tracker',
                 $this->project->gh_user,
                 $this->project->gh_project,
@@ -409,7 +409,7 @@ class ReceivePullReviewHook extends AbstractHookController
         try {
             $this->triggerEvent('onCommentAfterCreateIssue', ['table' => $table]);
         } catch (\Exception $e) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error processing `onCommentAfterCreateIssue` event for issue number %d',
                 $this->hookData->pull_request->number
             );
@@ -434,7 +434,7 @@ class ReceivePullReviewHook extends AbstractHookController
                     $this->hookData->pull_request->number
                 );
             } catch (\RuntimeException $e) {
-                $logMessage = sprintf(
+                $logMessage = \sprintf(
                     'Error storing close activity to the database (Project ID: %1$d, Item #: %2$d)',
                     $this->project->project_id,
                     $this->hookData->pull_request->number
@@ -449,7 +449,7 @@ class ReceivePullReviewHook extends AbstractHookController
 
         // Store was successful, update status
         $this->logger->info(
-            sprintf(
+            \sprintf(
                 'Added GitHub issue %s/%s #%d (Database ID #%d) to the tracker.',
                 $this->project->gh_user,
                 $this->project->gh_project,

@@ -71,7 +71,7 @@ class Twig extends TrackerCommand
         $cacheDir     = JPATH_ROOT . '/cache';
         $twigCacheDir = $this->getApplication()->get('renderer.cache');
 
-        $this->logOut(sprintf('Cleaning the cache dir in "%s"', $cacheDir . '/' . $twigCacheDir));
+        $this->logOut(\sprintf('Cleaning the cache dir in "%s"', $cacheDir . '/' . $twigCacheDir));
 
         $filesystem = new Filesystem(new LocalFilesystemAdapter($cacheDir));
 

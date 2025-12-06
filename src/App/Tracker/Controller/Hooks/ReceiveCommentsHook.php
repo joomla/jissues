@@ -250,7 +250,7 @@ class ReceiveCommentsHook extends AbstractHookController
                 ->setProject(new TrackerProject($this->db, $this->project))
                 ->add($data);
         } catch (\Exception $e) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error adding GitHub issue %s/%s #%d to the tracker',
                 $this->project->gh_user,
                 $this->project->gh_project,
@@ -270,7 +270,7 @@ class ReceiveCommentsHook extends AbstractHookController
         try {
             $this->triggerEvent('onCommentAfterCreateIssue', ['table' => $table]);
         } catch (\Exception $e) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error processing `onCommentAfterCreateIssue` event for issue number %d',
                 $this->hookData->issue->number
             );
@@ -295,7 +295,7 @@ class ReceiveCommentsHook extends AbstractHookController
                     $this->hookData->issue->number
                 );
             } catch (\RuntimeException $e) {
-                $logMessage = sprintf(
+                $logMessage = \sprintf(
                     'Error storing close activity to the database (Project ID: %1$d, Item #: %2$d)',
                     $this->project->project_id,
                     $this->hookData->issue->number
@@ -310,7 +310,7 @@ class ReceiveCommentsHook extends AbstractHookController
 
         // Store was successful, update status
         $this->logger->info(
-            sprintf(
+            \sprintf(
                 'Added GitHub issue %s/%s #%d (Database ID #%d) to the tracker.',
                 $this->project->gh_user,
                 $this->project->gh_project,
@@ -341,7 +341,7 @@ class ReceiveCommentsHook extends AbstractHookController
                 } catch (\Exception $e) {
                     $this->setStatusCode($e->getCode());
 
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error deleting GitHub comment %s/%s #%d from the tracker',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -356,7 +356,7 @@ class ReceiveCommentsHook extends AbstractHookController
 
                 // Delete was successful, update status
                 $this->logger->info(
-                    sprintf(
+                    \sprintf(
                         'Deleted comment %s/%s #%d from the tracker.',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -384,7 +384,7 @@ class ReceiveCommentsHook extends AbstractHookController
                 } catch (\Exception $e) {
                     $this->setStatusCode($e->getCode());
 
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error updating GitHub comment %s/%s #%d in the tracker',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -407,7 +407,7 @@ class ReceiveCommentsHook extends AbstractHookController
 
                     $this->triggerEvent('onCommentAfterUpdate', ['table' => $issueTable]);
                 } catch (\Exception $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error processing `onCommentAfterUpdate` event for issue number %d',
                         $this->hookData->issue->number
                     );
@@ -420,7 +420,7 @@ class ReceiveCommentsHook extends AbstractHookController
 
                 // Store was successful, update status
                 $this->logger->info(
-                    sprintf(
+                    \sprintf(
                         'Updated comment %s/%s #%d to the tracker.',
                         $this->project->gh_user,
                         $this->project->gh_project,

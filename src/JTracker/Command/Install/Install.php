@@ -174,7 +174,7 @@ class Install extends TrackerCommand
         $fName = JPATH_ROOT . '/etc/' . $dbType . '.sql';
 
         if (file_exists($fName) === false) {
-            throw new \UnexpectedValueException(sprintf('Install SQL file for %s not found.', $dbType));
+            throw new \UnexpectedValueException(\sprintf('Install SQL file for %s not found.', $dbType));
         }
 
         $sql = file_get_contents($fName);
@@ -183,7 +183,7 @@ class Install extends TrackerCommand
             throw new \UnexpectedValueException('SQL file corrupted.');
         }
 
-        $output->text(sprintf('Creating tables from file %s', realpath($fName)));
+        $output->text(\sprintf('Creating tables from file %s', realpath($fName)));
 
         foreach ($this->db->splitSql($sql) as $query) {
             $q = trim($this->db->replacePrefix($query));

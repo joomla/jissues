@@ -71,7 +71,7 @@ class CacheProvider implements ServiceProviderInterface
                             return new ArrayAdapter($lifetime);
                     }
 
-                    throw new InvalidArgumentException(sprintf('The "%s" cache adapter is not supported.', $adapter));
+                    throw new InvalidArgumentException(\sprintf('The "%s" cache adapter is not supported.', $adapter));
                 },
                 true
             );

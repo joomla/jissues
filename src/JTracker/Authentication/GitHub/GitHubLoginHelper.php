@@ -226,13 +226,13 @@ class GitHubLoginHelper
         $response = $this->http->get($this->github->users->get($username)->avatar_url);
 
         if ($response->code != 200) {
-            throw new \DomainException(sprintf('Can not retrieve the avatar for user %s', $username));
+            throw new \DomainException(\sprintf('Can not retrieve the avatar for user %s', $username));
         }
 
         $result = file_put_contents($path, $response->body);
 
         if ($result === false) {
-            throw new \RuntimeException(sprintf('Can not write the avatar image to file %s', $path));
+            throw new \RuntimeException(\sprintf('Can not write the avatar image to file %s', $path));
         }
 
         return $result;

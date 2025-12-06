@@ -43,7 +43,7 @@ class Markdown extends Package
         // Make sure the scope is valid
         if (!\in_array($mode, $validModes)) {
             throw new \InvalidArgumentException(
-                sprintf(
+                \sprintf(
                     'The "%1$s" mode is not valid. Valid modes: "%2$s".',
                     $mode,
                     implode('", "', $validModes)

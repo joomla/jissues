@@ -68,7 +68,7 @@ class Pulls extends Update
         $this->setupGitHub()
             ->displayGitHubRateLimit($ioStyle)
             ->out(
-                sprintf(
+                \sprintf(
                     'Updating pull requests for project: %s/%s',
                     $this->project->gh_user,
                     $this->project->gh_project
@@ -117,7 +117,7 @@ class Pulls extends Update
                     );
 
                     $this->out(
-                        sprintf(
+                        \sprintf(
                             'GitHub item %s/%s #%d has been closed because it is a pull targeting Joomla! 3.10.',
                             $this->project->gh_user,
                             $this->project->gh_project,
@@ -128,7 +128,7 @@ class Pulls extends Update
             }
         } else {
             $this->out(
-                sprintf(
+                \sprintf(
                     'The %s/%s project is not supported by this command at this time.',
                     $this->project->gh_user,
                     $this->project->gh_project
@@ -212,7 +212,7 @@ class Pulls extends Update
                 foreach ($labels as $label) {
                     if ($label->name == $issueLabel) {
                         $this->out(
-                            sprintf(
+                            \sprintf(
                                 'GitHub item %s/%s #%d already has the %s label.',
                                 $this->project->gh_user,
                                 $this->project->gh_project,
@@ -230,7 +230,7 @@ class Pulls extends Update
                 if (!$labelSet) {
                     // Post the new label on the object
                     $this->out(
-                        sprintf(
+                        \sprintf(
                             'Adding %s label to %s/%s #%d',
                             $issueLabel,
                             $this->project->gh_user,
@@ -249,7 +249,7 @@ class Pulls extends Update
             }
         } else {
             $this->out(
-                sprintf(
+                \sprintf(
                     'The %s/%s project is not supported by this command at this time.',
                     $this->project->gh_user,
                     $this->project->gh_project
@@ -285,7 +285,7 @@ class Pulls extends Update
                     );
 
                     $this->out(
-                        sprintf(
+                        \sprintf(
                             'GitHub item %s/%s #%d has had its merge status set to "error".',
                             $this->project->gh_user,
                             $this->project->gh_project,
@@ -296,7 +296,7 @@ class Pulls extends Update
             }
         } else {
             $this->out(
-                sprintf(
+                \sprintf(
                     'The %s/%s project is not supported by this command at this time.',
                     $this->project->gh_user,
                     $this->project->gh_project

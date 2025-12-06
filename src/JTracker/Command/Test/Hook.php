@@ -83,7 +83,7 @@ class Hook extends Test
 
         // TODO: Fix me!!!
         $ioStyle->error(
-            sprintf(
+            \sprintf(
                 'The test hook command is broken since the migration of the CLI to the new console class. 
 				A full rewrite is required before it will correctly function to remove the dependency of the controller
 				class on %s',

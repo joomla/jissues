@@ -165,7 +165,7 @@ abstract class AbstractKernel implements ContainerAwareInterface
         $configObject = json_decode($this->replaceEnvVars(file_get_contents($file)));
 
         if ($configObject === null) {
-            throw new \RuntimeException(sprintf('Unable to parse the configuration file %s.', $file));
+            throw new \RuntimeException(\sprintf('Unable to parse the configuration file %s.', $file));
         }
 
         $config = new Registry($configObject);

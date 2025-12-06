@@ -101,7 +101,7 @@ class Users extends Get
         }
 
         $io->text(
-            sprintf(
+            \sprintf(
                 'Getting user info for %d users.',
                 \count($userNames)
             )
@@ -119,7 +119,7 @@ class Users extends Get
             }
 
             if ($io->isVeryVerbose()) {
-                $io->text(sprintf('Fetching User Info for user: %s', $userName));
+                $io->text(\sprintf('Fetching User Info for user: %s', $userName));
             }
 
             try {
@@ -133,7 +133,7 @@ class Users extends Get
 
                 $loginHelper->refreshUser($user);
             } catch (\Exception $exception) {
-                $io->error(sprintf('An error has occurred during user refresh: %s', $exception->getMessage()));
+                $io->error(\sprintf('An error has occurred during user refresh: %s', $exception->getMessage()));
             }
 
             $this->usePBar

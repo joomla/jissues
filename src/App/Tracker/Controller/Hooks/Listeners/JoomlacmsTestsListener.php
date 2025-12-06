@@ -83,7 +83,7 @@ class JoomlacmsTestsListener extends AbstractListener implements SubscriberInter
             $status->state = 'pending';
         }
 
-        $status->description = sprintf(
+        $status->description = \sprintf(
             'Human Test Results: %1$d Successful %2$d Failed.',
             $successes,
             $failures

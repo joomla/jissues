@@ -96,19 +96,19 @@ class UserActivity extends AbstractAjaxController
             $end   = $fmt->format(strtotime($state->get('list.enddate')));
 
             $titles = [
-                sprintf('All Points From %1$s Through %2$s', $start, $end),
-                sprintf('Tracker Points From %1$s Through %2$s', $start, $end),
-                sprintf('Test Points From %1$s Through %2$s', $start, $end),
-                sprintf('Code Points From %1$s Through %2$s', $start, $end),
+                \sprintf('All Points From %1$s Through %2$s', $start, $end),
+                \sprintf('Tracker Points From %1$s Through %2$s', $start, $end),
+                \sprintf('Test Points From %1$s Through %2$s', $start, $end),
+                \sprintf('Code Points From %1$s Through %2$s', $start, $end),
             ];
         } else {
             $periodText = $periodTitle[$periodType];
 
             $titles = [
-                sprintf('All Points for Past %s', $periodText),
-                sprintf('Tracker Points for Past %s', $periodText),
-                sprintf('Test Points for Past %s', $periodText),
-                sprintf('Code Points for Past %s', $periodText),
+                \sprintf('All Points for Past %s', $periodText),
+                \sprintf('Tracker Points for Past %s', $periodText),
+                \sprintf('Test Points for Past %s', $periodText),
+                \sprintf('Code Points for Past %s', $periodText),
             ];
         }
 

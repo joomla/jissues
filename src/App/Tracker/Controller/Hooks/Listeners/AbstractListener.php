@@ -48,7 +48,7 @@ abstract class AbstractListener implements ContainerAwareInterface
         $issueNumber = $this->getIssueNumber($hookData);
 
         if ($issueNumber === null) {
-            $message = sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
+            $message = \sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
 
             $logger->error($message);
 
@@ -60,7 +60,7 @@ abstract class AbstractListener implements ContainerAwareInterface
             $labels = $github->issues->get($project->gh_user, $project->gh_project, $issueNumber)->labels;
         } catch (InvalidResponseCodeException $e) {
             $logger->error(
-                sprintf(
+                \sprintf(
                     'Error retrieving labels for GitHub item %s/%s #%d',
                     $project->gh_user,
                     $project->gh_project,
@@ -72,7 +72,7 @@ abstract class AbstractListener implements ContainerAwareInterface
             throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         } catch (\DomainException $e) {
             $logger->error(
-                sprintf(
+                \sprintf(
                     'Error retrieving labels for GitHub item %s/%s #%d',
                     $project->gh_user,
                     $project->gh_project,
@@ -117,7 +117,7 @@ abstract class AbstractListener implements ContainerAwareInterface
         $issueNumber = $this->getIssueNumber($hookData);
 
         if ($issueNumber === null) {
-            $message = sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
+            $message = \sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
 
             $logger->error($message);
 
@@ -138,7 +138,7 @@ abstract class AbstractListener implements ContainerAwareInterface
 
                     // Post the new label on the object
                     $logger->info(
-                        sprintf(
+                        \sprintf(
                             'Removed %s label to %s/%s #%d',
                             $removeLabel,
                             $project->gh_user,
@@ -148,7 +148,7 @@ abstract class AbstractListener implements ContainerAwareInterface
                     );
                 } catch (InvalidResponseCodeException $e) {
                     $logger->error(
-                        sprintf(
+                        \sprintf(
                             'Error removing the %s label from GitHub pull request %s/%s #%d',
                             $removeLabel,
                             $project->gh_user,
@@ -161,7 +161,7 @@ abstract class AbstractListener implements ContainerAwareInterface
                     throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
                 } catch (\DomainException $e) {
                     $logger->error(
-                        sprintf(
+                        \sprintf(
                             'Error removing the %s label from GitHub pull request %s/%s #%d',
                             $removeLabel,
                             $project->gh_user,
@@ -217,7 +217,7 @@ abstract class AbstractListener implements ContainerAwareInterface
         $issueNumber = $this->getIssueNumber($hookData);
 
         if ($issueNumber === null) {
-            $message = sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
+            $message = \sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
 
             $logger->error($message);
 
@@ -236,7 +236,7 @@ abstract class AbstractListener implements ContainerAwareInterface
 
                 // Post the new label on the object
                 $logger->info(
-                    sprintf(
+                    \sprintf(
                         'Added %s labels to %s/%s #%d',
                         \count($addLabels),
                         $project->gh_user,
@@ -246,7 +246,7 @@ abstract class AbstractListener implements ContainerAwareInterface
                 );
             } catch (InvalidResponseCodeException $e) {
                 $logger->error(
-                    sprintf(
+                    \sprintf(
                         'Error adding labels to GitHub pull request %s/%s #%d',
                         $project->gh_user,
                         $project->gh_project,
@@ -258,7 +258,7 @@ abstract class AbstractListener implements ContainerAwareInterface
                 throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
             } catch (\DomainException $e) {
                 $logger->error(
-                    sprintf(
+                    \sprintf(
                         'Error adding labels to GitHub pull request %s/%s #%d',
                         $project->gh_user,
                         $project->gh_project,
@@ -328,7 +328,7 @@ abstract class AbstractListener implements ContainerAwareInterface
         $issueNumber = $this->getIssueNumber($hookData);
 
         if ($issueNumber === null) {
-            $message = sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
+            $message = \sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
 
             $logger->error($message);
 
@@ -389,7 +389,7 @@ abstract class AbstractListener implements ContainerAwareInterface
             $files = $github->pulls->getFiles($project->gh_user, $project->gh_project, $hookData->pull_request->number);
         } catch (InvalidResponseCodeException $e) {
             $logger->error(
-                sprintf(
+                \sprintf(
                     'Error retrieving modified files for GitHub item %s/%s #%d',
                     $project->gh_user,
                     $project->gh_project,
@@ -401,7 +401,7 @@ abstract class AbstractListener implements ContainerAwareInterface
             $files = [];
         } catch (\DomainException $e) {
             $logger->error(
-                sprintf(
+                \sprintf(
                     'Error retrieving modified files for GitHub item %s/%s #%d',
                     $project->gh_user,
                     $project->gh_project,
@@ -455,7 +455,7 @@ abstract class AbstractListener implements ContainerAwareInterface
     {
         // Post a comment with the given text
         try {
-            $appNote = sprintf(
+            $appNote = \sprintf(
                 '<br />*This is an automated message from the <a href="%1$s">%2$s Application</a>.*',
                 'https://github.com/joomla/jissues',
                 'J!Tracker'
@@ -470,7 +470,7 @@ abstract class AbstractListener implements ContainerAwareInterface
 
             // Log the activity
             $logger->info(
-                sprintf(
+                \sprintf(
                     'Added a comment by the bot to %s/%s #%d',
                     $project->gh_user,
                     $project->gh_project,
@@ -479,7 +479,7 @@ abstract class AbstractListener implements ContainerAwareInterface
             );
         } catch (InvalidResponseCodeException $e) {
             $logger->error(
-                sprintf(
+                \sprintf(
                     'Error posting comment to GitHub pull request %s/%s #%d',
                     $project->gh_user,
                     $project->gh_project,
@@ -489,7 +489,7 @@ abstract class AbstractListener implements ContainerAwareInterface
             );
         } catch (\DomainException $e) {
             $logger->error(
-                sprintf(
+                \sprintf(
                     'Error posting comment to GitHub pull request %s/%s #%d',
                     $project->gh_user,
                     $project->gh_project,

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of the Joomla Tracker's GitHub Application
  *
@@ -9,7 +10,6 @@
 namespace App\Support\Controller\Ajax\Documentation;
 
 use App\Support\Model\DefaultModel;
-
 use JTracker\Controller\AbstractAjaxController;
 
 /**

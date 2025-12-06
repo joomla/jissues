@@ -148,7 +148,7 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
             // If there still isn't a class, panic.
             if (!class_exists($modelClass)) {
                 throw new \RuntimeException(
-                    sprintf(
+                    \sprintf(
                         'No model found for view %s or a default model for %s',
                         $viewName,
                         $this->app
