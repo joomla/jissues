@@ -98,31 +98,6 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel imp
     }
 
     /**
-     * Method to get an array of data items for ajax requests
-     *
-     * @return mixed  An array of data items on success, false on failure.
-     *
-     * @since 1.0
-     */
-    public function getAjaxItems()
-    {
-        $store = $this->getStoreID();
-
-        if (isset($this->cache[$store])) {
-            return $this->cache[$store];
-        }
-
-        $query = $this->_getAjaxListQuery();
-
-        $items = $this->_getList($query, $this->getStart(), $this->state->get('list.limit'));
-
-        // Add the items to the internal cache.
-        $this->cache[$store] = $items;
-
-        return $this->cache[$store];
-    }
-
-    /**
      * Method to get a DatabaseQuery object for retrieving the data set from a database.
      *
      * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.

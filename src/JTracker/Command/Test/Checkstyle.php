@@ -78,7 +78,7 @@ class Checkstyle extends Test
 
         $options['showProgress'] = true;
 
-        $phpCs = new \PHP_CodeSniffer_CLI();
+        $phpCs = new \PHP_CodeSniffer\Runner();
         $phpCs->checkRequirements();
 
         $numErrors = $phpCs->process($options);

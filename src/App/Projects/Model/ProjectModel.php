@@ -29,13 +29,8 @@ class ProjectModel extends AbstractTrackerDatabaseModel
      *
      * @since   1.0
      */
-    public function getItem($projectId = null)
+    public function getItem($projectId)
     {
-        if ($projectId === null) {
-            $app       = $this->getContainer()->get('app');
-            $projectId = $app->input->get('project_id', 1);
-        }
-
         $data = $this->db->setQuery(
             $this->db->getQuery(true)
                 ->from($this->db->quoteName('#__tracker_projects', 'p'))
