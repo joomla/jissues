@@ -121,7 +121,7 @@ class ReceiveCommentsHook extends AbstractHookController
                         $comment->body
                     );
                 } catch (\RuntimeException $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error storing comment activity to the database (Project ID: %1$d, Item #: %2$d)',
                         $this->project->project_id,
                         $this->hookData->issue->number
@@ -150,7 +150,7 @@ class ReceiveCommentsHook extends AbstractHookController
                 // Pull the user's avatar if it does not exist
                 $this->pullUserAvatar($this->hookData->comment->user->login);
             } catch (\RuntimeException $e) {
-                $logMessage = sprintf(
+                $logMessage = \sprintf(
                     'Error storing comment activity to the database (Project ID: %1$d, Item #: %2$d)',
                     $this->project->project_id,
                     $this->hookData->issue->number
@@ -174,7 +174,7 @@ class ReceiveCommentsHook extends AbstractHookController
 
             $this->triggerEvent('onCommentAfterCreate', ['table' => $issueTable]);
         } catch (\Exception $e) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error processing `onCommentAfterCreate` event for issue number %d',
                 $this->hookData->issue->number
             );
@@ -187,7 +187,7 @@ class ReceiveCommentsHook extends AbstractHookController
 
         // Store was successful, update status
         $this->logger->info(
-            sprintf(
+            \sprintf(
                 'Added GitHub comment %s/%s #%d to the tracker.',
                 $this->project->gh_user,
                 $this->project->gh_project,

@@ -118,7 +118,7 @@ class ReceiveIssuesHook extends AbstractHookController
                         ->setProject(new TrackerProject($this->db, $this->project))
                         ->add($data);
                 } catch (\Exception $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error adding GitHub issue %s/%s #%d to the tracker',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -138,7 +138,7 @@ class ReceiveIssuesHook extends AbstractHookController
                 try {
                     $this->triggerEvent('onIssueAfterCreate', ['table' => $table, 'action' => $action]);
                 } catch (\Exception $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error processing `onIssueAfterCreate` event for issue number %d',
                         $this->hookData->issue->number
                     );
@@ -163,7 +163,7 @@ class ReceiveIssuesHook extends AbstractHookController
                             $this->hookData->issue->number
                         );
                     } catch (\RuntimeException $e) {
-                        $logMessage = sprintf(
+                        $logMessage = \sprintf(
                             'Error storing reopen activity to the database (Project ID: %1$d, Item #: %2$d)',
                             $this->project->project_id,
                             $this->hookData->issue->number
@@ -187,7 +187,7 @@ class ReceiveIssuesHook extends AbstractHookController
                             $this->hookData->issue->number
                         );
                     } catch (\RuntimeException $e) {
-                        $logMessage = sprintf(
+                        $logMessage = \sprintf(
                             'Error storing close activity to the database (Project ID: %1$d, Item #: %2$d)',
                             $this->project->project_id,
                             $this->hookData->issue->number
@@ -202,7 +202,7 @@ class ReceiveIssuesHook extends AbstractHookController
 
                 // Store was successful, update status
                 $this->logger->info(
-                    sprintf(
+                    \sprintf(
                         'Added GitHub issue %s/%s #%d (Database ID #%d) to the tracker.',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -246,7 +246,7 @@ class ReceiveIssuesHook extends AbstractHookController
                 ]
             );
         } catch (\Exception $e) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error loading GitHub issue %s/%s #%d in the tracker',
                 $this->project->gh_user,
                 $this->project->gh_project,
@@ -310,7 +310,7 @@ class ReceiveIssuesHook extends AbstractHookController
                 try {
                     $model->save($data);
                 } catch (\Exception $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error updating GitHub issue %s/%s #%d (Database ID #%d) in the tracker',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -330,7 +330,7 @@ class ReceiveIssuesHook extends AbstractHookController
                 try {
                     $this->triggerEvent('onIssueAfterUpdate', ['table' => $table, 'action' => $action]);
                 } catch (\Exception $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error processing `onIssueAfterUpdate` event for issue number %d',
                         $this->hookData->issue->number
                     );
@@ -352,7 +352,7 @@ class ReceiveIssuesHook extends AbstractHookController
                             $this->hookData->issue->number
                         );
                     } catch (\RuntimeException $e) {
-                        $logMessage = sprintf(
+                        $logMessage = \sprintf(
                             'Error storing reopen activity to the database (Project ID: %1$d, Item #: %2$d)',
                             $this->project->project_id,
                             $this->hookData->issue->number
@@ -376,7 +376,7 @@ class ReceiveIssuesHook extends AbstractHookController
                             $this->hookData->issue->number
                         );
                     } catch (\RuntimeException $e) {
-                        $logMessage = sprintf(
+                        $logMessage = \sprintf(
                             'Error storing close activity to the database (Project ID: %1$d, Item #: %2$d)',
                             $this->project->project_id,
                             $this->hookData->issue->number
@@ -391,7 +391,7 @@ class ReceiveIssuesHook extends AbstractHookController
 
                 // Store was successful, update status
                 $this->logger->info(
-                    sprintf(
+                    \sprintf(
                         'Updated GitHub issue %s/%s #%d (Database ID #%d) to the tracker.',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -441,7 +441,7 @@ class ReceiveIssuesHook extends AbstractHookController
                 try {
                     $model->save($data);
                 } catch (\Exception $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error updating labels for GitHub issue %s/%s #%d (Database ID #%d) in the tracker',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -461,7 +461,7 @@ class ReceiveIssuesHook extends AbstractHookController
                 try {
                     $this->triggerEvent('onIssueAfterUpdate', ['table' => $table, 'action' => $action]);
                 } catch (\Exception $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error processing `onIssueAfterUpdate` event for issue number %d',
                         $this->hookData->issue->number
                     );
@@ -482,7 +482,7 @@ class ReceiveIssuesHook extends AbstractHookController
                         $this->hookData->issue->number
                     );
                 } catch (\RuntimeException $e) {
-                    $logMessage = sprintf(
+                    $logMessage = \sprintf(
                         'Error storing label activity to the database (Project ID: %1$d, Item #: %2$d)',
                         $this->project->project_id,
                         $this->hookData->issue->number
@@ -496,7 +496,7 @@ class ReceiveIssuesHook extends AbstractHookController
 
                 // Store was successful, update status
                 $this->logger->info(
-                    sprintf(
+                    \sprintf(
                         'Updated labels for GitHub issue %s/%s #%d (Database ID #%d) in the tracker.',
                         $this->project->gh_user,
                         $this->project->gh_project,
@@ -579,7 +579,7 @@ class ReceiveIssuesHook extends AbstractHookController
         try {
             $model->save($data);
         } catch (\Exception $e) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error editing GitHub issue %s/%s #%d (Database ID #%d) in the tracker',
                 $this->project->gh_user,
                 $this->project->gh_project,
@@ -599,7 +599,7 @@ class ReceiveIssuesHook extends AbstractHookController
         try {
             $this->triggerEvent('onIssueAfterUpdate', ['table' => $table, 'action' => 'edited']);
         } catch (\Exception $e) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error processing `onIssueAfterUpdate` event for issue number %d',
                 $this->hookData->issue->number
             );
@@ -620,7 +620,7 @@ class ReceiveIssuesHook extends AbstractHookController
                 $this->hookData->issue->number
             );
         } catch (\RuntimeException $e) {
-            $logMessage = sprintf(
+            $logMessage = \sprintf(
                 'Error storing edited activity to the database (Project ID: %1$d, Item #: %2$d)',
                 $this->project->project_id,
                 $this->hookData->issue->number
@@ -634,7 +634,7 @@ class ReceiveIssuesHook extends AbstractHookController
 
         // Store was successful, update status
         $this->logger->info(
-            sprintf(
+            \sprintf(
                 'Edited GitHub issue %s/%s #%d (Database ID #%d) in the tracker.',
                 $this->project->gh_user,
                 $this->project->gh_project,
