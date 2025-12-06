@@ -1,1 +1,1 @@
-document.querySelectorAll(".delete-article").forEach((function(e){e.addEventListener("click",(function(t){t.preventDefault();var c=".delete-article-"+e.dataset.id+"-form";document.getElementById(c).submit()}))}));
+document.querySelectorAll(".delete-article").forEach(function(e){e.addEventListener("click",function(t){t.preventDefault();var c=".delete-article-"+e.dataset.id+"-form";document.getElementById(c).submit()})});
