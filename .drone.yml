@@ -32,7 +32,6 @@ steps:
 
   - name: php81
     depends_on: [ phpcs ]
-    failure: ignore
     image: joomlaprojects/docker-images:php8.1
     commands:
       - php -v
@@ -75,6 +74,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 71222995e176fb9d5bd2fa92b9de5462e6889b0a89e1c5b87a4826b8b762ac5f
+hmac: 0af130509bf3d4ff33f14d8a6a3af4d381cff79560444fea6879bffd767db6bc
 
 ...
