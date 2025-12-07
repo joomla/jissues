@@ -24,7 +24,6 @@
         "chart.js": "^4.4.1",
         "d3": "^3.5.17",
         "jquery": "^3.7.1",
-        "jquery-simple-color": "github:recurser/jquery-simple-color",
         "jquery-textrange": "^1.4.0",
         "jquery-validation": "^1.19.4",
         "jquery.caret": "^0.3.1",

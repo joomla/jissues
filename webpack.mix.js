@@ -66,9 +66,6 @@ mix.combine(
     'www/media/js/vendor/blueimp-file-upload.js'
 );
 
-// jQuery Simple Color
-mix.copy('node_modules/jquery-simple-color/jquery.simple-color.min.js', 'www/media/js/vendor/jquery-simple-color.js');
-
 // jQuery Validation
 mix.copy('node_modules/jquery-validation/dist/jquery.validate.min.js', 'www/media/js/vendor/jquery-validation.js');
 
