@@ -14,7 +14,6 @@ use App\Tracker\Controller\AbstractHookController;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\ReviewsTable;
-use Joomla\Date\Date;
 
 /**
  * Controller class receive and inject pull request review webhook events from GitHub.
@@ -127,7 +126,7 @@ class ReceivePullReviewHook extends AbstractHookController
             'review_id'        => $this->hookData->review->id,
             'reviewed_by'      => $this->hookData->review->user->login,
             'review_comment'   => $this->hookData->review->body,
-            'review_submitted' => (new Date($this->hookData->pull_request->created_at))->format($dateFormat),
+            'review_submitted' => (new \DateTime($this->hookData->pull_request->created_at))->format($dateFormat),
             'commit_id'        => $this->hookData->review->commit_id,
         ];
 
@@ -258,7 +257,7 @@ class ReceivePullReviewHook extends AbstractHookController
                 // TODO: Do we want to save in the activities table who changed the review?
                 $data = [
                     'review_comment'   => $this->hookData->changes->body,
-                    'review_submitted' => (new Date($this->hookData->pull_request->created_at))->format($dateFormat),
+                    'review_submitted' => (new \DateTime($this->hookData->pull_request->created_at))->format($dateFormat),
                 ];
 
                 $table->load(
@@ -296,7 +295,7 @@ class ReceivePullReviewHook extends AbstractHookController
                  *       to store these in the "dismissed_comment" and "dismissed_by" fields in the DB.
                  */
                 $data = [
-                    'dismissed_on' => (new Date($this->hookData->pull_request->created_at))->format($dateFormat),
+                    'dismissed_on' => (new \DateTime($this->hookData->pull_request->created_at))->format($dateFormat),
                     'review_state' => ReviewsTable::DISMISSED_STATE,
                 ];
 
@@ -355,9 +354,9 @@ class ReceivePullReviewHook extends AbstractHookController
         $data['description']     = $this->parseText($this->hookData->pull_request->body);
         $data['description_raw'] = $this->hookData->pull_request->body;
         $data['status']          = ($this->hookData->pull_request->state) == 'open' ? 1 : 10;
-        $data['opened_date']     = (new Date($this->hookData->pull_request->created_at))->format($dateFormat);
+        $data['opened_date']     = (new \DateTime($this->hookData->pull_request->created_at))->format($dateFormat);
         $data['opened_by']       = $this->hookData->pull_request->user->login;
-        $data['modified_date']   = (new Date($this->hookData->pull_request->updated_at))->format($dateFormat);
+        $data['modified_date']   = (new \DateTime($this->hookData->pull_request->updated_at))->format($dateFormat);
         $data['modified_by']     = $this->hookData->sender->login;
         $data['project_id']      = $this->project->project_id;
         $data['build']           = $this->hookData->repository->default_branch;
@@ -369,7 +368,7 @@ class ReceivePullReviewHook extends AbstractHookController
 
         // Add the closed date if the status is closed
         if ($this->hookData->pull_request->closed_at) {
-            $data['closed_date'] = (new Date($this->hookData->pull_request->closed_at))->format($dateFormat);
+            $data['closed_date'] = (new \DateTime($this->hookData->pull_request->closed_at))->format($dateFormat);
             $data['closed_by']   = $this->hookData->sender->login;
         }
 

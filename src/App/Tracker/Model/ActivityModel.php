@@ -10,7 +10,6 @@
 namespace App\Tracker\Model;
 
 use App\Tracker\Table\ActivitiesTable;
-use Joomla\Date\Date;
 use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
@@ -40,7 +39,7 @@ class ActivityModel extends AbstractTrackerDatabaseModel
     {
         return (new ActivitiesTable($this->db))->save(
             [
-                'created_date'  => (new Date($dateTime))->format($this->db->getDateFormat()),
+                'created_date'  => (new \DateTime($dateTime))->format($this->db->getDateFormat()),
                 'event'         => $event,
                 'user'          => $userName,
                 'project_id'    => (int) $projectId,

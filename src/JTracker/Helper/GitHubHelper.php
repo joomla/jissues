@@ -12,7 +12,6 @@ namespace JTracker\Helper;
 use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
 use Joomla\Database\DatabaseDriver;
-use Joomla\Date\Date;
 use JTracker\Application\Application;
 use JTracker\Github\DataType\Commit;
 use JTracker\Github\DataType\Commit\CombinedStatus;
@@ -84,7 +83,7 @@ class GitHubHelper
                 $project->gh_user . '/' . $project->gh_project
             );
         } else {
-            $data->created_at = (new Date())->format($database->getDateFormat());
+            $data->created_at = (new \DateTime())->format($database->getDateFormat());
             $data->opened_by  = $userName;
             $data->comment_id = '???';
             $data->text_raw   = $comment;
@@ -105,7 +104,7 @@ class GitHubHelper
 
         $data->activities_id = $database->insertid();
 
-        $data->created_at = (new Date($data->created_at))->format('j M Y');
+        $data->created_at = (new \DateTime($data->created_at))->format('j M Y');
 
         return $data;
     }

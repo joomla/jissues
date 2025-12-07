@@ -12,7 +12,6 @@ namespace JTracker\Authentication;
 use App\Projects\ProjectAwareTrait;
 use App\Projects\TrackerProject;
 use Joomla\Database\DatabaseDriver;
-use Joomla\Date\Date;
 use Joomla\Registry\Registry;
 use JTracker\Authentication\Database\TableUsers;
 use JTracker\Authentication\Exception\AuthenticationException;
@@ -161,7 +160,7 @@ abstract class User implements \Serializable
 
         if (!$table->id) {
             // Register a new user
-            $this->registerDate = (new Date())->format($db->getDateFormat());
+            $this->registerDate = (new \DateTime())->format($db->getDateFormat());
 
             $table->save($this);
         }

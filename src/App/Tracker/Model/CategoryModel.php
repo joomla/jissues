@@ -12,7 +12,6 @@ namespace App\Tracker\Model;
 use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\CategoryTable;
 use App\Tracker\Table\IssueCategoryMappingTable;
-use Joomla\Date\Date;
 use Joomla\Filter\InputFilter;
 use Joomla\String\StringHelper;
 use JTracker\Model\AbstractTrackerDatabaseModel;
@@ -366,7 +365,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 
         $data                 = [];
         $data['event']        = 'change';
-        $data['created_date'] = (new Date())->format($this->getDb()->getDateFormat());
+        $data['created_date'] = (new \DateTime())->format($this->getDb()->getDateFormat());
         $data['user']         = $src['modified_by'];
         $data['issue_number'] = (int) $src['issue_number'];
         $data['project_id']   = (int) $src['project_id'];

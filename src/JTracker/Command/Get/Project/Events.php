@@ -11,7 +11,6 @@ namespace JTracker\Command\Get\Project;
 
 use App\Projects\TrackerProject;
 use App\Tracker\Table\ActivitiesTable;
-use Joomla\Date\Date;
 use JTracker\Command\Get\Project;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -264,7 +263,7 @@ class Events extends Project
                         $table->project_id    = $this->project->project_id;
                         $table->user          = $event->actor->login;
                         $table->event         = $evTrans[$event->event];
-                        $table->created_date  = (new Date($event->created_at))->format('Y-m-d H:i:s');
+                        $table->created_date  = (new \DateTime($event->created_at))->format($db->getDateFormat());
 
                         if ($event->event == 'referenced') {
                             $table->text_raw = $event->commit_id;

@@ -13,7 +13,6 @@ use App\Projects\Table\LabelsTable;
 use App\Projects\Table\MilestonesTable;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
-use Joomla\Date\Date;
 use JTracker\Command\Get\Project;
 use JTracker\Github\GithubFactory;
 use JTracker\Helper\GitHubHelper;
@@ -257,6 +256,9 @@ class Issues extends Project
         $added   = 0;
         $updated = 0;
 
+        /** @var \Joomla\Database\DatabaseDriver $db */
+        $db = $this->getContainer()->get('db');
+
         $milestones = $this->getMilestones();
 
         $io->write('Adding issues to the database...');
@@ -288,8 +290,8 @@ class Issues extends Project
                         break;
                     }
 
-                    $d1 = new Date($ghIssue->updated_at);
-                    $d2 = new Date($dbIssue->modified_date);
+                    $d1 = new \DateTime($ghIssue->updated_at);
+                    $d2 = new \DateTime($dbIssue->modified_date);
 
                     if ($d1 == $d2) {
                         // No update required
@@ -338,10 +340,10 @@ class Issues extends Project
                 $table->status = $state ? 10 : 1;
             }
 
-            $table->opened_date = (new Date($ghIssue->created_at))->format('Y-m-d H:i:s');
+            $table->opened_date = (new \DateTime($ghIssue->created_at))->format($db->getDateFormat());
             $table->opened_by   = $ghIssue->user->login;
 
-            $table->modified_date = (new Date($ghIssue->updated_at))->format('Y-m-d H:i:s');
+            $table->modified_date = (new \DateTime($ghIssue->updated_at))->format($db->getDateFormat());
             $table->modified_by   = $ghIssue->user->login;
 
             $table->project_id   = $this->project->project_id;
@@ -394,7 +396,7 @@ class Issues extends Project
 
             // Add the closed date if the status is closed
             if ($ghIssue->closed_at) {
-                $table->closed_date = (new Date($ghIssue->closed_at))->format('Y-m-d H:i:s');
+                $table->closed_date = (new \DateTime($ghIssue->closed_at))->format($db->getDateFormat());
             }
 
             // If the title has a [# in it, assume it's a JoomlaCode Tracker ID

@@ -12,7 +12,6 @@ namespace App\Tracker\Controller\Issue;
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\ActivitiesTable;
-use Joomla\Date\Date;
 use Joomla\Http\Exception\UnexpectedResponseException;
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Controller\AbstractTrackerController;
@@ -172,7 +171,7 @@ class Save extends AbstractTrackerController
             // Render the description text using GitHub's markdown renderer.
             $data['description'] = $gitHub->markdown->render($src['description_raw'], 'markdown');
 
-            $data['modified_date'] = (new Date())->format($this->getContainer()->get('db')->getDateFormat());
+            $data['modified_date'] = (new \DateTime())->format($this->getContainer()->get('db')->getDateFormat());
         }
 
         try {
@@ -241,7 +240,7 @@ class Save extends AbstractTrackerController
                         $project->gh_user . '/' . $project->gh_project
                     );
                 } else {
-                    $data->created_at = (new Date())->format($db->getDateFormat());
+                    $data->created_at = (new \DateTime())->format($db->getDateFormat());
                     $data->opened_by  = $application->getUser()->username;
                     $data->comment_id = '???';
 

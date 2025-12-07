@@ -10,7 +10,6 @@
 namespace JTracker\Command\Get\Project;
 
 use App\Projects\Table\MilestonesTable;
-use Joomla\Date\Date;
 use JTracker\Command\Get\Project;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -124,7 +123,7 @@ class Milestones extends Project
                 $table->title       = $milestone->title;
                 $table->description = $milestone->description;
                 $table->state       = $milestone->state;
-                $table->due_on      = $milestone->due_on ? (new Date($milestone->due_on))->format('Y-m-d H:i:s') : null;
+                $table->due_on      = $milestone->due_on ? (new \DateTime($milestone->due_on))->format($db->getDateFormat()) : null;
 
                 $table->store(true);
 
@@ -136,7 +135,7 @@ class Milestones extends Project
                 $table->title            = $milestone->title;
                 $table->description      = $milestone->description;
                 $table->state            = $milestone->state;
-                $table->due_on           = $milestone->due_on ? (new Date($milestone->due_on))->format('Y-m-d H:i:s') : null;
+                $table->due_on           = $milestone->due_on ? (new \DateTime($milestone->due_on))->format($db->getDateFormat()) : null;
 
                 $table->store(true);
 

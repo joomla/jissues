@@ -11,7 +11,6 @@ namespace App\Tracker\Controller\Issue;
 
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\Model\IssueModel;
-use Joomla\Date\Date;
 use Joomla\Http\Exception\UnexpectedResponseException;
 use JTracker\Controller\AbstractTrackerController;
 use JTracker\Github\GithubFactory;
@@ -126,8 +125,8 @@ class Submit extends AbstractTrackerController
             );
         } else {
             // Project is managed by JTracker only
-            $data['opened_date']    = (new Date())->format($this->getContainer()->get('db')->getDateFormat());
-            $data['modified_date']  = (new Date())->format($this->getContainer()->get('db')->getDateFormat());
+            $data['opened_date']    = (new \DateTime())->format($this->getContainer()->get('db')->getDateFormat());
+            $data['modified_date']  = (new \DateTime())->format($this->getContainer()->get('db')->getDateFormat());
             $data['opened_by']      = $user->username;
             $data['modified_by']    = $user->username;
             $data['number']         = $issueModel->getNextNumber();

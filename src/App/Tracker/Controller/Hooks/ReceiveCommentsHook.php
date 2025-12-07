@@ -14,7 +14,6 @@ use App\Tracker\Controller\AbstractHookController;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\IssuesTable;
-use Joomla\Date\Date;
 
 /**
  * Controller class receive and inject issue comments from GitHub
@@ -216,9 +215,9 @@ class ReceiveCommentsHook extends AbstractHookController
         $data['description']     = $this->parseText($this->hookData->issue->body);
         $data['description_raw'] = $this->hookData->issue->body;
         $data['status']          = ($this->hookData->issue->state) == 'open' ? 1 : 10;
-        $data['opened_date']     = (new Date($this->hookData->issue->created_at))->format($dateFormat);
+        $data['opened_date']     = (new \DateTime($this->hookData->issue->created_at))->format($dateFormat);
         $data['opened_by']       = $this->hookData->issue->user->login;
-        $data['modified_date']   = (new Date($this->hookData->issue->updated_at))->format($dateFormat);
+        $data['modified_date']   = (new \DateTime($this->hookData->issue->updated_at))->format($dateFormat);
         $data['modified_by']     = $this->hookData->sender->login;
         $data['project_id']      = $this->project->project_id;
         $data['build']           = $this->hookData->repository->default_branch;
@@ -230,7 +229,7 @@ class ReceiveCommentsHook extends AbstractHookController
 
         // Add the closed date if the status is closed
         if ($this->hookData->issue->closed_at) {
-            $data['closed_date'] = (new Date($this->hookData->issue->closed_at))->format($dateFormat);
+            $data['closed_date'] = (new \DateTime($this->hookData->issue->closed_at))->format($dateFormat);
             $data['closed_by']   = $this->hookData->sender->login;
         }
 
@@ -374,7 +373,7 @@ class ReceiveCommentsHook extends AbstractHookController
                     'activities_id' => $id,
                     'text'          => $this->parseText($this->hookData->comment->body),
                     'text_raw'      => $this->hookData->comment->body,
-                    'updated_at'    => (new Date($this->hookData->comment->updated_at))->format($this->db->getDateFormat()),
+                    'updated_at'    => (new \DateTime($this->hookData->comment->updated_at))->format($this->db->getDateFormat()),
                 ];
 
                 try {

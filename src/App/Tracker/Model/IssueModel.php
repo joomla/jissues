@@ -12,7 +12,6 @@ namespace App\Tracker\Model;
 use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
-use Joomla\Date\Date;
 use Joomla\Filter\InputFilter;
 use Joomla\Registry\Registry;
 use JTracker\Model\AbstractTrackerDatabaseModel;
@@ -506,7 +505,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
         // If the item has moved from open to closed, add the close data
         if ($state == 'closed' && $changedState) {
-            $data['closed_date'] = (new Date())->format($this->getDb()->getDateFormat());
+            $data['closed_date'] = (new \DateTime())->format($this->getDb()->getDateFormat());
             $data['closed_by']   = $data['modified_by'];
         }
 

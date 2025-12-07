@@ -13,7 +13,6 @@ use App\Projects\TrackerProject;
 use App\Tracker\Controller\AbstractHookController;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
-use Joomla\Date\Date;
 use JTracker\Github\GithubFactory;
 use JTracker\Helper\GitHubHelper;
 
@@ -114,9 +113,9 @@ class ReceivePullsHook extends AbstractHookController
                     'description'     => $this->parseText($this->data->body),
                     'description_raw' => $this->data->body,
                     'status'          => ($status === null) ? 1 : $status,
-                    'opened_date'     => (new Date($this->data->created_at))->format($dateFormat),
+                    'opened_date'     => (new \DateTime($this->data->created_at))->format($dateFormat),
                     'opened_by'       => $this->data->user->login,
-                    'modified_date'   => (new Date($this->data->updated_at))->format($dateFormat),
+                    'modified_date'   => (new \DateTime($this->data->updated_at))->format($dateFormat),
                     'modified_by'     => $this->hookData->sender->login,
                     'project_id'      => $this->project->project_id,
                     'has_code'        => 1,
@@ -133,7 +132,7 @@ class ReceivePullsHook extends AbstractHookController
 
                 // Add the closed date if the status is closed
                 if ($this->data->closed_at) {
-                    $data['closed_date'] = (new Date($this->data->closed_at))->format($dateFormat);
+                    $data['closed_date'] = (new \DateTime($this->data->closed_at))->format($dateFormat);
                     $data['closed_by']   = $this->hookData->sender->login;
                 }
 
@@ -333,7 +332,7 @@ class ReceivePullsHook extends AbstractHookController
                     'description'     => $this->parseText($this->data->body),
                     'description_raw' => $this->data->body,
                     'status'          => $status === null ? $table->status : $status,
-                    'modified_date'   => (new Date($this->data->updated_at))->format($dateFormat),
+                    'modified_date'   => (new \DateTime($this->data->updated_at))->format($dateFormat),
                     'modified_by'     => $this->hookData->sender->login,
                     'priority'        => $table->priority,
                     'build'           => $table->build,
@@ -348,7 +347,7 @@ class ReceivePullsHook extends AbstractHookController
 
                 // Add the closed date if the status is closed
                 if ($this->data->closed_at) {
-                    $data['closed_date'] = (new Date($this->data->closed_at))->format($dateFormat);
+                    $data['closed_date'] = (new \DateTime($this->data->closed_at))->format($dateFormat);
                 }
 
                 if (empty($data['build'])) {
@@ -542,7 +541,7 @@ class ReceivePullsHook extends AbstractHookController
                     'title'           => $table->title,
                     'description'     => $table->description,
                     'description_raw' => $table->description_raw,
-                    'modified_date'   => (new Date($this->data->updated_at))->format($this->db->getDateFormat()),
+                    'modified_date'   => (new \DateTime($this->data->updated_at))->format($this->db->getDateFormat()),
                     'modified_by'     => $this->hookData->sender->login,
                     'status'          => $table->status,
                     'priority'        => $table->priority,
@@ -690,7 +689,7 @@ class ReceivePullsHook extends AbstractHookController
                 'title'           => $data['title'] ?? $table->title,
                 'description'     => $data['description'] ?? $table->description,
                 'description_raw' => $data['description_raw'] ?? $table->description_raw,
-                'modified_date'   => (new Date($this->data->updated_at))->format($this->db->getDateFormat()),
+                'modified_date'   => (new \DateTime($this->data->updated_at))->format($this->db->getDateFormat()),
                 'modified_by'     => $this->hookData->sender->login,
                 'status'          => $table->status,
                 'priority'        => $table->priority,

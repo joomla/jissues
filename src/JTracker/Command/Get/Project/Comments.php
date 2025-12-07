@@ -10,7 +10,6 @@
 namespace JTracker\Command\Get\Project;
 
 use App\Tracker\Table\ActivitiesTable;
-use Joomla\Date\Date;
 use JTracker\Command\Get\Project;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -249,8 +248,8 @@ class Comments extends Project
                     if ($check) {
                         if (!$this->force) {
                             // If we have something already, check if it needs an update...
-                            $d1 = new Date($check->updated_date);
-                            $d2 = new Date($comment->updated_at);
+                            $d1 = new \DateTime($check->updated_date);
+                            $d2 = new \DateTime($comment->updated_at);
 
                             if ($d1 == $d2) {
                                 // No update required
@@ -288,8 +287,8 @@ class Comments extends Project
 
                     $this->checkGitHubRateLimit($this->github->markdown->getRateLimitRemaining());
 
-                    $table->created_date = (new Date($comment->created_at))->format('Y-m-d H:i:s');
-                    $table->updated_date = (new Date($comment->updated_at))->format('Y-m-d H:i:s');
+                    $table->created_date = (new \DateTime($comment->created_at))->format($db->getDateFormat());
+                    $table->updated_date = (new \DateTime($comment->updated_at))->format($db->getDateFormat());
 
                     $table->store();
 

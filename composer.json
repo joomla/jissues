@@ -15,7 +15,6 @@
         "joomla/console": "^3.0",
         "joomla/controller": "^3.0",
         "joomla/database": "^3.0",
-        "joomla/date": "^2.0",
         "joomla/di": "^3.0",
         "joomla/event": "^3.0",
         "joomla/filter": "^3.0",

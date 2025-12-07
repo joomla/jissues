@@ -6,6 +6,9 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
+// Ensure we use UTC across the application
+date_default_timezone_set('UTC');
+
 // Define required paths
 define('JPATH_ROOT',          dirname(__DIR__));
 define('JPATH_CONFIGURATION', JPATH_ROOT . '/etc');

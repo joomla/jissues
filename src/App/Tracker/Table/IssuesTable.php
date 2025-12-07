@@ -10,7 +10,6 @@
 namespace App\Tracker\Table;
 
 use Joomla\Database\DatabaseDriver;
-use Joomla\Date\Date;
 use Joomla\Input\Input;
 use Joomla\Utilities\ArrayHelper;
 use JTracker\Database\AbstractDatabaseTable;
@@ -172,7 +171,7 @@ class IssuesTable extends AbstractDatabaseTable
     public function store($updateNulls = false)
     {
         $isNew = ($this->id < 1);
-        $date  = (new Date())->format($this->db->getDateFormat());
+        $date  = (new \DateTime())->format($this->db->getDateFormat());
 
         if (!$isNew) {
             // Existing item
