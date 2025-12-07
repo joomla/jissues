@@ -16,7 +16,6 @@ steps:
   - name: phpcs
     image: joomlaprojects/docker-images:php8.1
     depends_on: [ composer ]
-    failure: ignore
     commands:
       - echo $(date)
       - ./vendor/bin/php-cs-fixer fix -vvv --dry-run --diff
@@ -25,7 +24,6 @@ steps:
 
   - name: phpstan
     image: joomlaprojects/docker-images:php8.1
-    failure: ignore
     depends_on: [ composer ]
     commands:
       - echo $(date)
@@ -77,6 +75,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 59007ec8408b9665b23c6160cac1b13045cbecd68c8305d7d7ea97b6ea2332b2
+hmac: 71222995e176fb9d5bd2fa92b9de5462e6889b0a89e1c5b87a4826b8b762ac5f
 
 ...
