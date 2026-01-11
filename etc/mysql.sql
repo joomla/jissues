@@ -265,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   `username` varchar(150) NOT NULL DEFAULT '' COMMENT 'The users username',
   `email` varchar(100) NOT NULL DEFAULT '' COMMENT 'The users e-mail',
   `block` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'If the user is blocked',
-  `sendEmail` tinyint(4) DEFAULT 0 COMMENT 'If the users recieves e-mail',
+  `sendEmail` tinyint(4) DEFAULT 0 COMMENT 'If the users receives e-mail',
   `registerDate` datetime NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT 'The register date',
   `lastvisitDate` datetime NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT 'The last visit date',
   `params` text NOT NULL COMMENT 'Parameters',
