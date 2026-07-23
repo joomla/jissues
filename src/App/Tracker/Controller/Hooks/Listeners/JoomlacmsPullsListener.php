@@ -328,7 +328,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
             'administrator/components/com_media/package.json',
             'administrator/components/com_media/webpack.config.js',
             '^build/media_source',
-            'media_source',
+            '^media_source',
             'build.js',
             'package-lock.json',
             'package.json',
