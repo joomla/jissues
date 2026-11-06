@@ -136,7 +136,7 @@ class Issues extends Project
         // Select what to process
         $question = new ChoiceQuestion(
             'Select GitHub issues status? 1) All, 2) Open, 3) Closed',
-            ['1', '2']
+            ['1', '2', '3']
         );
 
         $resp = $io->askQuestion($question);
