@@ -12,6 +12,7 @@ namespace App\GitHub\Controller;
 use App\GitHub\View\Stats\StatsHtmlView;
 use App\Projects\Model\ProjectModel;
 use Joomla\Github\Github;
+use Joomla\Http\Exception\UnexpectedResponseException;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -50,12 +51,21 @@ class Stats extends AbstractTrackerController
             $project = $this->getContainer()->get('app')->getProject();
         }
 
-        $data = (new Github())->repositories->statistics->getListContributors(
-            $project->gh_user,
-            $project->gh_project
-        );
+        try {
+            $data = (new Github())->repositories->statistics->getListContributors(
+                $project->gh_user,
+                $project->gh_project
+            );
+        } catch (UnexpectedResponseException $exception) {
+            // GitHub responds with a 202 status while the statistics are being generated
+            if ($exception->getCode() !== 202) {
+                throw $exception;
+            }
 
-        $data = array_reverse($data);
+            $data = [];
+        }
+
+        $data = \is_array($data) ? array_reverse($data) : [];
 
         $this->view->setProject($project);
         $this->view->setContributors($data);
