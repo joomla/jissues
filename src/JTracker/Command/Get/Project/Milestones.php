@@ -142,24 +142,27 @@ class Milestones extends Project
                 $cntNew++;
             }
 
-            $titles[] = $milestone->title;
+            $titles[] = $db->quote($milestone->title);
         }
 
         // Check for deleted milestones
-        $ids = $db->setQuery(
-            $db->getQuery(true)
-                ->from($db->quoteName($table->getTableName()))
-                ->select('milestone_id')
-                ->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
-                ->where($db->quoteName('title') . ' NOT IN (\'' . implode("', '", $titles) . '\')')
-        )->loadRowList();
+        $query = $db->getQuery(true)
+            ->from($db->quoteName($table->getTableName()))
+            ->select('milestone_id')
+            ->where($db->quoteName('project_id') . ' = ' . $this->project->project_id);
+
+        if ($titles) {
+            $query->where($db->quoteName('title') . ' NOT IN (' . implode(', ', $titles) . ')');
+        }
+
+        $ids = $db->setQuery($query)->loadColumn();
 
         if ($ids) {
             // Kill the orphans
             $db->setQuery(
                 $db->getQuery(true)
                     ->delete($db->quoteName($table->getTableName()))
-                    ->where($db->quoteName('milestone_id') . ' IN (' . implode(', ', $ids[0]) . ')')
+                    ->where($db->quoteName('milestone_id') . ' IN (' . implode(', ', $ids) . ')')
             )->execute();
         }
 
