@@ -141,7 +141,7 @@ class Users extends Get
                 : $io->write('.', false);
         }
 
-        $io->progressFinish();
+        $this->usePBar ? $io->progressFinish() : null;
         $io->text('User information has been refreshed.');
 
         return $this;
