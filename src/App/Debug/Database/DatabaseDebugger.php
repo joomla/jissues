@@ -80,14 +80,14 @@ class DatabaseDebugger
     {
         $db = $this->database;
 
-        // Run an EXPLAIN EXTENDED query on the SQL query if possible:
+        // Run an EXPLAIN query on the SQL query if possible:
         $explain = '';
 
         if (\in_array($db->getName(), ['mysqli', 'mysql', 'postgresql'])) {
             $dbVersion56 = (strncmp($db->getName(), 'mysql', 5) == 0) && version_compare($db->getVersion(), '5.6', '>=');
 
             if ((stripos($query, 'select') === 0) || ($dbVersion56 && ((stripos($query, 'delete') === 0) || (stripos($query, 'update') === 0)))) {
-                $db->setQuery('EXPLAIN ' . ($dbVersion56 ? 'EXTENDED ' : '') . $query);
+                $db->setQuery('EXPLAIN ' . $query);
 
                 if ($db->execute()) {
                     $explain = (new TableFormat())->fromArray($db->loadAssocList());
@@ -144,7 +144,7 @@ class DatabaseDebugger
                 $dbVersion56 = (strncmp($db->getName(), 'mysql', 5) == 0) && version_compare($db->getVersion(), '5.6', '>=');
 
                 if ((stripos($query, 'select') === 0) || ($dbVersion56 && ((stripos($query, 'delete') === 0) || (stripos($query, 'update') === 0)))) {
-                    $db->setQuery('EXPLAIN ' . ($dbVersion56 ? 'EXTENDED ' : '') . $query);
+                    $db->setQuery('EXPLAIN ' . $query);
                     $this->explains[$k] = $db->loadAssocList();
                 }
             }
