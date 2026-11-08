@@ -10,6 +10,7 @@
 namespace App\Debug\Renderer;
 
 use App\Debug\Database\DatabaseDebugger;
+use App\Debug\DebugRedactor;
 use App\Debug\Format\Html\SqlFormat;
 use App\Debug\Format\Html\TableFormat;
 use Joomla\DI\Container;
@@ -41,11 +42,9 @@ class Html implements ContainerAwareInterface
         /** @var \JTracker\Application\Application $application */
         $application = $this->getContainer()->get('app');
 
-        // Check if debug is only displayed for admin users
-        if ($application->get('debug.admin')) {
-            if (!$application->getUser()->isAdmin) {
-                return '';
-            }
+        // Check if debug output may be displayed to the current user (by default admin users only)
+        if (!$application->canViewDebugOutput()) {
+            return '';
         }
 
         if ($application->get('debug.database')) {
@@ -69,24 +68,24 @@ class Html implements ContainerAwareInterface
             try {
                 $html[] = '<div id="dbgUser">';
                 $html[] = '<h3>User</h3>';
-                $html[] = Kint::dump($application->getUser());
+                $html[] = Kint::dump(DebugRedactor::redact($application->getUser()));
                 $html[] = '</div>';
 
                 if ($route = $application->get('_resolved_route')) {
                     $html[] = '<div id="dbgRoute">';
                     $html[] = '<h3>Route</h3>';
-                    $html[] = Kint::dump($route);
+                    $html[] = Kint::dump(DebugRedactor::redact($route));
                     $html[] = '</div>';
                 }
 
                 $html[] = '<div id="dbgProject">';
                 $html[] = '<h3>Project</h3>';
-                $html[] = Kint::dump($application->getProject());
+                $html[] = Kint::dump(DebugRedactor::redact($application->getProject()));
                 $html[] = '</div>';
 
                 $html[] = '<div id="dbgRequest">';
                 $html[] = '<h3>Request</h3>';
-                $html[] = Kint::dump($application->input->getArray());
+                $html[] = Kint::dump(DebugRedactor::redact($application->input->getArray()));
                 $html[] = '</div>';
             } finally {
                 Kint::$return = $oldReturn;

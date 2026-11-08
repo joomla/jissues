@@ -9,7 +9,7 @@
         <p>{{ exception.message|strip_root_path }}</p>
     </div>
 
-    {% if jdebug %}
+    {% if showDetails %}
         In: <a href="xdebug://{{ exception.file }}@{{ exception.line }}">{{ exception.file }} on line {{ exception.line }}</a>
 
         <table class="table table-bordered table-hover table-sm">

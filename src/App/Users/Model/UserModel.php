@@ -63,7 +63,14 @@ class UserModel extends AbstractTrackerDatabaseModel
             throw new \UnexpectedValueException('Missing ID');
         }
 
-        $data['params'] = json_encode($src['params']);
+        $params = isset($src['params']) && \is_array($src['params']) ? $src['params'] : [];
+
+        // Only accept valid timezone identifiers
+        if (isset($params['timezone']) && !\in_array($params['timezone'], \DateTimeZone::listIdentifiers(\DateTimeZone::ALL), true)) {
+            $params['timezone'] = '';
+        }
+
+        $data['params'] = json_encode($params);
 
         (new TableUsers($this->db))->save($data);
 
