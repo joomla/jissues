@@ -233,12 +233,12 @@ class Events extends Project
                         $table->reset();
                         $table->{$table->getKeyName()} = null;
 
-                        if ($id && !$this->force) {
+                        if ($id) {
                             if ($this->force) {
                                 // Force update
                                 $this->usePBar ? null : $io->write('F', false);
 
-                                $table->{$table->getKeyName()} = $id;
+                                $table->load($id);
                             } else {
                                 // If we have something already, then move on to the next item
                                 $this->usePBar ? null : $io->write('-', false);
