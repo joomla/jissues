@@ -12,6 +12,7 @@
 		"client_id"    : "",
 		"client_secret": "",
 		"auth_scope"   : "public_repo",
+		"webhook_secret": "",
 		"accounts"     : [
 			{
 				"username": "",
