@@ -43,10 +43,16 @@ class Listing extends AbstractAjaxController
                 ->select($db->quoteName(['u.id', 'u.username']))
                 ->from($db->quoteName('#__users', 'u'))
                 ->where($db->quoteName('m.group_id') . ' = ' . (int) $groupId)
+                ->where($db->quoteName('g.project_id') . ' = ' . (int) $application->getProject()->project_id)
                 ->leftJoin(
                     $db->quoteName('#__user_accessgroup_map', 'm')
                     . ' ON ' . $db->quoteName('m.user_id')
                     . ' = ' . $db->quoteName('u.id')
+                )
+                ->leftJoin(
+                    $db->quoteName('#__accessgroups', 'g')
+                    . ' ON ' . $db->quoteName('g.group_id')
+                    . ' = ' . $db->quoteName('m.group_id')
                 );
 
             $users = $db->setQuery($query)

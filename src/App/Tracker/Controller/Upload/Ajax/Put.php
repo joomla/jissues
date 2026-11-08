@@ -30,6 +30,14 @@ class Put extends AbstractAjaxController
     {
         /** @var \JTracker\Application\Application $application */
         $application = $this->getContainer()->get('app');
+        $user        = $application->getUser();
+
+        // Only logged in users who are allowed to create items may upload files.
+        if (!$user->id) {
+            throw new \Exception('You are not allowed to upload files.');
+        }
+
+        $user->authorize('create');
 
         $files = $application->input->files->get('files');
 
@@ -38,8 +46,10 @@ class Put extends AbstractAjaxController
 
             // Prepare response data
             $host     = $application->get('uri')->base->host;
-            $destName = md5(time() . $file->getName()) . '.' . $file->getExtension();
             $destDir  = $application->getProject()->project_id;
+
+            // The stored name is generated server side, the extension is validated against a whitelist during upload.
+            $destName = bin2hex(random_bytes(16)) . '.' . strtolower($file->getExtension());
             $fullPath = $host . '/' . $application->get('system.upload_dir') . '/' . $destDir . '/' . $destName;
 
             $isImage = (strpos($file->getMimetype(), 'image') !== false);
@@ -71,6 +81,12 @@ class Put extends AbstractAjaxController
             // Try to upload file
             try {
                 $file->upload($destName);
+
+                // Remember the upload, so the uploader is able to delete it again.
+                $session   = $application->getSession();
+                $uploads   = (array) $session->get('tracker.uploads', []);
+                $uploads[] = $destDir . '/' . $destName;
+                $session->set('tracker.uploads', $uploads);
             } catch (\Exception $e) {
                 $application->getLogger()->error('Failed uploading file', ['file' => json_encode($file), 'exception' => $e]);
 

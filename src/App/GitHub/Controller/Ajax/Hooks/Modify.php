@@ -27,18 +27,6 @@ class Modify extends AbstractAjaxController
     protected $github;
 
     /**
-     * Constructor.
-     *
-     * @since   1.0
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->github = $this->getContainer()->get('gitHub');
-    }
-
-    /**
      * Prepare the response.
      *
      * @return  void
@@ -48,6 +36,8 @@ class Modify extends AbstractAjaxController
     protected function prepareResponse()
     {
         $this->getContainer()->get('app')->getUser()->authorize('admin');
+
+        $this->github = $this->getContainer()->get('gitHub');
 
         $action = $this->getContainer()->get('app')->input->getCmd('action');
         $hookId = $this->getContainer()->get('app')->input->getInt('hook_id');

@@ -644,8 +644,8 @@
             $('#commentTest').markItUp(myMarkdownSettings);
 
             JTracker.updateTests(
-                {{ item.testsSuccess ? ("['" ~ item.testsSuccess|join("', '") ~ "']")|raw : '[]' }},
-                {{ item.testsFailure ? ("['" ~ item.testsFailure|join("', '") ~ "']")|raw : '[]'}}
+                {{ (item.testsSuccess ?: [])|json_encode(constant('JSON_HEX_TAG') b-or constant('JSON_HEX_AMP') b-or constant('JSON_HEX_APOS') b-or constant('JSON_HEX_QUOT'))|raw }},
+                {{ (item.testsFailure ?: [])|json_encode(constant('JSON_HEX_TAG') b-or constant('JSON_HEX_AMP') b-or constant('JSON_HEX_APOS') b-or constant('JSON_HEX_QUOT'))|raw }}
             );
         });
 

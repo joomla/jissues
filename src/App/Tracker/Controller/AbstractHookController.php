@@ -90,7 +90,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
                     ->select($this->db->quoteName('id'))
                     ->from($this->db->quoteName('#__issues'))
                     ->where($this->db->quoteName('project_id') . ' = ' . (int) $this->project->project_id)
-                    ->where($this->db->quoteName('issue_number') . ' = ' . $issue)
+                    ->where($this->db->quoteName('issue_number') . ' = ' . (int) $issue)
             )->loadResult();
         } catch (\RuntimeException $e) {
             $this->logger->error('Error checking the database for the GitHub ID', ['exception' => $e]);

@@ -27,6 +27,22 @@ use Joomla\Uri\Uri;
 class TrackerPagination
 {
     /**
+     * The default number of items per page.
+     *
+     * @var    integer
+     * @since  1.0
+     */
+    public const DEFAULT_LIMIT = 20;
+
+    /**
+     * The maximum number of items per page.
+     *
+     * @var    integer
+     * @since  1.0
+     */
+    public const MAX_LIMIT = 100;
+
+    /**
      * Total pages.
      *
      * @var    integer
@@ -68,6 +84,27 @@ class TrackerPagination
     public function __construct(Uri $uri)
     {
         $this->uri     = $uri;
+    }
+
+    /**
+     * Clamp a requested number of items per page to the allowed range.
+     *
+     * @param   mixed    $limit    The requested number of items per page.
+     * @param   integer  $default  The value to use if no valid limit was requested.
+     *
+     * @return  integer
+     *
+     * @since   1.0
+     */
+    public static function clampLimit($limit, int $default = self::DEFAULT_LIMIT): int
+    {
+        $limit = (int) $limit;
+
+        if ($limit < 1) {
+            return $default;
+        }
+
+        return min($limit, self::MAX_LIMIT);
     }
 
     /**
@@ -206,18 +243,18 @@ class TrackerPagination
     }
 
     /**
-     * Get the Uri object for a given page.
+     * Get the URL for a given page, escaped for use in an HTML attribute.
      *
      * @param   integer  $page  The page number.
      *
-     * @return  Uri
+     * @return  string
      *
      * @since   1.0
      */
-    private function uri($page)
+    private function uri($page): string
     {
         $this->uri->setVar('page', $page);
 
-        return $this->uri;
+        return htmlspecialchars($this->uri->toString(), ENT_QUOTES, 'UTF-8');
     }
 }

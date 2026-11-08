@@ -50,7 +50,7 @@ class ReceivePullReviewHook extends AbstractHookController
                     ->select($this->db->quoteName('review_id'))
                     ->from($this->db->quoteName('#__issue_reviews'))
                     ->where($this->db->quoteName('project_id') . ' = ' . (int) $this->project->project_id)
-                    ->where($this->db->quoteName('review_id') . ' = ' . $reviewId)
+                    ->where($this->db->quoteName('review_id') . ' = ' . (int) $reviewId)
             )->loadResult();
         } catch (\RuntimeException $e) {
             $this->logger->error('Error checking the database for the GitHub ID', ['exception' => $e]);
