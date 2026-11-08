@@ -1,0 +1,34 @@
+##
+# @package   JTracker
+# @copyright (C) 2012-2014 Open Source Matters, Inc.  All Rights Reserved.
+##
+
+###########################################
+# ===== Never execute uploaded files ======
+
+# Disable the PHP engine for this directory (mod_php)
+<IfModule mod_php.c>
+	php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+	php_flag engine off
+</IfModule>
+
+# Do not hand any file over to a script handler (e.g. PHP-FPM or CGI)
+<IfModule mod_mime.c>
+	RemoveHandler .php .php3 .php4 .php5 .php7 .php8 .phtml .phar .pht .phps .pl .py .cgi .sh .shtml .asp .aspx .jsp
+	RemoveType .php .php3 .php4 .php5 .php7 .php8 .phtml .phar .pht .phps .pl .py .cgi .sh .shtml .asp .aspx .jsp
+</IfModule>
+
+# Deny access to anything which looks like a script, wherever the extension appears in the name
+<FilesMatch "(?i)\.(php\d*|phtml|phar|pht|phps|pl|py|cgi|sh|shtml|asp|aspx|jsp|htaccess)(\.|$)">
+	Require all denied
+</FilesMatch>
+
+# Uploaded files are served as static content only
+<IfModule mod_headers.c>
+	Header always set X-Content-Type-Options nosniff
+	Header always set Content-Security-Policy "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; sandbox"
+</IfModule>
+
+###########################################

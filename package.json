@@ -40,6 +40,9 @@
         "sass": "^1.50.0",
         "sass-loader": "^8.0.2"
     },
+    "overrides": {
+        "webpack": "~5.105.0"
+    },
     "author": "Joomla!",
     "license": "GPL-2.0-or-later",
     "bugs": "https://github.com/joomla/jissues",

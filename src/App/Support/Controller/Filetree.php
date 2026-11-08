@@ -27,19 +27,30 @@ class Filetree extends AbstractTrackerController
      */
     public function execute()
     {
-        // A full file system path.
-        $path = $this->getContainer()->get('app')->input->get('dir', '', 'HTML');
+        // A path relative to the documentation directory (the client sends it through JavaScript's escape()).
+        $dir = rawurldecode($this->getContainer()->get('app')->input->get('dir', '', 'raw'));
 
-        $docuBase = JPATH_ROOT . '/Documentation';
+        $docuBase = realpath(JPATH_ROOT . '/Documentation');
+        $path     = $docuBase ? realpath($docuBase . '/' . $dir) : false;
 
-        $path = $path ?: $docuBase;
+        // The requested path must be an existing directory inside the documentation directory.
+        if (
+            !$path
+            || !is_dir($path)
+            || ($path !== $docuBase && strpos($path, $docuBase . DIRECTORY_SEPARATOR) !== 0)
+        ) {
+            return '';
+        }
 
-        // Dumb spoof check
-        $path = str_replace('..', '', $path);
+        $subPath = trim(str_replace('\\', '/', substr($path, \strlen($docuBase))), '/');
 
         $response = [];
 
         $files = scandir($path);
+
+        if ($files === false) {
+            return '';
+        }
 
         natcasesort($files);
 
@@ -49,11 +60,10 @@ class Filetree extends AbstractTrackerController
             // All dirs
             foreach ($files as $file) {
                 if ($file != '.' && $file != '..' && is_dir($path . '/' . $file)) {
-                    // Dumb spoof check
-                    $file = str_replace('..', '', $file);
+                    $rel = ($subPath ? $subPath . '/' : '') . $file;
 
                     $response[] = '<li class="directory collapsed">'
-                        . '<a href="javascript:;" rel="' . $path . '/' . $file . '">' . htmlentities($file) . '</a>'
+                        . '<a href="javascript:;" rel="' . $this->escape($rel) . '">' . $this->escape($file) . '</a>'
                         . '</li>';
                 }
             }
@@ -61,17 +71,14 @@ class Filetree extends AbstractTrackerController
             // All files
             foreach ($files as $file) {
                 if (!is_dir($path . '/' . $file)) {
-                    // Dumb spoof check
-                    $file = str_replace('..', '', $file);
+                    $page = substr($file, 0, strrpos($file, '.'));
+                    $ext  = preg_replace('/^.*\./', '', $file);
 
-                    $subPath = trim(str_replace($docuBase, '', $path), '/');
-                    $page    = substr($file, 0, strrpos($file, '.'));
-                    $ext     = preg_replace('/^.*\./', '', $file);
+                    $fullPath = 'page=' . rawurlencode($page)
+                        . ($subPath ? '&path=' . str_replace('%2F', '/', rawurlencode($subPath)) : '');
 
-                    $fullPath = 'page=' . htmlentities($page) . ($subPath ? '&path=' . htmlentities($subPath) : '');
-
-                    $response[] = '<li class="file ext_' . $ext . '">'
-                        . '<a href="javascript:;" rel="' . $fullPath . '">'
+                    $response[] = '<li class="file ext_' . $this->escape($ext) . '">'
+                        . '<a href="javascript:;" rel="' . $this->escape($fullPath) . '">'
                         . $this->getTitle($file)
                         . '</a>'
                         . '</li>';
@@ -82,6 +89,19 @@ class Filetree extends AbstractTrackerController
         }
 
         return implode("\n", $response);
+    }
+
+    /**
+     * Escape a string for use in HTML content and attributes.
+     *
+     * @param   string  $string  The string to escape.
+     *
+     * @since   1.0
+     * @return  string
+     */
+    private function escape($string)
+    {
+        return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
     }
 
     /**
@@ -100,7 +120,7 @@ class Filetree extends AbstractTrackerController
 
         $title = ucfirst($title);
 
-        $title = htmlentities($title);
+        $title = $this->escape($title);
 
         return $title;
     }
