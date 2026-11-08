@@ -70,15 +70,15 @@ class AvatarsExtension extends AbstractExtension
     {
         $base = $this->app->get('uri.base.path');
 
-        $avatar = $userName ? $userName . '.png' : 'user-default.png';
+        $avatar = $userName ? rawurlencode($userName) . '.png' : 'user-default.png';
 
-        $width = $width ? ' style="width: ' . $width . 'px"' : '';
-        $class = $class ? ' class="' . $class . '"' : '';
+        $width = $width ? ' style="width: ' . (int) $width . 'px"' : '';
+        $class = $class ? ' class="' . htmlspecialchars($class, ENT_QUOTES, 'UTF-8') . '"' : '';
 
         return '<img'
         . $class
-        . ' alt="avatar ' . $userName . '"'
-        . ' src="' . $base . 'images/avatars/' . $avatar . '"'
+        . ' alt="avatar ' . htmlspecialchars($userName, ENT_QUOTES, 'UTF-8') . '"'
+        . ' src="' . htmlspecialchars($base . 'images/avatars/' . $avatar, ENT_QUOTES, 'UTF-8') . '"'
         . $width
         . ' />';
     }

@@ -13,13 +13,12 @@ steps:
     commands:
       - composer install --no-progress --no-suggest --ignore-platform-req=ext-intl
 
-  - name: phpcs
+  - name: php-cs-fixer
     image: joomlaprojects/docker-images:php8.1
     depends_on: [ composer ]
     commands:
       - echo $(date)
       - ./vendor/bin/php-cs-fixer fix -vvv --dry-run --diff
-      - ./vendor/bin/phpcs --extensions=php -p --standard=ruleset.xml .
       - echo $(date)
 
   - name: phpstan
@@ -31,14 +30,14 @@ steps:
       - echo $(date)
 
   - name: php81
-    depends_on: [ phpcs ]
+    depends_on: [ php-cs-fixer ]
     image: joomlaprojects/docker-images:php8.1
     commands:
       - php -v
       - ./vendor/bin/phpunit --configuration=phpunit.xml
 
   - name: php82
-    depends_on: [ phpcs ]
+    depends_on: [ php-cs-fixer ]
     failure: ignore
     image: joomlaprojects/docker-images:php8.2
     commands:
@@ -74,6 +73,6 @@ volumes:
 
 ---
 kind: signature
-hmac: 0af130509bf3d4ff33f14d8a6a3af4d381cff79560444fea6879bffd767db6bc
+hmac: 29594c03165c75543a166a9a6df3cc1ce7e3ce826a028b170145c0e3b9a08de8
 
 ...
