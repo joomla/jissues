@@ -21,7 +21,7 @@ use JTracker\Github\Package;
  * @property-read  \Joomla\Github\Issues\Assignees   $assignees   GitHub API object for assignees.
  * @property-read  \JTracker\Github\Issues\Comments  $comments    GitHub API object for comments.
  * @property-read  \JTracker\Github\Issues\Events    $events      GitHub API object for events.
- * @property-read  \Joomla\Github\Issues\Labels      $labels      GitHub API object for labels.
+ * @property-read  \JTracker\Github\Issues\Labels    $labels      GitHub API object for labels.
  * @property-read  \Joomla\Github\Issues\Milestones  $milestones  GitHub API object for milestones.
  */
 class Issues extends Package
