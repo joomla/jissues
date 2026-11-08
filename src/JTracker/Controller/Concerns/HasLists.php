@@ -33,7 +33,9 @@ trait HasLists
      */
     protected function configurePaginationState(Application $app, ListfulModelInterface $model): void
     {
-        $limit = $app->getUserStateFromRequest('list.limit', 'list_limit', 20, 'uint');
+        $limit = TrackerPagination::clampLimit(
+            $app->getUserStateFromRequest('list.limit', 'list_limit', TrackerPagination::DEFAULT_LIMIT, 'uint')
+        );
         $page  = $app->getInput()->getUint('page');
 
         $value      = $page ? ($page - 1) * $limit : 0;
