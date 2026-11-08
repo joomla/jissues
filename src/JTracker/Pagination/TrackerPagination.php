@@ -206,18 +206,18 @@ class TrackerPagination
     }
 
     /**
-     * Get the Uri object for a given page.
+     * Get the URL for a given page, escaped for use in an HTML attribute.
      *
      * @param   integer  $page  The page number.
      *
-     * @return  Uri
+     * @return  string
      *
      * @since   1.0
      */
-    private function uri($page)
+    private function uri($page): string
     {
         $this->uri->setVar('page', $page);
 
-        return $this->uri;
+        return htmlspecialchars($this->uri->toString(), ENT_QUOTES, 'UTF-8');
     }
 }
