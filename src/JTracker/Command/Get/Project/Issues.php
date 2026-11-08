@@ -459,7 +459,7 @@ class Issues extends Project
         }
 
         // Output the final result
-        $io->progressFinish();
+        $this->usePBar ? $io->progressFinish() : null;
         $this->logOut(\sprintf('<ok>%1$d added, %2$d updated.</ok>', $added, $updated));
 
         return $this;

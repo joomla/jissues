@@ -161,7 +161,7 @@ class Events extends Project
         }
 
         // Retrieved items, report status
-        $io->progressFinish();
+        $this->usePBar ? $io->progressFinish() : null;
         $io->success('OK');
 
         return $this;
@@ -323,7 +323,7 @@ class Events extends Project
                 : null;
         }
 
-        $io->progressFinish();
+        $this->usePBar ? $io->progressFinish() : null;
         $io->success('OK');
         $this->logOut(\sprintf('Added %d new issue events to the database', $adds));
 
