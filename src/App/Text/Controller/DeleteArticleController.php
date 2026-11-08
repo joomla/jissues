@@ -11,6 +11,7 @@ namespace App\Text\Controller;
 
 use App\Text\Model\ArticlesModel;
 use Joomla\Controller\AbstractController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 use Laminas\Diactoros\Response\RedirectResponse;
 
 /**
@@ -20,7 +21,7 @@ use Laminas\Diactoros\Response\RedirectResponse;
  *
  * @since  1.0
  */
-class DeleteArticleController extends AbstractController
+class DeleteArticleController extends AbstractController implements CsrfProtectedControllerInterface
 {
     /**
      * The articles model

@@ -13,6 +13,7 @@ use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
 use App\Tracker\Model\IssueModel;
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 use JTracker\Github\GithubFactory;
 use JTracker\Helper\GitHubHelper;
 
@@ -21,7 +22,7 @@ use JTracker\Helper\GitHubHelper;
  *
  * @since  1.0
  */
-class Submit extends AbstractAjaxController
+class Submit extends AbstractAjaxController implements CsrfProtectedControllerInterface
 {
     /**
      * Prepare the response.

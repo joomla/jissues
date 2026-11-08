@@ -167,7 +167,7 @@
 
             out.html('Saving the milestone...');
 
-            $.get(
+            $.post(
                     '{{ uri.base.path }}project/' + projectAlias + '/milestones-save',
                     { number: number, title: title, due_on: due_on, state: state, description: description },
                     function (response) {
@@ -200,7 +200,7 @@
 
             out.html('Deleting the milestone...');
 
-            $.get(
+            $.post(
                     '{{ uri.base.path }}project/' + projectAlias + '/milestones-delete',
                     { milestone_id: milestone_id },
                     function (response) {

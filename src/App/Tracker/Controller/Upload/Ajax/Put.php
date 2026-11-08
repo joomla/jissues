@@ -10,6 +10,7 @@
 namespace App\Tracker\Controller\Upload\Ajax;
 
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 use JTracker\Upload\File;
 
 /**
@@ -17,7 +18,7 @@ use JTracker\Upload\File;
  *
  * @since  1.0
  */
-class Put extends AbstractAjaxController
+class Put extends AbstractAjaxController implements CsrfProtectedControllerInterface
 {
     /**
      * Prepare the response.

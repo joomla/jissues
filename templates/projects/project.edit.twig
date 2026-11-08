@@ -11,7 +11,7 @@
     </li>
     {% if project.project_id %}
         <li>
-            <a href="{{ uri.base.path }}project/{{ project.alias }}/delete" class="btn-danger">Delete</a>
+            <form method="post" action="{{ uri.base.path }}project/{{ project.alias }}/delete" class="d-inline">{{ csrf_field() }}<button type="submit" class="nav-link btn-danger border-0">Delete</button></form>
         </li>
     {% endif %}
 
@@ -29,6 +29,7 @@
     </div>
 
     <form method="post" action="{{ uri.base.path }}saveproject" class="form-horizontal" name="editForm">
+        {{ csrf_field() }}
         <fieldset>
             <legend>Details</legend>
             <div class="control-group">

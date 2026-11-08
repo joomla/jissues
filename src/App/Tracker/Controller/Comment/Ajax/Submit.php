@@ -10,6 +10,7 @@
 namespace App\Tracker\Controller\Comment\Ajax;
 
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 use JTracker\Helper\GitHubHelper;
 
 /**
@@ -17,7 +18,7 @@ use JTracker\Helper\GitHubHelper;
  *
  * @since  1.0
  */
-class Submit extends AbstractAjaxController
+class Submit extends AbstractAjaxController implements CsrfProtectedControllerInterface
 {
     /**
      * Prepare the response.

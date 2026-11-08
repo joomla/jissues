@@ -10,6 +10,7 @@
 namespace App\GitHub\Controller\Ajax\Labels;
 
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 use JTracker\Github\GithubFactory;
 
 /**
@@ -17,7 +18,7 @@ use JTracker\Github\GithubFactory;
  *
  * @since  1.0
  */
-class Add extends AbstractAjaxController
+class Add extends AbstractAjaxController implements CsrfProtectedControllerInterface
 {
     /**
      * Prepare the response.

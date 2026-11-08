@@ -47,7 +47,7 @@
                 </td>
                 <td>
                     {% if user.check("manage") %}
-                        <a href="{{ uri.base.path }}category/{{ project.alias }}/delete/{{ item.id }}">Delete</a>
+                        <form method="post" action="{{ uri.base.path }}category/{{ project.alias }}/delete/{{ item.id }}" class="d-inline">{{ csrf_field() }}<button type="submit" class="btn btn-link p-0 align-baseline">Delete</button></form>
                         <a href="{{ uri.base.path }}category/{{ project.alias }}/edit/{{ item.id }}">Edit</a>
                     {% endif %}
                 </td>

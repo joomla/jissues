@@ -10,13 +10,14 @@
 namespace App\Tracker\Controller\Upload\Ajax;
 
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 
 /**
  * Delete file controller class.
  *
  * @since  1.0
  */
-class Delete extends AbstractAjaxController
+class Delete extends AbstractAjaxController implements CsrfProtectedControllerInterface
 {
     /**
      * Prepare the response.

@@ -11,13 +11,14 @@ namespace App\Tracker\Controller\Category;
 
 use App\Tracker\Model\CategoryModel;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 
 /**
  * Controller class to save an item to the categories.
  *
  * @since  1.0
  */
-class Save extends AbstractTrackerController
+class Save extends AbstractTrackerController implements CsrfProtectedControllerInterface
 {
     /**
      * The default view for the component

@@ -26,7 +26,10 @@ use Joomla\Router\Router;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
+use JTracker\Controller\AbstractAjaxController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 use JTracker\Controller\TrackerControllerInterface;
+use JTracker\Security\CsrfTokenManager;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
@@ -160,6 +163,16 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
             if ($controllerInstance instanceof ContainerAwareInterface) {
                 $controllerInstance->setContainer($this->getContainer());
+            }
+
+            // State changing controllers must be requested via POST with a valid CSRF token
+            if ($controllerInstance instanceof CsrfProtectedControllerInterface) {
+                if ($controllerInstance instanceof AbstractAjaxController) {
+                    // Make sure a rejected AJAX request receives a JSON error response
+                    $this->mimeType = 'application/json';
+                }
+
+                $this->getContainer()->get(CsrfTokenManager::class)->validateRequest($this->getInput());
             }
 
             if ($controllerInstance instanceof TrackerControllerInterface) {
@@ -527,7 +540,16 @@ final class Application extends AbstractWebApplication implements ContainerAware
             $expire = time() - 3600;
         }
 
-        $this->getInput()->cookie->set('remember_me', $value, $expire);
+        $this->getInput()->cookie->set(
+            'remember_me',
+            $value,
+            [
+                'expires'  => $expire,
+                'secure'   => $this->isSslConnection(),
+                'httponly' => true,
+                'samesite' => 'Lax',
+            ]
+        );
 
         return $this;
     }

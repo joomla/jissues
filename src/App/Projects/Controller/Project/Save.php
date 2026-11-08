@@ -12,13 +12,14 @@ namespace App\Projects\Controller\Project;
 use App\Projects\Model\ProjectsModel;
 use App\Projects\Table\ProjectsTable;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 
 /**
  * Controller class to save a project.
  *
  * @since  1.0
  */
-class Save extends AbstractTrackerController
+class Save extends AbstractTrackerController implements CsrfProtectedControllerInterface
 {
     /**
      * The default view for the component

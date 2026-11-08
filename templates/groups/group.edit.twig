@@ -68,7 +68,7 @@
                 return;
             }
 
-            jQuery.get(
+            jQuery.post(
                 '{{ uri.base.path }}user/assign', {user: user, group_id: group_id, project_id: project_id, assign: assign},
                 function (response) {
                     if (response.error) {
@@ -131,6 +131,7 @@
     {% endif %}
 
     <form method="post" action="{{ uri.base.path }}project/{{ project.alias }}/savegroup" class="form-inline" name="editForm">
+        {{ csrf_field() }}
 
         <div class="row">
             <div class="col-md-6">

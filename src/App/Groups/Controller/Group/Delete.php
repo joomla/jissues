@@ -13,13 +13,14 @@ use App\Groups\Model\GroupModel;
 use App\Groups\Table\GroupsTable;
 use App\Groups\View\Group\GroupHtmlView;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 
 /**
  * Controller class to delete a group.
  *
  * @since  1.0
  */
-class Delete extends AbstractTrackerController
+class Delete extends AbstractTrackerController implements CsrfProtectedControllerInterface
 {
     /**
      * The default view for the component

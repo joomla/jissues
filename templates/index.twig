@@ -17,6 +17,7 @@
     <meta name="twitter:image" content="https://cdn.joomla.org/images/sharing/joomla-twitter-card.png" />
     <meta name="twitter:site" content="@joomla" />
     <meta name="twitter:title" content="{{ block('title') }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     {% block metadata %}{% endblock %}
     {% if useCDN %}
     <link rel="stylesheet" href="https://cdn.joomla.org/template/css/template_4.0.7.min.css" media="screen" />
@@ -128,6 +129,14 @@
 
 {% block JavaScriptBottom %}
     <script src="{{ asset('js/vendor/jquery.js') }}"></script>
+    <script type="text/javascript">
+        // Send the CSRF token with every same-origin AJAX request
+        jQuery.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            if (!options.crossDomain) {
+                jqXHR.setRequestHeader('X-CSRF-Token', jQuery('meta[name="csrf-token"]').attr('content'));
+            }
+        });
+    </script>
     <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/vendor/skipto.min.js') }}"></script>
     <script src="{{ asset('js/vendor/blueimp-tmpl.js') }}"></script>

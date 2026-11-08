@@ -13,6 +13,7 @@ use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
 use App\Tracker\Model\IssueModel;
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 use JTracker\Github\GithubFactory;
 
 /**
@@ -20,7 +21,7 @@ use JTracker\Github\GithubFactory;
  *
  * @since  1.0
  */
-class Alter extends AbstractAjaxController
+class Alter extends AbstractAjaxController implements CsrfProtectedControllerInterface
 {
     /**
      * Prepare the response.

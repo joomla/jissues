@@ -13,6 +13,7 @@ use App\Tracker\Model\CategoryModel;
 use App\Tracker\Model\IssueModel;
 use Joomla\Http\Exception\UnexpectedResponseException;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 use JTracker\Github\GithubFactory;
 
 /**
@@ -20,7 +21,7 @@ use JTracker\Github\GithubFactory;
  *
  * @since  1.0
  */
-class Submit extends AbstractTrackerController
+class Submit extends AbstractTrackerController implements CsrfProtectedControllerInterface
 {
     /**
      * Execute the controller.
