@@ -316,7 +316,25 @@ class TrackerPaginationTest extends TestCase
 
         $bar = $pagination->getBar();
 
-        $this->assertStringContainsString('href="' . self::BASE_URI . '?sort=title&page=2">2</a>', $bar);
-        $this->assertStringContainsString('href="' . self::BASE_URI . '?sort=title&page=3">Last</a>', $bar);
+        $this->assertStringContainsString('href="' . self::BASE_URI . '?sort=title&amp;page=2">2</a>', $bar);
+        $this->assertStringContainsString('href="' . self::BASE_URI . '?sort=title&amp;page=3">Last</a>', $bar);
+    }
+
+    /**
+     * @testdox  Query values are escaped in the links of the pagination bar
+     *
+     * @return  void
+     */
+    public function testGetBarEscapesQueryValues(): void
+    {
+        $pagination = new TrackerPagination(new Uri(self::BASE_URI . '?q=a"b\'c<d>'));
+        $pagination->setValues(30, 0, 10);
+
+        $bar = $pagination->getBar();
+
+        $this->assertStringNotContainsString('a"b', $bar);
+        $this->assertStringNotContainsString("b'c", $bar);
+        $this->assertStringNotContainsString('<d>', $bar);
+        $this->assertStringContainsString('q=a&quot;b&#039;c&lt;d&gt;&amp;page=2', $bar);
     }
 }
