@@ -79,12 +79,10 @@ jobs:
           ./vendor/bin/phpunit --configuration=phpunit.xml
 
   php82:
-    # Same as "failure: ignore" in Drone: failures are reported but don't fail the build
-    name: Run Unit tests (PHP 8.2, allowed to fail)
+    name: Run Unit tests (PHP 8.2)
     runs-on: ubuntu-latest
     container: joomlaprojects/docker-images:php8.2
     needs: [php-cs-fixer]
-    continue-on-error: true
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
