@@ -105,7 +105,7 @@
                         html = '<ul>';
 
                         $.each(response.data.options, function (k, user) {
-                            html += '<li>' + user.username + '</li>';
+                            html += '<li>' + JTracker.escapeHtml(user.username) + '</li>';
                         });
 
                         html += '</ul>';

@@ -42,7 +42,19 @@ class UserActivity extends AbstractAjaxController
         $state         = new Registry();
         $enteredPeriod = $application->input->getUint('period', 1);
 
-        $state->set('list.activity_type', $application->input->getUint('activity_type', 0));
+        $activityType = $application->input->getUint('activity_type', 0);
+
+        // Only the "All", "Tracker", "Test" and "Code" activity types are supported
+        if ($activityType > 3) {
+            $activityType = 0;
+        }
+
+        $state->set('list.activity_type', $activityType);
+
+        // Only the predefined periods (1 - 4) and a custom range (5) are supported
+        if (!\in_array($enteredPeriod, [1, 2, 3, 4, 5])) {
+            $enteredPeriod = 1;
+        }
 
         if ($enteredPeriod == 5) {
             $startDate = $application->input->getCmd('startdate');
