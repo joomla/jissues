@@ -80,6 +80,14 @@ class Login extends AbstractTrackerController
         $user->loadGitHubData($gitHubUser)
             ->loadByUserName($user->username);
 
+        if ($user->isBlocked()) {
+            // Blocked users are not allowed to log in.
+            $app->getSession()->remove('gh_oauth_access_token');
+            $app->setRememberMe(false);
+
+            throw new AuthenticationException($user, 'login');
+        }
+
         /** @var GitHubLoginHelper $loginHelper */
         $loginHelper = $this->getContainer()->get(GitHubLoginHelper::class);
 
