@@ -96,6 +96,9 @@ class Login extends AbstractTrackerController
 
         $redirect = $redirect ? base64_decode($redirect) : '';
 
+        // Only redirect to targets on this site
+        $redirect = $loginHelper->getSafeRedirect((string) $redirect);
+
         // Set a "remember me" cookie.
         $app->setRememberMe(true);
 

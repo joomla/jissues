@@ -31,6 +31,14 @@ class GitHubLoginHelper
     private const AVATAR_PATH = JPATH_THEMES . '/images/avatars';
 
     /**
+     * Session key holding the OAuth state
+     *
+     * @var    string
+     * @since  1.0
+     */
+    private const STATE_SESSION_KEY = 'gh_oauth_state';
+
+    /**
      * Application object
      *
      * @var    Application
@@ -143,7 +151,8 @@ class GitHubLoginHelper
         return $this->github->authorization->getAuthorizationLink(
             $this->clientId,
             (string) $uri,
-            $this->authScope
+            $this->authScope,
+            $this->getState()
         );
     }
 
@@ -316,5 +325,108 @@ class GitHubLoginHelper
                 ->set($db->quoteName('lastvisitDate') . '=' . $db->quote($currentTime))
                 ->where($db->quoteName('id') . '=' . (int) $id)
         )->execute();
+    }
+
+    /**
+     * Get the OAuth state for the current session, creating it if necessary.
+     *
+     * The state is kept for the whole session so login links rendered in several tabs stay valid.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    public function getState(): string
+    {
+        $session = $this->application->getSession();
+        $state   = $session->get(self::STATE_SESSION_KEY);
+
+        if (!\is_string($state) || $state === '') {
+            $state = bin2hex(random_bytes(32));
+
+            $session->set(self::STATE_SESSION_KEY, $state);
+        }
+
+        return $state;
+    }
+
+    /**
+     * Validate the OAuth state returned by GitHub against the one stored in the session.
+     *
+     * The stored state is removed so it can only be used once.
+     *
+     * @param   string  $state  The state returned by GitHub.
+     *
+     * @return  boolean
+     *
+     * @since   1.0
+     */
+    public function validateState(string $state): bool
+    {
+        $session = $this->application->getSession();
+        $stored  = $session->get(self::STATE_SESSION_KEY);
+
+        $session->remove(self::STATE_SESSION_KEY);
+
+        return \is_string($stored) && $stored !== '' && hash_equals($stored, $state);
+    }
+
+    /**
+     * Check a post-login redirect target and only allow targets on this site.
+     *
+     * @param   string  $redirect  The requested redirect target.
+     *
+     * @return  string  The redirect target, or an empty string if it is not allowed.
+     *
+     * @since   1.0
+     */
+    public function getSafeRedirect(string $redirect): string
+    {
+        if ($redirect === '') {
+            return '';
+        }
+
+        // Reject control characters and backslashes, which browsers may treat as path separators
+        if (preg_match('#[\x00-\x1F\x7F\\\\]#', $redirect)) {
+            return '';
+        }
+
+        // Protocol relative URLs point to another host
+        if (strpos($redirect, '//') === 0) {
+            return '';
+        }
+
+        $parts = parse_url($redirect);
+
+        if ($parts === false) {
+            return '';
+        }
+
+        // A relative path without scheme and host stays on this site
+        if (!isset($parts['scheme']) && !isset($parts['host'])) {
+            return $redirect;
+        }
+
+        if (!isset($parts['scheme'], $parts['host']) || isset($parts['user']) || isset($parts['pass'])) {
+            return '';
+        }
+
+        $scheme = strtolower($parts['scheme']);
+
+        if ($scheme !== 'http' && $scheme !== 'https') {
+            return '';
+        }
+
+        $base = parse_url((string) $this->application->get('uri.base.full'));
+
+        if (!\is_array($base) || !isset($base['host'])) {
+            return '';
+        }
+
+        if (strtolower($parts['host']) !== strtolower($base['host']) || ($parts['port'] ?? null) !== ($base['port'] ?? null)) {
+            return '';
+        }
+
+        return $redirect;
     }
 }
