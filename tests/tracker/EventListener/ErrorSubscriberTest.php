@@ -185,7 +185,7 @@ class ErrorSubscriberTest extends TestCase
 
         $this->renderer->expects($this->once())
             ->method('render')
-            ->with('exception.twig', ['exception' => $error])
+            ->with('exception.twig', ['exception' => $error, 'showDetails' => false])
             ->willReturn('<h1>Error page</h1>');
 
         $this->handle($error, $app);

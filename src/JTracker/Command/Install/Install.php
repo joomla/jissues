@@ -136,8 +136,15 @@ class Install extends TrackerCommand
         $this->db->setQuery('SET FOREIGN_KEY_CHECKS=0')
             ->execute();
 
+        $prefix = $this->db->getPrefix();
+
         foreach ($tables as $table) {
             if ($table == 'sqlite_sequence') {
+                continue;
+            }
+
+            // Only remove the tables belonging to this installation
+            if (!str_starts_with($table, $prefix)) {
                 continue;
             }
 
