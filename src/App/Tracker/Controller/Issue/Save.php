@@ -74,8 +74,6 @@ class Save extends AbstractTrackerController implements CsrfProtectedControllerI
             $data['milestone_id'] = $item->milestone_id;
         } elseif ($user->canEditOwn($item->opened_by)) {
             // The user has "edit own" permission.
-            $data['id']              = (int) $src['id'];
-            $data['issue_number']    = (int) $src['issue_number'];
             $data['title']           = $src['title'];
             $data['description_raw'] = $src['description_raw'];
 
@@ -95,6 +93,11 @@ class Save extends AbstractTrackerController implements CsrfProtectedControllerI
             // The user has no "edit" permission.
             throw new AuthenticationException($user, 'edit');
         }
+
+        // Always save to the issue the permission check was performed on, never to a submitted ID.
+        $data['id']           = (int) $item->id;
+        $data['issue_number'] = (int) $item->issue_number;
+        unset($data['project_id']);
 
         $gitHub = GithubFactory::getInstance($application);
 

@@ -34,8 +34,9 @@ class Assign extends AbstractAjaxController implements CsrfProtectedControllerIn
             throw new \Exception('You are not authorized');
         }
 
-        $input = $this->getContainer()->get('app')->input;
-        $db    = $this->getContainer()->get('db');
+        $input   = $this->getContainer()->get('app')->input;
+        $db      = $this->getContainer()->get('db');
+        $project = $this->getContainer()->get('app')->getProject();
 
         $user    = $input->getCmd('user');
         $groupId = $input->getInt('group_id');
@@ -43,6 +44,18 @@ class Assign extends AbstractAjaxController implements CsrfProtectedControllerIn
 
         if (!$groupId) {
             throw new \Exception('Missing group id');
+        }
+
+        // Only groups of the current project may be modified.
+        $groupProjectId = $db->setQuery(
+            $db->getQuery(true)
+                ->select($db->quoteName('project_id'))
+                ->from($db->quoteName('#__accessgroups'))
+                ->where($db->quoteName('group_id') . ' = ' . (int) $groupId)
+        )->loadResult();
+
+        if (!$groupProjectId || (int) $groupProjectId !== (int) $project->project_id) {
+            throw new \Exception('Invalid group');
         }
 
         $tableUsers = new TableUsers($this->getContainer()->get('db'));
