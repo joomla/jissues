@@ -90,8 +90,8 @@ class ArticlesTable extends AbstractDatabaseTable
      */
     public function store($updateNulls = false)
     {
-        if (!$this->created_date || $this->created_date === $this->db->getNullDate()) {
-            // New item
+        if (!$this->hasPrimaryKey() && (!$this->created_date || $this->created_date === $this->db->getNullDate())) {
+            // New item, existing items keep their stored created date
             $this->created_date = (new \DateTime('now', new \DateTimeZone('UTC')))->format($this->db->getDateFormat());
         }
 
