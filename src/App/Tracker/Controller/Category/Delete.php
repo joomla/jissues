@@ -57,9 +57,10 @@ class Delete extends AbstractTrackerController
     public function initialize()
     {
         parent::initialize();
+        $project = $this->getContainer()->get('app')->getProject(true);
         $this->getContainer()->get('app')->getUser()->authorize('manage');
-        $this->model->setProject($this->getContainer()->get('app')->getProject());
-        $this->view->setProject($this->getContainer()->get('app')->getProject());
+        $this->model->setProject($project);
+        $this->view->setProject($project);
 
         return $this;
     }

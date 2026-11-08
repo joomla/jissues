@@ -68,6 +68,9 @@ class ProjectActivity extends AbstractAjaxController
      */
     protected function prepareResponse()
     {
+        // Only users with view access to the project may see its statistics.
+        $this->getContainer()->get('app')->getUser()->authorize('view');
+
         $items = $this->model->getIssueCounts();
         $state = $this->model->getState();
 

@@ -33,6 +33,10 @@ class Issues extends AbstractAjaxController
         /** @var \Joomla\Database\DatabaseDriver $db */
         $db = $this->getContainer()->get('db');
 
+        // Only users with view access to the current project may search its issues.
+        $application->getProject();
+        $application->getUser()->authorize('view');
+
         $issueNumber = $application->input->getInt('q');
 
         if ($issueNumber) {

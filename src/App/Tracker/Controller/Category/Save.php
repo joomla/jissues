@@ -47,8 +47,8 @@ class Save extends AbstractTrackerController
         /** @var \JTracker\Application\Application $app */
         $app = $this->getContainer()->get('app');
 
-        $app->getUser()->authorize('manage');
         $project = $app->getProject();
+        $app->getUser()->authorize('manage');
 
         try {
             $this->model->setProject($project);

@@ -38,7 +38,7 @@ class Submit extends AbstractAjaxController
         $user        = $application->getUser();
         $project     = $application->getProject();
 
-        if (!$user->id) {
+        if (!$user->id || !$user->check('view')) {
             throw new \Exception('You are not allowed to test this item.');
         }
 

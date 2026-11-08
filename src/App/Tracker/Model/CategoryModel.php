@@ -60,6 +60,22 @@ class CategoryModel extends AbstractTrackerDatabaseModel
      */
     public function getItem($id)
     {
+        return $this->loadItem($id, $this->getProject()->project_id);
+    }
+
+    /**
+     * Load a category item, optionally restricted to a project.
+     *
+     * @param   integer       $id         The id of the category.
+     * @param   integer|null  $projectId  The project id the category must belong to or null for any project.
+     *
+     * @return  object
+     *
+     * @since   1.0
+     * @throws  \RuntimeException
+     */
+    private function loadItem($id, $projectId = null)
+    {
         if ($id == null) {
             throw new \RuntimeException('Missing ID');
         }
@@ -67,11 +83,15 @@ class CategoryModel extends AbstractTrackerDatabaseModel
         $db    = $this->getDb();
         $query = $db->getQuery(true);
 
-        $item  = $db->setQuery(
-            $query->select('*')
-                ->from($db->quoteName((new CategoryTable($db))->getTableName()))
-                ->where($db->quoteName('id') . '=' . (int) $id)
-        )->loadObject();
+        $query->select('*')
+            ->from($db->quoteName((new CategoryTable($db))->getTableName()))
+            ->where($db->quoteName('id') . '=' . (int) $id);
+
+        if ($projectId !== null) {
+            $query->where($db->quoteName('project_id') . '=' . (int) $projectId);
+        }
+
+        $item = $db->setQuery($query)->loadObject();
 
         if (!$item) {
             throw new \RuntimeException('Invalid Category');
@@ -105,6 +125,9 @@ class CategoryModel extends AbstractTrackerDatabaseModel
         if ($data['id'] == null) {
             throw new \RuntimeException('Missing ID');
         }
+
+        // Make sure the category belongs to the current project.
+        $this->getItem($data['id']);
 
         (new CategoryTable($this->getDb()))
             ->load($data['id'])
@@ -180,6 +203,11 @@ class CategoryModel extends AbstractTrackerDatabaseModel
      */
     public function delete($id)
     {
+        $id = (int) $id;
+
+        // Make sure the category belongs to the current project.
+        $this->getItem($id);
+
         // Remove the category-issue mapping
         $db    = $this->getDb();
         $query = $db->getQuery(true);
@@ -210,6 +238,10 @@ class CategoryModel extends AbstractTrackerDatabaseModel
     {
         $data       = [];
         $issue_id   = (int) $src['issue_id'];
+
+        if ($src['categories'] && isset($src['project_id'])) {
+            $src['categories'] = $this->filterProjectCategories($src['categories'], $src['project_id']);
+        }
 
         if ($src['categories']) {
             foreach ($src['categories'] as $key => $category) {
@@ -260,6 +292,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
     public function updateCategory(array $src)
     {
         $newCategories    = ($src['categories']) ? $src['categories'] : [];
+        $newCategories    = $this->filterProjectCategories($newCategories, $src['project_id']);
         $oldSrc           = $this->getCategories($src['issue_id']);
         $oldCategories    = [];
         $data             = [];
@@ -334,6 +367,35 @@ class CategoryModel extends AbstractTrackerDatabaseModel
     }
 
     /**
+     * Filter a list of category ids down to the categories belonging to a project.
+     *
+     * @param   array    $categoryIds  The category ids.
+     * @param   integer  $projectId    The project id.
+     *
+     * @return  array  The category ids belonging to the project.
+     *
+     * @since   1.0
+     */
+    private function filterProjectCategories(array $categoryIds, $projectId)
+    {
+        $categoryIds = array_filter(array_map('intval', $categoryIds));
+
+        if (!$categoryIds) {
+            return [];
+        }
+
+        $db = $this->getDb();
+
+        return $db->setQuery(
+            $db->getQuery(true)
+                ->select($db->quoteName('id'))
+                ->from($db->quoteName((new CategoryTable($db))->getTableName()))
+                ->where($db->quoteName('project_id') . ' = ' . (int) $projectId)
+                ->where($db->quoteName('id') . ' IN (' . implode(', ', $categoryIds) . ')')
+        )->loadColumn();
+    }
+
+    /**
      * Process the change in category for issues.
      *
      * @param   array  $src  The source, should include: $src['issue_number'], the issue's number; $src['project_id'],
@@ -352,13 +414,13 @@ class CategoryModel extends AbstractTrackerDatabaseModel
         $change->new  = [];
 
         foreach ($src['old'] as $key => $old) {
-            $oldCategory                = $this->getItem($old);
+            $oldCategory                = $this->loadItem($old);
             $change->old[$key]['title'] = $oldCategory->title;
             $change->old[$key]['color'] = $oldCategory->color;
         }
 
         foreach ($src['new'] as $key => $new) {
-            $newCategory                = $this->getItem($new);
+            $newCategory                = $this->loadItem($new);
             $change->new[$key]['title'] = $newCategory->title;
             $change->new[$key]['color'] = $newCategory->color;
         }

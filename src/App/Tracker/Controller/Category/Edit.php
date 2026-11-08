@@ -63,11 +63,12 @@ class Edit extends AbstractTrackerController
     {
         /** @var \JTracker\Application\Application $application */
         $application = $this->getContainer()->get('app');
+        $project     = $application->getProject(true);
         $application->getUser()->authorize('manage');
 
+        $this->view->setProject($project);
+        $this->model->setProject($project);
         $item = $this->model->getItem($application->input->getUint('id'));
-        $this->view->setProject($application->getProject());
-        $this->model->setProject($application->getProject());
         $this->view->setItem($item);
 
         return parent::execute();

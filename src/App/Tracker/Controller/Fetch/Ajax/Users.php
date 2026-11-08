@@ -33,6 +33,10 @@ class Users extends AbstractAjaxController
         /** @var \Joomla\Database\DatabaseDriver $db */
         $db = $this->getContainer()->get('db');
 
+        // Only users with view access to the current project may search the users.
+        $application->getProject();
+        $application->getUser()->authorize('view');
+
         $username = $application->input->getCmd('q');
 
         if ($username) {
