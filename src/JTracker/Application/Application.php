@@ -290,7 +290,12 @@ final class Application extends AbstractWebApplication implements ContainerAware
                 $sessionUser->setDatabase($this->getContainer()->get('db'));
                 $sessionUser->getProject()->setDatabase($this->getContainer()->get('db'));
 
-                $this->setUser($sessionUser->loadBy(['id' => $sessionUser->id, 'username' => $sessionUser->username]));
+                try {
+                    $this->setUser($sessionUser->loadBy(['id' => $sessionUser->id, 'username' => $sessionUser->username]));
+                } catch (\RuntimeException $e) {
+                    // The user no longer exists in the database - fall back to a guest user
+                    $this->setUser(null);
+                }
             } else {
                 $this->setUser(null);
             }
