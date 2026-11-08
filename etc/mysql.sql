@@ -263,6 +263,7 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `name` varchar(400) NOT NULL DEFAULT '' COMMENT 'The users name',
   `username` varchar(150) NOT NULL DEFAULT '' COMMENT 'The users username',
+  `github_id` bigint(20) unsigned DEFAULT NULL COMMENT 'The numeric GitHub user id',
   `email` varchar(100) NOT NULL DEFAULT '' COMMENT 'The users e-mail',
   `block` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'If the user is blocked',
   `sendEmail` tinyint(4) DEFAULT 0 COMMENT 'If the users receives e-mail',
@@ -273,6 +274,7 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   KEY `idx_name` (`name`(100)),
   KEY `idx_block` (`block`),
   KEY `username` (`username`),
+  KEY `github_id` (`github_id`),
   KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
@@ -447,4 +449,5 @@ INSERT INTO `#__migrations` (`version`) VALUES
 ('20160612002'),
 ('20170723001'),
 ('20180218001'),
-('20200310001');
+('20200310001'),
+('20261108001');

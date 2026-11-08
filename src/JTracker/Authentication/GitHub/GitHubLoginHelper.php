@@ -297,6 +297,53 @@ class GitHubLoginHelper
     }
 
     /**
+     * Bind a user account to the numeric GitHub user id and verify it on subsequent logins.
+     *
+     * GitHub user names can be changed and re-registered by someone else, while the numeric id is permanent.
+     * Accounts without a stored GitHub id (created before the id was stored) are bound on their next login.
+     *
+     * @param   integer  $id        The user ID.
+     * @param   integer  $gitHubId  The numeric id of the authenticated GitHub user.
+     *
+     * @return  boolean  False if the account is bound to a different GitHub user.
+     *
+     * @since   1.0
+     */
+    public function verifyGitHubId($id, $gitHubId)
+    {
+        $db       = $this->db;
+        $gitHubId = (int) $gitHubId;
+
+        if (!$gitHubId || !\array_key_exists('github_id', $db->getTableColumns('#__users'))) {
+            // No id received or the database has not been migrated yet - nothing to verify.
+            return true;
+        }
+
+        $query = $db->getQuery(true)
+            ->select($db->quoteName('github_id'))
+            ->from($db->quoteName('#__users'))
+            ->where($db->quoteName('id') . '=' . (int) $id);
+
+        $storedId = $db->setQuery($query)->loadResult();
+
+        if ($storedId === null) {
+            // Bind the account to the GitHub user.
+            $db->setQuery(
+                $db->getQuery(true)
+                    ->update($db->quoteName('#__users'))
+                    ->set($db->quoteName('github_id') . '=' . $gitHubId)
+                    ->where($db->quoteName('id') . '=' . (int) $id)
+                    ->where($db->quoteName('github_id') . ' IS NULL')
+            )->execute();
+
+            // Re-read the id in case a concurrent login has bound the account in the meantime.
+            $storedId = $db->setQuery($query)->loadResult();
+        }
+
+        return (int) $storedId === $gitHubId;
+    }
+
+    /**
      * Set the last visited time for a newly logged in user
      *
      * @param   integer  $id  The user ID to update

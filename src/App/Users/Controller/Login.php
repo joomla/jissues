@@ -83,6 +83,14 @@ class Login extends AbstractTrackerController
         /** @var GitHubLoginHelper $loginHelper */
         $loginHelper = $this->getContainer()->get(GitHubLoginHelper::class);
 
+        // Make sure the account belongs to the authenticated GitHub user (user names can be re-registered)
+        if (!$loginHelper->verifyGitHubId($user->id, $gitHubUser->id ?? 0)) {
+            $app->getSession()->remove('gh_oauth_access_token');
+            $app->setRememberMe(false);
+
+            throw new AuthenticationException($user, 'login');
+        }
+
         // Save the avatar
         $loginHelper->saveAvatar($user->username);
 
