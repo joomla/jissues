@@ -117,10 +117,6 @@
     <params>option</params>
   </command>
   <command>
-    <name>test:checkstyle</name>
-    <help>Run PHP CodeSniffer tests.</help>
-  </command>
-  <command>
     <name>test:hook</name>
     <help>Tests web hooks.</help>
   </command>

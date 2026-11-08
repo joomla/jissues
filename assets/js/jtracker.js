@@ -286,6 +286,21 @@
         },
 
         /**
+         * Escape a value for safe use in HTML content and attributes
+         *
+         * @param {*} value The value to escape
+         * @returns {String}
+         */
+        escapeHtml: function (value) {
+            return String(value === undefined || value === null ? '' : value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        },
+
+        /**
          * Configure the jquery.atwho integration
          *
          * @param {String} id           The target element ID
@@ -318,9 +333,28 @@
                     return {key: value, name: value}
                 });
 
+            /*
+             * Template evaluation for at.js which HTML-escapes the data when building the suggestion list.
+             * The values are inserted unescaped into the textarea as it does not interpret HTML.
+             */
+            var tplEval = function (tpl, map, type) {
+                try {
+                    var template = typeof tpl === 'string' ? tpl : tpl(map);
+
+                    return template.replace(/\$\{([^\}]*)\}/g, function (tag, key) {
+                        return type === 'onInsert' ? map[key] : JTracker.escapeHtml(map[key]);
+                    });
+                } catch (error) {
+                    return '';
+                }
+            };
+
             var emoji_config = {
                 at: ":",
                 data: emojis,
+                callbacks: {
+                    tplEval: tplEval
+                },
                 displayTpl: "<li data-value=':${key}:'><img src='https://assets-cdn.github.com/images/icons/emoji/${key}.png' height='20' width='20' /> ${name}</li>",
                 insertTpl: ":${name}:"
             };
@@ -329,6 +363,7 @@
                 at: "@",
                 searchKey: 'username',
                 callbacks: {
+                    tplEval: tplEval,
                     remoteFilter: function (query, callback) {
                         $.getJSON('/fetch/users', {q: query}, function (response) {
                             callback(response.data)
@@ -343,6 +378,7 @@
                 at: '#',
                 searchKey: 'issue_number',
                 callbacks: {
+                    tplEval: tplEval,
                     remoteFilter: function (query, callback) {
                         $.getJSON('/fetch/issues', {q: query}, function (response) {
                             callback(response.data)
