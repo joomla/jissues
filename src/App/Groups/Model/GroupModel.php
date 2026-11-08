@@ -34,6 +34,7 @@ class GroupModel extends AbstractTrackerDatabaseModel
      * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
      *
      * @since   1.0
+     * @throws  \RuntimeException
      */
     public function getItem()
     {
@@ -41,7 +42,18 @@ class GroupModel extends AbstractTrackerDatabaseModel
 
         $groupId = $this->getGroupId();
 
-        return $groupId ? $table->load($groupId)->getIterator() : $table->getIterator();
+        if (!$groupId) {
+            return $table->getIterator();
+        }
+
+        $table->load($groupId);
+
+        // Only groups of the current project may be accessed.
+        if ((int) $table->project_id !== (int) $this->getProject()->project_id) {
+            throw new \RuntimeException('Invalid group', 404);
+        }
+
+        return $table->getIterator();
     }
 
     /**

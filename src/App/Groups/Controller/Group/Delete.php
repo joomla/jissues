@@ -12,6 +12,7 @@ namespace App\Groups\Controller\Group;
 use App\Groups\Model\GroupModel;
 use App\Groups\Table\GroupsTable;
 use App\Groups\View\Group\GroupHtmlView;
+use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -74,9 +75,18 @@ class Delete extends AbstractTrackerController
      */
     public function execute()
     {
-        (new GroupsTable($this->getContainer()->get('db')))
-            ->load($this->getContainer()->get('app')->input->getInt('group_id'))
-            ->delete();
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
+
+        $table = (new GroupsTable($this->getContainer()->get('db')))
+            ->load($application->input->getInt('group_id'));
+
+        // Only groups of the current project may be deleted.
+        if ((int) $table->project_id !== (int) $application->getProject()->project_id) {
+            throw new AuthenticationException($application->getUser(), 'manage');
+        }
+
+        $table->delete();
 
         $this->getContainer()->get('app')->enqueueMessage('The group has been deleted.', 'success');
 
