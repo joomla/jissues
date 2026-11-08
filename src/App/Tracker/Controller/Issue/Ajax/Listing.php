@@ -43,7 +43,9 @@ class Listing extends AbstractAjaxController
         $projectId = $application->getProject()->project_id;
 
         // Set up pagination values
-        $limit = $application->getUserStateFromRequest('list.limit', 'limit', 20, 'int');
+        $limit = TrackerPagination::clampLimit(
+            $application->getUserStateFromRequest('list.limit', 'limit', TrackerPagination::DEFAULT_LIMIT, 'int')
+        );
         $page  = $application->getUserStateFromRequest('project_' . $projectId . '.page', 'page', 1, 'uint');
 
         $projectIdFromState = $application->getUserState('projectId', 0);

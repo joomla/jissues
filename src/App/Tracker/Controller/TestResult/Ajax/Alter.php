@@ -64,9 +64,14 @@ class Alter extends AbstractAjaxController
 
         $issueModel = new IssueModel($this->getContainer()->get('db'));
 
-        $data->testResults = $issueModel->saveTest($issueId, $result->user, $result->value, $sha);
+        // Make sure the issue belongs to the current project.
+        $issueNumber = $issueModel->getIssueNumberById($issueId, $project->project_id);
 
-        $issueNumber = $issueModel->getIssueNumberById($issueId);
+        if (!$issueNumber) {
+            throw new \Exception('Invalid issue ID.');
+        }
+
+        $data->testResults = $issueModel->saveTest($issueId, $result->user, $result->value, $sha);
 
         $event = (new ActivityModel($this->getContainer()->get('db')))
             ->addActivityEvent(
