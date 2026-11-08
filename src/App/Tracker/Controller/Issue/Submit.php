@@ -152,6 +152,7 @@ class Submit extends AbstractTrackerController
             $category = [
                 'issue_id'   => $issue_id,
                 'categories' => $application->input->get('categories', null, 'array'),
+                'project_id' => $project->project_id,
             ];
 
             (new CategoryModel($this->getContainer()->get('db')))->saveCategory($category);

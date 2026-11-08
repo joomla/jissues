@@ -143,6 +143,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
                 ->select('a.issue_number, a.title, a.rel_type')
                 ->select('t.name AS rel_name')
                 ->select('s.status AS status_title, s.closed AS closed')
+                ->where($this->db->quoteName('a.project_id') . ' = ' . (int) $this->getProject()->project_id)
                 ->where($this->db->quoteName('a.rel_number') . '=' . (int) $item->issue_number)
                 ->order(['a.issue_number', 'a.rel_type'])
         )->loadObjectList();
@@ -723,20 +724,25 @@ class IssueModel extends AbstractTrackerDatabaseModel
     /**
      * Get an issue number by its ID.
      *
-     * @param   integer  $id  The issue ID.
+     * @param   integer  $id         The issue ID.
+     * @param   integer  $projectId  If set, the issue must belong to this project.
      *
-     * @return  integer
+     * @return  integer|null  The issue number or null if no matching issue was found.
      *
      * @since   1.0
      */
-    public function getIssueNumberById($id)
+    public function getIssueNumberById($id, $projectId = null)
     {
-        return $this->db->setQuery(
-            $this->db->getQuery(true)
-                ->select('issue_number')
-                ->from($this->db->quoteName('#__issues'))
-                ->where($this->db->quoteName('id') . ' = ' . (int) $id)
-        )->loadResult();
+        $query = $this->db->getQuery(true)
+            ->select('issue_number')
+            ->from($this->db->quoteName('#__issues'))
+            ->where($this->db->quoteName('id') . ' = ' . (int) $id);
+
+        if ($projectId !== null) {
+            $query->where($this->db->quoteName('project_id') . ' = ' . (int) $projectId);
+        }
+
+        return $this->db->setQuery($query)->loadResult();
     }
 
     /**

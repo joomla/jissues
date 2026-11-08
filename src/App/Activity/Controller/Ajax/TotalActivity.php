@@ -72,6 +72,9 @@ class TotalActivity extends AbstractAjaxController
      */
     protected function prepareResponse()
     {
+        // Only users with view access to the project may see its statistics.
+        $this->getContainer()->get('app')->getUser()->authorize('view');
+
         $items = $this->model->getTotalActivity();
         $state = $this->model->getState();
 

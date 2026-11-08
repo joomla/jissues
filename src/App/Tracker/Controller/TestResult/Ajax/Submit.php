@@ -38,7 +38,7 @@ class Submit extends AbstractAjaxController
         $user        = $application->getUser();
         $project     = $application->getProject();
 
-        if (!$user->id) {
+        if (!$user->id || !$user->check('view')) {
             throw new \Exception('You are not allowed to test this item.');
         }
 
@@ -68,9 +68,14 @@ class Submit extends AbstractAjaxController
 
         $data = new \stdClass();
 
-        $data->testResults = $issueModel->saveTest($issueId, $user->username, $result, $sha);
+        // Make sure the issue belongs to the current project.
+        $issueNumber = $issueModel->getIssueNumberById($issueId, $project->project_id);
 
-        $issueNumber = $issueModel->getIssueNumberById($issueId);
+        if (!$issueNumber) {
+            throw new \Exception('Invalid issue ID.');
+        }
+
+        $data->testResults = $issueModel->saveTest($issueId, $user->username, $result, $sha);
 
         $event = (new ActivityModel($this->getContainer()->get('db')))
             ->addActivityEvent(
