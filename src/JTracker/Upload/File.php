@@ -12,6 +12,7 @@ namespace JTracker\Upload;
 use JTracker\Application\Application;
 use Upload\File as UploadFile;
 use Upload\Storage\FileSystem;
+use Upload\Validation\Extension;
 use Upload\Validation\Mimetype;
 use Upload\Validation\Size;
 
@@ -22,6 +23,23 @@ use Upload\Validation\Size;
  */
 class File extends UploadFile implements \JsonSerializable
 {
+    /**
+     * Map of MIME types to the file extensions which may be stored for them.
+     *
+     * Only extensions for MIME types which are allowed in the configuration are accepted.
+     *
+     * @var    array
+     * @since  1.0
+     */
+    private const EXTENSION_MAP = [
+        'image/png'       => ['png'],
+        'image/jpeg'      => ['jpg', 'jpeg'],
+        'image/gif'       => ['gif'],
+        'image/webp'      => ['webp'],
+        'text/plain'      => ['txt'],
+        'application/pdf' => ['pdf'],
+    ];
+
     /**
      * Application object.
      *
@@ -74,6 +92,26 @@ class File extends UploadFile implements \JsonSerializable
     }
 
     /**
+     * Get the file extensions which are allowed for the configured MIME types.
+     *
+     * @return  string[]
+     *
+     * @since   1.0
+     */
+    public function getAllowedExtensions(): array
+    {
+        $extensions = [];
+
+        foreach ((array) $this->application->get('validation.mime_types') as $mimeType) {
+            if (isset(self::EXTENSION_MAP[$mimeType])) {
+                $extensions = array_merge($extensions, self::EXTENSION_MAP[$mimeType]);
+            }
+        }
+
+        return array_values(array_unique($extensions));
+    }
+
+    /**
      * Method to set the file validations.
      *
      * @return  void
@@ -92,6 +130,9 @@ class File extends UploadFile implements \JsonSerializable
         if ($this->getExtension() == 'txt') {
             array_shift($validations);
         }
+
+        // Only allow a fixed set of extensions, so no executable files can be stored.
+        $validations[] = new Extension($this->getAllowedExtensions());
 
         $this->addValidations($validations);
     }
