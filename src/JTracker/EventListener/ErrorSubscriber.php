@@ -192,7 +192,8 @@ class ErrorSubscriber implements SubscriberInterface, LoggerAwareInterface
                 $body = $this->renderer->render(
                     'exception.twig',
                     [
-                        'exception' => $event->getError(),
+                        'exception'   => $event->getError(),
+                        'showDetails' => $app instanceof Application && $app->canViewDebugOutput(),
                     ]
                 );
 

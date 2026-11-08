@@ -45,7 +45,14 @@ class ProjectActivity extends AbstractAjaxController
 
         $state->set('list.limit', 25);
         $state->set('list.start', 0);
-        $state->set('list.period', $application->input->getUint('period', 1));
+        $period = $application->input->getUint('period', 1);
+
+        // The chart only supports periods of weeks, months and quarters
+        if (!\in_array($period, [1, 2, 3])) {
+            $period = 1;
+        }
+
+        $state->set('list.period', $period);
 
         $this->model->setState($state);
 
