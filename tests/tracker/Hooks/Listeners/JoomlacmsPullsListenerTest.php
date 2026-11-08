@@ -125,6 +125,14 @@ class JoomlacmsPullsListenerTest extends TestCase
     private $dbObjectList = [];
 
     /**
+     * Result of the mocked database `loadColumn()` method
+     *
+     * @var    array
+     * @since  1.0
+     */
+    private $dbColumn = [];
+
+    /**
      * Objects passed to the mocked database `insertObject()` method, as [table, object] pairs
      *
      * @var    array
@@ -333,9 +341,21 @@ class JoomlacmsPullsListenerTest extends TestCase
                 function () {
                     $query = $this->createMock(DatabaseQuery::class);
 
-                    foreach (['select', 'from', 'where', 'delete'] as $method) {
+                    foreach (['select', 'from', 'delete'] as $method) {
                         $query->method($method)->willReturnSelf();
                     }
+
+                    // Remember the ids of an "IN (...)" condition, they are returned by loadColumn()
+                    $query->method('where')
+                        ->willReturnCallback(
+                            function ($condition) use ($query) {
+                                if (\is_string($condition) && preg_match('/ IN \(([^)]*)\)/', $condition, $matches)) {
+                                    $this->dbColumn = array_map('intval', explode(',', $matches[1]));
+                                }
+
+                                return $query;
+                            }
+                        );
 
                     return $query;
                 }
@@ -358,6 +378,14 @@ class JoomlacmsPullsListenerTest extends TestCase
             ->willReturnCallback(
                 function () {
                     return $this->dbObjectList;
+                }
+            );
+
+        // All requested categories belong to the project
+        $db->method('loadColumn')
+            ->willReturnCallback(
+                function () {
+                    return $this->dbColumn;
                 }
             );
 
