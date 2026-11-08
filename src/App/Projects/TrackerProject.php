@@ -133,6 +133,30 @@ class TrackerProject implements \Serializable
     private $database;
 
     /**
+     * Cached list of labels for the project
+     *
+     * @var    array|null
+     * @since  1.0
+     */
+    private $labelsCache;
+
+    /**
+     * Cached list of milestones for the project
+     *
+     * @var    array|null
+     * @since  1.0
+     */
+    private $milestonesCache;
+
+    /**
+     * Cached list of categories for the project
+     *
+     * @var    array|null
+     * @since  1.0
+     */
+    private $categoriesCache;
+
+    /**
      * Constructor.
      *
      * @param   DatabaseDriver  $database  The database connector.
@@ -293,10 +317,9 @@ class TrackerProject implements \Serializable
      */
     public function getLabels()
     {
-        static $labels = [];
-
-        if (!$labels) {
-            $db = $this->database;
+        if ($this->labelsCache === null) {
+            $labels = [];
+            $db     = $this->database;
 
             $labelList = $db ->setQuery(
                 $db->getQuery(true)
@@ -313,9 +336,11 @@ class TrackerProject implements \Serializable
 
                 $labels[$labelObject->label_id] = $l;
             }
+
+            $this->labelsCache = $labels;
         }
 
-        return $labels;
+        return $this->labelsCache;
     }
 
     /**
@@ -327,12 +352,10 @@ class TrackerProject implements \Serializable
      */
     public function getMilestones()
     {
-        static $milestones = [];
-
-        if (!$milestones) {
+        if ($this->milestonesCache === null) {
             $db = $this->database;
 
-            $milestones = $db ->setQuery(
+            $this->milestonesCache = $db ->setQuery(
                 $db->getQuery(true)
                     ->from($db->quoteName((new MilestonesTable($db))->getTableName()))
                     ->select(['milestone_id', 'milestone_number', 'title', 'description', 'state', 'due_on'])
@@ -341,7 +364,7 @@ class TrackerProject implements \Serializable
             )->loadObjectList();
         }
 
-        return $milestones;
+        return $this->milestonesCache;
     }
 
     /*
@@ -460,7 +483,7 @@ class TrackerProject implements \Serializable
         $props = [];
 
         foreach (get_object_vars($this) as $key => $value) {
-            if (\in_array($key, ['authModel', 'cleared', 'authId', 'database'])) {
+            if (\in_array($key, ['authModel', 'cleared', 'authId', 'database', 'labelsCache', 'milestonesCache', 'categoriesCache'])) {
                 continue;
             }
 
@@ -534,9 +557,7 @@ class TrackerProject implements \Serializable
      */
     public function getCategories()
     {
-        static $categories;
-
-        if (!$categories) {
+        if ($this->categoriesCache === null) {
             $db    = $this->database;
             $query = $db->getQuery(true);
 
@@ -546,10 +567,10 @@ class TrackerProject implements \Serializable
                 ->where($db->quoteName('project_id') . ' = ' . $this->project_id)
                 ->order($db->quoteName('title'));
 
-            $categories = $db->setQuery($query)->loadObjectList();
+            $this->categoriesCache = $db->setQuery($query)->loadObjectList();
         }
 
-        return $categories;
+        return $this->categoriesCache;
     }
 
     /**
@@ -562,7 +583,7 @@ class TrackerProject implements \Serializable
     public function __serialize(): array
     {
         foreach (get_object_vars($this) as $key => $value) {
-            if (\in_array($key, ['authModel', 'cleared', 'authId', 'database'])) {
+            if (\in_array($key, ['authModel', 'cleared', 'authId', 'database', 'labelsCache', 'milestonesCache', 'categoriesCache'])) {
                 continue;
             }
 

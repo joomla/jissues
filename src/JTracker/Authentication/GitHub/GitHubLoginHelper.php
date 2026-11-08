@@ -138,7 +138,8 @@ class GitHubLoginHelper
         }
 
         $uri = new Uri($this->application->get('uri.base.full') . 'login');
-        $uri->setVar('usr_redirect', base64_encode((string) new Uri($this->application->get('uri.request'))));
+        // Uri::toString() does not encode query values, so encode the base64 string to preserve '+', '/' and '='
+        $uri->setVar('usr_redirect', rawurlencode(base64_encode((string) new Uri($this->application->get('uri.request')))));
 
         return $this->github->authorization->getAuthorizationLink(
             $this->clientId,
