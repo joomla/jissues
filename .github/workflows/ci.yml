@@ -97,6 +97,69 @@ jobs:
           php -v
           ./vendor/bin/phpunit --configuration=phpunit.xml
 
+  php83:
+    name: Run Unit tests (PHP 8.3)
+    runs-on: ubuntu-latest
+    container: joomlaprojects/docker-images:php8.3
+    needs: [php-cs-fixer]
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+          fail-on-cache-miss: true
+      - name: Run Unit tests
+        run: |
+          php -v
+          ./vendor/bin/phpunit --configuration=phpunit.xml
+
+  php-newer:
+    # Newer PHP versions: failures are reported but don't fail the build
+    name: Run Unit tests (PHP ${{ matrix.php_version }}, allowed to fail)
+    runs-on: ubuntu-latest
+    container: joomlaprojects/docker-images:php${{ matrix.php_version }}
+    needs: [php-cs-fixer]
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        php_version: ['8.4', '8.5']
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+          fail-on-cache-miss: true
+      - name: Run Unit tests
+        run: |
+          php -v
+          ./vendor/bin/phpunit --configuration=phpunit.xml
+
+  php86:
+    # PHP 8.6 is still in development and has no joomlaprojects image yet; allowed to fail
+    name: Run Unit tests (PHP 8.6, allowed to fail)
+    runs-on: ubuntu-latest
+    needs: [php-cs-fixer]
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: '8.6'
+          extensions: curl, intl, json
+          coverage: none
+      - uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+          fail-on-cache-miss: true
+      - name: Run Unit tests
+        run: |
+          php -v
+          ./vendor/bin/phpunit --configuration=phpunit.xml
+
   deployment:
     name: Deploy to server
     runs-on: ubuntu-latest
