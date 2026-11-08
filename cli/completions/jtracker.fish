@@ -143,7 +143,6 @@ complete -f -c jtracker -n '__fish_jtracker_using_command' -a make:repoinfo -d "
 
 # jtracker test
 complete -f -c jtracker -n '__fish_jtracker_using_command list' -a test
-complete -f -c jtracker -n '__fish_jtracker_using_command' -a test:checkstyle -d "Run PHP CodeSniffer tests."
 complete -f -c jtracker -n '__fish_jtracker_using_command' -a test:hook -d "Tests web hooks."
 complete -f -c jtracker -n '__fish_jtracker_using_action test:hook' -s p -l project -d "Process the project with the given ID."
 complete -f -c jtracker -n '__fish_jtracker_using_command' -a test:phpunit -d "Run PHPUnit tests."
