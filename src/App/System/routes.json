@@ -1,22 +1,22 @@
 {
 	"administrator": {
-		"controller": "App\\System\\Controller\\Controller",
-		"methods": ["*"]
+		"controller": "App\\System\\Controller\\WrongCmsController",
+		"methods": []
 	},
 	"administrator/*": {
-		"controller": "App\\System\\Controller\\Controller",
-		"methods": ["*"]
+		"controller": "App\\System\\Controller\\WrongCmsController",
+		"methods": []
 	},
 	"wp-admin": {
-		"controller": "App\\System\\Controller\\Controller",
-		"methods": ["*"]
+		"controller": "App\\System\\Controller\\WrongCmsController",
+		"methods": []
 	},
 	"wp-admin/*": {
-		"controller": "App\\System\\Controller\\Controller",
-		"methods": ["*"]
+		"controller": "App\\System\\Controller\\WrongCmsController",
+		"methods": []
 	},
 	"wp-login.php": {
-		"controller": "App\\System\\Controller\\Controller",
-		"methods": ["*"]
+		"controller": "App\\System\\Controller\\WrongCmsController",
+		"methods": []
 	}
 }

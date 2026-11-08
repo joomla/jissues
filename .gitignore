@@ -34,6 +34,7 @@ current_SHA
 
 # Ignore uploads #
 www/uploads/*
+!www/uploads/.htaccess
 
 # Only track security.txt from .well-known directory
 /www/.well-known/*

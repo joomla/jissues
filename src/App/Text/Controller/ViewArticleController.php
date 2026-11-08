@@ -11,6 +11,7 @@ namespace App\Text\Controller;
 
 use App\Text\Model\ArticlesModel;
 use Joomla\Controller\AbstractController;
+use Joomla\Database\Exception\ExecutionFailureException;
 use JTracker\View\BaseHtmlView;
 use Laminas\Diactoros\Response\HtmlResponse;
 
@@ -59,6 +60,7 @@ class ViewArticleController extends AbstractController
      * @return  boolean
      *
      * @since   1.0
+     * @throws  \RuntimeException
      */
     public function execute()
     {
@@ -67,9 +69,18 @@ class ViewArticleController extends AbstractController
             ->addData('layout', 'index')
             ->addData('app', 'text');
 
+        try {
+            $article = $this->model->findByAlias($this->getInput()->getCmd('alias'));
+        } catch (ExecutionFailureException $exception) {
+            throw $exception;
+        } catch (\RuntimeException $exception) {
+            // The table throws a RuntimeException when no article matches the alias
+            throw new \RuntimeException('Page not found.', 404, $exception);
+        }
+
         // Push page into view
         // TODO - Twig doesn't use __get to read properties
-        $this->view->addData('item', $this->model->findByAlias($this->getInput()->getCmd('alias'))->getIterator());
+        $this->view->addData('item', $article->getIterator());
 
         $this->getApplication()->setResponse(
             new HtmlResponse(

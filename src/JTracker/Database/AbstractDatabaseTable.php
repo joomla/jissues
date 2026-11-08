@@ -121,7 +121,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
      */
     public function __set($key, $value)
     {
-        if (isset($this->tableFields->$key) || $this->tableFields->$key === null) {
+        if (property_exists($this->tableFields, $key)) {
             $this->tableFields->$key = $value;
         } else {
             throw new \InvalidArgumentException(__METHOD__ . ' - Set unknown property: ' . $key);
@@ -140,7 +140,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
      */
     public function __get($key)
     {
-        if (isset($this->tableFields->$key) || $this->tableFields->$key === null) {
+        if (property_exists($this->tableFields, $key)) {
             return $this->tableFields->$key;
         }
 
@@ -275,7 +275,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
         foreach ($keys as $field => $value) {
             // Check that $field is in the table.
 
-            if (isset($this->tableFields->$field) || $this->tableFields->$field === null) {
+            if (property_exists($this->tableFields, $field)) {
                 // Add the search tuple to the query.
                 $query->where($this->db->quoteName($field) . ' = ' . $this->db->quote($value));
             } else {
