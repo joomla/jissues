@@ -238,8 +238,9 @@ class IssueExtension extends AbstractExtension
                 $name    = '?';
             }
 
-            $html[] = '<span class="badge rounded-pill" style="background-color: #' . $bgColor . '; color: ' . $color . ';">';
-            $html[] = $name;
+            $html[] = '<span class="badge rounded-pill" style="background-color: #' . htmlspecialchars($bgColor, ENT_QUOTES, 'UTF-8')
+                . '; color: ' . htmlspecialchars($color, ENT_QUOTES, 'UTF-8') . ';">';
+            $html[] = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
             $html[] = '</span>';
         }
 
@@ -298,7 +299,9 @@ class IssueExtension extends AbstractExtension
         $title = $title ?: ' #' . $number;
         $href  = $this->app->get('uri.base.path') . 'tracker/' . $this->app->getProject()->alias . '/' . $number;
 
-        $html = '<a href="' . $href . '" title="' . $title . '">';
+        $number = htmlspecialchars((string) $number, ENT_QUOTES, 'UTF-8');
+
+        $html = '<a href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '" title="' . htmlspecialchars($title, ENT_QUOTES, 'UTF-8') . '">';
         $html .= $closed ? '<del># ' . $number . '</del>' : '# ' . $number;
         $html .= '</a>';
 

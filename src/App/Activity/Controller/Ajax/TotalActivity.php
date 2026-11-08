@@ -42,7 +42,14 @@ class TotalActivity extends AbstractAjaxController
         $state         = new Registry();
         $enteredPeriod = $application->input->getUint('period', 1);
 
-        $state->set('list.activity_type', $application->input->getUint('activity_type', 0));
+        $activityType = $application->input->getUint('activity_type', 0);
+
+        // Only the "All", "Tracker", "Test" and "Code" activity types are supported
+        if ($activityType > 3) {
+            $activityType = 0;
+        }
+
+        $state->set('list.activity_type', $activityType);
 
         if ($enteredPeriod == 5) {
             $startDate = $application->input->getCmd('startdate');
@@ -54,6 +61,11 @@ class TotalActivity extends AbstractAjaxController
             } else {
                 $enteredPeriod = 1;
             }
+        }
+
+        // The chart only supports periods of weeks, months and quarters
+        if (!\in_array($enteredPeriod, [1, 2, 3])) {
+            $enteredPeriod = 1;
         }
 
         $state->set('list.period', $enteredPeriod);
@@ -110,7 +122,7 @@ class TotalActivity extends AbstractAjaxController
             $points[$group][] = (int) $item->p1;
         }
 
-        $endDate     = $items[0]->end_date;
+        $endDate     = $items ? $items[0]->end_date : date('Y-m-d');
         $periodDays  = [7, 7, 30, 90];
         $dayInterval = $periodDays[$periodType];
 
@@ -124,19 +136,17 @@ class TotalActivity extends AbstractAjaxController
                     . date('d M', strtotime($endDate . '-' . ($dayInterval * 0) . ' day'));
 
         $data   = [];
-        $label1 = new \stdClass();
-        $label2 = new \stdClass();
+        $labels = [];
 
-        $types         = array_keys($points);
-        $label1->label = \sprintf('%1$s Points', $types[0]);
+        // The "All" type shows two series, the other types one; there might be less if no activity was found
+        $seriesCount = $activityType === 0 ? 2 : 1;
 
-        if ($activityType === 0) {
-            $label2->label = \sprintf('%1$s Points', $types[1]);
-            $data          = [$points[$types[0]], $points[$types[1]]];
-            $labels        = [$label1, $label2];
-        } else {
-            $data   = [$points[$types[0]]];
-            $labels = [$label1];
+        foreach (\array_slice($points, 0, $seriesCount, true) as $group => $groupPoints) {
+            $label        = new \stdClass();
+            $label->label = \sprintf('%1$s Points', $group);
+
+            $data[]   = $groupPoints;
+            $labels[] = $label;
         }
 
         // Setup the response data

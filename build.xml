@@ -37,15 +37,6 @@
 		</exec>
 	</target>
 
-	<target name="parallelTasks" description="Run the phpmd and phpcs tasks in parallel using a maximum of 2 threads.">
-		<parallel threadCount="2">
-			<sequential>
-				<antcall target="phpmd" />
-			</sequential>
-			<antcall target="phpcs" />
-		</parallel>
-	</target>
-
 	<target name="phpmd" description="Generate pmd.xml using PHPMD">
 		<exec executable="phpmd${script-suffix}">
 			<arg path="${joomlasource}" />
@@ -53,34 +44,6 @@
 			<arg value="${basedir}/build/phpmd.xml" />
 			<arg value="--reportfile" />
 			<arg value="${basedir}/build/logs/pmd.xml" />
-		</exec>
-	</target>
-
-	<target name="phpcs" description="Generate checkstyle.xml using PHP_CodeSniffer">
-		<exec executable="phpcs${script-suffix}">
-			<arg value="--report=checkstyle" />
-			<arg value="--extensions=php" />
-			<arg value="-p" />
-			<arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
-			<arg value="--standard=${basedir}/build/phpcs/Joomla" />
-            <arg value="--ignore=${basedir}/*tmpl/*" />
-			<arg path="${source}" />
-			<arg path="${cli}" />
-			<arg path="${basedir}/tests" />
-			<arg path="www/index.php" />
-		</exec>
-	</target>
-
-	<target name="travis-phpcs" description="Generate codestyle report using PHP_CodeSniffer for output on Travis-CI builds">
-		<exec executable="phpcs${script-suffix}">
-			<arg value="--report=full" />
-			<arg value="--extensions=php" />
-			<arg value="-p" />
-			<arg value="--standard=${basedir}/build/phpcs/Joomla" />
-            <arg value="--ignore=${basedir}/*tmpl/*" />
-			<arg path="${source}" />
-			<arg path="${cli}" />
-			<arg path="www/index.php" />
 		</exec>
 	</target>
 
@@ -120,7 +83,7 @@
         </exec>
     </target>
 
-	<target name="build" depends="clean,composerupdate,composervalidate,installdep,parallelTasks" />
+	<target name="build" depends="clean,composerupdate,composervalidate,installdep,phpmd" />
 
-	<target name="travis-build" depends="clean,composerupdate,composervalidate,installdep,travis-phpcs,phpmd" />
+	<target name="travis-build" depends="clean,composerupdate,composervalidate,installdep,phpmd" />
 </project>

@@ -50,6 +50,5 @@
 `├── package.json` Node package lock file.<br />
 `├── phpunit.xml` PHPUnit config.<br />
 `├── README.md` Please read me...<br />
-`├── ruleset.xml` PHP_CodeSniffer config.<br />
 `├── Vagrantfile` Vagrant config file.<br />
 `├── webpack.mix.js` Laravel Mix (Webpack) configuration file.<br />
