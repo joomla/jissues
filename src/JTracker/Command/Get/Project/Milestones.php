@@ -89,18 +89,31 @@ class Milestones extends Project
 
         $table = new MilestonesTable($db);
 
-        $milestones = array_merge(
-            $this->github->issues->milestones->getList(
-                $this->project->gh_user,
-                $this->project->gh_project,
-                'open'
-            ),
-            $this->github->issues->milestones->getList(
-                $this->project->gh_user,
-                $this->project->gh_project,
-                'closed'
-            )
-        );
+        $milestones = [];
+
+        foreach (['open', 'closed'] as $state) {
+            $page = 0;
+
+            do {
+                $page++;
+
+                $items = $this->github->issues->milestones->getList(
+                    $this->project->gh_user,
+                    $this->project->gh_project,
+                    $state,
+                    'due_date',
+                    'desc',
+                    $page,
+                    100
+                );
+
+                $count = \is_array($items) ? \count($items) : 0;
+
+                if ($count) {
+                    $milestones = array_merge($milestones, $items);
+                }
+            } while ($count);
+        }
 
         $titles = [];
 
