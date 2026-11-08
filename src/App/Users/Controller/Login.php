@@ -43,7 +43,7 @@ class Login extends AbstractTrackerController
 
         if ($user->id) {
             // The user is already logged in.
-            $app->redirect('');
+            $app->redirect($app->get('uri.base.full'));
         }
 
         /** @var Authentication $authentication */
