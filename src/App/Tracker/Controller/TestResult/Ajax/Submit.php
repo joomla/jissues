@@ -55,6 +55,10 @@ class Submit extends AbstractAjaxController
             throw new \Exception('Missing commit SHA.');
         }
 
+        if (!\in_array($result, [0, 1, 2], true)) {
+            throw new \UnexpectedValueException('Unexpected test result value.');
+        }
+
         $this->setDispatcher($application->getDispatcher());
         $this->addEventListener('tests');
 
