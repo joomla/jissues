@@ -9,7 +9,7 @@ deleteArticleLinks.forEach((article) => {
 	article.addEventListener('click', (e) => {
 		e.preventDefault();
 
-		let formClass = '.delete-article-' + article.dataset.id + '-form';
+		let formClass = 'delete-article-' + article.dataset.id + '-form';
 		document.getElementById(formClass).submit();
 	})
 });
