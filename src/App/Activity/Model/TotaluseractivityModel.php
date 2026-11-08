@@ -30,7 +30,7 @@ class TotaluseractivityModel extends AbstractTrackerDatabaseModel
         $db    = $this->getDb();
         $query = $db->getQuery(true);
 
-        $periodList = [1 => '-7 DAY', 2 => '-30 Day', 3 => '-90 DAY', 4 => '-1 YEAR', 5 => 'Custom'];
+        $periodList = [1 => 7, 2 => 30, 3 => 90];
         $period     = $this->state->get('list.period', 1);
 
         if (!\in_array($period, array_keys($periodList))) {
@@ -39,8 +39,14 @@ class TotaluseractivityModel extends AbstractTrackerDatabaseModel
 
         $periodValue = $periodList[$period];
 
-        $typeList = ['All', 'Tracker', 'Test', 'Code'];
-        $type     = $typeList[$this->state->get('list.activity_type')];
+        $typeList     = ['All', 'Tracker', 'Test', 'Code'];
+        $activityType = (int) $this->state->get('list.activity_type', 0);
+
+        if (!isset($typeList[$activityType])) {
+            $activityType = 0;
+        }
+
+        $type = $typeList[$activityType];
 
         // Only select rows where we have activity types, build the subquery for this now
         $eventTypeSubquery = $db->getQuery(true)
@@ -63,9 +69,6 @@ class TotaluseractivityModel extends AbstractTrackerDatabaseModel
             't.activity_group',
             'DATE(NOW()) AS end_date',
         ];
-
-        $periodList  = [1 => 7, 2 => 30, 3 => 90];
-        $periodValue = $periodList[$this->state->get('list.period')];
 
         // Get 12 columns
         for ($i = 4; $i > 0; $i--) {
@@ -98,10 +101,10 @@ class TotaluseractivityModel extends AbstractTrackerDatabaseModel
 
         $query->group('t.activity_group');
 
-        if (\in_array($this->state->get('list.activity_type'), [1, 2])) {
+        if (\in_array($activityType, [1, 2])) {
             // This can only filter Tracker and Test activity types
             $query->where('t.activity_group = ' . $db->quote($type));
-        } elseif ($this->state->get('list.activity_type') == 3) {
+        } elseif ($activityType == 3) {
             // Since we have to return all data, sort on the code point result first
             $query->having('COUNT(c.id) > 0');
         }

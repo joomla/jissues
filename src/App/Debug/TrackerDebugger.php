@@ -10,6 +10,7 @@
 namespace App\Debug;
 
 use App\Debug\Handler\ProductionHandler;
+use App\Debug\Handler\RestrictedPrettyPageHandler;
 use App\Debug\Renderer\Html;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseEvents;
@@ -28,7 +29,6 @@ use Monolog\Processor\WebProcessor;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LogLevel;
-use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
 /**
@@ -87,15 +87,23 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
         $this->setupLogging();
 
         // Register an error handler.
+        $run = (new Run())
+            ->pushHandler(new ProductionHandler());
+
         if (JDEBUG) {
-            $handler = new PrettyPageHandler();
-        } else {
-            $handler = new ProductionHandler();
+            // The detailed error page is only shown to users allowed to see debug output, the production handler is used otherwise.
+            $run->pushHandler(
+                new RestrictedPrettyPageHandler(
+                    function () use ($container) {
+                        $application = $container->get('app');
+
+                        return !($application instanceof Application) || $application->canViewDebugOutput();
+                    }
+                )
+            );
         }
 
-        (new Run())
-            ->pushHandler($handler)
-            ->register();
+        $run->register();
     }
 
     /**
