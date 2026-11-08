@@ -55,6 +55,10 @@ class Submit extends AbstractAjaxController
             throw new \Exception('Missing commit SHA.');
         }
 
+        if (!\in_array($result, [0, 1, 2], true)) {
+            throw new \UnexpectedValueException('Unexpected test result value.');
+        }
+
         $this->setDispatcher($application->getDispatcher());
         $this->addEventListener('tests');
 
@@ -64,9 +68,14 @@ class Submit extends AbstractAjaxController
 
         $data = new \stdClass();
 
-        $data->testResults = $issueModel->saveTest($issueId, $user->username, $result, $sha);
+        // Make sure the issue belongs to the current project.
+        $issueNumber = $issueModel->getIssueNumberById($issueId, $project->project_id);
 
-        $issueNumber = $issueModel->getIssueNumberById($issueId);
+        if (!$issueNumber) {
+            throw new \Exception('Invalid issue ID.');
+        }
+
+        $data->testResults = $issueModel->saveTest($issueId, $user->username, $result, $sha);
 
         $event = (new ActivityModel($this->getContainer()->get('db')))
             ->addActivityEvent(
