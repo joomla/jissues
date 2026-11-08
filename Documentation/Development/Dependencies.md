@@ -264,13 +264,6 @@ The PHP Unit Testing framework.
 * Installed: 8.0.5 
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
-#### squizlabs/php_codesniffer (^2.9.2)
-
-PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.
-
-* Installed: 2.9.2 
-* Source URL: https://github.com/squizlabs/PHP_CodeSniffer.git
-
 #### sebastian/phpcpd (^4.1)
 
 Copy/Paste Detector (CPD) for PHP code.
