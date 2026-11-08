@@ -89,10 +89,25 @@ class Labels extends Project
 
         $table = new LabelsTable($db);
 
-        $labels = $this->github->issues->labels->getList(
-            $this->project->gh_user,
-            $this->project->gh_project
-        );
+        $labels = [];
+        $page   = 0;
+
+        do {
+            $page++;
+
+            $items = $this->github->issues->labels->getList(
+                $this->project->gh_user,
+                $this->project->gh_project,
+                $page,
+                100
+            );
+
+            $count = \is_array($items) ? \count($items) : 0;
+
+            if ($count) {
+                $labels = array_merge($labels, $items);
+            }
+        } while ($count);
 
         $names = [];
 

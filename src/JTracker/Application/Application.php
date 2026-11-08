@@ -126,6 +126,35 @@ final class Application extends AbstractWebApplication implements ContainerAware
     }
 
     /**
+     * Check if detailed debug output (stack traces, debug bar, dumps) may be shown to the current user.
+     *
+     * Debug output is only shown when debugging is enabled and, unless "debug.admin" is explicitly disabled
+     * in the configuration, only to admin users.
+     *
+     * @return  boolean
+     *
+     * @since   1.0
+     */
+    public function canViewDebugOutput(): bool
+    {
+        if (!\defined('JDEBUG') || !JDEBUG) {
+            return false;
+        }
+
+        if (!$this->get('debug.admin', true)) {
+            // Debug output has explicitly been enabled for everybody.
+            return true;
+        }
+
+        try {
+            return (bool) $this->getUser()->isAdmin;
+        } catch (\Throwable $throwable) {
+            // The user can not be determined (e.g. while handling an error) - don't show anything.
+            return false;
+        }
+    }
+
+    /**
      * Method to run the Web application routines.
      *
      * @return  void

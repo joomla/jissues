@@ -121,7 +121,16 @@ class RendererProvider implements ServiceProviderInterface
                     $loginHelper = $container->get(GitHubLoginHelper::class);
 
                     $environment->addGlobal('uri', $app->get('uri'));
-                    $environment->addGlobal('offset', $app->getUser()->params->get('timezone') ?: $config->get('system.offset', 'UTC'));
+                    $offset = $app->getUser()->params->get('timezone') ?: $config->get('system.offset', 'UTC');
+
+                    // Fall back to the system default if the user's timezone is invalid
+                    try {
+                        new \DateTimeZone($offset);
+                    } catch (\Exception $e) {
+                        $offset = $config->get('system.offset', 'UTC');
+                    }
+
+                    $environment->addGlobal('offset', $offset);
                     $environment->addGlobal('loginUrl', $loginHelper->getLoginUri());
 
                     // Add build commit if available

@@ -12,6 +12,7 @@ namespace App\Groups\Controller\Group;
 use App\Groups\Model\GroupModel;
 use App\Groups\Table\GroupsTable;
 use App\Groups\View\Group\GroupHtmlView;
+use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -73,10 +74,32 @@ class Save extends AbstractTrackerController
      */
     public function execute()
     {
-        $group = $this->getContainer()->get('app')->input->get('group', [], 'array');
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
 
-        (new GroupsTable($this->getContainer()->get('db')))
-            ->save($group);
+        $project = $application->getProject();
+        $group   = $application->input->get('group', [], 'array');
+        $table   = new GroupsTable($this->getContainer()->get('db'));
+
+        $group['group_id'] = isset($group['group_id']) ? (int) $group['group_id'] : 0;
+
+        if ($group['group_id']) {
+            // Only groups of the current project may be modified.
+            $table->load($group['group_id']);
+
+            if ((int) $table->project_id !== (int) $project->project_id) {
+                throw new AuthenticationException($application->getUser(), 'manage');
+            }
+
+            // The system flag can not be changed.
+            $group['system'] = $table->system;
+        } else {
+            $group['system'] = 0;
+        }
+
+        $group['project_id'] = $project->project_id;
+
+        $table->save($group);
 
         return parent::execute();
     }
