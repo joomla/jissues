@@ -82,6 +82,14 @@ abstract class User implements \Serializable
     public $params;
 
     /**
+     * If the user is blocked.
+     *
+     * @var    boolean
+     * @since  1.0
+     */
+    protected $blocked = false;
+
+    /**
      * A list of groups a user has access to.
      *
      * @var    array
@@ -165,7 +173,8 @@ abstract class User implements \Serializable
             $table->save($this);
         }
 
-        $this->id = $table->id;
+        $this->id      = $table->id;
+        $this->blocked = (bool) $table->block;
         $this->params->loadString($table->params);
 
         $this->loadAccessGroups();
@@ -212,11 +221,24 @@ abstract class User implements \Serializable
             }
         }
 
+        $this->blocked = (bool) $table->block;
         $this->params->loadString($table->params);
 
         $this->loadAccessGroups();
 
         return $this;
+    }
+
+    /**
+     * Check if the user is blocked.
+     *
+     * @return  boolean
+     *
+     * @since   1.0
+     */
+    public function isBlocked()
+    {
+        return $this->blocked;
     }
 
     /**

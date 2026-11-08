@@ -316,6 +316,13 @@ final class Application extends AbstractWebApplication implements ContainerAware
      */
     public function setUser(User $user = null)
     {
+        if ($user instanceof User && $user->isBlocked()) {
+            // Blocked users are not allowed to log in or keep using their session - continue as a guest.
+            $this->getSession()->remove('gh_oauth_access_token');
+
+            $user = null;
+        }
+
         if ($user === null) {
             try {
                 $activeProject = $this->getProject();
