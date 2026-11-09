@@ -11,6 +11,8 @@ namespace JTracker\Tests\App\Tracker\Twig;
 
 use App\Tracker\Twig\RelationExtension;
 use JTracker\Tests\Mocks\DatabaseMockTrait;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
@@ -49,10 +51,9 @@ class RelationExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  The extension registers the relation functions
-     *
      * @return  void
      */
+    #[TestDox('The extension registers the relation functions')]
     public function testGetFunctions(): void
     {
         $extension = $this->createExtension();
@@ -79,7 +80,7 @@ class RelationExtensionTest extends TestCase
      *
      * @return  \Generator
      */
-    public function relationProvider(): \Generator
+    public static function relationProvider(): \Generator
     {
         yield 'duplicate' => ['duplicate_of', 'Duplicate of'];
         yield 'related' => ['related_to', 'Related to'];
@@ -89,25 +90,22 @@ class RelationExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  getIssueRelation() returns the label of a relation
-     *
      * @param   string  $relation  The relation name
      * @param   string  $label     The expected label
      *
      * @return  void
-     *
-     * @dataProvider  relationProvider
      */
+    #[TestDox('getIssueRelation() returns the label of a relation')]
+    #[DataProvider('relationProvider')]
     public function testGetIssueRelation(string $relation, string $label): void
     {
         $this->assertSame($label, $this->createExtension()->getIssueRelation($relation));
     }
 
     /**
-     * @testdox  getIssueRelationTypes() loads the relation types from the database only once
-     *
      * @return  void
      */
+    #[TestDox('getIssueRelationTypes() loads the relation types from the database only once')]
     public function testGetIssueRelationTypes(): void
     {
         $extension = $this->createExtension();
@@ -129,10 +127,9 @@ class RelationExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  getIssueRelationType() returns the label of a relation type ID
-     *
      * @return  void
      */
+    #[TestDox('getIssueRelationType() returns the label of a relation type ID')]
     public function testGetIssueRelationType(): void
     {
         $extension = $this->createExtension();
@@ -146,10 +143,9 @@ class RelationExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  The functions can be used in templates
-     *
      * @return  void
      */
+    #[TestDox('The functions can be used in templates')]
     public function testFunctionsInTemplate(): void
     {
         $twig = new Environment(new ArrayLoader([

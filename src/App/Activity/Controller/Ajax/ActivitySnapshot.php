@@ -50,6 +50,9 @@ class ActivitySnapshot extends AbstractAjaxController
      */
     protected function prepareResponse()
     {
+        // Only users with view access to the project may see its statistics.
+        $this->getContainer()->get('app')->getUser()->authorize('view');
+
         $statusLabels = [
             1  => 'New',
             2  => 'Confirmed',

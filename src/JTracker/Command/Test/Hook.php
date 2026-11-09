@@ -97,8 +97,6 @@ class Hook extends Test
 
         $this->selectProject($input, $ioStyle)->selectHook($ioStyle);
 
-        $this->getApplication()->input->set('project', $this->project->project_id);
-
         $this->setupGitHub();
 
         $result = $this->controller->execute();
@@ -152,9 +150,8 @@ class Hook extends Test
         $this->controller = new $classname();
         $this->controller->setContainer($this->getContainer());
 
-        if ($this->project->project_id == 1 && $resp === 4) {
-            $this->getApplication()->input->post->set('payload', file_get_contents(__DIR__ . '/data/cms-pull.json'));
-        }
+        // @todo The rewrite of this command has to pass the test payload in data/cms-pull.json to the hook controller,
+        //       the console application has no web input to put it in.
 
         $this->controller->initialize();
 

@@ -38,12 +38,8 @@ class IssuesHtmlView extends AbstractTrackerHtmlView
     public function render()
     {
         // Set the vars to the template.
-        $this->setData(
-            [
-                'state'   => $this->model->getState(),
-                'project' => $this->getProject(),
-            ]
-        );
+        $this->addData('state', $this->model->getState())
+            ->addData('project', $this->getProject());
 
         return parent::render();
     }

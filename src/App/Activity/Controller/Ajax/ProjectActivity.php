@@ -45,7 +45,7 @@ class ProjectActivity extends AbstractAjaxController
 
         $state->set('list.limit', 25);
         $state->set('list.start', 0);
-        $period = $application->input->getUint('period', 1);
+        $period = $application->getInput()->getUint('period', 1);
 
         // The chart only supports periods of weeks, months and quarters
         if (!\in_array($period, [1, 2, 3])) {
@@ -68,6 +68,9 @@ class ProjectActivity extends AbstractAjaxController
      */
     protected function prepareResponse()
     {
+        // Only users with view access to the project may see its statistics.
+        $this->getContainer()->get('app')->getUser()->authorize('view');
+
         $items = $this->model->getIssueCounts();
         $state = $this->model->getState();
 

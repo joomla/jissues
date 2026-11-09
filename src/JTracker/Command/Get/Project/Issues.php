@@ -136,7 +136,7 @@ class Issues extends Project
         // Select what to process
         $question = new ChoiceQuestion(
             'Select GitHub issues status? 1) All, 2) Open, 3) Closed',
-            ['1', '2']
+            ['1', '2', '3']
         );
 
         $resp = $io->askQuestion($question);
@@ -459,7 +459,7 @@ class Issues extends Project
         }
 
         // Output the final result
-        $io->progressFinish();
+        $this->usePBar ? $io->progressFinish() : null;
         $this->logOut(\sprintf('<ok>%1$d added, %2$d updated.</ok>', $added, $updated));
 
         return $this;

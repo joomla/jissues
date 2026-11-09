@@ -22,7 +22,6 @@
 	},
 
 	"renderer": {
-		"type" : "twig",
         "cache": false
 	},
 

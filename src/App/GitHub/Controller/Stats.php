@@ -10,8 +10,8 @@
 namespace App\GitHub\Controller;
 
 use App\GitHub\View\Stats\StatsHtmlView;
-use App\Projects\Model\ProjectModel;
 use Joomla\Github\Github;
+use Joomla\Http\Exception\UnexpectedResponseException;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -41,21 +41,30 @@ class Stats extends AbstractTrackerController
     {
         parent::initialize();
 
-        $alias = $this->getContainer()->get('app')->input->get('project_alias');
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
 
-        if ($alias) {
-            $project = (new ProjectModel($this->getContainer()->get('db')))
-                ->getByAlias($alias);
-        } else {
-            $project = $this->getContainer()->get('app')->getProject();
+        // Load the project from the request (if any) and make it the active one, so the access check applies to it.
+        $project = $application->getProject((bool) $application->getInput()->get('project_alias'));
+
+        // Only users with view access to the project may see its statistics.
+        $application->getUser()->authorize('view');
+
+        try {
+            $data = (new Github())->repositories->statistics->getListContributors(
+                $project->gh_user,
+                $project->gh_project
+            );
+        } catch (UnexpectedResponseException $exception) {
+            // GitHub responds with a 202 status while the statistics are being generated
+            if ($exception->getCode() !== 202) {
+                throw $exception;
+            }
+
+            $data = [];
         }
 
-        $data = (new Github())->repositories->statistics->getListContributors(
-            $project->gh_user,
-            $project->gh_project
-        );
-
-        $data = array_reverse($data);
+        $data = \is_array($data) ? array_reverse($data) : [];
 
         $this->view->setProject($project);
         $this->view->setContributors($data);

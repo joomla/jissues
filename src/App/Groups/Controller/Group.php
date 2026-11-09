@@ -61,7 +61,7 @@ class Group extends AbstractTrackerController
         $this->getContainer()->get('app')->getUser()->authorize('manage');
 
         $this->model->setProject($this->getContainer()->get('app')->getProject());
-        $this->model->setGroupId($this->getContainer()->get('app')->input->getInt('group_id'));
+        $this->model->setGroupId($this->getContainer()->get('app')->getInput()->getInt('group_id'));
 
         $this->view->setProject($this->getContainer()->get('app')->getProject());
 
