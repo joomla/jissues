@@ -243,9 +243,11 @@
     <!-- Tests -->
     {% if item.has_code %}
         <p class="highlightRow">
-            {% if user.id or user.check('edit') %}
+            {# The author of an item can not test it #}
+            {% set can_test = user.id and not user.isAuthor(item.opened_by) %}
+            {% if can_test or user.check('edit') %}
                 <span class="btn-group">
-                    {% if user.id %}
+                    {% if can_test %}
                         <span class="btn btn-primary" onclick="$('#testAlterContainer').slideUp();$('#testContainer').slideToggle();">Test this</span>
                     {% endif %}
                     {% if user.check('edit') %}

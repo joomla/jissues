@@ -15,6 +15,7 @@ use Joomla\Database\Mysqli\MysqliQuery;
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Authentication\User;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -605,5 +606,54 @@ class UserTest extends TestCase
         $user = $this->createUser($this->createProject([], ['editown']));
 
         $this->assertFalse($user->canEditOwn(''));
+    }
+
+    /**
+     * Test that a user is the author of an item she opened.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    #[TestDox('isAuthor() is true for the user who opened the item')]
+    public function testIsAuthorForOwnItem(): void
+    {
+        $user = $this->createUser($this->createProject(), 1);
+
+        $this->assertTrue($user->isAuthor('user1'));
+    }
+
+    /**
+     * Test that a user is not the author of an item opened by somebody else.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    #[TestDox('isAuthor() is false for an item opened by another user')]
+    public function testIsAuthorForOtherUser(): void
+    {
+        $user = $this->createUser($this->createProject(), 1);
+
+        $this->assertFalse($user->isAuthor('user2'));
+        $this->assertFalse($user->isAuthor(''));
+        $this->assertFalse($user->isAuthor(null));
+    }
+
+    /**
+     * Test that a guest is never the author of an item, even if the item has no author.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    #[TestDox('isAuthor() is false for a guest, even for an item without author')]
+    public function testIsAuthorForGuest(): void
+    {
+        $user = $this->createUser($this->createProject());
+
+        $this->assertFalse($user->isAuthor(''));
+        $this->assertFalse($user->isAuthor(null));
+        $this->assertFalse($user->isAuthor('user1'));
     }
 }

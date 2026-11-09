@@ -59,21 +59,28 @@ class Submit extends AbstractAjaxController
             throw new \UnexpectedValueException('Unexpected test result value.');
         }
 
+        $issueModel = new IssueModel($this->getContainer()->get('db'));
+
+        // Make sure the issue belongs to the current project.
+        $issue = $issueModel->getIssueNumberAndAuthorById($issueId, $project->project_id);
+
+        if (!$issue || !$issue->issue_number) {
+            throw new \Exception('Invalid issue ID.');
+        }
+
+        // A test result is a peer review, so the author of an item can not test it.
+        if ($user->isAuthor($issue->opened_by)) {
+            throw new \Exception('You can not submit a test result for an item you opened yourself.');
+        }
+
+        $issueNumber = $issue->issue_number;
+
         $this->setDispatcher($application->getDispatcher());
         $this->addEventListener('tests');
 
         $this->setProjectGitHubBot($project);
 
-        $issueModel = new IssueModel($this->getContainer()->get('db'));
-
         $data = new \stdClass();
-
-        // Make sure the issue belongs to the current project.
-        $issueNumber = $issueModel->getIssueNumberById($issueId, $project->project_id);
-
-        if (!$issueNumber) {
-            throw new \Exception('Invalid issue ID.');
-        }
 
         $data->testResults = $issueModel->saveTest($issueId, $user->username, $result, $sha);
 
