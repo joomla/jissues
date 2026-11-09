@@ -11,6 +11,7 @@ namespace JTracker\Tests\App\Activity\Controller\Ajax;
 
 use App\Activity\Controller\Ajax\UserActivity;
 use JTracker\Tests\App\Activity\ActivityTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * Tests for the user activity chart AJAX controller.
@@ -26,7 +27,7 @@ class UserActivityTest extends ActivityTestCase
      *
      * @since   1.0
      */
-    public function periodProvider(): array
+    public static function periodProvider(): array
     {
         return [
             '7 days'               => [['period' => '1'], 1],
@@ -51,9 +52,9 @@ class UserActivityTest extends ActivityTestCase
      *
      * @return  void
      *
-     * @dataProvider  periodProvider
      * @since   1.0
      */
+    #[DataProvider('periodProvider')]
     public function testPeriodIsClamped(array $request, int $period): void
     {
         $state = $this->getModelState($this->createController(UserActivity::class, $request));
@@ -76,7 +77,7 @@ class UserActivityTest extends ActivityTestCase
      *
      * @since   1.0
      */
-    public function activityTypeProvider(): array
+    public static function activityTypeProvider(): array
     {
         return [
             'missing'      => [[], 0],
@@ -97,9 +98,9 @@ class UserActivityTest extends ActivityTestCase
      *
      * @return  void
      *
-     * @dataProvider  activityTypeProvider
      * @since   1.0
      */
+    #[DataProvider('activityTypeProvider')]
     public function testActivityTypeIsClamped(array $request, int $activityType): void
     {
         $state = $this->getModelState($this->createController(UserActivity::class, $request));

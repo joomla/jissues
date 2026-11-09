@@ -84,6 +84,16 @@ abstract class ActivityTestCase extends TestCase
             }
 
             /**
+             * Get the input.
+             *
+             * @return  Input
+             */
+            public function getInput(): Input
+            {
+                return $this->input;
+            }
+
+            /**
              * Get the active project.
              *
              * @return  TrackerProject
@@ -91,6 +101,27 @@ abstract class ActivityTestCase extends TestCase
             public function getProject(): TrackerProject
             {
                 return $this->project;
+            }
+
+            /**
+             * Get the user, who may view the project; access control is not part of these tests.
+             *
+             * @return  object
+             */
+            public function getUser(): object
+            {
+                return new class () {
+                    /**
+                     * Grant every action.
+                     *
+                     * @param   string  $action  The action.
+                     *
+                     * @return  void
+                     */
+                    public function authorize(string $action): void
+                    {
+                    }
+                };
             }
 
             /**

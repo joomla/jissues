@@ -12,6 +12,7 @@ namespace JTracker\Tests\App\Activity\Model;
 use App\Activity\Model\TotaluseractivityModel;
 use Joomla\Registry\Registry;
 use JTracker\Tests\App\Activity\ActivityTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * Tests for the total user activity model.
@@ -54,7 +55,7 @@ class TotaluseractivityModelTest extends ActivityTestCase
      *
      * @since   1.0
      */
-    public function periodProvider(): array
+    public static function periodProvider(): array
     {
         return [
             'weeks'        => [1, 7],
@@ -76,9 +77,9 @@ class TotaluseractivityModelTest extends ActivityTestCase
      *
      * @return  void
      *
-     * @dataProvider  periodProvider
      * @since   1.0
      */
+    #[DataProvider('periodProvider')]
     public function testPeriodIntervals($period, int $days): void
     {
         $state = $period === null ? [] : ['list' => ['period' => $period]];
@@ -106,7 +107,7 @@ class TotaluseractivityModelTest extends ActivityTestCase
      *
      * @since   1.0
      */
-    public function activityTypeProvider(): array
+    public static function activityTypeProvider(): array
     {
         return [
             'all'          => [0, null, false],
@@ -129,9 +130,9 @@ class TotaluseractivityModelTest extends ActivityTestCase
      *
      * @return  void
      *
-     * @dataProvider  activityTypeProvider
      * @since   1.0
      */
+    #[DataProvider('activityTypeProvider')]
     public function testActivityTypeFilter($activityType, ?string $group, bool $having): void
     {
         $state = $activityType === null ? [] : ['list' => ['activity_type' => $activityType]];
