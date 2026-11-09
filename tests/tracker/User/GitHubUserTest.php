@@ -37,12 +37,10 @@ class GitHubUserTest extends TestCase
     protected function setUp(): void
     {
         // Mock the base database driver without calling the original constructor
-        $driver = $this->createMock(DatabaseDriver::class);
+        $driver = $this->createStub(DatabaseDriver::class);
 
-        // Mock the project object
-        $project = $this->getMockBuilder(TrackerProject::class)
-            ->setConstructorArgs([$driver])
-            ->getMock();
+        // Stub the project object
+        $project = $this->createStub(TrackerProject::class);
 
         $this->object = new GitHubUser($project, $driver);
     }

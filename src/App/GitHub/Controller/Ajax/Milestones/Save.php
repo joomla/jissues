@@ -33,11 +33,11 @@ class Save extends Base implements CsrfProtectedControllerInterface
 
         $application->getUser()->authorize('manage');
 
-        $number      = $application->input->getUint('number');
-        $title       = $application->input->getString('title');
-        $state       = $application->input->getCmd('state');
-        $description = $application->input->getString('description');
-        $due_on      = $application->input->getString('due_on') ?: null;
+        $number      = $application->getInput()->getUint('number');
+        $title       = $application->getInput()->getString('title');
+        $state       = $application->getInput()->getCmd('state');
+        $description = $application->getInput()->getString('description');
+        $due_on      = $application->getInput()->getString('due_on') ?: null;
 
         $project = $application->getProject();
 

@@ -51,4 +51,4 @@
 `├── phpunit.xml` PHPUnit config.<br />
 `├── README.md` Please read me...<br />
 `├── Vagrantfile` Vagrant config file.<br />
-`├── webpack.mix.js` Laravel Mix (Webpack) configuration file.<br />
+`├── vite.build.mjs` Vite build script for the frontend assets.<br />

@@ -12,17 +12,14 @@ namespace JTracker\Service;
 use App\Debug\TrackerDebugger;
 use Joomla\Application\ApplicationEvents;
 use Joomla\DI\Container;
-use Joomla\DI\Exception\DependencyResolutionException;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Event\Dispatcher;
 use Joomla\Event\DispatcherInterface;
 use Joomla\Event\LazyServiceEventListener;
-use Joomla\Registry\Registry;
-use Joomla\Renderer\RendererInterface;
-use Joomla\Renderer\TwigRenderer;
 use JTracker\EventListener\AddDebugOutputToResponseListener;
 use JTracker\EventListener\ErrorSubscriber;
 use Psr\Log\LoggerInterface;
+use Twig\Environment;
 
 /**
  * Event dispatcher service provider
@@ -73,24 +70,7 @@ class DispatcherProvider implements ServiceProviderInterface
             ->share(
                 'event.subscriber.error',
                 function (Container $container) {
-                    /** @var Registry $config */
-                    $config = $container->get('config');
-
-                    $rendererName = $config->get('renderer.type');
-
-                    // The renderer should exist in the container
-                    if (!$container->has("renderer.$rendererName")) {
-                        throw new DependencyResolutionException('Unsupported renderer: ' . $rendererName);
-                    }
-
-                    /** @var RendererInterface $renderer */
-                    $renderer = $container->get("renderer.$rendererName");
-
-                    if (!($renderer instanceof TwigRenderer)) {
-                        throw new DependencyResolutionException('The error subscriber only supports the Twig renderer.');
-                    }
-
-                    $subscriber = new ErrorSubscriber($container->get(RendererInterface::class));
+                    $subscriber = new ErrorSubscriber($container->get(Environment::class));
                     $subscriber->setLogger($container->get(LoggerInterface::class));
 
                     return $subscriber;

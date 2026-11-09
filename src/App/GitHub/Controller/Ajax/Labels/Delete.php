@@ -34,7 +34,7 @@ class Delete extends AbstractAjaxController implements CsrfProtectedControllerIn
 
         $application->getUser()->authorize('manage');
 
-        $name = $application->input->getCmd('name');
+        $name = $application->getInput()->getString('name');
 
         $project = $application->getProject();
 

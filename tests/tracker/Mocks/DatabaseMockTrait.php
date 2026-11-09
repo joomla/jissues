@@ -11,7 +11,7 @@ namespace JTracker\Tests\Mocks;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\Mysqli\MysqliQuery;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 
 /**
  * Helper for test cases which need a database driver returning canned results.
@@ -35,13 +35,13 @@ trait DatabaseMockTrait
      *
      * @param   array  $rows  The rows returned by loadObjectList()
      *
-     * @return  DatabaseDriver|MockObject
+     * @return  DatabaseDriver&Stub
      */
     protected function createDatabaseMock(array $rows): DatabaseDriver
     {
         $this->executedQueries = [];
 
-        $db = $this->createMock(DatabaseDriver::class);
+        $db = $this->createStub(DatabaseDriver::class);
 
         $db->method('getQuery')->willReturnCallback(static function () use ($db) {
             return new MysqliQuery($db);

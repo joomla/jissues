@@ -122,13 +122,6 @@ Joomla Registry Package
 * Installed: 1.6.2 
 * Source URL: https://github.com/joomla-framework/registry.git
 
-#### joomla/renderer (^2.0@dev)
-
-Joomla Renderer Package
-
-* Installed: dev-master 8380fa45d4968e068e67b9a210996b030fec6e0f
-* Source URL: https://github.com/joomla-framework/renderer.git
-
 #### joomla/router (^1.2)
 
 Joomla Router Package
@@ -156,13 +149,6 @@ Joomla Utilities Package
 
 * Installed: 1.6.0 
 * Source URL: https://github.com/joomla-framework/utilities.git
-
-#### joomla/view (dev-2.0-dev#cc23d22f8f314e3f81e6e52247605a277b91aaa9)
-
-Joomla View Package
-
-* Installed: dev-2.0-dev 
-* Source URL: https://github.com/joomla-framework/view.git
 
 #### symfony/asset (4.2.*)
 

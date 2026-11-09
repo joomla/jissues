@@ -1,0 +1,4 @@
+// Octicons icon font, the font files are copied to www/media/fonts/vendor/octicons/build by vite.build.mjs
+@use "../../node_modules/octicons/build/font/_octicons.scss" with (
+  $octicons-font-path: "/media/fonts/vendor/octicons/build/"
+);

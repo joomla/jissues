@@ -80,7 +80,7 @@ class Delete extends AbstractTrackerController implements CsrfProtectedControlle
         $application = $this->getContainer()->get('app');
 
         $table = (new GroupsTable($this->getContainer()->get('db')))
-            ->load($application->input->getInt('group_id'));
+            ->load($application->getInput()->getInt('group_id'));
 
         // Only groups of the current project may be deleted.
         if ((int) $table->project_id !== (int) $application->getProject()->project_id) {

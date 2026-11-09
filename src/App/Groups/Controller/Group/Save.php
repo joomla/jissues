@@ -79,7 +79,7 @@ class Save extends AbstractTrackerController implements CsrfProtectedControllerI
         $application = $this->getContainer()->get('app');
 
         $project = $application->getProject();
-        $group   = $application->input->get('group', [], 'array');
+        $group   = $application->getInput()->get('group', [], 'array');
         $table   = new GroupsTable($this->getContainer()->get('db'));
 
         $group['group_id'] = isset($group['group_id']) ? (int) $group['group_id'] : 0;

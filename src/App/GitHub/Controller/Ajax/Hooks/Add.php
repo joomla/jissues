@@ -30,8 +30,8 @@ class Add extends AbstractAjaxController implements CsrfProtectedControllerInter
     {
         $this->getContainer()->get('app')->getUser()->authorize('admin');
 
-        $url    = $this->getContainer()->get('app')->input->getHtml('url');
-        $events = $this->getContainer()->get('app')->input->getHtml('events');
+        $url    = $this->getContainer()->get('app')->getInput()->getHtml('url');
+        $events = $this->getContainer()->get('app')->getInput()->getHtml('events');
 
         $project = $this->getContainer()->get('app')->getProject();
 

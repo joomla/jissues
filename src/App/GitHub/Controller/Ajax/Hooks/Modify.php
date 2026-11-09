@@ -40,8 +40,8 @@ class Modify extends AbstractAjaxController implements CsrfProtectedControllerIn
 
         $this->github = $this->getContainer()->get('gitHub');
 
-        $action = $this->getContainer()->get('app')->input->getCmd('action');
-        $hookId = $this->getContainer()->get('app')->input->getInt('hook_id');
+        $action = $this->getContainer()->get('app')->getInput()->getCmd('action');
+        $hookId = $this->getContainer()->get('app')->getInput()->getInt('hook_id');
 
         $project = $this->getContainer()->get('app')->getProject();
 

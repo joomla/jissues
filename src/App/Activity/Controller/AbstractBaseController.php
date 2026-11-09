@@ -41,10 +41,11 @@ abstract class AbstractBaseController extends AbstractTrackerController
         /** @var \JTracker\Application\Application $application */
         $application = $this->getContainer()->get('app');
 
+        $project = $application->getProject();
         $application->getUser()->authorize('view');
 
-        $this->model->setProject($application->getProject());
-        $this->view->setProject($application->getProject());
+        $this->model->setProject($project);
+        $this->view->setProject($project);
 
         return $this;
     }

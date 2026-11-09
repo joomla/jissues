@@ -45,7 +45,7 @@ class Submit extends AbstractTrackerController implements CsrfProtectedControlle
 
         $project = $application->getProject();
 
-        $body = $application->input->get('body', '', 'raw');
+        $body = $application->getInput()->get('body', '', 'raw');
 
         if (!$body) {
             throw new \RuntimeException('No body received.');
@@ -54,13 +54,13 @@ class Submit extends AbstractTrackerController implements CsrfProtectedControlle
         // Prepare issue for the store
         $data = [];
 
-        $data['title']        = $application->input->getString('title');
-        $data['milestone_id'] = $application->input->getInt('milestone_id');
+        $data['title']        = $application->getInput()->getString('title');
+        $data['milestone_id'] = $application->getInput()->getInt('milestone_id');
 
         // Process labels
         $labels = [];
 
-        foreach ($application->input->get('labels', [], 'array') as $labelId) {
+        foreach ($application->getInput()->get('labels', [], 'array') as $labelId) {
             // Filter integer
             $labels[] = (int) $labelId;
         }
@@ -134,8 +134,8 @@ class Submit extends AbstractTrackerController implements CsrfProtectedControlle
             $data['description']    = $gitHub->markdown->render($body, 'markdown');
         }
 
-        $data['priority']        = $application->input->getInt('priority');
-        $data['build']           = $application->input->getString('build');
+        $data['priority']        = $application->getInput()->getInt('priority');
+        $data['build']           = $application->getInput()->getString('build');
         $data['project_id']      = $project->project_id;
         $data['issue_number']    = $data['number'];
         $data['description_raw'] = $body;
@@ -152,7 +152,8 @@ class Submit extends AbstractTrackerController implements CsrfProtectedControlle
             // Save the category for the issue
             $category = [
                 'issue_id'   => $issue_id,
-                'categories' => $application->input->get('categories', null, 'array'),
+                'categories' => $application->getInput()->get('categories', null, 'array'),
+                'project_id' => $project->project_id,
             ];
 
             (new CategoryModel($this->getContainer()->get('db')))->saveCategory($category);
@@ -231,7 +232,7 @@ class Submit extends AbstractTrackerController implements CsrfProtectedControlle
                     $title,
                     $body
                 ),
-                ['exception' => $exception, 'response' => $exception->getResponse()->body]
+                ['exception' => $exception, 'response' => (string) $exception->getResponse()->getBody()]
             );
 
             throw new \RuntimeException('Invalid response from GitHub', $exception->getCode(), $exception);

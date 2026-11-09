@@ -10,6 +10,7 @@
 namespace JTracker\Tests\Pagination;
 
 use JTracker\Pagination\TrackerPagination;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -26,7 +27,7 @@ class TrackerPaginationClampLimitTest extends TestCase
      *
      * @since   1.0
      */
-    public function limitProvider(): array
+    public static function limitProvider(): array
     {
         return [
             'zero uses default'           => [0, TrackerPagination::DEFAULT_LIMIT],
@@ -49,9 +50,9 @@ class TrackerPaginationClampLimitTest extends TestCase
      *
      * @return  void
      *
-     * @dataProvider  limitProvider
      * @since   1.0
      */
+    #[DataProvider('limitProvider')]
     public function testClampLimit($limit, int $expected): void
     {
         $this->assertSame($expected, TrackerPagination::clampLimit($limit));

@@ -37,7 +37,7 @@ class Vote extends AbstractAjaxController implements CsrfProtectedControllerInte
         }
 
         /** @var Input $input */
-        $input = $this->getContainer()->get('app')->input;
+        $input = $this->getContainer()->get('app')->getInput();
 
         $issue       = $input->getUint('issueId');
         $experienced = $input->getInt('experienced');

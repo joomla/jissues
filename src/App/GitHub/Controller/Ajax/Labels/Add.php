@@ -34,8 +34,8 @@ class Add extends AbstractAjaxController implements CsrfProtectedControllerInter
 
         $application->getUser()->authorize('manage');
 
-        $name  = $application->input->getString('name');
-        $color = $application->input->getCmd('color');
+        $name  = $application->getInput()->getString('name');
+        $color = $application->getInput()->getCmd('color');
 
         $project = $application->getProject();
 

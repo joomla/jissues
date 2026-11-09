@@ -40,7 +40,7 @@ class Put extends AbstractAjaxController implements CsrfProtectedControllerInter
 
         $user->authorize('create');
 
-        $files = $application->input->files->get('files');
+        $files = $application->getInput()->files->get('files');
 
         if (!empty($files)) {
             $file = new File($application);
@@ -70,7 +70,7 @@ class Put extends AbstractAjaxController implements CsrfProtectedControllerInter
                     'isImage'      => $isImage,
                     'deleteUrl'    => '/upload/delete/?file=' . $destName,
                     'deleteType'   => 'POST',
-                    'editorId'     => $application->input->get('editorId'),
+                    'editorId'     => $application->getInput()->get('editorId'),
                 ],
             ];
 

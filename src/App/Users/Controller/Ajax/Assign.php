@@ -34,7 +34,7 @@ class Assign extends AbstractAjaxController implements CsrfProtectedControllerIn
             throw new \Exception('You are not authorized');
         }
 
-        $input   = $this->getContainer()->get('app')->input;
+        $input   = $this->getContainer()->get('app')->getInput();
         $db      = $this->getContainer()->get('db');
         $project = $this->getContainer()->get('app')->getProject();
 

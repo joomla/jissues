@@ -11,8 +11,6 @@ namespace JTracker\Service;
 
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\Renderer\RendererInterface;
-use Joomla\Renderer\TwigRenderer;
 use JTracker\Application\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Security\CsrfTokenManager;
@@ -58,17 +56,6 @@ class RendererProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
-        $container->alias('renderer.twig', RendererInterface::class)
-            ->alias('renderer', RendererInterface::class)
-            ->alias(TwigRenderer::class, RendererInterface::class)
-            ->share(
-                RendererInterface::class,
-                function (Container $container) {
-                    return new TwigRenderer($container->get('twig.environment'));
-                },
-                true
-            );
-
         $container->alias(CacheInterface::class, 'twig.cache')
             ->share(
                 'twig.cache',
