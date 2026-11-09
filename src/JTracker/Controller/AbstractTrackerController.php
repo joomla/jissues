@@ -15,11 +15,11 @@ use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Event\DispatcherAwareTrait;
 use Joomla\Event\Event;
 use Joomla\Input\Input;
-use Joomla\Renderer\AddTemplateFolderInterface;
-use Joomla\Renderer\RendererInterface;
 use JTracker\Github\Github;
 use JTracker\Github\GithubFactory;
 use JTracker\View\AbstractTrackerHtmlView;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * Abstract Controller class for the Tracker Application
@@ -173,10 +173,13 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
         /** @var AbstractTrackerHtmlView $view */
         $this->view = new $viewClass(
             $this->model,
-            $this->fetchRenderer($viewName, $layoutName)
+            $this->fetchTwig()
         );
 
-        $this->view->setLayout($viewName . '.' . $layoutName . '.twig');
+        $this->view->setLayout($viewName . '.' . $layoutName . '.twig')
+            ->addData('view', $viewName)
+            ->addData('layout', $layoutName)
+            ->addData('app', strtolower($this->getApp()));
 
         $this->getContainer()->get('app')->mark('Model: ' . $modelClass);
         $this->getContainer()->get('app')->mark('View: ' . $viewClass);
@@ -217,44 +220,26 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
     }
 
     /**
-     * Get a renderer object.
+     * Get the Twig environment, with the template folder of the app added to its loader.
      *
-     * @param   string  $view    The view to render
-     * @param   string  $layout  The layout in the view
-     *
-     * @return  RendererInterface
+     * @return  Environment
      *
      * @since   1.0
-     * @throws  \RuntimeException
      */
-    protected function fetchRenderer($view, $layout)
+    protected function fetchTwig()
     {
-        /** @var \JTracker\Application\Application $application */
-        $application = $this->getContainer()->get('app');
-
-        $rendererName = $application->get('renderer.type');
-
-        // The renderer should exist in the container
-        if (!$this->getContainer()->exists("renderer.$rendererName")) {
-            throw new \RuntimeException('Unsupported renderer: ' . $rendererName);
-        }
-
-        /** @var RendererInterface $renderer */
-        $renderer = $this->getContainer()->get("renderer.$rendererName");
+        /** @var Environment $twig */
+        $twig = $this->getContainer()->get(Environment::class);
 
         // Add the app path if it exists
-        $path = JPATH_TEMPLATES . '/' . strtolower($this->app);
+        $path   = JPATH_TEMPLATES . '/' . strtolower($this->app);
+        $loader = $twig->getLoader();
 
-        if ($renderer instanceof AddTemplateFolderInterface && is_dir($path)) {
-            $renderer->addFolder($path);
+        if ($loader instanceof FilesystemLoader && is_dir($path)) {
+            $loader->addPath($path);
         }
 
-        $renderer
-            ->set('view', $view)
-            ->set('layout', $layout)
-            ->set('app', strtolower($this->getApp()));
-
-        return $renderer;
+        return $twig;
     }
 
     /**

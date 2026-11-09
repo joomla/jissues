@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e504fe0f9ce7bb801944d9da24beb3f",
+    "content-hash": "fb8c98c30f18189b5f298a350a29e197",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -1109,80 +1109,6 @@
             "time": "2026-09-04T10:03:16+00:00"
         },
         {
-            "name": "joomla/renderer",
-            "version": "3.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/joomla-framework/renderer.git",
-                "reference": "2d043eeba0d88ab3512c362867db7ff2b57d0126"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/renderer/zipball/2d043eeba0d88ab3512c362867db7ff2b57d0126",
-                "reference": "2d043eeba0d88ab3512c362867db7ff2b57d0126",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^8.1.0"
-            },
-            "conflict": {
-                "illuminate/view": "<6.0",
-                "league/plates": "<3.0",
-                "mustache/mustache": "<2.3",
-                "symfony/templating": "<3.4"
-            },
-            "require-dev": {
-                "illuminate/events": "^6.0|^7.0",
-                "illuminate/filesystem": "^6.0|^7.0",
-                "illuminate/view": "^6.0|^7.0",
-                "joomla/test": "^3.0",
-                "league/plates": "^3.0",
-                "mustache/mustache": "^2.3",
-                "phpstan/phpstan": "1.12.27",
-                "phpstan/phpstan-deprecation-rules": "1.2.1",
-                "phpunit/phpunit": "^9.5.28",
-                "squizlabs/php_codesniffer": "^3.7.2",
-                "symfony/templating": "^5.0",
-                "twig/twig": "^3.5.0"
-            },
-            "suggest": {
-                "illuminate/view": "Install ^6.0|^7.0 if you are using Laravel's Blade template engine.",
-                "league/plates": "Install ^3.0 if you are using the Plates template engine.",
-                "mustache/mustache": "Install ^2.3 if you are using the Mustache template engine.",
-                "symfony/templating": "Install ^3.4|^4.4|^5.0 if you are using Symfony's PHP template component.",
-                "twig/twig": "Install ^2.14.11|^3.3.8 if you are using the Twig template engine."
-            },
-            "type": "joomla-package",
-            "extra": {
-                "branch-alias": {
-                    "dev-2.0-dev": "2.0-dev",
-                    "dev-3.x-dev": "3.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Joomla\\Renderer\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-2.1-or-later"
-            ],
-            "description": "Joomla Renderer Package",
-            "homepage": "https://github.com/joomla-framework/renderer",
-            "keywords": [
-                "framework",
-                "joomla",
-                "renderer"
-            ],
-            "support": {
-                "issues": "https://github.com/joomla-framework/renderer/issues",
-                "source": "https://github.com/joomla-framework/renderer/tree/3.0.1"
-            },
-            "abandoned": true,
-            "time": "2025-07-19T19:25:48+00:00"
-        },
-        {
             "name": "joomla/router",
             "version": "3.0.2",
             "source": {
@@ -1429,62 +1355,6 @@
                 "source": "https://github.com/joomla-framework/utilities/tree/3.0.2"
             },
             "time": "2025-07-19T16:29:29+00:00"
-        },
-        {
-            "name": "joomla/view",
-            "version": "3.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/joomla-framework/view.git",
-                "reference": "8a555fc70018322b5052b8fd099b5291966505a1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/view/zipball/8a555fc70018322b5052b8fd099b5291966505a1",
-                "reference": "8a555fc70018322b5052b8fd099b5291966505a1",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^8.1.0"
-            },
-            "require-dev": {
-                "joomla/renderer": "^3.0",
-                "phpstan/phpstan": "1.12.27",
-                "phpstan/phpstan-deprecation-rules": "1.2.1",
-                "phpunit/phpunit": "^9.5.28",
-                "squizlabs/php_codesniffer": "^3.7.2"
-            },
-            "suggest": {
-                "joomla/renderer": "Required to use Joomla\\View\\BaseHtmlView"
-            },
-            "type": "joomla-package",
-            "extra": {
-                "branch-alias": {
-                    "dev-2.0-dev": "2.0-dev",
-                    "dev-3.x-dev": "3.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Joomla\\View\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "description": "Joomla View Package",
-            "homepage": "https://github.com/joomla-framework/view",
-            "keywords": [
-                "framework",
-                "joomla",
-                "view"
-            ],
-            "support": {
-                "issues": "https://github.com/joomla-framework/view/issues",
-                "source": "https://github.com/joomla-framework/view/tree/3.0.2"
-            },
-            "time": "2025-07-04T21:16:27+00:00"
         },
         {
             "name": "kint-php/kint",

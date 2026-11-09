@@ -18,11 +18,11 @@ use App\Text\Controller\ViewArticleController;
 use App\Text\Model\ArticlesModel;
 use Joomla\DI\Container;
 use Joomla\Github\Github;
-use Joomla\Renderer\RendererInterface;
 use Joomla\Router\Route;
 use Joomla\Router\Router;
 use JTracker\Application\AppInterface;
 use JTracker\View\BaseHtmlView;
+use Twig\Environment;
 
 /**
  * Text app
@@ -166,7 +166,7 @@ class TextApp implements AppInterface
             function (Container $container) {
                 $view = new BaseHtmlView(
                     $container->get(ArticlesModel::class),
-                    $container->get(RendererInterface::class)
+                    $container->get(Environment::class)
                 );
 
                 $view->setLayout('text/article.edit.twig');
@@ -181,7 +181,7 @@ class TextApp implements AppInterface
             function (Container $container) {
                 $view = new BaseHtmlView(
                     $container->get(ArticlesModel::class),
-                    $container->get(RendererInterface::class)
+                    $container->get(Environment::class)
                 );
 
                 $view->setLayout('text/articles.index.twig');
@@ -196,7 +196,7 @@ class TextApp implements AppInterface
             function (Container $container) {
                 $view = new BaseHtmlView(
                     $container->get(ArticlesModel::class),
-                    $container->get(RendererInterface::class)
+                    $container->get(Environment::class)
                 );
 
                 $view->setLayout('text/article.show.twig');

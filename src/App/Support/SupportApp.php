@@ -12,11 +12,11 @@ namespace App\Support;
 use App\Support\Controller\Icons\ViewCssIconsController;
 use App\Support\Model\IconsModel;
 use Joomla\DI\Container;
-use Joomla\Renderer\RendererInterface;
 use Joomla\Router\Route;
 use Joomla\Router\Router;
 use JTracker\Application\AppInterface;
 use JTracker\View\BaseHtmlView;
+use Twig\Environment;
 
 /**
  * Support app
@@ -106,7 +106,7 @@ class SupportApp implements AppInterface
             function (Container $container) {
                 $view = new BaseHtmlView(
                     $container->get(IconsModel::class),
-                    $container->get(RendererInterface::class)
+                    $container->get(Environment::class)
                 );
 
                 $view->setLayout('support/icons.index.twig');

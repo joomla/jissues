@@ -17,7 +17,6 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\DI\Container;
 use Joomla\Input\Input;
 use Joomla\Registry\Registry;
-use Joomla\Renderer\RendererInterface;
 use Joomla\Router\Exception\MethodNotAllowedException;
 use Joomla\Router\Exception\RouteNotFoundException;
 use JTracker\Application\Application;
@@ -31,6 +30,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
+use Twig\Environment;
 
 /**
  * Tests for the ErrorSubscriber
@@ -40,12 +40,12 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 class ErrorSubscriberTest extends TestCase
 {
     /**
-     * Mocked layout renderer
+     * Mocked Twig environment
      *
-     * @var    RendererInterface|MockObject
+     * @var    Environment|MockObject
      * @since  1.0
      */
-    private $renderer;
+    private $twig;
 
     /**
      * Mocked logger
@@ -87,10 +87,10 @@ class ErrorSubscriberTest extends TestCase
         $_SERVER['REQUEST_URI']    = '/tracker/joomla-cms/12345';
         $_SERVER['SCRIPT_NAME']    = '/index.php';
 
-        $this->renderer = $this->createMock(RendererInterface::class);
+        $this->twig     = $this->createMock(Environment::class);
         $this->logger   = $this->createMock(LoggerInterface::class);
 
-        $this->subscriber = new ErrorSubscriber($this->renderer);
+        $this->subscriber = new ErrorSubscriber($this->twig);
         $this->subscriber->setLogger($this->logger);
     }
 
@@ -183,7 +183,7 @@ class ErrorSubscriberTest extends TestCase
             ->method('error')
             ->with(\sprintf('Uncaught Throwable of type %s caught.', \get_class($error)), ['exception' => $error]);
 
-        $this->renderer->expects($this->once())
+        $this->twig->expects($this->once())
             ->method('render')
             ->with('exception.twig', ['exception' => $error, 'showDetails' => false])
             ->willReturn('<h1>Error page</h1>');
@@ -232,7 +232,7 @@ class ErrorSubscriberTest extends TestCase
 
         $error = new \RuntimeException('Item not found', 404);
 
-        $this->renderer->expects($this->never())->method('render');
+        $this->twig->expects($this->never())->method('render');
 
         $this->handle($error, $app);
 
@@ -261,7 +261,7 @@ class ErrorSubscriberTest extends TestCase
             ->method('error')
             ->with('Route `tracker/joomla-cms/12345` not found', ['exception' => $error]);
 
-        $this->renderer->method('render')->willReturn('Not found');
+        $this->twig->method('render')->willReturn('Not found');
 
         $this->handle($error, $app);
 
@@ -283,7 +283,7 @@ class ErrorSubscriberTest extends TestCase
             ->method('error')
             ->with('Route `tracker/joomla-cms/12345` not supported by method `POST`', ['exception' => $error]);
 
-        $this->renderer->method('render')->willReturn('Not allowed');
+        $this->twig->method('render')->willReturn('Not allowed');
 
         $this->handle($error, $app);
 
@@ -346,7 +346,7 @@ class ErrorSubscriberTest extends TestCase
             ->method('error')
             ->with('Authentication error', ['exception' => $error, 'action' => 'view']);
 
-        $this->renderer->method('render')->willReturn('Forbidden');
+        $this->twig->method('render')->willReturn('Forbidden');
 
         $app = $this->createApplication();
 
@@ -374,7 +374,7 @@ class ErrorSubscriberTest extends TestCase
         $app->set('debug.system', true);
         $app->setContainer($container);
 
-        $this->renderer->method('render')->willReturn('Error');
+        $this->twig->method('render')->willReturn('Error');
 
         $this->handle(new \DomainException('Broken'), $app);
 
