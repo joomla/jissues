@@ -11,7 +11,7 @@ Build Status
 
 The issue tracker application requires a server running:
 
-* PHP 7.4
+* PHP 8.3 or newer
     * PHP's `ext/curl` and `ext/intl` should also be installed
 * MySQL 5.6.51 with InnoDB support (required to support the MySQL utf8mb4 charset) 
 

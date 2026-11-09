@@ -176,9 +176,7 @@ class Autocomplete extends TrackerCommand
         } else {
             $path = 'cli/completions/Custom_jtracker.xml';
 
-            if (!$this->fileSystem->put($path, $contents)) {
-                throw new \RuntimeException('Can not write to path.');
-            }
+            $this->fileSystem->write($path, $contents);
 
             $ioStyle->success(strtr('File has been written to: %path%', ['%path%' => $path]));
         }
@@ -240,9 +238,7 @@ class Autocomplete extends TrackerCommand
         } else {
             $path = 'cli/completions/jtracker.fish';
 
-            if (!$this->fileSystem->put($path, $contents)) {
-                throw new \RuntimeException('Can not write to path.');
-            }
+            $this->fileSystem->write($path, $contents);
 
             $ioStyle->success(strtr('File has been written to: %path%', ['%path%' => $path]));
         }

@@ -11,6 +11,8 @@ namespace JTracker\Tests\Pagination;
 
 use Joomla\Uri\Uri;
 use JTracker\Pagination\TrackerPagination;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -99,7 +101,7 @@ class TrackerPaginationTest extends TestCase
      *
      * @return  \Generator
      */
-    public function pageNumberProvider(): \Generator
+    public static function pageNumberProvider(): \Generator
     {
         yield 'no offset' => [0, 20, 1];
         yield 'within first page' => [19, 20, 1];
@@ -108,26 +110,23 @@ class TrackerPaginationTest extends TestCase
     }
 
     /**
-     * @testdox  setValues() calculates the current page from the item offset
-     *
      * @param   integer  $current  Current item (offset)
      * @param   integer  $perPage  Items per page
      * @param   integer  $page     Expected page number
      *
      * @return  void
-     *
-     * @dataProvider  pageNumberProvider
      */
+    #[TestDox('setValues() calculates the current page from the item offset')]
+    #[DataProvider('pageNumberProvider')]
     public function testSetValuesCalculatesPageNumber(int $current, int $perPage, int $page): void
     {
         $this->assertEquals($page, $this->createPagination(100, $current, $perPage)->getPageNo());
     }
 
     /**
-     * @testdox  setValues() returns the object for chaining
-     *
      * @return  void
      */
+    #[TestDox('setValues() returns the object for chaining')]
     public function testSetValuesIsChainable(): void
     {
         $pagination = new TrackerPagination(new Uri(self::BASE_URI));
@@ -136,10 +135,9 @@ class TrackerPaginationTest extends TestCase
     }
 
     /**
-     * @testdox  getPageNo() returns 1 when no values have been set
-     *
      * @return  void
      */
+    #[TestDox('getPageNo() returns 1 when no values have been set')]
     public function testGetPageNoDefault(): void
     {
         $this->assertEquals(1, (new TrackerPagination(new Uri(self::BASE_URI)))->getPageNo());
@@ -150,7 +148,7 @@ class TrackerPaginationTest extends TestCase
      *
      * @return  \Generator
      */
-    public function pagesTotalProvider(): \Generator
+    public static function pagesTotalProvider(): \Generator
     {
         yield 'no items' => [0, 20, 0];
         yield 'single item' => [1, 20, 1];
@@ -160,26 +158,23 @@ class TrackerPaginationTest extends TestCase
     }
 
     /**
-     * @testdox  getPagesTotal() rounds up the number of pages
-     *
      * @param   integer  $total    Total items
      * @param   integer  $perPage  Items per page
      * @param   integer  $pages    Expected number of pages
      *
      * @return  void
-     *
-     * @dataProvider  pagesTotalProvider
      */
+    #[TestDox('getPagesTotal() rounds up the number of pages')]
+    #[DataProvider('pagesTotalProvider')]
     public function testGetPagesTotal(int $total, int $perPage, int $pages): void
     {
         $this->assertEquals($pages, $this->createPagination($total, 0, $perPage)->getPagesTotal());
     }
 
     /**
-     * @testdox  getBar() renders nothing when there is only one page
-     *
      * @return  void
      */
+    #[TestDox('getBar() renders nothing when there is only one page')]
     public function testGetBarSinglePage(): void
     {
         $this->assertEmpty($this->createPagination(20, 0, 20)->getBar());
@@ -187,10 +182,9 @@ class TrackerPaginationTest extends TestCase
     }
 
     /**
-     * @testdox  getBar() renders all pages when there are only a few
-     *
      * @return  void
      */
+    #[TestDox('getBar() renders all pages when there are only a few')]
     public function testGetBarFewPages(): void
     {
         $bar = $this->createPaginationForPage(2, 3)->getBar();
@@ -209,10 +203,9 @@ class TrackerPaginationTest extends TestCase
     }
 
     /**
-     * @testdox  getBar() disables the Next and Last links on the last page
-     *
      * @return  void
      */
+    #[TestDox('getBar() disables the Next and Last links on the last page')]
     public function testGetBarLastPage(): void
     {
         $bar = $this->createPaginationForPage(3, 3)->getBar();
@@ -231,10 +224,9 @@ class TrackerPaginationTest extends TestCase
     }
 
     /**
-     * @testdox  getBar() renders all ten pages without an ellipsis
-     *
      * @return  void
      */
+    #[TestDox('getBar() renders all ten pages without an ellipsis')]
     public function testGetBarTenPages(): void
     {
         $bar = $this->createPaginationForPage(1, 10)->getBar();
@@ -250,7 +242,7 @@ class TrackerPaginationTest extends TestCase
      *
      * @return  \Generator
      */
-    public function ellipsisProvider(): \Generator
+    public static function ellipsisProvider(): \Generator
     {
         yield 'first page' => [1, 20, ['1', '2', '3', '4', '5', '6', '7', '...', '19', '20', 'Next', 'Last']];
         yield 'near the start' => [4, 20, ['1', '2', '3', '4', '5', '6', '7', '...', '19', '20', 'Next', 'Last']];
@@ -261,16 +253,14 @@ class TrackerPaginationTest extends TestCase
     }
 
     /**
-     * @testdox  getBar() collapses page ranges with an ellipsis when there are many pages
-     *
      * @param   integer   $page    The current page
      * @param   integer   $pages   Total pages
      * @param   string[]  $labels  The expected labels
      *
      * @return  void
-     *
-     * @dataProvider  ellipsisProvider
      */
+    #[TestDox('getBar() collapses page ranges with an ellipsis when there are many pages')]
+    #[DataProvider('ellipsisProvider')]
     public function testGetBarEllipsis(int $page, int $pages, array $labels): void
     {
         $bar = $this->createPaginationForPage($page, $pages)->getBar();
@@ -288,10 +278,9 @@ class TrackerPaginationTest extends TestCase
     }
 
     /**
-     * @testdox  getBar() links the first, second and last pages around the middle range
-     *
      * @return  void
      */
+    #[TestDox('getBar() links the first, second and last pages around the middle range')]
     public function testGetBarMiddleLinks(): void
     {
         $bar = $this->createPaginationForPage(10, 20)->getBar();
@@ -305,10 +294,9 @@ class TrackerPaginationTest extends TestCase
     }
 
     /**
-     * @testdox  getBar() keeps the existing query of the URI in the links
-     *
      * @return  void
      */
+    #[TestDox('getBar() keeps the existing query of the URI in the links')]
     public function testGetBarKeepsQuery(): void
     {
         $pagination = new TrackerPagination(new Uri(self::BASE_URI . '?sort=title&page=1'));
@@ -321,10 +309,9 @@ class TrackerPaginationTest extends TestCase
     }
 
     /**
-     * @testdox  Query values are escaped in the links of the pagination bar
-     *
      * @return  void
      */
+    #[TestDox('Query values are escaped in the links of the pagination bar')]
     public function testGetBarEscapesQueryValues(): void
     {
         $pagination = new TrackerPagination(new Uri(self::BASE_URI . '?q=a"b\'c<d>'));

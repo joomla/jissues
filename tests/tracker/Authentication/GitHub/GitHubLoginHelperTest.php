@@ -22,6 +22,9 @@ use Joomla\Registry\Registry;
 use JTracker\Application\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -31,7 +34,10 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
  * Tests for the GitHubLoginHelper class.
  *
  * @since  1.0
+ *
+ * The shared test doubles created in setUp() only get expectations in some of the tests.
  */
+#[AllowMockObjectsWithoutExpectations]
 class GitHubLoginHelperTest extends TestCase
 {
     /**
@@ -120,7 +126,7 @@ class GitHubLoginHelperTest extends TestCase
         // Return real API objects without letting Github::__get() create dynamic properties
         $options = new Registry(['api' => ['url' => 'https://api.github.com']]);
 
-        $github = $this->createMock(Github::class);
+        $github = $this->createStub(Github::class);
         $github->method('__get')->willReturnMap([
             ['authorization', new Authorization($options, $this->githubHttp)],
             ['users', new Users($options, $this->githubHttp)],
@@ -162,7 +168,7 @@ class GitHubLoginHelperTest extends TestCase
      */
     private function createUser(string $username): GitHubUser
     {
-        $user = new GitHubUser($this->createMock(TrackerProject::class), $this->db);
+        $user = new GitHubUser($this->createStub(TrackerProject::class), $this->db);
 
         $user->username = $username;
 
@@ -226,20 +232,18 @@ class GitHubLoginHelperTest extends TestCase
     }
 
     /**
-     * @testdox  getLoginUri() returns an empty string when no client ID is configured
-     *
      * @return  void
      */
+    #[TestDox('getLoginUri() returns an empty string when no client ID is configured')]
     public function testGetLoginUriWithoutClientId(): void
     {
         $this->assertSame('', $this->createHelper('')->getLoginUri());
     }
 
     /**
-     * @testdox  getLoginUri() points to the GitHub authorization page with client ID, scope and redirect URI
-     *
      * @return  void
      */
+    #[TestDox('getLoginUri() points to the GitHub authorization page with client ID, scope and redirect URI')]
     public function testGetLoginUri(): void
     {
         $loginUri = $this->createHelper()->getLoginUri();
@@ -258,7 +262,7 @@ class GitHubLoginHelperTest extends TestCase
      *
      * @return  \Generator
      */
-    public function requestUriProvider(): \Generator
+    public static function requestUriProvider(): \Generator
     {
         yield 'plain URL' => ['https://issues.example.org/tracker/jtracker/'];
         yield 'base64 contains + / and ==' => ['https://issues.joomla.org/tracker/joomla-cms/10?x=>?'];
@@ -266,14 +270,12 @@ class GitHubLoginHelperTest extends TestCase
     }
 
     /**
-     * @testdox  The usr_redirect value survives the round trip through GitHub and the login controller
-     *
      * @param   string  $requestUri  The URI of the page the user logs in from
      *
      * @return  void
-     *
-     * @dataProvider  requestUriProvider
      */
+    #[TestDox('The usr_redirect value survives the round trip through GitHub and the login controller')]
+    #[DataProvider('requestUriProvider')]
     public function testGetLoginUriRedirectRoundTrip(string $requestUri): void
     {
         $this->application->set('uri.request', $requestUri);
@@ -300,7 +302,7 @@ class GitHubLoginHelperTest extends TestCase
     {
         $encoded = '';
 
-        foreach ($this->requestUriProvider() as [$requestUri]) {
+        foreach (self::requestUriProvider() as [$requestUri]) {
             $encoded .= base64_encode($requestUri);
         }
 
@@ -310,10 +312,9 @@ class GitHubLoginHelperTest extends TestCase
     }
 
     /**
-     * @testdox  requestToken() posts the credentials to GitHub and returns the access token
-     *
      * @return  void
      */
+    #[TestDox('requestToken() posts the credentials to GitHub and returns the access token')]
     public function testRequestToken(): void
     {
         $this->http->expects($this->once())
@@ -337,7 +338,7 @@ class GitHubLoginHelperTest extends TestCase
      *
      * @return  \Generator
      */
-    public function requestTokenErrorProvider(): \Generator
+    public static function requestTokenErrorProvider(): \Generator
     {
         yield 'HTTP error' => [500, '{"access_token":"the-token"}', 'Invalid response from GitHub (2) :('];
         yield 'bad verification code' => [200, '{"error":"bad_verification_code"}', 'bad verification code'];
@@ -346,16 +347,14 @@ class GitHubLoginHelperTest extends TestCase
     }
 
     /**
-     * @testdox  requestToken() throws on an invalid response
-     *
      * @param   integer  $code     The response code
      * @param   string   $body     The response body
      * @param   string   $message  The expected exception message
      *
      * @return  void
-     *
-     * @dataProvider  requestTokenErrorProvider
      */
+    #[TestDox('requestToken() throws on an invalid response')]
+    #[DataProvider('requestTokenErrorProvider')]
     public function testRequestTokenErrors(int $code, string $body, string $message): void
     {
         $this->http->method('post')->willReturn($this->createResponse($code, $body));
@@ -367,10 +366,9 @@ class GitHubLoginHelperTest extends TestCase
     }
 
     /**
-     * @testdox  getAvatarPath() falls back to the default avatar
-     *
      * @return  void
      */
+    #[TestDox('getAvatarPath() falls back to the default avatar')]
     public function testGetAvatarPathDefault(): void
     {
         $user = $this->createUser($this->uniqueUsername());
@@ -379,10 +377,9 @@ class GitHubLoginHelperTest extends TestCase
     }
 
     /**
-     * @testdox  getAvatarPath() returns the stored avatar of the user
-     *
      * @return  void
      */
+    #[TestDox('getAvatarPath() returns the stored avatar of the user')]
     public function testGetAvatarPathExisting(): void
     {
         $username = $this->uniqueUsername();
@@ -401,10 +398,9 @@ class GitHubLoginHelperTest extends TestCase
     }
 
     /**
-     * @testdox  saveAvatar() does not download an avatar which already exists
-     *
      * @return  void
      */
+    #[TestDox('saveAvatar() does not download an avatar which already exists')]
     public function testSaveAvatarExisting(): void
     {
         $username = $this->uniqueUsername();
@@ -418,10 +414,9 @@ class GitHubLoginHelperTest extends TestCase
     }
 
     /**
-     * @testdox  saveAvatar() downloads the avatar from the URL provided by the GitHub API
-     *
      * @return  void
      */
+    #[TestDox('saveAvatar() downloads the avatar from the URL provided by the GitHub API')]
     public function testSaveAvatarDownloads(): void
     {
         $username = $this->uniqueUsername();
@@ -446,10 +441,9 @@ class GitHubLoginHelperTest extends TestCase
     }
 
     /**
-     * @testdox  saveAvatar() throws when the avatar can not be retrieved
-     *
      * @return  void
      */
+    #[TestDox('saveAvatar() throws when the avatar can not be retrieved')]
     public function testSaveAvatarDownloadFails(): void
     {
         $username = $this->uniqueUsername();
@@ -470,10 +464,9 @@ class GitHubLoginHelperTest extends TestCase
     }
 
     /**
-     * @testdox  setLastVisitTime() updates the last visit date of the user
-     *
      * @return  void
      */
+    #[TestDox('setLastVisitTime() updates the last visit date of the user')]
     public function testSetLastVisitTime(): void
     {
         $queries = [];
@@ -497,10 +490,9 @@ class GitHubLoginHelperTest extends TestCase
     }
 
     /**
-     * @testdox  refreshUser() refreshes the avatar and stores the user data
-     *
      * @return  void
      */
+    #[TestDox('refreshUser() refreshes the avatar and stores the user data')]
     public function testRefreshUser(): void
     {
         $username = $this->uniqueUsername();

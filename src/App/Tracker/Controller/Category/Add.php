@@ -54,8 +54,9 @@ class Add extends AbstractTrackerController
     {
         /** @var \JTracker\Application\Application $application */
         $application = $this->getContainer()->get('app');
+        $project     = $application->getProject(true);
         $application->getUser()->authorize('manage');
-        $this->view->setProject($application->getProject());
+        $this->view->setProject($project);
 
         $item = new \stdClass();
         $this->view->setItem($item);

@@ -13,7 +13,6 @@ use Joomla\Application\ApplicationEvents;
 use Joomla\Application\Event\ApplicationErrorEvent;
 use Joomla\Application\WebApplicationInterface;
 use Joomla\Event\SubscriberInterface;
-use Joomla\Renderer\RendererInterface;
 use Joomla\Router\Exception\MethodNotAllowedException;
 use Joomla\Router\Exception\RouteNotFoundException;
 use JTracker\Application\Application;
@@ -22,6 +21,7 @@ use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use Twig\Environment;
 
 /**
  * Error handling event subscriber
@@ -33,23 +33,23 @@ class ErrorSubscriber implements SubscriberInterface, LoggerAwareInterface
     use LoggerAwareTrait;
 
     /**
-     * Layout renderer
+     * The Twig environment
      *
-     * @var    RendererInterface
+     * @var    Environment
      * @since  1.0
      */
-    private $renderer;
+    private $twig;
 
     /**
      * Event subscriber constructor.
      *
-     * @param   RendererInterface  $renderer  Layout renderer
+     * @param   Environment  $twig  The Twig environment
      *
      * @since   1.0
      */
-    public function __construct(RendererInterface $renderer)
+    public function __construct(Environment $twig)
     {
-        $this->renderer = $renderer;
+        $this->twig = $twig;
     }
 
     /**
@@ -108,7 +108,7 @@ class ErrorSubscriber implements SubscriberInterface, LoggerAwareInterface
             case $event->getError() instanceof MethodNotAllowedException:
                 // Log the error for reference
                 $this->logger->error(
-                    \sprintf('Route `%s` not supported by method `%s`', $app->get('uri.route'), $app->input->getMethod()),
+                    \sprintf('Route `%s` not supported by method `%s`', $app->get('uri.route'), $app->getInput()->getMethod()),
                     ['exception' => $event->getError()]
                 );
 
@@ -189,7 +189,7 @@ class ErrorSubscriber implements SubscriberInterface, LoggerAwareInterface
                 break;
 
             default:
-                $body = $this->renderer->render(
+                $body = $this->twig->render(
                     'exception.twig',
                     [
                         'exception'   => $event->getError(),

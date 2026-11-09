@@ -45,15 +45,15 @@ abstract class GithubObject extends JGithubObject implements LoggerAwareInterfac
     protected function processResponse(Response $response, $expectedCode = 200, $jsonDecode = true)
     {
         // Validate the response code.
-        if ($response->code != $expectedCode) {
+        if ($response->getStatusCode() != $expectedCode) {
             throw new GithubException($response);
         }
 
-        $this->rateLimitRemaining = (isset($response->headers['X-RateLimit-Remaining']))
-            ? $response->headers['X-RateLimit-Remaining']
+        $this->rateLimitRemaining = (isset($response->getHeaders()['X-RateLimit-Remaining']))
+            ? $response->getHeaders()['X-RateLimit-Remaining']
             : 0;
 
-        return $jsonDecode ? json_decode($response->body) : $response->body;
+        return $jsonDecode ? json_decode((string) $response->getBody()) : (string) $response->getBody();
     }
 
     /**

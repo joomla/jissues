@@ -18,6 +18,9 @@ use JTracker\Application\Application;
 use JTracker\EventListener\AddDebugOutputToResponseListener;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\JsonResponse;
+use PHPUnit\Framework\Attributes\PreserveGlobalState;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
@@ -51,7 +54,7 @@ class AddDebugOutputToResponseListenerTest extends TestCase
         $_SERVER['REQUEST_URI'] = '/tracker/joomla-cms';
         $_SERVER['SCRIPT_NAME'] = '/index.php';
 
-        $debugger = $this->createMock(TrackerDebugger::class);
+        $debugger = $this->createStub(TrackerDebugger::class);
         $debugger->method('getOutput')->willReturn('<div id="debug">Queries: 3</div>');
 
         $app = new Application(new Session(new MockArraySessionStorage()), new Input([]), new Registry());
@@ -64,13 +67,11 @@ class AddDebugOutputToResponseListenerTest extends TestCase
     }
 
     /**
-     * @testdox  The debug output replaces the placeholder in HTML responses when debugging
-     *
      * @return  void
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState  disabled
      */
+    #[TestDox('The debug output replaces the placeholder in HTML responses when debugging')]
+    #[RunInSeparateProcess]
+    #[PreserveGlobalState(false)]
     public function testAddsDebugOutputToHtmlResponse(): void
     {
         $app = $this->runListener(true, new HtmlResponse('<body>Page%%%DEBUG%%%</body>'));
@@ -79,13 +80,11 @@ class AddDebugOutputToResponseListenerTest extends TestCase
     }
 
     /**
-     * @testdox  The placeholder is removed from HTML responses when not debugging
-     *
      * @return  void
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState  disabled
      */
+    #[TestDox('The placeholder is removed from HTML responses when not debugging')]
+    #[RunInSeparateProcess]
+    #[PreserveGlobalState(false)]
     public function testRemovesPlaceholderWithoutDebugging(): void
     {
         $app = $this->runListener(false, new HtmlResponse('<body>Page%%%DEBUG%%%</body>'));
@@ -94,13 +93,11 @@ class AddDebugOutputToResponseListenerTest extends TestCase
     }
 
     /**
-     * @testdox  JSON responses are left untouched
-     *
      * @return  void
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState  disabled
      */
+    #[TestDox('JSON responses are left untouched')]
+    #[RunInSeparateProcess]
+    #[PreserveGlobalState(false)]
     public function testLeavesJsonResponseUntouched(): void
     {
         $app = $this->runListener(true, new JsonResponse(['text' => '%%%DEBUG%%%']), 'application/json');

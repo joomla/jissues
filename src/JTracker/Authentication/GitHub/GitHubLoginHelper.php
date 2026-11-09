@@ -182,11 +182,11 @@ class GitHubLoginHelper
             ['Accept' => 'application/json']
         );
 
-        if ($response->code !== 200) {
+        if ($response->getStatusCode() !== 200) {
             throw new \DomainException('Invalid response from GitHub (2) :(');
         }
 
-        $body = json_decode($response->body);
+        $body = json_decode((string) $response->getBody());
 
         if (isset($body->error)) {
             switch ($body->error) {
@@ -235,11 +235,11 @@ class GitHubLoginHelper
 
         $response = $this->http->get($this->github->users->get($username)->avatar_url);
 
-        if ($response->code != 200) {
+        if ($response->getStatusCode() != 200) {
             throw new \DomainException(\sprintf('Can not retrieve the avatar for user %s', $username));
         }
 
-        $result = file_put_contents($path, $response->body);
+        $result = file_put_contents($path, (string) $response->getBody());
 
         if ($result === false) {
             throw new \RuntimeException(\sprintf('Can not write the avatar image to file %s', $path));
