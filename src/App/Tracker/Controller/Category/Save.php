@@ -52,7 +52,7 @@ class Save extends AbstractTrackerController
 
         try {
             $this->model->setProject($project);
-            $data = $app->input->get('category', [], 'array');
+            $data = $app->getInput()->get('category', [], 'array');
 
             if (isset($data['id'])) {
                 $this->model->save($data);
@@ -68,8 +68,8 @@ class Save extends AbstractTrackerController
         } catch (\Exception $exception) {
             $app->enqueueMessage($exception->getMessage(), 'error');
 
-            if ($app->input->get('id')) {
-                $app->redirect($app->get('uri.base.path') . 'category/' . $project->alias . '/' . $app->input->get('id') . '/edit');
+            if ($app->getInput()->get('id')) {
+                $app->redirect($app->get('uri.base.path') . 'category/' . $project->alias . '/' . $app->getInput()->get('id') . '/edit');
             } else {
                 $app->redirect($app->get('uri.base.path') . 'category/' . $project->alias . '/add');
             }

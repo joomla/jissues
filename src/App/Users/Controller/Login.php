@@ -100,7 +100,7 @@ class Login extends AbstractTrackerController
         // User login
         $app->setUser($user);
 
-        $redirect = $app->input->getBase64('usr_redirect');
+        $redirect = $app->getInput()->getBase64('usr_redirect');
 
         $redirect = $redirect ? base64_decode($redirect) : '';
 

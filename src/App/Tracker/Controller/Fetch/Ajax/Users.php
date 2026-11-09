@@ -37,7 +37,7 @@ class Users extends AbstractAjaxController
         $application->getProject();
         $application->getUser()->authorize('view');
 
-        $username = $application->input->getCmd('q');
+        $username = $application->getInput()->getCmd('q');
 
         if ($username) {
             $this->response->data = $db

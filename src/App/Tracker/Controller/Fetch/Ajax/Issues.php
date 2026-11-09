@@ -37,7 +37,7 @@ class Issues extends AbstractAjaxController
         $application->getProject();
         $application->getUser()->authorize('view');
 
-        $issueNumber = $application->input->getInt('q');
+        $issueNumber = $application->getInput()->getInt('q');
 
         if ($issueNumber) {
             $this->response->data = $db

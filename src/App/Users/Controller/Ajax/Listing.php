@@ -32,7 +32,7 @@ class Listing extends AbstractAjaxController
 
         $application->getUser()->authorize('manage');
 
-        $groupId = $application->input->getInt('group_id');
+        $groupId = $application->getInput()->getInt('group_id');
 
         $users = [];
 

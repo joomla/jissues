@@ -108,7 +108,7 @@ class ErrorSubscriber implements SubscriberInterface, LoggerAwareInterface
             case $event->getError() instanceof MethodNotAllowedException:
                 // Log the error for reference
                 $this->logger->error(
-                    \sprintf('Route `%s` not supported by method `%s`', $app->get('uri.route'), $app->input->getMethod()),
+                    \sprintf('Route `%s` not supported by method `%s`', $app->get('uri.route'), $app->getInput()->getMethod()),
                     ['exception' => $event->getError()]
                 );
 

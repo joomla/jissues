@@ -146,7 +146,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
         /** @var \JTracker\Application\Application $application */
         $application = $this->getContainer()->get('JTracker\\Application\\Application');
 
-        $application->input->set('project_alias', $alias);
+        $application->getInput()->set('project_alias', $alias);
 
         $this->project = $application->getProject(true);
     }
@@ -192,7 +192,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
         $this->db = $this->getContainer()->get('db');
 
         // Get the payload data
-        $data = $application->input->post->get('payload', null, 'raw');
+        $data = $application->getInput()->post->get('payload', null, 'raw');
 
         if (!$data) {
             $this->logger->critical('No data received from GitHub.');
@@ -232,7 +232,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
             // Check if request is from CLI
             $myIP = '127.0.0.1';
         } else {
-            $myIP = $application->input->server->getString('REMOTE_ADDR');
+            $myIP = $application->getInput()->server->getString('REMOTE_ADDR');
         }
 
         if (!IpHelper::IPinList($myIP, $validIps->hooks) && $myIP != '127.0.0.1') {

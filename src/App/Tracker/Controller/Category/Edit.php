@@ -68,7 +68,7 @@ class Edit extends AbstractTrackerController
 
         $this->view->setProject($project);
         $this->model->setProject($project);
-        $item = $this->model->getItem($application->input->getUint('id'));
+        $item = $this->model->getItem($application->getInput()->getUint('id'));
         $this->view->setItem($item);
 
         return parent::execute();

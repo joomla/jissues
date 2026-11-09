@@ -40,9 +40,9 @@ class TotalActivity extends AbstractAjaxController
         $this->model->setProject($application->getProject());
 
         $state         = new Registry();
-        $enteredPeriod = $application->input->getUint('period', 1);
+        $enteredPeriod = $application->getInput()->getUint('period', 1);
 
-        $activityType = $application->input->getUint('activity_type', 0);
+        $activityType = $application->getInput()->getUint('activity_type', 0);
 
         // Only the "All", "Tracker", "Test" and "Code" activity types are supported
         if ($activityType > 3) {
@@ -52,8 +52,8 @@ class TotalActivity extends AbstractAjaxController
         $state->set('list.activity_type', $activityType);
 
         if ($enteredPeriod == 5) {
-            $startDate = $application->input->getCmd('startdate');
-            $endDate   = $application->input->getCmd('enddate');
+            $startDate = $application->getInput()->getCmd('startdate');
+            $endDate   = $application->getInput()->getCmd('enddate');
 
             if ($this->datesValid($startDate, $endDate)) {
                 $state->set('list.startdate', $startDate);
