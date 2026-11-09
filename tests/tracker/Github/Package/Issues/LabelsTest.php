@@ -93,7 +93,7 @@ class LabelsTest extends TestCase
      */
     public function testIssuesPackageUsesPaginatedLabels(): void
     {
-        $issues = new Issues(new Registry(), $this->createMock(Http::class));
+        $issues = new Issues(new Registry(), $this->createStub(Http::class));
 
         // Package::__get() caches the API object in a dynamic property (deprecated as of PHP 8.2)
         $this->assertInstanceOf(Labels::class, @$issues->labels);

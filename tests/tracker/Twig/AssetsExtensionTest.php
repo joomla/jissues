@@ -10,6 +10,7 @@
 namespace JTracker\Tests\Twig;
 
 use JTracker\Twig\AssetsExtension;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\PathPackage;
@@ -27,10 +28,9 @@ use Twig\RuntimeLoader\FactoryRuntimeLoader;
 class AssetsExtensionTest extends TestCase
 {
     /**
-     * @testdox  The extension registers the asset function as runtime function of the asset packages
-     *
      * @return  void
      */
+    #[TestDox('The extension registers the asset function as runtime function of the asset packages')]
     public function testGetFunctions(): void
     {
         $functions = (new AssetsExtension())->getFunctions();
@@ -41,10 +41,9 @@ class AssetsExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  The asset function resolves URLs with the asset packages runtime
-     *
      * @return  void
      */
+    #[TestDox('The asset function resolves URLs with the asset packages runtime')]
     public function testAssetFunction(): void
     {
         $twig = new Environment(new ArrayLoader([

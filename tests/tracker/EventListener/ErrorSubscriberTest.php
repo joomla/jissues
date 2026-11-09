@@ -25,6 +25,9 @@ use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\EventListener\ErrorSubscriber;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\JsonResponse;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -36,7 +39,10 @@ use Twig\Environment;
  * Tests for the ErrorSubscriber
  *
  * @since  1.0
+ *
+ * The shared test doubles created in setUp() only get expectations in some of the tests.
  */
+#[AllowMockObjectsWithoutExpectations]
 class ErrorSubscriberTest extends TestCase
 {
     /**
@@ -139,10 +145,9 @@ class ErrorSubscriberTest extends TestCase
     }
 
     /**
-     * @testdox  The subscriber listens to the application error event
-     *
      * @return  void
      */
+    #[TestDox('The subscriber listens to the application error event')]
     public function testGetSubscribedEvents(): void
     {
         $this->assertSame([ApplicationEvents::ERROR => 'handleWebError'], ErrorSubscriber::getSubscribedEvents());
@@ -153,7 +158,7 @@ class ErrorSubscriberTest extends TestCase
      *
      * @return  \Generator
      */
-    public function statusCodeProvider(): \Generator
+    public static function statusCodeProvider(): \Generator
     {
         yield 'unauthorized' => [new \RuntimeException('Login required', 401), 401];
         yield 'forbidden' => [new \RuntimeException('Forbidden', 403), 403];
@@ -166,15 +171,13 @@ class ErrorSubscriberTest extends TestCase
     }
 
     /**
-     * @testdox  The error code is mapped to the response status and the error is logged
-     *
      * @param   \Throwable  $error           The error
      * @param   integer     $expectedStatus  The expected response status
      *
      * @return  void
-     *
-     * @dataProvider  statusCodeProvider
      */
+    #[TestDox('The error code is mapped to the response status and the error is logged')]
+    #[DataProvider('statusCodeProvider')]
     public function testStatusCodeMapping(\Throwable $error, int $expectedStatus): void
     {
         $app = $this->createApplication();
@@ -203,7 +206,7 @@ class ErrorSubscriberTest extends TestCase
      *
      * @return  \Generator
      */
-    public function jsonRequestProvider(): \Generator
+    public static function jsonRequestProvider(): \Generator
     {
         yield 'json format requested' => [['_format' => 'json'], 'text/html', false];
         yield 'json mime type' => [[], 'application/json', false];
@@ -211,16 +214,14 @@ class ErrorSubscriberTest extends TestCase
     }
 
     /**
-     * @testdox  JSON requests get a JSON error response
-     *
      * @param   array    $request       The request data
      * @param   string   $mimeType      The application mime type
      * @param   boolean  $jsonResponse  Whether the application already has a JSON response
      *
      * @return  void
-     *
-     * @dataProvider  jsonRequestProvider
      */
+    #[TestDox('JSON requests get a JSON error response')]
+    #[DataProvider('jsonRequestProvider')]
     public function testJsonResponse(array $request, string $mimeType, bool $jsonResponse): void
     {
         $app           = $this->createApplication($request);
@@ -248,10 +249,9 @@ class ErrorSubscriberTest extends TestCase
     }
 
     /**
-     * @testdox  A route that is not found is logged with the route and gets a 404 response
-     *
      * @return  void
      */
+    #[TestDox('A route that is not found is logged with the route and gets a 404 response')]
     public function testRouteNotFound(): void
     {
         $app   = $this->createApplication();
@@ -270,10 +270,9 @@ class ErrorSubscriberTest extends TestCase
     }
 
     /**
-     * @testdox  A method that is not allowed is logged with route and method and gets a 405 response with an Allow header
-     *
      * @return  void
      */
+    #[TestDox('A method that is not allowed is logged with route and method and gets a 405 response with an Allow header')]
     public function testMethodNotAllowed(): void
     {
         $app   = $this->createApplication();
@@ -294,13 +293,12 @@ class ErrorSubscriberTest extends TestCase
     }
 
     /**
-     * @testdox  An authentication failure is logged with the user and action and gets a 403 response
-     *
      * @return  void
      */
+    #[TestDox('An authentication failure is logged with the user and action and gets a 403 response')]
     public function testAuthenticationFailure(): void
     {
-        $db      = $this->createMock(DatabaseDriver::class);
+        $db      = $this->createStub(DatabaseDriver::class);
         $user    = new GitHubUser(new TrackerProject($db), $db);
 
         $user->id       = 7;
@@ -333,13 +331,12 @@ class ErrorSubscriberTest extends TestCase
     }
 
     /**
-     * @testdox  An authentication failure of a guest is logged without user data
-     *
      * @return  void
      */
+    #[TestDox('An authentication failure of a guest is logged without user data')]
     public function testAuthenticationFailureForGuest(): void
     {
-        $db    = $this->createMock(DatabaseDriver::class);
+        $db    = $this->createStub(DatabaseDriver::class);
         $error = new AuthenticationException(new GitHubUser(new TrackerProject($db), $db), 'view');
 
         $this->logger->expects($this->once())
@@ -356,10 +353,9 @@ class ErrorSubscriberTest extends TestCase
     }
 
     /**
-     * @testdox  A profiler mark is added when system debugging is enabled
-     *
      * @return  void
      */
+    #[TestDox('A profiler mark is added when system debugging is enabled')]
     public function testMarksTheProfiler(): void
     {
         $debugger = $this->createMock(TrackerDebugger::class);

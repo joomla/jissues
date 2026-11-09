@@ -11,6 +11,7 @@ namespace JTracker\Tests\App\Tracker\Twig;
 
 use App\Tracker\Twig\StatusExtension;
 use JTracker\Tests\Mocks\DatabaseMockTrait;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
@@ -46,10 +47,9 @@ class StatusExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  The extension registers the status functions
-     *
      * @return  void
      */
+    #[TestDox('The extension registers the status functions')]
     public function testGetFunctions(): void
     {
         $extension = $this->createExtension();
@@ -71,10 +71,9 @@ class StatusExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  getStatus() returns the status with a CSS class matching its state
-     *
      * @return  void
      */
+    #[TestDox('getStatus() returns the status with a CSS class matching its state')]
     public function testGetStatus(): void
     {
         $extension = $this->createExtension();
@@ -91,10 +90,9 @@ class StatusExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  getStatus() loads the statuses from the database only once
-     *
      * @return  void
      */
+    #[TestDox('getStatus() loads the statuses from the database only once')]
     public function testGetStatusLoadsStatusesOnce(): void
     {
         $extension = $this->createExtension();
@@ -108,10 +106,9 @@ class StatusExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  getStatus() throws for an unknown status ID
-     *
      * @return  void
      */
+    #[TestDox('getStatus() throws for an unknown status ID')]
     public function testGetStatusUnknown(): void
     {
         $this->expectException(\UnexpectedValueException::class);
@@ -121,10 +118,9 @@ class StatusExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  getStatusesByState() returns the open statuses
-     *
      * @return  void
      */
+    #[TestDox('getStatusesByState() returns the open statuses')]
     public function testGetStatusesByStateOpen(): void
     {
         $expected = [
@@ -144,10 +140,9 @@ class StatusExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  getStatusesByState() returns the closed statuses
-     *
      * @return  void
      */
+    #[TestDox('getStatusesByState() returns the closed statuses')]
     public function testGetStatusesByStateClosed(): void
     {
         $expected = [
@@ -167,10 +162,9 @@ class StatusExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  getStatusesByState() returns all statuses without a state
-     *
      * @return  void
      */
+    #[TestDox('getStatusesByState() returns all statuses without a state')]
     public function testGetStatusesByStateAll(): void
     {
         $extension = $this->createExtension();
@@ -183,10 +177,9 @@ class StatusExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  The functions can be used in templates
-     *
      * @return  void
      */
+    #[TestDox('The functions can be used in templates')]
     public function testFunctionsInTemplate(): void
     {
         $twig = new Environment(new ArrayLoader([

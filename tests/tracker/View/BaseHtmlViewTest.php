@@ -11,6 +11,7 @@ namespace JTracker\Tests\View;
 
 use Joomla\Model\StatefulModelInterface;
 use JTracker\View\BaseHtmlView;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
@@ -32,14 +33,12 @@ class BaseHtmlViewTest extends TestCase
     private function createView(array $templates): BaseHtmlView
     {
         return new BaseHtmlView(
-            $this->createMock(StatefulModelInterface::class),
+            $this->createStub(StatefulModelInterface::class),
             new Environment(new ArrayLoader($templates))
         );
     }
 
-    /**
-     * @testdox  The view renders its layout with the view data
-     */
+    #[TestDox('The view renders its layout with the view data')]
     public function testRenderUsesLayoutAndData(): void
     {
         $view = $this->createView(['page.twig' => '{{ greeting }}, {{ name }}!']);
@@ -53,9 +52,7 @@ class BaseHtmlViewTest extends TestCase
         $this->assertSame('Hello, World!', (string) $view);
     }
 
-    /**
-     * @testdox  Template variables are escaped
-     */
+    #[TestDox('Template variables are escaped')]
     public function testRenderEscapesData(): void
     {
         $view = $this->createView(['page.twig' => '{{ name }}']);
@@ -65,9 +62,7 @@ class BaseHtmlViewTest extends TestCase
         $this->assertSame('&lt;b&gt;', $view->render());
     }
 
-    /**
-     * @testdox  The data can be replaced, removed and cleared
-     */
+    #[TestDox('The data can be replaced, removed and cleared')]
     public function testDataManipulation(): void
     {
         $view = $this->createView([]);
@@ -85,13 +80,11 @@ class BaseHtmlViewTest extends TestCase
         $this->assertSame([], $view->getData());
     }
 
-    /**
-     * @testdox  Data of one view does not leak into another view sharing the same Twig environment
-     */
+    #[TestDox('Data of one view does not leak into another view sharing the same Twig environment')]
     public function testDataIsNotSharedBetweenViews(): void
     {
         $twig  = new Environment(new ArrayLoader(['page.twig' => '[{{ app }}]']));
-        $model = $this->createMock(StatefulModelInterface::class);
+        $model = $this->createStub(StatefulModelInterface::class);
 
         $first  = (new BaseHtmlView($model, $twig))->setLayout('page.twig')->addData('app', 'tracker');
         $second = (new BaseHtmlView($model, $twig))->setLayout('page.twig');
@@ -101,9 +94,7 @@ class BaseHtmlViewTest extends TestCase
         $this->assertSame($twig, $second->getTwig());
     }
 
-    /**
-     * @testdox  Casting a view with a missing template to a string returns the error message
-     */
+    #[TestDox('Casting a view with a missing template to a string returns the error message')]
     public function testToStringReturnsErrorMessage(): void
     {
         $view = $this->createView([]);

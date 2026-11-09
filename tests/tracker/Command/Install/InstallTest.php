@@ -11,12 +11,16 @@ namespace JTracker\Tests\Command\Install;
 
 use JTracker\Command\Install\Install;
 use JTracker\Tests\Command\CommandTestCase;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 
 /**
  * Tests for the install command.
  *
+ * The installer calls the static DatabaseDriver::splitSql(), which only a mock object (not a stub) can keep.
+ *
  * @since  1.0
  */
+#[AllowMockObjectsWithoutExpectations]
 class InstallTest extends CommandTestCase
 {
     /**
@@ -32,7 +36,7 @@ class InstallTest extends CommandTestCase
      */
     private function createInstallerDatabase(array $tables, \ArrayObject $dropped, string $prefix = 'jos_')
     {
-        $db = $this->createDatabaseMock($prefix);
+        $db = $this->createDatabaseMock($prefix, true);
 
         $db->method('getTableList')->willReturn($tables);
         $db->method('dropTable')

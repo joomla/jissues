@@ -56,7 +56,7 @@ class MilestonesTest extends CommandTestCase
     {
         $requested = new \ArrayObject();
 
-        $milestones = $this->createMock(MilestonesPackage::class);
+        $milestones = $this->createStub(MilestonesPackage::class);
         $milestones->method('getList')
             ->willReturnCallback(
                 static function ($user, $repo, $state, $sort, $direction, $page, $limit) use ($pages, $requested) {

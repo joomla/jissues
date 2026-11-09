@@ -11,7 +11,7 @@ namespace JTracker\Tests\Mocks;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\Mysqli\MysqliQuery;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 
 /**
  * Builds a DatabaseDriver mock that records the executed SQL and serves canned results.
@@ -115,15 +115,24 @@ trait RecordingDatabaseMockTrait
     /**
      * Create the database mock.
      *
-     * @param   string  $prefix  The table prefix.
+     * By default this is a test stub. A test which needs the real static helpers of the driver (e.g. splitSql())
+     * gets a mock object instead, and has to allow mock objects without expectations with
+     * #[AllowMockObjectsWithoutExpectations], as stubs can not keep static methods.
      *
-     * @return  DatabaseDriver&MockObject
+     * @param   string   $prefix             The table prefix.
+     * @param   boolean  $keepStaticHelpers  Whether the static helpers of the driver keep working.
+     *
+     * @return  DatabaseDriver&Stub
      *
      * @since   1.0
      */
-    protected function createDatabaseMock(string $prefix = 'jos_'): DatabaseDriver
+    protected function createDatabaseMock(string $prefix = 'jos_', bool $keepStaticHelpers = false): DatabaseDriver
     {
-        // Mock everything except the static helpers (e.g. splitSql()), which mocks can not serve
+        if (!$keepStaticHelpers) {
+            return $this->configureDatabaseMock($this->createStub(DatabaseDriver::class), $prefix);
+        }
+
+        // Mock everything except the static helpers, which mocks can not serve
         $methods = [];
 
         foreach ((new \ReflectionClass(DatabaseDriver::class))->getMethods() as $method) {
@@ -145,6 +154,21 @@ trait RecordingDatabaseMockTrait
             ->onlyMethods($methods)
             ->getMock();
 
+        return $this->configureDatabaseMock($db, $prefix);
+    }
+
+    /**
+     * Configure the database test double to record the queries and serve the registered results.
+     *
+     * @param   DatabaseDriver&Stub  $db      The database test double.
+     * @param   string               $prefix  The table prefix.
+     *
+     * @return  DatabaseDriver&Stub
+     *
+     * @since   1.0
+     */
+    private function configureDatabaseMock(DatabaseDriver $db, string $prefix): DatabaseDriver
+    {
         $current = '';
 
         $db->method('getQuery')

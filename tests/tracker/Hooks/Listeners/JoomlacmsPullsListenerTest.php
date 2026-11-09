@@ -26,14 +26,21 @@ use Joomla\Github\Package\Repositories\Statuses;
 use Joomla\Http\Exception\InvalidResponseCodeException;
 use JTracker\Github\DataType\Commit\Status;
 use Monolog\Logger;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for the JoomlacmsPullsListener and the AbstractListener helpers it uses.
  *
  * @since  1.0
+ *
+ * The shared test doubles created in setUp() only get expectations in some of the tests.
  */
+#[AllowMockObjectsWithoutExpectations]
 class JoomlacmsPullsListenerTest extends TestCase
 {
     /**
@@ -47,7 +54,7 @@ class JoomlacmsPullsListenerTest extends TestCase
     /**
      * Mocked GitHub object
      *
-     * @var    Github|MockObject
+     * @var    Github|Stub
      * @since  1.0
      */
     private $github;
@@ -171,11 +178,11 @@ class JoomlacmsPullsListenerTest extends TestCase
                 ]
             );
 
-        $repositories = $this->createMock(Repositories::class);
+        $repositories = $this->createStub(Repositories::class);
         $repositories->method('__get')
             ->willReturnMap([['statuses', $this->statuses]]);
 
-        $this->github = $this->createMock(Github::class);
+        $this->github = $this->createStub(Github::class);
         $this->github->method('__get')
             ->willReturnMap(
                 [
@@ -339,7 +346,7 @@ class JoomlacmsPullsListenerTest extends TestCase
         $db->method('getQuery')
             ->willReturnCallback(
                 function () {
-                    $query = $this->createMock(DatabaseQuery::class);
+                    $query = $this->createStub(DatabaseQuery::class);
 
                     foreach (['select', 'from', 'delete'] as $method) {
                         $query->method($method)->willReturnSelf();
@@ -482,10 +489,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  The listener subscribes to the pull request create and update events
-     *
      * @return  void
      */
+    #[TestDox('The listener subscribes to the pull request create and update events')]
     public function testGetSubscribedEvents(): void
     {
         $this->assertSame(
@@ -502,7 +508,7 @@ class JoomlacmsPullsListenerTest extends TestCase
      *
      * @return  \Generator
      */
-    public function onPullAfterCreateProvider(): \Generator
+    public static function onPullAfterCreateProvider(): \Generator
     {
         yield 'opened by a contributor' => ['opened', 'CONTRIBUTOR', true, false];
         yield 'opened by a first time contributor' => ['opened', 'FIRST_TIME_CONTRIBUTOR', true, true];
@@ -512,17 +518,15 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  onPullAfterCreate runs the checks for opened pulls and greets first time contributors
-     *
      * @param   string   $action             The webhook action
      * @param   string   $authorAssociation  The author association
      * @param   boolean  $runsChecks         Whether the opened checks should run
      * @param   boolean  $sendsGreeting      Whether the first time contributor message should be sent
      *
      * @return  void
-     *
-     * @dataProvider  onPullAfterCreateProvider
      */
+    #[TestDox('onPullAfterCreate runs the checks for opened pulls and greets first time contributors')]
+    #[DataProvider('onPullAfterCreateProvider')]
     public function testOnPullAfterCreate(string $action, string $authorAssociation, bool $runsChecks, bool $sendsGreeting): void
     {
         $listener = $this->createDispatchListener();
@@ -544,7 +548,7 @@ class JoomlacmsPullsListenerTest extends TestCase
      *
      * @return  \Generator
      */
-    public function onPullAfterUpdateProvider(): \Generator
+    public static function onPullAfterUpdateProvider(): \Generator
     {
         // Action, checkPullBody calls, setPending calls, label/title/RTC/category check calls
         yield 'opened (redelivered)' => ['opened', 1, 1, 1];
@@ -557,17 +561,15 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  onPullAfterUpdate runs the checks matching the webhook action
-     *
      * @param   string   $action        The webhook action
      * @param   integer  $bodyChecks    Expected checkPullBody calls
      * @param   integer  $pendingCalls  Expected setPending calls
      * @param   integer  $otherChecks   Expected calls of the label, title, RTC and category checks
      *
      * @return  void
-     *
-     * @dataProvider  onPullAfterUpdateProvider
      */
+    #[TestDox('onPullAfterUpdate runs the checks matching the webhook action')]
+    #[DataProvider('onPullAfterUpdateProvider')]
     public function testOnPullAfterUpdate(string $action, int $bodyChecks, int $pendingCalls, int $otherChecks): void
     {
         $listener = $this->createDispatchListener();
@@ -584,10 +586,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  onPullAfterCreate passes the event arguments to the checks
-     *
      * @return  void
      */
+    #[TestDox('onPullAfterCreate passes the event arguments to the checks')]
     public function testOnPullAfterCreatePassesEventArguments(): void
     {
         $listener = $this->createDispatchListener();
@@ -613,7 +614,7 @@ class JoomlacmsPullsListenerTest extends TestCase
      *
      * @return  \Generator
      */
-    public function checkRtcLabelProvider(): \Generator
+    public static function checkRtcLabelProvider(): \Generator
     {
         // Status, existing labels, expected added labels, expected removed label
         yield 'RTC status without label adds it' => [4, ['PR-4.4-dev'], ['RTC'], null];
@@ -623,17 +624,15 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  checkRTClabel keeps the RTC label in sync with the tracker status
-     *
      * @param   integer      $status         The tracker status
      * @param   array        $existing       The labels set on GitHub
      * @param   array|null   $expectedAdd    The labels expected to be added
      * @param   string|null  $expectedRemove The label expected to be removed
      *
      * @return  void
-     *
-     * @dataProvider  checkRtcLabelProvider
      */
+    #[TestDox('checkRTClabel keeps the RTC label in sync with the tracker status')]
+    #[DataProvider('checkRtcLabelProvider')]
     public function testCheckRtcLabel(int $status, array $existing, ?array $expectedAdd, ?string $expectedRemove): void
     {
         $this->setExistingLabels(...$existing);
@@ -658,10 +657,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  checkPullLabels adds the RFC, branch and file based labels
-     *
      * @return  void
      */
+    #[TestDox('checkPullLabels adds the RFC, branch and file based labels')]
     public function testCheckPullLabelsAddsLabels(): void
     {
         $this->setExistingLabels();
@@ -696,10 +694,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  checkPullLabels removes labels that no longer apply
-     *
      * @return  void
      */
+    #[TestDox('checkPullLabels removes labels that no longer apply')]
     public function testCheckPullLabelsRemovesLabels(): void
     {
         $this->setExistingLabels('RFC', 'PR-4.4-dev', 'NPM Resource Changed');
@@ -730,10 +727,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  checkPullLabels does not touch labels which are already correct
-     *
      * @return  void
      */
+    #[TestDox('checkPullLabels does not touch labels which are already correct')]
     public function testCheckPullLabelsWithLabelsAlreadySet(): void
     {
         $this->setExistingLabels('PR-4.4-dev', 'NPM Resource Changed');
@@ -748,10 +744,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  checkPullLabels does nothing more when the changed files cannot be retrieved
-     *
      * @return  void
      */
+    #[TestDox('checkPullLabels does nothing more when the changed files cannot be retrieved')]
     public function testCheckPullLabelsWithoutFiles(): void
     {
         $this->setExistingLabels();
@@ -775,7 +770,7 @@ class JoomlacmsPullsListenerTest extends TestCase
      *
      * @return  \Generator
      */
-    public function checkChangeProvider(): \Generator
+    public static function checkChangeProvider(): \Generator
     {
         yield 'language file' => [['administrator/language/en-GB/com_content.ini'], JoomlacmsPullsListener::CATEGORY_LANGUAGES, true];
         yield 'composer lock' => [['libraries/src/Foo.php', 'composer.lock'], JoomlacmsPullsListener::CATEGORY_COMPOSER, true];
@@ -786,26 +781,23 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  checkChange detects changed files belonging to a category
-     *
      * @param   array    $filenames  The changed file names
      * @param   integer  $category   The category id
      * @param   boolean  $expected   The expected result
      *
      * @return  void
-     *
-     * @dataProvider  checkChangeProvider
      */
+    #[TestDox('checkChange detects changed files belonging to a category')]
+    #[DataProvider('checkChangeProvider')]
     public function testCheckChange(array $filenames, int $category, bool $expected): void
     {
         $this->assertSame($expected, $this->invoke('checkChange', $this->buildFiles(...$filenames), $category));
     }
 
     /**
-     * @testdox  setPending does not save an item which is already pending
-     *
      * @return  void
      */
+    #[TestDox('setPending does not save an item which is already pending')]
     public function testSetPendingWhenAlreadyPending(): void
     {
         $table = $this->createTable(['status' => 3]);
@@ -815,10 +807,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  setPending resets the status to pending
-     *
      * @return  void
      */
+    #[TestDox('setPending resets the status to pending')]
     public function testSetPending(): void
     {
         $table = $this->createTable(['status' => 4]);
@@ -836,21 +827,19 @@ class JoomlacmsPullsListenerTest extends TestCase
      *
      * @return  \Generator
      */
-    public function setPendingErrorProvider(): \Generator
+    public static function setPendingErrorProvider(): \Generator
     {
         yield 'invalid argument' => [new \InvalidArgumentException('Invalid')];
         yield 'runtime error' => [new \RuntimeException('Database down')];
     }
 
     /**
-     * @testdox  setPending logs errors while saving the status
-     *
      * @param   \Exception  $exception  The exception thrown by the table
      *
      * @return  void
-     *
-     * @dataProvider  setPendingErrorProvider
      */
+    #[TestDox('setPending logs errors while saving the status')]
+    #[DataProvider('setPendingErrorProvider')]
     public function testSetPendingLogsErrors(\Exception $exception): void
     {
         $table = $this->createTable(['status' => 1]);
@@ -871,22 +860,20 @@ class JoomlacmsPullsListenerTest extends TestCase
      *
      * @return  \Generator
      */
-    public function updatePullTitleWithoutChangeProvider(): \Generator
+    public static function updatePullTitleWithoutChangeProvider(): \Generator
     {
         yield 'title contains the id' => ['[#33456] Fix the article manager filters', 33456];
         yield 'no foreign number' => ['Fix the article manager filters', null];
     }
 
     /**
-     * @testdox  updatePullTitle leaves the title alone when it has no foreign id to add
-     *
      * @param   string        $title          The pull request title
      * @param   integer|null  $foreignNumber  The foreign number of the item
      *
      * @return  void
-     *
-     * @dataProvider  updatePullTitleWithoutChangeProvider
      */
+    #[TestDox('updatePullTitle leaves the title alone when it has no foreign id to add')]
+    #[DataProvider('updatePullTitleWithoutChangeProvider')]
     public function testUpdatePullTitleWithoutChange(string $title, ?int $foreignNumber): void
     {
         $table = $this->createTable(['foreign_number' => $foreignNumber]);
@@ -898,10 +885,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  updatePullTitle prefixes the title with the foreign id on GitHub and locally
-     *
      * @return  void
      */
+    #[TestDox('updatePullTitle prefixes the title with the foreign id on GitHub and locally')]
     public function testUpdatePullTitle(): void
     {
         $table = $this->createTable(['foreign_number' => 33456]);
@@ -925,21 +911,19 @@ class JoomlacmsPullsListenerTest extends TestCase
      *
      * @return  \Generator
      */
-    public function gitHubErrorProvider(): \Generator
+    public static function gitHubErrorProvider(): \Generator
     {
         yield 'invalid response code' => [new InvalidResponseCodeException('Not Found', 404)];
         yield 'domain exception' => [new \DomainException('Invalid response')];
     }
 
     /**
-     * @testdox  updatePullTitle does not change the local title when GitHub fails
-     *
      * @param   \Exception  $exception  The exception thrown by the GitHub API
      *
      * @return  void
-     *
-     * @dataProvider  gitHubErrorProvider
      */
+    #[TestDox('updatePullTitle does not change the local title when GitHub fails')]
+    #[DataProvider('gitHubErrorProvider')]
     public function testUpdatePullTitleGitHubError(\Exception $exception): void
     {
         $table = $this->createTable(['foreign_number' => 33456]);
@@ -955,10 +939,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  checkPullBody does nothing for pull requests with a description
-     *
      * @return  void
      */
+    #[TestDox('checkPullBody does nothing for pull requests with a description')]
     public function testCheckPullBodyWithDescription(): void
     {
         $this->issues->expects($this->never())->method('get');
@@ -969,10 +952,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  checkPullBody labels and comments on pull requests without a description
-     *
      * @return  void
      */
+    #[TestDox('checkPullBody labels and comments on pull requests without a description')]
     public function testCheckPullBodyWithoutDescription(): void
     {
         $this->setExistingLabels('PR-4.4-dev');
@@ -993,21 +975,31 @@ class JoomlacmsPullsListenerTest extends TestCase
                 )
             );
 
+        $messages = [];
+
         $this->logger->expects($this->exactly(2))
             ->method('info')
-            ->withConsecutive(
-                ['Added 1 labels to joomla/joomla-cms #12345'],
-                ['Added a no description comment to joomla/joomla-cms #12345']
+            ->willReturnCallback(
+                static function (string $message) use (&$messages): void {
+                    $messages[] = $message;
+                }
             );
 
         $this->invoke('checkPullBody', $this->buildHookData(['body' => '']), $this->github, $this->logger, $this->project);
+
+        $this->assertSame(
+            [
+                'Added 1 labels to joomla/joomla-cms #12345',
+                'Added a no description comment to joomla/joomla-cms #12345',
+            ],
+            $messages
+        );
     }
 
     /**
-     * @testdox  checkPullBody only comments when the test instructions label is already set
-     *
      * @return  void
      */
+    #[TestDox('checkPullBody only comments when the test instructions label is already set')]
     public function testCheckPullBodyWithLabelAlreadySet(): void
     {
         $this->setExistingLabels('Test instructions missing');
@@ -1019,14 +1011,12 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  checkPullBody logs errors while posting the comment
-     *
      * @param   \Exception  $exception  The exception thrown by the GitHub API
      *
      * @return  void
-     *
-     * @dataProvider  gitHubErrorProvider
      */
+    #[TestDox('checkPullBody logs errors while posting the comment')]
+    #[DataProvider('gitHubErrorProvider')]
     public function testCheckPullBodyGitHubError(\Exception $exception): void
     {
         $this->setExistingLabels('Test instructions missing');
@@ -1041,10 +1031,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  checkCategories stores the categories matching the changed files and keeps manual categories
-     *
      * @return  void
      */
+    #[TestDox('checkCategories stores the categories matching the changed files and keeps manual categories')]
     public function testCheckCategories(): void
     {
         // Category 99 is not handled by the tracker, category 24 no longer matches the changed files
@@ -1085,10 +1074,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  checkCategories does not write anything when the categories are unchanged
-     *
      * @return  void
      */
+    #[TestDox('checkCategories does not write anything when the categories are unchanged')]
     public function testCheckCategoriesUnchanged(): void
     {
         $this->dbObjectList = [(object) ['category_id' => 23], (object) ['category_id' => 13]];
@@ -1103,10 +1091,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  checkCategories does nothing when the changed files cannot be retrieved
-     *
      * @return  void
      */
+    #[TestDox('checkCategories does nothing when the changed files cannot be retrieved')]
     public function testCheckCategoriesWithoutFiles(): void
     {
         $this->dbObjectList = [(object) ['category_id' => 23]];
@@ -1122,10 +1109,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  sendFirstTimeContributorMessage posts the welcome message as a comment
-     *
      * @return  void
      */
+    #[TestDox('sendFirstTimeContributorMessage posts the welcome message as a comment')]
     public function testSendFirstTimeContributorMessage(): void
     {
         $this->comments->expects($this->once())
@@ -1148,14 +1134,12 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  sendCommentAsBotUser logs errors while posting the comment
-     *
      * @param   \Exception  $exception  The exception thrown by the GitHub API
      *
      * @return  void
-     *
-     * @dataProvider  gitHubErrorProvider
      */
+    #[TestDox('sendCommentAsBotUser logs errors while posting the comment')]
+    #[DataProvider('gitHubErrorProvider')]
     public function testSendCommentAsBotUserGitHubError(\Exception $exception): void
     {
         $this->comments->method('create')->willThrowException($exception);
@@ -1169,10 +1153,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  getIssueNumber reads the number from pull request or issue payloads
-     *
      * @return  void
      */
+    #[TestDox('getIssueNumber reads the number from pull request or issue payloads')]
     public function testGetIssueNumber(): void
     {
         $this->assertSame(12345, $this->invoke('getIssueNumber', $this->buildHookData()));
@@ -1181,10 +1164,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  checkLabel checks the labels of an issue payload
-     *
      * @return  void
      */
+    #[TestDox('checkLabel checks the labels of an issue payload')]
     public function testCheckLabelWithIssuePayload(): void
     {
         $this->issues->expects($this->exactly(2))
@@ -1203,7 +1185,7 @@ class JoomlacmsPullsListenerTest extends TestCase
      *
      * @return  \Generator
      */
-    public function labelHelperProvider(): \Generator
+    public static function labelHelperProvider(): \Generator
     {
         yield 'checkLabel' => ['checkLabel', 'RTC'];
         yield 'addLabels' => ['addLabels', ['RTC']];
@@ -1211,15 +1193,13 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  The label helpers fail when the payload has no issue number
-     *
      * @param   string  $method  The helper method
      * @param   mixed   $labels  The label argument
      *
      * @return  void
-     *
-     * @dataProvider  labelHelperProvider
      */
+    #[TestDox('The label helpers fail when the payload has no issue number')]
+    #[DataProvider('labelHelperProvider')]
     public function testLabelHelpersWithoutIssueNumber(string $method, $labels): void
     {
         $this->logger->expects($this->once())
@@ -1236,14 +1216,12 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  checkLabel converts GitHub errors into runtime exceptions
-     *
      * @param   \Exception  $exception  The exception thrown by the GitHub API
      *
      * @return  void
-     *
-     * @dataProvider  gitHubErrorProvider
      */
+    #[TestDox('checkLabel converts GitHub errors into runtime exceptions')]
+    #[DataProvider('gitHubErrorProvider')]
     public function testCheckLabelGitHubError(\Exception $exception): void
     {
         $this->issues->method('get')->willThrowException($exception);
@@ -1263,10 +1241,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  addLabels does not call GitHub without labels
-     *
      * @return  void
      */
+    #[TestDox('addLabels does not call GitHub without labels')]
     public function testAddLabelsWithoutLabels(): void
     {
         $this->labels->expects($this->never())->method('add');
@@ -1275,14 +1252,12 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  addLabels converts GitHub errors into runtime exceptions
-     *
      * @param   \Exception  $exception  The exception thrown by the GitHub API
      *
      * @return  void
-     *
-     * @dataProvider  gitHubErrorProvider
      */
+    #[TestDox('addLabels converts GitHub errors into runtime exceptions')]
+    #[DataProvider('gitHubErrorProvider')]
     public function testAddLabelsGitHubError(\Exception $exception): void
     {
         $this->labels->method('add')->willThrowException($exception);
@@ -1298,10 +1273,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  removeLabels does not call GitHub without labels
-     *
      * @return  void
      */
+    #[TestDox('removeLabels does not call GitHub without labels')]
     public function testRemoveLabelsWithoutLabels(): void
     {
         $this->labels->expects($this->never())->method('removeFromIssue');
@@ -1310,14 +1284,12 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  removeLabels converts GitHub errors into runtime exceptions
-     *
      * @param   \Exception  $exception  The exception thrown by the GitHub API
      *
      * @return  void
-     *
-     * @dataProvider  gitHubErrorProvider
      */
+    #[TestDox('removeLabels converts GitHub errors into runtime exceptions')]
+    #[DataProvider('gitHubErrorProvider')]
     public function testRemoveLabelsGitHubError(\Exception $exception): void
     {
         $this->labels->expects($this->once())
@@ -1335,14 +1307,12 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  getChangedFilesByPullRequest returns an empty list on GitHub errors
-     *
      * @param   \Exception  $exception  The exception thrown by the GitHub API
      *
      * @return  void
-     *
-     * @dataProvider  gitHubErrorProvider
      */
+    #[TestDox('getChangedFilesByPullRequest returns an empty list on GitHub errors')]
+    #[DataProvider('gitHubErrorProvider')]
     public function testGetChangedFilesByPullRequestGitHubError(\Exception $exception): void
     {
         $this->pulls->method('getFiles')->willThrowException($exception);
@@ -1355,10 +1325,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  createStatus uses the given commit SHA
-     *
      * @return  void
      */
+    #[TestDox('createStatus uses the given commit SHA')]
     public function testCreateStatusWithSha(): void
     {
         $status              = new Status();
@@ -1380,10 +1349,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  createStatus looks up the SHA of the pull request head when none is given
-     *
      * @return  void
      */
+    #[TestDox('createStatus looks up the SHA of the pull request head when none is given')]
     public function testCreateStatusWithoutSha(): void
     {
         $status        = new Status();
@@ -1402,10 +1370,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  getGithubBotName returns the configured bot account or the fallback
-     *
      * @return  void
      */
+    #[TestDox('getGithubBotName returns the configured bot account or the fallback')]
     public function testGetGithubBotName(): void
     {
         $this->assertSame('joomla-bot-test', $this->invoke('getGithubBotName', $this->project));
@@ -1416,10 +1383,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  setCategories fails when the payload has no issue number
-     *
      * @return  void
      */
+    #[TestDox('setCategories fails when the payload has no issue number')]
     public function testSetCategoriesWithoutIssueNumber(): void
     {
         $this->logger->expects($this->once())
@@ -1434,10 +1400,9 @@ class JoomlacmsPullsListenerTest extends TestCase
     }
 
     /**
-     * @testdox  getCategories returns the category ids of the issue
-     *
      * @return  void
      */
+    #[TestDox('getCategories returns the category ids of the issue')]
     public function testGetCategories(): void
     {
         $this->dbObjectList = [(object) ['category_id' => 23], (object) ['category_id' => 99]];
