@@ -48,14 +48,14 @@ class Random extends AbstractTrackerController
 
             $application->redirect(
                 $application->get('uri.base.path')
-                . '/tracker/' . $application->input->get('project_alias') . '/' . $randomNumber
+                . '/tracker/' . $application->getInput()->get('project_alias') . '/' . $randomNumber
             );
         } catch (\Exception $e) {
             $application->enqueueMessage($e->getMessage(), 'error');
 
             $application->redirect(
                 $application->get('uri.base.path')
-                . 'tracker/' . $application->input->get('project_alias')
+                . 'tracker/' . $application->getInput()->get('project_alias')
             );
         }
 

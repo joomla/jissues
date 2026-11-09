@@ -28,7 +28,7 @@ class GithubException extends UnexpectedResponseException
      */
     public function __construct(Response $response)
     {
-        $error = (string) $response->body;
+        $error = (string) $response->getBody();
         $code  = $response->getStatusCode();
 
         $message = $error->message ?? 'Invalid response received from GitHub.';

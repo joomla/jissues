@@ -9,7 +9,6 @@
 
 namespace JTracker\Command\Test;
 
-use PHPUnit\TextUI\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -57,13 +56,25 @@ class Phpunit extends Test
         $ioStyle = new SymfonyStyle($input, $output);
         $ioStyle->title('Test PHPUnit');
 
-        $command = new Command();
+        // PHPUnit has no public API to run tests programmatically, so run its CLI in a separate process,
+        // from the project root like the CI does
+        $command = implode(
+            ' ',
+            [
+                escapeshellarg(PHP_BINARY),
+                escapeshellarg('vendor/bin/phpunit'),
+                '--configuration=phpunit.xml',
+            ]
+        );
 
-        $options = [
-            '--configuration=' . JPATH_ROOT . '/phpunit.xml',
-        ];
+        $cwd = getcwd();
+        chdir(JPATH_ROOT);
 
-        $returnVal = $command->run($options, false);
+        try {
+            passthru($command, $returnVal);
+        } finally {
+            chdir($cwd);
+        }
 
         $this
             ->out()

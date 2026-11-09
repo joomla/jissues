@@ -29,7 +29,7 @@ class Info extends AbstractAjaxController
      */
     protected function prepareResponse()
     {
-        $id = $this->getContainer()->get('app')->input->getUint('id');
+        $id = $this->getContainer()->get('app')->getInput()->getUint('id');
 
         if (!$id) {
             throw new \RuntimeException('No id received.');

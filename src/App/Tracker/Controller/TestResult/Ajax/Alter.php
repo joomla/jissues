@@ -41,7 +41,7 @@ class Alter extends AbstractAjaxController
             throw new \Exception('You are not allowed to alter this item.');
         }
 
-        $issueId  = $application->input->getUint('issueId');
+        $issueId  = $application->getInput()->getUint('issueId');
 
         if (!$issueId) {
             throw new \Exception('No issue ID received.');
@@ -54,9 +54,9 @@ class Alter extends AbstractAjaxController
         $data   = new \stdClass();
         $result = new \stdClass();
 
-        $result->user  = $application->input->getUsername('user');
-        $result->value = $application->input->getUint('result');
-        $sha           = $application->input->getCmd('sha');
+        $result->user  = $application->getInput()->getUsername('user');
+        $result->value = $application->getInput()->getUint('result');
+        $sha           = $application->getInput()->getCmd('sha');
 
         if (!$sha) {
             throw new \Exception('Missing commit SHA.');

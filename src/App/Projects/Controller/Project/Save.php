@@ -71,7 +71,7 @@ class Save extends AbstractTrackerController
         $activeProject = $app->getProject();
 
         $table = (new ProjectsTable($this->getContainer()->get('db')))
-            ->save($app->input->get('project', [], 'array'));
+            ->save($app->getInput()->get('project', [], 'array'));
 
         // If the active project has been saved, its alias might have changed
         if ((int) $activeProject->project_id === (int) $table->project_id) {

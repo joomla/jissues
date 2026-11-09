@@ -143,6 +143,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
                 ->select('a.issue_number, a.title, a.rel_type')
                 ->select('t.name AS rel_name')
                 ->select('s.status AS status_title, s.closed AS closed')
+                ->where($this->db->quoteName('a.project_id') . ' = ' . (int) $this->getProject()->project_id)
                 ->where($this->db->quoteName('a.rel_number') . '=' . (int) $item->issue_number)
                 ->order(['a.issue_number', 'a.rel_type'])
         )->loadObjectList();

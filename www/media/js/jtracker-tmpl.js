@@ -1,2 +1,1 @@
-/*! For license information please see jtracker-tmpl.js.LICENSE.txt */
-tmpl.regexp=/([\s'\\])(?![^%]*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g;
+(function(){tmpl.regexp=/([\s'\\])(?![^%]*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g})();
