@@ -96,7 +96,7 @@ abstract class CommandTestCase extends TestCase
             ],
         ];
 
-        $authorization = $this->createMock(Authorization::class);
+        $authorization = $this->createStub(Authorization::class);
         $authorization->method('getRateLimit')->willReturn($rate);
 
         $github                = new \stdClass();

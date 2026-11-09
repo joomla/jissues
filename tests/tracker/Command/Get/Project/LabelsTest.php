@@ -33,7 +33,7 @@ class LabelsTest extends CommandTestCase
     {
         $requested = new \ArrayObject();
 
-        $labels = $this->createMock(LabelsPackage::class);
+        $labels = $this->createStub(LabelsPackage::class);
         $labels->method('getList')
             ->willReturnCallback(
                 static function ($owner, $repo, $page, $limit) use ($pages, $requested) {

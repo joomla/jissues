@@ -12,6 +12,7 @@ namespace JTracker\Tests\Command\Get\Project;
 use JTracker\Command\Get\Project\Issues;
 use JTracker\Github\Package\Issues as IssuesPackage;
 use JTracker\Tests\Command\CommandTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * Tests for the progress handling of the get:project_issues command.
@@ -29,9 +30,9 @@ class IssuesTest extends CommandTestCase
      *
      * @return  void
      *
-     * @dataProvider  progressBarProvider
      * @since   1.0
      */
+    #[DataProvider('progressBarProvider')]
     public function testRunsWithAndWithoutProgressBar(bool $usePBar): void
     {
         $pages = [
@@ -41,7 +42,7 @@ class IssuesTest extends CommandTestCase
 
         $requested = new \ArrayObject();
 
-        $issues = $this->createMock(IssuesPackage::class);
+        $issues = $this->createStub(IssuesPackage::class);
         $issues->method('getListByRepository')
             ->willReturnCallback(
                 static function ($user, $repo, $milestone, $state, $assignee, $mentioned, $labels, $sort, $direction, $since, $page, $limit) use ($pages, $requested) {
@@ -87,7 +88,7 @@ class IssuesTest extends CommandTestCase
      *
      * @since   1.0
      */
-    public function progressBarProvider(): array
+    public static function progressBarProvider(): array
     {
         return [
             'progress bar' => [true],

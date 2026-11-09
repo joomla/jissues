@@ -11,6 +11,7 @@ namespace JTracker\Tests\DiffRenderer\Html;
 
 use Adaptive\Diff\Diff;
 use JTracker\DiffRenderer\Html\Inline;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -37,7 +38,7 @@ class InlineTest extends TestCase
      */
     private function render(array $old, array $new, array $opCodes, array $options = []): string
     {
-        $diff = $this->createMock(Diff::class);
+        $diff = $this->createStub(Diff::class);
         $diff->method('getA')->willReturn($old);
         $diff->method('getB')->willReturn($new);
         $diff->method('getGroupedOpcodes')->willReturn($opCodes);
@@ -64,20 +65,18 @@ class InlineTest extends TestCase
     }
 
     /**
-     * @testdox  An empty diff renders nothing
-     *
      * @return  void
      */
+    #[TestDox('An empty diff renders nothing')]
     public function testRenderEmptyDiff(): void
     {
         $this->assertSame('', $this->render(['a', 'b'], ['a', 'b'], []));
     }
 
     /**
-     * @testdox  The header and line numbers are rendered by default
-     *
      * @return  void
      */
+    #[TestDox('The header and line numbers are rendered by default')]
     public function testRenderHeaderAndLineNumbersByDefault(): void
     {
         $html = $this->render(['a'], ['a', 'b'], [[['equal', 0, 1, 0, 1], ['insert', 1, 1, 1, 2]]]);
@@ -88,10 +87,9 @@ class InlineTest extends TestCase
     }
 
     /**
-     * @testdox  The header and line numbers can be disabled
-     *
      * @return  void
      */
+    #[TestDox('The header and line numbers can be disabled')]
     public function testRenderWithoutHeaderAndLineNumbers(): void
     {
         $html = $this->render(
@@ -107,13 +105,12 @@ class InlineTest extends TestCase
     }
 
     /**
-     * @testdox  The renderer passes the changes and display options to the diff template
-     *
      * @return  void
      */
+    #[TestDox('The renderer passes the changes and display options to the diff template')]
     public function testRenderPassesOptionsToTemplate(): void
     {
-        $diff = $this->createMock(Diff::class);
+        $diff = $this->createStub(Diff::class);
         $diff->method('getA')->willReturn(['a']);
         $diff->method('getB')->willReturn(['b']);
         $diff->method('getGroupedOpcodes')->willReturn([[['replace', 0, 1, 0, 1]]]);
@@ -140,10 +137,9 @@ class InlineTest extends TestCase
     }
 
     /**
-     * @testdox  Unchanged lines are shown with both line numbers
-     *
      * @return  void
      */
+    #[TestDox('Unchanged lines are shown with both line numbers')]
     public function testRenderUnchangedLines(): void
     {
         $html = $this->render(
@@ -159,10 +155,9 @@ class InlineTest extends TestCase
     }
 
     /**
-     * @testdox  Inserted lines are shown with the new line number only
-     *
      * @return  void
      */
+    #[TestDox('Inserted lines are shown with the new line number only')]
     public function testRenderInsertedLines(): void
     {
         $html = $this->render(['a'], ['a', 'b', 'c'], [[['equal', 0, 1, 0, 1], ['insert', 1, 1, 1, 3]]]);
@@ -175,10 +170,9 @@ class InlineTest extends TestCase
     }
 
     /**
-     * @testdox  Deleted lines are shown with the old line number only
-     *
      * @return  void
      */
+    #[TestDox('Deleted lines are shown with the old line number only')]
     public function testRenderDeletedLines(): void
     {
         $html = $this->render(['a', 'b'], ['a'], [[['equal', 0, 1, 0, 1], ['delete', 1, 2, 1, 1]]]);
@@ -190,10 +184,9 @@ class InlineTest extends TestCase
     }
 
     /**
-     * @testdox  Changed lines are shown on both sides with the changed characters marked
-     *
      * @return  void
      */
+    #[TestDox('Changed lines are shown on both sides with the changed characters marked')]
     public function testRenderChangedLines(): void
     {
         $html = $this->render(['foo bar baz'], ['foo qux baz'], [[['replace', 0, 1, 0, 1]]]);
@@ -206,10 +199,9 @@ class InlineTest extends TestCase
     }
 
     /**
-     * @testdox  Changed blocks of different length are shown without character markers
-     *
      * @return  void
      */
+    #[TestDox('Changed blocks of different length are shown without character markers')]
     public function testRenderChangedBlocksOfDifferentLength(): void
     {
         $html = $this->render(['a'], ['b', 'c'], [[['replace', 0, 1, 0, 2]]]);
@@ -223,10 +215,9 @@ class InlineTest extends TestCase
     }
 
     /**
-     * @testdox  HTML special characters in the compared lines are escaped
-     *
      * @return  void
      */
+    #[TestDox('HTML special characters in the compared lines are escaped')]
     public function testRenderEscapesHtml(): void
     {
         $html = $this->render(
@@ -248,10 +239,9 @@ class InlineTest extends TestCase
     }
 
     /**
-     * @testdox  Tabs are expanded and runs of spaces are kept as non-breaking spaces
-     *
      * @return  void
      */
+    #[TestDox('Tabs are expanded and runs of spaces are kept as non-breaking spaces')]
     public function testRenderTabsAndSpaces(): void
     {
         $html = $this->render(["\tfoo", 'a    b'], ["\tfoo", 'a    b'], [[['equal', 0, 2, 0, 2]]]);
@@ -262,10 +252,9 @@ class InlineTest extends TestCase
     }
 
     /**
-     * @testdox  The tab size option controls the width of expanded tabs
-     *
      * @return  void
      */
+    #[TestDox('The tab size option controls the width of expanded tabs')]
     public function testRenderTabSize(): void
     {
         $html = $this->render(["\tfoo"], ["\tfoo"], [[['equal', 0, 1, 0, 1]]], ['tabSize' => 8]);
@@ -274,10 +263,9 @@ class InlineTest extends TestCase
     }
 
     /**
-     * @testdox  Separate groups of changes are divided by a skipped lines marker and keep their line numbers
-     *
      * @return  void
      */
+    #[TestDox('Separate groups of changes are divided by a skipped lines marker and keep their line numbers')]
     public function testRenderMultipleGroups(): void
     {
         $old = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];

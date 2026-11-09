@@ -13,6 +13,7 @@ use JTracker\Command\Get\Project\Comments;
 use JTracker\Github\Package\Issues\Comments as CommentsPackage;
 use JTracker\Github\Package\Markdown;
 use JTracker\Tests\Command\CommandTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * Tests for the get:project_comments command.
@@ -34,7 +35,7 @@ class CommentsTest extends CommandTestCase
     {
         $requested = new \ArrayObject();
 
-        $comments = $this->createMock(CommentsPackage::class);
+        $comments = $this->createStub(CommentsPackage::class);
         $comments->method('getList')
             ->willReturnCallback(
                 static function ($owner, $repo, $issue, $page, $limit) use ($pages, $requested) {
@@ -45,7 +46,7 @@ class CommentsTest extends CommandTestCase
             );
         $comments->method('getRateLimitRemaining')->willReturn(5000);
 
-        $markdown = $this->createMock(Markdown::class);
+        $markdown = $this->createStub(Markdown::class);
         $markdown->method('render')->willReturnCallback(static fn ($text) => '<p>' . $text . '</p>');
         $markdown->method('getRateLimitRemaining')->willReturn(5000);
 
@@ -84,9 +85,9 @@ class CommentsTest extends CommandTestCase
      *
      * @return  void
      *
-     * @dataProvider  progressBarProvider
      * @since   1.0
      */
+    #[DataProvider('progressBarProvider')]
     public function testRunsWithAndWithoutProgressBar(bool $usePBar): void
     {
         [$github, $requested] = $this->createGitHubWithCommentPages(
@@ -122,7 +123,7 @@ class CommentsTest extends CommandTestCase
      *
      * @since   1.0
      */
-    public function progressBarProvider(): array
+    public static function progressBarProvider(): array
     {
         return [
             'progress bar' => [true],

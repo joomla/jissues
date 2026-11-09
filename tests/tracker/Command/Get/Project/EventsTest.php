@@ -12,6 +12,7 @@ namespace JTracker\Tests\Command\Get\Project;
 use JTracker\Command\Get\Project\Events;
 use JTracker\Github\Package\Issues\Events as EventsPackage;
 use JTracker\Tests\Command\CommandTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * Tests for the get:project_events command.
@@ -57,7 +58,7 @@ class EventsTest extends CommandTestCase
     {
         $requested = new \ArrayObject();
 
-        $events = $this->createMock(EventsPackage::class);
+        $events = $this->createStub(EventsPackage::class);
         $events->method('getList')
             ->willReturnCallback(
                 static function ($owner, $repo, $issue, $page, $limit) use ($pages, $requested) {
@@ -258,9 +259,9 @@ class EventsTest extends CommandTestCase
      *
      * @return  void
      *
-     * @dataProvider  progressBarProvider
      * @since   1.0
      */
+    #[DataProvider('progressBarProvider')]
     public function testRunsWithAndWithoutProgressBar(bool $usePBar): void
     {
         [$github] = $this->createGitHubWithEventPages([5 => [[$this->event(1001, 'closed')]]]);
@@ -287,7 +288,7 @@ class EventsTest extends CommandTestCase
      *
      * @since   1.0
      */
-    public function progressBarProvider(): array
+    public static function progressBarProvider(): array
     {
         return [
             'progress bar' => [true],
