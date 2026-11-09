@@ -13,6 +13,7 @@ use Joomla\Input\Input;
 use Joomla\Router\Exception\MethodNotAllowedException;
 use JTracker\Security\CsrfTokenManager;
 use JTracker\Security\Exception\InvalidCsrfTokenException;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
@@ -69,12 +70,11 @@ class CsrfTokenManagerTest extends TestCase
     }
 
     /**
-     * @testdox  The token is generated once per session and is stable
-     *
      * @return  void
      *
      * @since   __DEPLOY_VERSION__
      */
+    #[TestDox('The token is generated once per session and is stable')]
     public function testTokenIsStablePerSession(): void
     {
         $token = $this->manager->getToken();
@@ -85,12 +85,11 @@ class CsrfTokenManagerTest extends TestCase
     }
 
     /**
-     * @testdox  Refreshing the token invalidates the old one
-     *
      * @return  void
      *
      * @since   __DEPLOY_VERSION__
      */
+    #[TestDox('Refreshing the token invalidates the old one')]
     public function testRefreshTokenInvalidatesOldToken(): void
     {
         $old = $this->manager->getToken();
@@ -102,12 +101,11 @@ class CsrfTokenManagerTest extends TestCase
     }
 
     /**
-     * @testdox  Empty or wrong tokens are rejected
-     *
      * @return  void
      *
      * @since   __DEPLOY_VERSION__
      */
+    #[TestDox('Empty or wrong tokens are rejected')]
     public function testInvalidTokensAreRejected(): void
     {
         // No token generated yet
@@ -121,12 +119,11 @@ class CsrfTokenManagerTest extends TestCase
     }
 
     /**
-     * @testdox  A POST request with the token in the form data is accepted
-     *
      * @return  void
      *
      * @since   __DEPLOY_VERSION__
      */
+    #[TestDox('A POST request with the token in the form data is accepted')]
     public function testValidateRequestAcceptsFormField(): void
     {
         $input = $this->buildInput('POST', [CsrfTokenManager::FORM_FIELD => $this->manager->getToken()]);
@@ -137,12 +134,11 @@ class CsrfTokenManagerTest extends TestCase
     }
 
     /**
-     * @testdox  A POST request with the token in the HTTP header is accepted
-     *
      * @return  void
      *
      * @since   __DEPLOY_VERSION__
      */
+    #[TestDox('A POST request with the token in the HTTP header is accepted')]
     public function testValidateRequestAcceptsHeader(): void
     {
         $input = $this->buildInput('POST', [], ['HTTP_X_CSRF_TOKEN' => $this->manager->getToken()]);
@@ -153,12 +149,11 @@ class CsrfTokenManagerTest extends TestCase
     }
 
     /**
-     * @testdox  A GET request is rejected even when it carries a valid token
-     *
      * @return  void
      *
      * @since   __DEPLOY_VERSION__
      */
+    #[TestDox('A GET request is rejected even when it carries a valid token')]
     public function testValidateRequestRejectsGet(): void
     {
         $input = $this->buildInput('GET', [], ['HTTP_X_CSRF_TOKEN' => $this->manager->getToken()]);
@@ -170,12 +165,11 @@ class CsrfTokenManagerTest extends TestCase
     }
 
     /**
-     * @testdox  A POST request without a valid token is rejected
-     *
      * @return  void
      *
      * @since   __DEPLOY_VERSION__
      */
+    #[TestDox('A POST request without a valid token is rejected')]
     public function testValidateRequestRejectsMissingToken(): void
     {
         $this->manager->getToken();
