@@ -149,7 +149,7 @@ abstract class TrackerCommand extends AbstractCommand implements LoggerAwareInte
         $projects = $db->setQuery(
             $db->getQuery(true)
                 ->from($db->quoteName('#__tracker_projects'))
-                ->select(['project_id', 'title', 'gh_user', 'gh_project', 'gh_editbot_user', 'gh_editbot_pass'])
+                ->select(['project_id', 'title', 'gh_user', 'gh_project', 'gh_editbot_user', 'gh_editbot_pass', 'gh_editbot_token'])
         )->loadObjectList();
 
         $id = (int) $input->getOption('project');

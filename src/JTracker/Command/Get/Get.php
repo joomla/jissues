@@ -10,8 +10,10 @@
 namespace JTracker\Command\Get;
 
 use App\Projects\TrackerProject;
+use Joomla\Registry\Registry;
 use JTracker\Command\TrackerCommand;
 use JTracker\Github\Github;
+use JTracker\Github\GithubFactory;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
@@ -146,11 +148,16 @@ abstract class Get extends TrackerCommand
         // Increase or reset the bot id counter.
         $this->botId = ($this->botId + 1 >= \count($accounts)) ? 0 : $this->botId + 1;
 
-        $username = $accounts[$this->botId]->username;
-        $password = $accounts[$this->botId]->password;
+        $account  = $accounts[$this->botId];
+        $username = $account->username ?? '';
 
-        $this->github->setOption('api.username', $username);
-        $this->github->setOption('api.password', $password);
+        $options = new Registry();
+
+        GithubFactory::setCredentials($options, $username, $account->password ?? '', $account->token ?? '');
+
+        foreach (['api.username', 'api.password', 'gh.token'] as $key) {
+            $this->github->setOption($key, $options->get($key));
+        }
 
         $this->logOut(\sprintf('Switched to bot account %s (%d)', $username, $this->botId));
 

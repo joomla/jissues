@@ -22,7 +22,8 @@ use Joomla\Database\DatabaseDriver;
  * @property-read   string   $gh_user           GitHub user
  * @property-read   string   $gh_project        GitHub project
  * @property-read   string   $gh_editbot_user   GitHub editbot username.
- * @property-read   string   $gh_editbot_pass   GitHub editbot password.
+ * @property-read   string   $gh_editbot_pass   GitHub editbot password (deprecated, use the token instead).
+ * @property-read   string   $gh_editbot_token  GitHub editbot personal access token.
  * @property-read   string   $ext_tracker_link  A tracker link format (e.g. http://tracker.com/issue/%d)
  * @property-read   string   $short_title       Project short title
  *
@@ -83,8 +84,17 @@ class TrackerProject implements \Serializable
      *
      * @var    string
      * @since  1.0
+     * @deprecated  Use the personal access token in $gh_editbot_token instead.
      */
     protected $gh_editbot_pass;
+
+    /**
+     * GitHub edit bot personal access token.
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $gh_editbot_token;
 
     /**
      * External issue tracker link
@@ -546,6 +556,30 @@ class TrackerProject implements \Serializable
     public function getGh_Editbot_Pass()
     {
         return $this->gh_editbot_pass;
+    }
+
+    /**
+     * Get the edit bot personal access token.
+     *
+     * @return string
+     *
+     * @since   1.0
+     */
+    public function getGh_Editbot_Token()
+    {
+        return $this->gh_editbot_token;
+    }
+
+    /**
+     * Check if the project has an edit bot with credentials configured.
+     *
+     * @return boolean
+     *
+     * @since   1.0
+     */
+    public function hasEditBot()
+    {
+        return (bool) $this->gh_editbot_token || ($this->gh_editbot_user && $this->gh_editbot_pass);
     }
 
     /**

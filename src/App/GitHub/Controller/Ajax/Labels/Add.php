@@ -38,17 +38,8 @@ class Add extends AbstractAjaxController
 
         $project = $application->getProject();
 
-        // Look if we have a bot user configured.
-        if ($project->getGh_Editbot_User() && $project->getGh_Editbot_Pass()) {
-            $gitHub = GithubFactory::getInstance(
-                $application,
-                true,
-                $project->getGh_Editbot_User(),
-                $project->getGh_Editbot_Pass()
-            );
-        } else {
-            $gitHub = GithubFactory::getInstance($application);
-        }
+        // Use the bot account of the project if one is configured.
+        $gitHub = GithubFactory::getProjectBotInstance($application, $project);
 
         // Create the label.
         $gitHub->issues->labels->create(

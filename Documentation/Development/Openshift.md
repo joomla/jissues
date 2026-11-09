@@ -26,7 +26,7 @@ JTRACKER_ENVIRONMENT="openshift"
 JTRACKER_GITHUB_CLIENT_ID=<github_client_id>
 JTRACKER_GITHUB_CLIENT_SECRET=<github_client_secret>
 JTRACKER_GITHUB_USERNAME=<your_github_username>
-JTRACKER_GITHUB_PASSWORD=<your_github_password>
+JTRACKER_GITHUB_TOKEN=<your_github_personal_access_token>
 ```
 
 e.g.:

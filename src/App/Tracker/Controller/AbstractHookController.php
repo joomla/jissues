@@ -216,11 +216,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
         $this->getProjectData();
 
         // If we have a bot defined for the project, prefer it over the DI object
-        if ($this->project->gh_editbot_user && $this->project->gh_editbot_pass) {
-            $this->github = GithubFactory::getInstance($application, true, $this->project->gh_editbot_user, $this->project->gh_editbot_pass);
-        } else {
-            $this->github = GithubFactory::getInstance($application);
-        }
+        $this->github = GithubFactory::getProjectBotInstance($application, $this->project);
 
         // Check the request is coming from GitHub
         $validIps = $this->github->meta->getMeta();
