@@ -10,6 +10,7 @@
 namespace Joomla\Tracker\Tests\Hooks;
 
 use App\Tracker\Controller\AbstractHookController;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -26,7 +27,7 @@ class WebhookSignatureTest extends TestCase
      *
      * @since   1.0
      */
-    public function signatureProvider(): array
+    public static function signatureProvider(): array
     {
         $payload = 'payload=%7B%22zen%22%3A%22Keep+it+logically+awesome.%22%7D';
         $secret  = 'It\'s a Secret to Everybody';
@@ -54,9 +55,9 @@ class WebhookSignatureTest extends TestCase
      *
      * @return  void
      *
-     * @dataProvider  signatureProvider
      * @since   1.0
      */
+    #[DataProvider('signatureProvider')]
     public function testIsValidSignature(string $payload, string $signature, string $secret, bool $expected): void
     {
         $this->assertSame($expected, AbstractHookController::isValidSignature($payload, $signature, $secret));

@@ -259,7 +259,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
         $application = $this->getContainer()->get('app');
 
         $secret   = (string) $application->get('github.webhook_secret');
-        $remoteIp = $application->input->server->getString('REMOTE_ADDR', '');
+        $remoteIp = $application->getInput()->server->getString('REMOTE_ADDR', '');
 
         if ($secret === '') {
             $this->logger->critical(
@@ -269,7 +269,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
             return false;
         }
 
-        $signature = $application->input->server->getString('HTTP_X_HUB_SIGNATURE_256', '');
+        $signature = $application->getInput()->server->getString('HTTP_X_HUB_SIGNATURE_256', '');
 
         if ($signature === '') {
             $this->logger->critical('Rejected webhook request from ' . $remoteIp . ': missing X-Hub-Signature-256 header.');
