@@ -217,7 +217,7 @@ class DefaultController extends AbstractTrackerListController
             $application->getUserStateFromRequest('project_' . $projectId . '.filter.created_by', 'created_by', '', 'string')
         );
 
-        $categoryAlias = $application->input->get->get('category', '', 'cmd');
+        $categoryAlias = $application->getInput()->get->get('category', '', 'cmd');
 
         // Update the category filter from the GET request
         if ($categoryAlias != '' && (!is_numeric($categoryAlias))) {
@@ -239,7 +239,7 @@ class DefaultController extends AbstractTrackerListController
 
         $state->set(
             'stools-active',
-            $application->input->get('stools-active', 0, 'uint')
+            $application->getInput()->get('stools-active', 0, 'uint')
         );
 
         if ($application->getUser()->username) {

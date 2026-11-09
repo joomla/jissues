@@ -220,6 +220,7 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
   PRIMARY KEY (`activities_id`),
   KEY `issue_number` (`issue_number`),
   KEY `project_id` (`project_id`),
+  KEY `idx_project_created` (`project_id`,`created_date`,`user`),
   CONSTRAINT `#__activities_fk_issue_number` FOREIGN KEY (`issue_number`) REFERENCES `#__issues` (`issue_number`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `#__activities_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
@@ -450,4 +451,5 @@ INSERT INTO `#__migrations` (`version`) VALUES
 ('20170723001'),
 ('20180218001'),
 ('20200310001'),
-('20261108001');
+('20261108001'),
+('20261109001');

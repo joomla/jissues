@@ -44,7 +44,8 @@ class StatsHtmlView extends AbstractTrackerHtmlView
     public function render()
     {
         $this->addData('data', $this->getContributors())
-            ->addData('project', $this->getProject());
+            ->addData('project', $this->getProject())
+            ->addData('message', 'No statistics available yet. GitHub may still be generating them, please try again in a few moments.');
 
         return parent::render();
     }

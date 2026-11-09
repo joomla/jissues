@@ -69,7 +69,7 @@ class Save extends AbstractTrackerController
         $app->getUser()->authorize('admin');
 
         (new ProjectsTable($this->getContainer()->get('db')))
-            ->save($app->input->get('project', [], 'array'));
+            ->save($app->getInput()->get('project', [], 'array'));
 
         // Reload the project.
         $app->getProject(true);

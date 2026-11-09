@@ -77,7 +77,7 @@ class DebugRedactorTest extends TestCase
      */
     public function testRedactObject(): void
     {
-        $object = new class ($this->createMock(DatabaseDriver::class)) {
+        $object = new class ($this->createStub(DatabaseDriver::class)) {
             public $gh_editbot_user    = 'bot';
             protected $gh_editbot_pass = 'hunter2';
             private $database;

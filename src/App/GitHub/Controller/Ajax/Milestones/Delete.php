@@ -32,7 +32,7 @@ class Delete extends Base
 
         $application->getUser()->authorize('manage');
 
-        $milestoneId = $application->input->getUint('milestone_id');
+        $milestoneId = $application->getInput()->getUint('milestone_id');
 
         $project = $application->getProject();
 
