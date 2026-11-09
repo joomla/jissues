@@ -75,24 +75,24 @@ class UseractivityModel extends AbstractTrackerDatabaseModel
             ->where('a.user NOT IN (' . (string) $filterBots . ')')
             ->where('a.project_id = ' . (int) $this->getProject()->project_id);
 
-        // Apply this date filter for both the code point subquery and the main activity query
+        // Apply this date filter for both the code point subquery and the main activity query.
+        // The date columns are compared directly (not wrapped in DATE()) so that an index on them can be used.
         if ($periodValue == 'Custom') {
-            $query->where(
-                'DATE(a.created_date) BETWEEN '
-                . $db->quote($this->state->get('list.startdate'))
-                . ' AND '
-                . $db->quote($this->state->get('list.enddate'))
-            );
+            $startDate = $db->quote($this->state->get('list.startdate'));
+            $endDate   = $db->quote($this->state->get('list.enddate'));
 
-            $codePointSubquery->where(
-                'DATE(opened_date) BETWEEN '
-                . $db->quote($this->state->get('list.startdate'))
-                . ' AND '
-                . $db->quote($this->state->get('list.enddate'))
-            );
+            // Includes the whole end day, like DATE(column) BETWEEN start AND end
+            $query->where('a.created_date >= ' . $startDate)
+                ->where('a.created_date < DATE_ADD(' . $endDate . ', INTERVAL 1 DAY)');
+
+            $codePointSubquery->where('opened_date >= ' . $startDate)
+                ->where('opened_date < DATE_ADD(' . $endDate . ', INTERVAL 1 DAY)');
         } else {
-            $query->where('DATE(a.created_date) > DATE(DATE_ADD(NOW(), INTERVAL ' . $periodValue . '))');
-            $codePointSubquery->where('DATE(opened_date) > DATE(DATE_ADD(NOW(), INTERVAL ' . $periodValue . '))');
+            // Starts the day after the period start, like DATE(column) > DATE(NOW() + period)
+            $periodStart = 'DATE_ADD(DATE(DATE_ADD(NOW(), INTERVAL ' . $periodValue . ')), INTERVAL 1 DAY)';
+
+            $query->where('a.created_date >= ' . $periodStart);
+            $codePointSubquery->where('opened_date >= ' . $periodStart);
         }
 
         // Append the code point subquery now
