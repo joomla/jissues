@@ -352,7 +352,7 @@
                         </fieldset>
                         <hr class="issue-votes" />
                         <div id="voteResult"></div>
-                        <a href="javascript:" class="btn btn-primary" id="voteButton" onclick="JTracker.submitVote('{{ item.id }}', '#voteResult');">Vote</a>
+                        <a href="javascript:" class="btn btn-primary" id="voteButton" onclick="JTracker.submitVote('{{ project.alias|e('js') }}', '{{ item.id }}', '#voteResult');">Vote</a>
                     </form>
                     {% endif %}
                 </div>
@@ -536,7 +536,7 @@
                 <div class="col-md-12">
                     <div class="float-end">
                         <div id="commentStatus"></div>
-                        <a href="javascript:" class="btn btn-success" onclick="JTracker.submitComment('{{ item.issue_number }}', '#commentStatus', '#newComment', 'tplNewComment', '#shaTest');">Post Comment</a>
+                        <a href="javascript:" class="btn btn-success" onclick="JTracker.submitComment('{{ project.alias|e('js') }}', '{{ item.issue_number }}', '#commentStatus', '#newComment', 'tplNewComment', '#shaTest');">Post Comment</a>
                     </div>
                 </div>
             </div>

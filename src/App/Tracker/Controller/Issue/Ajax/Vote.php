@@ -30,18 +30,24 @@ class Vote extends AbstractAjaxController
      */
     protected function prepareResponse()
     {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
+
+        // The project comes from the route, load it first so the permissions are checked against it.
+        $project = $application->getProject();
+
         // Verify the user has permissions to perform this action
-        if (!$this->getContainer()->get('app')->getUser()->authorize('view')) {
+        if (!$application->getUser()->authorize('view')) {
             throw new \Exception('Anonymous votes are not allowed.');
         }
 
         /** @var Input $input */
-        $input = $this->getContainer()->get('app')->getInput();
+        $input = $application->getInput();
 
         $issue       = $input->getUint('issueId');
         $experienced = $input->getInt('experienced');
         $importance  = $input->getInt('importance');
-        $userID      = $this->getContainer()->get('app')->getUser()->id;
+        $userID      = $application->getUser()->id;
 
         if (!$issue) {
             throw new \Exception('No issue ID received.');
@@ -51,7 +57,14 @@ class Vote extends AbstractAjaxController
             throw new \Exception('Issue importance not received');
         }
 
-        $data = (new IssueModel($this->getContainer()->get('db')))->vote($issue, $experienced, $importance, $userID);
+        $issueModel = new IssueModel($this->getContainer()->get('db'));
+
+        // Make sure the issue belongs to the project from the request.
+        if (!$issueModel->getIssueNumberById($issue, $project->project_id)) {
+            throw new \Exception('Invalid issue ID.');
+        }
+
+        $data = $issueModel->vote($issue, $experienced, $importance, $userID);
 
         // Add the new score
         $data->importanceScore = $data->score / $data->votes;
