@@ -33,7 +33,7 @@ class Delete extends AbstractAjaxController
 
         $application->getUser()->authorize('manage');
 
-        $name = $application->input->getString('name');
+        $name = $application->getInput()->getString('name');
 
         $project = $application->getProject();
 

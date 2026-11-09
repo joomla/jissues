@@ -124,7 +124,7 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
     {
         // Get the input
         /** @var Input $input */
-        $input = $this->getContainer()->get('app')->input;
+        $input = $this->getContainer()->get('app')->getInput();
 
         // Get some data from the request
         $viewName   = $input->getWord('view', $this->defaultView);

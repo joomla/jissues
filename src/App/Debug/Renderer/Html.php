@@ -85,7 +85,7 @@ class Html implements ContainerAwareInterface
 
                 $html[] = '<div id="dbgRequest">';
                 $html[] = '<h3>Request</h3>';
-                $html[] = Kint::dump(DebugRedactor::redact($application->input->getArray()));
+                $html[] = Kint::dump(DebugRedactor::redact($application->getInput()->getArray()));
                 $html[] = '</div>';
             } finally {
                 Kint::$return = $oldReturn;

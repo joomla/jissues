@@ -92,11 +92,11 @@ class CdnRenderer
                 // Set a very short timeout to try and not bring the site down
                 $response = $this->http->get('https://cdn.joomla.org/template/j4/renderer.php?section=footer', [], 2);
 
-                if ($response->code !== 200) {
+                if ($response->getStatusCode() !== 200) {
                     return 'Could not load template section.';
                 }
 
-                $body = $response->body;
+                $body = (string) $response->getBody();
 
                 // Replace the common placeholders
                 $body = strtr(
@@ -159,11 +159,11 @@ class CdnRenderer
                 // Set a very short timeout to try and not bring the site down
                 $response = $this->http->get('https://cdn.joomla.org/template/j4/renderer.php?section=menu', [], 2);
 
-                if ($response->code !== 200) {
+                if ($response->getStatusCode() !== 200) {
                     return 'Could not load template section.';
                 }
 
-                $body = $response->body;
+                $body = (string) $response->getBody();
 
                 // Needless concatenation for PHPCS 150 character line limits...
                 $replace = "\t<div id=\"nav-search\" class=\"navbar-search pull-right\">\n\t\t"

@@ -28,7 +28,7 @@ class Filetree extends AbstractTrackerController
     public function execute()
     {
         // A path relative to the documentation directory (the client sends it through JavaScript's escape()).
-        $dir = rawurldecode($this->getContainer()->get('app')->input->get('dir', '', 'raw'));
+        $dir = rawurldecode($this->getContainer()->get('app')->getInput()->get('dir', '', 'raw'));
 
         $docuBase = realpath(JPATH_ROOT . '/Documentation');
         $path     = $docuBase ? realpath($docuBase . '/' . $dir) : false;

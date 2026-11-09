@@ -59,7 +59,7 @@ class Edit extends AbstractTrackerController
 
         $this->getContainer()->get('app')->getUser()->authorize('admin');
 
-        $this->view->setAlias($this->getContainer()->get('app')->input->get('project_alias'));
+        $this->view->setAlias($this->getContainer()->get('app')->getInput()->get('project_alias'));
 
         return $this;
     }

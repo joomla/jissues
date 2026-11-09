@@ -47,7 +47,7 @@ class Project extends AbstractTrackerController
 
         parent::initialize();
 
-        $this->view->setAlias($this->getContainer()->get('app')->input->get('project_alias'));
+        $this->view->setAlias($this->getContainer()->get('app')->getInput()->get('project_alias'));
 
         return $this;
     }

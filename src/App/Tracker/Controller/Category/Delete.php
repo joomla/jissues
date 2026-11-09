@@ -78,7 +78,7 @@ class Delete extends AbstractTrackerController
         $application = $this->getContainer()->get('app');
 
         try {
-            $this->model->delete($application->input->get('id'));
+            $this->model->delete($application->getInput()->get('id'));
             $application->enqueueMessage('The category has been deleted', 'success');
         } catch (\Exception $exception) {
             $application->enqueueMessage($exception->getMessage(), 'error');

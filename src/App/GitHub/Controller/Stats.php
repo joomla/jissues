@@ -44,7 +44,7 @@ class Stats extends AbstractTrackerController
         $application = $this->getContainer()->get('app');
 
         // Load the project from the request (if any) and make it the active one, so the access check applies to it.
-        $project = $application->getProject((bool) $application->input->get('project_alias'));
+        $project = $application->getProject((bool) $application->getInput()->get('project_alias'));
 
         // Only users with view access to the project may see its statistics.
         $application->getUser()->authorize('view');

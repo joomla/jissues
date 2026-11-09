@@ -67,7 +67,7 @@ class Item extends AbstractTrackerController
 
         $this->model->setProject($project);
 
-        $item = $this->model->getItem($application->input->getUint('id'));
+        $item = $this->model->getItem($application->getInput()->getUint('id'));
 
         $sha = false;
 

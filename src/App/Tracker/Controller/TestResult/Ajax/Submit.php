@@ -42,10 +42,10 @@ class Submit extends AbstractAjaxController
             throw new \Exception('You are not allowed to test this item.');
         }
 
-        $issueId     = $application->input->getUint('issueId');
-        $result      = $application->input->getUint('result');
-        $userComment = $application->input->get('comment', '', 'raw');
-        $sha         = $application->input->getCmd('sha');
+        $issueId     = $application->getInput()->getUint('issueId');
+        $result      = $application->getInput()->getUint('result');
+        $userComment = $application->getInput()->get('comment', '', 'raw');
+        $sha         = $application->getInput()->getCmd('sha');
 
         if (!$issueId) {
             throw new \Exception('No issue ID received.');
