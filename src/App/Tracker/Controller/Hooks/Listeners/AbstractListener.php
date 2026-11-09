@@ -309,6 +309,51 @@ abstract class AbstractListener implements ContainerAwareInterface
     }
 
     /**
+     * Get the GitHub status object reporting the human test results of a pull request.
+     *
+     * @param   TrackerProject  $project       The project object.
+     * @param   array           $testsSuccess  Successful tests.
+     * @param   array           $testsFailure  Failed tests.
+     * @param   integer         $issueNumber   The issue number.
+     *
+     * @since   1.0
+     * @return  Status
+     */
+    protected function getHumanTestStatus(TrackerProject $project, array $testsSuccess, array $testsFailure, $issueNumber)
+    {
+        $status = new Status();
+
+        $successes = \count($testsSuccess);
+        $failures  = \count($testsFailure);
+
+        if ($successes >= 2 && $failures == 0) {
+            // 2 or more successes and 0 failures.
+            $status->state = 'success';
+        } elseif ($successes == 0 && $failures >= 2) {
+            // 0 successes and 2 or more failures.
+            $status->state = 'failure';
+        } else {
+            // Everything else.
+            $status->state = 'pending';
+        }
+
+        $status->description = \sprintf(
+            'Human Test Results: %1$d Successful %2$d Failed.',
+            $successes,
+            $failures
+        );
+
+        $status->context = 'JTracker/HumanTestResults';
+
+        // @todo - where to get the URL from a CLI script? - create a config setting??
+        $targetBaseUrl = 'https://issues.joomla.org';
+
+        $status->targetUrl = $targetBaseUrl . '/tracker/' . $project->alias . '/' . $issueNumber;
+
+        return $status;
+    }
+
+    /**
      * Set Categories
      *
      * @param   object       $hookData       Hook data payload
