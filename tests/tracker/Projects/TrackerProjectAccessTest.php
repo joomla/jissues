@@ -12,6 +12,7 @@ namespace JTracker\Tests\Projects;
 use App\Projects\TrackerProject;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\Mysqli\MysqliQuery;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +20,10 @@ use PHPUnit\Framework\TestCase;
  * Tests for the access map of \App\Projects\TrackerProject.
  *
  * @since  1.0
+ *
+ * The shared test doubles created in setUp() only get expectations in some of the tests.
  */
+#[AllowMockObjectsWithoutExpectations]
 class TrackerProjectAccessTest extends TestCase
 {
     /**

@@ -11,6 +11,7 @@ namespace JTracker\Tests\App\Tracker\Twig;
 
 use App\Tracker\Twig\MilestoneExtension;
 use JTracker\Tests\Mocks\DatabaseMockTrait;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
@@ -46,10 +47,9 @@ class MilestoneExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  The extension registers the milestone_title function
-     *
      * @return  void
      */
+    #[TestDox('The extension registers the milestone_title function')]
     public function testGetFunctions(): void
     {
         $extension = $this->createExtension();
@@ -62,10 +62,9 @@ class MilestoneExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  getMilestoneTitle() returns the title of a milestone
-     *
      * @return  void
      */
+    #[TestDox('getMilestoneTitle() returns the title of a milestone')]
     public function testGetMilestoneTitle(): void
     {
         $extension = $this->createExtension();
@@ -75,20 +74,18 @@ class MilestoneExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  getMilestoneTitle() returns an empty string for an unknown milestone
-     *
      * @return  void
      */
+    #[TestDox('getMilestoneTitle() returns an empty string for an unknown milestone')]
     public function testGetMilestoneTitleUnknown(): void
     {
         $this->assertSame('', $this->createExtension()->getMilestoneTitle(99));
     }
 
     /**
-     * @testdox  getMilestoneTitle() loads the milestones from the database only once
-     *
      * @return  void
      */
+    #[TestDox('getMilestoneTitle() loads the milestones from the database only once')]
     public function testGetMilestoneTitleLoadsMilestonesOnce(): void
     {
         $extension = $this->createExtension();
@@ -103,10 +100,9 @@ class MilestoneExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  The function can be used in templates
-     *
      * @return  void
      */
+    #[TestDox('The function can be used in templates')]
     public function testFunctionInTemplate(): void
     {
         $twig = new Environment(new ArrayLoader(['test' => '{{ milestone_title(7) }}|{{ milestone_title(1) }}']));

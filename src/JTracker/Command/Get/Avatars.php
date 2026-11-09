@@ -162,7 +162,7 @@ class Avatars extends Get
                 : $io->text('+');
         }
 
-        $io->progressFinish();
+        $this->usePBar ? $io->progressFinish() : null;
 
         return $this->logOut(
             \sprintf(
