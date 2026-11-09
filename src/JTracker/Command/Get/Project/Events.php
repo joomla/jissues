@@ -161,7 +161,7 @@ class Events extends Project
         }
 
         // Retrieved items, report status
-        $io->progressFinish();
+        $this->usePBar ? $io->progressFinish() : null;
         $io->success('OK');
 
         return $this;
@@ -233,12 +233,12 @@ class Events extends Project
                         $table->reset();
                         $table->{$table->getKeyName()} = null;
 
-                        if ($id && !$this->force) {
+                        if ($id) {
                             if ($this->force) {
                                 // Force update
                                 $this->usePBar ? null : $io->write('F', false);
 
-                                $table->{$table->getKeyName()} = $id;
+                                $table->load($id);
                             } else {
                                 // If we have something already, then move on to the next item
                                 $this->usePBar ? null : $io->write('-', false);
@@ -323,7 +323,7 @@ class Events extends Project
                 : null;
         }
 
-        $io->progressFinish();
+        $this->usePBar ? $io->progressFinish() : null;
         $io->success('OK');
         $this->logOut(\sprintf('Added %d new issue events to the database', $adds));
 

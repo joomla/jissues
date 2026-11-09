@@ -63,8 +63,6 @@ class Pulls extends Update
 
         $this->selectProject($input, $ioStyle);
 
-        $this->getApplication()->input->set('project', $this->project->project_id);
-
         $this->setupGitHub()
             ->displayGitHubRateLimit($ioStyle)
             ->out(

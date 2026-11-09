@@ -34,8 +34,8 @@ class Submit extends AbstractAjaxController
 
         $application->getUser()->authorize('create');
 
-        $comment     = $application->input->get('text', '', 'raw');
-        $issueNumber = $application->input->getInt('issue_number');
+        $comment     = $application->getInput()->get('text', '', 'raw');
+        $issueNumber = $application->getInput()->getInt('issue_number');
         $project     = $application->getProject();
 
         if (!$issueNumber) {

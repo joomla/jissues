@@ -14,6 +14,7 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Database\Mysqli\MysqliQuery;
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Authentication\User;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -21,7 +22,10 @@ use PHPUnit\Framework\TestCase;
  * Tests for the permission checks of \JTracker\Authentication\User.
  *
  * @since  1.0
+ *
+ * The shared test doubles created in setUp() only get expectations in some of the tests.
  */
+#[AllowMockObjectsWithoutExpectations]
 class UserTest extends TestCase
 {
     /**

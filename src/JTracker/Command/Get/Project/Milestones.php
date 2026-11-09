@@ -89,18 +89,31 @@ class Milestones extends Project
 
         $table = new MilestonesTable($db);
 
-        $milestones = array_merge(
-            $this->github->issues->milestones->getList(
-                $this->project->gh_user,
-                $this->project->gh_project,
-                'open'
-            ),
-            $this->github->issues->milestones->getList(
-                $this->project->gh_user,
-                $this->project->gh_project,
-                'closed'
-            )
-        );
+        $milestones = [];
+
+        foreach (['open', 'closed'] as $state) {
+            $page = 0;
+
+            do {
+                $page++;
+
+                $items = $this->github->issues->milestones->getList(
+                    $this->project->gh_user,
+                    $this->project->gh_project,
+                    $state,
+                    'due_date',
+                    'desc',
+                    $page,
+                    100
+                );
+
+                $count = \is_array($items) ? \count($items) : 0;
+
+                if ($count) {
+                    $milestones = array_merge($milestones, $items);
+                }
+            } while ($count);
+        }
 
         $titles = [];
 
@@ -142,24 +155,27 @@ class Milestones extends Project
                 $cntNew++;
             }
 
-            $titles[] = $milestone->title;
+            $titles[] = $db->quote($milestone->title);
         }
 
         // Check for deleted milestones
-        $ids = $db->setQuery(
-            $db->getQuery(true)
-                ->from($db->quoteName($table->getTableName()))
-                ->select('milestone_id')
-                ->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
-                ->where($db->quoteName('title') . ' NOT IN (\'' . implode("', '", $titles) . '\')')
-        )->loadRowList();
+        $query = $db->getQuery(true)
+            ->from($db->quoteName($table->getTableName()))
+            ->select('milestone_id')
+            ->where($db->quoteName('project_id') . ' = ' . $this->project->project_id);
+
+        if ($titles) {
+            $query->where($db->quoteName('title') . ' NOT IN (' . implode(', ', $titles) . ')');
+        }
+
+        $ids = $db->setQuery($query)->loadColumn();
 
         if ($ids) {
             // Kill the orphans
             $db->setQuery(
                 $db->getQuery(true)
                     ->delete($db->quoteName($table->getTableName()))
-                    ->where($db->quoteName('milestone_id') . ' IN (' . implode(', ', $ids[0]) . ')')
+                    ->where($db->quoteName('milestone_id') . ' IN (' . implode(', ', $ids) . ')')
             )->execute();
         }
 
