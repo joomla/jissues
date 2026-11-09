@@ -32,7 +32,7 @@ class Info extends AbstractAjaxController
         /** @var \JTracker\Application\Application $application */
         $application = $this->getContainer()->get('app');
 
-        $id = $application->input->getUint('id');
+        $id = $application->getInput()->getUint('id');
 
         if (!$id) {
             throw new \RuntimeException('No id received.');

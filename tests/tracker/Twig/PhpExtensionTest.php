@@ -10,6 +10,7 @@
 namespace JTracker\Tests\Twig;
 
 use JTracker\Twig\PhpExtension;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
@@ -38,10 +39,9 @@ class PhpExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  The extension registers the PHP functions as filters
-     *
      * @return  void
      */
+    #[TestDox('The extension registers the PHP functions as filters')]
     public function testGetFilters(): void
     {
         $filters = [];
@@ -61,10 +61,9 @@ class PhpExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  The extension registers sprintf as function
-     *
      * @return  void
      */
+    #[TestDox('The extension registers sprintf as function')]
     public function testGetFunctions(): void
     {
         $functions = (new PhpExtension())->getFunctions();
@@ -75,20 +74,18 @@ class PhpExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  The basename filter returns the trailing name of a path
-     *
      * @return  void
      */
+    #[TestDox('The basename filter returns the trailing name of a path')]
     public function testBasenameFilter(): void
     {
         $this->assertSame('Inline.php', $this->render('{{ path|basename }}', ['path' => '/src/JTracker/Inline.php']));
     }
 
     /**
-     * @testdox  The get_class filter returns the class name of an object
-     *
      * @return  void
      */
+    #[TestDox('The get_class filter returns the class name of an object')]
     public function testGetClassFilter(): void
     {
         $this->assertSame(
@@ -98,10 +95,9 @@ class PhpExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  The json_decode filter decodes JSON into objects
-     *
      * @return  void
      */
+    #[TestDox('The json_decode filter decodes JSON into objects')]
     public function testJsonDecodeFilter(): void
     {
         $this->assertSame(
@@ -114,10 +110,9 @@ class PhpExtensionTest extends TestCase
     }
 
     /**
-     * @testdox  The sprintf function formats a string and its output is escaped
-     *
      * @return  void
      */
+    #[TestDox('The sprintf function formats a string and its output is escaped')]
     public function testSprintfFunction(): void
     {
         $this->assertSame('Page 2 of 5', $this->render('{{ sprintf("Page %d of %d", 2, 5) }}'));

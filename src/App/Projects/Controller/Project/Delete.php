@@ -67,7 +67,7 @@ class Delete extends AbstractTrackerController
     public function execute()
     {
         (new ProjectModel($this->getContainer()->get('db')))
-            ->delete($this->getContainer()->get('app')->input->get('project_alias'));
+            ->delete($this->getContainer()->get('app')->getInput()->get('project_alias'));
 
         // Reload the project
         $this->getContainer()->get('app')->getProject(true);

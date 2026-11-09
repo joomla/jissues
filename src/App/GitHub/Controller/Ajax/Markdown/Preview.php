@@ -33,7 +33,7 @@ class Preview extends AbstractAjaxController
             throw new \Exception('not auth..');
         }
 
-        $text = $this->getContainer()->get('app')->input->get('text', '', 'raw');
+        $text = $this->getContainer()->get('app')->getInput()->get('text', '', 'raw');
 
         if (!$text) {
             throw new \Exception('Nothing to preview...');

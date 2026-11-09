@@ -12,6 +12,7 @@ namespace JTracker\Tests\Database;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\Mysqli\MysqliQuery;
 use JTracker\Tests\Stubs\TestTable;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +20,10 @@ use PHPUnit\Framework\TestCase;
  * Tests for \JTracker\Database\AbstractDatabaseTable.
  *
  * @since  1.0
+ *
+ * The shared test doubles created in setUp() only get expectations in some of the tests.
  */
+#[AllowMockObjectsWithoutExpectations]
 class AbstractDatabaseTableTest extends TestCase
 {
     /**

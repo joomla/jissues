@@ -160,7 +160,7 @@ class Comments extends Project
             } while ($count);
         }
 
-        $io->progressFinish();
+        $this->usePBar ? $io->progressFinish() : null;
         $io->newLine();
         $io->success('Finished');
 
@@ -303,7 +303,7 @@ class Comments extends Project
                         : null;
                 }
 
-                $io->progressFinish();
+                $this->usePBar ? $io->progressFinish() : null;
                 $count++;
             }
 

@@ -40,7 +40,7 @@ class Save extends AbstractTrackerController
         /** @var \JTracker\Application\Application $application */
         $application = $this->getContainer()->get('app');
 
-        $src = $application->input->get('item', [], 'array');
+        $src = $application->getInput()->get('item', [], 'array');
 
         $application->getLogger()->debug('Submitted data from save controller.', ['data' => $src]);
 
@@ -156,7 +156,7 @@ class Save extends AbstractTrackerController
                         $state,
                         $oldState
                     ),
-                    ['exception' => $exception, 'response' => $exception->getResponse()->body]
+                    ['exception' => $exception, 'response' => (string) $exception->getResponse()->getBody()]
                 );
 
                 throw new \RuntimeException('Invalid response from GitHub', $exception->getCode(), $exception);
@@ -185,7 +185,7 @@ class Save extends AbstractTrackerController
                 $category = [
                     'issue_id'     => $data['id'],
                     'modified_by'  => $user->username,
-                    'categories'   => $application->input->get('categories', null, 'array'),
+                    'categories'   => $application->getInput()->get('categories', null, 'array'),
                     'issue_number' => $data['issue_number'],
                     'project_id'   => $project->project_id,
                 ];
@@ -206,7 +206,7 @@ class Save extends AbstractTrackerController
             // Save the record.
             $model->save($data);
 
-            $comment = $application->input->get('comment', '', 'raw');
+            $comment = $application->getInput()->get('comment', '', 'raw');
 
             // Save the comment.
             if ($comment) {
@@ -267,14 +267,14 @@ class Save extends AbstractTrackerController
             }
 
             $application->enqueueMessage('The changes have been saved.', 'success')
-                ->redirect('/tracker/' . $application->input->get('project_alias') . '/' . $issueNumber);
+                ->redirect('/tracker/' . $application->getInput()->get('project_alias') . '/' . $issueNumber);
         } catch (\RuntimeException $exception) {
             $application->enqueueMessage($exception->getMessage(), 'error');
 
             // @todo preserve data when returning to edit view on failure.
             $application->redirect(
                 $application->get('uri.base.path')
-                . 'tracker/' . $application->input->get('project_alias') . '/' . $issueNumber . '/edit'
+                . 'tracker/' . $application->getInput()->get('project_alias') . '/' . $issueNumber . '/edit'
             );
         }
 
