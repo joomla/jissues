@@ -16,6 +16,7 @@ use Joomla\Input\Input;
 use Joomla\Registry\Registry;
 use JTracker\Application\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
@@ -55,9 +56,9 @@ class GitHubLoginHelperTest extends TestCase
 
         $this->helper = new GitHubLoginHelper(
             $application,
-            $this->createMock(DatabaseDriver::class),
-            $this->createMock(Github::class),
-            $this->createMock(Http::class),
+            $this->createStub(DatabaseDriver::class),
+            $this->createStub(Github::class),
+            $this->createStub(Http::class),
             'client-id',
             'client-secret',
             'public_repo'
@@ -107,7 +108,7 @@ class GitHubLoginHelperTest extends TestCase
      *
      * @since   1.0
      */
-    public function redirectProvider(): array
+    public static function redirectProvider(): array
     {
         return [
             'empty'                  => ['', ''],
@@ -136,9 +137,9 @@ class GitHubLoginHelperTest extends TestCase
      *
      * @return  void
      *
-     * @dataProvider  redirectProvider
      * @since   1.0
      */
+    #[DataProvider('redirectProvider')]
     public function testGetSafeRedirect(string $redirect, string $expected): void
     {
         $this->assertSame($expected, $this->helper->getSafeRedirect($redirect));
