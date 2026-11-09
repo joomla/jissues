@@ -42,9 +42,12 @@ class Project extends AbstractTrackerController
         // Reload the project.
         $this->getContainer()->get('app')->getProject(true);
 
+        // Only users with view access to the project may see it.
+        $this->getContainer()->get('app')->getUser()->authorize('view');
+
         parent::initialize();
 
-        $this->view->setAlias($this->getContainer()->get('app')->input->get('project_alias'));
+        $this->view->setAlias($this->getContainer()->get('app')->getInput()->get('project_alias'));
 
         return $this;
     }

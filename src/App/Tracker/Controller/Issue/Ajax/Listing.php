@@ -153,7 +153,7 @@ class Listing extends AbstractAjaxController
 
         $state->set(
             'stools-active',
-            $application->input->get('stools-active', 0, 'uint')
+            $application->getInput()->get('stools-active', 0, 'uint')
         );
 
         if ($application->getUser()->username) {
@@ -176,7 +176,7 @@ class Listing extends AbstractAjaxController
         $application = $this->getContainer()->get('app');
 
         // Load the model
-        $model = new IssuesModel($this->getContainer()->get('db'), $application->input);
+        $model = new IssuesModel($this->getContainer()->get('db'), $application->getInput());
 
         // Get allowed user for view;
         $application->getUser()->authorize('view');
