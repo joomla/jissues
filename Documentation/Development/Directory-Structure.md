@@ -19,7 +19,6 @@
 `│   ├── migrations` Database migrations
 `│   ├── config.dist.json` Copy this file to `config.json`.<br />
 `│   ├── config.json` This is your configuration file.<br />
-`│   ├── config.travis.json` Configuration file used for the Travis CI server.<br />
 `│   ├── config.vagrant.json` Configuration file used for the Vagrant virtual machine. Note that you might issue `git update-index --assume-unchanged` for this file to prevent accidently commits.<br />
 `│   └── mysql.sql` The MySQL installation file.<br />
 `├── logs` The log directory (This folder must be set to 077 if you use the Vagrant box).<br />
@@ -40,7 +39,6 @@
 `├── .gitignore` Git ignore definitions.<br />
 `├── .npmrc` NPM project configuration.<br />
 `├── .php_cs` PHP-CS-Fixer config file.<br />
-`├── .travis.yml` Travis-CI config file.<br />
 `├── build.xml` Ant config (not used).<br />
 `├── composer.json` Composer config file.<br />
 `├── composer.lock` Composer lock file.<br />
