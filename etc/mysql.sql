@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
 
 CREATE TABLE IF NOT EXISTS `#__activities` (
   `activities_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
-  `gh_comment_id` int(11) unsigned NULL COMMENT 'The GitHub comment id',
+  `gh_comment_id` bigint(20) unsigned NULL COMMENT 'The GitHub comment id',
   `issue_number` int(11) unsigned NOT NULL COMMENT 'THE issue number (ID)',
   `project_id` int(11) NOT NULL COMMENT 'The Project id',
   `user` varchar(255) NOT NULL DEFAULT '' COMMENT 'The user name',
@@ -412,7 +412,7 @@ CREATE TABLE `#__issue_reviews` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `issue_id` int(11) unsigned NOT NULL COMMENT 'PK of the issue in issue table',
   `project_id` int(11) NOT NULL COMMENT 'The Project id',
-  `review_id` int(11) unsigned NOT NULL COMMENT 'The GitHub ID of the review',
+  `review_id` bigint(20) unsigned NOT NULL COMMENT 'The GitHub ID of the review',
   `review_state` int(11) unsigned NOT NULL COMMENT 'Integer representing the state of the review',
   `reviewed_by` varchar(150) NOT NULL COMMENT 'Reviewed by username',
   `review_comment` varchar(500) NULL DEFAULT NULL COMMENT 'The comment associated with the review',
