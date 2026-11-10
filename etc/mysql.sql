@@ -221,6 +221,7 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
   KEY `issue_number` (`issue_number`),
   KEY `project_id` (`project_id`),
   KEY `idx_project_created` (`project_id`,`created_date`,`user`),
+  KEY `idx_gh_comment_id` (`gh_comment_id`),
   CONSTRAINT `#__activities_fk_issue_number` FOREIGN KEY (`issue_number`) REFERENCES `#__issues` (`issue_number`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `#__activities_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
