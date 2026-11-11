@@ -97,7 +97,7 @@ class GitHubLoginHelper
     /**
      * Constructor.
      *
-     * @param   WebApplication     $application   Application object.
+     * @param   Application        $application   Application object.
      * @param   DatabaseInterface  $db            Database driver.
      * @param   Github             $github        GitHub API Client.
      * @param   Http               $http          HTTP Client.

@@ -19,7 +19,7 @@ class AjaxResponse
     /**
      * Data object.
      *
-     * @var    \stdClass
+     * @var    mixed
      * @since  1.0
      */
     public $data;
