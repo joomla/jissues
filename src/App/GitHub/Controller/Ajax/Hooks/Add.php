@@ -38,7 +38,7 @@ class Add extends AbstractAjaxController
         $gitHub = $this->getContainer()->get('gitHub');
 
         $name   = 'web';
-        $active = 1;
+        $active = true;
 
         $config = [
             'url'          => $url,

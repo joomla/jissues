@@ -203,7 +203,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
             $this->logger->critical('No data received from GitHub.');
 
             $application->setHeader('Content-Type', 'application/json; charset=' . $application->charSet);
-            $application->setHeader('HTTP/1.1 500 Internal Server Error', 500, true);
+            $application->setHeader('HTTP/1.1 500 Internal Server Error', '500', true);
 
             $this->response->error = 'Missing webhook data payload, check the logs for additional information.';
 
@@ -240,7 +240,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
             // Log the unauthorized request
             $this->logger->critical('Unauthorised request from ' . $myIP);
 
-            $application->setHeader('HTTP/1.1 403 Forbidden', 403, true);
+            $application->setHeader('HTTP/1.1 403 Forbidden', '403', true);
 
             $this->response->error = 'You are not authorised to access this resource.';
 

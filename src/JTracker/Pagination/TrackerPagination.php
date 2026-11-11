@@ -253,7 +253,7 @@ class TrackerPagination
      */
     private function uri($page): string
     {
-        $this->uri->setVar('page', $page);
+        $this->uri->setVar('page', (string) $page);
 
         return htmlspecialchars($this->uri->toString(), ENT_QUOTES, 'UTF-8');
     }

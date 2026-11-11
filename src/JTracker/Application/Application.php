@@ -575,7 +575,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
             $expire = time() - 3600;
         }
 
-        $this->getInput()->cookie->set('remember_me', $value, $expire);
+        $this->getInput()->cookie->set('remember_me', $value, ['expires' => $expire]);
 
         return $this;
     }
