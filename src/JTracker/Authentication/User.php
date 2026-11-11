@@ -295,6 +295,27 @@ abstract class User implements \Serializable
     }
 
     /**
+     * Check if the user may submit a test result for an item.
+     *
+     * A test result is a peer review, so the author of an item can not test it. Maintainers of the project
+     * (users with the "manage" right, which includes admins) may still test their own items.
+     *
+     * @param   string|null  $author  The user name of the author of the item.
+     *
+     * @return  boolean
+     *
+     * @since   1.0
+     */
+    public function canTest($author)
+    {
+        if (!$this->id) {
+            return false;
+        }
+
+        return !$this->isAuthor($author) || $this->check('manage');
+    }
+
+    /**
      * Check if a user is authorized to perform a given action.
      *
      * @param   string  $action  The action to check.

@@ -243,8 +243,8 @@
     <!-- Tests -->
     {% if item.has_code %}
         <p class="highlightRow">
-            {# The author of an item can not test it #}
-            {% set can_test = user.id and not user.isAuthor(item.opened_by) %}
+            {# The author of an item can not test it, unless they maintain the project #}
+            {% set can_test = user.canTest(item.opened_by) %}
             {% if can_test or user.check('edit') %}
                 <span class="btn-group">
                     {% if can_test %}

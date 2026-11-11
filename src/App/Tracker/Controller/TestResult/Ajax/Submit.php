@@ -68,8 +68,8 @@ class Submit extends AbstractAjaxController
             throw new \Exception('Invalid issue ID.');
         }
 
-        // A test result is a peer review, so the author of an item can not test it.
-        if ($user->isAuthor($issue->opened_by)) {
+        // A test result is a peer review, so the author of an item can not test it, unless they maintain the project.
+        if (!$user->canTest($issue->opened_by)) {
             throw new \Exception('You can not submit a test result for an item you opened yourself.');
         }
 

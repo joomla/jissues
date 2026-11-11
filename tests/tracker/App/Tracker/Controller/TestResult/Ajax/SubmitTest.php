@@ -41,14 +41,15 @@ class SubmitTest extends TestCase
     /**
      * Run the controller for the given user and issue.
      *
-     * @param   string          $username  The user name of the logged in user.
-     * @param   \stdClass|null  $issue     The issue row returned by the database, null if not found.
+     * @param   string          $username    The user name of the logged in user.
+     * @param   \stdClass|null  $issue       The issue row returned by the database, null if not found.
+     * @param   boolean         $maintainer  Whether the user has the manage right of the project.
      *
      * @return  \stdClass  The decoded AJAX response.
      *
      * @since   1.0
      */
-    private function runController(string $username, ?\stdClass $issue): \stdClass
+    private function runController(string $username, ?\stdClass $issue, bool $maintainer = false): \stdClass
     {
         $db = $this->createDatabaseMock([]);
         $db->method('loadObject')->willReturn($issue);
@@ -68,7 +69,14 @@ class SubmitTest extends TestCase
 
         $user = new class ($project, $db) extends User {
             /**
-             * Grant every action.
+             * Whether the user maintains the project.
+             *
+             * @var  boolean
+             */
+            public $maintainer = false;
+
+            /**
+             * Grant every action, "manage" only to maintainers.
              *
              * @param   string  $action  The action to check.
              *
@@ -76,12 +84,13 @@ class SubmitTest extends TestCase
              */
             public function check($action)
             {
-                return true;
+                return $action !== 'manage' || $this->maintainer;
             }
         };
 
-        $user->id       = 1;
-        $user->username = $username;
+        $user->id         = 1;
+        $user->username   = $username;
+        $user->maintainer = $maintainer;
 
         $application = new class ($user, $project, $this->createStub(DispatcherInterface::class)) {
             /**
@@ -218,6 +227,22 @@ class SubmitTest extends TestCase
     public function testOtherUserCanSubmitTestResult(): void
     {
         $response = $this->runController('tester', (object) ['issue_number' => 42, 'opened_by' => 'author']);
+
+        $this->assertSame(self::SAVE_REACHED, $response->error);
+        $this->assertStringContainsString('#__issues_tests', end($this->executedQueries));
+    }
+
+    /**
+     * Test that a maintainer of the project can submit a test result for an item they opened.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    #[TestDox('A maintainer of the project can submit a test result for an item they opened')]
+    public function testMaintainerCanTestOwnItem(): void
+    {
+        $response = $this->runController('author', (object) ['issue_number' => 42, 'opened_by' => 'author'], true);
 
         $this->assertSame(self::SAVE_REACHED, $response->error);
         $this->assertStringContainsString('#__issues_tests', end($this->executedQueries));
