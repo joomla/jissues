@@ -244,6 +244,9 @@ class TrackerProjectTest extends TestCase
 
         $this->assertStringContainsString('`#__tracker_labels`', $sql);
         $this->assertStringContainsString('`project_id` = 3', $sql);
+
+        // The labels are listed alphabetically, e.g. in the label filter of the issue list
+        $this->assertStringContainsString('ORDER BY `name`', $sql);
     }
 
     /**
