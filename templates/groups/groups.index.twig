@@ -63,7 +63,7 @@
                     {% if group.system %}
                         System
                     {% else %}
-                        <a href="{{ uri.base.path }}project/{{ project.alias }}/group/{{ group.group_id }}/delete">Delete</a>
+                        <form method="post" action="{{ uri.base.path }}project/{{ project.alias }}/group/{{ group.group_id }}/delete" class="d-inline">{{ csrf_field() }}<button type="submit" class="btn btn-link p-0 align-baseline">Delete</button></form>
                     {% endif %}
                 </td>
 

@@ -10,13 +10,14 @@
 namespace App\GitHub\Controller\Ajax\Hooks;
 
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 
 /**
  * Controller class to add new webhooks to the GitHub repository.
  *
  * @since  1.0
  */
-class Add extends AbstractAjaxController
+class Add extends AbstractAjaxController implements CsrfProtectedControllerInterface
 {
     /**
      * Prepare the response.

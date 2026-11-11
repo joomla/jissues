@@ -11,13 +11,14 @@ namespace App\Users\Controller\Ajax;
 
 use JTracker\Authentication\Database\TableUsers;
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 
 /**
  * Controller class to assign users to groups
  *
  * @since  1.0
  */
-class Assign extends AbstractAjaxController
+class Assign extends AbstractAjaxController implements CsrfProtectedControllerInterface
 {
     /**
      * Prepare the response.

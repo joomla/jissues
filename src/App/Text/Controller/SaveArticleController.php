@@ -12,6 +12,7 @@ namespace App\Text\Controller;
 use App\Text\Model\ArticlesModel;
 use Joomla\Controller\AbstractController;
 use Joomla\Github\Github;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 use Laminas\Diactoros\Response\RedirectResponse;
 
 /**
@@ -21,7 +22,7 @@ use Laminas\Diactoros\Response\RedirectResponse;
  *
  * @since  1.0
  */
-class SaveArticleController extends AbstractController
+class SaveArticleController extends AbstractController implements CsrfProtectedControllerInterface
 {
     /**
      * GitHub API connector

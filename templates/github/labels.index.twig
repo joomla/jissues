@@ -127,7 +127,7 @@
             out.html('Requesting...');
             debug.empty();
 
-            $.get(
+            $.post(
                     '{{ uri.base.path }}project/' + alias + '/labels-add',
                     { name: name, color: color },
                     function (response) {
@@ -159,7 +159,7 @@
             out.html('Requesting...');
             debug.empty();
 
-            $.get(
+            $.post(
                     '{{ uri.base.path }}project/' + alias + '/labels-delete',
                     { name: name },
                     function (response) {

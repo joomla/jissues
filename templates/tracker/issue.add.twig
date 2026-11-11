@@ -34,6 +34,7 @@
     <div class="alert alert-danger" style="display: none"></div>
 
     <form method="post" action="/{{ uri.route }}-submit" name="editForm" id="issueForm">
+        {{ csrf_field() }}
         <div class="row">
             <div class="col-md-9">
 

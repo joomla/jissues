@@ -11,13 +11,14 @@ namespace App\Users\Controller\User;
 
 use App\Users\Model\UserModel;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 
 /**
  * Controller class to save an item via the users component.
  *
  * @since  1.0
  */
-class Save extends AbstractTrackerController
+class Save extends AbstractTrackerController implements CsrfProtectedControllerInterface
 {
     /**
      * Execute the controller.

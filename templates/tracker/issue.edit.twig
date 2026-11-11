@@ -89,6 +89,7 @@
     <div class="alert alert-danger" style="display: none"></div>
 
     <form method="post" action="/{{ uri.route }}-save" class="form-inline" name="editForm" id="issueForm">
+        {{ csrf_field() }}
 
     {% if user.check('edit') %}
         {# Show only if the user has *full*^edit rights - e.g. not "edit own" #}

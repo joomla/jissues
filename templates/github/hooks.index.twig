@@ -184,7 +184,7 @@
             out.html('Requesting...');
             debug.empty();
 
-            $.get(
+            $.post(
                     '/project/' + alias + '/hooks-add',
                     { url: url, events: events },
                     function (response) {
@@ -216,7 +216,7 @@
             out.html('Requesting...');
             debug.empty();
 
-            $.get(
+            $.post(
                     '/project/' + alias + '/hooks-modify',
                     { hook_id: hookId, action: action },
                     function (response) {

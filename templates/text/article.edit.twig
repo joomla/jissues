@@ -27,6 +27,7 @@
     </div>
 
     <form method="post" action="{{ uri.base.path }}{% if item.article_id %}articles/{{ item.article_id }}{% else %}articles/create{% endif %}" class="form-horizontal" name="editForm" id="editForm">
+        {{ csrf_field() }}
         <div>
             <fieldset>
                 <div class="control-group">

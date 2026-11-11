@@ -9,6 +9,7 @@
 
 namespace App\GitHub\Controller\Ajax\Milestones;
 
+use JTracker\Controller\CsrfProtectedControllerInterface;
 use JTracker\Github\GithubFactory;
 
 /**
@@ -16,7 +17,7 @@ use JTracker\Github\GithubFactory;
  *
  * @since  1.0
  */
-class Save extends Base
+class Save extends Base implements CsrfProtectedControllerInterface
 {
     /**
      * Prepare the response.

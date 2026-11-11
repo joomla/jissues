@@ -20,6 +20,7 @@
     </div>
 
     <form method="post" action="{{ uri.base.path }}saveproject" class="form-inline" name="editForm">
+        {{ csrf_field() }}
         <fieldset>
             <legend>Details</legend>
             <ul class="list-unstyled">

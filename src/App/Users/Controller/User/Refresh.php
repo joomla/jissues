@@ -12,13 +12,14 @@ namespace App\Users\Controller\User;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 
 /**
  * Controller class to refresh user information with data stored on GitHub.
  *
  * @since  1.0
  */
-class Refresh extends AbstractTrackerController
+class Refresh extends AbstractTrackerController implements CsrfProtectedControllerInterface
 {
     /**
      * Execute the controller.

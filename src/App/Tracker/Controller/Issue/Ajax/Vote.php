@@ -12,13 +12,14 @@ namespace App\Tracker\Controller\Issue\Ajax;
 use App\Tracker\Model\IssueModel;
 use Joomla\Input\Input;
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 
 /**
  * Add comments controller class.
  *
  * @since  1.0
  */
-class Vote extends AbstractAjaxController
+class Vote extends AbstractAjaxController implements CsrfProtectedControllerInterface
 {
     /**
      * Prepare the response.

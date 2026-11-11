@@ -16,6 +16,7 @@ use App\Tracker\Table\ActivitiesTable;
 use Joomla\Http\Exception\UnexpectedResponseException;
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 use JTracker\Github\GithubFactory;
 use JTracker\Helper\GitHubHelper;
 
@@ -24,7 +25,7 @@ use JTracker\Helper\GitHubHelper;
  *
  * @since  1.0
  */
-class Save extends AbstractTrackerController
+class Save extends AbstractTrackerController implements CsrfProtectedControllerInterface
 {
     /**
      * Execute the controller.

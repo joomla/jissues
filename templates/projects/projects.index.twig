@@ -60,7 +60,7 @@
                     {% if user.isAdmin %}
                         | <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">Groups</a>
                         | <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">Edit</a>
-                        | <a href="{{ uri.base.path }}project/{{ project.alias }}/delete">Delete</a>
+                        | <form method="post" action="{{ uri.base.path }}project/{{ project.alias }}/delete" class="d-inline">{{ csrf_field() }}<button type="submit" class="btn btn-link p-0 align-baseline">Delete</button></form>
                     {% endif %}
                     </td>
 

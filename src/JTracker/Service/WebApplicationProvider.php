@@ -18,8 +18,11 @@ use Joomla\Input\Input;
 use Joomla\Router\Router;
 use JTracker\Application\Application;
 use JTracker\Controller\TrackerControllerResolver;
+use JTracker\Security\CsrfTokenManager;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 
 /**
  * Web application service provider
@@ -89,10 +92,33 @@ class WebApplicationProvider implements ServiceProviderInterface
         $container->alias(Session::class, SessionInterface::class)
             ->share(
                 SessionInterface::class,
-                function () {
-                    return new Session();
+                function (Container $container) {
+                    /** @var Input $input */
+                    $input = $container->get(Input::class);
+
+                    $https          = strtolower($input->server->getString('HTTPS', ''));
+                    $forwardedProto = strtolower($input->server->getString('HTTP_X_FORWARDED_PROTO', ''));
+
+                    // Harden the session cookie: no access from JavaScript, not sent with cross-site subrequests and only over HTTPS if available
+                    $storage = new NativeSessionStorage(
+                        [
+                            'cookie_httponly' => true,
+                            'cookie_samesite' => Cookie::SAMESITE_LAX,
+                            'cookie_secure'   => ($https !== '' && $https !== 'off') || $forwardedProto === 'https',
+                        ]
+                    );
+
+                    return new Session($storage);
                 },
                 true
             );
+
+        $container->share(
+            CsrfTokenManager::class,
+            function (Container $container) {
+                return new CsrfTokenManager($container->get(SessionInterface::class));
+            },
+            true
+        );
     }
 }

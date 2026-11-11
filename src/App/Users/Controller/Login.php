@@ -18,6 +18,7 @@ use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Security\CsrfTokenManager;
 
 /**
  * Login controller class for the users component
@@ -59,6 +60,9 @@ class Login extends AbstractTrackerController
 
         // Do login
         $app->getSession()->migrate();
+
+        // Issue a new CSRF token for the authenticated session
+        $this->getContainer()->get(CsrfTokenManager::class)->refreshToken();
 
         // Store the token into the session
         $app->getSession()->set('gh_oauth_access_token', $accessToken);

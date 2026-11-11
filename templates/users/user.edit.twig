@@ -20,7 +20,7 @@
             <a class="btn btn-inverse" href="{{ uri.base.path }}account">Cancel</a>
         </li>
         <li class="float-end">
-            <a class="btn btn-secondary" href="{{ uri.base.path }}account/github-refresh">Refresh profile from GitHub</a>
+            <form method="post" action="{{ uri.base.path }}account/github-refresh" class="d-inline">{{ csrf_field() }}<button type="submit" class="btn btn-secondary">Refresh profile from GitHub</button></form>
         </li>
     </ul>
 
@@ -52,6 +52,7 @@
     </div>
 
     <form method="post" action="{{ uri.base.path }}account/save" class="form-horizontal" name="editForm">
+        {{ csrf_field() }}
         <fieldset>
             <legend>Params</legend>
 

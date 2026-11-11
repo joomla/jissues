@@ -12,13 +12,14 @@ namespace App\Projects\Controller\Project;
 use App\Projects\Model\ProjectModel;
 use App\Projects\Model\ProjectsModel;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 
 /**
  * Controller class to delete a project.
  *
  * @since  1.0
  */
-class Delete extends AbstractTrackerController
+class Delete extends AbstractTrackerController implements CsrfProtectedControllerInterface
 {
     /**
      * The default view for the component

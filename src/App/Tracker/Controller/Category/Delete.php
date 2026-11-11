@@ -12,13 +12,14 @@ namespace App\Tracker\Controller\Category;
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\View\Categories\CategoriesHtmlView;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\CsrfProtectedControllerInterface;
 
 /**
  * Controller class to delete a project.
  *
  * @since  1.0
  */
-class Delete extends AbstractTrackerController
+class Delete extends AbstractTrackerController implements CsrfProtectedControllerInterface
 {
     /**
      * The default view for the component

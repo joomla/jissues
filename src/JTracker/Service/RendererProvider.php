@@ -13,11 +13,14 @@ use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use JTracker\Application\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
+use JTracker\Security\CsrfTokenManager;
 use JTracker\Twig\AssetsExtension;
 use JTracker\Twig\CdnExtension;
+use JTracker\Twig\CsrfExtension;
 use JTracker\Twig\FlashExtension;
 use JTracker\Twig\PhpExtension;
 use JTracker\Twig\Service\CdnRenderer;
+use JTracker\Twig\Service\CsrfFieldRenderer;
 use JTracker\Twig\Service\FlashMessageRetriever;
 use JTracker\View\Renderer\ApplicationContext;
 use JTracker\View\Renderer\DebugPathPackage;
@@ -151,6 +154,15 @@ class RendererProvider implements ServiceProviderInterface
                 true
             );
 
+        $container->alias(CsrfExtension::class, 'twig.extension.csrf')
+            ->share(
+                'twig.extension.csrf',
+                function (Container $container) {
+                    return new CsrfExtension();
+                },
+                true
+            );
+
         $container->alias(DebugExtension::class, 'twig.extension.debug')
             ->share(
                 'twig.extension.debug',
@@ -219,6 +231,17 @@ class RendererProvider implements ServiceProviderInterface
                 true
             );
 
+        $container->alias(CsrfFieldRenderer::class, 'twig.service.csrf_field_renderer')
+            ->share(
+                'twig.service.csrf_field_renderer',
+                function (Container $container) {
+                    return new CsrfFieldRenderer(
+                        $container->get(CsrfTokenManager::class)
+                    );
+                },
+                true
+            );
+
         $container->alias(FlashMessageRetriever::class, 'twig.service.flash_message_retriever')
             ->share(
                 'twig.service.flash_message_retriever',
@@ -274,6 +297,7 @@ class RendererProvider implements ServiceProviderInterface
         $twigExtensions = [
             'twig.extension.assets',
             'twig.extension.cdn',
+            'twig.extension.csrf',
             'twig.extension.flash',
             'twig.extension.php',
             'twig.extension.tracker',
