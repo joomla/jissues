@@ -10,6 +10,7 @@
 namespace App\Tracker\Controller;
 
 use App\Tracker\Model\CategoryModel;
+use App\Tracker\Model\IssuesModel;
 use App\Tracker\View\Issues\IssuesHtmlView;
 use JTracker\Controller\AbstractTrackerListController;
 
@@ -27,6 +28,14 @@ class DefaultController extends AbstractTrackerListController
      * @since  1.0
      */
     protected $view;
+
+    /**
+     * Model object
+     *
+     * @var    IssuesModel
+     * @since  1.0
+     */
+    protected $model;
 
     /**
      * The default view for the app

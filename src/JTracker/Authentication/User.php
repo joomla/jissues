@@ -11,7 +11,7 @@ namespace JTracker\Authentication;
 
 use App\Projects\ProjectAwareTrait;
 use App\Projects\TrackerProject;
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 use Joomla\Registry\Registry;
 use JTracker\Authentication\Database\TableUsers;
 use JTracker\Authentication\Exception\AuthenticationException;
@@ -108,7 +108,7 @@ abstract class User implements \Serializable
     /**
      * Database object
      *
-     * @var    DatabaseDriver
+     * @var    DatabaseInterface
      * @since  1.0
      */
     protected $database;
@@ -116,13 +116,13 @@ abstract class User implements \Serializable
     /**
      * Constructor.
      *
-     * @param   TrackerProject  $project     The tracker project.
-     * @param   DatabaseDriver  $database    The database connector.
-     * @param   integer         $identifier  The primary key of the user to load..
+     * @param   TrackerProject     $project     The tracker project.
+     * @param   DatabaseInterface  $database    The database connector.
+     * @param   integer            $identifier  The primary key of the user to load..
      *
      * @since   1.0
      */
-    public function __construct(TrackerProject $project, DatabaseDriver $database, $identifier = 0)
+    public function __construct(TrackerProject $project, DatabaseInterface $database, $identifier = 0)
     {
         $this->setDatabase($database);
         $this->setProject($project);
@@ -444,13 +444,13 @@ abstract class User implements \Serializable
     /**
      * Method to set the database connector.
      *
-     * @param   DatabaseDriver  $database  The Database connector.
+     * @param   DatabaseInterface  $database  The Database connector.
      *
      * @return  $this
      *
      * @since   1.0
      */
-    public function setDatabase(DatabaseDriver $database)
+    public function setDatabase(DatabaseInterface $database)
     {
         $this->database = $database;
 

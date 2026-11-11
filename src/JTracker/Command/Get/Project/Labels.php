@@ -84,7 +84,7 @@ class Labels extends Project
     {
         $io->write('Fetching labels...');
 
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         $table = new LabelsTable($db);

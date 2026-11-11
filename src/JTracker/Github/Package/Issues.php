@@ -18,11 +18,11 @@ use JTracker\Github\Package;
  *
  * @since  1.0
  *
- * @property-read  \Joomla\Github\Issues\Assignees   $assignees   GitHub API object for assignees.
- * @property-read  \JTracker\Github\Issues\Comments  $comments    GitHub API object for comments.
- * @property-read  \JTracker\Github\Issues\Events    $events      GitHub API object for events.
- * @property-read  \JTracker\Github\Issues\Labels    $labels      GitHub API object for labels.
- * @property-read  \Joomla\Github\Issues\Milestones  $milestones  GitHub API object for milestones.
+ * @property-read  \Joomla\Github\Package\Issues\Assignees   $assignees   GitHub API object for assignees.
+ * @property-read  Issues\Comments                           $comments    GitHub API object for comments.
+ * @property-read  Issues\Events                             $events      GitHub API object for events.
+ * @property-read  Issues\Labels                             $labels      GitHub API object for labels.
+ * @property-read  \Joomla\Github\Package\Issues\Milestones  $milestones  GitHub API object for milestones.
  */
 class Issues extends Package
 {
@@ -168,7 +168,7 @@ class Issues extends Package
      * @param   integer             $page       The page number from which to get items.
      * @param   integer             $limit      The number of items on a page.
      *
-     * @return  object
+     * @return  array
      *
      * @since   1.0
      * @throws  \DomainException

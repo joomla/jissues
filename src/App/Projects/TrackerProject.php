@@ -11,7 +11,7 @@ namespace App\Projects;
 
 use App\Projects\Table\LabelsTable;
 use App\Projects\Table\MilestonesTable;
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 
 /**
  * Class TrackerProject.
@@ -22,7 +22,8 @@ use Joomla\Database\DatabaseDriver;
  * @property-read   string   $gh_user           GitHub user
  * @property-read   string   $gh_project        GitHub project
  * @property-read   string   $gh_editbot_user   GitHub editbot username.
- * @property-read   string   $gh_editbot_pass   GitHub editbot password.
+ * @property-read   string   $gh_editbot_pass   GitHub editbot password (deprecated, use the token instead).
+ * @property-read   string   $gh_editbot_token  GitHub editbot personal access token.
  * @property-read   string   $ext_tracker_link  A tracker link format (e.g. http://tracker.com/issue/%d)
  * @property-read   string   $short_title       Project short title
  *
@@ -83,8 +84,17 @@ class TrackerProject implements \Serializable
      *
      * @var    string
      * @since  1.0
+     * @deprecated  Use the personal access token in $gh_editbot_token instead.
      */
     protected $gh_editbot_pass;
+
+    /**
+     * GitHub edit bot personal access token.
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $gh_editbot_token;
 
     /**
      * External issue tracker link
@@ -127,7 +137,7 @@ class TrackerProject implements \Serializable
     private $defaultGroups = ['Public', 'User'];
 
     /**
-     * @var    DatabaseDriver
+     * @var    DatabaseInterface
      * @since  1.0
      */
     private $database;
@@ -159,13 +169,13 @@ class TrackerProject implements \Serializable
     /**
      * Constructor.
      *
-     * @param   DatabaseDriver  $database  The database connector.
-     * @param   object          $data      The project data.
+     * @param   DatabaseInterface  $database  The database connector.
+     * @param   object             $data      The project data.
      *
      * @since   1.0
      * @throws  \UnexpectedValueException
      */
-    public function __construct(DatabaseDriver $database, $data = null)
+    public function __construct(DatabaseInterface $database, $data = null)
     {
         $this->setDatabase($database);
 
@@ -326,6 +336,7 @@ class TrackerProject implements \Serializable
                     ->from($db->quoteName((new LabelsTable($db))->getTableName()))
                     ->select(['label_id', 'name', 'color'])
                     ->where($db->quoteName('project_id') . ' = ' . $this->project_id)
+                    ->order($db->quoteName('name'))
             )->loadObjectList();
 
             foreach ($labelList as $labelObject) {
@@ -459,13 +470,13 @@ class TrackerProject implements \Serializable
     /**
      * Method to set the database connector.
      *
-     * @param   DatabaseDriver  $database  The database connector.
+     * @param   DatabaseInterface  $database  The database connector.
      *
      * @return  void
      *
      * @since 1.0
      */
-    public function setDatabase(DatabaseDriver $database)
+    public function setDatabase(DatabaseInterface $database)
     {
         $this->database = $database;
     }
@@ -549,6 +560,30 @@ class TrackerProject implements \Serializable
     }
 
     /**
+     * Get the edit bot personal access token.
+     *
+     * @return string
+     *
+     * @since   1.0
+     */
+    public function getGh_Editbot_Token()
+    {
+        return $this->gh_editbot_token;
+    }
+
+    /**
+     * Check if the project has an edit bot with credentials configured.
+     *
+     * @return boolean
+     *
+     * @since   1.0
+     */
+    public function hasEditBot()
+    {
+        return (bool) $this->gh_editbot_token || ($this->gh_editbot_user && $this->gh_editbot_pass);
+    }
+
+    /**
      * Get Categories list object for displaying
      *
      * @return  array
@@ -582,6 +617,8 @@ class TrackerProject implements \Serializable
      */
     public function __serialize(): array
     {
+        $props = [];
+
         foreach (get_object_vars($this) as $key => $value) {
             if (\in_array($key, ['authModel', 'cleared', 'authId', 'database', 'labelsCache', 'milestonesCache', 'categoriesCache'])) {
                 continue;

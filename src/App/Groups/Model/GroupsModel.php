@@ -10,7 +10,7 @@
 namespace App\Groups\Model;
 
 use App\Groups\Table\GroupsTable;
-use Joomla\Database\DatabaseQuery;
+use Joomla\Database\QueryInterface;
 use JTracker\Model\AbstractTrackerListModel;
 
 /**
@@ -21,9 +21,9 @@ use JTracker\Model\AbstractTrackerListModel;
 class GroupsModel extends AbstractTrackerListModel
 {
     /**
-     * Method to get a DatabaseQuery object for retrieving the data set from a database.
+     * Method to get a QueryInterface object for retrieving the data set from a database.
      *
-     * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
+     * @return  QueryInterface  A QueryInterface object to retrieve the data set.
      *
      * @since   1.0
      */

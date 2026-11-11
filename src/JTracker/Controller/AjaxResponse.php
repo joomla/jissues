@@ -19,7 +19,7 @@ class AjaxResponse
     /**
      * Data object.
      *
-     * @var    \stdClass
+     * @var    mixed
      * @since  1.0
      */
     public $data;
@@ -39,6 +39,30 @@ class AjaxResponse
      * @since  1.0
      */
     public $message = '';
+
+    /**
+     * Link to edit the shown documentation page (documentation view only).
+     *
+     * @var    string|null
+     * @since  1.0
+     */
+    public $editLink;
+
+    /**
+     * Permanent link to the shown documentation page (documentation view only).
+     *
+     * @var    string|null
+     * @since  1.0
+     */
+    public $permaLink;
+
+    /**
+     * Information about uploaded files (upload controller only).
+     *
+     * @var    array|null
+     * @since  1.0
+     */
+    public $files;
 
     /**
      * Constructor

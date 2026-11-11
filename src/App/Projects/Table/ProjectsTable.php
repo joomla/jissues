@@ -10,7 +10,7 @@
 namespace App\Projects\Table;
 
 use App\Groups\Table\GroupsTable;
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
@@ -22,7 +22,8 @@ use JTracker\Database\AbstractDatabaseTable;
  * @property   string   $gh_user           GitHub user
  * @property   string   $gh_project        GitHub project
  * @property   string   $gh_editbot_user   GitHub editbot username
- * @property   string   $gh_editbot_pass   GitHub editbot password
+ * @property   string   $gh_editbot_pass   GitHub editbot password (deprecated, use the token instead)
+ * @property   string   $gh_editbot_token  GitHub editbot personal access token
  * @property   string   $ext_tracker_link  A tracker link format (e.g. http://tracker.com/issue/%d)
  * @property   string   $short_title       Project short title
  *
@@ -33,11 +34,11 @@ class ProjectsTable extends AbstractDatabaseTable
     /**
      * Constructor
      *
-     * @param   DatabaseDriver  $db  A database connector object
+     * @param   DatabaseInterface  $db  A database connector object
      *
      * @since   1.0
      */
-    public function __construct(DatabaseDriver $db)
+    public function __construct(DatabaseInterface $db)
     {
         parent::__construct('#__tracker_projects', 'project_id', $db);
     }

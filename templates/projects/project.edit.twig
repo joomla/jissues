@@ -74,9 +74,18 @@
             </div>
 
             <div class="control-group">
+                <label class="control-label" for="gh_editbot_token">GitHub Editbot token</label>
+                <div class="controls">
+                    <input type="password" name="project[gh_editbot_token]" id="gh_editbot_token" value="{{ project.gh_editbot_token }}" autocomplete="off">
+                    <span class="help-block">A personal access token of the editbot account.</span>
+                </div>
+            </div>
+
+            <div class="control-group">
                 <label class="control-label" for="gh_editbot_pass">GitHub Editbot password</label>
                 <div class="controls">
                     <input type="password" name="project[gh_editbot_pass]" id="gh_editbot_pass" value="{{ project.gh_editbot_pass }}">
+                    <span class="help-block">Deprecated: GitHub no longer accepts account passwords. Use the token instead.</span>
                 </div>
             </div>
 

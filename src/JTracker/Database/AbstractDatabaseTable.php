@@ -9,8 +9,8 @@
 
 namespace JTracker\Database;
 
-use Joomla\Database\DatabaseDriver;
-use Joomla\Database\DatabaseQuery;
+use Joomla\Database\DatabaseInterface;
+use Joomla\Database\QueryInterface;
 
 /**
  * Abstract Database Table class
@@ -52,9 +52,9 @@ class AbstractDatabaseTable implements \IteratorAggregate
     protected $tableFields;
 
     /**
-     * DatabaseDriver object.
+     * DatabaseInterface object.
      *
-     * @var    DatabaseDriver
+     * @var    DatabaseInterface
      * @since  1.0
      */
     protected $db;
@@ -72,14 +72,14 @@ class AbstractDatabaseTable implements \IteratorAggregate
      * be overridden by child classes to explicitly set the table and key fields
      * for a particular database table.
      *
-     * @param   string          $table  Name of the table to model.
-     * @param   mixed           $keys   Name of the primary key field in the table or array of field names that
+     * @param   string             $table  Name of the table to model.
+     * @param   mixed              $keys   Name of the primary key field in the table or array of field names that
      *                                  compose the primary key.
-     * @param   DatabaseDriver  $db     DatabaseDriver object.
+     * @param   DatabaseInterface  $db     DatabaseInterface object.
      *
      * @since   1.0
      */
-    public function __construct($table, $keys, DatabaseDriver $db)
+    public function __construct($table, $keys, DatabaseInterface $db)
     {
         // Set internal variables.
         $this->tableName   = $table;
@@ -207,7 +207,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
         }
 
         // Bind the source value, excluding the ignored fields.
-        foreach ($this->tableFields as $k => $v) {
+        foreach (get_object_vars($this->tableFields) as $k => $v) {
             // Only process fields that are in the source array and  not in the ignore array.
             if (\array_key_exists($k, $src) && !\in_array($k, $ignore)) {
                 $this->tableFields->$k = $src[$k];
@@ -432,8 +432,8 @@ class AbstractDatabaseTable implements \IteratorAggregate
     /**
      * Method to append the primary keys for this table to a query.
      *
-     * @param   DatabaseQuery  $query  A query object to append.
-     * @param   mixed          $pk     Optional primary key parameter.
+     * @param   QueryInterface  $query  A query object to append.
+     * @param   mixed           $pk     Optional primary key parameter.
      *
      * @return  $this  Method allows chaining
      *
@@ -530,18 +530,6 @@ class AbstractDatabaseTable implements \IteratorAggregate
      */
     public function getIterator(): \Traversable
     {
-        return new \ArrayIterator($this->tableFields);
-    }
-
-    /**
-     * Clone the table.
-     *
-     * @return  \ArrayIterator
-     *
-     * @since   1.0
-     */
-    public function __clone()
-    {
-        return $this->getIterator();
+        return new \ArrayIterator(get_object_vars($this->tableFields));
     }
 }

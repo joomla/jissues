@@ -56,6 +56,8 @@ class ReceivePullReviewHook extends AbstractHookController
             $this->logger->error('Error checking the database for the GitHub ID', ['exception' => $e]);
             $this->getContainer()->get('app')->close();
         }
+
+        return null;
     }
 
     /**

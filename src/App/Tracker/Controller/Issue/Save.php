@@ -296,7 +296,7 @@ class Save extends AbstractTrackerController
      * @param   array                $data          The issue data.
      * @param   string               $state         The issue state (either 'open' or 'closed).
      * @param   string               $oldState      The previous issue state.
-     * @param   string               $assignee      The login for the GitHub user that this issue should be assigned to.
+     * @param   string|null          $assignee      The login for the GitHub user that this issue should be assigned to.
      * @param   integer|string|null  $milestone     The milestone number to set, an empty string to remove the milestone,
      *                                              or null to leave the milestone untouched.
      * @param   array                $addLabels     The names of the labels to add to the issue.
@@ -319,9 +319,9 @@ class Save extends AbstractTrackerController
             $gitHub = GithubFactory::getInstance($application);
 
             // Look if we have a bot user configured
-            if ($project->getGh_Editbot_User() && $project->getGh_Editbot_Pass()) {
+            if ($project->hasEditBot()) {
                 // Try to perform the action on behalf of an authorized bot
-                $gitHubBot = GithubFactory::getInstance($application, true, $project->getGh_Editbot_User(), $project->getGh_Editbot_Pass());
+                $gitHubBot = GithubFactory::getProjectBotInstance($application, $project);
             }
         } catch (\RuntimeException $exception) {
             throw new \RuntimeException('Error retrieving an instance of the Github object', $exception->getCode(), $exception);

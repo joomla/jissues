@@ -25,7 +25,7 @@ class Submit extends AbstractTrackerController
     /**
      * Execute the controller.
      *
-     * @return  void
+     * @return  string
      *
      * @since   1.0
      * @throws  \RuntimeException
@@ -170,6 +170,9 @@ class Submit extends AbstractTrackerController
         $application->redirect(
             $application->get('uri.base.path') . 'tracker/' . $project->alias . '/' . $data['number']
         );
+
+        // The redirect closes the application, the return only fulfils the interface
+        return '';
     }
 
     /**
@@ -179,11 +182,11 @@ class Submit extends AbstractTrackerController
      * the action using a configured "edit bot". If the GitHub status changes (e.g. open <=> close), a comment will be
      * created automatically stating that the action has been performed by a bot.
      *
-     * @param   string   $title      The title of the issue.
-     * @param   string   $body       The contents of the issue.
-     * @param   string   $assignee   The login for the GitHub user that this issue should be assigned to.
-     * @param   integer  $milestone  The milestone to associate this issue with.
-     * @param   array    $labels     The labels to associate with this issue.
+     * @param   string       $title      The title of the issue.
+     * @param   string       $body       The contents of the issue.
+     * @param   string|null  $assignee   The login for the GitHub user that this issue should be assigned to.
+     * @param   integer      $milestone  The milestone to associate this issue with.
+     * @param   array        $labels     The labels to associate with this issue.
      *
      * @return  object  The issue data
      *
@@ -202,9 +205,9 @@ class Submit extends AbstractTrackerController
             $gitHub = GithubFactory::getInstance($application);
 
             // Look if we have a bot user configured
-            if ($project->getGh_Editbot_User() && $project->getGh_Editbot_Pass()) {
+            if ($project->hasEditBot()) {
                 // Try to perform the action on behalf of an authorized bot
-                $gitHubBot = GithubFactory::getInstance($application, true, $project->getGh_Editbot_User(), $project->getGh_Editbot_Pass());
+                $gitHubBot = GithubFactory::getProjectBotInstance($application, $project);
             }
         } catch (\RuntimeException $exception) {
             throw new \RuntimeException('Error retrieving an instance of the Github object', $exception->getCode(), $exception);

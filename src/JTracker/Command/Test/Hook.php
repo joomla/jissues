@@ -117,12 +117,12 @@ class Hook extends Test
      */
     protected function selectHook(SymfonyStyle $io)
     {
-        $paths = (new Filesystem(new LocalFilesystemAdapter(JPATH_ROOT . '/src/App/Tracker/Controller/Hooks')))->listContents();
+        $paths = (new Filesystem(new LocalFilesystemAdapter(JPATH_ROOT . '/src/App/Tracker/Controller/Hooks')))->listContents('');
         $hooks = [];
 
-        foreach ($paths as $path) {
-            if ($path['type'] == 'file') {
-                $hooks[] = str_replace(['Receive', 'Hook'], '', $path['filename']);
+        foreach ($paths as $item) {
+            if ($item->isFile()) {
+                $hooks[] = str_replace(['Receive', 'Hook'], '', basename($item->path(), '.php'));
             }
         }
 
@@ -172,7 +172,7 @@ class Hook extends Test
      */
     protected function selectProject(InputInterface $input, SymfonyStyle $io): self
     {
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         $projects = $db->setQuery(

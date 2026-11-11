@@ -33,7 +33,7 @@ class Comments extends Package
      * @param   integer             $limit    The number of items on a page.
      * @param   \DateTimeInterface  $since    Only comments updated at or after this time are returned.
      *
-     * @return  object
+     * @return  array
      *
      * @since   1.0
      * @throws  \DomainException

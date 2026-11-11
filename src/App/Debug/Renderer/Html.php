@@ -312,8 +312,8 @@ class Html implements ContainerAwareInterface
      * an array with optional css class can be supplied. If the $count value exceeds the option value this class will be used.
      * E.g.: [5 => 'warning', 15 => 'danger']
      *
-     * @param   integer  $count    The number to display inside the badge.
-     * @param   array    $options  An indexed array of values and CSS classes.
+     * @param   integer|string  $count    The number to display inside the badge.
+     * @param   array           $options  An indexed array of values and CSS classes.
      *
      * @return  string
      *

@@ -114,7 +114,10 @@ class ErrorSubscriber implements SubscriberInterface, LoggerAwareInterface
 
                 $this->prepareResponse($event);
 
-                $app->setHeader('Allow', implode(', ', $event->getError()->getAllowedMethods()));
+                /** @var MethodNotAllowedException $error */
+                $error = $event->getError();
+
+                $app->setHeader('Allow', implode(', ', $error->getAllowedMethods()));
 
                 break;
 

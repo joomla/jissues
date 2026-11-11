@@ -15,7 +15,7 @@
         "accounts": [
             {
                 "username": "$JTRACKER_GITHUB_USERNAME",
-                "password": "$JTRACKER_GITHUB_PASSWORD"
+                "token"   : "$JTRACKER_GITHUB_TOKEN"
             }
         ]
     },

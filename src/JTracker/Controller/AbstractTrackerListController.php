@@ -11,6 +11,7 @@ namespace JTracker\Controller;
 
 use JTracker\Application\Application;
 use JTracker\Controller\Concerns\HasLists;
+use JTracker\Model\ListfulModelInterface;
 
 /**
  * Abstract Controller class for the Tracker Application
@@ -20,6 +21,14 @@ use JTracker\Controller\Concerns\HasLists;
 abstract class AbstractTrackerListController extends AbstractTrackerController
 {
     use HasLists;
+
+    /**
+     * Model object
+     *
+     * @var    ListfulModelInterface
+     * @since  1.0
+     */
+    protected $model;
 
     /**
      * Initialize the controller.

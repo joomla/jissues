@@ -37,6 +37,7 @@ class TrackerProjectTest extends TestCase
         'gh_project'       => 'joomla-cms',
         'gh_editbot_user'  => 'bot',
         'gh_editbot_pass'  => 'secret',
+        'gh_editbot_token' => 'ghp_token',
         'ext_tracker_link' => 'https://issues.example.org/%d',
         'short_title'      => 'CMS',
     ];
@@ -122,8 +123,29 @@ class TrackerProjectTest extends TestCase
         $this->assertSame('joomla-cms', $project->getGh_Project());
         $this->assertSame('bot', $project->getGh_Editbot_User());
         $this->assertSame('secret', $project->getGh_Editbot_Pass());
+        $this->assertSame('ghp_token', $project->getGh_Editbot_Token());
         $this->assertSame('https://issues.example.org/%d', $project->getExt_Tracker_Link());
         $this->assertSame('CMS', $project->getShort_Title());
+    }
+
+    /**
+     * Test the detection of a configured edit bot.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    public function testHasEditBot(): void
+    {
+        $data = static function (string $user, string $password, string $token): object {
+            return (object) ['gh_editbot_user' => $user, 'gh_editbot_pass' => $password, 'gh_editbot_token' => $token];
+        };
+
+        $this->assertTrue((new TrackerProject($this->createDatabase(), $data('bot', '', 'ghp_token')))->hasEditBot());
+        $this->assertTrue((new TrackerProject($this->createDatabase(), $data('bot', 'secret', '')))->hasEditBot());
+        $this->assertFalse((new TrackerProject($this->createDatabase(), $data('bot', '', '')))->hasEditBot());
+        $this->assertFalse((new TrackerProject($this->createDatabase(), $data('', 'secret', '')))->hasEditBot());
+        $this->assertFalse((new TrackerProject($this->createDatabase()))->hasEditBot());
     }
 
     /**
@@ -222,6 +244,9 @@ class TrackerProjectTest extends TestCase
 
         $this->assertStringContainsString('`#__tracker_labels`', $sql);
         $this->assertStringContainsString('`project_id` = 3', $sql);
+
+        // The labels are listed alphabetically, e.g. in the label filter of the issue list
+        $this->assertStringContainsString('ORDER BY `name`', $sql);
     }
 
     /**

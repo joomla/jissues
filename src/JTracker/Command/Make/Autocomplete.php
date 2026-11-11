@@ -198,8 +198,7 @@ class Autocomplete extends TrackerCommand
         $template = $this->fileSystem->read('cli/completions/tpl_jtracker.fish');
         $lines    = [];
 
-        /** @var string $namespace */
-        /** @var string[] $commands */
+        /** @var array $namespace */
         foreach ($namespaces as $namespace) {
             $namespaceId = $namespace['id'];
 

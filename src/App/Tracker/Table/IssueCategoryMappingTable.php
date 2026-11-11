@@ -9,7 +9,7 @@
 
 namespace App\Tracker\Table;
 
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
@@ -26,11 +26,11 @@ class IssueCategoryMappingTable extends AbstractDatabaseTable
     /**
      * Constructor
      *
-     * @param   DatabaseDriver  $database  A database connector object.
+     * @param   DatabaseInterface  $database  A database connector object.
      *
      * @since   1.0
      */
-    public function __construct(DatabaseDriver $database)
+    public function __construct(DatabaseInterface $database)
     {
         parent::__construct('#__issue_category_map', 'id', $database);
     }
@@ -48,11 +48,11 @@ class IssueCategoryMappingTable extends AbstractDatabaseTable
     {
         $errors = [];
 
-        if (trim($this->issue_id) == '') {
+        if (trim((string) $this->issue_id) == '') {
             $errors[] = 'Issue ID is needed';
         }
 
-        if (trim($this->category_id) == '') {
+        if (trim((string) $this->category_id) == '') {
             $errors[] = 'Category ID is needed.';
         }
 

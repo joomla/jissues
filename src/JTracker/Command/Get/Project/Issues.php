@@ -256,7 +256,7 @@ class Issues extends Project
         $added   = 0;
         $updated = 0;
 
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         $milestones = $this->getMilestones();
@@ -401,10 +401,10 @@ class Issues extends Project
 
             // If the title has a [# in it, assume it's a JoomlaCode Tracker ID
             if (preg_match('/\[#([0-9]+)\]/', $ghIssue->title, $matches)) {
-                $table->foreign_number = $matches[1];
+                $table->foreign_number = (int) $matches[1];
             } elseif (preg_match('/tracker_item_id=([0-9]+)/', $ghIssue->body, $matches)) {
                 // If the body has tracker_item_id= in it, that is a JoomlaCode Tracker ID
-                $table->foreign_number = $matches[1];
+                $table->foreign_number = (int) $matches[1];
             }
 
             $table->labels = implode(',', $this->getLabelIds($ghIssue->labels));
@@ -479,7 +479,7 @@ class Issues extends Project
         static $labels = [];
 
         if (!$labels) {
-            /** @var \Joomla\Database\DatabaseDriver $db */
+            /** @var \Joomla\Database\DatabaseInterface $db */
             $db = $this->getContainer()->get('db');
 
             $table = new LabelsTable($db);
@@ -518,7 +518,7 @@ class Issues extends Project
      */
     private function getMilestones()
     {
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db    = $this->getContainer()->get('db');
         $table = new MilestonesTable($db);
 
@@ -547,13 +547,13 @@ class Issues extends Project
     /**
      * Method to get the GitHub issues from the database
      *
-     * @return  $this
+     * @return  \stdClass[]  The issues with their ID, number and modification date
      *
      * @since   1.0
      */
     protected function getDbIssues()
     {
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         $query = $db->getQuery(true);

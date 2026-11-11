@@ -177,8 +177,8 @@ class TrackerPaginationTest extends TestCase
     #[TestDox('getBar() renders nothing when there is only one page')]
     public function testGetBarSinglePage(): void
     {
-        $this->assertEmpty($this->createPagination(20, 0, 20)->getBar());
-        $this->assertEmpty($this->createPagination(0, 0, 20)->getBar());
+        $this->assertSame('', $this->createPagination(20, 0, 20)->getBar());
+        $this->assertSame('', $this->createPagination(0, 0, 20)->getBar());
     }
 
     /**

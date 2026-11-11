@@ -83,7 +83,7 @@ class Users extends Get
      */
     private function getUserName(SymfonyStyle $io)
     {
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         /** @var \Joomla\Github\Github $github */

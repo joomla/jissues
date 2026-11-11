@@ -13,7 +13,7 @@ use App\Projects\Table\LabelsTable;
 use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
 use App\Tracker\Table\StatusTable;
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 use Joomla\Http\Exception\InvalidResponseCodeException;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Controller\AbstractAjaxController;
@@ -36,7 +36,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
     /**
      * The database object
      *
-     * @var    DatabaseDriver
+     * @var    DatabaseInterface
      * @since  1.0
      */
     protected $db;
@@ -96,6 +96,8 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
             $this->logger->error('Error checking the database for the GitHub ID', ['exception' => $e]);
             $this->getContainer()->get('app')->close();
         }
+
+        return null;
     }
 
     /**
@@ -200,7 +202,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
             $this->logger->critical('No data received from GitHub.');
 
             $application->setHeader('Content-Type', 'application/json; charset=' . $application->charSet);
-            $application->setHeader('HTTP/1.1 500 Internal Server Error', 500, true);
+            $application->setHeader('HTTP/1.1 500 Internal Server Error', '500', true);
 
             $this->response->error = 'Missing webhook data payload, check the logs for additional information.';
 
@@ -213,7 +215,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 
         // Verify the request was signed by GitHub with the shared webhook secret
         if (!$this->verifyRequestSignature()) {
-            $application->setHeader('HTTP/1.1 403 Forbidden', 403, true);
+            $application->setHeader('HTTP/1.1 403 Forbidden', '403', true);
 
             $this->response->error = 'You are not authorised to access this resource.';
 
@@ -231,11 +233,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
         $this->getProjectData();
 
         // If we have a bot defined for the project, prefer it over the DI object
-        if ($this->project->gh_editbot_user && $this->project->gh_editbot_pass) {
-            $this->github = GithubFactory::getInstance($application, true, $this->project->gh_editbot_user, $this->project->gh_editbot_pass);
-        } else {
-            $this->github = GithubFactory::getInstance($application);
-        }
+        $this->github = GithubFactory::getProjectBotInstance($application, $this->project);
 
         // Set up the event listener
         $this->addEventListener($this->type);
@@ -508,7 +506,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
                 return $status;
 
             default:
-                return;
+                return null;
         }
     }
 

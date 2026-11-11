@@ -9,13 +9,13 @@
 
 namespace JTracker\Command\Install;
 
+use Joomla\Database\DatabaseDriver;
 use JTracker\Command\TrackerCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
-use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
@@ -28,7 +28,7 @@ class Install extends TrackerCommand
     /**
      * Database driver object.
      *
-     * @var    \Joomla\Database\DatabaseDriver
+     * @var    \Joomla\Database\DatabaseInterface
      * @since  1.0
      */
     private $db;
@@ -122,13 +122,13 @@ class Install extends TrackerCommand
      * Cleanup the database.
      *
      * @param   array           $tables  Tables to remove.
-     * @param   StyleInterface  $output  The output to inject into the command.
+     * @param   SymfonyStyle    $output  The output to inject into the command.
      *
      * @return  $this
      *
      * @since   1.0
      */
-    private function cleanDatabase(array $tables, StyleInterface $output)
+    private function cleanDatabase(array $tables, SymfonyStyle $output)
     {
         $output->text('Removing existing tables...');
 
@@ -161,7 +161,7 @@ class Install extends TrackerCommand
     /**
      * Process the main SQL file.
      *
-     * @param   StyleInterface  $output  The output to inject into the command.
+     * @param   SymfonyStyle    $output  The output to inject into the command.
      *
      * @return  $this
      *
@@ -169,7 +169,7 @@ class Install extends TrackerCommand
      * @throws  \UnexpectedValueException
      * @since   1.0
      */
-    private function processSql(StyleInterface $output)
+    private function processSql(SymfonyStyle $output)
     {
         // Install.
         $dbType = $this->getApplication()->get('database.driver');
@@ -192,7 +192,7 @@ class Install extends TrackerCommand
 
         $output->text(\sprintf('Creating tables from file %s', realpath($fName)));
 
-        foreach ($this->db->splitSql($sql) as $query) {
+        foreach (DatabaseDriver::splitSql($sql) as $query) {
             $q = trim($this->db->replacePrefix($query));
 
             if (trim($q) == '') {

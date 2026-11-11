@@ -52,7 +52,7 @@ If you want the 'Login with GitHub' button to work properly you'll need to regis
 
 You'll be asked for the application URL and the callback URL. This can be your test server or your localhost environment. As long as you enter the URL that your localhost app is running on. An example might be `http://jissues.local`.
 
-Once you've registered the app at GitHub you'll receive a `Client ID` and a `Client Secret`, enter these into your installation's `etc/config.json` file, along with your GitHub login credentials. You should now be able to login with GitHub successfully.
+Once you've registered the app at GitHub you'll receive a `Client ID` and a `Client Secret`, enter these into your installation's `etc/config.json` file, along with the user name and a personal access token of your GitHub account (see below). You should now be able to login with GitHub successfully.
 
 See also: [GitHub Authentication](Documentation/Users/GitHub-Authentication.md)
 
