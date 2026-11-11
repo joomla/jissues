@@ -17,7 +17,6 @@ use Joomla\Event\Event;
 use Joomla\Input\Input;
 use JTracker\Github\Github;
 use JTracker\Github\GithubFactory;
-use JTracker\View\AbstractTrackerHtmlView;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -58,7 +57,7 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
     /**
      * View object
      *
-     * @var    \JTracker\View\BaseHtmlView;
+     * @var    \JTracker\View\BaseHtmlView
      * @since  1.0
      */
     protected $view;
@@ -170,7 +169,6 @@ abstract class AbstractTrackerController implements TrackerControllerInterface, 
         $this->model = new $modelClass($this->getContainer()->get('db'));
 
         // Create the view
-        /** @var AbstractTrackerHtmlView $view */
         $this->view = new $viewClass(
             $this->model,
             $this->fetchTwig()

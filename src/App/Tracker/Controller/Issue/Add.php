@@ -83,7 +83,7 @@ class Add extends AbstractTrackerController
      */
     private function fetchTemplate()
     {
-        /** @var $project \App\Projects\TrackerProject */
+        /** @var \App\Projects\TrackerProject $project */
         $project = $this->getContainer()->get('app')->getProject();
         $github  = GithubFactory::getInstance($this->getContainer()->get('app'));
 

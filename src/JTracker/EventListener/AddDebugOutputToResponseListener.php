@@ -11,7 +11,6 @@ namespace JTracker\EventListener;
 
 use App\Debug\TrackerDebugger;
 use Joomla\Application\Event\ApplicationEvent;
-use Joomla\Application\WebApplicationInterface;
 use Laminas\Diactoros\Response\HtmlResponse;
 
 /**
@@ -52,7 +51,7 @@ final class AddDebugOutputToResponseListener
      */
     public function __invoke(ApplicationEvent $event): void
     {
-        /** @var WebApplicationInterface $app */
+        /** @var \Joomla\Application\AbstractWebApplication $app */
         $app = $event->getApplication();
 
         if ($app->getResponse() instanceof HtmlResponse || $app->mimeType === 'text/html') {

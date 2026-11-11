@@ -33,7 +33,7 @@ class Events extends Package
      * @param   integer  $page          The page number from which to get items.
      * @param   integer  $limit         The number of items on a page.
      *
-     * @return  object
+     * @return  array
      *
      * @since   1.0
      */
@@ -57,7 +57,7 @@ class Events extends Package
      * @param   integer  $page     The page number from which to get items.
      * @param   integer  $limit    The number of items on a page.
      *
-     * @return  object
+     * @return  array
      *
      * @since   1.0
      */

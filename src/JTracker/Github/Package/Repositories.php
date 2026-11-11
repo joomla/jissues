@@ -18,7 +18,10 @@ use JTracker\Github\Package;
  *
  * @documentation  http://developer.github.com/v3/repos
  *
- * @property-read  Repositories\Statuses       $statuses       GitHub API object for statuses.
+ * @property-read  Repositories\Statuses                           $statuses    GitHub API object for statuses.
+ * @property-read  \Joomla\Github\Package\Repositories\Contents    $contents    GitHub API object for contents.
+ * @property-read  \Joomla\Github\Package\Repositories\Hooks       $hooks       GitHub API object for hooks.
+ * @property-read  \Joomla\Github\Package\Repositories\Statistics  $statistics  GitHub API object for statistics.
  */
 class Repositories extends Package
 {

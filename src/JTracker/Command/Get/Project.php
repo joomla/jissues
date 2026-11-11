@@ -247,7 +247,7 @@ class Project extends Get
      */
     protected function processEvents(InputInterface $input, OutputInterface $output)
     {
-        /** @var Events $comments */
+        /** @var Events $events */
         $events = $this->getApplication()->getCommand(Events::COMMAND_NAME);
 
         $events->usePBar = $this->usePBar;
@@ -270,7 +270,7 @@ class Project extends Get
      */
     protected function processAvatars(InputInterface $input, OutputInterface $output)
     {
-        /** @var Avatars $comments */
+        /** @var Avatars $avatars */
         $avatars = $this->getApplication()->getCommand(Avatars::COMMAND_NAME);
         $avatars->execute($input, $output);
 
