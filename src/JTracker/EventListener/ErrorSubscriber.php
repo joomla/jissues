@@ -156,6 +156,20 @@ class ErrorSubscriber implements SubscriberInterface, LoggerAwareInterface
     }
 
     /**
+     * Check if a route belongs to the GitHub webhooks, which always get a JSON response.
+     *
+     * @param   string  $route  The route
+     *
+     * @return  boolean
+     *
+     * @since   1.0
+     */
+    private function isWebhookRoute(string $route): bool
+    {
+        return preg_match('#^/?hooks(/|$)#', $route) === 1;
+    }
+
+    /**
      * Prepare the response for the event
      *
      * @param   ApplicationErrorEvent  $event  Event object
@@ -178,6 +192,7 @@ class ErrorSubscriber implements SubscriberInterface, LoggerAwareInterface
             case $app->getInput()->getString('_format', 'html') === 'json':
             case $app->mimeType === 'application/json':
             case $app->getResponse() instanceof JsonResponse:
+            case $this->isWebhookRoute((string) $app->get('uri.route', '')):
                 $data = [
                     'code'    => $event->getError()->getCode(),
                     'message' => $event->getError()->getMessage(),

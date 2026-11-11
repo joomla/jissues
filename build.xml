@@ -84,6 +84,4 @@
     </target>
 
 	<target name="build" depends="clean,composerupdate,composervalidate,installdep,phpmd" />
-
-	<target name="travis-build" depends="clean,composerupdate,composervalidate,installdep,phpmd" />
 </project>

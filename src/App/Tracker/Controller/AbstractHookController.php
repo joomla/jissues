@@ -164,6 +164,9 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
         /** @var \JTracker\Application\Application $application */
         $application = $this->getContainer()->get('app');
 
+        // GitHub expects JSON, also for errors thrown while initializing the controller
+        $application->mimeType = 'application/json';
+
         $this->debug = $application->get('debug.hooks');
 
         // Set the log level to use

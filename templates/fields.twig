@@ -59,7 +59,7 @@
         title="Select Milestone...">
         <option value="0" {% if null == selected %} selected="selected"{% endif %}>No Milestone</option>
         {% for item in items %}
-            {% if item.state != 'closed' %}
+            {% if item.state != 'closed' or item.milestone_id == selected %}
                 <option value="{{ item.milestone_id }}" {% if item.milestone_id == selected %} selected="selected"{% endif %}>
                     {{ item.title }}
                 </option>
