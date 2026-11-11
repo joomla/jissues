@@ -90,7 +90,7 @@ abstract class AbstractAjaxController extends AbstractTrackerController
         $app = $this->getContainer()->get('app');
 
         if ($app instanceof WebApplicationInterface) {
-            $app->setHeader('Status', (int) $code);
+            $app->setHeader('Status', (string) (int) $code);
         }
     }
 

@@ -652,7 +652,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
      *
      * @param   integer  $itemId    The item ID
      * @param   string   $userName  The user name
-     * @param   string   $result    The test result
+     * @param   integer  $result    The test result
      * @param   string   $sha       The SHA at which the item has been tested.
      *
      * @return  object  StdClass with array of usernames for successful and failed tests
