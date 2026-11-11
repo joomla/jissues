@@ -10,6 +10,7 @@
 namespace JTracker\Command\Get;
 
 use App\Projects\TrackerProject;
+use Joomla\Http\Exception\UnexpectedResponseException;
 use JTracker\Command\TrackerCommand;
 use JTracker\Github\Github;
 use Symfony\Component\Console\Input\InputOption;
@@ -82,9 +83,7 @@ abstract class Get extends TrackerCommand
         $this->github = $this->getContainer()->get('gitHub');
 
         // Check the rate limit immediately and switch if need be
-        $rate = $this->github->authorization->getRateLimit()->resources->core;
-
-        $this->checkGitHubRateLimit($rate->remaining);
+        $this->checkGitHubRateLimit($this->getGitHubRateLimitRemaining());
 
         return $this;
     }
@@ -92,7 +91,11 @@ abstract class Get extends TrackerCommand
     /**
      * Check the remaining GitHub rate limit.
      *
-     * @param   integer  $remaining  The remaining count.
+     * If the current account runs low, the other configured accounts are checked one after the other and the first
+     * one with enough remaining requests is used. If all accounts run low, the account with the most remaining
+     * requests is used, and an exception is thrown if even that one is below the minimum.
+     *
+     * @param   integer  $remaining  The remaining count of the current account.
      *
      * @throws \RuntimeException
      * @return $this
@@ -107,22 +110,84 @@ abstract class Get extends TrackerCommand
 
         $this->debugOut(\sprintf('Limit check: %1$d -- %2$d / %3$d', $remaining, $minSwitch, $minRemain));
 
-        if ($remaining <= $minSwitch) {
-            $this->switchGitHubAccount();
+        if ($remaining > $minSwitch) {
+            return $this;
         }
 
-        if ($remaining <= $minRemain) {
+        $accounts = $this->github->getOption('api.accounts') ?: [];
+
+        // The remaining requests of the checked accounts, indexed by the account id
+        $checked = [$this->botId => (int) $remaining];
+
+        while (\count($checked) < \count($accounts)) {
+            $this->switchGitHubAccount();
+
+            $checked[$this->botId] = $this->getGitHubRateLimitRemaining();
+
+            $this->debugOut(\sprintf('Limit check for %1$s: %2$d', $this->getGitHubAccountName($this->botId), $checked[$this->botId]));
+
+            if ($checked[$this->botId] > $minSwitch) {
+                return $this;
+            }
+        }
+
+        // All accounts are running low, continue with the one which has the most requests left
+        $bestId = array_search(max($checked), $checked, true);
+
+        if ($bestId !== $this->botId) {
+            $this->useGitHubAccount($bestId);
+        }
+
+        if ($checked[$bestId] <= $minRemain) {
+            $status = [];
+
+            foreach ($checked as $botId => $botRemaining) {
+                $status[] = \sprintf('%1$s: %2$d', $this->getGitHubAccountName($botId), $botRemaining);
+            }
+
             throw new \RuntimeException(
                 \sprintf(
-                    'GitHub remaining rate limit (%1$d) dropped below the minimum (%2$d) for user %3$s.',
-                    $remaining,
+                    'GitHub remaining rate limit dropped below the minimum (%1$d) for all accounts (%2$s).',
                     $minRemain,
-                    $this->github->getOption('api.username')
+                    implode(', ', $status)
                 )
             );
         }
 
         return $this;
+    }
+
+    /**
+     * Get the remaining GitHub rate limit of the current account.
+     *
+     * An account whose credentials are rejected by GitHub is reported with no remaining requests.
+     *
+     * @return  integer
+     *
+     * @since   1.0
+     */
+    protected function getGitHubRateLimitRemaining(): int
+    {
+        try {
+            $rate = $this->github->authorization->getRateLimit();
+        } catch (UnexpectedResponseException $exception) {
+            $this->logOut(
+                \sprintf(
+                    'Checking the rate limit of the GitHub account %1$s failed: %2$s',
+                    $this->getGitHubAccountName($this->botId),
+                    $exception->getMessage()
+                )
+            );
+
+            return 0;
+        }
+
+        // GitHub Enterprise sites and trusted users have no rate limit
+        if (!isset($rate->resources->core)) {
+            return PHP_INT_MAX;
+        }
+
+        return (int) $rate->resources->core->remaining;
     }
 
     /**
@@ -144,7 +209,23 @@ abstract class Get extends TrackerCommand
         }
 
         // Increase or reset the bot id counter.
-        $this->botId = ($this->botId + 1 >= \count($accounts)) ? 0 : $this->botId + 1;
+        return $this->useGitHubAccount(($this->botId + 1 >= \count($accounts)) ? 0 : $this->botId + 1);
+    }
+
+    /**
+     * Use the GitHub account with the given id from the list of configured accounts.
+     *
+     * @param   integer  $botId  The account id.
+     *
+     * @return $this
+     *
+     * @since   1.0
+     */
+    protected function useGitHubAccount(int $botId)
+    {
+        $accounts = $this->github->getOption('api.accounts');
+
+        $this->botId = $botId;
 
         $username = $accounts[$this->botId]->username;
         $password = $accounts[$this->botId]->password;
@@ -155,5 +236,25 @@ abstract class Get extends TrackerCommand
         $this->logOut(\sprintf('Switched to bot account %s (%d)', $username, $this->botId));
 
         return $this;
+    }
+
+    /**
+     * Get the name of a GitHub account for messages.
+     *
+     * @param   integer  $botId  The account id.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    private function getGitHubAccountName(int $botId): string
+    {
+        $accounts = $this->github->getOption('api.accounts');
+
+        if ($accounts) {
+            return $accounts[$botId]->username ?? ('account ' . $botId);
+        }
+
+        return $this->github->getOption('api.username') ?: 'anonymous';
     }
 }

@@ -20,6 +20,16 @@ use Joomla\Registry\Registry;
 abstract class Package extends GithubObject
 {
     /**
+     * The sub-package API objects created so far, keyed by name.
+     *
+     * They are kept here instead of in dynamic properties, which are deprecated since PHP 8.2.
+     *
+     * @var    object[]
+     * @since  1.0
+     */
+    private $packages = [];
+
+    /**
      * Constructor.
      *
      * @param   Registry  $options  GitHub options object.
@@ -47,6 +57,10 @@ abstract class Package extends GithubObject
      */
     public function __get($name)
     {
+        if (isset($this->packages[$name])) {
+            return $this->packages[$name];
+        }
+
         $class = '\\JTracker\\Github\\Package\\' . $this->package . '\\' . ucfirst($name);
 
         if (class_exists($class) === false) {
@@ -64,10 +78,6 @@ abstract class Package extends GithubObject
             }
         }
 
-        if (isset($this->$name) === false) {
-            $this->$name = new $class($this->options, $this->client);
-        }
-
-        return $this->$name;
+        return $this->packages[$name] = new $class($this->options, $this->client);
     }
 }
