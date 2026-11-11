@@ -11,7 +11,7 @@ namespace App\Projects;
 
 use App\Projects\Table\LabelsTable;
 use App\Projects\Table\MilestonesTable;
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 
 /**
  * Class TrackerProject.
@@ -127,7 +127,7 @@ class TrackerProject implements \Serializable
     private $defaultGroups = ['Public', 'User'];
 
     /**
-     * @var    DatabaseDriver
+     * @var    DatabaseInterface
      * @since  1.0
      */
     private $database;
@@ -159,13 +159,13 @@ class TrackerProject implements \Serializable
     /**
      * Constructor.
      *
-     * @param   DatabaseDriver  $database  The database connector.
-     * @param   object          $data      The project data.
+     * @param   DatabaseInterface  $database  The database connector.
+     * @param   object             $data      The project data.
      *
      * @since   1.0
      * @throws  \UnexpectedValueException
      */
-    public function __construct(DatabaseDriver $database, $data = null)
+    public function __construct(DatabaseInterface $database, $data = null)
     {
         $this->setDatabase($database);
 
@@ -459,13 +459,13 @@ class TrackerProject implements \Serializable
     /**
      * Method to set the database connector.
      *
-     * @param   DatabaseDriver  $database  The database connector.
+     * @param   DatabaseInterface  $database  The database connector.
      *
      * @return  void
      *
      * @since 1.0
      */
-    public function setDatabase(DatabaseDriver $database)
+    public function setDatabase(DatabaseInterface $database)
     {
         $this->database = $database;
     }

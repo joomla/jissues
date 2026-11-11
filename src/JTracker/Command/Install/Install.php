@@ -9,6 +9,7 @@
 
 namespace JTracker\Command\Install;
 
+use Joomla\Database\DatabaseDriver;
 use JTracker\Command\TrackerCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -28,7 +29,7 @@ class Install extends TrackerCommand
     /**
      * Database driver object.
      *
-     * @var    \Joomla\Database\DatabaseDriver
+     * @var    \Joomla\Database\DatabaseInterface
      * @since  1.0
      */
     private $db;
@@ -192,7 +193,7 @@ class Install extends TrackerCommand
 
         $output->text(\sprintf('Creating tables from file %s', realpath($fName)));
 
-        foreach ($this->db->splitSql($sql) as $query) {
+        foreach (DatabaseDriver::splitSql($sql) as $query) {
             $q = trim($this->db->replacePrefix($query));
 
             if (trim($q) == '') {

@@ -10,7 +10,7 @@
 namespace App\Projects\Table;
 
 use App\Groups\Table\GroupsTable;
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
@@ -33,11 +33,11 @@ class ProjectsTable extends AbstractDatabaseTable
     /**
      * Constructor
      *
-     * @param   DatabaseDriver  $db  A database connector object
+     * @param   DatabaseInterface  $db  A database connector object
      *
      * @since   1.0
      */
-    public function __construct(DatabaseDriver $db)
+    public function __construct(DatabaseInterface $db)
     {
         parent::__construct('#__tracker_projects', 'project_id', $db);
     }

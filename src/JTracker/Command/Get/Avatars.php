@@ -88,7 +88,7 @@ class Avatars extends Get
      */
     private function fetchAvatars(SymfonyStyle $io)
     {
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         $usernames = $db->setQuery(

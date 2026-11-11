@@ -13,7 +13,7 @@ use App\Projects\Table\LabelsTable;
 use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
 use App\Tracker\Table\StatusTable;
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 use Joomla\Http\Exception\InvalidResponseCodeException;
 use Joomla\Utilities\IpHelper;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
@@ -37,7 +37,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
     /**
      * The database object
      *
-     * @var    DatabaseDriver
+     * @var    DatabaseInterface
      * @since  1.0
      */
     protected $db;

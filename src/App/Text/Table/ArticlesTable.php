@@ -9,7 +9,7 @@
 
 namespace App\Text\Table;
 
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 use Joomla\Filter\OutputFilter;
 use JTracker\Database\AbstractDatabaseTable;
 
@@ -32,11 +32,11 @@ class ArticlesTable extends AbstractDatabaseTable
     /**
      * Constructor
      *
-     * @param   DatabaseDriver  $db  A database connector object
+     * @param   DatabaseInterface  $db  A database connector object
      *
      * @since   1.0
      */
-    public function __construct(DatabaseDriver $db)
+    public function __construct(DatabaseInterface $db)
     {
         parent::__construct('#__articles', 'article_id', $db);
     }

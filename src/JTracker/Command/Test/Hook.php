@@ -172,7 +172,7 @@ class Hook extends Test
      */
     protected function selectProject(InputInterface $input, SymfonyStyle $io): self
     {
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         $projects = $db->setQuery(

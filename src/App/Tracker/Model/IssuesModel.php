@@ -9,7 +9,7 @@
 
 namespace App\Tracker\Model;
 
-use Joomla\Database\DatabaseQuery;
+use Joomla\Database\QueryInterface;
 use Joomla\String\StringHelper;
 use JTracker\Model\AbstractTrackerListModel;
 
@@ -30,9 +30,9 @@ class IssuesModel extends AbstractTrackerListModel
     protected $context = 'tracker.issues';
 
     /**
-     * Method to get a DatabaseQuery object for retrieving the data set from a database.
+     * Method to get a QueryInterface object for retrieving the data set from a database.
      *
-     * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
+     * @return  QueryInterface  A QueryInterface object to retrieve the data set.
      *
      * @since   1.0
      */
@@ -63,9 +63,9 @@ class IssuesModel extends AbstractTrackerListModel
     }
 
     /**
-     * Method to get a DatabaseQuery object for retrieving the data set from a database for ajax request.
+     * Method to get a QueryInterface object for retrieving the data set from a database for ajax request.
      *
-     * @return  DatabaseQuery
+     * @return  QueryInterface
      *
      * @since   1.0
      */
@@ -162,7 +162,7 @@ class IssuesModel extends AbstractTrackerListModel
      *
      * This method ensures that the query is constructed only once for a given state of the model.
      *
-     * @return  DatabaseQuery  A DatabaseQuery object
+     * @return  QueryInterface  A QueryInterface object
      *
      * @since   1.0
      */
@@ -234,14 +234,14 @@ class IssuesModel extends AbstractTrackerListModel
     /**
      * Common function to process the search filter for a query
      *
-     * @param   DatabaseQuery  $query   DatabaseQuery object
-     * @param   string         $filter  Filter string
+     * @param   QueryInterface  $query   QueryInterface object
+     * @param   string          $filter  Filter string
      *
-     * @return  DatabaseQuery
+     * @return  QueryInterface
      *
      * @since   1.0
      */
-    private function processSearchFilter(DatabaseQuery $query, $filter)
+    private function processSearchFilter(QueryInterface $query, $filter)
     {
         $db = $this->getDb();
 
@@ -261,13 +261,13 @@ class IssuesModel extends AbstractTrackerListModel
     /**
      * Common function to process the filters for a query based on the model state
      *
-     * @param   DatabaseQuery  $query  DatabaseQuery object
+     * @param   QueryInterface  $query  QueryInterface object
      *
-     * @return  DatabaseQuery
+     * @return  QueryInterface
      *
      * @since   1.0
      */
-    private function processStateFilter(DatabaseQuery $query)
+    private function processStateFilter(QueryInterface $query)
     {
         $db = $this->getDb();
 

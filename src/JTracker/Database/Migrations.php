@@ -10,6 +10,7 @@
 namespace JTracker\Database;
 
 use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 use League\Flysystem\Filesystem;
 use League\Flysystem\UnableToReadFile;
 
@@ -23,7 +24,7 @@ class Migrations
     /**
      * Database connector
      *
-     * @var    DatabaseDriver
+     * @var    DatabaseInterface
      * @since  1.0
      */
     private $database;
@@ -39,12 +40,12 @@ class Migrations
     /**
      * Constructor
      *
-     * @param   DatabaseDriver  $database    Database connector
-     * @param   Filesystem      $filesystem  Filesystem adapter
+     * @param   DatabaseInterface  $database    Database connector
+     * @param   Filesystem         $filesystem  Filesystem adapter
      *
      * @since   1.0
      */
-    public function __construct(DatabaseDriver $database, Filesystem $filesystem)
+    public function __construct(DatabaseInterface $database, Filesystem $filesystem)
     {
         $this->database   = $database;
         $this->filesystem = $filesystem;
@@ -180,7 +181,7 @@ class Migrations
             );
         }
 
-        foreach ($this->database->splitSql($queries) as $query) {
+        foreach (DatabaseDriver::splitSql($queries) as $query) {
             $query = trim($query);
 
             if (!empty($query)) {
