@@ -148,7 +148,7 @@ class TrackerPagination
      */
     public function getPagesTotal()
     {
-        return ceil($this->total / ($this->perPage ?: 1));
+        return (int) ceil($this->total / ($this->perPage ?: 1));
     }
 
     /**
@@ -172,7 +172,7 @@ class TrackerPagination
         $counter    = 0;
 
         if ($lastPage < 2) {
-            return $bar;
+            return '';
         }
 
         $bar[] = '<ul class="trackerPagination pagination">';
@@ -185,7 +185,7 @@ class TrackerPagination
                     $bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri($counter) . '">' . $counter . '</a></li>';
                 }
             }
-        } elseif ($lastPage > 5 + ($neighbours * 2)) {
+        } else {
             if ($page < 1 + ($neighbours * 2)) {
                 for ($counter = 1; $counter < 4 + ($neighbours * 2); $counter++) {
                     if ($counter == $page) {
@@ -198,7 +198,7 @@ class TrackerPagination
                 $bar[] = '<li class="dot">...</li>';
                 $bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri($lpm1) . '">' . $lpm1 . '</a></li>';
                 $bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri($lastPage) . '">' . $lastPage . '</a></li>';
-            } elseif ($lastPage - ($neighbours * 2) > $page && $page > ($neighbours * 2)) {
+            } elseif ($lastPage - ($neighbours * 2) > $page) {
                 $bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri(1) . '">1</a></li>';
                 $bar[] = '<li class="page-item"><a class="page-link" href="' . $this->uri(2) . '">2</a></li>';
                 $bar[] = '<li class="dot">...</li>';
