@@ -126,9 +126,7 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
         ],
         self::CATEGORY_UNIT_TESTS => [
             '^tests',
-            '.travis.yml',
             'phpunit.xml.dist',
-            'travisci-phpunit.xml',
             'appveyor-phpunit.xml',
             '.appveyor.yml',
             '.drone.yml',

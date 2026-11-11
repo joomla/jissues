@@ -206,40 +206,7 @@ class ReceiveCommentsHook extends AbstractHookController
      */
     protected function insertIssue()
     {
-        // Prepare the dates for insertion to the database
-        $dateFormat = $this->db->getDateFormat();
-
-        $data                    = [];
-        $data['issue_number']    = $this->hookData->issue->number;
-        $data['title']           = $this->hookData->issue->title;
-        $data['description']     = $this->parseText($this->hookData->issue->body);
-        $data['description_raw'] = $this->hookData->issue->body;
-        $data['status']          = ($this->hookData->issue->state) == 'open' ? 1 : 10;
-        $data['opened_date']     = (new \DateTime($this->hookData->issue->created_at))->format($dateFormat);
-        $data['opened_by']       = $this->hookData->issue->user->login;
-        $data['modified_date']   = (new \DateTime($this->hookData->issue->updated_at))->format($dateFormat);
-        $data['modified_by']     = $this->hookData->sender->login;
-        $data['project_id']      = $this->project->project_id;
-        $data['build']           = $this->hookData->repository->default_branch;
-        $data['pr_head_user']    = (isset($this->hookData->issue->head->user))
-            ? $this->hookData->issue->head->user->login
-            : 'unknown_repository';
-        $data['pr_head_ref']     = $this->hookData->issue->head->ref;
-        $data['pr_head_sha']     = $this->hookData->issue->head->sha;
-
-        // Add the closed date if the status is closed
-        if ($this->hookData->issue->closed_at) {
-            $data['closed_date'] = (new \DateTime($this->hookData->issue->closed_at))->format($dateFormat);
-            $data['closed_by']   = $this->hookData->sender->login;
-        }
-
-        // If the title has a [# in it, assume it's a JoomlaCode Tracker ID
-        if (preg_match('/\[#([0-9]+)\]/', $this->hookData->issue->title, $matches)) {
-            $data['foreign_number'] = $matches[1];
-        } elseif (preg_match('/tracker_item_id=([0-9]+)/', $this->hookData->issue->body, $matches)) {
-            // If the body has tracker_item_id= in it, that is a JoomlaCode Tracker ID
-            $data['foreign_number'] = $matches[1];
-        }
+        $data = $this->getIssueData($this->db->getDateFormat());
 
         // Process labels for the item
         $data['labels'] = $this->processLabels($this->hookData->issue->number);
@@ -319,6 +286,54 @@ class ReceiveCommentsHook extends AbstractHookController
         );
 
         return true;
+    }
+
+    /**
+     * Get the data for a new item from the issue data of the comment payload.
+     *
+     * Comments on pull requests come with issue data, which marks a pull request with a "pull_request" property.
+     * The data of the pull request itself (head branch, commits) is not part of the payload, it is added by the
+     * next pull request webhook.
+     *
+     * @param   string  $dateFormat  The date format of the database.
+     *
+     * @return  array
+     *
+     * @since   1.0
+     */
+    protected function getIssueData($dateFormat)
+    {
+        $issue = $this->hookData->issue;
+
+        $data                    = [];
+        $data['issue_number']    = $issue->number;
+        $data['title']           = $issue->title;
+        $data['description']     = $this->parseText($issue->body);
+        $data['description_raw'] = $issue->body;
+        $data['status']          = ($issue->state) == 'open' ? 1 : 10;
+        $data['opened_date']     = (new \DateTime($issue->created_at))->format($dateFormat);
+        $data['opened_by']       = $issue->user->login;
+        $data['modified_date']   = (new \DateTime($issue->updated_at))->format($dateFormat);
+        $data['modified_by']     = $this->hookData->sender->login;
+        $data['project_id']      = $this->project->project_id;
+        $data['build']           = $this->hookData->repository->default_branch;
+        $data['has_code']        = isset($issue->pull_request) ? 1 : 0;
+
+        // Add the closed date if the status is closed
+        if ($issue->closed_at) {
+            $data['closed_date'] = (new \DateTime($issue->closed_at))->format($dateFormat);
+            $data['closed_by']   = $this->hookData->sender->login;
+        }
+
+        // If the title has a [# in it, assume it's a JoomlaCode Tracker ID
+        if (preg_match('/\[#([0-9]+)\]/', $issue->title, $matches)) {
+            $data['foreign_number'] = $matches[1];
+        } elseif (preg_match('/tracker_item_id=([0-9]+)/', (string) $issue->body, $matches)) {
+            // If the body has tracker_item_id= in it, that is a JoomlaCode Tracker ID
+            $data['foreign_number'] = $matches[1];
+        }
+
+        return $data;
     }
 
     /**

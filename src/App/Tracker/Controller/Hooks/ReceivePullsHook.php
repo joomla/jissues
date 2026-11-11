@@ -326,6 +326,7 @@ class ReceivePullsHook extends AbstractHookController
                 $dateFormat = $this->db->getDateFormat();
 
                 // Plug in required fields based on the model and the current value of fields from the pull request data
+                // has_code also repairs items created as an issue by another hook, e.g. when a comment arrived first
                 $data = [
                     'id'              => $table->id,
                     'title'           => $this->data->title,
@@ -343,6 +344,7 @@ class ReceivePullsHook extends AbstractHookController
                     'pr_head_user'    => (isset($this->data->head->user)) ? $this->data->head->user->login : 'unknown_repository',
                     'pr_head_ref'     => $this->data->head->ref,
                     'labels'          => $this->processLabels($this->data->number),
+                    'has_code'        => 1,
                 ];
 
                 // Add the closed date if the status is closed
@@ -555,6 +557,7 @@ class ReceivePullsHook extends AbstractHookController
                     'pr_head_sha'     => $table->pr_head_sha,
                     'pr_head_user'    => $table->pr_head_user,
                     'pr_head_ref'     => $table->pr_head_ref,
+                    'has_code'        => 1,
                 ];
 
                 try {
@@ -703,6 +706,7 @@ class ReceivePullsHook extends AbstractHookController
                 'pr_head_sha'     => $table->pr_head_sha,
                 'pr_head_user'    => $table->pr_head_user,
                 'pr_head_ref'     => $table->pr_head_ref,
+                'has_code'        => 1,
             ]
         );
 

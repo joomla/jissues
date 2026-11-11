@@ -29,13 +29,18 @@ class Info extends AbstractAjaxController
      */
     protected function prepareResponse()
     {
-        $id = $this->getContainer()->get('app')->getInput()->getUint('id');
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
+
+        $id = $application->getInput()->getUint('id');
 
         if (!$id) {
             throw new \RuntimeException('No id received.');
         }
 
-        $item = (new IssueModel($this->getContainer()->get('db')))->getItem($id);
+        $item = (new IssueModel($this->getContainer()->get('db')))
+            ->setProject($application->getProject())
+            ->getItem($id);
 
         $issue = new \stdClass();
 
