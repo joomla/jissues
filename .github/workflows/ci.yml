@@ -61,25 +61,7 @@ jobs:
       - name: Run PHPStan
         run: ./vendor/bin/phpstan analyse --error-format=github src tests
 
-  php83:
-    name: Run Unit tests (PHP 8.3)
-    runs-on: ubuntu-latest
-    container: joomlaprojects/docker-images:php8.3
-    needs: [php-cs-fixer]
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
-        with:
-          path: vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
-          fail-on-cache-miss: true
-      - name: Run Unit tests
-        run: |
-          php -v
-          ./vendor/bin/phpunit --configuration=phpunit.xml
-
-  php-newer:
-    # Newer supported PHP versions: the build fails when their tests fail
+  phpunit:
     name: Run Unit tests (PHP ${{ matrix.php_version }})
     runs-on: ubuntu-latest
     container: joomlaprojects/docker-images:php${{ matrix.php_version }}
@@ -87,7 +69,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php_version: ['8.4', '8.5']
+        php_version: ['8.3', '8.4', '8.5']
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
@@ -126,7 +108,7 @@ jobs:
   deployment:
     name: Deploy to server
     runs-on: ubuntu-latest
-    needs: [php83, php-newer]
+    needs: [phpunit]
     # Disabled for now: deployment still runs through Drone.
     # To enable, remove "false &&" and add the JISSUES_HOST, JISSUES_USERNAME
     # and JISSUES_KEY repository secrets.
