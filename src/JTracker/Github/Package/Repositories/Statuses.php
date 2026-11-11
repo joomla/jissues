@@ -9,7 +9,6 @@
 
 namespace JTracker\Github\Package\Repositories;
 
-use JTracker\Github\DataType\Commit\CombinedStatus;
 use JTracker\Github\Package;
 
 /**
@@ -100,7 +99,7 @@ class Statuses extends Package
      * @param   string  $repo  The name of the GitHub repository.
      * @param   string  $ref   Ref to fetch the status for. It can be a SHA, a branch name, or a tag name.
      *
-     * @return  CombinedStatus
+     * @return  \stdClass  The decoded JSON response
      *
      * @since   1.0
      */

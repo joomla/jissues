@@ -60,6 +60,38 @@ class IssuesTable extends AbstractDatabaseTable
     protected $oldObject;
 
     /**
+     * Activities of the issue, set when the item is loaded for display. Not a table field.
+     *
+     * @var    object[]
+     * @since  1.0
+     */
+    public $activities = [];
+
+    /**
+     * Categories of the issue, set when the item is loaded for display. Not a table field.
+     *
+     * @var    object[]
+     * @since  1.0
+     */
+    public $categories = [];
+
+    /**
+     * IDs of the categories of the issue, set for the edit form. Not a table field.
+     *
+     * @var    integer[]
+     * @since  1.0
+     */
+    public $categoryids = [];
+
+    /**
+     * Test result of the current user for the last commit. Not a table field.
+     *
+     * @var    integer|string|null
+     * @since  1.0
+     */
+    public $userTest;
+
+    /**
      * Constructor
      *
      * @param   DatabaseInterface  $database  A database connector object.
