@@ -28,10 +28,13 @@ class GithubException extends UnexpectedResponseException
      */
     public function __construct(Response $response)
     {
-        $error = (string) $response->getBody();
+        $error = json_decode((string) $response->getBody());
         $code  = $response->getStatusCode();
 
-        $message = $error->message ?? 'Invalid response received from GitHub.';
+        // GitHub returns errors as JSON with a message, e.g. {"message": "Bad credentials"}
+        $message = \is_object($error) && \is_string($error->message ?? null) && $error->message !== ''
+            ? $error->message
+            : 'Invalid response received from GitHub.';
 
         parent::__construct($response, $message, $code);
     }
