@@ -207,7 +207,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
         }
 
         // Bind the source value, excluding the ignored fields.
-        foreach ($this->tableFields as $k => $v) {
+        foreach (get_object_vars($this->tableFields) as $k => $v) {
             // Only process fields that are in the source array and  not in the ignore array.
             if (\array_key_exists($k, $src) && !\in_array($k, $ignore)) {
                 $this->tableFields->$k = $src[$k];
@@ -530,7 +530,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
      */
     public function getIterator(): \Traversable
     {
-        return new \ArrayIterator($this->tableFields);
+        return new \ArrayIterator(get_object_vars($this->tableFields));
     }
 
     /**

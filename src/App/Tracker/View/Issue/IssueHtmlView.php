@@ -31,7 +31,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
     /**
      * Item object
      *
-     * @var    IssuesTable
+     * @var    IssuesTable|\stdClass
      * @since  1.0
      */
     protected $item;
@@ -66,7 +66,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
      * Get the item.
      *
      * @throws \RuntimeException
-     * @return IssuesTable
+     * @return IssuesTable|\stdClass
      *
      * @since   1.0
      */
@@ -82,7 +82,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
     /**
      * Set the item.
      *
-     * @param   IssuesTable  $item  The item to set.
+     * @param   IssuesTable|\stdClass  $item  The item to set.
      *
      * @return $this
      *

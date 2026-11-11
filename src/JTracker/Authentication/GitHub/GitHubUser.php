@@ -50,7 +50,7 @@ class GitHubUser extends User
             throw new \RuntimeException('Missing login');
         }
 
-        foreach ($data as $k => $v) {
+        foreach (get_object_vars($data) as $k => $v) {
             if (property_exists($this, $k) && \in_array($k, ['id']) == false) {
                 $this->$k = $v;
             }

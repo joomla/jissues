@@ -25,6 +25,7 @@ use JTracker\Application\Application;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Monolog\LogRecord;
 use Monolog\Processor\WebProcessor;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -196,9 +197,9 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
     /**
      * Add an entry from the database.
      *
-     * @param   array  $record  The log record.
+     * @param   LogRecord  $record  The log record.
      *
-     * @return  array
+     * @return  LogRecord
      *
      * @since   1.0
      */
