@@ -69,7 +69,8 @@
                         <li><b>member</b> - Any time a User is added as a collaborator to a non-Organization Repository.</li>
                         <li><b>public</b> - Any time a Repository changes from private to public.</li>
                         <li><b>team_add</b> - Any time a team is added or modified on a Repository.</li>
-                        <li><b>status</b> - Any time a Repository has a status update from the API</li>
+                        <li><b>status</b> - Any time a Repository has a status update from the API (send it to <code>/hooks/status</code>)</li>
+                        <li><b>check_run</b> - Any time a check run, e.g. a GitHub Actions job, is created or completed (send it to <code>/hooks/status</code>)</li>
                     </ul>
                 </div>
                 <div class="modal-footer">

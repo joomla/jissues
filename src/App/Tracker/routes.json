@@ -6,6 +6,7 @@
 	"hooks/pulls"   : "App\\Tracker\\Controller\\Hooks\\ReceivePullsHook",
 	"hooks/comments": "App\\Tracker\\Controller\\Hooks\\ReceiveCommentsHook",
 	"hooks/pull_reviews": "App\\Tracker\\Controller\\Hooks\\ReceivePullReviewHook",
+	"hooks/status"  : "App\\Tracker\\Controller\\Hooks\\ReceiveStatusHook",
 
 	"tracker/:project_alias"              : "App\\Tracker\\Controller\\Issue\\Listing",
 	"tracker/:project_alias/add"          : "App\\Tracker\\Controller\\Issue\\Add",
