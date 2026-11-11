@@ -617,6 +617,8 @@ class TrackerProject implements \Serializable
      */
     public function __serialize(): array
     {
+        $props = [];
+
         foreach (get_object_vars($this) as $key => $value) {
             if (\in_array($key, ['authModel', 'cleared', 'authId', 'database', 'labelsCache', 'milestonesCache', 'categoriesCache'])) {
                 continue;
