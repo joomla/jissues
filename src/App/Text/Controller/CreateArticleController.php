@@ -11,7 +11,7 @@ namespace App\Text\Controller;
 
 use App\Text\Table\ArticlesTable;
 use Joomla\Controller\AbstractController;
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 use JTracker\View\BaseHtmlView;
 use Laminas\Diactoros\Response\HtmlResponse;
 
@@ -35,7 +35,7 @@ class CreateArticleController extends AbstractController
     /**
      * Database driver
      *
-     * @var    DatabaseDriver
+     * @var    DatabaseInterface
      * @since  1.0
      */
     private $db;
@@ -43,12 +43,12 @@ class CreateArticleController extends AbstractController
     /**
      * Controller constructor.
      *
-     * @param   BaseHtmlView    $view  The add article HTML view
-     * @param   DatabaseDriver  $db    Database driver
+     * @param   BaseHtmlView       $view  The add article HTML view
+     * @param   DatabaseInterface  $db    Database driver
      *
      * @since   1.0
      */
-    public function __construct(BaseHtmlView $view, DatabaseDriver $db)
+    public function __construct(BaseHtmlView $view, DatabaseInterface $db)
     {
         $this->view = $view;
         $this->db   = $db;

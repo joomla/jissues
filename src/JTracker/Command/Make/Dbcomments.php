@@ -52,7 +52,7 @@ class Dbcomments extends TrackerCommand
         $ioStyle = new SymfonyStyle($input, $output);
         $ioStyle->title('Make Table Comments');
 
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         $tables = $db->getTableList();

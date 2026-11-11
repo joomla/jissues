@@ -9,8 +9,8 @@
 
 namespace JTracker\Model;
 
-use Joomla\Database\DatabaseDriver;
-use Joomla\Database\DatabaseQuery;
+use Joomla\Database\DatabaseInterface;
+use Joomla\Database\QueryInterface;
 use Joomla\Registry\Registry;
 use JTracker\Pagination\TrackerPagination;
 
@@ -41,7 +41,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel imp
     /**
      * An internal cache for the last query used.
      *
-     * @var    DatabaseQuery
+     * @var    QueryInterface
      * @since  1.0
      */
     protected $query;
@@ -57,11 +57,11 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel imp
     /**
      * Instantiate the model.
      *
-     * @param   DatabaseDriver  $database  The database driver.
+     * @param   DatabaseInterface  $database  The database driver.
      *
      * @since   1.0
      */
-    public function __construct(DatabaseDriver $database)
+    public function __construct(DatabaseInterface $database)
     {
         parent::__construct($database);
 
@@ -98,9 +98,9 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel imp
     }
 
     /**
-     * Method to get a DatabaseQuery object for retrieving the data set from a database.
+     * Method to get a QueryInterface object for retrieving the data set from a database.
      *
-     * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
+     * @return  QueryInterface  A QueryInterface object to retrieve the data set.
      *
      * @since   1.0
      */
@@ -281,7 +281,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel imp
      */
     protected function _getListCount($query)
     {
-        if ($query instanceof DatabaseQuery) {
+        if ($query instanceof QueryInterface) {
             // Create COUNT(*) query to allow database engine to optimize the query.
             $query = clone $query;
             $query->clear('select')->clear('order')->select('COUNT(*)');
@@ -306,7 +306,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel imp
      *
      * This method ensures that the query is constructed only once for a given state of the model.
      *
-     * @return  DatabaseQuery  A DatabaseQuery object
+     * @return  QueryInterface  A QueryInterface object
      *
      * @since   1.0
      */

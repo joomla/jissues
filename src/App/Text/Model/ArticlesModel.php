@@ -10,8 +10,8 @@
 namespace App\Text\Model;
 
 use App\Text\Table\ArticlesTable;
-use Joomla\Database\DatabaseDriver;
-use Joomla\Database\DatabaseQuery;
+use Joomla\Database\DatabaseInterface;
+use Joomla\Database\QueryInterface;
 use Joomla\Model\DatabaseModelInterface;
 use Joomla\Model\DatabaseModelTrait;
 use Joomla\Model\StatefulModelTrait;
@@ -39,11 +39,11 @@ class ArticlesModel implements ListfulModelInterface, DatabaseModelInterface
     /**
      * Constructor
      *
-     * @param   DatabaseDriver  $database  A database connector object.
+     * @param   DatabaseInterface  $database  A database connector object.
      *
      * @since   1.0
      */
-    public function __construct(DatabaseDriver $database)
+    public function __construct(DatabaseInterface $database)
     {
         $this->setDb($database);
     }
@@ -138,13 +138,13 @@ class ArticlesModel implements ListfulModelInterface, DatabaseModelInterface
     /**
      * Returns a record count for the list query
      *
-     * @param   DatabaseQuery  $query  The list query.
+     * @param   QueryInterface  $query  The list query.
      *
      * @return  integer
      *
      * @since   1.0
      */
-    protected function getListCount(DatabaseQuery $query): int
+    protected function getListCount(QueryInterface $query): int
     {
         // Create COUNT(*) query to allow database engine to optimize the query.
         $query = clone $query;
@@ -157,13 +157,13 @@ class ArticlesModel implements ListfulModelInterface, DatabaseModelInterface
     }
 
     /**
-     * Method to get a DatabaseQuery object for retrieving the data set from a database.
+     * Method to get a QueryInterface object for retrieving the data set from a database.
      *
-     * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
+     * @return  QueryInterface  A QueryInterface object to retrieve the data set.
      *
      * @since   1.0
      */
-    protected function getListQuery(): DatabaseQuery
+    protected function getListQuery(): QueryInterface
     {
         return $this->db->getQuery(true)
             ->select($this->db->quoteName(['article_id', 'title', 'alias', 'text']))

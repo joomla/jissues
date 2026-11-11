@@ -256,7 +256,7 @@ class Issues extends Project
         $added   = 0;
         $updated = 0;
 
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         $milestones = $this->getMilestones();
@@ -479,7 +479,7 @@ class Issues extends Project
         static $labels = [];
 
         if (!$labels) {
-            /** @var \Joomla\Database\DatabaseDriver $db */
+            /** @var \Joomla\Database\DatabaseInterface $db */
             $db = $this->getContainer()->get('db');
 
             $table = new LabelsTable($db);
@@ -518,7 +518,7 @@ class Issues extends Project
      */
     private function getMilestones()
     {
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db    = $this->getContainer()->get('db');
         $table = new MilestonesTable($db);
 
@@ -553,7 +553,7 @@ class Issues extends Project
      */
     protected function getDbIssues()
     {
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         $query = $db->getQuery(true);

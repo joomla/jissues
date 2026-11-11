@@ -73,7 +73,7 @@ class Docu extends TrackerCommand
 
         $this->displayGitHubRateLimit($ioStyle);
 
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         $docuBase   = JPATH_ROOT . '/Documentation';

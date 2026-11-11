@@ -10,7 +10,7 @@
 namespace JTracker\Model;
 
 use App\Projects\ProjectAwareTrait;
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 use Joomla\Model\DatabaseModelInterface;
 use Joomla\Model\DatabaseModelTrait;
 use Joomla\Model\StatefulModelInterface;
@@ -55,11 +55,11 @@ abstract class AbstractTrackerDatabaseModel implements DatabaseModelInterface, S
     /**
      * Instantiate the model.
      *
-     * @param   DatabaseDriver  $database  The database adapter.
+     * @param   DatabaseInterface  $database  The database adapter.
      *
      * @since   1.0
      */
-    public function __construct(DatabaseDriver $database)
+    public function __construct(DatabaseInterface $database)
     {
         $this->setDb($database);
 

@@ -9,7 +9,7 @@
 
 namespace App\Projects\Model;
 
-use Joomla\Database\DatabaseQuery;
+use Joomla\Database\QueryInterface;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Model\AbstractTrackerListModel;
 
@@ -62,9 +62,9 @@ class ProjectsModel extends AbstractTrackerListModel
     }
 
     /**
-     * Method to get a DatabaseQuery object for retrieving the data set from a database.
+     * Method to get a QueryInterface object for retrieving the data set from a database.
      *
-     * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
+     * @return  QueryInterface  A QueryInterface object to retrieve the data set.
      *
      * @since   1.0
      */

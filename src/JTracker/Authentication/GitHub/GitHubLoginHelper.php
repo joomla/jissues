@@ -9,7 +9,7 @@
 
 namespace JTracker\Authentication\GitHub;
 
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 use Joomla\Github\Github;
 use Joomla\Http\Http;
 use Joomla\Uri\Uri;
@@ -65,7 +65,7 @@ class GitHubLoginHelper
     /**
      * Database driver
      *
-     * @var    DatabaseDriver
+     * @var    DatabaseInterface
      * @since  1.0
      */
     private $db;
@@ -97,17 +97,17 @@ class GitHubLoginHelper
     /**
      * Constructor.
      *
-     * @param   WebApplication  $application   Application object.
-     * @param   DatabaseDriver  $db            Database driver.
-     * @param   Github          $github        GitHub API Client.
-     * @param   Http            $http          HTTP Client.
-     * @param   string          $clientId      The client ID.
-     * @param   string          $clientSecret  The client secret.
-     * @param   string          $authScope     The authentication scope.
+     * @param   WebApplication     $application   Application object.
+     * @param   DatabaseInterface  $db            Database driver.
+     * @param   Github             $github        GitHub API Client.
+     * @param   Http               $http          HTTP Client.
+     * @param   string             $clientId      The client ID.
+     * @param   string             $clientSecret  The client secret.
+     * @param   string             $authScope     The authentication scope.
      */
     public function __construct(
         Application $application,
-        DatabaseDriver $db,
+        DatabaseInterface $db,
         Github $github,
         Http $http,
         string $clientId,
