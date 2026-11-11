@@ -15,10 +15,10 @@ use JTracker\Database\AbstractDatabaseTable;
 /**
  * Table interface class for the #__tracker_projects table
  *
- * @property   integer  $label_id    PK
- * @property   integer  $project_id  Project ID
- * @property   string   $name        Label name
- * @property   string   $color       Label color
+ * @property   integer|null  $label_id    PK
+ * @property   integer       $project_id  Project ID
+ * @property   string        $name        Label name
+ * @property   string        $color       Label color
  *
  * @since  1.0
  */
