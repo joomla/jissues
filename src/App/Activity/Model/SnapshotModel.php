@@ -9,6 +9,7 @@
 
 namespace App\Activity\Model;
 
+use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseIterator;
 use JTracker\Model\AbstractTrackerDatabaseModel;
 
@@ -29,6 +30,7 @@ class SnapshotModel extends AbstractTrackerDatabaseModel
     public function getOpenIssues()
     {
         // Create a new query object.
+        /** @var DatabaseDriver $db */
         $db    = $this->getDb();
         $query = $db->getQuery(true);
 

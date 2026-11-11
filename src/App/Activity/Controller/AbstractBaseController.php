@@ -11,6 +11,7 @@ namespace App\Activity\Controller;
 
 use App\Activity\View\DefaultHtmlView;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
  * Base controller class for the Activity application.
@@ -26,6 +27,14 @@ abstract class AbstractBaseController extends AbstractTrackerController
      * @since  1.0
      */
     protected $view;
+
+    /**
+     * Model object
+     *
+     * @var    AbstractTrackerDatabaseModel
+     * @since  1.0
+     */
+    protected $model;
 
     /**
      * Initialize the controller.
