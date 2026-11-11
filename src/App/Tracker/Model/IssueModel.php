@@ -774,6 +774,29 @@ class IssueModel extends AbstractTrackerDatabaseModel
     }
 
     /**
+     * Get an issue ID by its number within a project.
+     *
+     * @param   integer  $issueNumber  The issue number.
+     * @param   integer  $projectId    The project the issue must belong to.
+     *
+     * @return  integer|null  The issue ID or null if the project has no issue with this number.
+     *
+     * @since   1.0
+     */
+    public function getIssueIdByNumber($issueNumber, $projectId)
+    {
+        $id = $this->db->setQuery(
+            $this->db->getQuery(true)
+                ->select($this->db->quoteName('id'))
+                ->from($this->db->quoteName('#__issues'))
+                ->where($this->db->quoteName('issue_number') . ' = ' . (int) $issueNumber)
+                ->where($this->db->quoteName('project_id') . ' = ' . (int) $projectId)
+        )->loadResult();
+
+        return $id ? (int) $id : null;
+    }
+
+    /**
      * Get an issue number by its ID and updates it to be ready for review.
      *
      * @param   integer  $id  The issue ID.

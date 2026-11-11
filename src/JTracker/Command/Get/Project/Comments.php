@@ -184,7 +184,7 @@ class Comments extends Project
             return $this;
         }
 
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         // Initialize our query object
@@ -337,7 +337,7 @@ class Comments extends Project
      */
     private function getIssueCommentsIds($issueNumber)
     {
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         $query = $db->getQuery(true);
@@ -366,7 +366,7 @@ class Comments extends Project
      */
     private function deleteIssuesComments(array $ids)
     {
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         $query = $db->getQuery(true);

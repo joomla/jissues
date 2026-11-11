@@ -232,8 +232,20 @@ async function buildStyles() {
             rolldownOptions:   {
                 input:  styles,
                 output: {
-                    // Images referenced by the stylesheets, e.g. the markItUp! skin
-                    assetFileNames: (asset) => (asset.names[0].endsWith('.css') ? '[name][extname]' : 'images/[name][extname]'),
+                    // Fonts and images referenced by the stylesheets, e.g. Open Sans and the markItUp! skin
+                    assetFileNames: (asset) => {
+                        const name = asset.names[0];
+
+                        if (name.endsWith('.css')) {
+                            return '[name][extname]';
+                        }
+
+                        if (name.startsWith('open-sans-')) {
+                            return 'fonts/vendor/open-sans/[name][extname]';
+                        }
+
+                        return 'images/[name][extname]';
+                    },
                     entryFileNames: '[name].js',
                 },
             },

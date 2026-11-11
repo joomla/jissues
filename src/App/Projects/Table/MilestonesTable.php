@@ -9,7 +9,7 @@
 
 namespace App\Projects\Table;
 
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
@@ -30,11 +30,11 @@ class MilestonesTable extends AbstractDatabaseTable
     /**
      * Constructor
      *
-     * @param   DatabaseDriver  $database  A database connector object
+     * @param   DatabaseInterface  $database  A database connector object
      *
      * @since   1.0
      */
-    public function __construct(DatabaseDriver $database)
+    public function __construct(DatabaseInterface $database)
     {
         parent::__construct('#__tracker_milestones', 'milestone_id', $database);
     }

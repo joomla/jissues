@@ -31,6 +31,7 @@ CREATE TABLE `#__tracker_projects` (
   `gh_project` varchar(150) NOT NULL COMMENT 'GitHub project',
   `gh_editbot_user` varchar(150) DEFAULT '' COMMENT 'GitHub editbot username',
   `gh_editbot_pass` varchar(150) DEFAULT '' COMMENT 'GitHub editbot password',
+  `gh_editbot_token` varchar(255) DEFAULT '' COMMENT 'GitHub editbot personal access token',
   `ext_tracker_link` varchar(500) DEFAULT '' COMMENT 'A tracker link format (e.g. http://tracker.com/issue/%d)',
   `short_title` varchar(50) DEFAULT '' COMMENT 'Project short title',
   PRIMARY KEY (`project_id`),

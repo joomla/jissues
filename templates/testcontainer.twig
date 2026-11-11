@@ -43,7 +43,7 @@
 
         <div id="testResult"></div>
 
-        <a href="javascript:" class="btn btn-primary" onclick="JTracker.submitTest('{{ item.id }}', '#testResult', '#newComment', '#commentTest', '#shaTest', 'tplNewTestResult');">Submit test result</a>
+        <a href="javascript:" class="btn btn-primary" onclick="JTracker.submitTest('{{ project.alias|e('js') }}', '{{ item.id }}', '#testResult', '#newComment', '#commentTest', '#shaTest', 'tplNewTestResult');">Submit test result</a>
     </form>
 {% endif %}
 {% if user.check('edit') %}
@@ -54,7 +54,7 @@
             <label for="shaTestAlter">SHA</label>
             <input type="text" id="shaTestAlter" value="{{ item.commits|json_decode|last.sha }}" />
             <div id="alterResult"></div>
-            <a href="javascript:" class="btn btn-primary" onclick="JTracker.alterTest('{{ item.id }}', '#alterResult', '#newComment', '#shaTestAlter', 'tplNewAlterTestResult');">Alter test result</a>
+            <a href="javascript:" class="btn btn-primary" onclick="JTracker.alterTest('{{ project.alias|e('js') }}', '{{ item.id }}', '#alterResult', '#newComment', '#shaTestAlter', 'tplNewAlterTestResult');">Alter test result</a>
         </form>
     </div>
 {% endif %}

@@ -9,7 +9,7 @@
 
 namespace App\Tracker\Twig;
 
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -23,7 +23,7 @@ class MilestoneExtension extends AbstractExtension
     /**
      * Database driver
      *
-     * @var    DatabaseDriver
+     * @var    DatabaseInterface
      * @since  1.0
      */
     private $db;
@@ -39,11 +39,11 @@ class MilestoneExtension extends AbstractExtension
     /**
      * Constructor.
      *
-     * @param   DatabaseDriver  $db  Database driver.
+     * @param   DatabaseInterface  $db  Database driver.
      *
      * @since   1.0
      */
-    public function __construct(DatabaseDriver $db)
+    public function __construct(DatabaseInterface $db)
     {
         $this->db = $db;
     }

@@ -84,7 +84,7 @@ class Milestones extends Project
     {
         $io->write('Fetching milestones...');
 
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         $table = new MilestonesTable($db);

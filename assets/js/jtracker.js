@@ -41,13 +41,14 @@
         /**
          * Submit a comment
          *
+         * @param {String} projectAlias    The alias of the project the issue belongs to
          * @param {String} issue_number    The issue number
          * @param {String} statusContainer The target status container
          * @param {String} outContainer    The target output container
          * @param {String} template        The name of the output template
          * @param {String} shaContainer    The container where the commit SHA is located
          */
-        submitComment: function (issue_number, statusContainer, outContainer, template, shaContainer) {
+        submitComment: function (projectAlias, issue_number, statusContainer, outContainer, template, shaContainer) {
             var out = $(outContainer),
                 status = $(statusContainer),
                 sha = $(shaContainer).val();
@@ -55,7 +56,7 @@
             status.html('Submitting comment...');
 
             $.post(
-                '/submit/comment',
+                '/submit/' + encodeURIComponent(projectAlias) + '/comment',
                 {text: $('#comment').val(), issue_number: issue_number, sha: sha},
                 function (r) {
                     if (!r.data) {
@@ -78,7 +79,7 @@
                         var testResult = $('input[name=comment-tested]').filter(':checked').val();
 
                         if (testResult > 0) {
-                            JTracker.submitTestWithComment(out, 'tplNewTestResult');
+                            JTracker.submitTestWithComment(projectAlias, out, 'tplNewTestResult');
                         }
                     }
                 }
@@ -88,10 +89,11 @@
         /**
          * Submit a vote on an issue
          *
+         * @param {String} projectAlias   The alias of the project the issue belongs to
          * @param {String} issueId        The issue ID
          * @param {String} debugContainer The target element
          */
-        submitVote: function (issueId, debugContainer) {
+        submitVote: function (projectAlias, issueId, debugContainer) {
             var status = $(debugContainer),
                 importance = $('input[name=importanceRadios]').filter(':checked').val(),
                 experienced = $('input[name=experiencedRadios]').filter(':checked').val();
@@ -99,7 +101,7 @@
             status.addClass('disabled').removeAttr('href').removeAttr('onclick').html('Adding vote...');
 
             $.post(
-                '/submit/vote',
+                '/submit/' + encodeURIComponent(projectAlias) + '/vote',
                 {issueId: issueId, experienced: experienced, importance: importance},
                 function (r) {
                     if (r.error) {
@@ -123,6 +125,7 @@
         /**
          * Submit a test result on an issue
          *
+         * @param projectAlias     The alias of the project the issue belongs to
          * @param issueId          The issue ID being tested
          * @param statusContainer  The container where the submission status is displayed
          * @param resultContainer  The container where test results are displayed
@@ -130,7 +133,7 @@
          * @param shaContainer     The container where the commit SHA is located
          * @param templateName     The name of the output template
          */
-        submitTest: function (issueId, statusContainer, resultContainer, commentContainer, shaContainer, templateName) {
+        submitTest: function (projectAlias, issueId, statusContainer, resultContainer, commentContainer, shaContainer, templateName) {
             var status = $(statusContainer),
                 result = $(resultContainer),
                 testResult = $('input[name=tested]').filter(':checked').val(),
@@ -140,7 +143,7 @@
             status.html('Submitting test result...');
 
             $.post(
-                '/submit/testresult',
+                '/submit/' + encodeURIComponent(projectAlias) + '/testresult',
                 {issueId: issueId, result: testResult, comment: comment, sha: sha},
                 function (r) {
                     if (r.error) {
@@ -171,17 +174,18 @@
         /**
          * Submit a test result with a comment
          *
+         * @param {String} projectAlias The alias of the project the issue belongs to
          * @param {jQuery} result       The container where results are displayed
          * @param {String} templateName The name of the output template
          */
-        submitTestWithComment: function (result, templateName) {
+        submitTestWithComment: function (projectAlias, result, templateName) {
             var issueId = $('#issue-id').val(),
                 testResult = $('input[name=comment-tested]').filter(':checked').val(),
                 currentTestResult = $('#current-test-result').val();
 
             if (testResult && currentTestResult != testResult) {
                 $.post(
-                    '/submit/testresult',
+                    '/submit/' + encodeURIComponent(projectAlias) + '/testresult',
                     {issueId: issueId, result: testResult},
                     function (r) {
                         if (r.error) {
@@ -211,13 +215,14 @@
         /**
          * Alter a test result on an issue
          *
+         * @param projectAlias     The alias of the project the issue belongs to
          * @param issueId          The issue ID being tested
          * @param statusContainer  The container where the submission status is displayed
          * @param resultContainer  The container where test results are displayed
          * @param shaContainer     The container where the commit SHA is located
          * @param templateName     The name of the output template
          */
-        alterTest: function (issueId, statusContainer, resultContainer, shaContainer, templateName) {
+        alterTest: function (projectAlias, issueId, statusContainer, resultContainer, shaContainer, templateName) {
             var status = $(statusContainer),
                 result = $(resultContainer),
                 sha = $(shaContainer).val(),
@@ -233,7 +238,7 @@
             status.html('Submitting test result...');
 
             $.post(
-                '/alter/testresult',
+                '/alter/' + encodeURIComponent(projectAlias) + '/testresult',
                 {issueId: issueId, user: user, result: altered, sha: sha},
                 function (r) {
                     if (r.error) {

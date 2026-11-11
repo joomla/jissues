@@ -30,7 +30,7 @@ class Users extends AbstractAjaxController
         /** @var \JTracker\Application\Application $application */
         $application = $this->getContainer()->get('app');
 
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         // Only users with view access to the current project may search the users.

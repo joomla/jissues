@@ -30,7 +30,10 @@ class Put extends AbstractAjaxController
     {
         /** @var \JTracker\Application\Application $application */
         $application = $this->getContainer()->get('app');
-        $user        = $application->getUser();
+
+        // The project comes from the route, load it first so the permissions are checked against it.
+        $project = $application->getProject();
+        $user    = $application->getUser();
 
         // Only logged in users who are allowed to create items may upload files.
         if (!$user->id) {
@@ -46,7 +49,7 @@ class Put extends AbstractAjaxController
 
             // Prepare response data
             $host     = $application->get('uri')->base->host;
-            $destDir  = $application->getProject()->project_id;
+            $destDir  = $project->project_id;
 
             // The stored name is generated server side, the extension is validated against a whitelist during upload.
             $destName = bin2hex(random_bytes(16)) . '.' . strtolower($file->getExtension());
@@ -67,7 +70,7 @@ class Put extends AbstractAjaxController
                     'size'         => $file->getSize(),
                     'alt'          => $alt,
                     'isImage'      => $isImage,
-                    'deleteUrl'    => '/upload/delete/?file=' . $destName,
+                    'deleteUrl'    => '/upload/' . rawurlencode($project->alias) . '/delete/?file=' . $destName,
                     'deleteType'   => 'POST',
                     'editorId'     => $application->getInput()->get('editorId'),
                 ],

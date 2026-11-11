@@ -202,9 +202,9 @@ class Submit extends AbstractTrackerController
             $gitHub = GithubFactory::getInstance($application);
 
             // Look if we have a bot user configured
-            if ($project->getGh_Editbot_User() && $project->getGh_Editbot_Pass()) {
+            if ($project->hasEditBot()) {
                 // Try to perform the action on behalf of an authorized bot
-                $gitHubBot = GithubFactory::getInstance($application, true, $project->getGh_Editbot_User(), $project->getGh_Editbot_Pass());
+                $gitHubBot = GithubFactory::getProjectBotInstance($application, $project);
             }
         } catch (\RuntimeException $exception) {
             throw new \RuntimeException('Error retrieving an instance of the Github object', $exception->getCode(), $exception);

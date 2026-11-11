@@ -419,7 +419,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
      *
      * @param   string  $key      The key of the user state variable.
      * @param   string  $request  The name of the variable passed in a request.
-     * @param   string  $default  The default value for the variable if not found. Optional.
+     * @param   mixed   $default  The default value for the variable if not found. Optional.
      * @param   string  $type     Filter for the variable, for valid values see {@link JFilterInput::clean()}. Optional.
      *
      * @return  mixed  The request user state.
@@ -445,7 +445,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
      * Sets the value of a user state variable.
      *
      * @param   string  $key    The path of the state.
-     * @param   string  $value  The value of the variable.
+     * @param   mixed   $value  The value of the variable.
      *
      * @return  mixed  The previous state, if one existed.
      *
