@@ -15,6 +15,7 @@ use Joomla\Database\Mysqli\MysqliQuery;
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Authentication\User;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -605,5 +606,130 @@ class UserTest extends TestCase
         $user = $this->createUser($this->createProject([], ['editown']));
 
         $this->assertFalse($user->canEditOwn(''));
+    }
+
+    /**
+     * Test that a user is the author of an item she opened.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    #[TestDox('isAuthor() is true for the user who opened the item')]
+    public function testIsAuthorForOwnItem(): void
+    {
+        $user = $this->createUser($this->createProject(), 1);
+
+        $this->assertTrue($user->isAuthor('user1'));
+    }
+
+    /**
+     * Test that a user is not the author of an item opened by somebody else.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    #[TestDox('isAuthor() is false for an item opened by another user')]
+    public function testIsAuthorForOtherUser(): void
+    {
+        $user = $this->createUser($this->createProject(), 1);
+
+        $this->assertFalse($user->isAuthor('user2'));
+        $this->assertFalse($user->isAuthor(''));
+        $this->assertFalse($user->isAuthor(null));
+    }
+
+    /**
+     * Test that a guest is never the author of an item, even if the item has no author.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    #[TestDox('isAuthor() is false for a guest, even for an item without author')]
+    public function testIsAuthorForGuest(): void
+    {
+        $user = $this->createUser($this->createProject());
+
+        $this->assertFalse($user->isAuthor(''));
+        $this->assertFalse($user->isAuthor(null));
+        $this->assertFalse($user->isAuthor('user1'));
+    }
+    /**
+     * Test that a user can test items opened by somebody else.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    #[TestDox('canTest() is true for an item opened by another user')]
+    public function testCanTestOtherUsersItem(): void
+    {
+        $user = $this->createUser($this->createProject(), 1);
+
+        $this->assertTrue($user->canTest('user2'));
+    }
+
+    /**
+     * Test that a user can not test an item they opened.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    #[TestDox('canTest() is false for the author of an item')]
+    public function testCanTestOwnItem(): void
+    {
+        $user = $this->createUser($this->createProject(), 1);
+
+        $this->assertFalse($user->canTest('user1'));
+    }
+
+    /**
+     * Test that a maintainer of the project can test an item they opened.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    #[TestDox('canTest() is true for an author with the manage right of the project')]
+    public function testCanTestOwnItemAsMaintainer(): void
+    {
+        $user = $this->createUser($this->createProject([], [], ['manage' => [5]]), 1, [5]);
+
+        $this->assertTrue($user->canTest('user1'));
+    }
+
+    /**
+     * Test that an admin can test an item they opened.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    #[TestDox('canTest() is true for an author who is an admin')]
+    public function testCanTestOwnItemAsAdmin(): void
+    {
+        $user          = $this->createUser($this->createProject(), 1);
+        $user->isAdmin = true;
+
+        $this->assertTrue($user->canTest('user1'));
+    }
+
+    /**
+     * Test that a guest can not test any item.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    #[TestDox('canTest() is false for a guest')]
+    public function testCanTestAsGuest(): void
+    {
+        $user = $this->createUser($this->createProject(['manage']));
+
+        $this->assertFalse($user->canTest('user1'));
+        $this->assertFalse($user->canTest(''));
     }
 }

@@ -750,6 +750,30 @@ class IssueModel extends AbstractTrackerDatabaseModel
     }
 
     /**
+     * Get the issue number and the author of an issue by its ID.
+     *
+     * @param   integer  $id         The issue ID.
+     * @param   integer  $projectId  If set, the issue must belong to this project.
+     *
+     * @return  \stdClass|null  An object with the properties issue_number and opened_by, or null if no matching issue was found.
+     *
+     * @since   1.0
+     */
+    public function getIssueNumberAndAuthorById($id, $projectId = null)
+    {
+        $query = $this->db->getQuery(true)
+            ->select($this->db->quoteName(['issue_number', 'opened_by']))
+            ->from($this->db->quoteName('#__issues'))
+            ->where($this->db->quoteName('id') . ' = ' . (int) $id);
+
+        if ($projectId !== null) {
+            $query->where($this->db->quoteName('project_id') . ' = ' . (int) $projectId);
+        }
+
+        return $this->db->setQuery($query)->loadObject();
+    }
+
+    /**
      * Get an issue ID by its number within a project.
      *
      * @param   integer  $issueNumber  The issue number.
