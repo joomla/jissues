@@ -79,12 +79,11 @@ jobs:
           ./vendor/bin/phpunit --configuration=phpunit.xml
 
   php-newer:
-    # Newer PHP versions: failures are reported but don't fail the build
-    name: Run Unit tests (PHP ${{ matrix.php_version }}, allowed to fail)
+    # Newer supported PHP versions: the build fails when their tests fail
+    name: Run Unit tests (PHP ${{ matrix.php_version }})
     runs-on: ubuntu-latest
     container: joomlaprojects/docker-images:php${{ matrix.php_version }}
     needs: [php-cs-fixer]
-    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
@@ -127,7 +126,7 @@ jobs:
   deployment:
     name: Deploy to server
     runs-on: ubuntu-latest
-    needs: [php83]
+    needs: [php83, php-newer]
     # Disabled for now: deployment still runs through Drone.
     # To enable, remove "false &&" and add the JISSUES_HOST, JISSUES_USERNAME
     # and JISSUES_KEY repository secrets.
