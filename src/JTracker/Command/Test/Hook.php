@@ -117,12 +117,12 @@ class Hook extends Test
      */
     protected function selectHook(SymfonyStyle $io)
     {
-        $paths = (new Filesystem(new LocalFilesystemAdapter(JPATH_ROOT . '/src/App/Tracker/Controller/Hooks')))->listContents();
+        $paths = (new Filesystem(new LocalFilesystemAdapter(JPATH_ROOT . '/src/App/Tracker/Controller/Hooks')))->listContents('');
         $hooks = [];
 
-        foreach ($paths as $path) {
-            if ($path['type'] == 'file') {
-                $hooks[] = str_replace(['Receive', 'Hook'], '', $path['filename']);
+        foreach ($paths as $item) {
+            if ($item->isFile()) {
+                $hooks[] = str_replace(['Receive', 'Hook'], '', basename($item->path(), '.php'));
             }
         }
 
