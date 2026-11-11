@@ -341,7 +341,8 @@ final class Application extends AbstractWebApplication implements ContainerAware
             // @todo cleanup more ?
         } elseif ($user instanceof User) {
             // Login
-            $user->isAdmin = \in_array($user->username, $this->get('acl.admin_users'));
+            $user->isAdmin = $user->username !== ''
+                && \in_array($user->username, (array) $this->get('acl.admin_users', []), true);
 
             $this->user = $user;
 
