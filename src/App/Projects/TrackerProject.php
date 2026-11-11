@@ -336,6 +336,7 @@ class TrackerProject implements \Serializable
                     ->from($db->quoteName((new LabelsTable($db))->getTableName()))
                     ->select(['label_id', 'name', 'color'])
                     ->where($db->quoteName('project_id') . ' = ' . $this->project_id)
+                    ->order($db->quoteName('name'))
             )->loadObjectList();
 
             foreach ($labelList as $labelObject) {
