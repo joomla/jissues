@@ -632,7 +632,7 @@ class ReceivePullsHook extends AbstractHookController
                 break;
 
             case 'ready_for_review':
-                $model = (new IssueModel($this->db))
+                (new IssueModel($this->db))
                     ->markIssueReadyForReview($table->id);
 
                 $this->response->message = 'Hook data processed successfully.';

@@ -22,7 +22,7 @@ class Logout extends AbstractTrackerController
     /**
      * Execute the controller.
      *
-     * @return  void
+     * @return  string
      *
      * @since   1.0
      */
@@ -41,5 +41,8 @@ class Logout extends AbstractTrackerController
             ->setRememberMe(false)
             // Redirect to the "home" page
             ->redirect(' ');
+
+        // The redirect closes the application, the return only fulfils the interface
+        return '';
     }
 }

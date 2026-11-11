@@ -532,16 +532,4 @@ class AbstractDatabaseTable implements \IteratorAggregate
     {
         return new \ArrayIterator($this->tableFields);
     }
-
-    /**
-     * Clone the table.
-     *
-     * @return  \ArrayIterator
-     *
-     * @since   1.0
-     */
-    public function __clone()
-    {
-        return $this->getIterator();
-    }
 }
