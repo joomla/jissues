@@ -28,22 +28,6 @@ class DatabaseDebugger
     private $database;
 
     /**
-     * Array containing profiles
-     *
-     * @var    array
-     * @since  1.0
-     */
-    private $sqlShowProfileEach = [];
-
-    /**
-     * Array containing EXPLAIN query results
-     *
-     * @var    array
-     * @since  1.0
-     */
-    private $explains = [];
-
-    /**
      * Constructor.
      *
      * @param   DatabaseDriver  $database  The database driver.
@@ -98,65 +82,5 @@ class DatabaseDebugger
         }
 
         return $explain;
-    }
-
-    /**
-     * Get a database profile.
-     *
-     * @param   string  $query  The query to profile.
-     *
-     * @return  string  Formatted output
-     *
-     * @since   1.0
-     * @todo    Not used yet
-     */
-    public function getProfile($query)
-    {
-        $db = $this->database;
-
-        // Run a SHOW PROFILE query:
-        $profile = '';
-
-        if (\in_array($db->getName(), ['mysqli', 'mysql']) === false) {
-            return \sprintf('%s database is not supported yet.', $db->getName());
-        }
-
-        $dbVersion5037 = (strncmp($db->getName(), 'mysql', 5) == 0) && version_compare($db->getVersion(), '5.0.37', '>=');
-
-        if ($dbVersion5037) {
-            // Run a SHOW PROFILE query:
-            // SHOW PROFILE ALL FOR QUERY ' . (int) ($k+1));
-            $db->setQuery('SHOW PROFILES');
-            $profiles = $db->loadAssocList();
-
-            if ($profiles) {
-                foreach ($profiles as $qn) {
-                    $db->setQuery('SHOW PROFILE FOR QUERY ' . (int) ($qn['Query_ID']));
-                    $this->sqlShowProfileEach[(int) ($qn['Query_ID'] - 1)] = $db->loadAssocList();
-                }
-            }
-        }
-
-        if (\in_array($db->getName(), ['mysqli', 'mysql', 'postgresql'])) {
-            $log = $db->getLog();
-
-            foreach ($log as $k => $query) {
-                $dbVersion56 = (strncmp($db->getName(), 'mysql', 5) == 0) && version_compare($db->getVersion(), '5.6', '>=');
-
-                if ((stripos($query, 'select') === 0) || ($dbVersion56 && ((stripos($query, 'delete') === 0) || (stripos($query, 'update') === 0)))) {
-                    $db->setQuery('EXPLAIN ' . $query);
-                    $this->explains[$k] = $db->loadAssocList();
-                }
-            }
-        }
-
-        if (isset($this->sqlShowProfileEach[$k])) {
-            $profileTable = $this->sqlShowProfileEach[$k];
-            $profile      = (new TableFormat())->fromArray($profileTable);
-        } else {
-            $profile = 'No SHOW PROFILE (maybe because more than 100 queries)';
-        }
-
-        return $profile;
     }
 }
