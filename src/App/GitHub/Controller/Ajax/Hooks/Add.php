@@ -45,6 +45,13 @@ class Add extends AbstractAjaxController
             'content-type' => 'json',
         ];
 
+        // Sign the deliveries so the tracker can verify they originate from GitHub.
+        $secret = (string) $this->getContainer()->get('app')->get('github.webhook_secret');
+
+        if ($secret !== '') {
+            $config['secret'] = $secret;
+        }
+
         // Create the hook.
         $gitHub->repositories->hooks->create(
             $project->gh_user,

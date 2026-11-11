@@ -91,6 +91,13 @@ class Modify extends AbstractAjaxController
                 break;
         }
 
+        // GitHub only returns a masked secret, so send the configured one to keep deliveries signed.
+        $secret = (string) $this->getContainer()->get('app')->get('github.webhook_secret');
+
+        if ($secret !== '') {
+            $hook->config->secret = $secret;
+        }
+
         // Create the hook.
         $this->github->repositories->hooks->edit(
             $project->gh_user,

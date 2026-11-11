@@ -15,7 +15,6 @@ use App\Tracker\Model\ActivityModel;
 use App\Tracker\Table\StatusTable;
 use Joomla\Database\DatabaseInterface;
 use Joomla\Http\Exception\InvalidResponseCodeException;
-use Joomla\Utilities\IpHelper;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Controller\AbstractAjaxController;
 use JTracker\Github\GithubFactory;
@@ -214,32 +213,8 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
             $application->close();
         }
 
-        // Decode it
-        $this->hookData = json_decode($data);
-
-        // Get the project data
-        $this->getProjectData();
-
-        // If we have a bot defined for the project, prefer it over the DI object
-        $this->github = GithubFactory::getProjectBotInstance($application, $this->project);
-
-        // Check the request is coming from GitHub
-        $validIps = $this->github->meta->getMeta();
-
-        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $parts = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-            $myIP  = $parts[0];
-        } elseif (strpos($_SERVER['SCRIPT_NAME'], 'cli/tracker.php') !== false || strpos($_SERVER['SCRIPT_NAME'], 'bin/jtracker') !== false) {
-            // Check if request is from CLI
-            $myIP = '127.0.0.1';
-        } else {
-            $myIP = $application->getInput()->server->getString('REMOTE_ADDR');
-        }
-
-        if (!IpHelper::IPinList($myIP, $validIps->hooks) && $myIP != '127.0.0.1') {
-            // Log the unauthorized request
-            $this->logger->critical('Unauthorised request from ' . $myIP);
-
+        // Verify the request was signed by GitHub with the shared webhook secret
+        if (!$this->verifyRequestSignature()) {
             $application->setHeader('HTTP/1.1 403 Forbidden', '403', true);
 
             $this->response->error = 'You are not authorised to access this resource.';
@@ -251,10 +226,85 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
             $application->close();
         }
 
+        // Decode it
+        $this->hookData = json_decode($data);
+
+        // Get the project data
+        $this->getProjectData();
+
+        // If we have a bot defined for the project, prefer it over the DI object
+        $this->github = GithubFactory::getProjectBotInstance($application, $this->project);
+
         // Set up the event listener
         $this->addEventListener($this->type);
 
         return $this;
+    }
+
+    /**
+     * Verify the `X-Hub-Signature-256` header of the current request.
+     *
+     * Requests dispatched from the command line (e.g. the `test:hook` command) are not signed and are accepted.
+     *
+     * @return  boolean
+     *
+     * @since   1.0
+     */
+    protected function verifyRequestSignature(): bool
+    {
+        if (\PHP_SAPI === 'cli') {
+            return true;
+        }
+
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
+
+        $secret   = (string) $application->get('github.webhook_secret');
+        $remoteIp = $application->getInput()->server->getString('REMOTE_ADDR', '');
+
+        if ($secret === '') {
+            $this->logger->critical(
+                'Rejected webhook request from ' . $remoteIp . ': the webhook secret (github.webhook_secret) is not configured.'
+            );
+
+            return false;
+        }
+
+        $signature = $application->getInput()->server->getString('HTTP_X_HUB_SIGNATURE_256', '');
+
+        if ($signature === '') {
+            $this->logger->critical('Rejected webhook request from ' . $remoteIp . ': missing X-Hub-Signature-256 header.');
+
+            return false;
+        }
+
+        if (!static::isValidSignature((string) file_get_contents('php://input'), $signature, $secret)) {
+            $this->logger->critical('Rejected webhook request from ' . $remoteIp . ': invalid X-Hub-Signature-256 header.');
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Check a GitHub webhook signature (`sha256=<hex HMAC>`) against the raw request body.
+     *
+     * @param   string  $payload    The raw request body.
+     * @param   string  $signature  The value of the `X-Hub-Signature-256` header.
+     * @param   string  $secret     The webhook secret.
+     *
+     * @return  boolean
+     *
+     * @since   1.0
+     */
+    public static function isValidSignature(string $payload, string $signature, string $secret): bool
+    {
+        if ($secret === '' || strpos($signature, 'sha256=') !== 0) {
+            return false;
+        }
+
+        return hash_equals('sha256=' . hash_hmac('sha256', $payload, $secret), $signature);
     }
 
     /**
