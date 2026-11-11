@@ -112,4 +112,28 @@ class Statuses extends Package
         // Send the request.
         return $this->processResponse($this->client->get($this->fetchUrl($path)));
     }
+
+    /**
+     * Method to list the check runs for a given ref.
+     *
+     * Check runs are how GitHub Actions and other GitHub Apps report CI results. They are not part of the combined
+     * commit status.
+     *
+     * @param   string  $user  The name of the owner of the GitHub repository.
+     * @param   string  $repo  The name of the GitHub repository.
+     * @param   string  $ref   Ref to fetch the check runs for. It can be a SHA, a branch name, or a tag name.
+     *
+     * @return  object  An object with the properties total_count and check_runs.
+     *
+     * @documentation  https://docs.github.com/en/rest/checks/runs#list-check-runs-for-a-git-reference
+     * @since   1.0
+     */
+    public function getCheckRuns($user, $repo, $ref)
+    {
+        // Build the request path.
+        $path = '/repos/' . $user . '/' . $repo . '/commits/' . $ref . '/check-runs';
+
+        // Send the request, with the largest page GitHub allows.
+        return $this->processResponse($this->client->get($this->fetchUrl($path, 0, 100)));
+    }
 }

@@ -195,6 +195,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   KEY `issue_number` (`issue_number`),
   KEY `project_id` (`project_id`),
   KEY `milestone_id` (`milestone_id`,`project_id`),
+  KEY `idx_pr_head_sha` (`project_id`, `pr_head_sha`),
   UNIQUE `issue_project_index`(`issue_number`, `project_id`),
   CONSTRAINT `#__issues_fk_milestone` FOREIGN KEY (`milestone_id`) REFERENCES `#__tracker_milestones` (`milestone_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `#__issues_fk_status` FOREIGN KEY (`status`) REFERENCES `#__status` (`id`),
