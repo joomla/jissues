@@ -25,7 +25,7 @@ class Submit extends AbstractTrackerController
     /**
      * Execute the controller.
      *
-     * @return  void
+     * @return  string
      *
      * @since   1.0
      * @throws  \RuntimeException
@@ -170,6 +170,9 @@ class Submit extends AbstractTrackerController
         $application->redirect(
             $application->get('uri.base.path') . 'tracker/' . $project->alias . '/' . $data['number']
         );
+
+        // The redirect closes the application, the return only fulfils the interface
+        return '';
     }
 
     /**

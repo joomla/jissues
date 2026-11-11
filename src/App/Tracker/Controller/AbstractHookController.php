@@ -97,6 +97,8 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
             $this->logger->error('Error checking the database for the GitHub ID', ['exception' => $e]);
             $this->getContainer()->get('app')->close();
         }
+
+        return null;
     }
 
     /**
@@ -454,7 +456,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
                 return $status;
 
             default:
-                return;
+                return null;
         }
     }
 

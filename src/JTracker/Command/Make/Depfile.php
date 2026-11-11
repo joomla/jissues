@@ -138,12 +138,12 @@ class Depfile extends TrackerCommand
     }
 
     /**
-     * Generate HTML output.
+     * Sort the defined packages by section.
      *
      * @param   array  $defined   List of defined packages
      * @param   array  $packages  List of installed packages
      *
-     * @return  string  HTML output
+     * @return  array  The packages sorted by section
      *
      * @since   1.0
      */

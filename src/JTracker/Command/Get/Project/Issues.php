@@ -547,7 +547,7 @@ class Issues extends Project
     /**
      * Method to get the GitHub issues from the database
      *
-     * @return  $this
+     * @return  \stdClass[]  The issues with their ID, number and modification date
      *
      * @since   1.0
      */
