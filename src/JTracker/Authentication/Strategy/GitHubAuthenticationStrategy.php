@@ -92,6 +92,13 @@ class GitHubAuthenticationStrategy implements AuthenticationStrategyInterface
             return false;
         }
 
+        // Protect against login CSRF: the state must match the one stored in the session
+        if (!$this->loginHelper->validateState($this->input->getString('state', ''))) {
+            $this->status = self::AUTHENTICATION_ERROR;
+
+            return false;
+        }
+
         try {
             $accessToken = $this->loginHelper->requestToken($code);
 
