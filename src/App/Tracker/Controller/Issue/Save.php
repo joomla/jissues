@@ -9,6 +9,7 @@
 
 namespace App\Tracker\Controller\Issue;
 
+use App\Tracker\Helper\IssueChangesHelper;
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\ActivitiesTable;
@@ -66,11 +67,19 @@ class Save extends AbstractTrackerController
             // The user has full "edit" permission.
             $data = $src;
 
-            if (!empty($item->labels)) {
-                $data['labels'] = explode(',', $item->labels);
+            // The labels and the milestone from the form count. The fields are only rendered if the project has
+            // labels / milestones, and an empty multi-select is not submitted at all.
+            if (!isset($src['labels']) || !\is_array($src['labels'])) {
+                $data['labels'] = [];
+
+                if (!$project->getLabels() && !empty($item->labels)) {
+                    $data['labels'] = explode(',', $item->labels);
+                }
             }
 
-            $data['milestone_id'] = $item->milestone_id;
+            if (!\array_key_exists('milestone_id', $src)) {
+                $data['milestone_id'] = $item->milestone_id;
+            }
         } elseif ($user->canEditOwn($item->opened_by)) {
             // The user has "edit own" permission.
             $data['title']           = $src['title'];
@@ -109,27 +118,18 @@ class Save extends AbstractTrackerController
             // @todo assignee
             $assignee = null;
 
-            // Prepare labels
-            $ghLabels = [];
+            // Only send the label and milestone changes made by the user, so data the tracker doesn't know is kept.
+            $labelChanges = IssueChangesHelper::getLabelChanges(
+                empty($item->labels) ? [] : explode(',', $item->labels),
+                empty($data['labels']) ? [] : (array) $data['labels'],
+                $project->getLabels()
+            );
 
-            if (!empty($data['labels'])) {
-                foreach ($project->getLabels() as $id => $label) {
-                    if (\in_array($id, $data['labels'])) {
-                        $ghLabels[] = $label->name;
-                    }
-                }
-            }
-
-            // Prepare milestone
-            $ghMilestone = null;
-
-            if (!empty($data['milestone_id'])) {
-                foreach ($project->getMilestones() as $milestone) {
-                    if ($milestone->milestone_id == $data['milestone_id']) {
-                        $ghMilestone = $milestone->milestone_number;
-                    }
-                }
-            }
+            $ghMilestone = IssueChangesHelper::getMilestoneChange(
+                $item->milestone_id,
+                $data['milestone_id'] ?? null,
+                $project->getMilestones()
+            );
 
             try {
                 $gitHubResponse = $this->updateGitHub(
@@ -139,7 +139,8 @@ class Save extends AbstractTrackerController
                     $oldState,
                     $assignee,
                     $ghMilestone,
-                    $ghLabels
+                    $labelChanges['add'],
+                    $labelChanges['remove']
                 );
 
                 // Set the modified_date from GitHub (important!)
@@ -288,20 +289,25 @@ class Save extends AbstractTrackerController
      * the action using a configured "edit bot". If the GitHub status changes (e.g. open <=> close), a comment will be
      * created automatically stating that the action has been performed by a bot.
      *
-     * @param   integer  $issueNumber  The issue number.
-     * @param   array    $data         The issue data.
-     * @param   string   $state        The issue state (either 'open' or 'closed).
-     * @param   string   $oldState     The previous issue state.
-     * @param   string   $assignee     The login for the GitHub user that this issue should be assigned to.
-     * @param   integer  $milestone    The milestone to associate this issue with.
-     * @param   array    $labels       The labels to associate with this issue.
+     * Labels and the milestone are only changed if the user changed them, and labels are added and removed one by one,
+     * so labels set on GitHub which the tracker doesn't know about are kept.
+     *
+     * @param   integer              $issueNumber   The issue number.
+     * @param   array                $data          The issue data.
+     * @param   string               $state         The issue state (either 'open' or 'closed).
+     * @param   string               $oldState      The previous issue state.
+     * @param   string               $assignee      The login for the GitHub user that this issue should be assigned to.
+     * @param   integer|string|null  $milestone     The milestone number to set, an empty string to remove the milestone,
+     *                                              or null to leave the milestone untouched.
+     * @param   array                $addLabels     The names of the labels to add to the issue.
+     * @param   array                $removeLabels  The names of the labels to remove from the issue.
      *
      * @return  object  The issue data
      *
      * @since   1.0
      * @throws  \RuntimeException
      */
-    private function updateGitHub($issueNumber, array $data, $state, $oldState, $assignee, $milestone, $labels)
+    private function updateGitHub($issueNumber, array $data, $state, $oldState, $assignee, $milestone, array $addLabels, array $removeLabels)
     {
         /** @var \JTracker\Application\Application $application */
         $application = $this->getContainer()->get('app');
@@ -330,63 +336,31 @@ class Save extends AbstractTrackerController
                 $data['title'],
                 $data['description_raw'],
                 $assignee,
-                $milestone,
-                $labels
+                $milestone
             );
 
-            $needUpdate = false;
-            $isAllowed  = $application->getUser()->check('manage');
-
-            // The milestone and labels are silently dropped,
-            // so try to update the milestone and/or labels if they are not set.
-            if (
-                (!empty($milestone) && empty($gitHubResponse->milestone)
-                || (!empty($milestone) && $milestone != $gitHubResponse->milestone->number))
-            ) {
-                $needUpdate = true;
-            } else {
-                // Allow only specific group to reset milestone
-                if (!empty($gitHubResponse->milestone) && $isAllowed) {
-                    $milestone  = '';
-                    $needUpdate = true;
-                }
-            }
-
-            if (!empty($labels)) {
-                if (empty($gitHubResponse->labels)) {
-                    $needUpdate = true;
-                }
-
-                if (!empty($gitHubResponse->labels)) {
-                    foreach ($gitHubResponse->labels as $ghLabel) {
-                        // If labels differ then need to update
-                        if (!\in_array($ghLabel->name, $labels)) {
-                            $needUpdate = true;
-
-                            break;
-                        }
-                    }
-                }
-            } else {
-                // Allow only specific group to reset labels
-                if (!empty($gitHubResponse->labels) && $isAllowed) {
-                    $needUpdate = true;
-                }
-            }
-
-            if ($needUpdate && isset($gitHubBot)) {
-                $gitHubBot->issues->edit(
+            // The milestone is silently dropped if the user has no push access, so let the bot set it.
+            if ($milestone !== null && isset($gitHubBot) && !IssueChangesHelper::isMilestoneApplied($milestone, $gitHubResponse)) {
+                $gitHubResponse = $gitHubBot->issues->edit(
                     $project->gh_user,
                     $project->gh_project,
-                    $gitHubResponse->number,
-                    'open',
-                    $data['title'],
-                    $data['description_raw'],
-                    $assignee,
-                    $milestone,
-                    $labels
+                    $issueNumber,
+                    null,
+                    null,
+                    null,
+                    null,
+                    $milestone
                 );
             }
+
+            IssueChangesHelper::applyLabelChanges(
+                isset($gitHubBot) ? [$gitHub, $gitHubBot] : [$gitHub],
+                $project->gh_user,
+                $project->gh_project,
+                (int) $issueNumber,
+                $addLabels,
+                $removeLabels
+            );
         } catch (UnexpectedResponseException $exception) {
             // GitHub will return either a 403 or 404 in case there is a permission problem.
             if (!\in_array($exception->getResponse()->getStatusCode(), [403, 404])) {
@@ -405,61 +379,17 @@ class Save extends AbstractTrackerController
                 $data['title'],
                 $data['description_raw'],
                 $assignee,
-                $milestone,
-                $labels
+                $milestone
             );
 
-            $needUpdate = false;
-
-            // The milestone and labels are silently dropped,
-            // so try to update the milestone and/or labels if they are not set.
-            if (
-                (!empty($milestone) && empty($gitHubResponse->milestone)
-                || (!empty($milestone) && $milestone != $gitHubResponse->milestone->number))
-            ) {
-                $needUpdate = true;
-            } else {
-                if (!empty($gitHubResponse->milestone)) {
-                    $milestone  = '';
-                    $needUpdate = true;
-                }
-            }
-
-            if (!empty($labels)) {
-                if (empty($gitHubResponse->labels)) {
-                    $needUpdate = true;
-                }
-
-                if (!empty($gitHubResponse->labels)) {
-                    foreach ($gitHubResponse->labels as $ghLabel) {
-                        // If labels differ then need to update
-                        if (!\in_array($ghLabel->name, $labels)) {
-                            $needUpdate = true;
-
-                            break;
-                        }
-                    }
-                }
-            } else {
-                if (!empty($gitHubResponse->labels)) {
-                    $needUpdate = true;
-                }
-            }
-
-            // Try to update the milestone and/or labels
-            if ($needUpdate) {
-                $gitHubBot->issues->edit(
-                    $project->gh_user,
-                    $project->gh_project,
-                    $gitHubResponse->number,
-                    'open',
-                    $data['title'],
-                    $data['description_raw'],
-                    $assignee,
-                    $milestone,
-                    $labels
-                );
-            }
+            IssueChangesHelper::applyLabelChanges(
+                [$gitHubBot],
+                $project->gh_user,
+                $project->gh_project,
+                (int) $issueNumber,
+                $addLabels,
+                $removeLabels
+            );
 
             // Add a comment stating that this action has been performed by a MACHINE !!
             // (only if the "state" has changed - open <=> closed)

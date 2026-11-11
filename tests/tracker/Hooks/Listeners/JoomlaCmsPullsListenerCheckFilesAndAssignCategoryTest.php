@@ -101,8 +101,6 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends TestCase
             'templates/'                                                => ['24', '30'],
             'test.js'                                                   => ['1'],
             'tests'                                                     => ['14'],
-            'travisci-phpunit.xml'                                      => ['14'],
-            '.travis.yml'                                               => ['14'],
             '.github/'                                                  => ['36'],
             '.gitignore'                                                => ['36'],
             '.appveyor.yml'                                             => ['14'],
