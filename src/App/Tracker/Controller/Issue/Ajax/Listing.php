@@ -176,7 +176,7 @@ class Listing extends AbstractAjaxController
         $application = $this->getContainer()->get('app');
 
         // Load the model
-        $model = new IssuesModel($this->getContainer()->get('db'), $application->getInput());
+        $model = new IssuesModel($this->getContainer()->get('db'));
 
         // Get allowed user for view;
         $application->getUser()->authorize('view');

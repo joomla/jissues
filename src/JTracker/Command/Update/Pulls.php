@@ -177,7 +177,7 @@ class Pulls extends Update
             if ($count) {
                 $pulls = array_merge($pulls, $pulls_more);
 
-                $io->text('(' . $count . ')', false);
+                $io->write('(' . $count . ')');
             }
         } while ($count);
 
