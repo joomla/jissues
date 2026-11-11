@@ -39,7 +39,7 @@ class Refresh extends AbstractTrackerController
             throw new \UnexpectedValueException('Not authenticated.');
         }
 
-        /** @var \Joomla\Github\Github $github */
+        /** @var \JTracker\Github\Github $gitHub */
         $gitHub = $this->getContainer()->get('gitHub');
 
         $gitHubUser = $gitHub->users->getAuthenticatedUser();

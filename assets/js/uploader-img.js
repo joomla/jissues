@@ -55,7 +55,8 @@ $(function () {
     // Load existing files:
     uploadarea.addClass('fileupload-processing');
     uploadarea.fileupload('option', {
-        url: '/upload/put/',
+        // The form action contains the alias of the project the uploads belong to
+        url: uploadarea.attr('action'),
         // Enable image resizing, except for Android and Opera,
         // which actually support image resizing, but fail to
         // send Blob objects via XHR requests:

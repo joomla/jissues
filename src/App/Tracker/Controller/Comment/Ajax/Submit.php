@@ -9,6 +9,7 @@
 
 namespace App\Tracker\Controller\Comment\Ajax;
 
+use App\Tracker\Model\IssueModel;
 use JTracker\Controller\AbstractAjaxController;
 use JTracker\Helper\GitHubHelper;
 
@@ -32,11 +33,13 @@ class Submit extends AbstractAjaxController
         /** @var \JTracker\Application\Application $application */
         $application = $this->getContainer()->get('app');
 
+        // The project comes from the route, load it first so the permissions are checked against it.
+        $project = $application->getProject();
+
         $application->getUser()->authorize('create');
 
         $comment     = $application->getInput()->get('text', '', 'raw');
         $issueNumber = $application->getInput()->getInt('issue_number');
-        $project     = $application->getProject();
 
         if (!$issueNumber) {
             throw new \Exception('No issue number received.');
@@ -44,6 +47,14 @@ class Submit extends AbstractAjaxController
 
         if (!$comment) {
             throw new \Exception('You should write a comment first...');
+        }
+
+        // Make sure the issue belongs to the project from the request.
+        $issueId = (new IssueModel($this->getContainer()->get('db')))
+            ->getIssueIdByNumber($issueNumber, $project->project_id);
+
+        if (!$issueId) {
+            throw new \Exception('Invalid issue number.');
         }
 
         $gitHubHelper = new GitHubHelper($this->getContainer()->get('gitHub'));

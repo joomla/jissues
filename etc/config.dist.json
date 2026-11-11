@@ -15,7 +15,7 @@
 		"accounts"     : [
 			{
 				"username": "",
-				"password": ""
+				"token"   : ""
 			}
 		]
 	},

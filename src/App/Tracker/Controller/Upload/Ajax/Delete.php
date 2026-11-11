@@ -30,7 +30,10 @@ class Delete extends AbstractAjaxController
     {
         /** @var \JTracker\Application\Application $application */
         $application = $this->getContainer()->get('app');
-        $user        = $application->getUser();
+
+        // The project comes from the route, load it first so the permissions are checked against it.
+        $projectId = $application->getProject()->project_id;
+        $user      = $application->getUser();
 
         if (!$user->id) {
             throw new \RuntimeException('You are not allowed to delete files.');
@@ -44,7 +47,6 @@ class Delete extends AbstractAjaxController
                 throw new \RuntimeException('Invalid file name.');
             }
 
-            $projectId = $application->getProject()->project_id;
             $session   = $application->getSession();
             $uploads   = (array) $session->get('tracker.uploads', []);
             $key       = array_search($projectId . '/' . $file, $uploads, true);

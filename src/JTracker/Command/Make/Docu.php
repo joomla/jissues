@@ -73,12 +73,12 @@ class Docu extends TrackerCommand
 
         $this->displayGitHubRateLimit($ioStyle);
 
-        /** @var \Joomla\Database\DatabaseDriver $db */
+        /** @var \Joomla\Database\DatabaseInterface $db */
         $db = $this->getContainer()->get('db');
 
         $docuBase   = JPATH_ROOT . '/Documentation';
 
-        /** @var  \RecursiveDirectoryIterator $it */
+        /** @var  \RecursiveIteratorIterator<\RecursiveDirectoryIterator> $it */
         $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($docuBase, \FilesystemIterator::SKIP_DOTS));
 
         $ioStyle->text(\sprintf('Compiling documentation in: %s', $docuBase));

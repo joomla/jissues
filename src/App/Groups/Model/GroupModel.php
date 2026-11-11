@@ -10,7 +10,6 @@
 namespace App\Groups\Model;
 
 use App\Groups\Table\GroupsTable;
-use Joomla\Database\DatabaseQuery;
 use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
@@ -29,9 +28,9 @@ class GroupModel extends AbstractTrackerDatabaseModel
     protected $group_id = 0;
 
     /**
-     * Method to get a DatabaseQuery object for retrieving the data set from a database.
+     * Method to get the group data.
      *
-     * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
+     * @return  \ArrayIterator  The group data.
      *
      * @since   1.0
      * @throws  \RuntimeException

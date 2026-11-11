@@ -11,7 +11,7 @@ namespace JTracker\Helper;
 
 use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
-use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 use JTracker\Application\Application;
 use JTracker\Github\DataType\Commit;
 use JTracker\Github\DataType\Commit\CombinedStatus;
@@ -44,11 +44,11 @@ class GitHubHelper
     /**
      * Add a comment on GitHub.
      *
-     * @param   TrackerProject  $project      The project.
-     * @param   integer         $issueNumber  The issue number.
-     * @param   string          $comment      The comment to add.
-     * @param   string          $userName     The username.
-     * @param   DatabaseDriver  $database     The database driver object.
+     * @param   TrackerProject     $project      The project.
+     * @param   integer            $issueNumber  The issue number.
+     * @param   string             $comment      The comment to add.
+     * @param   string             $userName     The username.
+     * @param   DatabaseInterface  $database     The database driver object.
      *
      * @return  Comment  The GitHub comment object
      *
@@ -56,7 +56,7 @@ class GitHubHelper
      *
      * @since  1.0
      */
-    public function addComment(TrackerProject $project, $issueNumber, $comment, $userName, DatabaseDriver $database)
+    public function addComment(TrackerProject $project, $issueNumber, $comment, $userName, DatabaseInterface $database)
     {
         $data = new Comment();
 

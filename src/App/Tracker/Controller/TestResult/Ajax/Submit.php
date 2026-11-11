@@ -144,18 +144,7 @@ class Submit extends AbstractAjaxController
     protected function setProjectGitHubBot(TrackerProject $project)
     {
         // If there is a bot defined for the project, prefer it over the config credentials.
-        if ($project->gh_editbot_user && $project->gh_editbot_pass) {
-            $this->github = GithubFactory::getInstance(
-                $this->getContainer()->get('app'),
-                true,
-                $project->gh_editbot_user,
-                $project->gh_editbot_pass
-            );
-        } else {
-            $this->github = GithubFactory::getInstance(
-                $this->getContainer()->get('app')
-            );
-        }
+        $this->github = GithubFactory::getProjectBotInstance($this->getContainer()->get('app'), $project);
 
         return $this;
     }
