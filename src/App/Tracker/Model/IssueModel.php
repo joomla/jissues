@@ -425,6 +425,11 @@ class IssueModel extends AbstractTrackerDatabaseModel
      */
     public function add(array $src)
     {
+        // The table stores the label ids as a comma separated list; insertObject() would skip an array
+        if (isset($src['labels']) && \is_array($src['labels'])) {
+            $src['labels'] = $this->implodeLabelIds($src['labels']);
+        }
+
         // Store the issue
         $table = (new IssuesTable($this->db))
             ->save($src);
@@ -521,17 +526,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
         }
 
         if (isset($src['labels']) && \is_array($src['labels'])) {
-            $data['labels'] = null;
-
-            if (!empty($src['labels'])) {
-                $labels = [];
-
-                foreach ($src['labels'] as $labelId) {
-                    $labels[] = (int) $labelId;
-                }
-
-                $data['labels'] = implode(',', $labels);
-            }
+            $data['labels'] = $this->implodeLabelIds($src['labels']);
         }
 
         if (!$data['id']) {
@@ -813,5 +808,23 @@ class IssueModel extends AbstractTrackerDatabaseModel
                 ->leftJoin($this->db->quoteName('#__issues_categories', 'ic') . ' ON ic.id = icm.category_id')
                 ->where($this->db->quoteName('icm.issue_id') . ' = ' . (int) $id)
         )->loadObjectList();
+    }
+
+    /**
+     * Convert a list of label ids to the comma separated list stored in the issues table.
+     *
+     * @param   array  $labelIds  The label ids.
+     *
+     * @return  string|null  The comma separated ids, null for an empty list.
+     *
+     * @since   1.0
+     */
+    private function implodeLabelIds(array $labelIds): ?string
+    {
+        if (!$labelIds) {
+            return null;
+        }
+
+        return implode(',', array_map('intval', $labelIds));
     }
 }
