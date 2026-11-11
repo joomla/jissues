@@ -31,7 +31,7 @@ class CategoryHtmlView extends AbstractTrackerHtmlView
     /**
      * Item object
      *
-     * @var CategoryTable
+     * @var CategoryTable|\stdClass
      *
      * @since 1.0
      */
@@ -40,7 +40,7 @@ class CategoryHtmlView extends AbstractTrackerHtmlView
     /**
      * Set the item
      *
-     * @param   CategoryTable  $item  The item to set
+     * @param   CategoryTable|\stdClass  $item  The item to set
      *
      * @return  $this    Method allows chaining
      *
@@ -58,7 +58,7 @@ class CategoryHtmlView extends AbstractTrackerHtmlView
      *
      * @throws \RuntimeException
      *
-     * @return CategoryTable
+     * @return CategoryTable|\stdClass
      *
      * @since  1.0
      */

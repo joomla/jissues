@@ -27,9 +27,9 @@ class StatsHtmlView extends AbstractTrackerHtmlView
     protected $config;
 
     /**
-     * Contributors data object for the view
+     * Contributors data for the view
      *
-     * @var    object
+     * @var    array
      * @since  1.0
      */
     protected $contributors;
@@ -51,9 +51,9 @@ class StatsHtmlView extends AbstractTrackerHtmlView
     }
 
     /**
-     * Get the data object.
+     * Get the data.
      *
-     * @return  object
+     * @return  array
      *
      * @since   1.0
      * @throws  \UnexpectedValueException
@@ -70,7 +70,7 @@ class StatsHtmlView extends AbstractTrackerHtmlView
     /**
      * Set the data.
      *
-     * @param   object  $data  The data object.
+     * @param   array  $data  The contributor data.
      *
      * @return  $this  Method allows chaining
      *

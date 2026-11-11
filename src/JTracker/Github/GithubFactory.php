@@ -44,7 +44,7 @@ abstract class GithubFactory
      * @param   string                                   $botPassword  The bot account password (deprecated, use a token instead).
      * @param   string                                   $botToken     The bot account personal access token.
      *
-     * @return  GitHub
+     * @return  Github
      *
      * @since   1.0
      * @throws  \RuntimeException
@@ -128,7 +128,7 @@ abstract class GithubFactory
      * @param   \Joomla\Application\AbstractApplication  $app      Application object
      * @param   TrackerProject                           $project  The project.
      *
-     * @return  GitHub
+     * @return  Github
      *
      * @since   1.0
      */

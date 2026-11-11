@@ -182,11 +182,11 @@ class Submit extends AbstractTrackerController
      * the action using a configured "edit bot". If the GitHub status changes (e.g. open <=> close), a comment will be
      * created automatically stating that the action has been performed by a bot.
      *
-     * @param   string   $title      The title of the issue.
-     * @param   string   $body       The contents of the issue.
-     * @param   string   $assignee   The login for the GitHub user that this issue should be assigned to.
-     * @param   integer  $milestone  The milestone to associate this issue with.
-     * @param   array    $labels     The labels to associate with this issue.
+     * @param   string       $title      The title of the issue.
+     * @param   string       $body       The contents of the issue.
+     * @param   string|null  $assignee   The login for the GitHub user that this issue should be assigned to.
+     * @param   integer      $milestone  The milestone to associate this issue with.
+     * @param   array        $labels     The labels to associate with this issue.
      *
      * @return  object  The issue data
      *

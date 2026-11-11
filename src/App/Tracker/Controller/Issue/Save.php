@@ -296,7 +296,7 @@ class Save extends AbstractTrackerController
      * @param   array                $data          The issue data.
      * @param   string               $state         The issue state (either 'open' or 'closed).
      * @param   string               $oldState      The previous issue state.
-     * @param   string               $assignee      The login for the GitHub user that this issue should be assigned to.
+     * @param   string|null          $assignee      The login for the GitHub user that this issue should be assigned to.
      * @param   integer|string|null  $milestone     The milestone number to set, an empty string to remove the milestone,
      *                                              or null to leave the milestone untouched.
      * @param   array                $addLabels     The names of the labels to add to the issue.
