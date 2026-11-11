@@ -12,6 +12,7 @@ namespace JTracker\Tests\App\Activity\Controller\Ajax;
 use App\Activity\Controller\Ajax\UserActivity;
 use JTracker\Tests\App\Activity\ActivityTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 /**
  * Tests for the user activity chart AJAX controller.
@@ -171,6 +172,7 @@ class UserActivityTest extends ActivityTestCase
      *
      * @since   1.0
      */
+    #[RequiresPhpExtension('intl')]
     public function testCustomRange(): void
     {
         $response = $this->executeController(
