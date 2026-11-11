@@ -112,7 +112,7 @@ class Docu extends TrackerCommand
                 // New item
             }
 
-            $table->is_file = '1';
+            $table->is_file = 1;
             $table->path    = $it->getSubPath();
             $table->alias   = $page;
             $table->text_md = file_get_contents($it->key());

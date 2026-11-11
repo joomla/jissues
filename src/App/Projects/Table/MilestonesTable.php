@@ -15,13 +15,13 @@ use JTracker\Database\AbstractDatabaseTable;
 /**
  * Table interface class for the #__tracker_projects table
  *
- * @property   integer  $milestone_id      PK
- * @property   integer  $milestone_number  Milestone number from Github
- * @property   integer  $project_id        Project ID
- * @property   string   $title             Milestone title
- * @property   string   $description       Milestone description
- * @property   string   $state             Milestone state: open | closed
- * @property   string   $due_on            Date the milestone is due on.
+ * @property   integer|null  $milestone_id      PK
+ * @property   integer       $milestone_number  Milestone number from Github
+ * @property   integer       $project_id        Project ID
+ * @property   string        $title             Milestone title
+ * @property   string        $description       Milestone description
+ * @property   string        $state             Milestone state: open | closed
+ * @property   string        $due_on            Date the milestone is due on.
  *
  * @since  1.0
  */
