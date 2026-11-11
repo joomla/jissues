@@ -109,7 +109,7 @@ class DefaultController extends AbstractTrackerListController
             switch (strtolower($sort)) {
                 case 'updated':
                     $state->set('list.ordering', 'a.modified_date');
-                    $sort = $sort + 2;
+                    $sort = 2;
 
                     break;
 

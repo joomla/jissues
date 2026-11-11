@@ -57,7 +57,7 @@ class Base extends AbstractAjaxController
         usort(
             $milestones,
             function ($a, $b) {
-                return $a->number > $b->number;
+                return $a->number <=> $b->number;
             }
         );
 

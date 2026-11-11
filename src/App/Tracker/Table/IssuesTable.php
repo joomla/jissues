@@ -251,6 +251,7 @@ class IssuesTable extends AbstractDatabaseTable
                     case 'pr_head_sha':
                     case 'pr_head_user':
                     case 'pr_head_ref':
+                    case 'has_code':
                         // Do nothing
 
                         break;

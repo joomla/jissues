@@ -67,11 +67,21 @@ class Delete extends AbstractTrackerController implements CsrfProtectedControlle
      */
     public function execute()
     {
+        $app   = $this->getContainer()->get('app');
+        $alias = $app->getInput()->get('project_alias');
+
         (new ProjectModel($this->getContainer()->get('db')))
-            ->delete($this->getContainer()->get('app')->getInput()->get('project_alias'));
+            ->delete($alias);
+
+        // The deleted project can no longer be the active project
+        $app->getInput()->set('project_alias', null);
+
+        if ($app->getSession()->get('project_alias') === $alias) {
+            $app->getSession()->remove('project_alias');
+        }
 
         // Reload the project
-        $this->getContainer()->get('app')->getProject(true);
+        $app->getProject(true);
 
         return parent::execute();
     }

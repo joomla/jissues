@@ -34,6 +34,16 @@ class Github extends JGitHub implements LoggerAwareInterface
     protected $logger;
 
     /**
+     * The API objects created so far, keyed by name.
+     *
+     * They are kept here instead of in dynamic properties, which are deprecated since PHP 8.2.
+     *
+     * @var    object[]
+     * @since  1.0
+     */
+    private $packages = [];
+
+    /**
      * Magic method to lazily create API objects
      *
      * @param   string  $name  Name of property to retrieve
@@ -45,20 +55,29 @@ class Github extends JGitHub implements LoggerAwareInterface
      */
     public function __get($name)
     {
+        if (isset($this->packages[$name])) {
+            return $this->packages[$name];
+        }
+
+        // Use the tracker's own package if there is one, the package from the GitHub library otherwise.
         $class = 'JTracker\\Github\\Package\\' . ucfirst($name);
 
         if (class_exists($class)) {
-            if (isset($this->$name) === false) {
-                $this->$name = new $class($this->options, $this->client);
+            $package = new $class($this->options, $this->client);
 
-                // Inject the logger
-                $this->$name->setLogger($this->getLogger());
+            // Inject the logger
+            $package->setLogger($this->getLogger());
+        } else {
+            $class = 'Joomla\\Github\\Package\\' . ucfirst($name);
+
+            if (!class_exists($class)) {
+                throw new \InvalidArgumentException(\sprintf('Argument %s produced an invalid class name: %s', $name, $class));
             }
 
-            return $this->$name;
+            $package = new $class($this->options, $this->client);
         }
 
-        return parent::__get($name);
+        return $this->packages[$name] = $package;
     }
 
     /**
