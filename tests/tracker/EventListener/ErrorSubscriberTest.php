@@ -249,6 +249,63 @@ class ErrorSubscriberTest extends TestCase
     }
 
     /**
+     * Data provider for testWebhookErrorsAreJson
+     *
+     * @return  \Generator
+     */
+    public static function webhookErrorProvider(): \Generator
+    {
+        yield 'GitHub API error' => ['hooks/issues', new \RuntimeException('Bad credentials', 401), 401];
+        yield 'PHP error' => ['hooks/pulls', new \TypeError('Wrong type'), 500];
+        yield 'unknown hook' => ['hooks/unknown', new RouteNotFoundException('Unable to handle request for route `hooks/unknown`.', 404), 404];
+        yield 'GET request' => ['hooks/comments', new MethodNotAllowedException(['post'], 'Route `hooks/comments` does not support `GET` requests.'), 405];
+    }
+
+    /**
+     * @param   string      $route           The route
+     * @param   \Throwable  $error           The error
+     * @param   integer     $expectedStatus  The expected response status
+     *
+     * @return  void
+     */
+    #[TestDox('Webhook requests get a JSON error response instead of an HTML page')]
+    #[DataProvider('webhookErrorProvider')]
+    public function testWebhookErrorsAreJson(string $route, \Throwable $error, int $expectedStatus): void
+    {
+        $app = $this->createApplication();
+        $app->set('uri.route', $route);
+
+        $this->twig->expects($this->never())->method('render');
+
+        $this->handle($error, $app);
+
+        $response = $app->getResponse();
+
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertSame($expectedStatus, $response->getStatusCode());
+        $this->assertSame(
+            ['code' => $error->getCode(), 'message' => $error->getMessage(), 'error' => true],
+            json_decode((string) $response->getBody(), true)
+        );
+    }
+
+    /**
+     * @return  void
+     */
+    #[TestDox('Routes which only start like the webhook routes still get an HTML error page')]
+    public function testOtherRoutesAreNotTreatedAsWebhooks(): void
+    {
+        $app = $this->createApplication();
+        $app->set('uri.route', 'hookshot/issues');
+
+        $this->twig->expects($this->once())->method('render')->willReturn('<h1>Error page</h1>');
+
+        $this->handle(new \RuntimeException('Item not found', 404), $app);
+
+        $this->assertInstanceOf(HtmlResponse::class, $app->getResponse());
+    }
+
+    /**
      * @return  void
      */
     #[TestDox('A route that is not found is logged with the route and gets a 404 response')]
