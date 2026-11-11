@@ -21,7 +21,7 @@ class Modify extends AbstractAjaxController
     /**
      * GitHub object
      *
-     * @var    \Joomla\Github\Github
+     * @var    \JTracker\Github\Github
      * @since  1.0
      */
     protected $github;

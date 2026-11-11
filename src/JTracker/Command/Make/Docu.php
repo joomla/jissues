@@ -78,7 +78,7 @@ class Docu extends TrackerCommand
 
         $docuBase   = JPATH_ROOT . '/Documentation';
 
-        /** @var  \RecursiveDirectoryIterator $it */
+        /** @var  \RecursiveIteratorIterator<\RecursiveDirectoryIterator> $it */
         $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($docuBase, \FilesystemIterator::SKIP_DOTS));
 
         $ioStyle->text(\sprintf('Compiling documentation in: %s', $docuBase));
