@@ -9,6 +9,8 @@
 
 namespace App\Tracker\Controller\Hooks\Listeners;
 
+use App\Projects\TrackerProject;
+use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
 use Joomla\Event\Event;
 use Joomla\Event\SubscriberInterface;
@@ -433,6 +435,98 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
 
             // Check the Categories based on the files that gets changed
             $this->checkCategories($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+        }
+
+        // New commits have been pushed, report the human test results for the new head commit
+        if ($arguments['action'] === 'synchronize') {
+            $this->setHumanTestStatus($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+        }
+    }
+
+    /**
+     * Posts the human test results status for the head commit of the pull request.
+     *
+     * Test results are stored per commit, so after new commits are pushed the status of the previous head commit
+     * no longer shows up in the pull request checks. This posts the results recorded for the new head commit.
+     *
+     * @param   object          $hookData  Hook data payload
+     * @param   Github          $github    Github object
+     * @param   Logger          $logger    Logger object
+     * @param   TrackerProject  $project   Object containing project data
+     * @param   IssuesTable     $table     Table object
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function setHumanTestStatus($hookData, Github $github, Logger $logger, TrackerProject $project, IssuesTable $table)
+    {
+        $issueNumber = $hookData->pull_request->number;
+        $sha         = $hookData->pull_request->head->sha ?? '';
+
+        if (!$sha) {
+            $logger->error(
+                \sprintf(
+                    'Missing head commit SHA for GitHub pull request %s/%s #%d, cannot set the human test results status',
+                    $project->gh_user,
+                    $project->gh_project,
+                    $issueNumber
+                )
+            );
+
+            return;
+        }
+
+        try {
+            $tests = (new IssueModel($this->getContainer()->get('db')))->getUserTests($table->id, $sha);
+        } catch (\RuntimeException $e) {
+            $logger->error(
+                \sprintf(
+                    'Error loading the human test results for GitHub pull request %s/%s #%d',
+                    $project->gh_user,
+                    $project->gh_project,
+                    $issueNumber
+                ),
+                ['exception' => $e]
+            );
+
+            return;
+        }
+
+        $status = $this->getHumanTestStatus($project, $tests['success'], $tests['failure'], $issueNumber);
+
+        try {
+            $this->createStatus($github, $project, $issueNumber, $status, $sha);
+
+            $logger->info(
+                \sprintf(
+                    'Set the human test results status for GitHub pull request %s/%s #%d at %s',
+                    $project->gh_user,
+                    $project->gh_project,
+                    $issueNumber,
+                    $sha
+                )
+            );
+        } catch (InvalidResponseCodeException $e) {
+            $logger->error(
+                \sprintf(
+                    'Error setting the human test results status for GitHub pull request %s/%s #%d',
+                    $project->gh_user,
+                    $project->gh_project,
+                    $issueNumber
+                ),
+                ['exception' => $e]
+            );
+        } catch (\DomainException $e) {
+            $logger->error(
+                \sprintf(
+                    'Error setting the human test results status for GitHub pull request %s/%s #%d',
+                    $project->gh_user,
+                    $project->gh_project,
+                    $issueNumber
+                ),
+                ['exception' => $e]
+            );
         }
     }
 

@@ -199,6 +199,7 @@ class JoomlacmsPullsListenerTest extends TestCase
             $this->db,
             [
                 'project_id'      => 1,
+                'alias'           => 'joomla-cms',
                 'gh_user'         => 'joomla',
                 'gh_project'      => 'joomla-cms',
                 'gh_editbot_user' => 'joomla-bot-test',
@@ -457,6 +458,7 @@ class JoomlacmsPullsListenerTest extends TestCase
                     'checkCategories',
                     'checkRTClabel',
                     'sendFirstTimeContributorMessage',
+                    'setHumanTestStatus',
                 ]
             )
             ->getMock();
@@ -550,14 +552,14 @@ class JoomlacmsPullsListenerTest extends TestCase
      */
     public static function onPullAfterUpdateProvider(): \Generator
     {
-        // Action, checkPullBody calls, setPending calls, label/title/RTC/category check calls
-        yield 'opened (redelivered)' => ['opened', 1, 1, 1];
-        yield 'reopened' => ['reopened', 0, 1, 1];
-        yield 'closed' => ['closed', 0, 0, 1];
-        yield 'edited' => ['edited', 0, 0, 1];
-        yield 'synchronize' => ['synchronize', 0, 0, 1];
-        yield 'labeled' => ['labeled', 0, 0, 0];
-        yield 'assigned' => ['assigned', 0, 0, 0];
+        // Action, checkPullBody calls, setPending calls, label/title/RTC/category check calls, setHumanTestStatus calls
+        yield 'opened (redelivered)' => ['opened', 1, 1, 1, 0];
+        yield 'reopened' => ['reopened', 0, 1, 1, 0];
+        yield 'closed' => ['closed', 0, 0, 1, 0];
+        yield 'edited' => ['edited', 0, 0, 1, 0];
+        yield 'synchronize' => ['synchronize', 0, 0, 1, 1];
+        yield 'labeled' => ['labeled', 0, 0, 0, 0];
+        yield 'assigned' => ['assigned', 0, 0, 0, 0];
     }
 
     /**
@@ -565,15 +567,17 @@ class JoomlacmsPullsListenerTest extends TestCase
      * @param   integer  $bodyChecks    Expected checkPullBody calls
      * @param   integer  $pendingCalls  Expected setPending calls
      * @param   integer  $otherChecks   Expected calls of the label, title, RTC and category checks
+     * @param   integer  $statusCalls   Expected setHumanTestStatus calls
      *
      * @return  void
      */
     #[TestDox('onPullAfterUpdate runs the checks matching the webhook action')]
     #[DataProvider('onPullAfterUpdateProvider')]
-    public function testOnPullAfterUpdate(string $action, int $bodyChecks, int $pendingCalls, int $otherChecks): void
+    public function testOnPullAfterUpdate(string $action, int $bodyChecks, int $pendingCalls, int $otherChecks, int $statusCalls): void
     {
         $listener = $this->createDispatchListener();
 
+        $listener->expects($this->exactly($statusCalls))->method('setHumanTestStatus');
         $listener->expects($this->exactly($bodyChecks))->method('checkPullBody');
         $listener->expects($this->exactly($pendingCalls))->method('setPending');
         $listener->expects($this->exactly($otherChecks))->method('checkPullLabels');
@@ -1408,5 +1412,225 @@ class JoomlacmsPullsListenerTest extends TestCase
         $this->dbObjectList = [(object) ['category_id' => 23], (object) ['category_id' => 99]];
 
         $this->assertSame([23, 99], $this->invoke('getCategories', $this->createTable()));
+    }
+
+    /**
+     * Data provider for testGetHumanTestStatus
+     *
+     * @return  \Generator
+     */
+    public static function humanTestStatusProvider(): \Generator
+    {
+        yield 'no tests' => [[], [], 'pending', 'Human Test Results: 0 Successful 0 Failed.'];
+        yield 'one success' => [['alice'], [], 'pending', 'Human Test Results: 1 Successful 0 Failed.'];
+        yield 'two successes' => [['alice', 'bob'], [], 'success', 'Human Test Results: 2 Successful 0 Failed.'];
+        yield 'two successes and a failure' => [['alice', 'bob'], ['carol'], 'pending', 'Human Test Results: 2 Successful 1 Failed.'];
+        yield 'two failures' => [[], ['alice', 'bob'], 'failure', 'Human Test Results: 0 Successful 2 Failed.'];
+        yield 'a success and two failures' => [['alice'], ['bob', 'carol'], 'pending', 'Human Test Results: 1 Successful 2 Failed.'];
+    }
+
+    /**
+     * @param   array   $success      Users with a successful test
+     * @param   array   $failure      Users with a failed test
+     * @param   string  $state        The expected status state
+     * @param   string  $description  The expected status description
+     *
+     * @return  void
+     */
+    #[TestDox('getHumanTestStatus builds the human test results status from the test counts')]
+    #[DataProvider('humanTestStatusProvider')]
+    public function testGetHumanTestStatus(array $success, array $failure, string $state, string $description): void
+    {
+        $status = $this->invoke('getHumanTestStatus', $this->project, $success, $failure, 12345);
+
+        $this->assertInstanceOf(Status::class, $status);
+        $this->assertSame($state, $status->state);
+        $this->assertSame($description, $status->description);
+        $this->assertSame('JTracker/HumanTestResults', $status->context);
+        $this->assertSame('https://issues.joomla.org/tracker/joomla-cms/12345', $status->targetUrl);
+    }
+
+    /**
+     * Replaces the listener's database with one returning the given test results.
+     *
+     * @param   array            $success     Users with a successful test
+     * @param   array            $failure     Users with a failed test
+     * @param   array|null       $conditions  Receives the WHERE conditions of the test queries
+     * @param   \Exception|null  $exception   Exception thrown when loading the test results
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    private function useTestResults(array $success, array $failure, ?array &$conditions = null, ?\Exception $exception = null): void
+    {
+        $conditions = [];
+
+        $query = $this->createStub(DatabaseQuery::class);
+
+        foreach (['clear', 'select', 'from'] as $method) {
+            $query->method($method)->willReturnSelf();
+        }
+
+        $query->method('where')
+            ->willReturnCallback(
+                static function ($condition) use ($query, &$conditions) {
+                    $conditions[] = $condition;
+
+                    return $query;
+                }
+            );
+
+        $db = $this->createStub(DatabaseDriver::class);
+        $db->method('getQuery')->willReturn($query);
+        $db->method('setQuery')->willReturnSelf();
+        $db->method('quoteName')->willReturnArgument(0);
+        $db->method('quote')->willReturnArgument(0);
+
+        if ($exception) {
+            $db->method('loadColumn')->willThrowException($exception);
+        } else {
+            $db->method('loadColumn')->willReturnOnConsecutiveCalls($success, $failure);
+        }
+
+        $container = new Container();
+        $container->set('db', $db);
+
+        $this->listener->setContainer($container);
+    }
+
+    /**
+     * @return  void
+     */
+    #[TestDox('onPullAfterUpdate passes the event arguments to setHumanTestStatus for synchronized pulls')]
+    public function testOnPullAfterUpdatePassesEventArgumentsToSetHumanTestStatus(): void
+    {
+        $listener = $this->createDispatchListener();
+        $event    = $this->buildEvent('onPullAfterUpdate', 'synchronize');
+
+        $listener->expects($this->once())
+            ->method('setHumanTestStatus')
+            ->with($event->getArgument('hookData'), $this->github, $this->logger, $this->project, $event->getArgument('table'));
+
+        $listener->onPullAfterUpdate($event);
+    }
+
+    /**
+     * @return  void
+     */
+    #[TestDox('setHumanTestStatus posts a pending status for a new head commit without tests')]
+    public function testSetHumanTestStatusWithoutTests(): void
+    {
+        $this->useTestResults([], [], $conditions);
+
+        $this->pulls->expects($this->never())->method('get');
+
+        $this->statuses->expects($this->once())
+            ->method('create')
+            ->with(
+                'joomla',
+                'joomla-cms',
+                'fed987',
+                'pending',
+                'https://issues.joomla.org/tracker/joomla-cms/12345',
+                'Human Test Results: 0 Successful 0 Failed.',
+                'JTracker/HumanTestResults'
+            );
+
+        $this->logger->expects($this->never())->method('error');
+        $this->logger->expects($this->once())
+            ->method('info')
+            ->with('Set the human test results status for GitHub pull request joomla/joomla-cms #12345 at fed987');
+
+        $hookData = $this->buildHookData(['head' => ['ref' => 'fix-filters', 'sha' => 'fed987']]);
+
+        $this->invoke('setHumanTestStatus', $hookData, $this->github, $this->logger, $this->project, $this->createTable());
+
+        // The tests are looked up for the issue and the new head commit
+        $this->assertContains('item_id = 42', $conditions);
+        $this->assertContains('sha = fed987', $conditions);
+    }
+
+    /**
+     * @return  void
+     */
+    #[TestDox('setHumanTestStatus posts the test results recorded for the new head commit')]
+    public function testSetHumanTestStatusWithTests(): void
+    {
+        $this->useTestResults(['alice', 'bob'], []);
+
+        $this->statuses->expects($this->once())
+            ->method('create')
+            ->with(
+                'joomla',
+                'joomla-cms',
+                'abc123',
+                'success',
+                'https://issues.joomla.org/tracker/joomla-cms/12345',
+                'Human Test Results: 2 Successful 0 Failed.',
+                'JTracker/HumanTestResults'
+            );
+
+        $this->invoke('setHumanTestStatus', $this->buildHookData(), $this->github, $this->logger, $this->project, $this->createTable());
+    }
+
+    /**
+     * @param   \Exception  $exception  The exception thrown by the GitHub API
+     *
+     * @return  void
+     */
+    #[TestDox('setHumanTestStatus logs GitHub errors')]
+    #[DataProvider('gitHubErrorProvider')]
+    public function testSetHumanTestStatusGitHubError(\Exception $exception): void
+    {
+        $this->useTestResults([], []);
+
+        $this->statuses->method('create')->willThrowException($exception);
+
+        $this->logger->expects($this->never())->method('info');
+        $this->logger->expects($this->once())
+            ->method('error')
+            ->with('Error setting the human test results status for GitHub pull request joomla/joomla-cms #12345', ['exception' => $exception]);
+
+        $this->invoke('setHumanTestStatus', $this->buildHookData(), $this->github, $this->logger, $this->project, $this->createTable());
+    }
+
+    /**
+     * @return  void
+     */
+    #[TestDox('setHumanTestStatus logs database errors and does not post a status')]
+    public function testSetHumanTestStatusDatabaseError(): void
+    {
+        $exception = new \RuntimeException('Database error');
+
+        $this->useTestResults([], [], $conditions, $exception);
+
+        $this->statuses->expects($this->never())->method('create');
+
+        $this->logger->expects($this->once())
+            ->method('error')
+            ->with('Error loading the human test results for GitHub pull request joomla/joomla-cms #12345', ['exception' => $exception]);
+
+        $this->invoke('setHumanTestStatus', $this->buildHookData(), $this->github, $this->logger, $this->project, $this->createTable());
+    }
+
+    /**
+     * @return  void
+     */
+    #[TestDox('setHumanTestStatus does nothing when the payload has no head commit SHA')]
+    public function testSetHumanTestStatusWithoutSha(): void
+    {
+        $this->useTestResults([], []);
+
+        $this->pulls->expects($this->never())->method('get');
+        $this->statuses->expects($this->never())->method('create');
+
+        $this->logger->expects($this->once())
+            ->method('error')
+            ->with('Missing head commit SHA for GitHub pull request joomla/joomla-cms #12345, cannot set the human test results status');
+
+        $hookData = $this->buildHookData(['head' => ['ref' => 'fix-filters']]);
+
+        $this->invoke('setHumanTestStatus', $hookData, $this->github, $this->logger, $this->project, $this->createTable());
     }
 }
