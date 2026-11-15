@@ -266,6 +266,17 @@
 
     {% endif %}
 
+    {% if aiFindings %}
+        <!-- AI review (site admins only) -->
+        <section class="mb-3" aria-labelledby="ai-review-heading">
+            <h2 id="ai-review-heading" class="h4">AI review <small class="text-muted">AI-generated, visible to site admins only</small></h2>
+            {% for finding in aiFindings %}
+                {% include "aireview.finding.twig" with {'finding': finding, 'project': project, 'showItem': false} only %}
+            {% endfor %}
+            <p><a href="{{ uri.base.path }}tracker/{{ project.alias }}/ai-reviews">All AI review findings</a></p>
+        </section>
+    {% endif %}
+
     <!-- Main content -->
 
     <div class="row">
@@ -668,5 +679,9 @@
         JTracker.setupAtJS('commentTest', '{{ project.alias }}');
 
     </script>
+
+    {% if aiFindings %}
+        {% include "aireview.script.twig" %}
+    {% endif %}
 
 {% endblock %}
