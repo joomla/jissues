@@ -51,5 +51,13 @@
 
             sendFindingAction($finding, $(this).data('action'), {text: $finding.find('.ai-text').val()});
         });
+
+        $(document).on('click', '.ai-finding .ai-simple-action', function () {
+            if (!window.confirm($(this).data('confirm'))) {
+                return;
+            }
+
+            sendFindingAction($(this).closest('.ai-finding'), $(this).data('action'), {});
+        });
     })(jQuery);
 </script>

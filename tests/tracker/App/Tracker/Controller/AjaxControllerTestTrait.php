@@ -62,6 +62,13 @@ trait AjaxControllerTestTrait
     protected $deniedActions = [];
 
     /**
+     * Additional application configuration.
+     *
+     * @var  array
+     */
+    protected $appConfig = [];
+
+    /**
      * Creates a database driver stub.
      *
      * @param   mixed        $result  The value returned by loadResult()
@@ -143,7 +150,7 @@ trait AjaxControllerTestTrait
         $session = new Session(new MockArraySessionStorage());
         $session->set('project_alias', 'other-project');
 
-        $app = new Application($session, new Input($request), new Registry(['acl' => ['admin_users' => []]]));
+        $app = new Application($session, new Input($request), new Registry(['acl' => ['admin_users' => []]] + $this->appConfig));
 
         $container = new Container();
         $container->set('app', $app);

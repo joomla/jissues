@@ -10,12 +10,15 @@
 namespace App\Tracker\Controller\Hooks\Listeners;
 
 use App\Projects\TrackerProject;
+use App\Tracker\Helper\TestingPromotionHelper;
 use App\Tracker\Model\IssueModel;
+use App\Tracker\Model\PromotionModel;
 use App\Tracker\Table\IssuesTable;
 use Joomla\Event\Event;
 use Joomla\Event\SubscriberInterface;
 use Joomla\Github\Github;
 use Joomla\Http\Exception\InvalidResponseCodeException;
+use JTracker\Mattermost\MattermostNotifier;
 use Monolog\Logger;
 
 /**
@@ -441,6 +444,50 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
         if ($arguments['action'] === 'synchronize') {
             $this->setHumanTestStatus($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
         }
+
+        // The promotion label was set: post the pull request to the testing channel
+        if ($arguments['action'] === 'labeled') {
+            $this->promoteForTesting($arguments['hookData'], $arguments['logger'], $arguments['project'], $arguments['table']);
+        }
+    }
+
+    /**
+     * Posts the pull request to the testing channel if the label that was set is the configured promotion label.
+     *
+     * Nothing happens if no Mattermost webhook is configured. Each pull request is posted once per label.
+     *
+     * @param   object          $hookData  Hook data payload
+     * @param   Logger          $logger    Logger object
+     * @param   TrackerProject  $project   Object containing project data
+     * @param   IssuesTable     $table     Table object
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function promoteForTesting($hookData, Logger $logger, $project, IssuesTable $table)
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
+
+        $webhookUrl = (string) $application->get('mattermost.webhook_url', '');
+        $label      = (string) $application->get('mattermost.promote_label', '');
+
+        if ($webhookUrl === '' || $label === '' || !isset($hookData->label->name)) {
+            return;
+        }
+
+        if (strcasecmp($hookData->label->name, $label) !== 0) {
+            return;
+        }
+
+        $helper = new TestingPromotionHelper(
+            new MattermostNotifier($this->getContainer()->get('http'), $webhookUrl, (string) $application->get('mattermost.channel', '')),
+            new PromotionModel($this->getContainer()->get('db')),
+            $logger
+        );
+
+        $helper->promote($project, $table, $label, $hookData->sender->login ?? '', $application->get('uri')->base->full);
     }
 
     /**

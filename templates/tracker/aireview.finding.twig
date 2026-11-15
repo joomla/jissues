@@ -77,6 +77,10 @@
                 {% if editAction %}
                     <button type="button" class="btn btn-primary btn-sm ai-edit-action" data-action="{{ editAction.action }}" data-confirm="{{ editAction.confirm }}">{{ editAction.label }}</button>
                 {% endif %}
+                {% if finding.kind == 'test_suitability' and finding.has_code and finding.rating in ['yes', 'partly'] %}
+                    <button type="button" class="btn btn-success btn-sm ai-simple-action" data-action="promote"
+                        data-confirm="Set the promotion label on #{{ finding.issue_number }} on GitHub with your account? The pull request is then posted to the testing channel.">Promote for testing</button>
+                {% endif %}
                 <button type="button" class="btn btn-secondary btn-sm ai-process" data-state="done" title="You handled this by hand">Mark done</button>
                 <button type="button" class="btn btn-secondary btn-sm ai-process" data-state="dismissed" title="The finding is wrong or not useful">Dismiss</button>
             </div>

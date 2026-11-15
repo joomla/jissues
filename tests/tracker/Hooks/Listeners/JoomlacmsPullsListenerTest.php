@@ -459,6 +459,7 @@ class JoomlacmsPullsListenerTest extends TestCase
                     'checkRTClabel',
                     'sendFirstTimeContributorMessage',
                     'setHumanTestStatus',
+                    'promoteForTesting',
                 ]
             )
             ->getMock();
@@ -585,6 +586,7 @@ class JoomlacmsPullsListenerTest extends TestCase
         $listener->expects($this->exactly($otherChecks))->method('checkRTClabel');
         $listener->expects($this->exactly($otherChecks))->method('checkCategories');
         $listener->expects($this->never())->method('sendFirstTimeContributorMessage');
+        $listener->expects($this->exactly($action === 'labeled' ? 1 : 0))->method('promoteForTesting');
 
         $listener->onPullAfterUpdate($this->buildEvent('onPullAfterUpdate', $action, 'FIRST_TIME_CONTRIBUTOR'));
     }

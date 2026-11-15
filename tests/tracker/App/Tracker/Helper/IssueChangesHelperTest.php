@@ -314,6 +314,30 @@ class IssueChangesHelperTest extends TestCase
     }
 
     /**
+     * @return  void
+     *
+     * @since   1.0
+     */
+    #[TestDox('A protected label keeps its stored state, other label changes are kept')]
+    public function testKeepProtectedLabel(): void
+    {
+        $labels = [
+            1 => (object) ['name' => 'Bug'],
+            2 => (object) ['name' => 'Testers wanted'],
+            3 => (object) ['name' => 'RTC'],
+        ];
+
+        // Adding the protected label is undone, adding another label is kept
+        $this->assertSame([1, 3], IssueChangesHelper::keepProtectedLabel([1], [1, 2, 3], $labels, 'testers wanted'));
+
+        // Removing the protected label is undone, removing another label is kept
+        $this->assertSame([2], IssueChangesHelper::keepProtectedLabel(['1', '2'], [], $labels, 'Testers wanted'));
+
+        // Without the label in the project nothing changes
+        $this->assertSame([1, 3], IssueChangesHelper::keepProtectedLabel([1], [1, 3], $labels, 'Unknown'));
+    }
+
+    /**
      * Create a GitHub stub returning the given labels package.
      *
      * @param   Labels  $labels  The labels package.

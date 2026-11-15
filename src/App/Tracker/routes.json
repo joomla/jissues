@@ -25,6 +25,7 @@
 	"aireview/:project_alias/process"     : "App\\Tracker\\Controller\\AiReview\\Ajax\\Process",
 	"aireview/:project_alias/instructions": "App\\Tracker\\Controller\\AiReview\\Ajax\\ReplaceInstructions",
 	"aireview/:project_alias/close"       : "App\\Tracker\\Controller\\AiReview\\Ajax\\CloseItem",
+	"aireview/:project_alias/promote"     : "App\\Tracker\\Controller\\AiReview\\Ajax\\Promote",
 	"upload/:project_alias/put"           : "App\\Tracker\\Controller\\Upload\\Ajax\\Put",
 	"upload/:project_alias/delete"        : "App\\Tracker\\Controller\\Upload\\Ajax\\Delete",
     "category/:project_alias/add"         : "App\\Tracker\\Controller\\Category\\Add",

@@ -11,6 +11,7 @@ namespace JTracker\Tests\App\Tracker;
 
 use App\Tracker\Controller\AiReview\Ajax\CloseItem as AiReviewCloseItem;
 use App\Tracker\Controller\AiReview\Ajax\Process as AiReviewProcess;
+use App\Tracker\Controller\AiReview\Ajax\Promote as AiReviewPromote;
 use App\Tracker\Controller\AiReview\Ajax\ReplaceInstructions as AiReviewReplaceInstructions;
 use App\Tracker\Controller\AiReview\Listing as AiReviewListing;
 use App\Tracker\Controller\Comment\Ajax\Submit as CommentSubmit;
@@ -69,6 +70,7 @@ class RoutesTest extends TestCase
             'ai review process' => ['/aireview/joomla-cms/process', AiReviewProcess::class],
             'ai instructions'   => ['/aireview/joomla-cms/instructions', AiReviewReplaceInstructions::class],
             'ai close'          => ['/aireview/joomla-cms/close', AiReviewCloseItem::class],
+            'ai promote'        => ['/aireview/joomla-cms/promote', AiReviewPromote::class],
         ];
     }
 

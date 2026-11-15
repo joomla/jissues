@@ -60,6 +60,24 @@ All actions are for site admins and are sent as POST requests to `aireview/<proj
 | `process` | every finding | Sets the finding to `dismissed` or `done` (`state`). Nothing changes on GitHub |
 | `instructions` | `testing_instructions` of pull requests | Replaces the sections of the pull request description that have the same headings as the edited proposal (`text`), see `DescriptionSectionsHelper`. Refused if the description on GitHub changed since the review |
 | `close` | `duplicate` and `fixed_elsewhere` | Posts the edited comment (`text`) and closes the item on GitHub. In the tracker the item gets the status "Duplicate Report" with the relation "duplicate of", or "Fixed in Code Base" with the relation "related to" the fixing pull request |
+| `promote` | `test_suitability` of pull requests | Sets the promotion label (see below) on GitHub |
+
+### Promotion in the testing channel
+
+A pull request with the promotion label is posted once to a Mattermost channel, so that people test it. The label is configured in `etc/config.json`:
+
+```json
+"mattermost": {
+	"webhook_url"  : "https://chat.example.org/hooks/…",
+	"channel"      : "",
+	"promote_label": "Testers wanted"
+}
+```
+
+* An empty `webhook_url` turns the posting off. An empty `channel` posts to the default channel of the incoming webhook.
+* The post is triggered by the `labeled` webhook of the pull request (in `JoomlacmsPullsListener`), whether the label was set in the tracker or directly on GitHub, so it is posted exactly once. Removing and setting the label again doesn't post it again (`#__issue_promotions`); if posting fails, the next time the label is set tries again.
+* The message links the tracker and GitHub and shows the number of successful tests of the current commit, the test setup from the AI review, who set the label, and up to 15 lines of the testing instructions.
+* In the tracker, only site admins may set or remove the label. Users with the edit permission keep all other label changes. On GitHub, everybody who may label the pull request can set it.
 
 ### Import format
 

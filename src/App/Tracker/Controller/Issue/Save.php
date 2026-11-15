@@ -80,6 +80,18 @@ class Save extends AbstractTrackerController
             if (!\array_key_exists('milestone_id', $src)) {
                 $data['milestone_id'] = $item->milestone_id;
             }
+
+            // Only site admins may set or remove the label that promotes a pull request in the testing channel
+            $promoteLabel = (string) $application->get('mattermost.promote_label', '');
+
+            if ($promoteLabel !== '' && !$user->check('admin')) {
+                $data['labels'] = IssueChangesHelper::keepProtectedLabel(
+                    empty($item->labels) ? [] : explode(',', $item->labels),
+                    (array) $data['labels'],
+                    $project->getLabels(),
+                    $promoteLabel
+                );
+            }
         } elseif ($user->canEditOwn($item->opened_by)) {
             // The user has "edit own" permission.
             $data['title']           = $src['title'];

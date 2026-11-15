@@ -177,6 +177,13 @@ MD;
         $this->assertSame("### Testing Instructions\n\n```bash\n# run this\n```\n\n### Next\n\nkeep\n", $result);
     }
 
+    #[TestDox('The content of a section is found by its heading')]
+    public function testGetSection(): void
+    {
+        $this->assertSame('see issue', DescriptionSectionsHelper::getSection(str_replace("\n", "\r\n", self::lf(self::TEMPLATE)), '### testing instructions'));
+        $this->assertNull(DescriptionSectionsHelper::getSection('No template', '### Testing Instructions'));
+    }
+
     /**
      * Normalise the line endings of a heredoc, which depend on how git checked out this file.
      *

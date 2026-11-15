@@ -69,6 +69,31 @@ class DescriptionSectionsHelper
     }
 
     /**
+     * Get the content of a section, without its heading.
+     *
+     * Only the text up to the next heading is returned, so subsections are not included.
+     *
+     * @param   string  $description  The description.
+     * @param   string  $heading      The heading of the section, for example "### Testing Instructions".
+     *
+     * @return  string|null  The content, or null if the description has no such section.
+     *
+     * @since   1.0
+     */
+    public static function getSection(string $description, string $heading): ?string
+    {
+        $key = self::headingKey($heading);
+
+        foreach (self::parseSections(str_replace("\r\n", "\n", $description)) as $section) {
+            if (self::headingKey($section['heading']) === $key) {
+                return $section['content'];
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Normalised key of a heading line, used to match sections: lower case text without the hashes and markup.
      *
      * @param   string  $heading  The heading line.

@@ -234,4 +234,40 @@ class IssueChangesHelper
     {
         return array_values(array_unique(array_filter(array_map('intval', $ids))));
     }
+
+    /**
+     * Keep the stored state of a protected label in the submitted label IDs.
+     *
+     * Used for labels that only some users may set or remove: whatever was submitted for the protected label, the
+     * result has it exactly when the stored labels have it. All other labels are taken from the submitted IDs.
+     *
+     * @param   array   $storedIds      The label IDs stored with the issue in the tracker.
+     * @param   array   $submittedIds   The label IDs submitted by the user.
+     * @param   array   $projectLabels  The project labels, keyed by label ID, objects with a `name` property.
+     * @param   string  $labelName      The name of the protected label (compared case-insensitively).
+     *
+     * @return  integer[]  The label IDs to store.
+     *
+     * @since   1.0
+     */
+    public static function keepProtectedLabel(array $storedIds, array $submittedIds, array $projectLabels, string $labelName): array
+    {
+        $stored    = self::normaliseIds($storedIds);
+        $submitted = self::normaliseIds($submittedIds);
+
+        foreach ($projectLabels as $id => $label) {
+            if (strcasecmp((string) $label->name, $labelName) !== 0) {
+                continue;
+            }
+
+            $id        = (int) $id;
+            $submitted = array_values(array_diff($submitted, [$id]));
+
+            if (\in_array($id, $stored, true)) {
+                $submitted[] = $id;
+            }
+        }
+
+        return $submitted;
+    }
 }
