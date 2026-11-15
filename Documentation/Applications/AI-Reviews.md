@@ -59,6 +59,7 @@ All actions are for site admins and are sent as POST requests to `aireview/<proj
 |---|---|---|
 | `process` | every finding | Sets the finding to `dismissed` or `done` (`state`). Nothing changes on GitHub |
 | `instructions` | `testing_instructions` of pull requests | Replaces the sections of the pull request description that have the same headings as the edited proposal (`text`), see `DescriptionSectionsHelper`. Refused if the description on GitHub changed since the review |
+| `close` | `duplicate` and `fixed_elsewhere` | Posts the edited comment (`text`) and closes the item on GitHub. In the tracker the item gets the status "Duplicate Report" with the relation "duplicate of", or "Fixed in Code Base" with the relation "related to" the fixing pull request |
 
 ### Import format
 

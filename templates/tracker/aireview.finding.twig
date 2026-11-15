@@ -55,6 +55,13 @@
                     'help': 'Edit the proposal. Its sections replace the sections with the same headings in the pull request description.',
                     'confirm': 'Replace these sections of the pull request description on GitHub with your account?'
                 } %}
+            {% elseif finding.kind in ['duplicate', 'fixed_elsewhere'] and finding.related_number %}
+                {% set editAction = {
+                    'action': 'close',
+                    'label': 'Comment and close',
+                    'help': 'Check #' ~ finding.related_number ~ ' first, then edit the comment. It is posted with your account and the item is closed.',
+                    'confirm': 'Post this comment and close #' ~ finding.issue_number ~ ' on GitHub with your account?'
+                } %}
             {% endif %}
 
             {% if editAction %}

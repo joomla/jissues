@@ -28,6 +28,48 @@ class AiReviewFindingModel extends AbstractTrackerDatabaseModel
     public const STALE_EVENTS = ['comment', 'test_item', 'alter_testresult', 'reopen'];
 
     /**
+     * Tracker status and relation for a confirmed duplicate
+     */
+    public const CLOSE_DUPLICATE = ['status' => 13, 'rel_type' => 1];
+
+    /**
+     * Tracker status and relation for an item that was fixed elsewhere: "Fixed in Code Base", related to the fixing PR
+     */
+    public const CLOSE_FIXED_ELSEWHERE = ['status' => 5, 'rel_type' => 2];
+
+    /**
+     * Close an item in the tracker after an admin confirmed a duplicate or a fix elsewhere, and link the other item.
+     *
+     * The item was closed on GitHub before. The webhook for that keeps the status set here, because it is a closed one.
+     *
+     * @param   object  $finding   The finding, as returned by getOpenFinding().
+     * @param   array   $close     CLOSE_DUPLICATE or CLOSE_FIXED_ELSEWHERE.
+     * @param   string  $username  The admin's username.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    public function closeItem(object $finding, array $close, string $username): void
+    {
+        $db  = $this->getDb();
+        $now = (new \DateTime('now', new \DateTimeZone('UTC')))->format($db->getDateFormat());
+
+        $db->setQuery(
+            $db->getQuery(true)
+                ->update($db->quoteName('#__issues'))
+                ->set($db->quoteName('status') . ' = ' . (int) $close['status'])
+                ->set($db->quoteName('rel_type') . ' = ' . (int) $close['rel_type'])
+                ->set($db->quoteName('rel_number') . ' = ' . (int) $finding->related_number)
+                ->set($db->quoteName('closed_date') . ' = ' . $db->quote($now))
+                ->set($db->quoteName('closed_by') . ' = ' . $db->quote($username))
+                ->set($db->quoteName('modified_date') . ' = ' . $db->quote($now))
+                ->set($db->quoteName('modified_by') . ' = ' . $db->quote($username))
+                ->where($db->quoteName('id') . ' = ' . (int) $finding->issue_id)
+        )->execute();
+    }
+
+    /**
      * Add the conditions under which a review is still shown.
      *
      * The review must be active, the item open, and the item must not have changed since the review: same pull request

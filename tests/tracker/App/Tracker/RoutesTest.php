@@ -9,6 +9,7 @@
 
 namespace JTracker\Tests\App\Tracker;
 
+use App\Tracker\Controller\AiReview\Ajax\CloseItem as AiReviewCloseItem;
 use App\Tracker\Controller\AiReview\Ajax\Process as AiReviewProcess;
 use App\Tracker\Controller\AiReview\Ajax\ReplaceInstructions as AiReviewReplaceInstructions;
 use App\Tracker\Controller\AiReview\Listing as AiReviewListing;
@@ -67,6 +68,7 @@ class RoutesTest extends TestCase
             'delete upload'     => ['/upload/joomla-cms/delete/?file=0123456789abcdef0123456789abcdef.png', UploadDelete::class],
             'ai review process' => ['/aireview/joomla-cms/process', AiReviewProcess::class],
             'ai instructions'   => ['/aireview/joomla-cms/instructions', AiReviewReplaceInstructions::class],
+            'ai close'          => ['/aireview/joomla-cms/close', AiReviewCloseItem::class],
         ];
     }
 
