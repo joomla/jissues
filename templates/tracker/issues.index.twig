@@ -19,6 +19,11 @@
             <a class="nav-link bg-success" href="{{ uri.base.path }}tracker/{{ project.alias }}/add">New Item</a>
         </li>
     {% endif %}
+    {% if user.check("admin") %}
+        <li>
+            <a class="nav-link" href="{{ uri.base.path }}tracker/{{ project.alias }}/ai-reviews">AI Reviews</a>
+        </li>
+    {% endif %}
 
     {{ parent() }}
 

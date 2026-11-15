@@ -9,6 +9,10 @@
 
 namespace JTracker\Tests\App\Tracker;
 
+use App\Tracker\Controller\AiReview\Ajax\CloseItem as AiReviewCloseItem;
+use App\Tracker\Controller\AiReview\Ajax\Process as AiReviewProcess;
+use App\Tracker\Controller\AiReview\Ajax\ReplaceInstructions as AiReviewReplaceInstructions;
+use App\Tracker\Controller\AiReview\Listing as AiReviewListing;
 use App\Tracker\Controller\Comment\Ajax\Submit as CommentSubmit;
 use App\Tracker\Controller\Issue\Ajax\Vote;
 use App\Tracker\Controller\TestResult\Ajax\Alter as TestResultAlter;
@@ -62,7 +66,24 @@ class RoutesTest extends TestCase
             'alter testresult'  => ['/alter/joomla-cms/testresult', TestResultAlter::class],
             'upload'            => ['/upload/joomla-cms/put/', UploadPut::class],
             'delete upload'     => ['/upload/joomla-cms/delete/?file=0123456789abcdef0123456789abcdef.png', UploadDelete::class],
+            'ai review process' => ['/aireview/joomla-cms/process', AiReviewProcess::class],
+            'ai instructions'   => ['/aireview/joomla-cms/instructions', AiReviewReplaceInstructions::class],
+            'ai close'          => ['/aireview/joomla-cms/close', AiReviewCloseItem::class],
         ];
+    }
+
+    /**
+     * The AI review list is not mistaken for an issue page.
+     *
+     * @return  void
+     */
+    #[TestDox('The AI review list has its own route next to the issue pages')]
+    public function testAiReviewListRoute(): void
+    {
+        $route = $this->createRouter()->parseRoute('/tracker/joomla-cms/ai-reviews', 'GET');
+
+        $this->assertSame(AiReviewListing::class, $route->getController());
+        $this->assertSame(['project_alias' => 'joomla-cms'], $route->getRouteVariables());
     }
 
     /**
