@@ -36,7 +36,7 @@ trait AjaxControllerTestTrait
      * @var  array
      */
     private static $projects = [
-        'joomla-cms'    => ['project_id' => 42, 'alias' => 'joomla-cms'],
+        'joomla-cms'    => ['project_id' => 42, 'alias' => 'joomla-cms', 'gh_user' => 'joomla', 'gh_project' => 'joomla-cms'],
         'other-project' => ['project_id' => 99, 'alias' => 'other-project'],
     ];
 
@@ -53,6 +53,20 @@ trait AjaxControllerTestTrait
      * @var  string[]
      */
     protected $userCalls = [];
+
+    /**
+     * Actions for which the user's check() returns false. All other actions are granted.
+     *
+     * @var  string[]
+     */
+    protected $deniedActions = [];
+
+    /**
+     * Additional application configuration.
+     *
+     * @var  array
+     */
+    protected $appConfig = [];
 
     /**
      * Creates a database driver stub.
@@ -73,8 +87,16 @@ trait AjaxControllerTestTrait
             return new MysqliQuery($db);
         });
 
-        $db->method('quoteName')->willReturnCallback(static function ($name, $as = null) {
+        $quoteName = static function ($name, $as = null) {
             return '`' . str_replace('.', '`.`', $name) . '`' . ($as === null ? '' : ' AS `' . $as . '`');
+        };
+
+        $db->method('quoteName')->willReturnCallback(static function ($name, $as = null) use ($quoteName) {
+            if (\is_array($name)) {
+                return array_map($quoteName, $name, $as ?? array_fill(0, \count($name), null));
+            }
+
+            return $quoteName($name, $as);
         });
 
         $db->method('quote')->willReturnCallback(static function ($text) {
@@ -128,7 +150,7 @@ trait AjaxControllerTestTrait
         $session = new Session(new MockArraySessionStorage());
         $session->set('project_alias', 'other-project');
 
-        $app = new Application($session, new Input($request), new Registry(['acl' => ['admin_users' => []]]));
+        $app = new Application($session, new Input($request), new Registry(['acl' => ['admin_users' => []]] + $this->appConfig));
 
         $container = new Container();
         $container->set('app', $app);
@@ -155,7 +177,7 @@ trait AjaxControllerTestTrait
         $user->method('check')->willReturnCallback(function ($action) {
             $this->userCalls[] = 'check:' . $action;
 
-            return true;
+            return !\in_array($action, $this->deniedActions, true);
         });
 
         $app->setUser($user);

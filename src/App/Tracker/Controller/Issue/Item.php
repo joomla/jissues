@@ -9,6 +9,7 @@
 
 namespace App\Tracker\Controller\Issue;
 
+use App\Tracker\Model\AiReviewFindingModel;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\View\Issue\IssueHtmlView;
 use JTracker\Controller\AbstractTrackerController;
@@ -84,6 +85,17 @@ class Item extends AbstractTrackerController
         $this->view->setItem($item);
         $this->view->setEditOwn($user->canEditOwn($item->opened_by));
         $this->view->setProject($project);
+
+        // Site admins see the open findings of the current AI review
+        $aiFindings = [];
+
+        if ($user->check('admin')) {
+            $aiFindings = (new AiReviewFindingModel($this->getContainer()->get('db')))
+                ->setProject($project)
+                ->getOpenFindingsForIssue((int) $item->id);
+        }
+
+        $this->view->addData('aiFindings', $aiFindings);
 
         return $this;
     }

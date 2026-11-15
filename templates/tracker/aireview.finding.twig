@@ -1,0 +1,90 @@
+{# Copyright (C) 2012 - 2026 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{# One finding of an AI review. Expects: finding, project, and optionally showItem (link to the reviewed item). #}
+
+{% set kindLabels = {
+    'testing_instructions': 'Testing instructions',
+    'test_suitability': 'Test suitability',
+    'duplicate': 'Possible duplicate',
+    'fixed_elsewhere': 'Possibly fixed elsewhere',
+    'obsolete': 'Possibly obsolete',
+    'abandoned': 'Possibly abandoned',
+    'needs_info': 'Needs information'
+} %}
+{% set confidenceClasses = {'high': 'text-bg-success', 'medium': 'text-bg-warning', 'low': 'text-bg-secondary'} %}
+{% set githubUrl = 'https://github.com/' ~ project.gh_user ~ '/' ~ project.gh_project ~ '/' %}
+
+<div class="card mb-3 ai-finding" id="ai-finding-{{ finding.id }}" data-finding-id="{{ finding.id }}">
+    <div class="card-header">
+        {% if showItem %}
+            <a href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ finding.issue_number }}">#{{ finding.issue_number }}</a>
+            {{ finding.title }}
+            <span class="badge rounded-pill text-bg-secondary">{{ finding.has_code ? 'PR' : 'Issue' }}</span>
+            &middot;
+        {% endif %}
+        <strong>{{ kindLabels[finding.kind] ?? finding.kind }}</strong>
+        {% if finding.rating %}
+            <span class="badge rounded-pill text-bg-secondary">{{ finding.rating }}</span>
+        {% endif %}
+        <span class="badge rounded-pill {{ confidenceClasses[finding.confidence] ?? 'text-bg-secondary' }}">{{ finding.confidence }} confidence</span>
+        {% if finding.related_number %}
+            &middot; related:
+            <a href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ finding.related_number }}">#{{ finding.related_number }}</a>
+            (<a href="{{ githubUrl }}issues/{{ finding.related_number }}" target="_blank" rel="noopener">GitHub</a>)
+        {% endif %}
+        <small class="float-end text-muted">AI-generated &middot; run {{ finding.batch }}</small>
+    </div>
+    <div class="card-body">
+        <p class="mb-2">{{ finding.rationale|nl2br }}</p>
+
+        {% if finding.state != 'open' %}
+            <p class="text-muted mb-0">
+                {{ finding.state|capitalize }} by {{ finding.processed_by }} on {{ finding.processed_date }}.
+            </p>
+            {% if finding.final_text %}
+                <pre class="ai-proposal mt-2">{{ finding.final_text }}</pre>
+            {% endif %}
+        {% else %}
+            {# Actions that send the (edited) proposal to GitHub with the admin's account #}
+            {% set editAction = null %}
+            {% if finding.kind == 'testing_instructions' and finding.has_code and finding.proposal %}
+                {% set editAction = {
+                    'action': 'instructions',
+                    'label': 'Replace in PR description',
+                    'help': 'Edit the proposal. Its sections replace the sections with the same headings in the pull request description.',
+                    'confirm': 'Replace these sections of the pull request description on GitHub with your account?'
+                } %}
+            {% elseif finding.kind in ['duplicate', 'fixed_elsewhere'] and finding.related_number %}
+                {% set editAction = {
+                    'action': 'close',
+                    'label': 'Comment and close',
+                    'help': 'Check #' ~ finding.related_number ~ ' first, then edit the comment. It is posted with your account and the item is closed.',
+                    'confirm': 'Post this comment and close #' ~ finding.issue_number ~ ' on GitHub with your account?'
+                } %}
+            {% endif %}
+
+            {% if editAction %}
+                <div class="ai-finding-edit mb-2">
+                    <label for="ai-text-{{ finding.id }}" class="form-label">{{ editAction.help }}</label>
+                    <textarea id="ai-text-{{ finding.id }}" class="form-control font-monospace ai-text" rows="12">{{ finding.proposal }}</textarea>
+                </div>
+            {% elseif finding.proposal %}
+                <pre class="ai-proposal">{{ finding.proposal }}</pre>
+            {% endif %}
+
+            <div class="ai-finding-actions">
+                {% if editAction %}
+                    <button type="button" class="btn btn-primary btn-sm ai-edit-action" data-action="{{ editAction.action }}" data-confirm="{{ editAction.confirm }}">{{ editAction.label }}</button>
+                {% endif %}
+                {% if finding.kind == 'test_suitability' and finding.has_code and finding.rating in ['yes', 'partly'] %}
+                    <button type="button" class="btn btn-success btn-sm ai-simple-action" data-action="promote"
+                        data-confirm="Set the promotion label on #{{ finding.issue_number }} on GitHub with your account? The pull request is then posted to the testing channel.">Promote for testing</button>
+                {% endif %}
+                <button type="button" class="btn btn-secondary btn-sm ai-process" data-state="done" title="You handled this by hand">Mark done</button>
+                <button type="button" class="btn btn-secondary btn-sm ai-process" data-state="dismissed" title="The finding is wrong or not useful">Dismiss</button>
+            </div>
+            <div class="ai-finding-result mt-2" role="status"></div>
+        {% endif %}
+    </div>
+</div>

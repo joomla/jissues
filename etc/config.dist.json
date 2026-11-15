@@ -48,6 +48,12 @@
 		"secret"     : "not-used-yet"
 	},
 
+	"mattermost": {
+		"webhook_url"  : "",
+		"channel"      : "",
+		"promote_label": "Testers wanted"
+	},
+
 	"cli-application": {
 		"colors"      : "1",
 		"progress-bar": "1"
