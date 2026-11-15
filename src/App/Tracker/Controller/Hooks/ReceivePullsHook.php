@@ -56,13 +56,6 @@ class ReceivePullsHook extends AbstractHookController
             return;
         }
 
-        // Stop running for label events
-        if (\in_array($this->hookData->action, ['labeled', 'unlabeled'])) {
-            $this->response->message = 'Ignoring label events now.';
-
-            return;
-        }
-
         // Pull or Issue ?
         $this->data = $this->hookData->pull_request;
 
@@ -70,6 +63,10 @@ class ReceivePullsHook extends AbstractHookController
             // If the item is already in the database, update it; else, insert it.
             if ($this->checkIssueExists((int) $this->data->number)) {
                 $this->updateData();
+            } elseif (\in_array($this->hookData->action, ['labeled', 'unlabeled'], true)) {
+                // GitHub sends the label events of a new pull request together with the "opened" event. The "opened"
+                // event stores the pull request with its labels, so a label event must not insert it a second time.
+                $this->response->message = 'The pull request is not in the tracker yet, the label event is ignored.';
             } else {
                 $this->insertData();
             }
@@ -567,7 +564,7 @@ class ReceivePullsHook extends AbstractHookController
                         'Error updating labels for GitHub pull request %s/%s #%d (Database ID #%d) in the tracker',
                         $this->project->gh_user,
                         $this->project->gh_project,
-                        $this->hookData->issue->number,
+                        $this->data->number,
                         $table->id
                     );
                     $this->setStatusCode(500);
