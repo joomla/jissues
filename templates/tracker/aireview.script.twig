@@ -1,0 +1,45 @@
+{# Copyright (C) 2012 - 2026 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{# Actions for AI review findings. Expects: project. Include once after jQuery is loaded. #}
+
+<script type="text/javascript">
+    (function ($) {
+        var baseUrl = '{{ uri.base.path }}aireview/{{ project.alias|e('js') }}/';
+
+        /**
+         * Sends an action for a finding and shows the result in the finding's card.
+         * On success the action buttons are removed, because the finding is no longer open.
+         */
+        function sendFindingAction($finding, action, data) {
+            var $result  = $finding.find('.ai-finding-result');
+            var $buttons = $finding.find('button');
+
+            $buttons.prop('disabled', true);
+            $result.removeClass('alert alert-danger alert-success').text('Working…');
+
+            $.post(baseUrl + action, $.extend({findingId: $finding.data('finding-id')}, data))
+                .done(function (response) {
+                    if (response.error) {
+                        $result.addClass('alert alert-danger').text(response.error);
+                        $buttons.prop('disabled', false);
+
+                        return;
+                    }
+
+                    $result.addClass('alert alert-success').text(response.message);
+                    $finding.find('.ai-finding-actions, .ai-finding-edit').remove();
+                })
+                .fail(function () {
+                    $result.addClass('alert alert-danger').text('The request failed. Please try again.');
+                    $buttons.prop('disabled', false);
+                });
+        }
+
+        window.jtrackerAiFindingAction = sendFindingAction;
+
+        $(document).on('click', '.ai-finding .ai-process', function () {
+            sendFindingAction($(this).closest('.ai-finding'), 'process', {state: $(this).data('state')});
+        });
+    })(jQuery);
+</script>
