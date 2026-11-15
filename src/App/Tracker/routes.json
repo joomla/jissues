@@ -23,6 +23,7 @@
 	"alter/:project_alias/testresult"     : "App\\Tracker\\Controller\\TestResult\\Ajax\\Alter",
 	"submit/:project_alias/comment"       : "App\\Tracker\\Controller\\Comment\\Ajax\\Submit",
 	"aireview/:project_alias/process"     : "App\\Tracker\\Controller\\AiReview\\Ajax\\Process",
+	"aireview/:project_alias/instructions": "App\\Tracker\\Controller\\AiReview\\Ajax\\ReplaceInstructions",
 	"upload/:project_alias/put"           : "App\\Tracker\\Controller\\Upload\\Ajax\\Put",
 	"upload/:project_alias/delete"        : "App\\Tracker\\Controller\\Upload\\Ajax\\Delete",
     "category/:project_alias/add"         : "App\\Tracker\\Controller\\Category\\Add",

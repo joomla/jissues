@@ -36,7 +36,7 @@ trait AjaxControllerTestTrait
      * @var  array
      */
     private static $projects = [
-        'joomla-cms'    => ['project_id' => 42, 'alias' => 'joomla-cms'],
+        'joomla-cms'    => ['project_id' => 42, 'alias' => 'joomla-cms', 'gh_user' => 'joomla', 'gh_project' => 'joomla-cms'],
         'other-project' => ['project_id' => 99, 'alias' => 'other-project'],
     ];
 

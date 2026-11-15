@@ -189,6 +189,43 @@ class AiReviewFindingModel extends AbstractTrackerDatabaseModel
     }
 
     /**
+     * Store a description an admin changed through a finding, and keep the review valid for it.
+     *
+     * The webhook for the edit stores the same description later. Updating the review's description hash keeps the
+     * other findings of the review visible, because the change was made from the review itself.
+     *
+     * @param   object       $finding  The finding, as returned by getOpenFinding().
+     * @param   string       $raw      The new raw (markdown) description, as GitHub returned it.
+     * @param   string|null  $html     The rendered description, or null to keep the stored one.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    public function storeChangedDescription(object $finding, string $raw, ?string $html): void
+    {
+        $db = $this->getDb();
+
+        $query = $db->getQuery(true)
+            ->update($db->quoteName('#__issues'))
+            ->set($db->quoteName('description_raw') . ' = ' . $db->quote($raw))
+            ->where($db->quoteName('id') . ' = ' . (int) $finding->issue_id);
+
+        if ($html !== null) {
+            $query->set($db->quoteName('description') . ' = ' . $db->quote($html));
+        }
+
+        $db->setQuery($query)->execute();
+
+        $db->setQuery(
+            $db->getQuery(true)
+                ->update($db->quoteName('#__ai_reviews'))
+                ->set($db->quoteName('description_hash') . ' = ' . $db->quote(AiReviewsTable::hashDescription($raw)))
+                ->where($db->quoteName('id') . ' = ' . (int) $finding->review_id)
+        )->execute();
+    }
+
+    /**
      * Base query for a finding with its review and item.
      *
      * @return  QueryInterface
@@ -203,8 +240,8 @@ class AiReviewFindingModel extends AbstractTrackerDatabaseModel
             ->select('f.*')
             ->select(
                 $db->quoteName(
-                    ['r.issue_id', 'r.issue_number', 'r.batch', 'r.reviewed_date', 'r.head_sha', 'r.summary', 'r.model'],
-                    ['issue_id', 'issue_number', 'batch', 'reviewed_date', 'head_sha', 'summary', 'model']
+                    ['r.issue_id', 'r.issue_number', 'r.batch', 'r.reviewed_date', 'r.head_sha', 'r.description_hash', 'r.summary', 'r.model'],
+                    ['issue_id', 'issue_number', 'batch', 'reviewed_date', 'head_sha', 'description_hash', 'summary', 'model']
                 )
             )
             ->select($db->quoteName(['i.title', 'i.has_code', 'i.description_raw'], ['title', 'has_code', 'description_raw']))

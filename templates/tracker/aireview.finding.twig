@@ -46,11 +46,30 @@
                 <pre class="ai-proposal mt-2">{{ finding.final_text }}</pre>
             {% endif %}
         {% else %}
-            {% if finding.proposal %}
+            {# Actions that send the (edited) proposal to GitHub with the admin's account #}
+            {% set editAction = null %}
+            {% if finding.kind == 'testing_instructions' and finding.has_code and finding.proposal %}
+                {% set editAction = {
+                    'action': 'instructions',
+                    'label': 'Replace in PR description',
+                    'help': 'Edit the proposal. Its sections replace the sections with the same headings in the pull request description.',
+                    'confirm': 'Replace these sections of the pull request description on GitHub with your account?'
+                } %}
+            {% endif %}
+
+            {% if editAction %}
+                <div class="ai-finding-edit mb-2">
+                    <label for="ai-text-{{ finding.id }}" class="form-label">{{ editAction.help }}</label>
+                    <textarea id="ai-text-{{ finding.id }}" class="form-control font-monospace ai-text" rows="12">{{ finding.proposal }}</textarea>
+                </div>
+            {% elseif finding.proposal %}
                 <pre class="ai-proposal">{{ finding.proposal }}</pre>
             {% endif %}
 
             <div class="ai-finding-actions">
+                {% if editAction %}
+                    <button type="button" class="btn btn-primary btn-sm ai-edit-action" data-action="{{ editAction.action }}" data-confirm="{{ editAction.confirm }}">{{ editAction.label }}</button>
+                {% endif %}
                 <button type="button" class="btn btn-secondary btn-sm ai-process" data-state="done" title="You handled this by hand">Mark done</button>
                 <button type="button" class="btn btn-secondary btn-sm ai-process" data-state="dismissed" title="The finding is wrong or not useful">Dismiss</button>
             </div>

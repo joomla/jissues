@@ -51,6 +51,15 @@ The list only shows active reviews of open items, and it hides a review as soon 
 
 Label changes and other metadata don't hide a review. A hidden review stays in the database; the next review run reviews the item again and supersedes it.
 
+### Actions
+
+All actions are for site admins and are sent as POST requests to `aireview/<project alias>/<action>` with the `findingId`. Changes on GitHub are made with the admin's own token; if GitHub refuses one, the admin sees the error and nothing is changed.
+
+| Action | For | What it does |
+|---|---|---|
+| `process` | every finding | Sets the finding to `dismissed` or `done` (`state`). Nothing changes on GitHub |
+| `instructions` | `testing_instructions` of pull requests | Replaces the sections of the pull request description that have the same headings as the edited proposal (`text`), see `DescriptionSectionsHelper`. Refused if the description on GitHub changed since the review |
+
 ### Import format
 
 The review tool exports an SQL file that is imported with `mysql` or phpMyAdmin. The table prefix is written out in the file. The file:

@@ -41,5 +41,15 @@
         $(document).on('click', '.ai-finding .ai-process', function () {
             sendFindingAction($(this).closest('.ai-finding'), 'process', {state: $(this).data('state')});
         });
+
+        $(document).on('click', '.ai-finding .ai-edit-action', function () {
+            var $finding = $(this).closest('.ai-finding');
+
+            if (!window.confirm($(this).data('confirm'))) {
+                return;
+            }
+
+            sendFindingAction($finding, $(this).data('action'), {text: $finding.find('.ai-text').val()});
+        });
     })(jQuery);
 </script>

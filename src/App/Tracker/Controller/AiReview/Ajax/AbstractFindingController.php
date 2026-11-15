@@ -11,8 +11,11 @@ namespace App\Tracker\Controller\AiReview\Ajax;
 
 use App\Projects\TrackerProject;
 use App\Tracker\Model\AiReviewFindingModel;
+use Joomla\Http\Exception\UnexpectedResponseException;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Github\Github;
+use JTracker\Github\GithubFactory;
 
 /**
  * Base class for the actions on AI review findings. Site admins only, POST only.
@@ -89,5 +92,50 @@ abstract class AbstractFindingController extends AbstractAjaxController
         }
 
         return $finding;
+    }
+
+    /**
+     * Get a GitHub client that acts with the admin's own token.
+     *
+     * GithubFactory::getInstance() falls back to the configured account when the session has no token, so the token is
+     * checked here: changes on GitHub must be made under the admin's name.
+     *
+     * @return  Github
+     *
+     * @since   1.0
+     * @throws  \RuntimeException if the admin has no GitHub token in the session.
+     */
+    protected function getUserGitHub(): Github
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
+
+        if (!$application->getSession()->get('gh_oauth_access_token')) {
+            throw new \RuntimeException('Your GitHub login has expired. Please log out and log in again.');
+        }
+
+        return GithubFactory::getInstance($application);
+    }
+
+    /**
+     * Turn a GitHub error into a message for the admin.
+     *
+     * @param   \Exception  $exception  The exception thrown by the GitHub client.
+     * @param   string      $state      What was already done before the error, for the message.
+     *
+     * @return  \RuntimeException
+     *
+     * @since   1.0
+     */
+    protected function gitHubError(\Exception $exception, string $state = 'Nothing was changed.'): \RuntimeException
+    {
+        $message = $exception->getMessage();
+
+        if ($exception instanceof UnexpectedResponseException) {
+            $body    = json_decode((string) $exception->getResponse()->getBody());
+            $message = $exception->getResponse()->getStatusCode() . ' ' . (\is_object($body) && isset($body->message) ? $body->message : $message);
+        }
+
+        return new \RuntimeException('GitHub refused the change with your account: ' . $message . '. ' . $state, 0, $exception);
     }
 }
