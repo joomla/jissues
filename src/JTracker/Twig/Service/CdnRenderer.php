@@ -80,7 +80,7 @@ class CdnRenderer
      */
     public function getCdnFooter(): string
     {
-        $key = md5(__METHOD__ . ($this->app->getUser()->id > 0 ? '_authenticated' : '_guest'));
+        $key = md5(__METHOD__);
 
         $item = $this->cache->getItem($key);
 
@@ -107,25 +107,6 @@ class CdnRenderer
                     ]
                 );
 
-                // Replace the context aware placeholders
-                if ($this->app->getUser()->id) {
-                    $body = strtr(
-                        $body,
-                        [
-                            '%loginroute%' => $this->app->get('uri.base.path') . 'logout',
-                            '%logintext%'  => 'Log out',
-                        ]
-                    );
-                } else {
-                    $body = strtr(
-                        $body,
-                        [
-                            '%loginroute%' => $this->loginHelper->getLoginUri(),
-                            '%logintext%'  => 'Log in',
-                        ]
-                    );
-                }
-
                 $item->set($body);
                 $item->expiresAfter(null);
 
@@ -133,6 +114,25 @@ class CdnRenderer
             } catch (\RuntimeException $e) {
                 return 'Could not load template section.';
             }
+        }
+
+        // Replace the context aware placeholders after caching, the login URI contains per-session data
+        if ($this->app->getUser()->id) {
+            $body = strtr(
+                $body,
+                [
+                    '%loginroute%' => $this->app->get('uri.base.path') . 'logout',
+                    '%logintext%'  => 'Log out',
+                ]
+            );
+        } else {
+            $body = strtr(
+                $body,
+                [
+                    '%loginroute%' => $this->loginHelper->getLoginUri(),
+                    '%logintext%'  => 'Log in',
+                ]
+            );
         }
 
         return $body;
