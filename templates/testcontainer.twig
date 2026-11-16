@@ -1,7 +1,8 @@
 {# Copyright (C) 2015 Open Source Matters, Inc. All rights reserved. #}
 {# GNU General Public License version 2 or later; see LICENSE.txt#}
 
-{% if user.id %}
+{# The author of an item can not test it, unless they maintain the project #}
+{% if user.canTest(item.opened_by) %}
     <form class="testForm form-inline" name="testsForm" id="testContainer">
         <h6>Submit test result</h6>
         <fieldset>

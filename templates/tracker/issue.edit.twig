@@ -54,9 +54,11 @@
             <a class="btn btn-success" href="javascript:" id="submit">Save</a>
         </li>
         {% if item.has_code %}
+        {% if user.canTest(item.opened_by) %}
         <li>
              <a class="btn btn-danger" href="javascript:" onclick="$('#testAlterContainer').slideUp();$('#testContainer').slideToggle();">Test this</a>
         </li>
+        {% endif %}
         <a class="btn btn-warning" href="javascript:" onclick="$('#testContainer').slideUp();$('#testAlterContainer').slideToggle();">Alter test</a>
         {% endif %}
         <li>

@@ -277,6 +277,45 @@ abstract class User implements \Serializable
     }
 
     /**
+     * Check if the user is the author of an item, e.g. the one who opened an issue or pull request.
+     *
+     * The user names are GitHub logins, which are stored as GitHub returns them,
+     * so they are compared the same way as in canEditOwn().
+     * Guests (empty user name) are never the author of an item.
+     *
+     * @param   string|null  $username  The user name of the author of the item.
+     *
+     * @return  boolean
+     *
+     * @since   1.0
+     */
+    public function isAuthor($username)
+    {
+        return (string) $this->username !== '' && (string) $this->username === (string) $username;
+    }
+
+    /**
+     * Check if the user may submit a test result for an item.
+     *
+     * A test result is a peer review, so the author of an item can not test it. Maintainers of the project
+     * (users with the "manage" right, which includes admins) may still test their own items.
+     *
+     * @param   string|null  $author  The user name of the author of the item.
+     *
+     * @return  boolean
+     *
+     * @since   1.0
+     */
+    public function canTest($author)
+    {
+        if (!$this->id) {
+            return false;
+        }
+
+        return !$this->isAuthor($author) || $this->check('manage');
+    }
+
+    /**
      * Check if a user is authorized to perform a given action.
      *
      * @param   string  $action  The action to check.
