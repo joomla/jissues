@@ -12,6 +12,12 @@ namespace App\Tracker\Controller\TestResult\Ajax;
 use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
 use App\Tracker\Model\IssueModel;
+use App\Tracker\Table\IssuesTable;
+use App\Tracker\Testing\IssueContext;
+use App\Tracker\Testing\TestResult;
+use App\Tracker\Testing\TestResultRepository;
+use App\Tracker\Testing\TestResultServiceFactory;
+use App\Tracker\Testing\TestSummary;
 use JTracker\Controller\AbstractAjaxController;
 use JTracker\Github\GithubFactory;
 
@@ -71,7 +77,11 @@ class Alter extends AbstractAjaxController
             throw new \Exception('Invalid issue ID.');
         }
 
-        $data->testResults = $issueModel->saveTest($issueId, $result->user, $result->value, $sha);
+        if ($project->hasGithubTesting()) {
+            $data->testResults = $this->alterOnGithub($project, $issueId, $result->user, (int) $result->value, $sha);
+        } else {
+            $data->testResults = $issueModel->saveTest($issueId, $result->user, $result->value, $sha);
+        }
 
         $event = (new ActivityModel($this->getContainer()->get('db')))
             ->addActivityEvent(
@@ -84,7 +94,10 @@ class Alter extends AbstractAjaxController
                 json_encode($result)
             );
 
-        $this->triggerEvent('onTestAfterSubmit', ['issueNumber' => $issueNumber, 'data' => $data->testResults]);
+        // With testing on GitHub the test result service has already updated the commit status
+        if (!$project->hasGithubTesting()) {
+            $this->triggerEvent('onTestAfterSubmit', ['issueNumber' => $issueNumber, 'data' => $data->testResults]);
+        }
 
         $data->event = new \stdClass();
 
@@ -114,5 +127,54 @@ class Alter extends AbstractAjaxController
         $this->github = GithubFactory::getProjectBotInstance($this->getContainer()->get('app'), $project);
 
         return $this;
+    }
+
+    /**
+     * Alter a test result for a project which records test results on GitHub.
+     *
+     * @param   TrackerProject  $project   The project.
+     * @param   integer         $issueId   The issue ID.
+     * @param   string          $username  The user whose result is altered.
+     * @param   integer         $result    The test result (0 = remove, 1 = success, 2 = failure).
+     * @param   string          $sha       The tested commit.
+     *
+     * @return  object  The user names with successful and failed tests.
+     *
+     * @since   1.0
+     * @throws  \Exception
+     */
+    protected function alterOnGithub(TrackerProject $project, int $issueId, string $username, int $result, string $sha)
+    {
+        $db    = $this->getContainer()->get('db');
+        $table = (new IssuesTable($db))->load($issueId);
+        $issue = IssueContext::fromTable($table, (new IssueModel($db))->getOpenClosed($table->status) === 'open');
+
+        $service = TestResultServiceFactory::create($this->getContainer(), $project, $this->github);
+
+        if ($result === TestResult::NOT_TESTED) {
+            $service->withdraw($issue, $username);
+        } else {
+            $outcome = $service->record(
+                $issue,
+                $username,
+                $result,
+                'Set by @' . $this->getContainer()->get('app')->getUser()->username . ' in the J!Tracker.',
+                [],
+                null,
+                'alter',
+                $sha
+            );
+
+            if (!$outcome->accepted) {
+                throw new \Exception($outcome->message);
+            }
+        }
+
+        $summary = new TestSummary((new TestResultRepository($db))->getResults($issueId), $issue->headSha);
+
+        return (object) [
+            'testsSuccess' => $summary->getSuccessful(),
+            'testsFailure' => $summary->getFailed(),
+        ];
     }
 }

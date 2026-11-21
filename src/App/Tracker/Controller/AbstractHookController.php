@@ -12,7 +12,11 @@ namespace App\Tracker\Controller;
 use App\Projects\Table\LabelsTable;
 use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
+use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
+use App\Tracker\Testing\IssueContext;
+use App\Tracker\Testing\TestResultService;
+use App\Tracker\Testing\TestResultServiceFactory;
 use Joomla\Database\DatabaseInterface;
 use Joomla\Http\Exception\InvalidResponseCodeException;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
@@ -526,6 +530,48 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
             $loginHelper = $this->getContainer()->get(GitHubLoginHelper::class);
             $loginHelper->saveAvatar($login);
         }
+    }
+
+    /**
+     * Get the service for test results recorded on GitHub.
+     *
+     * @return  TestResultService|null  Null if the project does not record test results on GitHub.
+     *
+     * @since   1.0
+     */
+    protected function getTestResultService(): ?TestResultService
+    {
+        if (!$this->project->hasGithubTesting()) {
+            return null;
+        }
+
+        return TestResultServiceFactory::create($this->getContainer(), $this->project, $this->github, $this->logger);
+    }
+
+    /**
+     * Get the testing context of an issue.
+     *
+     * @param   integer  $issueNumber  The issue number.
+     * @param   boolean  $open         Whether the issue is open on GitHub.
+     *
+     * @return  IssueContext|null  Null if the issue is not in the database.
+     *
+     * @since   1.0
+     */
+    protected function getIssueContext(int $issueNumber, bool $open): ?IssueContext
+    {
+        try {
+            $table = (new IssuesTable($this->db))->load(
+                [
+                    'issue_number' => $issueNumber,
+                    'project_id'   => $this->project->project_id,
+                ]
+            );
+        } catch (\Exception $e) {
+            return null;
+        }
+
+        return $table->id ? IssueContext::fromTable($table, $open) : null;
     }
 
     /**

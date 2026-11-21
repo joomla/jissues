@@ -13,6 +13,7 @@ use App\Projects\TrackerProject;
 use App\Tracker\Controller\AbstractHookController;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
+use App\Tracker\Testing\PrDescriptionSection;
 use JTracker\Github\GithubFactory;
 use JTracker\Helper\GitHubHelper;
 
@@ -56,15 +57,15 @@ class ReceivePullsHook extends AbstractHookController
             return;
         }
 
-        // Stop running for label events
+        // Pull or Issue ?
+        $this->data = $this->hookData->pull_request;
+
+        // Stop running for label events, only the RTC label is followed when test results are recorded on GitHub
         if (\in_array($this->hookData->action, ['labeled', 'unlabeled'])) {
-            $this->response->message = 'Ignoring label events now.';
+            $this->response->message = $this->processLabelChange() ? 'Hook data processed successfully.' : 'Ignoring label events now.';
 
             return;
         }
-
-        // Pull or Issue ?
-        $this->data = $this->hookData->pull_request;
 
         try {
             // If the item is already in the database, update it; else, insert it.
@@ -73,6 +74,8 @@ class ReceivePullsHook extends AbstractHookController
             } else {
                 $this->insertData();
             }
+
+            $this->processTestResults();
         } catch (\Exception $e) {
             $logMessage = 'Uncaught Exception processing pull request webhook';
 
@@ -81,6 +84,112 @@ class ReceivePullsHook extends AbstractHookController
             $this->response->error   = $logMessage . ': ' . $e->getMessage();
             $this->response->message = 'Hook data processed unsuccessfully.';
         }
+    }
+
+    /**
+     * Get the description of the pull request without the test section managed by the bot.
+     *
+     * @return  string
+     *
+     * @since   1.0
+     */
+    protected function getAuthorBody()
+    {
+        return PrDescriptionSection::strip($this->data->body ?? '');
+    }
+
+    /**
+     * Update the test results on GitHub, if the project records test results on GitHub.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function processTestResults()
+    {
+        $action = $this->hookData->action;
+
+        if (!\in_array($action, ['opened', 'reopened', 'synchronize', 'edited', 'ready_for_review'])) {
+            return;
+        }
+
+        $service = $this->getTestResultService();
+
+        if ($service === null) {
+            return;
+        }
+
+        try {
+            $issue = $this->getIssueContext((int) $this->data->number, ($this->data->state ?? '') === 'open');
+
+            if ($issue === null) {
+                return;
+            }
+
+            if ($action === 'edited') {
+                // Restore the test section after the author edited the description; edits of the bot itself are ignored
+                $sender = (string) ($this->hookData->sender->login ?? '');
+
+                if (isset($this->hookData->changes->body) && strcasecmp($sender, $this->project->getGh_Editbot_User() ?: 'joomla-bot') !== 0) {
+                    $service->refresh($issue);
+                }
+
+                return;
+            }
+
+            $issue->headSha = $this->data->head->sha ?? $issue->headSha;
+
+            $service->pullRequestUpdated($issue);
+        } catch (\Exception $e) {
+            $logMessage = \sprintf('Error updating the test results of pull request %d', $this->data->number);
+
+            $this->logger->error($logMessage, ['exception' => $e]);
+            $this->setStatusCode(500);
+            $this->response->error = $logMessage . ': ' . $e->getMessage();
+        }
+    }
+
+    /**
+     * Follow changes of the RTC label, if the project records test results on GitHub.
+     *
+     * @return  boolean  True if the label change has been processed.
+     *
+     * @since   1.0
+     */
+    protected function processLabelChange()
+    {
+        $service = $this->getTestResultService();
+
+        if ($service === null || !isset($this->hookData->label->name) || !$this->checkIssueExists((int) $this->data->number)) {
+            return false;
+        }
+
+        try {
+            $issue = $this->getIssueContext((int) $this->data->number, ($this->data->state ?? '') === 'open');
+
+            if ($issue !== null && $service->labelChanged($issue, $this->hookData->action, $this->hookData->label->name)) {
+                $this->logger->info(
+                    \sprintf(
+                        'Changed the status of %s/%s #%d after the %s label has been %s.',
+                        $this->project->gh_user,
+                        $this->project->gh_project,
+                        $this->data->number,
+                        $this->hookData->label->name,
+                        $this->hookData->action === 'labeled' ? 'added' : 'removed'
+                    )
+                );
+
+                return true;
+            }
+        } catch (\Exception $e) {
+            $logMessage = \sprintf('Error processing the label change of pull request %d', $this->data->number);
+
+            $this->logger->error($logMessage, ['exception' => $e]);
+            $this->setStatusCode(500);
+            $this->response->error = $logMessage . ': ' . $e->getMessage();
+        }
+
+        return false;
     }
 
     /**
@@ -110,8 +219,8 @@ class ReceivePullsHook extends AbstractHookController
                 $data = [
                     'issue_number'    => $this->data->number,
                     'title'           => $this->data->title,
-                    'description'     => $this->parseText($this->data->body),
-                    'description_raw' => $this->data->body,
+                    'description'     => $this->parseText($this->getAuthorBody()),
+                    'description_raw' => $this->getAuthorBody(),
                     'status'          => ($status === null) ? 1 : $status,
                     'opened_date'     => (new \DateTime($this->data->created_at))->format($dateFormat),
                     'opened_by'       => $this->data->user->login,
@@ -330,8 +439,8 @@ class ReceivePullsHook extends AbstractHookController
                 $data = [
                     'id'              => $table->id,
                     'title'           => $this->data->title,
-                    'description'     => $this->parseText($this->data->body),
-                    'description_raw' => $this->data->body,
+                    'description'     => $this->parseText($this->getAuthorBody()),
+                    'description_raw' => $this->getAuthorBody(),
                     'status'          => $status === null ? $table->status : $status,
                     'modified_date'   => (new \DateTime($this->data->updated_at))->format($dateFormat),
                     'modified_by'     => $this->hookData->sender->login,
@@ -669,9 +778,13 @@ class ReceivePullsHook extends AbstractHookController
             $data['title'] = $this->data->title;
         }
 
-        if (isset($this->hookData->changes->body)) {
-            $data['description']     = $this->parseText($this->data->body);
-            $data['description_raw'] = $this->data->body;
+        // A change of the test section managed by the bot is no change of the description
+        $authorTextChanged = isset($this->hookData->changes->body)
+            && PrDescriptionSection::strip($this->hookData->changes->body->from ?? '') !== $this->getAuthorBody();
+
+        if ($authorTextChanged) {
+            $data['description']     = $this->parseText($this->getAuthorBody());
+            $data['description_raw'] = $this->getAuthorBody();
         }
 
         // Ensure the data array isn't empty for some reason; if it is there's nothing to do here

@@ -12,6 +12,7 @@ namespace App\Tracker\Controller\Hooks\Listeners;
 use App\Projects\TrackerProject;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
+use App\Tracker\Testing\PrDescriptionSection;
 use Joomla\Event\Event;
 use Joomla\Event\SubscriberInterface;
 use Joomla\Github\Github;
@@ -437,8 +438,9 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
             $this->checkCategories($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
         }
 
-        // New commits have been pushed, report the human test results for the new head commit
-        if ($arguments['action'] === 'synchronize') {
+        // New commits have been pushed, report the human test results for the new head commit.
+        // With testing on GitHub the test result service reports the status after carrying over the results.
+        if ($arguments['action'] === 'synchronize' && !$arguments['project']->hasGithubTesting()) {
             $this->setHumanTestStatus($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
         }
     }
@@ -820,7 +822,8 @@ class JoomlacmsPullsListener extends AbstractListener implements SubscriberInter
      */
     protected function checkPullBody($hookData, Github $github, Logger $logger, $project)
     {
-        if ($hookData->pull_request->body == '') {
+        // The test section managed by the bot is no description of the author
+        if (PrDescriptionSection::strip($hookData->pull_request->body ?? '') === '') {
             // Post a comment on the PR asking to add a description
             try {
                 $addLabels                       = [];

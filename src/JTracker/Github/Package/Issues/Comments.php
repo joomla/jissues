@@ -210,4 +210,32 @@ class Comments extends Package
 
         return true;
     }
+
+    /**
+     * Create a reaction for an issue comment.
+     *
+     * @param   string   $user       The name of the owner of the GitHub repository.
+     * @param   string   $repo       The name of the GitHub repository.
+     * @param   integer  $commentId  The id of the comment.
+     * @param   string   $content    The reaction type: +1, -1, laugh, confused, heart, hooray, rocket or eyes.
+     *
+     * @return  object
+     *
+     * @since   1.0
+     * @throws  \DomainException
+     */
+    public function createReaction($user, $repo, $commentId, $content)
+    {
+        if (!\in_array($content, ['+1', '-1', 'laugh', 'confused', 'heart', 'hooray', 'rocket', 'eyes'], true)) {
+            throw new \InvalidArgumentException('Invalid reaction type: ' . $content);
+        }
+
+        // Build the request path.
+        $path = '/repos/' . $user . '/' . $repo . '/issues/comments/' . (int) $commentId . '/reactions';
+
+        $response = $this->client->post($this->fetchUrl($path), json_encode(['content' => $content]));
+
+        // GitHub answers with 200 if the reaction already exists
+        return $this->processResponse($response, $response->getStatusCode() == 200 ? 200 : 201);
+    }
 }

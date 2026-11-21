@@ -34,6 +34,7 @@ CREATE TABLE `#__tracker_projects` (
   `gh_editbot_token` varchar(255) DEFAULT '' COMMENT 'GitHub editbot personal access token',
   `ext_tracker_link` varchar(500) DEFAULT '' COMMENT 'A tracker link format (e.g. http://tracker.com/issue/%d)',
   `short_title` varchar(50) DEFAULT '' COMMENT 'Project short title',
+  `github_testing` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether test results are recorded with /tested commands on GitHub',
   PRIMARY KEY (`project_id`),
   KEY `alias` (`alias`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -149,8 +150,16 @@ CREATE TABLE IF NOT EXISTS `#__issues_tests` (
   `username` varchar(50) NOT NULL COMMENT 'User name',
   `result` smallint(6) NOT NULL COMMENT 'Test result (1=success, 2=failure)',
   `sha` varchar(40) DEFAULT NULL COMMENT 'The GitHub SHA where the issue has been tested against',
+  `tested_sha` varchar(40) NULL DEFAULT NULL COMMENT 'The GitHub SHA the tester actually tested',
+  `diff_hash` char(40) NULL DEFAULT NULL COMMENT 'Fingerprint of the pull request diff at the time of the test',
+  `created_date` datetime NULL DEFAULT NULL COMMENT 'Date of the test',
+  `gh_comment_id` bigint(20) unsigned NULL DEFAULT NULL COMMENT 'The GitHub comment containing the test result',
+  `comment` text NULL COMMENT 'The notes of the tester',
+  `environment` text NULL COMMENT 'The test environment (JSON encoded)',
+  `source` varchar(10) NOT NULL DEFAULT 'tracker' COMMENT 'Where the test result was submitted (tracker, github, alter, import)',
   PRIMARY KEY (`id`),
-  KEY `item_id` (`item_id`)
+  KEY `item_id` (`item_id`),
+  UNIQUE KEY `gh_comment_id` (`gh_comment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -184,6 +193,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `pr_head_user` varchar(150) NULL COMMENT 'Pull request head user',
   `pr_head_ref` varchar(150) NULL COMMENT 'Pull request head ref',
   `pr_head_sha` varchar(40) NULL COMMENT 'Pull request head SHA',
+  `pr_diff_hash` char(40) NULL DEFAULT NULL COMMENT 'Fingerprint of the pull request diff',
   `labels` varchar(250) NOT NULL COMMENT 'Comma separated list of label IDs',
   `build` varchar(40) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
   `easy` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether an item is an easy test',
@@ -451,4 +461,8 @@ INSERT INTO `#__migrations` (`version`) VALUES
 ('20170723001'),
 ('20180218001'),
 ('20200310001'),
-('20261109001');
+('20261109001'),
+('20261109002'),
+('20261110001'),
+('20261110002'),
+('20261121001');

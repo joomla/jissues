@@ -1,0 +1,10 @@
+ALTER TABLE `#__tracker_projects` ADD COLUMN `github_testing` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether test results are recorded with /tested commands on GitHub' AFTER `short_title`;
+ALTER TABLE `#__issues` ADD COLUMN `pr_diff_hash` char(40) NULL DEFAULT NULL COMMENT 'Fingerprint of the pull request diff' AFTER `pr_head_sha`;
+ALTER TABLE `#__issues_tests` ADD COLUMN `tested_sha` varchar(40) NULL DEFAULT NULL COMMENT 'The GitHub SHA the tester actually tested' AFTER `sha`;
+ALTER TABLE `#__issues_tests` ADD COLUMN `diff_hash` char(40) NULL DEFAULT NULL COMMENT 'Fingerprint of the pull request diff at the time of the test' AFTER `tested_sha`;
+ALTER TABLE `#__issues_tests` ADD COLUMN `created_date` datetime NULL DEFAULT NULL COMMENT 'Date of the test' AFTER `diff_hash`;
+ALTER TABLE `#__issues_tests` ADD COLUMN `gh_comment_id` bigint(20) unsigned NULL DEFAULT NULL COMMENT 'The GitHub comment containing the test result' AFTER `created_date`;
+ALTER TABLE `#__issues_tests` ADD COLUMN `comment` text NULL COMMENT 'The notes of the tester' AFTER `gh_comment_id`;
+ALTER TABLE `#__issues_tests` ADD COLUMN `environment` text NULL COMMENT 'The test environment (JSON encoded)' AFTER `comment`;
+ALTER TABLE `#__issues_tests` ADD COLUMN `source` varchar(10) NOT NULL DEFAULT 'tracker' COMMENT 'Where the test result was submitted (tracker, github, alter, import)' AFTER `environment`;
+ALTER TABLE `#__issues_tests` ADD UNIQUE KEY `gh_comment_id` (`gh_comment_id`);

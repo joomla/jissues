@@ -197,6 +197,8 @@ class ConsoleApplication extends FrameworkApplication implements ContainerAwareI
                     ->setContainer($this->getContainer()),
                 (new \JTracker\Command\Update\Server())
                     ->setContainer($this->getContainer()),
+                (new \JTracker\Command\Update\Testing())
+                    ->setContainer($this->getContainer()),
             ]
         );
     }
