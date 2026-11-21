@@ -52,9 +52,9 @@ class TestSummaryTest extends TestCase
                 'pending',
                 TestSummary::LABEL_ENOUGH,
             ],
-            'two failures'        => [[self::makeResult(1, 'a', TestResult::FAILURE), self::makeResult(2, 'b', TestResult::FAILURE)], 'failure', null],
-            'outdated successes'  => [[self::makeResult(1, 'a', TestResult::SUCCESS, 'old'), self::makeResult(2, 'b', TestResult::SUCCESS, 'old')], 'pending', null],
-            'not tested ignored'  => [[self::makeResult(1, 'a', TestResult::NOT_TESTED)], 'pending', null],
+            'two failures'       => [[self::makeResult(1, 'a', TestResult::FAILURE), self::makeResult(2, 'b', TestResult::FAILURE)], 'failure', null],
+            'outdated successes' => [[self::makeResult(1, 'a', TestResult::SUCCESS, 'old'), self::makeResult(2, 'b', TestResult::SUCCESS, 'old')], 'pending', null],
+            'not tested ignored' => [[self::makeResult(1, 'a', TestResult::NOT_TESTED)], 'pending', null],
         ];
     }
 

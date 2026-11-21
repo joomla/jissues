@@ -336,7 +336,7 @@ class TestResultServiceTest extends TestCase
         $this->service->handleComment($this->comment('/tested ok'), $this->issue());
 
         // Rebase: new head, same diff
-        $this->pullRequest->head->sha = 'rebased';
+        $this->pullRequest->head->sha  = 'rebased';
         $issue                         = new IssueContext(1, 42, 'author', true, true, 'rebased', null, ['first', 'rebased']);
 
         $this->service->pullRequestUpdated($issue);
@@ -349,7 +349,7 @@ class TestResultServiceTest extends TestCase
 
         // Code change: new head, other diff
         $this->files                   = [(object) ['filename' => 'a.php', 'status' => 'modified', 'patch' => "@@ -1 +1 @@\n-a\n+c"]];
-        $this->pullRequest->head->sha = 'changed';
+        $this->pullRequest->head->sha  = 'changed';
         $issue                         = new IssueContext(1, 42, 'author', true, true, 'changed', null, ['first', 'rebased', 'changed']);
 
         $this->service->pullRequestUpdated($issue);
