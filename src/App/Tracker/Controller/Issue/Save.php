@@ -13,6 +13,7 @@ use App\Tracker\Helper\IssueChangesHelper;
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\ActivitiesTable;
+use App\Tracker\Testing\PrDescriptionSection;
 use Joomla\Http\Exception\UnexpectedResponseException;
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Controller\AbstractTrackerController;
@@ -325,6 +326,17 @@ class Save extends AbstractTrackerController
             }
         } catch (\RuntimeException $exception) {
             throw new \RuntimeException('Error retrieving an instance of the Github object', $exception->getCode(), $exception);
+        }
+
+        // Keep the test section managed by the bot, the tracker only knows the description of the author
+        if ($project->hasGithubTesting()) {
+            $section = PrDescriptionSection::extract(
+                $gitHub->issues->get($project->gh_user, $project->gh_project, $issueNumber)->body ?? ''
+            );
+
+            if ($section !== null) {
+                $data['description_raw'] = PrDescriptionSection::replace($data['description_raw'], $section);
+            }
         }
 
         try {

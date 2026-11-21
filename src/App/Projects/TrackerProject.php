@@ -24,6 +24,7 @@ use Joomla\Database\DatabaseInterface;
  * @property-read   string   $gh_editbot_user   GitHub editbot username.
  * @property-read   string   $gh_editbot_pass   GitHub editbot password (deprecated, use the token instead).
  * @property-read   string   $gh_editbot_token  GitHub editbot personal access token.
+ * @property-read   integer  $github_testing    Flag whether test results are recorded with /tested commands on GitHub.
  * @property-read   string   $ext_tracker_link  A tracker link format (e.g. http://tracker.com/issue/%d)
  * @property-read   string   $short_title       Project short title
  *
@@ -95,6 +96,14 @@ class TrackerProject implements \Serializable
      * @since  1.0
      */
     protected $gh_editbot_token;
+
+    /**
+     * Flag whether test results are recorded with `/tested` commands on GitHub.
+     *
+     * @var    integer
+     * @since  1.0
+     */
+    protected $github_testing;
 
     /**
      * External issue tracker link
@@ -581,6 +590,18 @@ class TrackerProject implements \Serializable
     public function hasEditBot()
     {
         return (bool) $this->gh_editbot_token || ($this->gh_editbot_user && $this->gh_editbot_pass);
+    }
+
+    /**
+     * Check if test results for the project are recorded with `/tested` commands on GitHub.
+     *
+     * @return boolean
+     *
+     * @since   1.0
+     */
+    public function hasGithubTesting()
+    {
+        return (bool) $this->github_testing && $this->gh_user && $this->gh_project;
     }
 
     /**

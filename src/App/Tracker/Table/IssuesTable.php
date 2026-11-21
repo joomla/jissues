@@ -40,6 +40,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * @property   string        $pr_head_user     Pull request head user
  * @property   string        $pr_head_ref      Pull request head ref
  * @property   string        $pr_head_sha      Pull request head sha
+ * @property   string|null   $pr_diff_hash     Fingerprint of the pull request diff
  * @property   string        $labels           Comma separated list of label IDs
  * @property   string        $build            Build on which the issue is reported
  * @property   integer       $easy             Flag whether an item is an easy test

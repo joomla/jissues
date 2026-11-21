@@ -12,6 +12,12 @@ namespace App\Tracker\Controller\TestResult\Ajax;
 use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
 use App\Tracker\Model\IssueModel;
+use App\Tracker\Table\IssuesTable;
+use App\Tracker\Testing\IssueContext;
+use App\Tracker\Testing\TestResult;
+use App\Tracker\Testing\TestResultRepository;
+use App\Tracker\Testing\TestResultServiceFactory;
+use App\Tracker\Testing\TestSummary;
 use JTracker\Controller\AbstractAjaxController;
 use JTracker\Github\GithubFactory;
 use JTracker\Helper\GitHubHelper;
@@ -75,6 +81,13 @@ class Submit extends AbstractAjaxController
             throw new \Exception('Invalid issue ID.');
         }
 
+        // With testing on GitHub the result is posted as a `/tested` command and recorded like any other command
+        if ($project->hasGithubTesting()) {
+            $this->submitOnGithub($project, $issueId, (int) $issueNumber, $result, (string) $userComment, $sha);
+
+            return;
+        }
+
         $data->testResults = $issueModel->saveTest($issueId, $user->username, $result, $sha);
 
         $event = (new ActivityModel($this->getContainer()->get('db')))
@@ -126,6 +139,92 @@ class Submit extends AbstractAjaxController
         $comment .= $gitHubHelper->getApplicationComment($application, $project, $issueNumber);
 
         $data->comment = $gitHubHelper->addComment($project, $issueNumber, $comment, $user->username, $this->getContainer()->get('db'));
+
+        $this->response->data = json_encode($data);
+
+        $this->response->message = 'Test successfully added';
+    }
+
+    /**
+     * Submit a test result for a project which records test results on GitHub.
+     *
+     * The result is posted as a `/tested` comment with the token of the user, so the comment is the visible record on GitHub.
+     * It is recorded right away; the webhook for the comment finds the result by the comment ID and does not record it twice.
+     *
+     * @param   TrackerProject  $project      The project.
+     * @param   integer         $issueId      The issue ID.
+     * @param   integer         $issueNumber  The issue number.
+     * @param   integer         $result       The test result (0 = withdraw, 1 = success, 2 = failure).
+     * @param   string          $userComment  The notes of the tester.
+     * @param   string          $sha          The tested commit.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     * @throws  \Exception
+     */
+    protected function submitOnGithub(TrackerProject $project, int $issueId, int $issueNumber, int $result, string $userComment, string $sha)
+    {
+        /** @var \JTracker\Application\Application $application */
+        $application = $this->getContainer()->get('app');
+        $user        = $application->getUser();
+        $db          = $this->getContainer()->get('db');
+
+        $table = (new IssuesTable($db))->load($issueId);
+        $issue = IssueContext::fromTable($table, (new IssueModel($db))->getOpenClosed($table->status) === 'open');
+
+        $service = TestResultServiceFactory::create($this->getContainer(), $project, $this->github);
+
+        $data = new \stdClass();
+
+        if ($result === TestResult::NOT_TESTED) {
+            $service->withdraw($issue, $user->username);
+        } else {
+            $error = $service->validate($issue, $user->username, $result, $userComment);
+
+            if ($error !== null) {
+                throw new \Exception($error);
+            }
+
+            $comment = '/tested ' . ($result === TestResult::SUCCESS ? 'ok' : 'fail') . ($userComment !== '' ? "\r\n\r\n" . $userComment : '');
+            $comment .= "\r\n\r\n<!-- jtracker-test-env " . json_encode(['sha' => $sha]) . ' -->';
+            $comment .= (new GitHubHelper($this->getContainer()->get('gitHub')))->getApplicationComment($application, $project, $issueNumber);
+
+            $data->comment = (new GitHubHelper($this->getContainer()->get('gitHub')))
+                ->addComment($project, $issueNumber, $comment, $user->username, $db);
+
+            $outcome = $service->record(
+                $issue,
+                $user->username,
+                $result,
+                $userComment,
+                ['sha' => $sha],
+                is_numeric($data->comment->comment_id) ? (int) $data->comment->comment_id : null,
+                'tracker',
+                $sha
+            );
+
+            if (!$outcome->accepted) {
+                throw new \Exception($outcome->message);
+            }
+        }
+
+        $summary = new TestSummary((new TestResultRepository($db))->getResults($issueId), $issue->headSha);
+
+        $data->testResults = (object) [
+            'testsSuccess' => $summary->getSuccessful(),
+            'testsFailure' => $summary->getFailed(),
+        ];
+
+        $data->event = (object) [
+            'activities_id' => 0,
+            'event'         => 'test_item',
+            'user'          => $user->username,
+            'project_id'    => $project->project_id,
+            'issue_number'  => $issueNumber,
+            'created_date'  => (new \DateTime('now', new \DateTimeZone('UTC')))->format($db->getDateFormat()),
+            'text'          => $result,
+        ];
 
         $this->response->data = json_encode($data);
 

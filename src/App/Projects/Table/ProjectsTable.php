@@ -26,6 +26,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * @property   string   $gh_editbot_token  GitHub editbot personal access token
  * @property   string   $ext_tracker_link  A tracker link format (e.g. http://tracker.com/issue/%d)
  * @property   string   $short_title       Project short title
+ * @property   integer  $github_testing    Flag whether test results are recorded with /tested commands on GitHub
  *
  * @since  1.0
  */

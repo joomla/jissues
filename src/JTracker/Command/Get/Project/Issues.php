@@ -13,6 +13,7 @@ use App\Projects\Table\LabelsTable;
 use App\Projects\Table\MilestonesTable;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
+use App\Tracker\Testing\PrDescriptionSection;
 use JTracker\Command\Get\Project;
 use JTracker\Github\GithubFactory;
 use JTracker\Helper\GitHubHelper;
@@ -316,16 +317,19 @@ class Issues extends Project
             $table->issue_number = $ghIssue->number;
             $table->title        = $ghIssue->title;
 
-            if ($table->description_raw != $ghIssue->body) {
+            // The test section managed by the bot is not part of the description in the tracker
+            $body = PrDescriptionSection::strip($ghIssue->body);
+
+            if ($table->description_raw != $body) {
                 $table->description = $this->github->markdown->render(
-                    $ghIssue->body,
+                    $body,
                     'gfm',
                     $this->project->gh_user . '/' . $this->project->gh_project
                 );
 
                 $this->checkGitHubRateLimit($this->github->markdown->getRateLimitRemaining());
 
-                $table->description_raw = $ghIssue->body;
+                $table->description_raw = $body;
             }
 
             $statusTable = new StatusTable($this->getContainer()->get('db'));

@@ -76,6 +76,8 @@ class ReceiveCommentsHook extends AbstractHookController
             } else {
                 $this->response->message = 'Hook data processed unsuccessfully.';
             }
+
+            $this->processTestCommand();
         } catch (\Exception $e) {
             $logMessage = 'Uncaught Exception processing comment webhook';
 
@@ -83,6 +85,51 @@ class ReceiveCommentsHook extends AbstractHookController
             $this->setStatusCode(500);
             $this->response->error   = $logMessage . ': ' . $e->getMessage();
             $this->response->message = 'Hook data processed unsuccessfully.';
+        }
+    }
+
+    /**
+     * Record a `/tested` command of the comment, if the project records test results on GitHub.
+     *
+     * @return  void
+     *
+     * @since   1.0
+     */
+    protected function processTestCommand()
+    {
+        $service = $this->getTestResultService();
+
+        if ($service === null || !isset($this->hookData->issue->pull_request)) {
+            return;
+        }
+
+        try {
+            $issue = $this->getIssueContext((int) $this->hookData->issue->number, ($this->hookData->issue->state ?? '') === 'open');
+
+            if ($issue === null) {
+                return;
+            }
+
+            $outcome = $service->handleComment($this->hookData, $issue);
+
+            if ($outcome !== null) {
+                $this->logger->info(
+                    \sprintf(
+                        'Processed test command of comment %d on %s/%s #%d: %s',
+                        $this->hookData->comment->id,
+                        $this->project->gh_user,
+                        $this->project->gh_project,
+                        $this->hookData->issue->number,
+                        $outcome->accepted ? 'accepted' : 'rejected (' . $outcome->message . ')'
+                    )
+                );
+            }
+        } catch (\Exception $e) {
+            $logMessage = \sprintf('Error processing the test command of comment %d', $this->hookData->comment->id);
+
+            $this->logger->error($logMessage, ['exception' => $e]);
+            $this->setStatusCode(500);
+            $this->response->error = $logMessage . ': ' . $e->getMessage();
         }
     }
 
